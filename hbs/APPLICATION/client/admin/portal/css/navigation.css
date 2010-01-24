@@ -1,0 +1,21 @@
+﻿@charset "utf-8";
+/* CSS Document */
+.liucheng{float:left;width:79%;}
+.bg_top_l{background:url(../images/navigation/blue/bg_top_l.gif) no-repeat left top;padding-left:6px;height:36px;}
+.bg_top_r{background:url(../images/navigation/blue/bg_top_r.gif) no-repeat right top;padding-right:6px;height:36px;}
+.bg_top_c{border-top:#B5E6F7 1px solid;background:#F0F9FF;height:30px;padding:5px 0 0 4px;}
+.bg_icon{background:url(../images/navigation/blue/title_bg.gif) repeat-x left top;height:30px;}
+.bg_middle_l{border-left:#B5E6F7 1px solid;background:#F0F9FF;padding-left:6px;}
+.bg_middle_r{border-right:#B5E6F7 1px solid;background:#F0F9FF;padding-right:6px;}
+.bg_middle_c{background:#F0F9FF;padding:8px 0; text-align:center;}
+.settletable{border-collapse:collapse;border: 1px solid #9FCEEA;background-color: #ffffff;}
+.table_blue{border:1px solid #9FCEEA; height:20px;}
+.bg_icon{background:url(../images/navigation/blue/title_bg.gif) repeat-x left top;height:30px;}
+.bg_icon_liucheng {background:transparent url(../images/navigation/blue/liucheng_icon.gif) no-repeat scroll left top;display:block;font-size:14px;height:32px;line-height:30px;padding-left:35px;}
+.su {background:#E4EAFA none repeat scroll 0%;letter-spacing:1px;padding:2px;}
+a {color:blue;text-decoration:none;}
+a:hover{color:orange;}
+.jiantou {background:transparent url(../images/navigation/blue/jiantou.gif) no-repeat scroll center;}
+.jiantou_h {background:transparent url(../images/navigation/blue/jiantou_h.gif) no-repeat scroll right center;}
+.overyes{background:#DFF2FF;cursor:hand;}
+.overno{background:#CCCCCC;color:#999999;cursor:hand;}

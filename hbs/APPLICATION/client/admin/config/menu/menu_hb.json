@@ -1,0 +1,1544 @@
+{
+    "domain": "js",
+    "subsystem": "js_admin",
+    "data": [
+        {
+            "id": "spreq",
+            "text": "接入管理",
+            "menuOrder": "10000",
+            "iconCls": "nav",
+            "leaf": false,
+            "icon": "/portal/images/title_icon02.gif",
+            "children": [
+                {
+                    "text": "新增SP评估审批",
+                    "menuOrder": "10000",
+                    "leaf": false,
+                    "iconCls": "nav",
+                    "icon": "/portal/images/title_icon02.gif",
+                    "id": "sp1",
+                    "children": [
+                        {
+                            "text": "短信业务",
+                            "menuOrder": "10000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "sp1_sms",
+                            "children": [
+                                {
+                                    "text": "制作测试局数据",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/spreq/sp/apply_test_list.jsp?type=SMS&operation=apply_test",
+                                    "id": "sp1_sms1"
+                                },
+                                {
+                                    "text": "制作计费商用局数据",
+                                    "menuOrder": "20000",
+                                    "leaf": "true",
+                                    "url": "/spreq/sp/apply_costs_alter_list.jsp?type=SMS&operation=apply_alter",
+                                    "id": "sp1_sms2"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "彩信业务",
+                            "menuOrder": "20000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "sp1_mms",
+                            "children": [
+                                {
+                                    "text": "制作测试局数据",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/spreq/sp/apply_test_list.jsp?type=MMS&operation=apply_test",
+                                    "id": "sp1_mms1"
+                                },
+                                {
+                                    "text": "制作计费商用局数据",
+                                    "menuOrder": "20000",
+                                    "leaf": "true",
+                                    "url": "/spreq/sp/apply_costs_alter_list.jsp?type=MMS&operation=apply_alter",
+                                    "id": "sp1_mms2"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "WAP业务",
+                            "menuOrder": "30000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "sp1_wap",
+                            "children": [
+                                {
+                                    "text": "制作计费测试局数据",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/spreq/sp/apply_costs_test_list.jsp?type=WAP&operation=apply_test",
+                                    "id": "sp1_wap1"
+                                },
+                                {
+                                    "text": "制作计费商用局数据",
+                                    "menuOrder": "20000",
+                                    "leaf": "true",
+                                    "url": "/spreq/sp/apply_costs_alter_list.jsp?type=WAP&operation=apply_alter",
+                                    "id": "sp1_wap2"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "text": "SP资料变更审批",
+                    "menuOrder": "20000",
+                    "leaf": false,
+                    "iconCls": "nav",
+                    "icon": "/portal/images/title_icon02.gif",
+                    "id": "sp2",
+                    "children": [
+                        {
+                            "text": "短信业务",
+                            "menuOrder": "10000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "sp2_sms",
+                            "children": [
+                                {
+                                    "text": "制作局数据",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/spreq/sp/update_test_data_list.jsp?type=SMS&operation=mod_test",
+                                    "id": "sp2_sms1"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "彩信业务",
+                            "menuOrder": "20000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "sp2_mms",
+                            "children": [
+                                {
+                                    "text": "制作局数据",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/spreq/sp/update_test_data_list.jsp?type=MMS&operation=mod_test",
+                                    "id": "sp2_mms1"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "WAP业务",
+                            "menuOrder": "30000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "sp2_wap",
+                            "children": [
+                                {
+                                    "text": "制作局数据",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/spreq/sp/update_data_list.jsp?type=WAP&operation=mod_alter",
+                                    "id": "sp2_wap1"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "text": "现网SP新增业务评估",
+                    "menuOrder": "30000",
+                    "leaf": false,
+                    "iconCls": "nav",
+                    "icon": "/portal/images/title_icon02.gif",
+                    "id": "service1",
+                    "children": [
+                        {
+                            "text": "短信业务",
+                            "menuOrder": "10000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "service1_sms",
+                            "children": [
+                                {
+                                    "text": "制作局数据",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/spreq/service/synchronization_data.jsp?type=SMS&operation=apply_test&operType=1",
+                                    "id": "service1_sms1"
+                                },
+                                {
+                                    "text": "制作计费商用局数据",
+                                    "menuOrder": "30000",
+                                    "leaf": "true",
+                                    "url": "/spreq/service/sms_synchronization_data.jsp?type=SMS&operation=apply_alter&operType=2",
+                                    "id": "service1_sms3"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "彩信业务",
+                            "menuOrder": "20000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "service1_mms",
+                            "children": [
+                                {
+                                    "text": "制作局数据",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/spreq/service/synchronization_data.jsp?type=MMS&operation=apply_test&operType=1",
+                                    "id": "service1_mms1"
+                                },
+                                {
+                                    "text": "制作计费商用局数据",
+                                    "menuOrder": "20000",
+                                    "leaf": "true",
+                                    "url": "/spreq/service/mms_synchronization_data.jsp?type=MMS&operation=apply_alter&operType=2",
+                                    "id": "service1_mms2"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "WAP业务",
+                            "menuOrder": "30000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "service1_wap",
+                            "children": [
+                                {
+                                    "text": "制作计费测试局数据",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/spreq/service/wap_synchronization_data.jsp?type=WAP&operation=apply_alter&operType=1",
+                                    "id": "service1_wap1"
+                                },
+                                {
+                                    "text": "制作计费商用局数据",
+                                    "menuOrder": "20000",
+                                    "leaf": "true",
+                                    "url": "/spreq/service/wap_synchronization_data.jsp?type=WAP&operation=apply_alter&operType=2",
+                                    "id": "service1_wap2"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "text": "业务资料变更审批",
+                    "menuOrder": "40000",
+                    "leaf": false,
+                    "iconCls": "nav",
+                    "icon": "/portal/images/title_icon02.gif",
+                    "id": "service2",
+                    "children": [
+                        {
+                            "text": "短信业务",
+                            "menuOrder": "10000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "service2_sms",
+                            "children": [
+                                {
+                                    "text": "制作局数据",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/spreq/service/mod_synchronization_data.jsp?type=SMS&operation=mod_test&operType=3",
+                                    "id": "service2_sms1"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "彩信业务",
+                            "menuOrder": "20000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "service2_mms",
+                            "children": [
+                                {
+                                    "text": "制作局数据",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/spreq/service/mod_synchronization_data.jsp?type=MMS&operation=mod_test&operType=3",
+                                    "id": "service2_mms1"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "WAP业务",
+                            "menuOrder": "30000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "service2_wap",
+                            "children": [
+                                {
+                                    "text": "制作局数据",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/spreq/service/wap_mod_synchronization_data.jsp?type=WAP&operation=mod_alter&operType=3",
+                                    "id": "service2_wap1"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "eoms",
+            "text": "工单管理及数据同步",
+            "menuOrder": "10000",
+            "iconCls": "nav",
+            "leaf": false,
+            "icon": "/portal/images/title_icon02.gif",
+            "children": [
+                {
+                    "text": "梦网自有业务数据发布",
+                    "menuOrder": "10000",
+                    "leaf": false,
+                    "iconCls": "nav",
+                    "icon": "/portal/images/title_icon02.gif",
+                    "id": "apply",
+                    "children": [
+                        {
+                            "text": "Excel批量给业支同步数据",
+                            "menuOrder": "10000",
+                            "leaf": "true",
+                            "url": "/eoms/apply/bat_create_industrysupport_js.jsp",
+                            "id": "apply1"
+                        },
+                        {
+                            "text": "待处理事项",
+                            "menuOrder": "20000",
+                            "leaf": "true",
+                            "url": "/eoms/apply/apply_worksalone.jsp",
+                            "id": "apply2"
+                        },
+                        {
+                            "text": "手工发起业务开通",
+                            "menuOrder": "30000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "apply3",
+                            "children": [
+                                {
+                                    "text": "给网络部发业务开通工单",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/eoms/apply/service_net_js.jsp?type=1&obName=gdEoms&dataSource=hh",
+                                    "id": "apply31"
+                                },
+                                {
+                                    "text": "给业支同步新增SP数据",
+                                    "menuOrder": "20000",
+                                    "leaf": "true",
+                                    "url": "/eoms/apply/sp_bussup_js.jsp?type=1&obName=gdEoms",
+                                    "id": "apply32"
+                                },
+                                {
+                                    "text": "给业支同步新增业务数据",
+                                    "menuOrder": "30000",
+                                    "leaf": "true",
+                                    "url": "/eoms/apply/service_bussup_js.jsp?type=1&obName=gdEoms",
+                                    "id": "apply33"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "手工发起业务调整",
+                            "menuOrder": "40000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "apply4",
+                            "children": [
+                                {
+                                    "text": "给网络部发业务调整工单",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/eoms/apply/service_net_js.jsp?type=2&obName=gdEoms&dataSource=hh",
+                                    "id": "apply41"
+                                },
+                                {
+                                    "text": "给业支同步SP变更数据",
+                                    "menuOrder": "20000",
+                                    "leaf": "true",
+                                    "url": "/eoms/apply/sp_bussup_js.jsp?type=2&obName=gdEoms",
+                                    "id": "apply42"
+                                },
+                                {
+                                    "text": "给业支同步业务变更数据",
+                                    "menuOrder": "30000",
+                                    "leaf": "true",
+                                    "url": "/eoms/apply/service_bussup_js.jsp?type=2&obName=gdEoms",
+                                    "id": "apply43"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "手工发起业务下线",
+                            "menuOrder": "50000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "apply5",
+                            "children": [
+                                {
+                                    "text": "给网络部发业务下线工单",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/eoms/apply/service_net_js.jsp?type=3&obName=gdEoms&dataSource=hh",
+                                    "id": "apply51"
+                                },
+                                {
+                                    "text": "给业支同步SP退出数据",
+                                    "menuOrder": "20000",
+                                    "leaf": "true",
+                                    "url": "/eoms/apply/sp_bussup_js.jsp?type=3&obName=gdEoms",
+                                    "id": "apply52"
+                                },
+                                {
+                                    "text": "给业支同步业务下线数据",
+                                    "menuOrder": "30000",
+                                    "leaf": "true",
+                                    "url": "/eoms/apply/service_bussup_js.jsp?type=3&obName=gdEoms",
+                                    "id": "apply53"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "text": "梦网自有业务处理",
+                    "menuOrder": "20000",
+                    "leaf": false,
+                    "iconCls": "nav",
+                    "icon": "/portal/images/title_icon02.gif",
+                    "id": "process",
+                    "children": [
+                        {
+                            "text": "待办工单",
+                            "menuOrder": "20000",
+                            "leaf": "true",
+                            "url": "/eoms/process/backlog_worksalone.jsp?type=js",
+                            "id": "process1"
+                        },
+                        {
+                            "text": "我创建的工单",
+                            "menuOrder": "20000",
+                            "leaf": "true",
+                            "url": "/eoms/process/mycreate_worksalone.jsp?type=js",
+                            "id": "process2"
+                        },
+                        {
+                            "text": "我处理的工单",
+                            "menuOrder": "30000",
+                            "leaf": "true",
+                            "url": "/eoms/process/mytreatment_worksalone.jsp?type=js",
+                            "id": "process3"
+                        },
+                        {
+                            "text": "公共查询",
+                            "menuOrder": "40000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "process4",
+                            "children": [
+                                {
+                                    "text": "公共查询发给网维工单",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/eoms/process/common_query_list_net.jsp?type=js",
+                                    "id": "process41"
+                                },
+                                {
+                                    "text": "按SP查询发给网维工单",
+                                    "menuOrder": "20000",
+                                    "leaf": "true",
+                                    "url": "/eoms/process/sp_query_list_net.jsp",
+                                    "id": "process42"
+                                },
+                                {
+                                    "text": "按业务查询发给网维工单",
+                                    "menuOrder": "30000",
+                                    "leaf": "true",
+                                    "url": "/eoms/process/service_query_list_net.jsp",
+                                    "id": "process43"
+                                },
+                                {
+                                    "text": "按SP查询发给业支数据",
+                                    "menuOrder": "40000",
+                                    "leaf": "true",
+                                    "url": "/eoms/process/sp_query_list_bussup.jsp",
+                                    "id": "process44"
+                                },
+                                {
+                                    "text": "按业务查询发给业支数据",
+                                    "menuOrder": "50000",
+                                    "leaf": "true",
+                                    "url": "/eoms/process/service_query_list_bussup.jsp",
+                                    "id": "process45"
+                                },
+                                {
+                                    "text": "查询发给业支的违约处罚数据",
+                                    "menuOrder": "60000",
+                                    "leaf": "true",
+                                    "url": "/eoms/process/punish_query_list_bussup_js.jsp",
+                                    "id": "process46"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "审批同步数据",
+                            "menuOrder": "50000",
+                            "leaf": "true",
+                            "url": "/eoms/process/audit_list.jsp?type=js",
+                            "id": "process5"
+                        },
+                        {
+                            "text": "查看集团下发数据",
+                            "menuOrder": "60000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "process6",
+                            "children": [
+                                {
+                                    "text": "查看集团下发SP信息",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/eoms/process/sp_si_query_list.jsp",
+                                    "id": "process61"
+                                },
+                                {
+                                    "text": "查看集团下发业务信息",
+                                    "menuOrder": "20000",
+                                    "leaf": "true",
+                                    "url": "/eoms/process/service_si_query_list.jsp",
+                                    "id": "process62"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "处理领导驳回的数据同步申请",
+                            "menuOrder": "70000",
+                            "leaf": "true",
+                            "url": "/eoms/process/reject_list.jsp?type=js",
+                            "id": "process7"
+                        }
+                    ]
+                },
+                {
+                    "text": "网维数据同步",
+                    "menuOrder": "30000",
+                    "leaf": false,
+                    "iconCls": "nav",
+                    "icon": "/portal/images/title_icon02.gif",
+                    "id": "net",
+                    "children": [
+                        {
+                            "text": "上传Excel",
+                            "menuOrder": "10000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "net1",
+                            "children": [
+                                {
+                                    "text": "上传漫游数据",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/upload.jsp?template=roam&dataSource=support",
+                                    "id": "net11"
+                                },
+                                {
+                                    "text": "上传中继数据",
+                                    "menuOrder": "20000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/upload.jsp?template=relay&dataSource=support",
+                                    "id": "net12"
+                                },
+                                {
+                                    "text": "上传LAC数据",
+                                    "menuOrder": "40000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/upload.jsp?template=lac&dataSource=support",
+                                    "id": "net14"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "审批同步的网维数据",
+                            "menuOrder": "20000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "net2",
+                            "children": [
+                                {
+                                    "text": "漫游数据审批",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/audit.jsp?template=roam&dataSource=support",
+                                    "id": "net21"
+                                },
+                                {
+                                    "text": "中继数据审批",
+                                    "menuOrder": "20000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/audit.jsp?template=relay&dataSource=support",
+                                    "id": "net22"
+                                },
+                                {
+                                    "text": "LAC数据审批",
+                                    "menuOrder": "30000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/audit.jsp?template=lac&dataSource=support",
+                                    "id": "net23"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "综合查询网维数据",
+                            "menuOrder": "30000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "net3",
+                            "children": [
+                                {
+                                    "text": "漫游数据查询导出",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/query.jsp?template=roam&dataSource=support",
+                                    "id": "net31"
+                                },
+                                {
+                                    "text": "中继数据查询导出",
+                                    "menuOrder": "20000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/query.jsp?template=relay&dataSource=support",
+                                    "id": "net32"
+                                },
+                                {
+                                    "text": "LAC数据查询",
+                                    "menuOrder": "30000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/query.jsp?template=lac&dataSource=support",
+                                    "id": "lac"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "text": "结算数据同步",
+                    "menuOrder": "40000",
+                    "leaf": false,
+                    "iconCls": "nav",
+                    "icon": "/portal/images/title_icon02.gif",
+                    "id": "balance",
+                    "children": [
+                        {
+                            "text": "上传Excel",
+                            "menuOrder": "10000",
+                            "leaf": "true",
+                            "url": "/sync/balance/balance_upload.jsp",
+                            "id": "balance1"
+                        },
+                        {
+                            "text": "审批同步的结算数据",
+                            "menuOrder": "20000",
+                            "leaf": "true",
+                            "url": "/sync/balance/balance_audit_list.jsp",
+                            "id": "balance2"
+                        },
+                        {
+                            "text": "综合查询结算数据",
+                            "menuOrder": "30000",
+                            "leaf": "true",
+                            "url": "/sync/balance/balance_query_list.jsp",
+                            "id": "balance3"
+                        }
+                    ]
+                },
+                {
+                    "text": "集团业务同步",
+                    "menuOrder": "50000",
+                    "leaf": false,
+                    "iconCls": "nav",
+                    "icon": "/portal/images/title_icon02.gif",
+                    "id": "si",
+                    "children": [
+                        {
+                            "text": "集团业务查询",
+                            "menuOrder": "10000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "si1",
+                            "children": [
+                                {
+                                    "text": "GPRS业务查询",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/sync/si/siGPRS_query_list.jsp",
+                                    "id": "si11"
+                                },
+                                {
+                                    "text": "集团短信业务查询",
+                                    "menuOrder": "20000",
+                                    "leaf": "true",
+                                    "url": "/sync/si/siSMS_query_list.jsp",
+                                    "id": "si12"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "text": "数据导入导出",
+                    "menuOrder": "60000",
+                    "leaf": false,
+                    "iconCls": "nav",
+                    "icon": "/portal/images/title_icon02.gif",
+                    "id": "impexp",
+                    "children": [
+                    		{
+                    			"text": "全量导入系统数据",
+                          "menuOrder": "10000",
+                          "leaf": "true",
+                          "url": "/datarelease/upload.jsp?template=hbimpexp&eafTab=hbimpexp",
+                          "id": "impexp1"
+                    		}
+                    ]
+                },
+                {
+                    "text": "数据同步配置",
+                    "menuOrder": "70000",
+                    "leaf": false,
+                    "iconCls": "nav",
+                    "icon": "/portal/images/title_icon02.gif",
+                    "id": "collocate",
+                    "children": [
+                        {
+                            "text": "流程配置",
+                            "menuOrder": "10000",
+                            "leaf": "true",
+                            "url": "/sync/collocate/collocate_list.jsp?type=js",
+                            "id": "collocate1"
+                        }
+                    ]
+                },
+                {
+                    "text": "全量数据比对",
+                    "menuOrder": "70000",
+                    "leaf": false,
+                    "iconCls": "nav",
+                    "icon": "/portal/images/title_icon02.gif",
+                    "id": "allContrast",
+                    "children": [
+                        {
+                            "text": "发起比对",
+                            "menuOrder": "10000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "sponsorContrast",
+                            "children": [
+                                {
+                                    "text": "发起语音杂志业务SP局数据比对",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/upload.jsp?template=VOICESP&eafTab=VOICESP",
+                                    "id": "VOICESP"
+                                },
+                                {
+                                    "text": "发起GPRS业务APN局数据比对",
+                                    "menuOrder": "20000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/upload.jsp?template=GPRSAPN&eafTab=GPRSAPN",
+                                    "id": "GPRSAPN"
+                                },
+                                {
+                                    "text": "发起IMSI和MSISDN对照局数据比对",
+                                    "menuOrder": "30000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/upload.jsp?template=IMSIMSISDN&eafTab=IMSIMSISDN",
+                                    "id": "IMSIMSISDN"
+                                },
+                                {
+                                    "text": "发起边界漫游局数据比对",
+                                    "menuOrder": "40000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/upload.jsp?template=ROAM&eafTab=ROAM",
+                                    "id": "ROAM"
+                                },
+                                {
+                                    "text": "发起国际GPRS APNOI局数据比对",
+                                    "menuOrder": "50000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/upload.jsp?template=GPRSAPNOI&eafTab=GPRSAPNOI",
+                                    "id": "GPRSAPNOI"
+                                },
+                                {
+                                    "text": "发起国内交换机数据比对",
+                                    "menuOrder": "60000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/upload.jsp?template=SWTICH&eafTab=SWTICH",
+                                    "id": "SWTICH"
+                                },
+                                {
+                                    "text": "发起开通CHNCM漫游的运营商代码比对",
+                                    "menuOrder": "70000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/upload.jsp?template=CHNCM&eafTab=CHNCM",
+                                    "id": "CHNCM"
+                                },
+                                {
+                                    "text": "发起联通和电信局数据比对",
+                                    "menuOrder": "80000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/upload.jsp?template=UNICOMTELECOM&eafTab=UNICOMTELECOM",
+                                    "id": "UNICOMTELECOM"
+                                },
+                                {
+                                    "text": "发起卫星通信车局数据比对",
+                                    "menuOrder": "90000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/upload.jsp?template=SATELLITECAR&eafTab=SATELLITECAR",
+                                    "id": "SATELLITECAR"
+                                },
+                                {
+                                    "text": "发起梦网局数据比对",
+                                    "menuOrder": "100000",
+                                    "leaf": "true",
+                                    "url": "/sync/comparealldata/compareDreamData.jsp?eafTab=MON",
+                                    "id": "MON"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "比对结果查询",
+                            "menuOrder": "10000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "contrastSearch",
+                            "children": [
+                                {
+                                    "text": "语音杂志业务SP局数据比对结果",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/sync/comparealldata/query.jsp?template=VOICESP&eafTab=VOICESP",
+                                    "id": "voiceSPQ"
+                                },
+                                {
+                                    "text": "GPRS业务APN局数据比对结果",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/sync/comparealldata/query.jsp?template=GPRSAPN&eafTab=GPRSAPN",
+                                    "id": "GPRSAPNQ"
+                                },
+                                {
+                                    "text": "IMSI和MSISDN对照局数据比对结果",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/sync/comparealldata/query.jsp?template=IMSIMSISDN&eafTab=IMSIMSISDN",
+                                    "id": "IMSIMSISDNQ"
+                                },
+                                {
+                                    "text": "边界漫游局数据比对结果",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/sync/comparealldata/query.jsp?template=ROAM&eafTab=ROAM",
+                                    "id": "roamDataQ"
+                                },
+                                {
+                                    "text": "国际GPRS APNOI局数据比对结果",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/sync/comparealldata/query.jsp?template=GPRSAPNOI&eafTab=GPRSAPNOI",
+                                    "id": "GPRSAPNOIQ"
+                                },
+                                {
+                                    "text": "国内交换机数据比对结果",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/sync/comparealldata/query.jsp?template=SWITCH&eafTab=SWITCH",
+                                    "id": "switchDataQ"
+                                },
+                                {
+                                    "text": "开通CHNCM漫游的运营商代码比对结果",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/sync/comparealldata/query.jsp?template=CHNCM&eafTab=CHNCM",
+                                    "id": "CHNCMPQ"
+                                },
+                                {
+                                    "text": "联通和电信局数据比对结果",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/sync/comparealldata/query.jsp?template=UNICOMTELECOM&eafTab=UNICOMTELECOM",
+                                    "id": "telDataQ"
+                                },
+                                {
+                                    "text": "卫星通信车局数据比对结果",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/sync/comparealldata/query.jsp?template=SATELLITECAR&eafTab=SATELLITECAR",
+                                    "id": "satelliteDataQ"
+                                },
+                                {
+                                    "text": "梦网业务局数据比对结果",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/sync/comparealldata/query.jsp?template=MONSERVICE&eafTab=MONSERVICE",
+                                    "id": "monService"
+                                },
+				 {
+                                    "text": "梦网SP局数据比对结果",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/sync/comparealldata/query.jsp?template=MONSP&eafTab=MONSP",
+                                    "id": "monSp"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "text": "集团业支下发数据同步",
+                    "menuOrder": "60000",
+                    "leaf": false,
+                    "iconCls": "nav",
+                    "icon": "/portal/images/title_icon02.gif",
+                    "id": "groupBoss",
+                    "children": [
+                        {
+                            "text": "提交局数据",
+                            "menuOrder": "10000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "upload",
+                            "children": [
+                                {
+                                    "text": "上传国际GSM漫游出访局数据",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/upload.jsp?template=GSMTo&dataSource=support",
+                                    "id": "GSMTo"
+                                },
+                                {
+                                    "text": "上传国际GSM漫游来访局数据",
+                                    "menuOrder": "20000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/upload.jsp?template=GSMFrom&dataSource=support",
+                                    "id": "GSMFrom"
+                                },
+                                {
+                                    "text": "上传GPRS国际漫游运营商IMSI号段",
+                                    "menuOrder": "30000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/upload.jsp?template=GPRSIMSI&dataSource=support",
+                                    "id": "GPRSIMSI"
+                                },
+                                {
+                                    "text": "上传GPRS可漫游APN局数据",
+                                    "menuOrder": "40000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/upload.jsp?template=GPRAPN&dataSource=support",
+                                    "id": "GPRAPN"
+                                },
+                                {
+                                    "text": "上传特殊号码归属地到特殊通话类型映射",
+                                    "menuOrder": "50000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/upload.jsp?template=specialNumber&dataSource=support",
+                                    "id": "specialNumber"
+                                },
+                                {
+                                    "text": "上传局数据21和40数据",
+                                    "menuOrder": "60000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/upload.jsp?template=data21&dataSource=support",
+                                    "id": "Data21"
+                                },
+                                {
+                                    "text": "上传内容计费业务代码映射数据",
+                                    "menuOrder": "70000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/upload.jsp?template=contentCost&dataSource=support",
+                                    "id": "contentCost"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "预加载结果确认",
+                            "menuOrder": "20000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "preparatoryLoad",
+                            "children": [
+                                {
+                                    "text": "确认国际GSM漫游出访局数据",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/sync/groupDown/confirmquery.jsp?template=GSMTo&dataSource=support",
+                                    "id": "GSMToA"
+                                },
+                                {
+                                    "text": "确认国际GSM漫游来访局数据",
+                                    "menuOrder": "20000",
+                                    "leaf": "true",
+                                    "url": "/sync/groupDown/confirmquery.jsp?template=GSMFrom&dataSource=support",
+                                    "id": "GSMFromA"
+                                },
+                                {
+                                    "text": "确认GPRS国际漫游运营商IMSI号段",
+                                    "menuOrder": "30000",
+                                    "leaf": "true",
+                                    "url": "/sync/groupDown/confirmquery.jsp?template=GPRSIMSI&dataSource=support",
+                                    "id": "GPRSIMSIA"
+                                },
+                                {
+                                    "text": "确认GPRS可漫游APN局数据",
+                                    "menuOrder": "40000",
+                                    "leaf": "true",
+                                    "url": "/sync/groupDown/confirmquery.jsp?template=GPRAPN&dataSource=support",
+                                    "id": "GPRAPNA"
+                                },
+                                {
+                                    "text": "确认特殊号码归属地到特殊通话类型映射",
+                                    "menuOrder": "50000",
+                                    "leaf": "true",
+                                    "url": "/sync/groupDown/confirmquery.jsp?template=specialNumber&dataSource=support",
+                                    "id": "specialNumberA"
+                                },
+                                {
+                                    "text": "确认局数据21和40数据",
+                                    "menuOrder": "60000",
+                                    "leaf": "true",
+                                    "url": "/sync/groupDown/confirmquery.jsp?template=data21&dataSource=support",
+                                    "id": "data21A"
+                                },
+                                {
+                                    "text": "确认内容计费业务代码映射数据",
+                                    "menuOrder": "70000",
+                                    "leaf": "true",
+                                    "url": "/sync/groupDown/confirmquery.jsp?template=contentCost&dataSource=support",
+                                    "id": "contentCostA"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "综合查询业支数据",
+                            "menuOrder": "30000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "querynetdata",
+                            "children": [
+                                {
+                                    "text": "国际GSM漫游出访局数据查询导出",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/query.jsp?template=GSMTo&dataSource=support",
+                                    "id": "querynetdata1"
+                                },
+                                {
+                                    "text": "国际GSM漫游来访局数据查询导出",
+                                    "menuOrder": "20000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/query.jsp?template=GSMFrom&dataSource=support",
+                                    "id": "querynetdata2"
+                                },
+                                {
+                                    "text": "GPRS国际漫游运营商IMSI号段查询导出",
+                                    "menuOrder": "30000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/query.jsp?template=GPRSIMSI&dataSource=support",
+                                    "id": "querynetdata3"
+                                },
+                                {
+                                    "text": "GPRS可漫游APN局数据查询导出",
+                                    "menuOrder": "40000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/query.jsp?template=GPRAPN&dataSource=support",
+                                    "id": "querynetdata4"
+                                },
+                                {
+                                    "text": "特殊号码归属地到特殊通话类型映射查询导出",
+                                    "menuOrder": "50000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/query.jsp?template=specialNumber&dataSource=support",
+                                    "id": "querynetdata5"
+                                },
+                                {
+                                    "text": "局数据21和40数据查询导出",
+                                    "menuOrder": "60000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/query.jsp?template=data21&dataSource=support",
+                                    "id": "querynetdata6"
+                                },
+                                {
+                                    "text": "内容计费业务代码映射数据查询导出",
+                                    "menuOrder": "70000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/query.jsp?template=contentCost&dataSource=support",
+                                    "id": "querynetdata7"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "text": "交换机、号段数据同步",
+                    "menuOrder": "80000",
+                    "leaf": false,
+                    "iconCls": "nav",
+                    "icon": "/portal/images/title_icon02.gif",
+                    "id": "switch",
+                    "children": [
+                        {
+                            "text": "上传Excel",
+                            "menuOrder": "10000",
+                            "leaf": "true",
+                            "url": "/datarelease/upload.jsp?template=switchSelf&dataSource=support",
+                            "id": "switchSelf"
+                        },
+                        {
+                            "text": "局数据加载审核",
+                            "menuOrder": "20000",
+                            "leaf": true,
+                            "url": "/sync/switch/switchLoad.jsp?dataSource=support",
+                            "id": "switchLoad"
+                        },
+                        {
+                            "text": "综合查询交换机、号段局数据",
+                            "menuOrder": "90000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "switchQuery",
+                            "children": [
+                                {
+                                    "text": "中国移动全网智能网账户号码",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/query.jsp?template=intelligentNum&dataSource=support",
+                                    "id": "intelligentNum"
+                                },
+                                {
+                                    "text": "中国移动全网BOSS账户号码",
+                                    "menuOrder": "20000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/query.jsp?template=BOSSNum&dataSource=support",
+                                    "id": "BOSSNum"
+                                },
+                                {
+                                    "text": "中国电信、中国联通号码",
+                                    "menuOrder": "30000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/query.jsp?template=teleNum&dataSource=support",
+                                    "id": "telecommunicationsNum"
+                                },
+                                {
+                                    "text": "网内端局、关口局型MSC SERVER号码",
+                                    "menuOrder": "40000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/query.jsp?template=MSCSERVERNum&dataSource=support",
+                                    "id": "MSCSERVERNum"
+                                },
+                                {
+                                    "text": "软交换设备号码",
+                                    "menuOrder": "50000",
+                                    "leaf": "true",
+                                    "url": "/datarelease/query.jsp?template=exchangeNum&dataSource=support",
+                                    "id": "exchangeNum"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "text": "错单处理",
+            "menuOrder": "10000",
+            "leaf": false,
+            "iconCls": "nav",
+            "icon": "/portal/images/title_icon02.gif",
+            "id": "managerProcess",
+            "children": [
+                {
+                    "text": "错单查询",
+                    "menuOrder": "10000",
+                    "leaf": "true",
+                    "url": "/errordata/queryMisqueryList.jsp",
+                    "id": "errordataQuery"
+                },
+                {
+                    "text": "错单局数据对比",
+                    "menuOrder": "20000",
+                    "leaf": "true",
+                    "url": "/errordata/queryComparedataList.jsp",
+                    "id": "errordataContrast"
+                },
+                {
+                    "text": "错单规则配置",
+                    "menuOrder": "30000",
+                    "leaf": "true",
+                    "url": "/errordata/querymisRuleConfigList.jsp",
+                    "id": "errordataRuleConfig"
+                },
+                {
+                    "text": "上传错单自动处理同步文件",
+                    "menuOrder": "40000",
+                    "leaf": "true",
+                    "url": "/datarelease/upload.jsp?template=autoprocessed&dataSource=errordata&eafTab=edupload",
+                    "id": "ed4"
+                },
+                {
+                    "text": "错单自动处理同步数据",
+                    "menuOrder": "50000",
+                    "leaf": false,
+                    "iconCls": "nav",
+                    "icon": "/portal/images/title_icon02.gif",
+                    "id": "ed5",
+                    "children": [
+                    	{
+                          "text": "漫游数据查询导出",
+                          "menuOrder": "10000",
+                          "leaf": "true",
+                          "url": "/datarelease/query.jsp?template=roam&dataSource=errordata",
+                          "id": "ed51"
+                      },
+                      {
+                          "text": "中继数据查询导出",
+                          "menuOrder": "20000",
+                          "leaf": "true",
+                          "url": "/datarelease/query.jsp?template=relay&dataSource=errordata",
+                          "id": "ed52"
+                      },
+                      {
+                          "text": "LAC数据查询",
+                          "menuOrder": "30000",
+                          "leaf": "true",
+                          "url": "/datarelease/query.jsp?template=lac&dataSource=errordata",
+                          "id": "ed53"
+                      },
+                      {
+                          "text": "确认国际GSM漫游出访局数据",
+                          "menuOrder": "40000",
+                          "leaf": "true",
+                          "url": "/sync/groupDown/confirmquery.jsp?template=GSMTo&dataSource=errordata",
+                          "id": "ed54"
+                      },
+                      {
+                          "text": "确认国际GSM漫游来访局数据",
+                          "menuOrder": "50000",
+                          "leaf": "true",
+                          "url": "/sync/groupDown/confirmquery.jsp?template=GSMFrom&dataSource=errordata",
+                          "id": "ed55"
+                      },
+                      {
+                          "text": "确认GPRS国际漫游运营商IMSI号段",
+                          "menuOrder": "60000",
+                          "leaf": "true",
+                          "url": "/sync/groupDown/confirmquery.jsp?template=GPRSIMSI&dataSource=errordata",
+                          "id": "ed56"
+                      },
+                      {
+                          "text": "确认GPRS可漫游APN局数据",
+                          "menuOrder": "70000",
+                          "leaf": "true",
+                          "url": "/sync/groupDown/confirmquery.jsp?template=GPRAPN&dataSource=errordata",
+                          "id": "ed57"
+                      },
+                      {
+                          "text": "确认特殊号码归属地到特殊通话类型映射",
+                          "menuOrder": "80000",
+                          "leaf": "true",
+                          "url": "/sync/groupDown/confirmquery.jsp?template=specialNumber&dataSource=errordata",
+                          "id": "ed58"
+                      },
+                      {
+                          "text": "确认局数据21和40数据",
+                          "menuOrder": "90000",
+                          "leaf": "true",
+                          "url": "/sync/groupDown/confirmquery.jsp?template=data21&dataSource=errordata",
+                          "id": "ed59"
+                      },
+                      {
+                          "text": "确认内容计费业务代码映射数据",
+                          "menuOrder": "100000",
+                          "leaf": "true",
+                          "url": "/sync/groupDown/confirmquery.jsp?template=contentCost&dataSource=errordata",
+                          "id": "ed510"
+                      },
+                      {
+                          "text": "局数据加载审核",
+                          "menuOrder": "110000",
+                          "leaf": true,
+                          "url": "/sync/switch/switchLoad.jsp?dataSource=support",
+                          "id": "ed511"
+                      }
+                    ]
+                 }
+            ]
+        },
+        {
+            "id": "out",
+            "text": "退出管理",
+            "menuOrder": "30000",
+            "iconCls": "nav",
+            "leaf": false,
+            "icon": "/portal/images/title_icon02.gif",
+            "children": [
+                {
+                    "text": "SP退出管理",
+                    "menuOrder": "10000",
+                    "leaf": false,
+                    "iconCls": "nav",
+                    "icon": "/portal/images/title_icon02.gif",
+                    "id": "out1",
+                    "children": [
+                        {
+                            "text": "短信业务",
+                            "menuOrder": "10000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "out1_sms",
+                            "children": [
+                                {
+                                    "text": "删除局数据",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/spreq/sp/out_test_data_list.jsp?type=SMS&operation=del_test",
+                                    "id": "out1_sms1"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "彩信业务",
+                            "menuOrder": "20000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "out1_mms",
+                            "children": [
+                                {
+                                    "text": "删除局数据",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/spreq/sp/out_test_data_list.jsp?type=MMS&operation=del_test",
+                                    "id": "out1_mms1"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "WAP业务",
+                            "menuOrder": "30000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "out1_wap",
+                            "children": [
+                                {
+                                    "text": "删除局数据",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/spreq/sp/out_test_data_wap_list.jsp?type=WAP&operation=del_test",
+                                    "id": "out1_wap1"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "text": "业务下线申请管理",
+                    "menuOrder": "20000",
+                    "leaf": false,
+                    "iconCls": "nav",
+                    "icon": "/portal/images/title_icon02.gif",
+                    "id": "out2",
+                    "children": [
+                        {
+                            "text": "短信业务",
+                            "menuOrder": "10000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "out2_sms",
+                            "children": [
+                                {
+                                    "text": "删除局数据",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/spreq/service/exit_synchronization_data.jsp?type=SMS&operation=del_alter&operType=1",
+                                    "id": "out2_sms1"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "彩信业务",
+                            "menuOrder": "20000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "out2_mms",
+                            "children": [
+                                {
+                                    "text": "删除局数据",
+                                    "menuOrder": "30000",
+                                    "leaf": "true",
+                                    "url": "/spreq/service/exit_synchronization_data.jsp?type=MMS&operation=del_alter&operType=1",
+                                    "id": "out2_mms1"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "WAP业务",
+                            "menuOrder": "40000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "out2_wap",
+                            "children": [
+                                {
+                                    "text": "删除局数据",
+                                    "menuOrder": "50000",
+                                    "leaf": "true",
+                                    "url": "/spreq/service/exit_synchronization_data.jsp?type=WAP&operation=del_alter&operType=1",
+                                    "id": "out2_wap1"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "text": "业务考核下线管理",
+                    "menuOrder": "30000",
+                    "leaf": false,
+                    "iconCls": "nav",
+                    "icon": "/portal/images/title_icon02.gif",
+                    "id": "out3",
+                    "children": [
+                        {
+                            "text": "短信业务",
+                            "menuOrder": "10000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "service_sms",
+                            "children": [
+                                {
+                                    "text": "删除局数据",
+                                    "menuOrder": "10000",
+                                    "leaf": "true",
+                                    "url": "/spreq/service/ex_synchronization_data.jsp?type=SMS&operation=del_test&operType=2",
+                                    "id": "service_sms1"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "彩信业务",
+                            "menuOrder": "20000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "service_mms",
+                            "children": [
+                                {
+                                    "text": "删除局数据",
+                                    "menuOrder": "30000",
+                                    "leaf": "true",
+                                    "url": "/spreq/service/ex_synchronization_data.jsp?type=MMS&operation=del_test&operType=2",
+                                    "id": "service_mms1"
+                                }
+                            ]
+                        },
+                        {
+                            "text": "WAP业务",
+                            "menuOrder": "40000",
+                            "leaf": false,
+                            "iconCls": "nav",
+                            "icon": "/portal/images/title_icon02.gif",
+                            "id": "service_wap",
+                            "children": [
+                                {
+                                    "text": "删除局数据",
+                                    "menuOrder": "50000",
+                                    "leaf": "true",
+                                    "url": "/spreq/service/ex_synchronization_data.jsp?type=WAP&operation=del_test&operType=2",
+                                    "id": "service_wap1"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "text": "配置管理",
+            "menuOrder": "40000",
+            "leaf": false,
+            "iconCls": "nav",
+            "icon": "/portal/images/title_icon02.gif",
+            "id": "text1",
+            "children": [
+                {
+                    "text": "网元配置",
+                    "menuOrder": "50000",
+                    "leaf": "true",
+                    "url": "/configmanager/manager.jsp?template=sysnet",
+                    "id": "text2"
+                }
+            ]
+        },
+        {
+            "text": "个人测试",
+            "menuOrder": "50000",
+            "leaf": false,
+            "iconCls": "nav",
+            "icon": "/portal/images/title_icon02.gif",
+            "id": "test1",
+            "children": [
+                {
+                    "text": "test1",
+                    "menuOrder": "50000",
+                    "leaf": "true",
+                    "url": "/mytest/test1.jsp",
+                    "id": "text11"
+                },
+                {
+                    "text": "test2",
+                    "menuOrder": "60000",
+                    "leaf": "true",
+                    "url": "/mytest/test2.jsp",
+                    "id": "text12"
+                }
+            ]
+        }
+    ]
+}

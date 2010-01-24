@@ -1,0 +1,9 @@
+.x-grid3-row-checker_disable{
+	background:transparent url(../images/default/grid/uncheckedhui.gif) no-repeat;
+	height:18px;
+	width:100%;
+}
+.waiting{
+	background:transparent url(../images/default/loading.gif) no-repeat top left;
+    height:46px;
+}

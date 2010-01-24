@@ -1,0 +1,47 @@
+{
+    "domain": "js",
+    "subsystem": "js_admin",
+    "data": [
+        {
+            "id": "customers",
+            "text": "客户资料管理",
+            "menuOrder": "10000",
+            "iconCls": "nav",
+            "leaf": false,
+            "icon": "/portal/images/title_icon02.gif",
+            "children": [
+                {
+                		"id": "customer_add",
+                    "text": "新客户信息录入",
+                    "menuOrder": "10000",
+                    "leaf": "true",
+                    "url": "/customer/addcustomer.jsp"
+                }
+            ]
+        },
+        {
+            "text": "个人测试",
+            "menuOrder": "50000",
+            "leaf": false,
+            "iconCls": "nav",
+            "icon": "/portal/images/title_icon02.gif",
+            "id": "test1",
+            "children": [
+                {
+                    "text": "test1",
+                    "menuOrder": "50000",
+                    "leaf": "true",
+                    "url": "/mytest/test1.jsp",
+                    "id": "text11"
+                },
+                {
+                    "text": "test2",
+                    "menuOrder": "60000",
+                    "leaf": "true",
+                    "url": "/mytest/test2.jsp",
+                    "id": "text12"
+                }
+            ]
+        }
+    ]
+}

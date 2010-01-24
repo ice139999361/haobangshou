@@ -1,0 +1,168 @@
+.u-toolbar-scroller-left{background:transparent url(../images/scroll-left.gif) no-repeat 0 0;border-bottom:1px solid #8db2e3;width:18px;height:34;position:absolute;left:0;top:0;z-index:10;cursor:pointer;}
+.u-toolbar-scroller-right{background:transparent url(../images/scroll-right.gif) no-repeat 0 0;border-bottom:1px solid #8db2e3;width:18px;height:34;position:absolute;right:0;top:0;z-index:10;cursor:pointer;}
+
+@CHARSET "UTF-8";
+
+.ext-ux-uploaddialog-addbtn
+{
+	background: url('../images/file-add.gif') no-repeat left center !important;
+}
+
+.ext-ux-uploaddialog-removebtn
+{
+	background: url('../images/file-remove.gif') no-repeat left center !important;
+}
+
+.ext-ux-uploaddialog-resetbtn
+{
+	background: url('../images/reset.gif') no-repeat left center !important;
+}
+
+.ext-ux-uploaddialog-uploadstartbtn
+{
+	background: url('../images/upload-start.gif') no-repeat left center !important;
+}
+
+.ext-ux-uploaddialog-uploadstopbtn
+{
+	background: url('../images/upload-stop.gif') no-repeat left center !important;
+}
+
+.ext-ux-uploaddialog-indicator-stoped
+{
+	width: 16px;
+	height: 16px;
+	background: url('../images/done.gif') no-repeat center center;
+}
+
+.ext-ux-uploaddialog-indicator-processing
+{
+	width: 16px;
+	height: 16px;	
+	background: url('../images/loading.gif') no-repeat center center;
+}
+
+.ext-ux-uploaddialog-state
+{
+	text-align: center;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+/* Queued */
+.ext-ux-uploaddialog-state-0
+{
+	background-image: url('../images/uncheck.gif');
+}
+
+/* Finished */
+.ext-ux-uploaddialog-state-1
+{
+	background-image: url('../images/check.gif');
+}
+
+/* Failed */
+.ext-ux-uploaddialog-state-2
+{
+	background-image: url('../images/failed.gif');
+}
+
+/* Processing */
+.ext-ux-uploaddialog-state-3
+{
+	background-image: url('../images/file-uploading.gif');	
+}
+
+/* Progress bar fix */
+.ext-ie7 .ext-ux-uploaddialog-dialog .x-progress-bar .x-progress-text div
+{
+	display: none;
+}
+
+.ext-ie7 .ext-ux-uploaddialog-dialog .x-progress-text-back
+{
+	position: absolute;
+	left: 0px;
+	right: 0px;
+}
+
+.ext-ie7 .ext-ux-uploaddialog-dialog .x-progress-text-back div
+{
+	width: auto !important;
+	white-space: nowrap;
+}
+/*
+ * SIMS JS Library 2.0
+ * Copyright(c) 2007-2008, SIMS JS, LLC.
+ * 
+ * ���ļ�ʱ���complexgrid����ӵ���ʽ
+ * gongjt
+ */
+
+/* complexgrid styles */
+/* �����Ϊ���޸�ie6��bug��ӵ� */
+
+.x-grid3-header-offset{padding-left:1px;width:100%  !important;}
+.ext-strict .ext-ie6 .x-grid3-hd-inner{position:relative;}
+/**
+.x-grid3-hd-btn{
+display:none;
+position:absolute ;
+width:14px;background:#c3daf9 url(../../../ext/images/default/grid/grid3-hd-btn.gif) no-repeat left center;
+right:0;
+bottom:0;
+z-index:2;
+cursor:pointer !important;}
+.x-grid3-hd-over .x-grid3-hd-btn,.x-grid3-hd-menu-open .x-grid3-hd-btn{display:block !important;}
+*/
+
+
+
+
+.u-listbox-selected{border:1px dotted #a3bae9!important;background:#DFE8F6;cursor:pointer;}
+
+.u-listbox-inner{overflow:auto;background:white;position:relative;zoom:1;overflow-x:hidden;}
+
+.u-list-cls{border-style:inset;border-width:1px;border-color:buttonface;scrollbar-shadow-color:menu;}
+/*
+ * Ext JS Library 2.0
+ * Copyright(c) 2006-2007, Ext JS, LLC.
+ * licensing@extjs.com
+ * 
+ * http://extjs.com/license
+ */
+
+.x-portal .x-panel-dd-spacer {
+    margin-bottom:10px;
+}
+
+.x-portlet {
+    margin-bottom:10px;
+}
+
+/* Clean up the look of the portlets */
+.x-portlet .x-panel-ml {
+    padding-left:2px;
+}
+.x-portlet .x-panel-mr {
+    padding-right:2px;
+}
+.x-portlet .x-panel-bl {
+    padding-left:2px;
+}
+
+.x-portlet .x-panel-br {
+    padding-right:2px;
+}
+.x-portlet .x-panel-body {
+    background:white;
+}
+.x-portlet .x-panel-mc {
+    padding-top:2px;
+}
+.x-portlet .x-panel-bc .x-panel-footer {
+    padding-bottom:2px;
+}
+.x-portlet .x-panel-nofooter .x-panel-bc {
+    height:2px;
+}
