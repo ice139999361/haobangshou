@@ -103,7 +103,6 @@ var ExtConvertHelper = {
 			if(!tmpForm.getForm().isValid()) {
 				Ext.Msg.alert("提示", "数据格式错误：请参考提示进行修改。", function(){
 					// 第一个验证没通过的组件获得焦点
-					alert(tmpForm.getForm().invalidField)
 					if(tmpForm.getForm().invalidField) tmpForm.getForm().invalidField.focus(true,true);
 				});
 				return false;
