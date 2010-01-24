@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="InvoiceInfo">
+<typeAlias alias="invoiceInfo" type="com.hbs.domain.common.pojo.baseinfo.InvoiceInfo"/> 
+<resultMap id="invoiceInfo_result" class="invoiceInfo">
+    <result property="invoiceSeqId" column="INVOICE_SEQID"/>
+    <result property="staffId" column="STAFF_ID"/>
+    <result property="staffName" column="STAFF_NAME"/>
+    <result property="createTime" column="CREATE_TIME"/>
+    <result property="poNo" column="PO_NO"/>
+    <result property="PO_NO_DATE" column="PO_NO_DATE"/>
+    <result property="ccode" column="C_CODE"/>
+    <result property="shortName" column="SHORT_NAME"/>
+    <result property="partNo" column="PART_NO"/>
+    <result property="cpartNo" column="C_PART_NO"/>
+    <result property="pnDesc" column="PN_DESC"/>
+    <result property="amount" column="AMOUNT"/>
+    <result property="allMoney" column="ALL_MONEY"/>
+    <result property="curMoney" column="CUR_MONEY"/>
+    <result property="leftMoney" column="LEFT_MONEY"/>
+    <result property="invoiceDesc" column="INVOICE_DESC"/>
+</resultMap>
+
+<select id="InvoiceInfo_getNextId" resultClass="java.lang.String">
+<![CDATA[
+    SELECT ltrim(to_char(Seq_T_CUST_SEND_INVOICE_HIS_Id.Nextval,'0000000000')) 
+           AS Id 
+    FROM dual
+]]>
+</select>
+
+<insert id="InvoiceInfo_insertInvoiceInfo" parameterClass="invoiceInfo" >
+<![CDATA[
+    INSERT INTO T_CUST_SEND_INVOICE_HIS (
+            INVOICE_SEQID, 
+            STAFF_ID, 
+            STAFF_NAME, 
+            CREATE_TIME, 
+            PO_NO, 
+            PO_NO_DATE, 
+            C_CODE, 
+            SHORT_NAME, 
+            PART_NO, 
+            C_PART_NO, 
+            PN_DESC, 
+            AMOUNT, 
+            ALL_MONEY, 
+            CUR_MONEY, 
+            LEFT_MONEY, 
+            INVOICE_DESC
+        )
+    VALUES (
+            #invoiceSeqId#,
+            #staffId#,
+            #staffName#,
+            #createTime#,
+            #poNo#,
+            #PO_NO_DATE#,
+            #ccode#,
+            #shortName#,
+            #partNo#,
+            #cpartNo#,
+            #pnDesc#,
+            #amount#,
+            #allMoney#,
+            #curMoney#,
+            #leftMoney#,
+            #invoiceDesc#
+    )
+]]>
+</insert>
+
+<delete id="InvoiceInfo_deleteInvoiceInfo" parameterClass="string">
+<![CDATA[
+    DELETE  FROM  T_CUST_SEND_INVOICE_HIS WHERE INVOICE_SEQID = #invoiceSeqId#
+]]>
+</delete>    
+
+<update id="InvoiceInfo_updateInvoiceInfo" parameterClass="invoiceInfo">
+    UPDATE T_CUST_SEND_INVOICE_HIS 
+    SET
+    	INVOICE_SEQID = #invoiceSeqId#
+	<isNotEmpty prepend="," property="staffId">
+            STAFF_ID = #staffId#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="staffName">
+            STAFF_NAME = #staffName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="createTime">
+            CREATE_TIME = #createTime#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="poNo">
+            PO_NO = #poNo#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="PO_NO_DATE">
+            PO_NO_DATE = #PO_NO_DATE#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="ccode">
+            C_CODE = #ccode#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="shortName">
+            SHORT_NAME = #shortName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="partNo">
+            PART_NO = #partNo#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="cpartNo">
+            C_PART_NO = #cpartNo#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="pnDesc">
+            PN_DESC = #pnDesc#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="amount">
+            AMOUNT = #amount#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="allMoney">
+            ALL_MONEY = #allMoney#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="curMoney">
+            CUR_MONEY = #curMoney#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="leftMoney">
+            LEFT_MONEY = #leftMoney#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="invoiceDesc">
+            INVOICE_DESC = #invoiceDesc#
+	</isNotEmpty>
+    WHERE INVOICE_SEQID = #invoiceSeqId#
+</update> 
+
+<select id="InvoiceInfo_findInvoiceInfo" resultMap="invoiceInfo_result" parameterClass="string">
+<![CDATA[
+    SELECT
+            INVOICE_SEQID, 
+            STAFF_ID, 
+            STAFF_NAME, 
+            CREATE_TIME, 
+            PO_NO, 
+            PO_NO_DATE, 
+            C_CODE, 
+            SHORT_NAME, 
+            PART_NO, 
+            C_PART_NO, 
+            PN_DESC, 
+            AMOUNT, 
+            ALL_MONEY, 
+            CUR_MONEY, 
+            LEFT_MONEY, 
+            INVOICE_DESC
+    FROM T_CUST_SEND_INVOICE_HIS WHERE INVOICE_SEQID = #invoiceSeqId#
+]]>
+</select>
+
+<select id="InvoiceInfo_listInvoiceInfo" resultMap="invoiceInfo_result" parameterClass="invoiceInfo">
+<![CDATA[
+    SELECT
+            INVOICE_SEQID, 
+            STAFF_ID, 
+            STAFF_NAME, 
+            CREATE_TIME, 
+            PO_NO, 
+            PO_NO_DATE, 
+            C_CODE, 
+            SHORT_NAME, 
+            PART_NO, 
+            C_PART_NO, 
+            PN_DESC, 
+            AMOUNT, 
+            ALL_MONEY, 
+            CUR_MONEY, 
+            LEFT_MONEY, 
+            INVOICE_DESC
+    FROM T_CUST_SEND_INVOICE_HIS
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "invoiceSeqId">
+				INVOICE_SEQID = #invoiceSeqId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffId">
+				STAFF_ID = #staffId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffName">
+				STAFF_NAME = #staffName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "createTime">
+				CREATE_TIME = #createTime#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "poNo">
+				PO_NO = #poNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "PO_NO_DATE">
+				PO_NO_DATE = #PO_NO_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "ccode">
+				C_CODE = #ccode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "shortName">
+				SHORT_NAME = #shortName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "partNo">
+				PART_NO = #partNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "cpartNo">
+				C_PART_NO = #cpartNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "pnDesc">
+				PN_DESC = #pnDesc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "amount">
+				AMOUNT = #amount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "allMoney">
+				ALL_MONEY = #allMoney#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "curMoney">
+				CUR_MONEY = #curMoney#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "leftMoney">
+				LEFT_MONEY = #leftMoney#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "invoiceDesc">
+				INVOICE_DESC = #invoiceDesc#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+
+<select id="InvoiceInfo_listInvoiceInfoCount" resultClass="java.lang.Integer" parameterClass="invoiceInfo">
+<![CDATA[
+    SELECT
+		COUNT(*)
+    FROM T_CUST_SEND_INVOICE_HIS
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "invoiceSeqId">
+				INVOICE_SEQID = #invoiceSeqId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffId">
+				STAFF_ID = #staffId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffName">
+				STAFF_NAME = #staffName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "createTime">
+				CREATE_TIME = #createTime#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "poNo">
+				PO_NO = #poNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "PO_NO_DATE">
+				PO_NO_DATE = #PO_NO_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "ccode">
+				C_CODE = #ccode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "shortName">
+				SHORT_NAME = #shortName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "partNo">
+				PART_NO = #partNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "cpartNo">
+				C_PART_NO = #cpartNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "pnDesc">
+				PN_DESC = #pnDesc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "amount">
+				AMOUNT = #amount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "allMoney">
+				ALL_MONEY = #allMoney#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "curMoney">
+				CUR_MONEY = #curMoney#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "leftMoney">
+				LEFT_MONEY = #leftMoney#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "invoiceDesc">
+				INVOICE_DESC = #invoiceDesc#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+</sqlMap>

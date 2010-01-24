@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans> 	
+	<!-- 供应商订单DAO实现类   -->
+	<bean id="vendorOrderDao" class="com.hbs.domain.vendor.order.dao.ibatis.VendorOrderDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<!-- 供应商订单历史DAO实现类   -->
+	<bean id="vendorOrderHisDao" class="com.hbs.domain.vendor.order.dao.ibatis.VendorOrderHisDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<!-- 供应商订单详情DAO实现类   -->
+	<bean id="vendorOrderDetailDao" class="com.hbs.domain.vendor.order.dao.ibatis.VendorOrderDetailDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<!-- 供应商订单详情历史DAO实现类   -->
+	<bean id="vendorOrderDetailHisDao" class="com.hbs.domain.vendor.order.dao.ibatis.VendorOrderDetailHisDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+</beans>

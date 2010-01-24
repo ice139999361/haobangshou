@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<sqlMap resource="com/hbs/domain/warehouse/dao/ibatis/maps/WareHouseInfoSQL.xml"/>
+	<sqlMap resource="com/hbs/domain/warehouse/dao/ibatis/maps/WarehouseSendInfoSQL.xml"/>
+	<sqlMap resource="com/hbs/domain/warehouse/dao/ibatis/maps/WarehouseSendDetailSQL.xml"/>
+	<sqlMap resource="com/hbs/domain/warehouse/dao/ibatis/maps/WarehouseRecInfoSQL.xml"/>
+	<sqlMap resource="com/hbs/domain/warehouse/dao/ibatis/maps/WarehouseRecDetailSQL.xml"/>
+	<sqlMap resource="com/hbs/domain/warehouse/dao/ibatis/maps/WarehouseSendInfoHisSQL.xml"/>
+	<sqlMap resource="com/hbs/domain/warehouse/dao/ibatis/maps/WarehouseSendDetailHisSQL.xml"/>
+	<sqlMap resource="com/hbs/domain/warehouse/dao/ibatis/maps/WarehouseRecInfoHisSQL.xml"/>
+	<sqlMap resource="com/hbs/domain/warehouse/dao/ibatis/maps/WarehouseRecDetailHisSQL.xml"/>
+	<sqlMap resource="com/hbs/domain/warehouse/dao/ibatis/maps/WarehouseOperLogSQL.xml"/>
+	<sqlMap resource="com/hbs/domain/warehouse/dao/ibatis/maps/WarehouseOperLogHisSQL.xml"/>
+</sqlMapConfig>

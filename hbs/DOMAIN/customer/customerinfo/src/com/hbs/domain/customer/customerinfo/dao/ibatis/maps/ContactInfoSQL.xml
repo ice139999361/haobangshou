@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="ContactInfo">
+<typeAlias alias="contactInfo" type="com.hbs.domain.common.pojo.baseinfo.ContactInfo"/> 
+<resultMap id="contactInfo_result" class="contactInfo">
+    <result property="seqId" column="SEQID"/>
+    <result property="baseSeqId" column="BASE_SEQID"/>
+    <result property="commCode" column="C_CODE"/>
+    <result property="state" column="STATE"/>
+    <result property="conType" column="CON_TYPE"/>
+    <result property="conName" column="CON_NAME"/>
+    <result property="conDuty" column="CON_DUTY"/>
+    <result property="conTel" column="CON_TEL"/>
+    <result property="conMobile" column="CON_MOBILE"/>
+    <result property="conFax" column="CON_FAX"/>
+    <result property="conMail" column="CON_MAIL"/>
+    <result property="conQq" column="CON_QQ"/>
+    <result property="conMsn" column="CON_MSN"/>
+    <result property="conOther" column="CON_OTHER"/>
+    <result property="conAddress" column="CON_ADDRESS"/>
+    <result property="conZip" column="CON_ZIP"/>
+    <result property="isPrimary" column="IS_PRIMARY"/>
+</resultMap>
+
+
+<insert id="ContactInfo_insertContactInfo" parameterClass="contactInfo" >  
+<![CDATA[
+    INSERT INTO T_CUSTOMER_CONTACT_INFO (
+            BASE_SEQID, 
+            C_CODE, 
+            STATE, 
+            CON_TYPE, 
+            CON_NAME, 
+            CON_DUTY, 
+            CON_TEL, 
+            CON_MOBILE, 
+            CON_FAX, 
+            CON_MAIL, 
+            CON_QQ, 
+            CON_MSN, 
+            CON_OTHER, 
+            CON_ADDRESS, 
+            CON_ZIP, 
+            IS_PRIMARY
+        )
+    VALUES (
+            #baseSeqId#,
+            #commCode#,
+            #state#,
+            #conType#,
+            #conName#,
+            #conDuty#,
+            #conTel#,
+            #conMobile#,
+            #conFax#,
+            #conMail#,
+            #conQq#,
+            #conMsn#,
+            #conOther#,
+            #conAddress#,
+            #conZip#,
+            #isPrimary#
+    )
+]]>
+</insert>
+
+<delete id="ContactInfo_deleteContactInfoByID" parameterClass="string">
+<![CDATA[
+    DELETE  FROM  T_CUSTOMER_CONTACT_INFO WHERE SEQID = #SEQID#
+]]>
+</delete> 
+
+<delete id="ContactInfo_deleteContactInfo" parameterClass="contactInfo">
+<![CDATA[
+    DELETE  FROM  T_CUSTOMER_CONTACT_INFO
+]]>
+<dynamic prepend="WHERE">
+		<isNotEmpty prepend="and" property="commCode">
+			C_CODE = #commCode#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="state">
+			STATE = #state#
+		</isNotEmpty>
+	</dynamic>
+</delete>
+  
+
+<update id="ContactInfo_updateContactInfo" parameterClass="contactInfo">
+    UPDATE T_CUSTOMER_CONTACT_INFO 
+    SET
+    	SEQID = #SEQID#
+	<isNotEmpty prepend="," property="commCode">
+            C_CODE = #commCode#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="state">
+            STATE = #state#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="conType">
+            CON_TYPE = #conType#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="conName">
+            CON_NAME = #conName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="conDuty">
+            CON_DUTY = #conDuty#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="conTel">
+            CON_TEL = #conTel#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="conMobile">
+            CON_MOBILE = #conMobile#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="conFax">
+            CON_FAX = #conFax#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="conMail">
+            CON_MAIL = #conMail#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="conQq">
+            CON_QQ = #conQq#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="conMsn">
+            CON_MSN = #conMsn#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="conOther">
+            CON_OTHER = #conOther#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="conAddress">
+            CON_ADDRESS = #conAddress#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="conZip">
+            CON_ZIP = #conZip#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="isPrimary">
+            IS_PRIMARY = #isPrimary#
+	</isNotEmpty>
+    WHERE SEQID = #seqId#
+</update> 
+
+<update id="ContactInfo_updateContactInfoByState" parameterClass="contactInfo">
+    UPDATE T_CUSTOMER_CONTACT_INFO 
+    SET
+    	STATE = #state#
+	
+    WHERE SEQID = #seqId#
+</update> 
+
+<select id="ContactInfo_findContactInfo" resultMap="contactInfo_result" parameterClass="string">
+<![CDATA[
+    SELECT
+            SEQID, 
+            BASE_SEQID,
+            C_CODE, 
+            STATE, 
+            CON_TYPE, 
+            CON_NAME, 
+            CON_DUTY, 
+            CON_TEL, 
+            CON_MOBILE, 
+            CON_FAX, 
+            CON_MAIL, 
+            CON_QQ, 
+            CON_MSN, 
+            CON_OTHER, 
+            CON_ADDRESS, 
+            CON_ZIP, 
+            IS_PRIMARY
+    FROM T_CUSTOMER_CONTACT_INFO WHERE SEQID = #seqId#
+]]>
+</select>
+
+<select id="ContactInfo_listContactInfo" resultMap="contactInfo_result" parameterClass="contactInfo">
+<![CDATA[
+    SELECT
+            SEQID, 
+            BASE_SEQID,
+            C_CODE, 
+            STATE, 
+            CON_TYPE, 
+            CON_NAME, 
+            CON_DUTY, 
+            CON_TEL, 
+            CON_MOBILE, 
+            CON_FAX, 
+            CON_MAIL, 
+            CON_QQ, 
+            CON_MSN, 
+            CON_OTHER, 
+            CON_ADDRESS, 
+            CON_ZIP, 
+            IS_PRIMARY
+    FROM T_CUSTOMER_CONTACT_INFO
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "baseSeqId">
+				BASE_SEQID = #baseSeqId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "commCode">
+				C_CODE = #commCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "state">
+				STATE = #state#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "conType">
+				CON_TYPE = #conType#
+			</isNotEmpty>			
+		</dynamic>
+</select>
+
+
+</sqlMap>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans> 
+	<!-- dao bean -->
+	<!-- 供应商信息DAO实现类   -->
+	<bean id="vendorInfoDao" class="com.hbs.domain.vendor.vendorinfo.dao.ibatis.VendorInfoDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>	
+	
+	<!-- 供应商物料关系DAO实现类   -->
+	<bean id="vendorPartNoInfoDao" class="com.hbs.domain.vendor.vendorinfo.dao.ibatis.VendorPartNoInfoDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<!-- 供应商账期DAO实现类   parent="accountPreiodDao" -->
+	<bean id="vendorAccountPreiodDao"  class="com.hbs.domain.vendor.vendorinfo.dao.ibatis.VendorAccountPreiodDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<!-- 供应商银行DAO实现类   parent="bankInfoDao" -->
+	<bean id="vendorBankInfoDao"  class="com.hbs.domain.vendor.vendorinfo.dao.ibatis.VendorBankInfoDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<!-- 供应商联系人DAO实现类   parent="contactInfoDao" -->
+	<bean id="vendorContactInfoDao"  class="com.hbs.domain.vendor.vendorinfo.dao.ibatis.VendorContactInfoDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<!-- 供应商操作日志DAO实现类   parent="operLogDao" -->
+	<bean id="vendorOperLogDao"  class="com.hbs.domain.vendor.vendorinfo.dao.ibatis.VendorOperLogDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<!-- 供应商操作日志历史DAO实现类   parent="operLogDao" -->
+	<bean id="vendorOperLogHisDao"  class="com.hbs.domain.vendor.vendorinfo.dao.ibatis.VendorOperLogHisDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<!-- 供应商预付费DAO实现类   parent="prePaidInfoDao" -->
+	<bean id="vendorPrePaidInfoDao"  class="com.hbs.domain.vendor.vendorinfo.dao.ibatis.VendorPrePaidInfoDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+</beans>

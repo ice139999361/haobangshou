@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="BankInfo">
+<typeAlias alias="bankInfo" type="com.hbs.domain.common.pojo.baseinfo.BankInfo"/> 
+<resultMap id="bankInfo_result" class="bankInfo">
+    <result property="seqId" column="SEQID"/>
+    <result property="baseSeqId" column="BASE_SEQID"/>
+    <result property="commCode" column="C_CODE"/>
+    <result property="state" column="STATE"/>
+    <result property="accountName" column="ACCOUNT_NAME"/>
+    <result property="accountBank" column="ACCOUNT_BANK"/>
+    <result property="account" column="ACCOUNT"/>
+</resultMap>
+
+
+<insert id="BankInfo_insertBankInfo" parameterClass="bankInfo" >
+<![CDATA[
+    INSERT INTO T_CUST_BANK (
+    		BASE_SEQID,
+            C_CODE, 
+            STATE, 
+            ACCOUNT_NAME, 
+            ACCOUNT_BANK, 
+            ACCOUNT
+        )
+    VALUES (  
+    		#baseSeqId#,          
+            #commCode#,
+            #state#,
+            #accountName#,
+            #accountBank#,
+            #account#
+    )
+]]>
+</insert>
+
+<delete id="BankInfo_deleteBankInfoByID" parameterClass="string">
+<![CDATA[
+    DELETE  FROM  T_CUST_BANK WHERE SEQID = #seqId#
+]]>
+</delete>    
+
+<delete id="BankInfo_deleteBankInfo" parameterClass="bankInfo">
+<![CDATA[
+    DELETE  FROM  T_CUST_ACCOUNT_PERIOD
+]]>
+<dynamic prepend="WHERE">
+		<isNotEmpty prepend="and" property="commCode">
+			C_CODE = #commCode#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="state">
+			STATE = #state#
+		</isNotEmpty>
+	</dynamic>
+</delete> 
+
+<update id="BankInfo_updateBankInfo" parameterClass="bankInfo">
+    UPDATE T_CUST_BANK 
+    SET
+    	SEQID = #seqId#
+	<isNotEmpty prepend="," property="commCode">
+            C_CODE = #commCode#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="state">
+            STATE = #state#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="accountName">
+            ACCOUNT_NAME = #accountName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="accountBank">
+            ACCOUNT_BANK = #accountBank#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="account">
+            ACCOUNT = #account#
+	</isNotEmpty>
+    WHERE SEQID = #seqId#
+</update> 
+
+<update id="BankInfo_updateBankInfoByState" parameterClass="bankInfo">
+    UPDATE T_CUST_BANK 
+    SET
+    	STATE = #state#
+	
+    WHERE SEQID = #seqId#
+</update> 
+
+<select id="BankInfo_findBankInfo" resultMap="bankInfo_result" parameterClass="String">
+<![CDATA[
+    SELECT
+            SEQID, 
+            BASE_SEQID,
+            C_CODE, 
+            STATE, 
+            ACCOUNT_NAME, 
+            ACCOUNT_BANK, 
+            ACCOUNT
+    FROM T_CUST_BANK WHERE SEQID = #seqId#
+]]>
+</select>
+
+<select id="BankInfo_listBankInfo" resultMap="bankInfo_result" parameterClass="bankInfo">
+<![CDATA[
+    SELECT
+            SEQID, 
+            BASE_SEQID,
+            C_CODE, 
+            STATE, 
+            ACCOUNT_NAME, 
+            ACCOUNT_BANK, 
+            ACCOUNT
+    FROM T_CUST_BANK
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "baseSeqId">
+				BASE_SEQID = #baseSeqId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "commCode">
+				C_CODE = #commCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "state">
+				STATE = #state#
+			</isNotEmpty>			
+		</dynamic>
+</select>
+
+</sqlMap>

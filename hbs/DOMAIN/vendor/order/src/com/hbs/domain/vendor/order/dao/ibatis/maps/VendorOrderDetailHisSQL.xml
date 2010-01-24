@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="VendorOrderDetail">
+<typeAlias alias="vendorOrderDetail" type="com.hbs.domain.vendor.order.pojo.VendorOrderDetail"/> 
+<resultMap id="vendorOrderDetail_result" class="vendorOrderDetail">
+    <result property="operSeqId" column="ORDER_SEQID"/>
+    <result property="commCode" column="C_CODE"/>
+    <result property="shortName" column="SHORT_NAME"/>
+    <result property="poNoType" column="PO_NO_TYPE"/>
+    <result property="poNo" column="PO_NO"/>
+    <result property="cpartNo" column="C_PART_NO"/>
+    <result property="partNo" column="PART_NO"/>
+    <result property="pnDesc" column="PN_DESC"/>
+    <result property="cprice" column="C_PRICE"/>
+    <result property="isTax" column="IS_TAX"/>
+    <result property="taxRate" column="TAX_RATE"/>
+    <result property="specDesc" column="SPEC_DESC"/>
+    <result property="commDesc" column="COMM_DESC"/>
+    <result property="amount" column="AMOUNT"/>
+    <result property="money" column="MONEY"/>
+    <result property="deliveryAmount" column="DELIVERY_AMOUNT"/>
+    <result property="orgDeliveryDate" column="ORG_DELIVERY_DATE"/>
+    <result property="verDeliveryDate" column="VER_DELIVERY_DATE"/>
+    <result property="period" column="PERIOD"/>
+    <result property="rltOrderPoNo" column="RLT_ORDER_PO_NO"/>
+    <result property="state" column="STATE"/>
+    <result property="activeState" column="ACTIVE_STATE"/>
+    <result property="rltRecPoNo" column="RLT_REC_PO_NO"/>
+</resultMap>
+
+<select id="VendorOrderDetail_getNextId" resultClass="java.lang.String">
+<![CDATA[
+    SELECT ltrim(to_char(Seq_T_VENDOR_ORDER_DETAIL_HIS_Id.Nextval,'0000000000')) 
+           AS Id 
+    FROM dual
+]]>
+</select>
+
+<insert id="VendorOrderDetail_insertVendorOrderDetail" parameterClass="vendorOrderDetail" >
+<![CDATA[
+    INSERT INTO T_VENDOR_ORDER_DETAIL_HIS (
+            ORDER_SEQID, 
+            C_CODE, 
+            SHORT_NAME, 
+            PO_NO_TYPE, 
+            PO_NO, 
+            C_PART_NO, 
+            PART_NO, 
+            PN_DESC, 
+            C_PRICE, 
+            IS_TAX, 
+            TAX_RATE, 
+            SPEC_DESC, 
+            COMM_DESC, 
+            AMOUNT, 
+            MONEY, 
+            DELIVERY_AMOUNT, 
+            ORG_DELIVERY_DATE, 
+            VER_DELIVERY_DATE, 
+            PERIOD, 
+            RLT_ORDER_PO_NO, 
+            STATE, 
+            ACTIVE_STATE, 
+            RLT_REC_PO_NO
+        )
+    VALUES (
+            #operSeqId#,
+            #commCode#,
+            #shortName#,
+            #poNoType#,
+            #poNo#,
+            #cpartNo#,
+            #partNo#,
+            #pnDesc#,
+            #cprice#,
+            #isTax#,
+            #taxRate#,
+            #specDesc#,
+            #commDesc#,
+            #amount#,
+            #money#,
+            #deliveryAmount#,
+            #orgDeliveryDate#,
+            #verDeliveryDate#,
+            #period#,
+            #rltOrderPoNo#,
+            #state#,
+            #activeState#,
+            #rltRecPoNo#
+    )
+]]>
+</insert>
+
+<delete id="VendorOrderDetail_deleteVendorOrderDetail" parameterClass="string">
+<![CDATA[
+    DELETE  FROM  T_VENDOR_ORDER_DETAIL_HIS WHERE ORDER_SEQID = #operSeqId#
+]]>
+</delete>    
+
+<update id="VendorOrderDetail_updateVendorOrderDetail" parameterClass="vendorOrderDetail">
+    UPDATE T_VENDOR_ORDER_DETAIL_HIS 
+    SET
+    	ORDER_SEQID = #operSeqId#
+	<isNotEmpty prepend="," property="commCode">
+            C_CODE = #commCode#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="shortName">
+            SHORT_NAME = #shortName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="poNoType">
+            PO_NO_TYPE = #poNoType#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="poNo">
+            PO_NO = #poNo#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="cpartNo">
+            C_PART_NO = #cpartNo#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="partNo">
+            PART_NO = #partNo#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="pnDesc">
+            PN_DESC = #pnDesc#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="cprice">
+            C_PRICE = #cprice#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="isTax">
+            IS_TAX = #isTax#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="taxRate">
+            TAX_RATE = #taxRate#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="specDesc">
+            SPEC_DESC = #specDesc#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="commDesc">
+            COMM_DESC = #commDesc#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="amount">
+            AMOUNT = #amount#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="money">
+            MONEY = #money#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="deliveryAmount">
+            DELIVERY_AMOUNT = #deliveryAmount#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="orgDeliveryDate">
+            ORG_DELIVERY_DATE = #orgDeliveryDate#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="verDeliveryDate">
+            VER_DELIVERY_DATE = #verDeliveryDate#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="period">
+            PERIOD = #period#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="rltOrderPoNo">
+            RLT_ORDER_PO_NO = #rltOrderPoNo#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="state">
+            STATE = #state#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="activeState">
+            ACTIVE_STATE = #activeState#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="rltRecPoNo">
+            RLT_REC_PO_NO = #rltRecPoNo#
+	</isNotEmpty>
+    WHERE ORDER_SEQID = #operSeqId#
+</update> 
+
+<select id="VendorOrderDetail_findVendorOrderDetail" resultMap="vendorOrderDetail_result" parameterClass="string">
+<![CDATA[
+    SELECT
+            ORDER_SEQID, 
+            C_CODE, 
+            SHORT_NAME, 
+            PO_NO_TYPE, 
+            PO_NO, 
+            C_PART_NO, 
+            PART_NO, 
+            PN_DESC, 
+            C_PRICE, 
+            IS_TAX, 
+            TAX_RATE, 
+            SPEC_DESC, 
+            COMM_DESC, 
+            AMOUNT, 
+            MONEY, 
+            DELIVERY_AMOUNT, 
+            ORG_DELIVERY_DATE, 
+            VER_DELIVERY_DATE, 
+            PERIOD, 
+            RLT_ORDER_PO_NO, 
+            STATE, 
+            ACTIVE_STATE, 
+            RLT_REC_PO_NO
+    FROM T_VENDOR_ORDER_DETAIL_HIS WHERE ORDER_SEQID = #operSeqId#
+]]>
+</select>
+
+<select id="VendorOrderDetail_listVendorOrderDetail" resultMap="vendorOrderDetail_result" parameterClass="vendorOrderDetail">
+<![CDATA[
+    SELECT
+            ORDER_SEQID, 
+            C_CODE, 
+            SHORT_NAME, 
+            PO_NO_TYPE, 
+            PO_NO, 
+            C_PART_NO, 
+            PART_NO, 
+            PN_DESC, 
+            C_PRICE, 
+            IS_TAX, 
+            TAX_RATE, 
+            SPEC_DESC, 
+            COMM_DESC, 
+            AMOUNT, 
+            MONEY, 
+            DELIVERY_AMOUNT, 
+            ORG_DELIVERY_DATE, 
+            VER_DELIVERY_DATE, 
+            PERIOD, 
+            RLT_ORDER_PO_NO, 
+            STATE, 
+            ACTIVE_STATE, 
+            RLT_REC_PO_NO
+    FROM T_VENDOR_ORDER_DETAIL_HIS
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "operSeqId">
+				ORDER_SEQID = #operSeqId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "commCode">
+				C_CODE = #commCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "shortName">
+				SHORT_NAME = #shortName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "poNoType">
+				PO_NO_TYPE = #poNoType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "poNo">
+				PO_NO = #poNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "cpartNo">
+				C_PART_NO = #cpartNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "partNo">
+				PART_NO = #partNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "pnDesc">
+				PN_DESC = #pnDesc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "cprice">
+				C_PRICE = #cprice#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "isTax">
+				IS_TAX = #isTax#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "taxRate">
+				TAX_RATE = #taxRate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "specDesc">
+				SPEC_DESC = #specDesc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "commDesc">
+				COMM_DESC = #commDesc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "amount">
+				AMOUNT = #amount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "money">
+				MONEY = #money#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "deliveryAmount">
+				DELIVERY_AMOUNT = #deliveryAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "orgDeliveryDate">
+				ORG_DELIVERY_DATE = #orgDeliveryDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "verDeliveryDate">
+				VER_DELIVERY_DATE = #verDeliveryDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "period">
+				PERIOD = #period#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "rltOrderPoNo">
+				RLT_ORDER_PO_NO = #rltOrderPoNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "state">
+				STATE = #state#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "activeState">
+				ACTIVE_STATE = #activeState#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "rltRecPoNo">
+				RLT_REC_PO_NO = #rltRecPoNo#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+
+<select id="VendorOrderDetail_listVendorOrderDetailCount" resultClass="java.lang.Integer" parameterClass="vendorOrderDetail">
+<![CDATA[
+    SELECT
+		COUNT(*)
+    FROM T_VENDOR_ORDER_DETAIL_HIS
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "operSeqId">
+				ORDER_SEQID = #operSeqId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "commCode">
+				C_CODE = #commCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "shortName">
+				SHORT_NAME = #shortName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "poNoType">
+				PO_NO_TYPE = #poNoType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "poNo">
+				PO_NO = #poNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "cpartNo">
+				C_PART_NO = #cpartNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "partNo">
+				PART_NO = #partNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "pnDesc">
+				PN_DESC = #pnDesc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "cprice">
+				C_PRICE = #cprice#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "isTax">
+				IS_TAX = #isTax#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "taxRate">
+				TAX_RATE = #taxRate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "specDesc">
+				SPEC_DESC = #specDesc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "commDesc">
+				COMM_DESC = #commDesc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "amount">
+				AMOUNT = #amount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "money">
+				MONEY = #money#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "deliveryAmount">
+				DELIVERY_AMOUNT = #deliveryAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "orgDeliveryDate">
+				ORG_DELIVERY_DATE = #orgDeliveryDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "verDeliveryDate">
+				VER_DELIVERY_DATE = #verDeliveryDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "period">
+				PERIOD = #period#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "rltOrderPoNo">
+				RLT_ORDER_PO_NO = #rltOrderPoNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "state">
+				STATE = #state#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "activeState">
+				ACTIVE_STATE = #activeState#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "rltRecPoNo">
+				RLT_REC_PO_NO = #rltRecPoNo#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+</sqlMap>

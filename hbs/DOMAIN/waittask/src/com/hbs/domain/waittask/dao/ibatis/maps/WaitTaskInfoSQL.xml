@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="WaitTaskInfo">
+<typeAlias alias="waitTaskInfo" type="com.hbs.domain.waittask.pojo.WaitTaskInfo"/> 
+<resultMap id="waitTaskInfo_result" class="waitTaskInfo">
+    <result property="taskId" column="TASK_ID"/>
+    <result property="taskType" column="TASK_TYPE"/>
+    <result property="businessKey" column="BUSINESS_KEY"/>
+    <result property="businessType" column="BUSINESS_TYPE"/>
+    <result property="roleId" column="ROLE_ID"/>
+    <result property="staffId" column="STAFF_ID"/>
+    <result property="url" column="URL"/>
+    <result property="comments" column="COMMENTS"/>
+    <result property="systemName" column="SYSTEM_NAME"/>
+    <result property="param" column="PARAM"/>
+    <result property="createTime" column="CREATE_TIME"/>
+    <result property="expireTime" column="EXPIRE_TIME"/>
+</resultMap>
+
+
+
+<insert id="WaitTaskInfo_insertWaitTaskInfo" parameterClass="waitTaskInfo" >
+<![CDATA[
+    INSERT INTO t_waittask_info (            
+            TASK_TYPE, 
+            BUSINESS_KEY, 
+            BUSINESS_TYPE, 
+            ROLE_ID, 
+            STAFF_ID, 
+            URL, 
+            COMMENTS, 
+            SYSTEM_NAME, 
+            PARAM, 
+            CREATE_TIME, 
+            EXPIRE_TIME
+        )
+    VALUES (            
+            #taskType#,
+            #businessKey#,
+            #businessType#,
+            #roleId#,
+            #staffId#,
+            #url#,
+            #comments#,
+            #systemName#,
+            #param#,
+            sysdate(),
+            #expireTime#
+    )
+]]>
+</insert>
+
+<delete id="WaitTaskInfo_deleteWaitTaskInfo" parameterClass="string">
+<![CDATA[
+    DELETE  FROM  t_waittask_info WHERE BUSINESS_KEY = #businessKey#
+]]>
+</delete>    
+
+<update id="WaitTaskInfo_updateWaitTaskInfo" parameterClass="waitTaskInfo">
+    UPDATE t_waittask_info 
+    SET
+    	BUSINESS_KEY = #businessKey#
+	<isNotEmpty prepend="," property="taskType">
+            TASK_TYPE = #taskType#
+	</isNotEmpty>	
+	<isNotEmpty prepend="," property="businessType">
+            BUSINESS_TYPE = #businessType#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="roleId">
+            ROLE_ID = #roleId#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="staffId">
+            STAFF_ID = #staffId#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="url">
+            URL = #url#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="comments">
+            COMMENTS = #comments#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="systemName">
+            SYSTEM_NAME = #systemName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="param">
+            PARAM = #param#
+	</isNotEmpty>
+	,EXPIRE_TIME = #expireTime:datetime#
+    WHERE BUSINESS_KEY = #businessKey#
+</update> 
+
+<select id="WaitTaskInfo_findWaitTaskInfo" resultMap="waitTaskInfo_result" parameterClass="string">
+<![CDATA[
+    SELECT
+            TASK_ID, 
+            TASK_TYPE, 
+            BUSINESS_KEY, 
+            BUSINESS_TYPE, 
+            ROLE_ID, 
+            STAFF_ID, 
+            URL, 
+            COMMENTS, 
+            SYSTEM_NAME, 
+            PARAM, 
+            CREATE_TIME, 
+            EXPIRE_TIME
+    FROM t_waittask_info WHERE BUSINESS_KEY = #businessKey#
+]]>
+</select>
+
+<select id="WaitTaskInfo_listWaitTaskInfo" resultMap="waitTaskInfo_result" parameterClass="waitTaskInfo">
+<![CDATA[
+    SELECT
+            TASK_ID, 
+            TASK_TYPE, 
+            BUSINESS_KEY, 
+            BUSINESS_TYPE, 
+            ROLE_ID, 
+            STAFF_ID, 
+            URL, 
+            COMMENTS, 
+            SYSTEM_NAME, 
+            PARAM, 
+            CREATE_TIME, 
+            EXPIRE_TIME
+    FROM t_waittask_info
+    
+]]>
+
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "taskType">
+				TASK_TYPE = #taskType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "businessKey">
+				BUSINESS_KEY = #businessKey#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "businessType">
+				BUSINESS_TYPE = #businessType#
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property = "roleId">
+			  <![CDATA[
+			    (ROLE_ID = #roleId# AND STAFF_ID IS NULL)
+			  ]]>
+			  <isNotEmpty prepend="OR" property = "staffId">
+				STAFF_ID = #staffId#
+			  </isNotEmpty>
+			</isNotEmpty>
+			
+			<isEmpty prepend="and" property = "roleId">
+			    <isNotEmpty prepend="" property = "staffId">
+				   STAFF_ID = #staffId#
+			    </isNotEmpty>
+			</isEmpty>
+		</dynamic>
+		
+</select>
+
+
+<select id="WaitTaskInfo_listWaitTaskInfoCount" resultClass="java.lang.Integer" parameterClass="waitTaskInfo">
+<![CDATA[
+    SELECT
+		COUNT(*)
+    FROM t_waittask_info
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "taskType">
+				TASK_TYPE = #taskType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "businessKey">
+				BUSINESS_KEY = #businessKey#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "businessType">
+				BUSINESS_TYPE = #businessType#
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property = "roleId">
+			  <![CDATA[
+			    (ROLE_ID = #roleId# AND STAFF_ID IS NULL)
+			  ]]>
+			  <isNotEmpty prepend="OR" property = "staffId">
+				STAFF_ID = #staffId#
+			  </isNotEmpty>
+			</isNotEmpty>
+			
+			<isEmpty prepend="and" property = "roleId">
+			    <isNotEmpty prepend="" property = "staffId">
+				   STAFF_ID = #staffId#
+			    </isNotEmpty>
+			</isEmpty>
+		</dynamic>
+</select>
+
+</sqlMap>

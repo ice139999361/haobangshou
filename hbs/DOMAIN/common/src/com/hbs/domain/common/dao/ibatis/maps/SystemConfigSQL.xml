@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="SystemConfig">
+<typeAlias alias="systemConfig" type="com.hbs.domain.common.pojo.SystemConfig"/> 
+<resultMap id="systemConfig_result" class="systemConfig">
+    <result property="configName" column="CONFIG_NAME"/>
+    <result property="configValue" column="CONFIG_VALUE"/>
+    <result property="valueType" column="VALUE_TYPE"/>
+    <result property="valueRange" column="VALUE_RANGE"/>
+    <result property="configDesc" column="CONFIG_DESC"/>
+    <result property="visibaleFlag" column="VISIBLE_FLAG"/>
+    <result property="configRegion" column="CONFIG_REGION"/>
+    <result property="subSystem" column="SUB_SYSTEM"/>
+    <result property="lastUpdate" column="LAST_UPDATE"/>
+</resultMap>
+
+
+<insert id="SystemConfig_insertSystemConfig" parameterClass="systemConfig" >
+<![CDATA[
+    INSERT INTO T_SYSTEM_CONFIG (
+            CONFIG_NAME, 
+            CONFIG_VALUE, 
+            VALUE_TYPE, 
+            VALUE_RANGE, 
+            CONFIG_DESC, 
+            VISIBLE_FLAG, 
+            CONFIG_REGION, 
+            SUB_SYSTEM, 
+            LAST_UPDATE
+        )
+    VALUES (
+            #configName#,
+            #configValue#,
+            #valueType#,
+            #valueRange#,
+            #configDesc#,
+            #visibaleFlag#,
+            #configRegion#,
+            #subSystem#,
+            #lastUpdate#
+    )
+]]>
+</insert>
+
+<delete id="SystemConfig_deleteSystemConfig" parameterClass="string">
+<![CDATA[
+    DELETE  FROM  T_SYSTEM_CONFIG WHERE CONFIG_NAME = #configName#
+]]>
+</delete>    
+
+<update id="SystemConfig_updateSystemConfig" parameterClass="systemConfig">
+    UPDATE T_SYSTEM_CONFIG 
+    SET
+         CONFIG_NAME = #configName#
+         
+    <isNotEmpty prepend="," property="configValue">
+            CONFIG_VALUE = #configValue#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="valueType">
+            VALUE_TYPE = #valueType#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="valueRange">
+            VALUE_RANGE = #valueRange#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="configDesc">
+            CONFIG_DESC = #configDesc#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="visibaleFlag">
+            VISIBLE_FLAG = #visibaleFlag#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="configRegion">
+            CONFIG_REGION = #configRegion#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="subSystem">
+            SUB_SYSTEM = #subSystem#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="lastUpdate">
+            LAST_UPDATE = #lastUpdate#
+	</isNotEmpty>
+    WHERE CONFIG_NAME = #configName#
+</update> 
+
+<select id="SystemConfig_findSystemConfig" resultMap="systemConfig_result" parameterClass="string">
+<![CDATA[
+    SELECT
+            CONFIG_NAME, 
+            CONFIG_VALUE, 
+            VALUE_TYPE, 
+            VALUE_RANGE, 
+            CONFIG_DESC, 
+            VISIBLE_FLAG, 
+            CONFIG_REGION, 
+            SUB_SYSTEM, 
+            LAST_UPDATE
+    FROM T_SYSTEM_CONFIG WHERE CONFIG_NAME = #configName#
+]]>
+</select>
+
+<select id="SystemConfig_listSystemConfig" resultMap="systemConfig_result" parameterClass="systemConfig">
+<![CDATA[
+    SELECT
+            CONFIG_NAME, 
+            CONFIG_VALUE, 
+            VALUE_TYPE, 
+            VALUE_RANGE, 
+            CONFIG_DESC, 
+            VISIBLE_FLAG, 
+            CONFIG_REGION, 
+            SUB_SYSTEM, 
+            LAST_UPDATE
+    FROM T_SYSTEM_CONFIG
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "configName">
+				CONFIG_NAME = #configName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "configValue">
+				CONFIG_VALUE = #configValue#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "valueType">
+				VALUE_TYPE = #valueType#
+			</isNotEmpty>			
+			<isNotEmpty prepend="and" property = "visibaleFlag">
+				VISIBLE_FLAG = #visibaleFlag#
+			</isNotEmpty>			
+			<isNotEmpty prepend="and" property = "subSystem">
+				SUB_SYSTEM = #subSystem#
+			</isNotEmpty>			
+		</dynamic>
+</select>
+
+</sqlMap>

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="WarehouseRecInfo">
+<typeAlias alias="warehouseRecInfo" type="com.hbs.domain.warehouse.pojo.WarehouseRecInfo"/> 
+<resultMap id="warehouseRecInfo_result" class="warehouseRecInfo">
+    <result property="recPoNo" column="REC_PO_NO"/>
+    <result property="vendorCode" column="C_CODE"/>
+    <result property="shortName" column="SHORT_NAME"/>
+    <result property="poNoDate" column="PO_NO_DATE"/>
+    <result property="applyDate" column="ARRAY_DATE"/>
+    <result property="houseType" column="HOUSE_TYPE"/>
+    <result property="operId" column="OPER_ID"/>
+    <result property="operStaff" column="OPER_STAFF"/>
+    <result property="operTime" column="OPER_TIME"/>
+    <result property="receiveDesc" column="RECEIVE_DESC"/>
+    <result property="period" column="PERIOD"/>
+    <result property="state" column="STATE"/>
+    <result property="activeState" column="ACTIVE_STATE"/>
+    <result property="financeState" column="FINANCE_STATE"/>
+    <result property="poNoType" column="PO_NO_TYPE"/>
+</resultMap>
+
+<select id="WarehouseRecInfo_getNextId" resultClass="java.lang.String">
+<![CDATA[
+    SELECT ltrim(to_char(Seq_T_WAREHOUSE_RECEIVE_Id.Nextval,'0000000000')) 
+           AS Id 
+    FROM dual
+]]>
+</select>
+
+<insert id="WarehouseRecInfo_insertWarehouseRecInfo" parameterClass="warehouseRecInfo" >
+<![CDATA[
+    INSERT INTO T_WAREHOUSE_RECEIVE (
+            REC_PO_NO, 
+            C_CODE, 
+            SHORT_NAME, 
+            PO_NO_DATE, 
+            ARRAY_DATE, 
+            HOUSE_TYPE, 
+            OPER_ID, 
+            OPER_STAFF, 
+            OPER_TIME, 
+            RECEIVE_DESC, 
+            PERIOD, 
+            STATE, 
+            ACTIVE_STATE, 
+            FINANCE_STATE, 
+            PO_NO_TYPE
+        )
+    VALUES (
+            #recPoNo#,
+            #vendorCode#,
+            #shortName#,
+            #poNoDate#,
+            #applyDate#,
+            #houseType#,
+            #operId#,
+            #operStaff#,
+            #operTime#,
+            #receiveDesc#,
+            #period#,
+            #state#,
+            #activeState#,
+            #financeState#,
+            #poNoType#
+    )
+]]>
+</insert>
+
+<delete id="WarehouseRecInfo_deleteWarehouseRecInfo" parameterClass="string">
+<![CDATA[
+    DELETE  FROM  T_WAREHOUSE_RECEIVE WHERE REC_PO_NO = #recPoNo#
+]]>
+</delete>    
+
+<update id="WarehouseRecInfo_updateWarehouseRecInfo" parameterClass="warehouseRecInfo">
+    UPDATE T_WAREHOUSE_RECEIVE 
+    SET
+    	REC_PO_NO = #recPoNo#
+	<isNotEmpty prepend="," property="vendorCode">
+            C_CODE = #vendorCode#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="shortName">
+            SHORT_NAME = #shortName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="poNoDate">
+            PO_NO_DATE = #poNoDate#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="applyDate">
+            ARRAY_DATE = #applyDate#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="houseType">
+            HOUSE_TYPE = #houseType#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="operId">
+            OPER_ID = #operId#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="operStaff">
+            OPER_STAFF = #operStaff#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="operTime">
+            OPER_TIME = #operTime#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="receiveDesc">
+            RECEIVE_DESC = #receiveDesc#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="period">
+            PERIOD = #period#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="state">
+            STATE = #state#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="activeState">
+            ACTIVE_STATE = #activeState#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="financeState">
+            FINANCE_STATE = #financeState#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="poNoType">
+            PO_NO_TYPE = #poNoType#
+	</isNotEmpty>
+    WHERE REC_PO_NO = #recPoNo#
+</update> 
+
+<select id="WarehouseRecInfo_findWarehouseRecInfo" resultMap="warehouseRecInfo_result" parameterClass="string">
+<![CDATA[
+    SELECT
+            REC_PO_NO, 
+            C_CODE, 
+            SHORT_NAME, 
+            PO_NO_DATE, 
+            ARRAY_DATE, 
+            HOUSE_TYPE, 
+            OPER_ID, 
+            OPER_STAFF, 
+            OPER_TIME, 
+            RECEIVE_DESC, 
+            PERIOD, 
+            STATE, 
+            ACTIVE_STATE, 
+            FINANCE_STATE, 
+            PO_NO_TYPE
+    FROM T_WAREHOUSE_RECEIVE WHERE REC_PO_NO = #recPoNo#
+]]>
+</select>
+
+<select id="WarehouseRecInfo_listWarehouseRecInfo" resultMap="warehouseRecInfo_result" parameterClass="warehouseRecInfo">
+<![CDATA[
+    SELECT
+            REC_PO_NO, 
+            C_CODE, 
+            SHORT_NAME, 
+            PO_NO_DATE, 
+            ARRAY_DATE, 
+            HOUSE_TYPE, 
+            OPER_ID, 
+            OPER_STAFF, 
+            OPER_TIME, 
+            RECEIVE_DESC, 
+            PERIOD, 
+            STATE, 
+            ACTIVE_STATE, 
+            FINANCE_STATE, 
+            PO_NO_TYPE
+    FROM T_WAREHOUSE_RECEIVE
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "recPoNo">
+				REC_PO_NO = #recPoNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "vendorCode">
+				C_CODE = #vendorCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "shortName">
+				SHORT_NAME = #shortName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "poNoDate">
+				PO_NO_DATE = #poNoDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "applyDate">
+				ARRAY_DATE = #applyDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "houseType">
+				HOUSE_TYPE = #houseType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "operId">
+				OPER_ID = #operId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "operStaff">
+				OPER_STAFF = #operStaff#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "operTime">
+				OPER_TIME = #operTime#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "receiveDesc">
+				RECEIVE_DESC = #receiveDesc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "period">
+				PERIOD = #period#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "state">
+				STATE = #state#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "activeState">
+				ACTIVE_STATE = #activeState#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "financeState">
+				FINANCE_STATE = #financeState#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "poNoType">
+				PO_NO_TYPE = #poNoType#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+
+<select id="WarehouseRecInfo_listWarehouseRecInfoCount" resultClass="java.lang.Integer" parameterClass="warehouseRecInfo">
+<![CDATA[
+    SELECT
+		COUNT(*)
+    FROM T_WAREHOUSE_RECEIVE
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "recPoNo">
+				REC_PO_NO = #recPoNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "vendorCode">
+				C_CODE = #vendorCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "shortName">
+				SHORT_NAME = #shortName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "poNoDate">
+				PO_NO_DATE = #poNoDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "applyDate">
+				ARRAY_DATE = #applyDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "houseType">
+				HOUSE_TYPE = #houseType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "operId">
+				OPER_ID = #operId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "operStaff">
+				OPER_STAFF = #operStaff#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "operTime">
+				OPER_TIME = #operTime#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "receiveDesc">
+				RECEIVE_DESC = #receiveDesc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "period">
+				PERIOD = #period#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "state">
+				STATE = #state#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "activeState">
+				ACTIVE_STATE = #activeState#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "financeState">
+				FINANCE_STATE = #financeState#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "poNoType">
+				PO_NO_TYPE = #poNoType#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+</sqlMap>

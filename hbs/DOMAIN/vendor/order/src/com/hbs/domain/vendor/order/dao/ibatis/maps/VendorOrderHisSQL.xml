@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="VendorOrder">
+<typeAlias alias="vendorOrder" type="com.hbs.domain.vendor.order.pojo.VendorOrder"/> 
+<resultMap id="vendorOrder_result" class="vendorOrder">
+    <result property="commCode" column="C_CODE"/>
+    <result property="poNo" column="PO_NO"/>
+    <result property="poNoType" column="PO_NO_TYPE"/>
+    <result property="shortName" column="SHORT_NAME"/>
+    <result property="createTime" column="CREATE_TIME"/>
+    <result property="conName" column="CON_NAME"/>
+    <result property="conTel" column="CON_TEL"/>
+    <result property="conFax" column="CON_FAX"/>
+    <result property="companyBranch" column="COMPANY_BRANCH"/>
+    <result property="SettlementType" column="SETTLEMENT_TYPE"/>
+    <result property="ReceiveName" column="RECEIVE_NAME"/>
+    <result property="receiveAddress" column="RECEIVE_ADDRESS"/>
+    <result property="receiveZip" column="RECEIVE_ZIP"/>
+    <result property="staffId" column="STAFF_ID"/>
+    <result property="staffName" column="STAFF_NAME"/>
+    <result property="sales" column="SALES"/>
+    <result property="isShowPrice" column="IS_SHOW_PRICE"/>
+    <result property="orderTime" column="ORDER_TIME"/>
+    <result property="period" column="PERIOD"/>
+    <result property="state" column="STATE"/>
+    <result property="activeState" column="ACTIVE_STATE"/>
+</resultMap>
+
+<select id="VendorOrder_getNextId" resultClass="java.lang.String">
+<![CDATA[
+    SELECT ltrim(to_char(Seq_T_VENDOR_ORDER_HIS_Id.Nextval,'0000000000')) 
+           AS Id 
+    FROM dual
+]]>
+</select>
+
+<insert id="VendorOrder_insertVendorOrder" parameterClass="vendorOrder" >
+<![CDATA[
+    INSERT INTO T_VENDOR_ORDER_HIS (
+            C_CODE, 
+            PO_NO, 
+            PO_NO_TYPE, 
+            SHORT_NAME, 
+            CREATE_TIME, 
+            CON_NAME, 
+            CON_TEL, 
+            CON_FAX, 
+            COMPANY_BRANCH, 
+            SETTLEMENT_TYPE, 
+            RECEIVE_NAME, 
+            RECEIVE_ADDRESS, 
+            RECEIVE_ZIP, 
+            STAFF_ID, 
+            STAFF_NAME, 
+            SALES, 
+            IS_SHOW_PRICE, 
+            ORDER_TIME, 
+            PERIOD, 
+            STATE, 
+            ACTIVE_STATE
+        )
+    VALUES (
+            #commCode#,
+            #poNo#,
+            #poNoType#,
+            #shortName#,
+            #createTime#,
+            #conName#,
+            #conTel#,
+            #conFax#,
+            #companyBranch#,
+            #SettlementType#,
+            #ReceiveName#,
+            #receiveAddress#,
+            #receiveZip#,
+            #staffId#,
+            #staffName#,
+            #sales#,
+            #isShowPrice#,
+            #orderTime#,
+            #period#,
+            #state#,
+            #activeState#
+    )
+]]>
+</insert>
+
+<delete id="VendorOrder_deleteVendorOrder" parameterClass="string">
+<![CDATA[
+    DELETE  FROM  T_VENDOR_ORDER_HIS WHERE C_CODE = #commCode#
+]]>
+</delete>    
+
+<update id="VendorOrder_updateVendorOrder" parameterClass="vendorOrder">
+    UPDATE T_VENDOR_ORDER_HIS 
+    SET
+    	C_CODE = #commCode#
+	<isNotEmpty prepend="," property="poNo">
+            PO_NO = #poNo#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="poNoType">
+            PO_NO_TYPE = #poNoType#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="shortName">
+            SHORT_NAME = #shortName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="createTime">
+            CREATE_TIME = #createTime#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="conName">
+            CON_NAME = #conName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="conTel">
+            CON_TEL = #conTel#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="conFax">
+            CON_FAX = #conFax#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="companyBranch">
+            COMPANY_BRANCH = #companyBranch#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="SettlementType">
+            SETTLEMENT_TYPE = #SettlementType#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="ReceiveName">
+            RECEIVE_NAME = #ReceiveName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="receiveAddress">
+            RECEIVE_ADDRESS = #receiveAddress#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="receiveZip">
+            RECEIVE_ZIP = #receiveZip#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="staffId">
+            STAFF_ID = #staffId#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="staffName">
+            STAFF_NAME = #staffName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="sales">
+            SALES = #sales#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="isShowPrice">
+            IS_SHOW_PRICE = #isShowPrice#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="orderTime">
+            ORDER_TIME = #orderTime#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="period">
+            PERIOD = #period#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="state">
+            STATE = #state#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="activeState">
+            ACTIVE_STATE = #activeState#
+	</isNotEmpty>
+    WHERE C_CODE = #commCode#
+</update> 
+
+<select id="VendorOrder_findVendorOrder" resultMap="vendorOrder_result" parameterClass="string">
+<![CDATA[
+    SELECT
+            C_CODE, 
+            PO_NO, 
+            PO_NO_TYPE, 
+            SHORT_NAME, 
+            CREATE_TIME, 
+            CON_NAME, 
+            CON_TEL, 
+            CON_FAX, 
+            COMPANY_BRANCH, 
+            SETTLEMENT_TYPE, 
+            RECEIVE_NAME, 
+            RECEIVE_ADDRESS, 
+            RECEIVE_ZIP, 
+            STAFF_ID, 
+            STAFF_NAME, 
+            SALES, 
+            IS_SHOW_PRICE, 
+            ORDER_TIME, 
+            PERIOD, 
+            STATE, 
+            ACTIVE_STATE
+    FROM T_VENDOR_ORDER_HIS WHERE C_CODE = #commCode#
+]]>
+</select>
+
+<select id="VendorOrder_listVendorOrder" resultMap="vendorOrder_result" parameterClass="vendorOrder">
+<![CDATA[
+    SELECT
+            C_CODE, 
+            PO_NO, 
+            PO_NO_TYPE, 
+            SHORT_NAME, 
+            CREATE_TIME, 
+            CON_NAME, 
+            CON_TEL, 
+            CON_FAX, 
+            COMPANY_BRANCH, 
+            SETTLEMENT_TYPE, 
+            RECEIVE_NAME, 
+            RECEIVE_ADDRESS, 
+            RECEIVE_ZIP, 
+            STAFF_ID, 
+            STAFF_NAME, 
+            SALES, 
+            IS_SHOW_PRICE, 
+            ORDER_TIME, 
+            PERIOD, 
+            STATE, 
+            ACTIVE_STATE
+    FROM T_VENDOR_ORDER_HIS
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "commCode">
+				C_CODE = #commCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "poNo">
+				PO_NO = #poNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "poNoType">
+				PO_NO_TYPE = #poNoType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "shortName">
+				SHORT_NAME = #shortName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "createTime">
+				CREATE_TIME = #createTime#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "conName">
+				CON_NAME = #conName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "conTel">
+				CON_TEL = #conTel#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "conFax">
+				CON_FAX = #conFax#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "companyBranch">
+				COMPANY_BRANCH = #companyBranch#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "SettlementType">
+				SETTLEMENT_TYPE = #SettlementType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "ReceiveName">
+				RECEIVE_NAME = #ReceiveName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "receiveAddress">
+				RECEIVE_ADDRESS = #receiveAddress#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "receiveZip">
+				RECEIVE_ZIP = #receiveZip#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffId">
+				STAFF_ID = #staffId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffName">
+				STAFF_NAME = #staffName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "sales">
+				SALES = #sales#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "isShowPrice">
+				IS_SHOW_PRICE = #isShowPrice#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "orderTime">
+				ORDER_TIME = #orderTime#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "period">
+				PERIOD = #period#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "state">
+				STATE = #state#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "activeState">
+				ACTIVE_STATE = #activeState#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+
+<select id="VendorOrder_listVendorOrderCount" resultClass="java.lang.Integer" parameterClass="vendorOrder">
+<![CDATA[
+    SELECT
+		COUNT(*)
+    FROM T_VENDOR_ORDER_HIS
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "commCode">
+				C_CODE = #commCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "poNo">
+				PO_NO = #poNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "poNoType">
+				PO_NO_TYPE = #poNoType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "shortName">
+				SHORT_NAME = #shortName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "createTime">
+				CREATE_TIME = #createTime#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "conName">
+				CON_NAME = #conName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "conTel">
+				CON_TEL = #conTel#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "conFax">
+				CON_FAX = #conFax#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "companyBranch">
+				COMPANY_BRANCH = #companyBranch#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "SettlementType">
+				SETTLEMENT_TYPE = #SettlementType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "ReceiveName">
+				RECEIVE_NAME = #ReceiveName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "receiveAddress">
+				RECEIVE_ADDRESS = #receiveAddress#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "receiveZip">
+				RECEIVE_ZIP = #receiveZip#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffId">
+				STAFF_ID = #staffId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffName">
+				STAFF_NAME = #staffName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "sales">
+				SALES = #sales#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "isShowPrice">
+				IS_SHOW_PRICE = #isShowPrice#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "orderTime">
+				ORDER_TIME = #orderTime#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "period">
+				PERIOD = #period#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "state">
+				STATE = #state#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "activeState">
+				ACTIVE_STATE = #activeState#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+</sqlMap>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans> 
+	<!-- dao bean -->
+	<!-- 仓库信息DAO   -->
+	<bean id="wareHouseInfoDao" class="com.hbs.domain.warehouse.dao.ibatis.WareHouseInfoDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>	
+	
+	<!-- 仓库操作日志DAO实现类   parent="operLogDao" -->
+	<bean id="WarehouseOperLogDao"  class="com.hbs.domain.warehouse.dao.ibatis.WarehouseOperLogDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<!-- 仓库操作日志历史DAO实现类   parent="operLogDao" -->
+	<bean id="WarehouseOperLogHisDao"  class="com.hbs.domain.warehouse.dao.ibatis.WarehouseOperLogHisDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<!-- 仓库收货明细DAO接口类 -->
+	<bean id="recDetailDao"  class="com.hbs.domain.warehouse.dao.ibatis.WarehouseRecDetailDao" abstract ="true">
+    </bean>
+    
+    <!-- 仓库收货DAO接口类 -->
+	<bean id="recInfoDao"  class="com.hbs.domain.warehouse.dao.ibatis.WarehouseRecInfoDao" abstract ="true">
+    </bean>
+	
+	<!-- 仓库发货明细DAO接口类 -->
+	<bean id="sendDetailDao"  class="com.hbs.domain.warehouse.dao.ibatis.WarehouseSendDetailDao" abstract ="true">
+    </bean>	
+    
+    <!-- 仓库发货DAO接口类 -->
+	<bean id="sendInfolDao"  class="com.hbs.domain.warehouse.dao.ibatis.WarehouseSendInfoDao" abstract ="true">
+    </bean>
+    
+    <!-- 仓库收货明细DAO实现类   parent="recDetailDao" -->
+	<bean id="WarehouseRecDetailDao"  parent="recDetailDao" class="com.hbs.domain.warehouse.dao.ibatis.WarehouseRecDetailDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>    
+    
+    <!-- 仓库收货明细历史DAO实现类   parent="recDetailDao" -->
+	<bean id="WarehouseRecDetailHisDao"  parent="recDetailDao" class="com.hbs.domain.warehouse.dao.ibatis.WarehouseRecDetailHisDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<!-- 仓库收货信息DAO实现类   parent="recInfoDao" -->
+	<bean id="WarehouseRecInfoDao"  parent="recInfoDao" class="com.hbs.domain.warehouse.dao.ibatis.WarehouseRecInfoDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>    
+    
+    <!-- 仓库收货信息历史DAO实现类   parent="recInfoDao" -->
+	<bean id="WarehouseRecInfoHisDao"  parent="recInfoDao" class="com.hbs.domain.warehouse.dao.ibatis.WarehouseRecInfoHisDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<!-- 仓库发货货明细DAO实现类   parent="sendDetailDao" -->
+	<bean id="WarehouseSendDetailDao"  parent="sendDetailDao" class="com.hbs.domain.warehouse.dao.ibatis.WarehouseSendDetailDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>    
+    
+    <!-- 仓库发货货明细历史DAO实现类   parent="sendDetailDao" -->
+	<bean id="WarehouseSendDetailHisDao"  parent="sendDetailDao" class="com.hbs.domain.warehouse.dao.ibatis.WarehouseSendDetailHisDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<!-- 仓库发货货信息DAO实现类   parent="sendInfolDao" -->
+	<bean id="WarehouseSendInfoDao"  parent="sendInfolDao" class="com.hbs.domain.warehouse.dao.ibatis.WarehouseSendInfoDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>    
+    
+    <!-- 仓库收货信息历史DAO实现类   parent="sendInfolDao" -->
+	<bean id="WarehouseSendInfoHisDao"  parent="sendInfolDao" class="com.hbs.domain.warehouse.dao.ibatis.WarehouseSendInfoHisDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+</beans>

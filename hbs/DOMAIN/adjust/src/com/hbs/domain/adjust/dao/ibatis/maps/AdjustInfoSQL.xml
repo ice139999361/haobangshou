@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="AdjustInfo">
+<typeAlias alias="adjustInfo" type="com.hbs.domain.adjust.pojo.AdjustInfo"/> 
+<resultMap id="adjustInfo_result" class="adjustInfo">
+    <result property="applySeqId" column="APPLY_SEQID"/>
+    <result property="staffId" column="STAFF_ID"/>
+    <result property="staffName" column="STAFF_NAME"/>
+    <result property="applyDate" column="APPLY_DATE"/>
+    <result property="poNo" column="PO_NO"/>
+    <result property="partNo" column="PART_NO"/>
+    <result property="pnDesc" column="PN_DESC"/>
+    <result property="houseType" column="HOUSE_TYPE"/>
+    <result property="applyAmount" column="APPLY_AMOUNT"/>
+    <result property="vendorCode" column="VENDOR_CODE"/>
+    <result property="shortName" column="SHORT_NAME"/>
+    <result property="applyContent" column="APPLY_CONTENT"/>
+    <result property="fromCustCode" column="FROM_CUST_CODE"/>
+    <result property="fromCustName" column="FROM_C_NAME"/>
+    <result property="toCustCode" column="TO_CUST_CODE"/>
+    <result property="toCustName" column="TO_C_NAME"/>
+    <result property="auditStaffId" column="AUDIT_STAFF_ID"/>
+    <result property="auditStaffName" column="AUDIT_STAFF_NAME"/>
+    <result property="auditDate" column="AUDIT_DATE"/>
+    <result property="auditAgree" column="AUDIT_AGREE"/>
+    <result property="auditContent" column="AUDIT_CONTENT"/>
+</resultMap>
+
+<select id="AdjustInfo_getNextId" resultClass="java.lang.String">
+<![CDATA[
+    SELECT ltrim(to_char(Seq_T_ADJUST_INFO_Id.Nextval,'0000000000')) 
+           AS Id 
+    FROM dual
+]]>
+</select>
+
+<insert id="AdjustInfo_insertAdjustInfo" parameterClass="adjustInfo" >
+<![CDATA[
+    INSERT INTO T_ADJUST_INFO (
+            APPLY_SEQID, 
+            STAFF_ID, 
+            STAFF_NAME, 
+            APPLY_DATE, 
+            PO_NO, 
+            PART_NO, 
+            PN_DESC, 
+            HOUSE_TYPE, 
+            APPLY_AMOUNT, 
+            VENDOR_CODE, 
+            SHORT_NAME, 
+            APPLY_CONTENT, 
+            FROM_CUST_CODE, 
+            FROM_C_NAME, 
+            TO_CUST_CODE, 
+            TO_C_NAME, 
+            AUDIT_STAFF_ID, 
+            AUDIT_STAFF_NAME, 
+            AUDIT_DATE, 
+            AUDIT_AGREE, 
+            AUDIT_CONTENT
+        )
+    VALUES (
+            #applySeqId#,
+            #staffId#,
+            #staffName#,
+            #applyDate#,
+            #poNo#,
+            #partNo#,
+            #pnDesc#,
+            #houseType#,
+            #applyAmount#,
+            #vendorCode#,
+            #shortName#,
+            #applyContent#,
+            #fromCustCode#,
+            #fromCustName#,
+            #toCustCode#,
+            #toCustName#,
+            #auditStaffId#,
+            #auditStaffName#,
+            #auditDate#,
+            #auditAgree#,
+            #auditContent#
+    )
+]]>
+</insert>
+
+<delete id="AdjustInfo_deleteAdjustInfo" parameterClass="string">
+<![CDATA[
+    DELETE  FROM  T_ADJUST_INFO WHERE APPLY_SEQID = #applySeqId#
+]]>
+</delete>    
+
+<update id="AdjustInfo_updateAdjustInfo" parameterClass="adjustInfo">
+    UPDATE T_ADJUST_INFO 
+    SET
+    	APPLY_SEQID = #applySeqId#
+	<isNotEmpty prepend="," property="staffId">
+            STAFF_ID = #staffId#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="staffName">
+            STAFF_NAME = #staffName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="applyDate">
+            APPLY_DATE = #applyDate#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="poNo">
+            PO_NO = #poNo#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="partNo">
+            PART_NO = #partNo#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="pnDesc">
+            PN_DESC = #pnDesc#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="houseType">
+            HOUSE_TYPE = #houseType#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="applyAmount">
+            APPLY_AMOUNT = #applyAmount#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="vendorCode">
+            VENDOR_CODE = #vendorCode#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="shortName">
+            SHORT_NAME = #shortName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="applyContent">
+            APPLY_CONTENT = #applyContent#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="fromCustCode">
+            FROM_CUST_CODE = #fromCustCode#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="fromCustName">
+            FROM_C_NAME = #fromCustName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="toCustCode">
+            TO_CUST_CODE = #toCustCode#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="toCustName">
+            TO_C_NAME = #toCustName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="auditStaffId">
+            AUDIT_STAFF_ID = #auditStaffId#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="auditStaffName">
+            AUDIT_STAFF_NAME = #auditStaffName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="auditDate">
+            AUDIT_DATE = #auditDate#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="auditAgree">
+            AUDIT_AGREE = #auditAgree#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="auditContent">
+            AUDIT_CONTENT = #auditContent#
+	</isNotEmpty>
+    WHERE APPLY_SEQID = #applySeqId#
+</update> 
+
+<select id="AdjustInfo_findAdjustInfo" resultMap="adjustInfo_result" parameterClass="string">
+<![CDATA[
+    SELECT
+            APPLY_SEQID, 
+            STAFF_ID, 
+            STAFF_NAME, 
+            APPLY_DATE, 
+            PO_NO, 
+            PART_NO, 
+            PN_DESC, 
+            HOUSE_TYPE, 
+            APPLY_AMOUNT, 
+            VENDOR_CODE, 
+            SHORT_NAME, 
+            APPLY_CONTENT, 
+            FROM_CUST_CODE, 
+            FROM_C_NAME, 
+            TO_CUST_CODE, 
+            TO_C_NAME, 
+            AUDIT_STAFF_ID, 
+            AUDIT_STAFF_NAME, 
+            AUDIT_DATE, 
+            AUDIT_AGREE, 
+            AUDIT_CONTENT
+    FROM T_ADJUST_INFO WHERE APPLY_SEQID = #applySeqId#
+]]>
+</select>
+
+<select id="AdjustInfo_listAdjustInfo" resultMap="adjustInfo_result" parameterClass="adjustInfo">
+<![CDATA[
+    SELECT
+            APPLY_SEQID, 
+            STAFF_ID, 
+            STAFF_NAME, 
+            APPLY_DATE, 
+            PO_NO, 
+            PART_NO, 
+            PN_DESC, 
+            HOUSE_TYPE, 
+            APPLY_AMOUNT, 
+            VENDOR_CODE, 
+            SHORT_NAME, 
+            APPLY_CONTENT, 
+            FROM_CUST_CODE, 
+            FROM_C_NAME, 
+            TO_CUST_CODE, 
+            TO_C_NAME, 
+            AUDIT_STAFF_ID, 
+            AUDIT_STAFF_NAME, 
+            AUDIT_DATE, 
+            AUDIT_AGREE, 
+            AUDIT_CONTENT
+    FROM T_ADJUST_INFO
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "applySeqId">
+				APPLY_SEQID = #applySeqId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffId">
+				STAFF_ID = #staffId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffName">
+				STAFF_NAME = #staffName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "applyDate">
+				APPLY_DATE = #applyDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "poNo">
+				PO_NO = #poNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "partNo">
+				PART_NO = #partNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "pnDesc">
+				PN_DESC = #pnDesc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "houseType">
+				HOUSE_TYPE = #houseType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "applyAmount">
+				APPLY_AMOUNT = #applyAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "vendorCode">
+				VENDOR_CODE = #vendorCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "shortName">
+				SHORT_NAME = #shortName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "applyContent">
+				APPLY_CONTENT = #applyContent#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "fromCustCode">
+				FROM_CUST_CODE = #fromCustCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "fromCustName">
+				FROM_C_NAME = #fromCustName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "toCustCode">
+				TO_CUST_CODE = #toCustCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "toCustName">
+				TO_C_NAME = #toCustName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "auditStaffId">
+				AUDIT_STAFF_ID = #auditStaffId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "auditStaffName">
+				AUDIT_STAFF_NAME = #auditStaffName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "auditDate">
+				AUDIT_DATE = #auditDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "auditAgree">
+				AUDIT_AGREE = #auditAgree#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "auditContent">
+				AUDIT_CONTENT = #auditContent#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+
+<select id="AdjustInfo_listAdjustInfoCount" resultClass="java.lang.Integer" parameterClass="adjustInfo">
+<![CDATA[
+    SELECT
+		COUNT(*)
+    FROM T_ADJUST_INFO
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "applySeqId">
+				APPLY_SEQID = #applySeqId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffId">
+				STAFF_ID = #staffId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffName">
+				STAFF_NAME = #staffName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "applyDate">
+				APPLY_DATE = #applyDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "poNo">
+				PO_NO = #poNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "partNo">
+				PART_NO = #partNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "pnDesc">
+				PN_DESC = #pnDesc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "houseType">
+				HOUSE_TYPE = #houseType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "applyAmount">
+				APPLY_AMOUNT = #applyAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "vendorCode">
+				VENDOR_CODE = #vendorCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "shortName">
+				SHORT_NAME = #shortName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "applyContent">
+				APPLY_CONTENT = #applyContent#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "fromCustCode">
+				FROM_CUST_CODE = #fromCustCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "fromCustName">
+				FROM_C_NAME = #fromCustName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "toCustCode">
+				TO_CUST_CODE = #toCustCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "toCustName">
+				TO_C_NAME = #toCustName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "auditStaffId">
+				AUDIT_STAFF_ID = #auditStaffId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "auditStaffName">
+				AUDIT_STAFF_NAME = #auditStaffName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "auditDate">
+				AUDIT_DATE = #auditDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "auditAgree">
+				AUDIT_AGREE = #auditAgree#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "auditContent">
+				AUDIT_CONTENT = #auditContent#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+</sqlMap>

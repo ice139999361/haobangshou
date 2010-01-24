@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="ProductClass">
+<typeAlias alias="productClass" type="com.hbs.domain.product.pojo.ProductClass"/> 
+<resultMap id="productClass_result" class="productClass">
+    <result property="clsCode" column="P_CLS_CODE"/>
+    <result property="catCode" column="P_CAT_CODE"/>
+    <result property="clsName" column="P_CLS_NAME"/>
+    <result property="clsDesc" column="P_CLS_DESC"/>
+</resultMap>
+
+
+<insert id="ProductClass_insertProductClass" parameterClass="productClass" >
+<![CDATA[
+    INSERT INTO T_PRODUCT_CLASS (
+            P_CLS_CODE, 
+            P_CAT_CODE, 
+            P_CLS_NAME, 
+            P_CLS_DESC
+        )
+    VALUES (
+            #clsCode#,
+            #catCode#,
+            #clsName#,
+            #clsDesc#
+    )
+]]>
+</insert>
+
+<delete id="ProductClass_deleteProductClass" parameterClass="string">
+<![CDATA[
+    DELETE  FROM  T_PRODUCT_CLASS WHERE P_CLS_CODE = #clsCode#
+]]>
+</delete>    
+
+<update id="ProductClass_updateProductClass" parameterClass="productClass">
+    UPDATE T_PRODUCT_CLASS 
+    SET
+    	P_CLS_CODE = #clsCode#
+	<isNotEmpty prepend="," property="catCode">
+            P_CAT_CODE = #catCode#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="clsName">
+            P_CLS_NAME = #clsName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="clsDesc">
+            P_CLS_DESC = #clsDesc#
+	</isNotEmpty>
+    WHERE P_CLS_CODE = #clsCode#
+</update> 
+
+<select id="ProductClass_findProductClass" resultMap="productClass_result" parameterClass="string">
+<![CDATA[
+    SELECT
+            P_CLS_CODE, 
+            P_CAT_CODE, 
+            P_CLS_NAME, 
+            P_CLS_DESC
+    FROM T_PRODUCT_CLASS WHERE P_CLS_CODE = #clsCode#
+]]>
+</select>
+
+<select id="ProductClass_listProductClass" resultMap="productClass_result" parameterClass="productClass">
+<![CDATA[
+    SELECT
+            P_CLS_CODE, 
+            P_CAT_CODE, 
+            P_CLS_NAME, 
+            P_CLS_DESC
+    FROM T_PRODUCT_CLASS
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "clsCode">
+				P_CLS_CODE like '%$clsCode$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "catCode">
+				P_CAT_CODE like '%$catCode$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "clsName">
+				P_CLS_NAME like '%$clsName$%'
+			</isNotEmpty>	
+			<isNotEmpty prepend="order by" property="sort">
+                   $sort$
+            </isNotEmpty>		
+		</dynamic>
+<![CDATA[
+      LIMIT #start# ,#end#
+]]>
+</select>
+
+
+<select id="ProductClass_listProductClassCount" resultClass="java.lang.Integer" parameterClass="productClass">
+<![CDATA[
+    SELECT
+		COUNT(*)
+    FROM T_PRODUCT_CLASS
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "clsCode">
+				P_CLS_CODE like '%$clsCode$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "catCode">
+				P_CAT_CODE like '%$catCode$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "clsName">
+				P_CLS_NAME like '%$clsName$%'
+			</isNotEmpty>	
+		</dynamic>
+</select>
+
+</sqlMap>

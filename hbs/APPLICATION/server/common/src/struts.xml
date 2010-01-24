@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.devMode" value="false" />
+	
+	<!--start merged code-->	
+<!-- <include file="struts-app-auth.xml"/> -->
+<include file="struts-app-common-sims.xml"/>
+<!--<include file="struts-app-common.xml"/>
+<include file="struts-app-eoms.xml"/>
+<include file="struts-app-misdata.xml"/>
+<include file="struts-app-si.xml"/>
+<include file="struts-app-spreq-common.xml"/>
+<include file="struts-app-spreq-punish.xml"/>
+<include file="struts-app-spreq-service.xml"/>
+<include file="struts-app-spreq-sp.xml"/>
+<include file="struts-app-synthetical-resource.xml"/>
+<include file="struts-app-unifycase.xml"/>
+<include file="struts-component-attachment.xml"/>
+<include file="struts-framework-authproxy.xml"/>
+<include file="struts-framework-pendtask.xml"/>-->
+
+	<!--end merged code-->	
+</struts>
