@@ -1,0 +1,23 @@
+﻿{
+    "data": {
+        "list": [
+            {
+                "id": "HR-0062",
+                "name": "Ice.",
+                "sex": "男",
+								"birthday": "1987-11-17",
+								"jstest1" : "jstest1",
+								"jstest2" : "jstest2"
+            },{
+                "id": "HR-0063",
+                "name": "Snow.",
+                "sex": "女",
+								"birthday": "1987-11-11",
+								"jstest1" : "jstest1",
+								"jstest2" : "jstest2"
+            }
+        ]
+    },
+    "success": true,
+    "totalCount": 2
+}
