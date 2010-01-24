@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="CustomerOrder">
+<typeAlias alias="customerOrder" type="com.hbs.domain.customer.order.pojo.CustomerOrder"/> 
+<resultMap id="customerOrder_result" class="customerOrder">
+    <result property="commCode" column="C_CODE"/>
+    <result property="poNo" column="PO_NO"/>
+    <result property="poNoType" column="PO_NO_TYPE"/>
+    <result property="shortName" column="SHORT_NAME"/>
+    <result property="oderTime" column="ORDER_TIME"/>
+    <result property="conName" column="CON_NAME"/>
+    <result property="conTel" column="CON_TEL"/>
+    <result property="conFax" column="CON_FAX"/>
+    <result property="companyBranch" column="COMPANY_BRANCH"/>
+    <result property="SettlementType" column="SETTLEMENT_TYPE"/>
+    <result property="ReceiveName" column="RECEIVE_NAME"/>
+    <result property="receiveAddress" column="RECEIVE_ADDRESS"/>
+    <result property="receiveZip" column="RECEIVE_ZIP"/>
+    <result property="staffId" column="STAFF_ID"/>
+    <result property="staffName" column="STAFF_NAME"/>
+    <result property="salesId" column="SALES_ID"/>
+    <result property="sales" column="SALES"/>
+    <result property="isShowPrice" column="IS_SHOW_PRICE"/>
+    <result property="vendorCode" column="VENDOR_CODE"/>
+    <result property="fristCreateTime" column="FIRST_CREATE_TIME"/>
+    <result property="createTime" column="CREATE_TIME"/>
+    <result property="period" column="PERIOD"/>
+    <result property="state" column="STATE"/>
+    <result property="activeState" column="ACTIVE_STATE"/>
+</resultMap>
+
+
+
+<insert id="CustomerOrder_insertCustomerOrder" parameterClass="customerOrder" >
+<![CDATA[
+    INSERT INTO T_CUST_ORDER (
+            C_CODE, 
+            PO_NO, 
+            PO_NO_TYPE, 
+            SHORT_NAME, 
+            ORDER_TIME, 
+            CON_NAME, 
+            CON_TEL, 
+            CON_FAX, 
+            COMPANY_BRANCH, 
+            SETTLEMENT_TYPE, 
+            RECEIVE_NAME, 
+            RECEIVE_ADDRESS, 
+            RECEIVE_ZIP, 
+            STAFF_ID, 
+            STAFF_NAME, 
+            SALES_ID, 
+            SALES, 
+            IS_SHOW_PRICE, 
+            VENDOR_CODE, 
+            FIRST_CREATE_TIME, 
+            CREATE_TIME, 
+            PERIOD, 
+            STATE, 
+            ACTIVE_STATE
+        )
+    VALUES (
+            #commCode#,
+            #poNo#,
+            #poNoType#,
+            #shortName#,
+            #oderTime#,
+            #conName#,
+            #conTel#,
+            #conFax#,
+            #companyBranch#,
+            #SettlementType#,
+            #ReceiveName#,
+            #receiveAddress#,
+            #receiveZip#,
+            #staffId#,
+            #staffName#,
+            #salesId#,
+            #sales#,
+            #isShowPrice#,
+            #vendorCode#,
+            #fristCreateTime#,
+            #createTime#,
+            #period#,
+            #state#,
+            #activeState#
+    )
+]]>
+</insert>
+
+<delete id="CustomerOrder_deleteCustomerOrder" parameterClass="string">
+<![CDATA[
+    DELETE  FROM  T_CUST_ORDER WHERE C_CODE = #commCode#
+]]>
+</delete>    
+
+<update id="CustomerOrder_updateCustomerOrderByActiveState" parameterClass="customerOrder">
+<![CDATA[
+    UPDATE T_CUST_ORDER
+    SET ACTIVE_STATE = #activeState# 
+    WHERE C_CODE = #commCode# AND PO_NO = #poNo#
+]]>	
+</update>
+
+<update id="CustomerOrder_updateCustomerOrderByState" parameterClass="customerOrder">
+	<![CDATA[
+	    UPDATE T_CUST_ORDER
+	    SET STATE = #state#     
+	]]>	
+	<dynamic prepend="WHERE">					
+					<isNotEmpty prepend="and" property = "commCode">
+						C_CODE = #commCode#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property = "poNo">
+						PO_NO = #poNo#
+					</isNotEmpty>
+					<isNotEmpty prepend = "and" property = "dynamicFields.state" >
+						<![CDATA[ 
+						  STATE != '%$dynamicFields.state$%'
+						]]> 
+					</isNotEmpty>
+		</dynamic>
+</update>
+
+<update id="CustomerOrder_updateCustomerOrder" parameterClass="customerOrder">
+    UPDATE T_CUST_ORDER 
+    SET
+    	C_CODE = #commCode#
+	<isNotEmpty prepend="," property="poNo">
+            PO_NO = #poNo#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="poNoType">
+            PO_NO_TYPE = #poNoType#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="shortName">
+            SHORT_NAME = #shortName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="oderTime">
+            ORDER_TIME = #oderTime#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="conName">
+            CON_NAME = #conName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="conTel">
+            CON_TEL = #conTel#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="conFax">
+            CON_FAX = #conFax#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="companyBranch">
+            COMPANY_BRANCH = #companyBranch#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="SettlementType">
+            SETTLEMENT_TYPE = #SettlementType#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="ReceiveName">
+            RECEIVE_NAME = #ReceiveName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="receiveAddress">
+            RECEIVE_ADDRESS = #receiveAddress#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="receiveZip">
+            RECEIVE_ZIP = #receiveZip#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="staffId">
+            STAFF_ID = #staffId#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="staffName">
+            STAFF_NAME = #staffName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="salesId">
+            SALES_ID = #salesId#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="sales">
+            SALES = #sales#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="isShowPrice">
+            IS_SHOW_PRICE = #isShowPrice#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="vendorCode">
+            VENDOR_CODE = #vendorCode#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="fristCreateTime">
+            FIRST_CREATE_TIME = #fristCreateTime#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="createTime">
+            CREATE_TIME = #createTime#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="period">
+            PERIOD = #period#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="state">
+            STATE = #state#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="activeState">
+            ACTIVE_STATE = #activeState#
+	</isNotEmpty>
+    WHERE C_CODE = #commCode# AND PO_NO = #poNo#
+</update> 
+
+<select id="CustomerOrder_findCustomerOrder" resultMap="customerOrder_result" parameterClass="customerOrder">
+<![CDATA[
+    SELECT
+            C_CODE, 
+            PO_NO, 
+            PO_NO_TYPE, 
+            SHORT_NAME, 
+            ORDER_TIME, 
+            CON_NAME, 
+            CON_TEL, 
+            CON_FAX, 
+            COMPANY_BRANCH, 
+            SETTLEMENT_TYPE, 
+            RECEIVE_NAME, 
+            RECEIVE_ADDRESS, 
+            RECEIVE_ZIP, 
+            STAFF_ID, 
+            STAFF_NAME, 
+            SALES_ID, 
+            SALES, 
+            IS_SHOW_PRICE, 
+            VENDOR_CODE, 
+            FIRST_CREATE_TIME, 
+            CREATE_TIME, 
+            PERIOD, 
+            STATE, 
+            ACTIVE_STATE
+    FROM T_CUST_ORDER WHERE C_CODE = #commCode# AND PO_NO = #poNo#
+]]>
+</select>
+
+<select id="CustomerOrder_listCustomerOrder" resultMap="customerOrder_result" parameterClass="customerOrder">
+<![CDATA[
+    SELECT
+            C_CODE, 
+            PO_NO, 
+            PO_NO_TYPE, 
+            SHORT_NAME, 
+            ORDER_TIME, 
+            CON_NAME, 
+            CON_TEL, 
+            CON_FAX, 
+            COMPANY_BRANCH, 
+            SETTLEMENT_TYPE, 
+            RECEIVE_NAME, 
+            RECEIVE_ADDRESS, 
+            RECEIVE_ZIP, 
+            STAFF_ID, 
+            STAFF_NAME, 
+            SALES_ID, 
+            SALES, 
+            IS_SHOW_PRICE, 
+            VENDOR_CODE, 
+            FIRST_CREATE_TIME, 
+            CREATE_TIME, 
+            PERIOD, 
+            STATE, 
+            ACTIVE_STATE
+    FROM T_CUST_ORDER
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "commCode">
+				C_CODE = #commCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "poNo">
+				PO_NO = #poNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "poNoType">
+				PO_NO_TYPE = #poNoType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "shortName">
+				SHORT_NAME = #shortName#
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property = "conName">
+				CON_NAME = #conName#
+			</isNotEmpty>			
+			<isNotEmpty prepend="and" property = "companyBranch">
+				COMPANY_BRANCH = #companyBranch#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "SettlementType">
+				SETTLEMENT_TYPE = #SettlementType#
+			</isNotEmpty>			
+			<isNotEmpty prepend="and" property = "staffId">
+				STAFF_ID = #staffId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffName">
+				STAFF_NAME = #staffName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "salesId">
+				SALES_ID = #salesId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "sales">
+				SALES = #sales#
+			</isNotEmpty>			
+			<isNotEmpty prepend="and" property = "vendorCode">
+				VENDOR_CODE = #vendorCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "period">
+				PERIOD = #period#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "state">
+				STATE = #state#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "activeState">
+				ACTIVE_STATE = #activeState#
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeBegainTime">
+				<![CDATA[	
+					ORDER_TIME >= STR_TO_DATE('$dynamicFields.startDate$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeEndTime">
+				<![CDATA[	
+					ORDER_TIME <= STR_TO_DATE('$dynamicFields.likeEndTime$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>				
+			<isNotEmpty prepend="order by" property="sort">
+                   $sort$
+            </isNotEmpty>
+		</dynamic>
+		<![CDATA[
+      		LIMIT #start# ,#end#
+		]]>
+</select>
+
+
+<select id="CustomerOrder_listCustomerOrderCount" resultClass="java.lang.Integer" parameterClass="customerOrder">
+<![CDATA[
+    SELECT
+		COUNT(1)
+    FROM T_CUST_ORDER
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "commCode">
+				C_CODE = #commCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "poNo">
+				PO_NO = #poNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "poNoType">
+				PO_NO_TYPE = #poNoType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "shortName">
+				SHORT_NAME = #shortName#
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property = "conName">
+				CON_NAME = #conName#
+			</isNotEmpty>			
+			<isNotEmpty prepend="and" property = "companyBranch">
+				COMPANY_BRANCH = #companyBranch#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "SettlementType">
+				SETTLEMENT_TYPE = #SettlementType#
+			</isNotEmpty>			
+			<isNotEmpty prepend="and" property = "staffId">
+				STAFF_ID = #staffId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffName">
+				STAFF_NAME = #staffName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "salesId">
+				SALES_ID = #salesId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "sales">
+				SALES = #sales#
+			</isNotEmpty>			
+			<isNotEmpty prepend="and" property = "vendorCode">
+				VENDOR_CODE = #vendorCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "period">
+				PERIOD = #period#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "state">
+				STATE = #state#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "activeState">
+				ACTIVE_STATE = #activeState#
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeBegainTime">
+				<![CDATA[	
+					ORDER_TIME >= STR_TO_DATE('$dynamicFields.startDate$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeEndTime">
+				<![CDATA[	
+					ORDER_TIME <= STR_TO_DATE('$dynamicFields.likeEndTime$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>				
+			<isNotEmpty prepend="order by" property="sort">
+                   $sort$
+            </isNotEmpty>
+		</dynamic>
+</select>
+
+</sqlMap>

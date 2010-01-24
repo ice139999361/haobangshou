@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans> 
+	<!-- dao bean -->
+	<!-- 待办配置DAO实现类   -->
+	<bean id="waitTaskConfigInfoDao" class="com.hbs.domain.waittask.dao.ibatis.WaitTaskConfigInfoDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>	
+	
+	<!-- 待办信息DAO实现类   -->
+	<bean id="waitTaskInfoDao" class="com.hbs.domain.waittask.dao.ibatis.WaitTaskInfoDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+</beans>

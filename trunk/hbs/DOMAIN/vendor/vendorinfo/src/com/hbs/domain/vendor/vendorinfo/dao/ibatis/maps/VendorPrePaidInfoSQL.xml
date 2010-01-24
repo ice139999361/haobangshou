@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="PrePaidInfo">
+<typeAlias alias="prePaidInfo" type="com.hbs.domain.common.pojo.baseinfo.PrePaidInfo"/> 
+<resultMap id="prePaidInfo_result" class="prePaidInfo">
+    <result property="commCode" column="C_CODE"/>
+    <result property="state" column="STATE"/>
+    <result property="prePaid" column="PRE_PAID"/>
+    <result property="reminderDay" column="REMINDER_DAY"/>
+</resultMap>
+
+<select id="PrePaidInfo_getNextId" resultClass="java.lang.String">
+<![CDATA[
+    SELECT ltrim(to_char(Seq_T_VENDOR_PREPAID_Id.Nextval,'0000000000')) 
+           AS Id 
+    FROM dual
+]]>
+</select>
+
+<insert id="PrePaidInfo_insertPrePaidInfo" parameterClass="prePaidInfo" >
+<![CDATA[
+    INSERT INTO T_VENDOR_PREPAID (
+            C_CODE, 
+            STATE, 
+            PRE_PAID, 
+            REMINDER_DAY
+        )
+    VALUES (
+            #commCode#,
+            #state#,
+            #prePaid#,
+            #reminderDay#
+    )
+]]>
+</insert>
+
+<delete id="PrePaidInfo_deletePrePaidInfo" parameterClass="string">
+<![CDATA[
+    DELETE  FROM  T_VENDOR_PREPAID WHERE C_CODE = #commCode#
+]]>
+</delete>    
+
+<update id="PrePaidInfo_updatePrePaidInfo" parameterClass="prePaidInfo">
+    UPDATE T_VENDOR_PREPAID 
+    SET
+    	C_CODE = #commCode#
+	<isNotEmpty prepend="," property="state">
+            STATE = #state#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="prePaid">
+            PRE_PAID = #prePaid#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="reminderDay">
+            REMINDER_DAY = #reminderDay#
+	</isNotEmpty>
+    WHERE C_CODE = #commCode#
+</update> 
+
+<select id="PrePaidInfo_findPrePaidInfo" resultMap="prePaidInfo_result" parameterClass="string">
+<![CDATA[
+    SELECT
+            C_CODE, 
+            STATE, 
+            PRE_PAID, 
+            REMINDER_DAY
+    FROM T_VENDOR_PREPAID WHERE C_CODE = #commCode#
+]]>
+</select>
+
+<select id="PrePaidInfo_listPrePaidInfo" resultMap="prePaidInfo_result" parameterClass="prePaidInfo">
+<![CDATA[
+    SELECT
+            C_CODE, 
+            STATE, 
+            PRE_PAID, 
+            REMINDER_DAY
+    FROM T_VENDOR_PREPAID
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "commCode">
+				C_CODE = #commCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "state">
+				STATE = #state#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "prePaid">
+				PRE_PAID = #prePaid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "reminderDay">
+				REMINDER_DAY = #reminderDay#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+
+<select id="PrePaidInfo_listPrePaidInfoCount" resultClass="java.lang.Integer" parameterClass="prePaidInfo">
+<![CDATA[
+    SELECT
+		COUNT(*)
+    FROM T_VENDOR_PREPAID
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "commCode">
+				C_CODE = #commCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "state">
+				STATE = #state#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "prePaid">
+				PRE_PAID = #prePaid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "reminderDay">
+				REMINDER_DAY = #reminderDay#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+</sqlMap>

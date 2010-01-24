@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="CompanyPartNo">
+<typeAlias alias="companyPartNo" type="com.hbs.domain.product.pojo.CompanyPartNo"/> 
+<resultMap id="companyPartNo_result" class="companyPartNo">
+    <result property="partNo" column="PART_NO"/>
+    <result property="pnDesc" column="PN_DESC"/>
+    <result property="price" column="PRICE"/>
+    <result property="taxPrice" column="TAX_PRICE"/>
+    <result property="createTime" column="CREATE_TIME"/>
+    <result property="clsCode" column="P_CLS_CODE"/>
+    <result property="catCode" column="P_CAT_CODE"/>
+</resultMap>
+
+
+
+<insert id="CompanyPartNo_insertCompanyPartNo" parameterClass="companyPartNo" >
+<![CDATA[
+    INSERT INTO T_COMPANY_PART_NO (
+            PART_NO, 
+            PN_DESC, 
+            PRICE, 
+            TAX_PRICE, 
+            CREATE_TIME, 
+            P_CLS_CODE, 
+            P_CAT_CODE
+        )
+    VALUES (
+            #partNo#,
+            #pnDesc#,
+            #price#,
+            #taxPrice#,
+            #createTime#,
+            #clsCode#,
+            #catCode#
+    )
+]]>
+</insert>
+
+<delete id="CompanyPartNo_deleteCompanyPartNo" parameterClass="string">
+<![CDATA[
+    DELETE  FROM  T_COMPANY_PART_NO WHERE PART_NO = #partNo#
+]]>
+</delete>    
+
+<update id="CompanyPartNo_updateCompanyPartNo" parameterClass="companyPartNo">
+    UPDATE T_COMPANY_PART_NO 
+    SET
+    	PART_NO = #partNo#
+	<isNotEmpty prepend="," property="pnDesc">
+            PN_DESC = #pnDesc#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="price">
+            PRICE = #price#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="taxPrice">
+            TAX_PRICE = #taxPrice#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="createTime">
+            CREATE_TIME = #createTime#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="clsCode">
+            P_CLS_CODE = #clsCode#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="catCode">
+            P_CAT_CODE = #catCode#
+	</isNotEmpty>
+    WHERE PART_NO = #partNo#
+</update> 
+
+<select id="CompanyPartNo_findCompanyPartNo" resultMap="companyPartNo_result" parameterClass="string">
+<![CDATA[
+    SELECT
+            PART_NO, 
+            PN_DESC, 
+            PRICE, 
+            TAX_PRICE, 
+            CREATE_TIME, 
+            P_CLS_CODE, 
+            P_CAT_CODE
+    FROM T_COMPANY_PART_NO WHERE PART_NO = #partNo#
+]]>
+</select>
+
+<select id="CompanyPartNo_listCompanyPartNo" resultMap="companyPartNo_result" parameterClass="companyPartNo">
+<![CDATA[
+    SELECT
+            PART_NO, 
+            PN_DESC, 
+            PRICE, 
+            TAX_PRICE, 
+            CREATE_TIME, 
+            P_CLS_CODE, 
+            P_CAT_CODE
+    FROM T_COMPANY_PART_NO
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "partNo">
+				PART_NO like '%$partNo$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "pnDesc">
+				PN_DESC like '%$pnDesc$%'
+			</isNotEmpty>			
+			<isNotEmpty prepend="and" property = "clsCode">
+				P_CLS_CODE like '%$clsCode$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "catCode">
+				P_CAT_CODE like '%$catCode$%'
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="order by" property="sort">
+                   $sort$
+            </isNotEmpty>            
+		</dynamic>
+<![CDATA[
+      LIMIT #start# ,#end#
+]]>
+</select>
+
+
+<select id="CompanyPartNo_listCompanyPartNoCount" resultClass="java.lang.Integer" parameterClass="companyPartNo">
+<![CDATA[
+    SELECT
+		COUNT(1)
+    FROM T_COMPANY_PART_NO
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "partNo">
+				PART_NO like '%$partNo$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "pnDesc">
+				PN_DESC like '%$pnDesc$%'
+			</isNotEmpty>			
+			<isNotEmpty prepend="and" property = "clsCode">
+				P_CLS_CODE like '%$clsCode$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "catCode">
+				P_CAT_CODE like '%$catCode$%'
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+</sqlMap>

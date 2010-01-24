@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="OperLog">
+<typeAlias alias="operLog" type="com.hbs.domain.common.pojo.baseinfo.OperLog"/> 
+<resultMap id="operLog_result" class="operLog">
+    <result property="seqId" column="SEQID"/>
+    <result property="operTime" column="OPER_TIME"/>
+    <result property="staffId" column="STAFF_ID"/>
+    <result property="staffName" column="STAFF_NAME"/>
+    <result property="operType" column="OPER_TYPE"/>
+    <result property="operObject" column="OPER_OBJECT"/>
+    <result property="operKey" column="OPER_KEY"/>
+    <result property="operContent" column="OPER_CONTENT"/>
+    <result property="memo" column="MEMO"/>
+</resultMap>
+
+
+<insert id="OperLog_insertOperLog" parameterClass="operLog" >
+<![CDATA[
+    INSERT INTO T_CUSTOMER_OPER_LOG (            
+            OPER_TIME, 
+            STAFF_ID, 
+            STAFF_NAME, 
+            OPER_TYPE, 
+            OPER_OBJECT, 
+            OPER_KEY, 
+            OPER_CONTENT, 
+            MEMO
+        )
+    VALUES (          
+            #operTime#,
+            #staffId#,
+            #staffName#,
+            #operType#,
+            #operObject#,
+            #operKey#,
+            #operContent#,
+            #memo#
+    )
+]]>
+</insert>
+
+
+
+<select id="OperLog_findOperLog" resultMap="operLog_result" parameterClass="string">
+<![CDATA[
+    SELECT
+            SEQID, 
+            OPER_TIME, 
+            STAFF_ID, 
+            STAFF_NAME, 
+            OPER_TYPE, 
+            OPER_OBJECT, 
+            OPER_KEY, 
+            OPER_CONTENT, 
+            MEMO
+    FROM T_CUSTOMER_OPER_LOG WHERE SEQID = #seqId#
+]]>
+</select>
+
+<select id="OperLog_listOperLog" resultMap="operLog_result" parameterClass="String">
+<![CDATA[
+    SELECT
+            SEQID, 
+            OPER_TIME, 
+            STAFF_ID, 
+            STAFF_NAME, 
+            OPER_TYPE, 
+            OPER_OBJECT, 
+            OPER_KEY, 
+            OPER_CONTENT, 
+            MEMO
+    FROM T_CUSTOMER_OPER_LOG WHERE OPER_KEY=#operKey#
+]]>
+</select>
+</sqlMap>

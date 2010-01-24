@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans> 
+	<!-- dao bean -->
+	<!-- 客户信息DAO实现类   -->
+	<bean id="customerInfoDao" class="com.hbs.domain.customer.customerinfo.dao.ibatis.CustomerInfoDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>	
+	
+	<!-- 客户物料关系DAO实现类   -->
+	<bean id="customerPartNoInfoDao" class="com.hbs.domain.customer.customerinfo.dao.ibatis.CustPartNoInfoDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<!-- 客户账期DAO实现类   parent="accountPreiodDao" -->
+	<bean id="customerAccountPreiodDao"  class="com.hbs.domain.customer.customerinfo.dao.ibatis.AccountPreiodDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<!--客户银行DAO实现类   parent="bankInfoDao" -->
+	<bean id="customerBankInfoDao"  class="com.hbs.domain.customer.customerinfo.dao.ibatis.BankInfoDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<!-- 客户联系人DAO实现类   parent="contactInfoDao" -->
+	<bean id="customerContactInfoDao"  class="com.hbs.domain.customer.customerinfo.dao.ibatis.ContactInfoDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<!-- 客户操作日志DAO实现类   parent="operLogDao" -->
+	<bean id="customerOperLogDao"  class="com.hbs.domain.customer.customerinfo.dao.ibatis.OperLogDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<!-- 客户操作日志历史DAO实现类   parent="operLogDao" -->
+	<bean id="customerOperLogHisDao"  class="com.hbs.domain.customer.customerinfo.dao.ibatis.OperLogHisDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<!-- 客户预付费DAO实现类   parent="prePaidInfoDao" -->
+	<bean id="customerPrePaidInfoDao"  class="com.hbs.domain.customer.customerinfo.dao.ibatis.PrePaidInfoDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+</beans>

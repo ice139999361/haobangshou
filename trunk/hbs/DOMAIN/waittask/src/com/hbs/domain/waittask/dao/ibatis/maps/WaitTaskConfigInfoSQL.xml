@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="WaitTaskConfigInfo">
+<typeAlias alias="waitTaskConfigInfo" type="com.hbs.domain.waittask.pojo.WaitTaskConfigInfo"/> 
+<resultMap id="waitTaskConfigInfo_result" class="waitTaskConfigInfo">
+    <result property="configId" column="CONFIG_ID"/>
+    <result property="taskType" column="TASK_TYPE"/>
+    <result property="businessType" column="BUSINESS_TYPE"/>
+    <result property="url" column="URL"/>
+    <result property="comments" column="COMMENTS"/>
+    <result property="systemName" column="SYSTEM_NAME"/>
+    <result property="roleId" column="ROLE_ID"/>
+</resultMap>
+
+<select id="WaitTaskConfigInfo_findWaitTaskConfigInfo" resultMap="waitTaskConfigInfo_result" parameterClass="string">
+<![CDATA[
+    SELECT
+            CONFIG_ID, 
+            TASK_TYPE, 
+            BUSINESS_TYPE, 
+            URL, 
+            COMMENTS, 
+            SYSTEM_NAME,
+            ROLE_ID
+    FROM T_WAITTASK_CONFIG_INFO WHERE CONFIG_ID = #configId#
+]]>
+</select>
+
+<select id="WaitTaskConfigInfo_listWaitTaskConfigInfo" resultMap="waitTaskConfigInfo_result">
+<![CDATA[
+    SELECT
+            CONFIG_ID, 
+            TASK_TYPE, 
+            BUSINESS_TYPE, 
+            URL, 
+            COMMENTS, 
+            SYSTEM_NAME,
+            ROLE_ID
+    FROM T_WAITTASK_CONFIG_INFO
+]]>
+
+</select>
+
+
+
+
+</sqlMap>

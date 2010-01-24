@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="AccountPreiod">
+<typeAlias alias="accountPreiod" type="com.hbs.domain.common.pojo.baseinfo.AccountPreiod"/> 
+<resultMap id="accountPreiod_result" class="accountPreiod">
+    <result property="commCode" column="C_CODE"/>
+    <result property="state" column="STATE"/>
+    <result property="accountType" column="ACCOUNT_TYPE"/>
+    <result property="accountPeriod" column="ACCOUNT_PERIOD"/>
+    <result property="periodStart" column="PERIOD_START"/>
+    <result property="accounDay" column="ACCOUNT_DAY"/>
+    <result property="settlementDay" column="SETTLEMENT_DAY"/>
+    <result property="maxMoney" column="MAX_MONEY"/>
+    <result property="reminderDay" column="REMINDER_DAY"/>
+</resultMap>
+
+<select id="AccountPreiod_getNextId" resultClass="java.lang.String">
+<![CDATA[
+    SELECT ltrim(to_char(Seq_T_VENDOR_ACCOUNT_PERIOD_Id.Nextval,'0000000000')) 
+           AS Id 
+    FROM dual
+]]>
+</select>
+
+<insert id="AccountPreiod_insertAccountPreiod" parameterClass="accountPreiod" >
+<![CDATA[
+    INSERT INTO T_VENDOR_ACCOUNT_PERIOD (
+            C_CODE, 
+            STATE, 
+            ACCOUNT_TYPE, 
+            ACCOUNT_PERIOD, 
+            PERIOD_START, 
+            ACCOUNT_DAY, 
+            SETTLEMENT_DAY, 
+            MAX_MONEY, 
+            REMINDER_DAY
+        )
+    VALUES (
+            #commCode#,
+            #state#,
+            #accountType#,
+            #accountPeriod#,
+            #periodStart#,
+            #accounDay#,
+            #settlementDay#,
+            #maxMoney#,
+            #reminderDay#
+    )
+]]>
+</insert>
+
+<delete id="AccountPreiod_deleteAccountPreiod" parameterClass="string">
+<![CDATA[
+    DELETE  FROM  T_VENDOR_ACCOUNT_PERIOD WHERE C_CODE = #commCode#
+]]>
+</delete>    
+
+<update id="AccountPreiod_updateAccountPreiod" parameterClass="accountPreiod">
+    UPDATE T_VENDOR_ACCOUNT_PERIOD 
+    SET
+    	C_CODE = #commCode#
+	<isNotEmpty prepend="," property="state">
+            STATE = #state#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="accountType">
+            ACCOUNT_TYPE = #accountType#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="accountPeriod">
+            ACCOUNT_PERIOD = #accountPeriod#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="periodStart">
+            PERIOD_START = #periodStart#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="accounDay">
+            ACCOUNT_DAY = #accounDay#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="settlementDay">
+            SETTLEMENT_DAY = #settlementDay#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="maxMoney">
+            MAX_MONEY = #maxMoney#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="reminderDay">
+            REMINDER_DAY = #reminderDay#
+	</isNotEmpty>
+    WHERE C_CODE = #commCode#
+</update> 
+
+<select id="AccountPreiod_findAccountPreiod" resultMap="accountPreiod_result" parameterClass="string">
+<![CDATA[
+    SELECT
+            C_CODE, 
+            STATE, 
+            ACCOUNT_TYPE, 
+            ACCOUNT_PERIOD, 
+            PERIOD_START, 
+            ACCOUNT_DAY, 
+            SETTLEMENT_DAY, 
+            MAX_MONEY, 
+            REMINDER_DAY
+    FROM T_VENDOR_ACCOUNT_PERIOD WHERE C_CODE = #commCode#
+]]>
+</select>
+
+<select id="AccountPreiod_listAccountPreiod" resultMap="accountPreiod_result" parameterClass="accountPreiod">
+<![CDATA[
+    SELECT
+            C_CODE, 
+            STATE, 
+            ACCOUNT_TYPE, 
+            ACCOUNT_PERIOD, 
+            PERIOD_START, 
+            ACCOUNT_DAY, 
+            SETTLEMENT_DAY, 
+            MAX_MONEY, 
+            REMINDER_DAY
+    FROM T_VENDOR_ACCOUNT_PERIOD
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "commCode">
+				C_CODE = #commCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "state">
+				STATE = #state#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "accountType">
+				ACCOUNT_TYPE = #accountType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "accountPeriod">
+				ACCOUNT_PERIOD = #accountPeriod#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "periodStart">
+				PERIOD_START = #periodStart#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "accounDay">
+				ACCOUNT_DAY = #accounDay#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "settlementDay">
+				SETTLEMENT_DAY = #settlementDay#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "maxMoney">
+				MAX_MONEY = #maxMoney#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "reminderDay">
+				REMINDER_DAY = #reminderDay#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+
+<select id="AccountPreiod_listAccountPreiodCount" resultClass="java.lang.Integer" parameterClass="accountPreiod">
+<![CDATA[
+    SELECT
+		COUNT(*)
+    FROM T_VENDOR_ACCOUNT_PERIOD
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "commCode">
+				C_CODE = #commCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "state">
+				STATE = #state#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "accountType">
+				ACCOUNT_TYPE = #accountType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "accountPeriod">
+				ACCOUNT_PERIOD = #accountPeriod#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "periodStart">
+				PERIOD_START = #periodStart#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "accounDay">
+				ACCOUNT_DAY = #accounDay#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "settlementDay">
+				SETTLEMENT_DAY = #settlementDay#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "maxMoney">
+				MAX_MONEY = #maxMoney#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "reminderDay">
+				REMINDER_DAY = #reminderDay#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+</sqlMap>

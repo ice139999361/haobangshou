@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+<!--
+***********************************
+*   以下是日志输出文件的定义      *
+***********************************
+
+
+-->
+	<appender name="STDOUT"   class="org.apache.log4j.ConsoleAppender">   
+	  <layout class="org.apache.log4j.PatternLayout">   
+	  <param  name="ConversionPattern" value="%d{yyyy/MM/dd   HH:mm:ss}   %-5p   [%t]   (%F/%L)   -%m%n"   />   
+	  </layout>   
+	</appender>
+
+    <!--sql debug log file-->
+	<appender name="SQL_DEBUG" class="com.hbs.common.appender.TimeSizeRollingFileAppender">
+		<param name="File" value="d:/logs/sql/debug.log"/>
+		<param name="MaxBackupIndex" value="300"/>
+		<param name="Encoding" value="GB2312"/>
+		<param name="MaxFileSize" value="20MB"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ISO8601} %p [%c] - [%m]%n"/>
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="debug"/>
+			<param name="LevelMax" value="debug"/>
+			<param name="acceptOnMatch" value="true"/>
+		</filter>
+	</appender>
+	    
+    <!--sql info log file-->
+	<appender name="SQL_INFO" class="com.hbs.common.appender.TimeSizeRollingFileAppender">
+		<param name="File" value="d:/logs/sql/info.log"/>
+		<param name="MaxBackupIndex" value="300"/>
+		<param name="Encoding" value="GB2312"/>
+		<param name="MaxFileSize" value="20MB"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ISO8601} %p [%c] - [%m]%n"/>
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="info"/>
+			<param name="LevelMax" value="info"/>
+			<param name="acceptOnMatch" value="true"/>
+		</filter>
+	</appender>
+	    
+    <!--sql error log file-->
+	<appender name="SQL_ERROR" class="com.hbs.common.appender.TimeSizeRollingFileAppender">
+		<param name="File" value="d:/logs/sql/error.log"/>
+		<param name="MaxBackupIndex" value="300"/>
+		<param name="Encoding" value="GB2312"/>
+		<param name="MaxFileSize" value="20MB"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ISO8601} %p [%c] - [%m]%n"/>
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="error"/>
+			<param name="LevelMax" value="error"/>
+			<param name="acceptOnMatch" value="true"/>
+		</filter>
+	</appender>   
+
+    <!--common debug log file-->
+	<appender name="APP_DEBUG" class="com.hbs.common.appender.TimeSizeRollingFileAppender">
+		<param name="File" value="d:/logs/app/debug.log"/>
+		<param name="MaxBackupIndex" value="300"/>
+		<param name="Encoding" value="GB2312"/>
+		<param name="MaxFileSize" value="20MB"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ISO8601} %p [%c] - [%m]%n"/>
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="debug"/>
+			<param name="LevelMax" value="debug"/>
+			<param name="acceptOnMatch" value="true"/>
+		</filter>
+	</appender>
+	    
+    <!--common info log file-->
+	<appender name="APP_INFO" class="com.hbs.common.appender.TimeSizeRollingFileAppender">
+		<param name="File" value="d:/logs/app/info.log"/>
+		<param name="MaxBackupIndex" value="300"/>
+		<param name="Encoding" value="GB2312"/>
+		<param name="MaxFileSize" value="20MB"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ISO8601} %p [%c] - [%m]%n"/>
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="info"/>
+			<param name="LevelMax" value="info"/>
+			<param name="acceptOnMatch" value="true"/>
+		</filter>
+	</appender>        
+	    
+    <!--common error log file-->
+	<appender name="APP_ERROR" class="com.hbs.common.appender.TimeSizeRollingFileAppender">
+		<param name="File" value="d:/logs/app/error.log"/>
+		<param name="MaxBackupIndex" value="300"/>
+		<param name="Encoding" value="GB2312"/>
+		<param name="MaxFileSize" value="20MB"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ISO8601} %p [%c] - [%m]%n"/>
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="error"/>
+			<param name="LevelMax" value="error"/>
+			<param name="acceptOnMatch" value="true"/>
+		</filter>
+	</appender>
+       
+   
+    
+<!--
+***********************************
+*   指定相应class关联到日志文件   
+*       SQL相关：sql子目录
+*       应用：   app子目录
+*       其它：   other子目录
+***********************************
+
+com.ibatis:
+java.sql:
+org.hibernate:
+        $LOG_ROOT/sync/sql/debug.log
+                            info.log
+                            error.log
+
+com.aspire.disn:
+        $LOG_ROOT/sync/app/debug.log
+                            info.log
+                            error.log
+                            
+other:
+        $LOG_ROOT/sync/other/debug.log
+                              info.log
+                              error.log
+-->
+
+    <!--ibatis assign to sql log-->
+	<logger name="com.ibatis" additivity="false">
+		<level value="info"/>
+		<appender-ref ref="SQL_DEBUG"/>
+		<appender-ref ref="SQL_INFO"/>
+		<appender-ref ref="SQL_ERROR"/>		
+	</logger>
+	
+    <!--java.sql assign to sql log-->	
+	<logger name="java.sql" additivity="false">
+		<level value="info"/>
+		<appender-ref ref="SQL_DEBUG"/>
+		<appender-ref ref="SQL_INFO"/>
+		<appender-ref ref="SQL_ERROR"/>		
+	</logger>
+	
+    <!--hibernate assign to sql log-->
+	<logger name="org.hibernate" additivity="false">
+		<level value="info"/>
+		<appender-ref ref="SQL_DEBUG"/>
+		<appender-ref ref="SQL_INFO"/>
+		<appender-ref ref="SQL_ERROR"/>		
+	</logger>
+	
+    <!--com.aspire.disn.app.common assign to app announce log-->
+	<logger name="com.hbs" additivity="false">
+		<level value="info"/>
+		<appender-ref ref="APP_DEBUG"/>
+		<appender-ref ref="APP_INFO"/>
+		<appender-ref ref="APP_ERROR"/>		
+	</logger>
+</log4j:configuration>
+          

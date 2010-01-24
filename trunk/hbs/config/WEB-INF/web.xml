@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" 
+	xmlns="http://java.sun.com/xml/ns/j2ee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<context-param> 
+	     <param-name>contextConfigLocation</param-name> 
+	     <param-value>classpath:applicationContext.xml</param-value> 
+	 </context-param> 
+    <servlet>
+	<servlet-name>webInit</servlet-name>
+	<servlet-class>com.hbs.common.servlet.DefaultSystemInitServlet</servlet-class>		
+		<init-param>   
+			<param-name>log4jConfig</param-name>
+			<param-value>log4j/log4j.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+ 	</servlet>
+	 <servlet>   
+		<servlet-name>context</servlet-name>   
+		<servlet-class>org.springframework.web.context.ContextLoaderServlet</servlet-class>   
+		<load-on-startup>2</load-on-startup>   
+	</servlet>
+
+   
+
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>Test</servlet-name>
+    <servlet-class>Test</servlet-class>
+  </servlet>
+
+<servlet-mapping>
+		<servlet-name>webInit</servlet-name>
+		<url-pattern>/webInit</url-pattern>
+	</servlet-mapping>
+  
+
+  <servlet-mapping>
+		<servlet-name>context</servlet-name>
+		<url-pattern>/context</url-pattern>
+	</servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>Test</servlet-name>
+    <url-pattern>/servlet/Test</url-pattern>
+  </servlet-mapping>
+
+</web-app>

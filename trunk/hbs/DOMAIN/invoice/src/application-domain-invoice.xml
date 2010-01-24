@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans> 
+	<!-- dao bean -->
+	
+	<!-- 供应商发票DAO实现类   parent="invoiceInfoDao" -->
+	<bean id="vendorRecInvoiceDao"  class="com.hbs.domain.invoice.dao.ibatis.VendorRecInvoiceDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<!-- 供应商发票历史DAO实现类   parent="invoiceInfoDao" -->
+	<bean id="vendorRecInvoiceHisDao"  class="com.hbs.domain.invoice.dao.ibatis.VendorRecInvoiceHisDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<!-- 客户发票DAO实现类   parent="invoiceInfoDao" -->
+	<bean id="custSendInvoiceDao"  class="com.hbs.domain.invoice.dao.ibatis.CustSendInvoiceDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<!-- 客户发票历史DAO实现类   parent="invoiceInfoDao" -->
+	<bean id="custSendInvoiceHisDao"  class="com.hbs.domain.invoice.dao.ibatis.CustSendInvoiceHisDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+</beans>

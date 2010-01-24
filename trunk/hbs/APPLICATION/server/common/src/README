@@ -1,0 +1,39 @@
+BaseAction.java
+       提供所有ACTION的基础类，这个类中还缺少登录用户信息的获取，包括分页的设置等基础信息
+       
+EncodeDictAction.java
+       提供对字典表获取数据的支持
+       
+ConfigEncodeMgr.java
+   封装字典表的对数据库操作，提供静态方法供调用
+   
+SystemConfigMgr.java
+ 封装对系统配置的数据库操作，提供静态方法供调用
+ 
+DefaultSystemInitServlet.java
+ 需要配置在系统的web.xml中，系统启动时做初始化动作，包括log4j，quartz，系统路径，spring等
+ 
+ BeanLocator.java
+ 提供对spring的bean的获取
+ 
+ SqlMapClientFactoryBean.java
+ 提供对多个sqlMap文件的初始化
+ 
+ 
+ 
+ com.hbs.common.manager.baseinfo.AccountPreiodMgr
+    账期抽象类
+ 
+ com.hbs.common.manager.baseinfo.BankInfoMgr
+ 银行信息抽象类
+ 
+ com.hbs.common.manager.baseinfo.ContactMgr
+ 联系人抽象类
+ 
+ com.hbs.common.manager.baseinfo.PrePaidMgr
+ 预付费信息抽象类
+ 
+ 
+ 
+ 
+   

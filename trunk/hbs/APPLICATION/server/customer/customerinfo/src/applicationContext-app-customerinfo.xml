@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+	<!-- 客户账期信息实现类   parent="accountPreiodMgr" -->
+	<bean id="custAccountPreiodMgr"  class="com.hbs.customerinfo.manager.CustAccountPreiodMgr">		
+	</bean>
+	
+	<!-- 客户银行信息实现类   parent="bankInfoMgr" -->
+	<bean id="custBankInfoMgr"  class="com.hbs.customerinfo.manager.CustBankInfoMgr">		
+	</bean>
+	
+	<!-- 客户联系信息实现类   parent="contactMgr" -->
+	<bean id="custContactMgr"  class="com.hbs.customerinfo.manager.CustContactMgr">		
+	</bean>
+	
+	<!-- 客户预付费信息实现类   parent="prePaidMgr" -->
+	<bean id="custPrePaidMgr"  class="com.hbs.customerinfo.manager.CustPrePaidMgr">		
+	</bean>
+	
+	<!-- 客户信息实现类   -->
+	<bean id="customerInfoMgr"  class="com.hbs.customerinfo.manager.CustomerInfoMgr">		
+	</bean>
+	
+	<!-- 客户物料关系信息实现类   -->
+	<bean id="custPartNoInfoMgr"  class="com.hbs.customerinfo.manager.CustPartNoInfoMgr">		
+	</bean>
+	
+</beans>

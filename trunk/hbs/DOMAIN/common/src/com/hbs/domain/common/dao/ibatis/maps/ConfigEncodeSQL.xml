@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="ConfigEncode">
+<typeAlias alias="configEncode" type="com.hbs.domain.common.pojo.ConfigEncode"/> 
+<resultMap id="configEncode_result" class="configEncode">
+    <result property="encodeType" column="ENCODE_TYPE"/>
+    <result property="encodeKey" column="ENCODE_KEY"/>
+    <result property="encodeValue" column="ENCODE_VALUE"/>
+    <result property="encodeDesc" column="ENCODE_DESC"/>
+    <result property="isValid" column="IS_VALID"/>
+    <result property="sortId" column="SORT_ID"/>
+</resultMap>
+
+
+
+<select id="ConfigEncode_findConfigEncode" resultMap="configEncode_result" parameterClass="configEncode">
+<![CDATA[
+    SELECT
+            ENCODE_TYPE, 
+            ENCODE_KEY, 
+            ENCODE_VALUE, 
+            ENCODE_DESC, 
+            IS_VALID, 
+            SORT_ID
+    FROM T_CONFIG_ENCODE WHERE ENCODE_TYPE = #encodeType# AND ENCODE_KEY = #encodeKey#
+]]>
+</select>
+
+<select id="ConfigEncode_listConfigEncode" resultMap="configEncode_result" parameterClass="configEncode">
+<![CDATA[
+    SELECT
+            ENCODE_TYPE, 
+            ENCODE_KEY, 
+            ENCODE_VALUE, 
+            ENCODE_DESC, 
+            IS_VALID, 
+            SORT_ID
+    FROM T_CONFIG_ENCODE
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "encodeType">
+				ENCODE_TYPE = #encodeType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "encodeKey">
+				ENCODE_KEY = #encodeKey#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "encodeValue">
+				ENCODE_VALUE = #encodeValue#
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property = "isValid">
+				IS_VALID = #isValid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "sortId">
+				SORT_ID = #sortId#
+			</isNotEmpty>
+			order by ENCODE_TYPE asc ,SORT_ID asc
+		</dynamic>
+</select>
+
+
+</sqlMap>

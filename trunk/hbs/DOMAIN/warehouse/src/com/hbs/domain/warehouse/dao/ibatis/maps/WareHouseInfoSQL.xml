@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="WareHouseInfo">
+<typeAlias alias="wareHouseInfo" type="com.hbs.domain.warehouse.pojo.WareHouseInfo"/> 
+<resultMap id="wareHouseInfo_result" class="wareHouseInfo">
+    <result property="houseSeqId" column="HOUSE_SEQID"/>
+    <result property="houseType" column="HOUSE_TYPE"/>
+    <result property="houseUse" column="HOUSE_USE"/>
+    <result property="vendorCode" column="VENDOR_CODE"/>
+    <result property="poNo" column="PO_NO"/>
+    <result property="partNo" column="PART_NO"/>
+    <result property="pnDesc" column="PN_DESC"/>
+    <result property="cpartNo" column="C_PART_NO"/>
+    <result property="custCode" column="CUST_CODE"/>
+    <result property="totalAmount" column="TOTAL_AMOUNT"/>
+    <result property="lockAmount" column="LOCK_AMOUNT"/>
+    <result property="useAmount" column="USE_AMOUNT"/>
+    <result property="maxAmount" column="MAX_AMOUNT"/>
+    <result property="minAmount" column="MIN_AMOUNT"/>
+    <result property="state" column="STATE"/>
+</resultMap>
+
+<select id="WareHouseInfo_getNextId" resultClass="java.lang.String">
+<![CDATA[
+    SELECT ltrim(to_char(Seq_T_WAREHOUSE_INFO_Id.Nextval,'0000000000')) 
+           AS Id 
+    FROM dual
+]]>
+</select>
+
+<insert id="WareHouseInfo_insertWareHouseInfo" parameterClass="wareHouseInfo" >
+<![CDATA[
+    INSERT INTO T_WAREHOUSE_INFO (
+            HOUSE_SEQID, 
+            HOUSE_TYPE, 
+            HOUSE_USE, 
+            VENDOR_CODE, 
+            PO_NO, 
+            PART_NO, 
+            PN_DESC, 
+            C_PART_NO, 
+            CUST_CODE, 
+            TOTAL_AMOUNT, 
+            LOCK_AMOUNT, 
+            USE_AMOUNT, 
+            MAX_AMOUNT, 
+            MIN_AMOUNT, 
+            STATE
+        )
+    VALUES (
+            #houseSeqId#,
+            #houseType#,
+            #houseUse#,
+            #vendorCode#,
+            #poNo#,
+            #partNo#,
+            #pnDesc#,
+            #cpartNo#,
+            #custCode#,
+            #totalAmount#,
+            #lockAmount#,
+            #useAmount#,
+            #maxAmount#,
+            #minAmount#,
+            #state#
+    )
+]]>
+</insert>
+
+<delete id="WareHouseInfo_deleteWareHouseInfo" parameterClass="string">
+<![CDATA[
+    DELETE  FROM  T_WAREHOUSE_INFO WHERE HOUSE_SEQID = #houseSeqId#
+]]>
+</delete>    
+
+<update id="WareHouseInfo_updateWareHouseInfo" parameterClass="wareHouseInfo">
+    UPDATE T_WAREHOUSE_INFO 
+    SET
+    	HOUSE_SEQID = #houseSeqId#
+	<isNotEmpty prepend="," property="houseType">
+            HOUSE_TYPE = #houseType#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="houseUse">
+            HOUSE_USE = #houseUse#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="vendorCode">
+            VENDOR_CODE = #vendorCode#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="poNo">
+            PO_NO = #poNo#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="partNo">
+            PART_NO = #partNo#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="pnDesc">
+            PN_DESC = #pnDesc#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="cpartNo">
+            C_PART_NO = #cpartNo#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="custCode">
+            CUST_CODE = #custCode#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="totalAmount">
+            TOTAL_AMOUNT = #totalAmount#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="lockAmount">
+            LOCK_AMOUNT = #lockAmount#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="useAmount">
+            USE_AMOUNT = #useAmount#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="maxAmount">
+            MAX_AMOUNT = #maxAmount#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="minAmount">
+            MIN_AMOUNT = #minAmount#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="state">
+            STATE = #state#
+	</isNotEmpty>
+    WHERE HOUSE_SEQID = #houseSeqId#
+</update> 
+
+<select id="WareHouseInfo_findWareHouseInfo" resultMap="wareHouseInfo_result" parameterClass="string">
+<![CDATA[
+    SELECT
+            HOUSE_SEQID, 
+            HOUSE_TYPE, 
+            HOUSE_USE, 
+            VENDOR_CODE, 
+            PO_NO, 
+            PART_NO, 
+            PN_DESC, 
+            C_PART_NO, 
+            CUST_CODE, 
+            TOTAL_AMOUNT, 
+            LOCK_AMOUNT, 
+            USE_AMOUNT, 
+            MAX_AMOUNT, 
+            MIN_AMOUNT, 
+            STATE
+    FROM T_WAREHOUSE_INFO WHERE HOUSE_SEQID = #houseSeqId#
+]]>
+</select>
+
+<select id="WareHouseInfo_listWareHouseInfo" resultMap="wareHouseInfo_result" parameterClass="wareHouseInfo">
+<![CDATA[
+    SELECT
+            HOUSE_SEQID, 
+            HOUSE_TYPE, 
+            HOUSE_USE, 
+            VENDOR_CODE, 
+            PO_NO, 
+            PART_NO, 
+            PN_DESC, 
+            C_PART_NO, 
+            CUST_CODE, 
+            TOTAL_AMOUNT, 
+            LOCK_AMOUNT, 
+            USE_AMOUNT, 
+            MAX_AMOUNT, 
+            MIN_AMOUNT, 
+            STATE
+    FROM T_WAREHOUSE_INFO
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "houseSeqId">
+				HOUSE_SEQID = #houseSeqId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "houseType">
+				HOUSE_TYPE = #houseType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "houseUse">
+				HOUSE_USE = #houseUse#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "vendorCode">
+				VENDOR_CODE = #vendorCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "poNo">
+				PO_NO = #poNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "partNo">
+				PART_NO = #partNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "pnDesc">
+				PN_DESC = #pnDesc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "cpartNo">
+				C_PART_NO = #cpartNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "custCode">
+				CUST_CODE = #custCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "totalAmount">
+				TOTAL_AMOUNT = #totalAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "lockAmount">
+				LOCK_AMOUNT = #lockAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "useAmount">
+				USE_AMOUNT = #useAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "maxAmount">
+				MAX_AMOUNT = #maxAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "minAmount">
+				MIN_AMOUNT = #minAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "state">
+				STATE = #state#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+
+<select id="WareHouseInfo_listWareHouseInfoCount" resultClass="java.lang.Integer" parameterClass="wareHouseInfo">
+<![CDATA[
+    SELECT
+		COUNT(*)
+    FROM T_WAREHOUSE_INFO
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "houseSeqId">
+				HOUSE_SEQID = #houseSeqId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "houseType">
+				HOUSE_TYPE = #houseType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "houseUse">
+				HOUSE_USE = #houseUse#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "vendorCode">
+				VENDOR_CODE = #vendorCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "poNo">
+				PO_NO = #poNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "partNo">
+				PART_NO = #partNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "pnDesc">
+				PN_DESC = #pnDesc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "cpartNo">
+				C_PART_NO = #cpartNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "custCode">
+				CUST_CODE = #custCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "totalAmount">
+				TOTAL_AMOUNT = #totalAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "lockAmount">
+				LOCK_AMOUNT = #lockAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "useAmount">
+				USE_AMOUNT = #useAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "maxAmount">
+				MAX_AMOUNT = #maxAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "minAmount">
+				MIN_AMOUNT = #minAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "state">
+				STATE = #state#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+</sqlMap>

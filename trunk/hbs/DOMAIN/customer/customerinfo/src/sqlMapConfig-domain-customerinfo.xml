@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+    <sqlMap resource="com/hbs/domain/customer/customerinfo/dao/ibatis/maps/AccountPreiodSQL.xml"/>
+	<sqlMap resource="com/hbs/domain/customer/customerinfo/dao/ibatis/maps/BankInfoSQL.xml"/>
+	 <sqlMap resource="com/hbs/domain/customer/customerinfo/dao/ibatis/maps/ContactInfoSQL.xml"/>
+	<!-- <sqlMap resource="com/hbs/domain/customer/customerinfo/dao/ibatis/maps/CustomerInfoSQL.xml"/> -->
+	<sqlMap resource="com/hbs/domain/customer/customerinfo/dao/ibatis/maps/OperLogSQL.xml"/>
+	<sqlMap resource="com/hbs/domain/customer/customerinfo/dao/ibatis/maps/OperLogHisSQL.xml"/> 
+	<sqlMap resource="com/hbs/domain/customer/customerinfo/dao/ibatis/maps/CustPartNoInfoSQL.xml"/>
+    <sqlMap resource="com/hbs/domain/customer/customerinfo/dao/ibatis/maps/PrePaidInfoSQL.xml"/> 
+</sqlMapConfig>

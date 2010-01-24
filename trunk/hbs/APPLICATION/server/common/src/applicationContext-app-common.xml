@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+	<!-- 账期信息抽象类 -->
+	<bean id="accountPreiodMgr"
+		class="com.hbs.common.manager.baseinfo.AccountPreiodMgr"
+		abstract="true">		
+	</bean>
+	
+	<!-- 银行信息抽象类 -->
+	<bean id="bankInfoMgr"
+		class="com.hbs.common.manager.baseinfo.BankInfoMgr"
+		abstract="true">		
+	</bean>
+	
+	<!-- 联系人信息抽象类 -->
+	<bean id="contactMgr"
+		class="com.hbs.common.manager.baseinfo.ContactMgr"
+		abstract="true">		
+	</bean>
+	
+	<!-- 预付费信息抽象类 -->
+	<bean id="prePaidMgr"
+		class="com.hbs.common.manager.baseinfo.PrePaidMgr"
+		abstract="true">		
+	</bean>
+</beans>

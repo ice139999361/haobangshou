@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+<!--
+     <bean id="propertyConfigurer" class="com.hbs.common.db.DatabasePropertyPlaceholderConfigurer">     
+		<property name="locations">
+			<list>
+				<value>jdbc.properties</value>
+			</list>
+		</property>
+    </bean>
+ -->
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName"
+			value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+
+	<!-- Hibernate SessionFactory -->
+	<!-- 
+		<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		</bean>
+		
+		<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">   
+		<property name="sessionFactory"><ref bean="sessionFactory"/></property>   
+		</bean>
+	-->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="nestedTransactionAllowed">
+			<value>true</value>
+		</property>
+	</bean>
+	<!--  org.springframework.orm.ibatis.SqlMapClientFactoryBean -->
+
+	<bean id="sqlMapClient"
+		class="com.hbs.common.springhelper.SqlMapClientFactoryBean">
+		<property name="configLocation" 
+		          value="sqlMapConfig-domain-system.xml,
+		          sqlMapConfig-domain-waittask.xml,
+		          sqlMapConfig-domain-customerinfo.xml" />                   
+		<property name="dataSource" ref="dataSource" />
+		
+		
+		<!--       sqlMapConfig-domain-system.xml,            
+                   sqlMapConfig-domain-waittask.xml
+		           sqlMapConfig-domain-product.xml,	
+                   sqlMapConfig-domain-customerinfo.xml,
+                   sqlMapConfig-domain-customerorder.xml,	
+                   sqlMapConfig-domain-adjust.xml,	
+                   sqlMapConfig-domain-invoice.xml,
+                   sqlMapConfig-domain-vendorinfo.xml,		
+                   sqlMapConfig-domain-vendororder.xml,
+                   sqlMapConfig-domain-warehouse.xml,  
+        -->
+	</bean>
+
+	
+    
+    
+    
+	<!-- DM_PLT -->
+	<import resource="classpath:applicationContext-domain-system.xml" /> 
+<!--	<import resource="classpath:applicationContext-domain-product.xml" /> -->
+	<import resource="classpath:applicationContext-domain-customerinfo.xml" /> 
+<!--	<import resource="classpath:applicationContext-domain-customerorder.xml" /> -->
+<!--	<import resource="classpath:applicationContext-domain-adjust.xml" /> -->
+<!--	<import resource="classpath:applicationContext-domain-invoice.xml" /> -->
+<!--	<import resource="classpath:applicationContext-domain-vendorinfo.xml" /> -->
+<!--	<import resource="classpath:applicationContext-domain-vendororder.xml" /> -->
+<!--	<import resource="classpath:applicationContext-domain-warehouse.xml" /> -->
+	<import resource="classpath:applicationContext-domain-waittask.xml" /> 
+	
+	
+	<!-- app -->
+    <import resource="classpath:applicationContext-app-common.xml" />
+    <import resource="classpath:applicationContext-app-customerinfo.xml" />
+
+</beans>

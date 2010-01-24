@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!--公司逻辑子系统的package需要extends ajax-default-->
+	
+        <package name="app-common" namespace="/common" extends="ajax-default">	
+	    <global-results>
+			<result name="error" type="json">
+			    <param name="includeProperties">
+                 	success,errorReason.*
+                </param>
+            </result>
+        </global-results>
+
+    	<!--ACTION命名约束--> 
+        <!--命名和Action类名保持一致，只是以小写字母开头，去掉Action后缀 -->
+        <!--如：调用XyzAction的doXyz()方法 相应命名为xyz!xyz -->
+        <!--这里沿用了webwork的命名习惯，好处是很方便根据名称找到相应的class -->
+
+        <!-- 字典列表ACTION配置 -->
+    	<action name="encodeDictAction!list" method="doList" 
+    			class="com.hbs.common.action.configencode.EncodeDictAction">
+			<result name="success" type="json">
+				<param name="includeProperties">
+                	success, result.*
+                </param>
+			</result>
+		</action>
+		
+        <!-- 字典详情ACTION配置 -->
+    	<action name="encodeDictAction!detail" method="doDetail" 
+    			class="com.hbs.common.action.configencode.EncodeDictAction">
+			<result name="success" type="json">
+				<param name="includeProperties">
+                	success, result.*
+                </param>
+			</result>
+		</action>
+    </package>
+</struts>

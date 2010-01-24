@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="WarehouseSendInfo">
+<typeAlias alias="warehouseSendInfo" type="com.hbs.domain.warehouse.pojo.WarehouseSendInfo"/> 
+<resultMap id="warehouseSendInfo_result" class="warehouseSendInfo">
+    <result property="sendPoNo" column="SEND_PO_NO"/>
+    <result property="custCode" column="C_CODE"/>
+    <result property="shortName" column="SHORT_NAME"/>
+    <result property="receiveName" column="RECEIVE_NAME"/>
+    <result property="receiveAddress" column="RECEIVE_ADDRESS"/>
+    <result property="receiveZip" column="RECEIVE_ZIP"/>
+    <result property="conTel" column="CON_TEL"/>
+    <result property="conFax" column="CON_FAX"/>
+    <result property="companyBranch" column="COMPANY_BRANCH"/>
+    <result property="houseType" column="HOUSE_TYPE"/>
+    <result property="settlement_type" column="SETTLEMENT_TYPE"/>
+    <result property="createDate" column="CREATE_DATE"/>
+    <result property="operId" column="OPER_ID"/>
+    <result property="operStaff" column="OPER_STAFF"/>
+    <result property="sendDesc" column="SEND_DESC"/>
+    <result property="period" column="PERIOD"/>
+    <result property="state" column="STATE"/>
+    <result property="activeState" column="ACTIVE_STATE"/>
+    <result property="financeState" column="FINANCE_STATE"/>
+    <result property="poNoType" column="PO_NO_TYPE"/>
+</resultMap>
+
+<select id="WarehouseSendInfo_getNextId" resultClass="java.lang.String">
+<![CDATA[
+    SELECT ltrim(to_char(Seq_T_WAREHOUSE_SEND_Id.Nextval,'0000000000')) 
+           AS Id 
+    FROM dual
+]]>
+</select>
+
+<insert id="WarehouseSendInfo_insertWarehouseSendInfo" parameterClass="warehouseSendInfo" >
+<![CDATA[
+    INSERT INTO T_WAREHOUSE_SEND (
+            SEND_PO_NO, 
+            C_CODE, 
+            SHORT_NAME, 
+            RECEIVE_NAME, 
+            RECEIVE_ADDRESS, 
+            RECEIVE_ZIP, 
+            CON_TEL, 
+            CON_FAX, 
+            COMPANY_BRANCH, 
+            HOUSE_TYPE, 
+            SETTLEMENT_TYPE, 
+            CREATE_DATE, 
+            OPER_ID, 
+            OPER_STAFF, 
+            SEND_DESC, 
+            PERIOD, 
+            STATE, 
+            ACTIVE_STATE, 
+            FINANCE_STATE, 
+            PO_NO_TYPE
+        )
+    VALUES (
+            #sendPoNo#,
+            #custCode#,
+            #shortName#,
+            #receiveName#,
+            #receiveAddress#,
+            #receiveZip#,
+            #conTel#,
+            #conFax#,
+            #companyBranch#,
+            #houseType#,
+            #settlement_type#,
+            #createDate#,
+            #operId#,
+            #operStaff#,
+            #sendDesc#,
+            #period#,
+            #state#,
+            #activeState#,
+            #financeState#,
+            #poNoType#
+    )
+]]>
+</insert>
+
+<delete id="WarehouseSendInfo_deleteWarehouseSendInfo" parameterClass="string">
+<![CDATA[
+    DELETE  FROM  T_WAREHOUSE_SEND WHERE SEND_PO_NO = #sendPoNo#
+]]>
+</delete>    
+
+<update id="WarehouseSendInfo_updateWarehouseSendInfo" parameterClass="warehouseSendInfo">
+    UPDATE T_WAREHOUSE_SEND 
+    SET
+    	SEND_PO_NO = #sendPoNo#
+	<isNotEmpty prepend="," property="custCode">
+            C_CODE = #custCode#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="shortName">
+            SHORT_NAME = #shortName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="receiveName">
+            RECEIVE_NAME = #receiveName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="receiveAddress">
+            RECEIVE_ADDRESS = #receiveAddress#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="receiveZip">
+            RECEIVE_ZIP = #receiveZip#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="conTel">
+            CON_TEL = #conTel#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="conFax">
+            CON_FAX = #conFax#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="companyBranch">
+            COMPANY_BRANCH = #companyBranch#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="houseType">
+            HOUSE_TYPE = #houseType#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="settlement_type">
+            SETTLEMENT_TYPE = #settlement_type#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="createDate">
+            CREATE_DATE = #createDate#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="operId">
+            OPER_ID = #operId#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="operStaff">
+            OPER_STAFF = #operStaff#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="sendDesc">
+            SEND_DESC = #sendDesc#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="period">
+            PERIOD = #period#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="state">
+            STATE = #state#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="activeState">
+            ACTIVE_STATE = #activeState#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="financeState">
+            FINANCE_STATE = #financeState#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="poNoType">
+            PO_NO_TYPE = #poNoType#
+	</isNotEmpty>
+    WHERE SEND_PO_NO = #sendPoNo#
+</update> 
+
+<select id="WarehouseSendInfo_findWarehouseSendInfo" resultMap="warehouseSendInfo_result" parameterClass="string">
+<![CDATA[
+    SELECT
+            SEND_PO_NO, 
+            C_CODE, 
+            SHORT_NAME, 
+            RECEIVE_NAME, 
+            RECEIVE_ADDRESS, 
+            RECEIVE_ZIP, 
+            CON_TEL, 
+            CON_FAX, 
+            COMPANY_BRANCH, 
+            HOUSE_TYPE, 
+            SETTLEMENT_TYPE, 
+            CREATE_DATE, 
+            OPER_ID, 
+            OPER_STAFF, 
+            SEND_DESC, 
+            PERIOD, 
+            STATE, 
+            ACTIVE_STATE, 
+            FINANCE_STATE, 
+            PO_NO_TYPE
+    FROM T_WAREHOUSE_SEND WHERE SEND_PO_NO = #sendPoNo#
+]]>
+</select>
+
+<select id="WarehouseSendInfo_listWarehouseSendInfo" resultMap="warehouseSendInfo_result" parameterClass="warehouseSendInfo">
+<![CDATA[
+    SELECT
+            SEND_PO_NO, 
+            C_CODE, 
+            SHORT_NAME, 
+            RECEIVE_NAME, 
+            RECEIVE_ADDRESS, 
+            RECEIVE_ZIP, 
+            CON_TEL, 
+            CON_FAX, 
+            COMPANY_BRANCH, 
+            HOUSE_TYPE, 
+            SETTLEMENT_TYPE, 
+            CREATE_DATE, 
+            OPER_ID, 
+            OPER_STAFF, 
+            SEND_DESC, 
+            PERIOD, 
+            STATE, 
+            ACTIVE_STATE, 
+            FINANCE_STATE, 
+            PO_NO_TYPE
+    FROM T_WAREHOUSE_SEND
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "sendPoNo">
+				SEND_PO_NO = #sendPoNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "custCode">
+				C_CODE = #custCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "shortName">
+				SHORT_NAME = #shortName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "receiveName">
+				RECEIVE_NAME = #receiveName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "receiveAddress">
+				RECEIVE_ADDRESS = #receiveAddress#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "receiveZip">
+				RECEIVE_ZIP = #receiveZip#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "conTel">
+				CON_TEL = #conTel#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "conFax">
+				CON_FAX = #conFax#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "companyBranch">
+				COMPANY_BRANCH = #companyBranch#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "houseType">
+				HOUSE_TYPE = #houseType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "settlement_type">
+				SETTLEMENT_TYPE = #settlement_type#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "createDate">
+				CREATE_DATE = #createDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "operId">
+				OPER_ID = #operId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "operStaff">
+				OPER_STAFF = #operStaff#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "sendDesc">
+				SEND_DESC = #sendDesc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "period">
+				PERIOD = #period#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "state">
+				STATE = #state#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "activeState">
+				ACTIVE_STATE = #activeState#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "financeState">
+				FINANCE_STATE = #financeState#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "poNoType">
+				PO_NO_TYPE = #poNoType#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+
+<select id="WarehouseSendInfo_listWarehouseSendInfoCount" resultClass="java.lang.Integer" parameterClass="warehouseSendInfo">
+<![CDATA[
+    SELECT
+		COUNT(*)
+    FROM T_WAREHOUSE_SEND
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "sendPoNo">
+				SEND_PO_NO = #sendPoNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "custCode">
+				C_CODE = #custCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "shortName">
+				SHORT_NAME = #shortName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "receiveName">
+				RECEIVE_NAME = #receiveName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "receiveAddress">
+				RECEIVE_ADDRESS = #receiveAddress#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "receiveZip">
+				RECEIVE_ZIP = #receiveZip#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "conTel">
+				CON_TEL = #conTel#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "conFax">
+				CON_FAX = #conFax#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "companyBranch">
+				COMPANY_BRANCH = #companyBranch#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "houseType">
+				HOUSE_TYPE = #houseType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "settlement_type">
+				SETTLEMENT_TYPE = #settlement_type#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "createDate">
+				CREATE_DATE = #createDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "operId">
+				OPER_ID = #operId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "operStaff">
+				OPER_STAFF = #operStaff#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "sendDesc">
+				SEND_DESC = #sendDesc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "period">
+				PERIOD = #period#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "state">
+				STATE = #state#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "activeState">
+				ACTIVE_STATE = #activeState#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "financeState">
+				FINANCE_STATE = #financeState#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "poNoType">
+				PO_NO_TYPE = #poNoType#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+</sqlMap>

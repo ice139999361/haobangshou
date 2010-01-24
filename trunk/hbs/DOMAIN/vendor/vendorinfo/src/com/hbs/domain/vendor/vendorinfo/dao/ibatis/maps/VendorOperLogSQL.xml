@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="OperLog">
+<typeAlias alias="operLog" type="com.hbs.domain.common.pojo.baseinfo.OperLog"/> 
+<resultMap id="operLog_result" class="operLog">
+    <result property="seqId" column="SEQID"/>
+    <result property="operTime" column="OPER_TIME"/>
+    <result property="staffId" column="STAFF_ID"/>
+    <result property="staffName" column="STAFF_NAME"/>
+    <result property="operType" column="OPER_TYPE"/>
+    <result property="operObject" column="OPER_OBJECT"/>
+    <result property="operKey" column="OPER_KEY"/>
+    <result property="operContent" column="OPER_CONTENT"/>
+    <result property="memo" column="MEMO"/>
+</resultMap>
+
+<select id="OperLog_getNextId" resultClass="java.lang.String">
+<![CDATA[
+    SELECT ltrim(to_char(Seq_T_VENDOR_OPER_LOG_Id.Nextval,'0000000000')) 
+           AS Id 
+    FROM dual
+]]>
+</select>
+
+<insert id="OperLog_insertOperLog" parameterClass="operLog" >
+<![CDATA[
+    INSERT INTO T_VENDOR_OPER_LOG (
+            SEQID, 
+            OPER_TIME, 
+            STAFF_ID, 
+            STAFF_NAME, 
+            OPER_TYPE, 
+            OPER_OBJECT, 
+            OPER_KEY, 
+            OPER_CONTENT, 
+            MEMO
+        )
+    VALUES (
+            #seqId#,
+            #operTime#,
+            #staffId#,
+            #staffName#,
+            #operType#,
+            #operObject#,
+            #operKey#,
+            #operContent#,
+            #memo#
+    )
+]]>
+</insert>
+
+<delete id="OperLog_deleteOperLog" parameterClass="string">
+<![CDATA[
+    DELETE  FROM  T_VENDOR_OPER_LOG WHERE SEQID = #seqId#
+]]>
+</delete>    
+
+<update id="OperLog_updateOperLog" parameterClass="operLog">
+    UPDATE T_VENDOR_OPER_LOG 
+    SET
+    	SEQID = #seqId#
+	<isNotEmpty prepend="," property="operTime">
+            OPER_TIME = #operTime#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="staffId">
+            STAFF_ID = #staffId#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="staffName">
+            STAFF_NAME = #staffName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="operType">
+            OPER_TYPE = #operType#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="operObject">
+            OPER_OBJECT = #operObject#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="operKey">
+            OPER_KEY = #operKey#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="operContent">
+            OPER_CONTENT = #operContent#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="memo">
+            MEMO = #memo#
+	</isNotEmpty>
+    WHERE SEQID = #seqId#
+</update> 
+
+<select id="OperLog_findOperLog" resultMap="operLog_result" parameterClass="string">
+<![CDATA[
+    SELECT
+            SEQID, 
+            OPER_TIME, 
+            STAFF_ID, 
+            STAFF_NAME, 
+            OPER_TYPE, 
+            OPER_OBJECT, 
+            OPER_KEY, 
+            OPER_CONTENT, 
+            MEMO
+    FROM T_VENDOR_OPER_LOG WHERE SEQID = #seqId#
+]]>
+</select>
+
+<select id="OperLog_listOperLog" resultMap="operLog_result" parameterClass="operLog">
+<![CDATA[
+    SELECT
+            SEQID, 
+            OPER_TIME, 
+            STAFF_ID, 
+            STAFF_NAME, 
+            OPER_TYPE, 
+            OPER_OBJECT, 
+            OPER_KEY, 
+            OPER_CONTENT, 
+            MEMO
+    FROM T_VENDOR_OPER_LOG
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "seqId">
+				SEQID = #seqId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "operTime">
+				OPER_TIME = #operTime#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffId">
+				STAFF_ID = #staffId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffName">
+				STAFF_NAME = #staffName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "operType">
+				OPER_TYPE = #operType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "operObject">
+				OPER_OBJECT = #operObject#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "operKey">
+				OPER_KEY = #operKey#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "operContent">
+				OPER_CONTENT = #operContent#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "memo">
+				MEMO = #memo#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+
+<select id="OperLog_listOperLogCount" resultClass="java.lang.Integer" parameterClass="operLog">
+<![CDATA[
+    SELECT
+		COUNT(*)
+    FROM T_VENDOR_OPER_LOG
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "seqId">
+				SEQID = #seqId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "operTime">
+				OPER_TIME = #operTime#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffId">
+				STAFF_ID = #staffId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffName">
+				STAFF_NAME = #staffName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "operType">
+				OPER_TYPE = #operType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "operObject">
+				OPER_OBJECT = #operObject#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "operKey">
+				OPER_KEY = #operKey#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "operContent">
+				OPER_CONTENT = #operContent#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "memo">
+				MEMO = #memo#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+</sqlMap>
