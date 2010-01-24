@@ -90,7 +90,7 @@
 			    			<columns>
 			    				<column header="收货地址" 			dataIndex="l11" xtype="textfield"/>
 			    				<column header="收货邮编" 			dataIndex="l12" xtype="textfield"/>
-			    				<column header="是否是主联系人" dataIndex="l13" xtype="textfield"/>
+			    				<column header="是否是主收货人" dataIndex="l13" xtype="textfield"/>
 			    			</columns>
 			    		</complexgrid>
 			    		
