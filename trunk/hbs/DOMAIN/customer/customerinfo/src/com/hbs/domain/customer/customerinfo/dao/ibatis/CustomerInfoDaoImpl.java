@@ -118,7 +118,7 @@ public class CustomerInfoDaoImpl extends SqlMapClientDaoSupport implements Custo
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入findCustomerInfo(CustomerInfo), 输入参数[" + cInfo + "]");
 		}
-        CustomerInfo customerInfo = (CustomerInfo) getSqlMapClientTemplate().queryForObject("CustomerInfo_findCustomerInfoByID", cInfo);
+        CustomerInfo customerInfo = (CustomerInfo) getSqlMapClientTemplate().queryForObject("CustomerInfo_findCustomerInfoByBase", cInfo);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开findCustomerInfo(CustomerInfo), 返回[" + customerInfo + "]");
 		}
