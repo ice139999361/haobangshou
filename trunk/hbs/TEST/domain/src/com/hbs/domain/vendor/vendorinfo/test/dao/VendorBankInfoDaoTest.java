@@ -72,14 +72,14 @@ public class VendorBankInfoDaoTest extends AbstractTransactionalDataSourceSpring
      */
     public void testFindBankInfo() {
         BankInfoDao bankInfoDao = (BankInfoDao) this.getApplicationContext().getBean("bankInfoDao");
-        BankInfo bankInfo = bankInfoDao.findBankInfo("1");
-        
-        System.out.println("testFind result--------------------------------------");
-        System.out.println("commCode=" + bankInfo.getCommCode());
-        System.out.println("state=" + bankInfo.getState());
-        System.out.println("accountName=" + bankInfo.getAccountName());
-        System.out.println("accountBank=" + bankInfo.getAccountBank());
-        System.out.println("account=" + bankInfo.getAccount());
+//        BankInfo bankInfo = bankInfoDao.findBankInfo("1");
+//        
+//        System.out.println("testFind result--------------------------------------");
+//        System.out.println("commCode=" + bankInfo.getCommCode());
+//        System.out.println("state=" + bankInfo.getState());
+//        System.out.println("accountName=" + bankInfo.getAccountName());
+//        System.out.println("accountBank=" + bankInfo.getAccountBank());
+//        System.out.println("account=" + bankInfo.getAccount());
     }
 
     /**
