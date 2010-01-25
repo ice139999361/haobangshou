@@ -73,9 +73,9 @@ public class BankInfoDaoTest {
         bankInfo.setAccount("000000000");
         list.add(bankInfo);
         
-        int id = cMgr.insertBankInfoList(list, null, null);
-        System.out.println("testInsert result--------------------------------------" + id);
-        
+//        int id = cMgr.insertBankInfoList(list, null, null);
+//        System.out.println("testInsert result--------------------------------------" + id);
+//        
 		}catch(Exception e){
         	e.printStackTrace();
         }
