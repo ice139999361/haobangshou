@@ -1,0 +1,71 @@
+1.这是所有的建库脚本
+
+我使用的是无安装的mysql，版本是：mysql-5.1.36
+
+mysql 无安装操作说明
+
+一、下载MySQL
+
+http://www.mysql.com/downloads
+
+二、安装过程
+
+1、解压缩到E:\myserver目录。
+2、编写mysql的运行配置文件my.ini
+   
+   [WinMySQLAdmin] 
+# 指定mysql服务启动启动的文件
+Server=F:\\aspire\\mysql5\\mysql-5.1.36-win32\\bin\\mysqld-nt.exe
+ 
+[mysqld] 
+# 设置mysql的安装目录 
+basedir=F:\\aspire\\mysql5\\mysql-5.1.36-win32
+# 设置mysql数据库的数据的存放目录，必须是data，或者是\\xxx\data 
+datadir=F:\\aspire\\mysql5\\mysql-5.1.36-win32\\data
+
+
+
+#bind-address=192.168.1.8
+
+innodb_data_file_path = /ibdata2:100M:autoextend:max:2000M
+set-variable = innodb_buffer_pool_size=50M
+set-variable = innodb_additional_mem_pool_size=15M 
+
+set-variable = innodb_log_file_size=50M
+set-variable = innodb_log_buffer_size=10M
+innodb_flush_log_at_trx_commit=1
+#language=C:/mysql/share/your language directory
+#slow query log#=
+#tmpdir#=
+#port=3306
+#set-variable=key_buffer=16M
+
+default-table-type=innodb
+
+# 设置mysql服务器的字符集
+default-character-set=gbk
+ 
+[client]
+# 设置mysql客户端的字符集
+default-character-set=gbk
+
+
+3、安装mysql服务  特别说明:我们使用的engines 是innodb ， 在执行以下命令前，先清除mysql的data目录下的：ib_logfile0 ib_logfile1 ibdata2 ibdata1 及 .err  .pid文件
+从MS-DOS窗口进入目录F:\aspire\mysql5\mysql-5.1.36-win32\bin\，运行如下命令：
+mysqld --install mysql5 --defaults-file=F:\aspire\mysql5\mysql-5.1.36-win32\my.ini
+
+
+4、启动mysql数据库
+还在上面的命令窗口里面，输入命令：net start mysql5
+这样就启动了mysql服务
+
+
+5.导入数据库脚本
+  在命令行窗口，转换到bin目录下，登录mysql ,执行
+  source 路径/文件名
+  如：
+    mysql> source  C:\haobangshou\sql\warehouse.sql
+
+
+
+
