@@ -31,9 +31,7 @@ public class VendorContactInfoDaoImpl extends SqlMapClientDaoSupport implements 
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入insertContactInfo(ContactInfo), 输入参数[" + contactInfo + "]");
     	}
-        
-        
-    	getSqlMapClientTemplate().insert("ContactInfo_insertContactInfo", contactInfo);
+    	getSqlMapClientTemplate().insert("Vendor_ContactInfo_insertContactInfo", contactInfo);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开insertContactInfo(ContactInfo), 返回[]");
 		}
@@ -45,11 +43,31 @@ public class VendorContactInfoDaoImpl extends SqlMapClientDaoSupport implements 
      * @param contactInfo contactInfo
      * @throws DataAccessException DataAccessException
      */
-    public void deleteContactInfo(String pk)throws DataAccessException {
+    /**
+     * delete.
+     * @param contactInfo contactInfo
+     * @throws DataAccessException DataAccessException
+     */
+    public void deleteContactInfoByID(String pk)throws DataAccessException {
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入deleteContactInfo(String), 输入参数[" + pk + "]");
 		}
-        getSqlMapClientTemplate().update("ContactInfo_deleteContactInfo", pk);
+        getSqlMapClientTemplate().update("Vendor_ContactInfo_deleteContactInfoByID", pk);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开deleteContactInfo(String)");
+		}
+    }
+    
+    /**
+     * delete.
+     * @param contactInfo contactInfo
+     * @throws DataAccessException DataAccessException
+     */
+    public void deleteContactInfo(ContactInfo contactInfo)throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+    		logger.debug("进入deleteContactInfo(String), 输入参数[" + contactInfo + "]");
+		}
+        getSqlMapClientTemplate().update("Vendor_ContactInfo_deleteContactInfo", contactInfo);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开deleteContactInfo(String)");
 		}
@@ -64,7 +82,22 @@ public class VendorContactInfoDaoImpl extends SqlMapClientDaoSupport implements 
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入updateContactInfo(ContactInfo), 输入参数[" + contactInfo + "]");
 		}
-    	getSqlMapClientTemplate().update("ContactInfo_updateContactInfo", contactInfo);
+    	getSqlMapClientTemplate().update("Vendor_ContactInfo_updateContactInfo", contactInfo);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开updateContactInfo(ContactInfo)");
+		}
+    }
+    
+    /**
+     * update.
+     * @param contactInfo contactInfo
+     * @throws DataAccessException DataAccessException
+     */
+    public void updateContactInfoByState(ContactInfo contactInfo) throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+    		logger.debug("进入updateContactInfo(ContactInfo), 输入参数[" + contactInfo + "]");
+		}
+    	getSqlMapClientTemplate().update("Vendor_ContactInfo_updateContactInfoByState", contactInfo);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开updateContactInfo(ContactInfo)");
 		}
@@ -80,7 +113,7 @@ public class VendorContactInfoDaoImpl extends SqlMapClientDaoSupport implements 
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入findContactInfo(ContactInfo), 输入参数[" + contactInfo + "]");
 		}
-        ContactInfo cInfo = (ContactInfo) getSqlMapClientTemplate().queryForObject("ContactInfo_findContactInfo", contactInfo);
+        ContactInfo cInfo = (ContactInfo) getSqlMapClientTemplate().queryForObject("Vendor_ContactInfo_findContactInfo", contactInfo);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开findContactInfo(ContactInfo), 返回[" + contactInfo + "]");
 		}
@@ -98,53 +131,11 @@ public class VendorContactInfoDaoImpl extends SqlMapClientDaoSupport implements 
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listContactInfo(ContactInfo), 输入参数[" + contactInfo + "]");
 		}
-        List<ContactInfo> list = getSqlMapClientTemplate().queryForList("ContactInfo_listContactInfo", contactInfo);
+        List<ContactInfo> list = getSqlMapClientTemplate().queryForList("Vendor_ContactInfo_listContactInfo", contactInfo);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listContactInfo(ContactInfo), 返回[" + list + "]");
 		}
         return list;
-    }  
+    }      
     
-    /**
-     * listCount.
-     * @param contactInfo contactInfo
-     * @return list count
-     * @throws DataAccessException DataAccessException
-     */
-    public Integer listContactInfoCount(ContactInfo contactInfo) throws DataAccessException {
-		if (logger.isDebugEnabled()) {
-        	logger.debug("进入listContactInfoCount(ContactInfo), 输入参数[" + contactInfo + "]");
-		}
-        Integer count = (Integer)getSqlMapClientTemplate().queryForObject("ContactInfo_listContactInfoCount", contactInfo);
-		if (logger.isDebugEnabled()) {
-        	logger.debug("离开listContactInfoCount(ContactInfo), 返回[" + count + "]");
-		}
-        return count;
-    }
-
-	/* (non-Javadoc)
-	 * @see com.hbs.domain.common.dao.baseinfo.ContactInfoDao#deleteContactInfo(com.hbs.domain.common.pojo.baseinfo.ContactInfo)
-	 */
-	public void deleteContactInfo(ContactInfo contactInfo)
-			throws DataAccessException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/* (non-Javadoc)
-	 * @see com.hbs.domain.common.dao.baseinfo.ContactInfoDao#deleteContactInfoByID(java.lang.String)
-	 */
-	public void deleteContactInfoByID(String id) throws DataAccessException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/* (non-Javadoc)
-	 * @see com.hbs.domain.common.dao.baseinfo.ContactInfoDao#updateContactInfoByState(com.hbs.domain.common.pojo.baseinfo.ContactInfo)
-	 */
-	public void updateContactInfoByState(ContactInfo contactInfo)
-			throws DataAccessException {
-		// TODO Auto-generated method stub
-		
-	}  
 }

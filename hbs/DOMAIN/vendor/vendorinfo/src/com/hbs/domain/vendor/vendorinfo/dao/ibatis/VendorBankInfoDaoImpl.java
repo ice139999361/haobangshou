@@ -32,7 +32,7 @@ public class VendorBankInfoDaoImpl extends SqlMapClientDaoSupport implements Ban
     		logger.debug("进入insertBankInfo(BankInfo), 输入参数[" + bankInfo + "]");
     	}
        
-    	getSqlMapClientTemplate().insert("BankInfo_insertBankInfo", bankInfo);
+    	getSqlMapClientTemplate().insert("Vendor_BankInfo_insertBankInfo", bankInfo);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开insertBankInfo(BankInfo), 返回");
 		}
@@ -44,16 +44,30 @@ public class VendorBankInfoDaoImpl extends SqlMapClientDaoSupport implements Ban
      * @param bankInfo bankInfo
      * @throws DataAccessException DataAccessException
      */
-    public void deleteBankInfo(String pk)throws DataAccessException {
+    public void deleteBankInfo(BankInfo bankInfo)throws DataAccessException {
 		if (logger.isDebugEnabled()) {
-    		logger.debug("进入deleteBankInfo(String), 输入参数[" + pk + "]");
+    		logger.debug("进入deleteBankInfo(String), 输入参数[" + bankInfo + "]");
 		}
-        getSqlMapClientTemplate().update("BankInfo_deleteBankInfo", pk);
+        getSqlMapClientTemplate().update("Vendor_BankInfo_deleteBankInfo", bankInfo);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开deleteBankInfo(String)");
 		}
     }
     
+    
+    /* (non-Javadoc)
+	 * @see com.hbs.domain.common.dao.baseinfo.BankInfoDao#deleteBankInfoByID(java.lang.String)
+	 */
+	public void deleteBankInfoByID(String pk) throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+    		logger.debug("进入deleteBankInfo(String), 输入参数[" + pk + "]");
+		}
+        getSqlMapClientTemplate().update("Vendor_BankInfo_deleteBankInfoByID", pk);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开deleteBankInfo(String)");
+		}
+		
+	}
     /**
      * update.
      * @param bankInfo bankInfo
@@ -63,12 +77,26 @@ public class VendorBankInfoDaoImpl extends SqlMapClientDaoSupport implements Ban
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入updateBankInfo(BankInfo), 输入参数[" + bankInfo + "]");
 		}
-    	getSqlMapClientTemplate().update("BankInfo_updateBankInfo", bankInfo);
+    	getSqlMapClientTemplate().update("Vendor_BankInfo_updateBankInfo", bankInfo);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开updateBankInfo(BankInfo)");
 		}
     }
     
+    /**
+     * update.
+     * @param bankInfo bankInfo
+     * @throws DataAccessException DataAccessException
+     */
+    public void updateBankInfoByState(BankInfo bankInfo) throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+    		logger.debug("进入updateBankInfo(BankInfo), 输入参数[" + bankInfo + "]");
+		}
+    	getSqlMapClientTemplate().update("Vendor_BankInfo_updateBankInfoByState", bankInfo);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开updateBankInfo(BankInfo)");
+		}
+    }
     /**
      * find.
      * @param id id
@@ -79,7 +107,7 @@ public class VendorBankInfoDaoImpl extends SqlMapClientDaoSupport implements Ban
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入findBankInfo(BankInfo), 输入参数[" + bankInfo + "]");
 		}
-        BankInfo bInfo = (BankInfo) getSqlMapClientTemplate().queryForObject("BankInfo_findBankInfo", bankInfo);
+        BankInfo bInfo = (BankInfo) getSqlMapClientTemplate().queryForObject("Vendor_BankInfo_findBankInfo", bankInfo);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开findBankInfo(BankInfo), 返回[" + bankInfo + "]");
 		}
@@ -97,52 +125,12 @@ public class VendorBankInfoDaoImpl extends SqlMapClientDaoSupport implements Ban
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listBankInfo(BankInfo), 输入参数[" + bankInfo + "]");
 		}
-        List<BankInfo> list = getSqlMapClientTemplate().queryForList("BankInfo_listBankInfo", bankInfo);
+        List<BankInfo> list = getSqlMapClientTemplate().queryForList("Vendor_BankInfo_listBankInfo", bankInfo);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listBankInfo(BankInfo), 返回[" + list + "]");
 		}
         return list;
     }  
     
-    /**
-     * listCount.
-     * @param bankInfo bankInfo
-     * @return list count
-     * @throws DataAccessException DataAccessException
-     */
-    public Integer listBankInfoCount(BankInfo bankInfo) throws DataAccessException {
-		if (logger.isDebugEnabled()) {
-        	logger.debug("进入listBankInfoCount(BankInfo), 输入参数[" + bankInfo + "]");
-		}
-        Integer count = (Integer)getSqlMapClientTemplate().queryForObject("BankInfo_listBankInfoCount", bankInfo);
-		if (logger.isDebugEnabled()) {
-        	logger.debug("离开listBankInfoCount(BankInfo), 返回[" + count + "]");
-		}
-        return count;
-    }
-
-	/* (non-Javadoc)
-	 * @see com.hbs.domain.common.dao.baseinfo.BankInfoDao#deleteBankInfo(com.hbs.domain.common.pojo.baseinfo.BankInfo)
-	 */
-	public void deleteBankInfo(BankInfo bankInfo) throws DataAccessException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/* (non-Javadoc)
-	 * @see com.hbs.domain.common.dao.baseinfo.BankInfoDao#deleteBankInfoByID(java.lang.String)
-	 */
-	public void deleteBankInfoByID(String pk) throws DataAccessException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/* (non-Javadoc)
-	 * @see com.hbs.domain.common.dao.baseinfo.BankInfoDao#updateBankInfoByState(com.hbs.domain.common.pojo.baseinfo.BankInfo)
-	 */
-	public void updateBankInfoByState(BankInfo bankInfo)
-			throws DataAccessException {
-		// TODO Auto-generated method stub
-		
-	}  
+    
 }
