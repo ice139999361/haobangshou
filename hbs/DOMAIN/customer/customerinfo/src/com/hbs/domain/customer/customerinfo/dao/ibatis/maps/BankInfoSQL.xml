@@ -44,7 +44,7 @@
 
 <delete id="BankInfo_deleteBankInfo" parameterClass="bankInfo">
 <![CDATA[
-    DELETE  FROM  T_CUST_ACCOUNT_PERIOD
+    DELETE  FROM  T_CUST_BANK
 ]]>
 <dynamic prepend="WHERE">
 		<isNotEmpty prepend="and" property="commCode">

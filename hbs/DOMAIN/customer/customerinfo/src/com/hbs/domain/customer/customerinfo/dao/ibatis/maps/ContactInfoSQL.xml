@@ -68,7 +68,7 @@
 
 <delete id="ContactInfo_deleteContactInfoByID" parameterClass="string">
 <![CDATA[
-    DELETE  FROM  T_CUSTOMER_CONTACT_INFO WHERE SEQID = #SEQID#
+    DELETE  FROM  T_CUSTOMER_CONTACT_INFO WHERE SEQID = #seqId#
 ]]>
 </delete> 
 
@@ -90,7 +90,7 @@
 <update id="ContactInfo_updateContactInfo" parameterClass="contactInfo">
     UPDATE T_CUSTOMER_CONTACT_INFO 
     SET
-    	SEQID = #SEQID#
+    	SEQID = #seqId#
 	<isNotEmpty prepend="," property="commCode">
             C_CODE = #commCode#
 	</isNotEmpty>
