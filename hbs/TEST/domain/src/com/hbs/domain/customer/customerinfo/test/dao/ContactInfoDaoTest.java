@@ -94,25 +94,25 @@ public class ContactInfoDaoTest extends AbstractTransactionalDataSourceSpringCon
      */
     public void testFindContactInfo() {
         ContactInfoDao contactInfoDao = (ContactInfoDao) this.getApplicationContext().getBean("contactInfoDao");
-        ContactInfo contactInfo = contactInfoDao.findContactInfo("1");
-        
-        System.out.println("testFind result--------------------------------------");
-       // System.out.println("SEQID=" + contactInfo.getSEQID());
-        System.out.println("commCode=" + contactInfo.getCommCode());
-        System.out.println("state=" + contactInfo.getState());
-        System.out.println("conType=" + contactInfo.getConType());
-        System.out.println("conName=" + contactInfo.getConName());
-        System.out.println("conDuty=" + contactInfo.getConDuty());
-        System.out.println("conTel=" + contactInfo.getConTel());
-        System.out.println("conMobile=" + contactInfo.getConMobile());
-        System.out.println("conFax=" + contactInfo.getConFax());
-        System.out.println("conMail=" + contactInfo.getConMail());
-        System.out.println("conQq=" + contactInfo.getConQq());
-        System.out.println("conMsn=" + contactInfo.getConMsn());
-        System.out.println("conOther=" + contactInfo.getConOther());
-        System.out.println("conAddress=" + contactInfo.getConAddress());
-        System.out.println("conZip=" + contactInfo.getConZip());
-        System.out.println("isPrimary=" + contactInfo.getIsPrimary());
+//        ContactInfo contactInfo = contactInfoDao.findContactInfo("1");
+//        
+//        System.out.println("testFind result--------------------------------------");
+//       // System.out.println("SEQID=" + contactInfo.getSEQID());
+//        System.out.println("commCode=" + contactInfo.getCommCode());
+//        System.out.println("state=" + contactInfo.getState());
+//        System.out.println("conType=" + contactInfo.getConType());
+//        System.out.println("conName=" + contactInfo.getConName());
+//        System.out.println("conDuty=" + contactInfo.getConDuty());
+//        System.out.println("conTel=" + contactInfo.getConTel());
+//        System.out.println("conMobile=" + contactInfo.getConMobile());
+//        System.out.println("conFax=" + contactInfo.getConFax());
+//        System.out.println("conMail=" + contactInfo.getConMail());
+//        System.out.println("conQq=" + contactInfo.getConQq());
+//        System.out.println("conMsn=" + contactInfo.getConMsn());
+//        System.out.println("conOther=" + contactInfo.getConOther());
+//        System.out.println("conAddress=" + contactInfo.getConAddress());
+//        System.out.println("conZip=" + contactInfo.getConZip());
+//        System.out.println("isPrimary=" + contactInfo.getIsPrimary());
     }
 
     /**
