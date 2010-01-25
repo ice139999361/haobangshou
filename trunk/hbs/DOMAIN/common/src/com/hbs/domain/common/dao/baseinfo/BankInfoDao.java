@@ -53,7 +53,7 @@ public interface BankInfoDao {
      * @return bankInfo
      * @throws DataAccessException DataAccessException
      */
-    BankInfo findBankInfo(String id) throws DataAccessException ;
+    BankInfo findBankInfo(BankInfo bankInfo) throws DataAccessException ;
     
     /**
      * list.

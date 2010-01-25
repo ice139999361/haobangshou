@@ -53,7 +53,7 @@ public interface ContactInfoDao {
      * @return contactInfo
      * @throws DataAccessException DataAccessException
      */
-    ContactInfo findContactInfo(String id) throws DataAccessException ;
+    ContactInfo findContactInfo(ContactInfo contactInfo) throws DataAccessException ;
     
     /**
      * list.
