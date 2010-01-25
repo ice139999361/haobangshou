@@ -363,7 +363,7 @@ public class CustomerInfoMgr {
 		CustomerInfoDao customerInfoDao = (CustomerInfoDao)BeanLocator.getInstance().getBean(CUSTOMERINFODAO);
 		CustomerInfo tempInfo = customerInfoDao.findCustomerInfoByBase(customerInfo);
 		Integer baseSeqId =0; //主信息插入返回的baseSeqId
-		if(null != tempInfo){
+		if(null == tempInfo){
 			baseSeqId = customerInfoDao.insertCustomerInfo(customerInfo);
 			/** 联系人信息 */
 			List<ContactInfo> contactInfoList = customerInfo.getListContactInfo();
