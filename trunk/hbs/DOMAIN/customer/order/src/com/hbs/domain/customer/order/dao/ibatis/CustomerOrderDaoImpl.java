@@ -96,11 +96,11 @@ public class CustomerOrderDaoImpl extends SqlMapClientDaoSupport implements Cust
      * @return customerOrder
      * @throws DataAccessException DataAccessException
      */
-    public CustomerOrder findCustomerOrder(String pk) throws DataAccessException {
+    public CustomerOrder findCustomerOrder(CustomerOrder order) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
-        	logger.debug("进入findCustomerOrder(CustomerOrder), 输入参数[" + pk + "]");
+        	logger.debug("进入findCustomerOrder(CustomerOrder), 输入参数[" + order + "]");
 		}
-        CustomerOrder customerOrder = (CustomerOrder) getSqlMapClientTemplate().queryForObject("CustomerOrder_findCustomerOrder", pk);
+        CustomerOrder customerOrder = (CustomerOrder) getSqlMapClientTemplate().queryForObject("CustomerOrder_findCustomerOrder", order);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开findCustomerOrder(CustomerOrder), 返回[" + customerOrder + "]");
 		}
