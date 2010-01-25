@@ -373,7 +373,7 @@ public class CustomerInfoMgr {
 					cInfo.setState(customerInfo.getState());
 				}
 				ContactMgr contactInfoMgr = (ContactMgr)BeanLocator.getInstance().getBean(CustInfoConstants.CUSTCONTACTMGR);
-				contactInfoMgr.insertContactInfoList(contactInfoList, null, null);
+				contactInfoMgr.insertContactInfoList(contactInfoList);
 			}
 			/**  银行信息 */
 			List<BankInfo> bankInfoList = customerInfo.getListBankInfo();
@@ -383,7 +383,7 @@ public class CustomerInfoMgr {
 					bInfo.setState(customerInfo.getState());
 				}
 				BankInfoMgr bankInfoMgr =(BankInfoMgr)BeanLocator.getInstance().getBean(CustInfoConstants.CUSTBANKINFOMGR);
-				bankInfoMgr.insertBankInfoList(bankInfoList, null, null);
+				bankInfoMgr.insertBankInfoList(bankInfoList);
 			}
 			
 			/**  账期信息  */
@@ -511,7 +511,7 @@ public class CustomerInfoMgr {
 				cInfo.setState(customerInfo.getState());
 			}
 			BankInfoMgr bankInfoMgr =(BankInfoMgr)BeanLocator.getInstance().getBean(CustInfoConstants.CUSTBANKINFOMGR);
-			bankInfoMgr.updateBankInfoList(bankInfoList, null, null, null);
+			bankInfoMgr.updateBankInfoList(bankInfoList);
 		}
 		
 		/**  账期信息  */
@@ -519,7 +519,7 @@ public class CustomerInfoMgr {
 		if(null != aPreiod){	
 			aPreiod.setState(customerInfo.getState());
 			CustAccountPreiodMgr custAccountPreiodMgr =(CustAccountPreiodMgr)BeanLocator.getInstance().getBean(CustInfoConstants.CUSTACCOUNTPREIODMGR);
-			custAccountPreiodMgr.updateAccountPreiod(aPreiod, null, null, null);
+			custAccountPreiodMgr.updateAccountPreiod(aPreiod);
 		}
 		
 		/**  预付费信息			 */
@@ -527,7 +527,7 @@ public class CustomerInfoMgr {
 		if(null != pInfo){
 			pInfo.setState(customerInfo.getState());
 			PrePaidMgr prePaidMgr =(PrePaidMgr)BeanLocator.getInstance().getBean(CustInfoConstants.CUSTPREPAIDMGR);
-			prePaidMgr.updatePrePaidInfo(pInfo, null, null, null);
+			prePaidMgr.updatePrePaidInfo(pInfo);
 		}
 //		/** 物料对关系信息*/
 //		List<CustPartNoInfo>  custPartNoInfoList = customerInfo.getPartNoInfoList();
