@@ -2,9 +2,11 @@
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
 <!-- Always ensure to use the correct XML header as above! -->
-<sqlMap namespace="AccountPreiod">
+<sqlMap namespace="Vendor_AccountPreiod">
 <typeAlias alias="accountPreiod" type="com.hbs.domain.common.pojo.baseinfo.AccountPreiod"/> 
 <resultMap id="accountPreiod_result" class="accountPreiod">
+	<result property="seqId" column="SEQID"/>
+    <result property="baseSeqId" column="BASE_SEQID"/>
     <result property="commCode" column="C_CODE"/>
     <result property="state" column="STATE"/>
     <result property="accountType" column="ACCOUNT_TYPE"/>
@@ -16,7 +18,7 @@
     <result property="reminderDay" column="REMINDER_DAY"/>
 </resultMap>
 
-<insert id="AccountPreiod_insertAccountPreiod" parameterClass="accountPreiod" >
+<insert id="Vendor_AccountPreiod_insertAccountPreiod" parameterClass="accountPreiod" >
 <![CDATA[
     INSERT INTO T_VENDOR_ACCOUNT_PERIOD (
 			BASE_SEQID,
@@ -45,13 +47,13 @@
 ]]>
 </insert>
 
-<delete id="AccountPreiod_deleteAccountPreiodByID" parameterClass="string">
+<delete id="Vendor_AccountPreiod_deleteAccountPreiodByID" parameterClass="string">
 <![CDATA[
     DELETE  FROM  T_VENDOR_ACCOUNT_PERIOD WHERE SEQID = #seqId#
 ]]>
 </delete>    
 
-<delete id="AccountPreiod_deleteAccountPreiod" parameterClass="accountPreiod">
+<delete id="Vendor_AccountPreiod_deleteAccountPreiod" parameterClass="accountPreiod">
 <![CDATA[
     DELETE  FROM  T_VENDOR_ACCOUNT_PERIOD
 ]]>
@@ -65,7 +67,7 @@
 	</dynamic>
 </delete> 
 
-<update id="AccountPreiod_updateAccountPreiod" parameterClass="accountPreiod">
+<update id="Vendor_AccountPreiod_updateAccountPreiod" parameterClass="accountPreiod">
     UPDATE T_VENDOR_ACCOUNT_PERIOD 
     SET
     	C_CODE = #commCode#
@@ -96,14 +98,14 @@
     WHERE SEQID = #seqId#
 </update> 
 
-<update id="AccountPreiod_updateAccountPreiodByState" parameterClass="accountPreiod">
+<update id="Vendor_AccountPreiod_updateAccountPreiodByState" parameterClass="accountPreiod">
     UPDATE T_VENDOR_ACCOUNT_PERIOD 
     SET
     	STATE = #state#	
     WHERE SEQID = #seqId#
 </update>
 
-<select id="AccountPreiod_findAccountPreiod" resultMap="accountPreiod_result" parameterClass="accountPreiod">
+<select id="Vendor_AccountPreiod_findAccountPreiod" resultMap="accountPreiod_result" parameterClass="accountPreiod">
 <![CDATA[
     SELECT
             SEQID,
@@ -121,7 +123,7 @@
 ]]>
 </select>
 
-<select id="AccountPreiod_listAccountPreiod" resultMap="accountPreiod_result" parameterClass="accountPreiod">
+<select id="Vendor_AccountPreiod_listAccountPreiod" resultMap="accountPreiod_result" parameterClass="accountPreiod">
 <![CDATA[
     SELECT
 			SEQID,

@@ -1,28 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
-<!-- Always ensure to use the correct XML header as above! -->
-<sqlMap namespace="BankInfo">
-<typeAlias alias="bankInfo" type="com.hbs.domain.common.pojo.baseinfo.BankInfo"/> 
-<resultMap id="bankInfo_result" class="bankInfo">
-    <result property="commCode" column="C_CODE"/>
-    <result property="state" column="STATE"/>
-    <result property="accountName" column="ACCOUNT_NAME"/>
-    <result property="accountBank" column="ACCOUNT_BANK"/>
-    <result property="account" column="ACCOUNT"/>
-</resultMap>
+	<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="Vendor_BankInfo">
+	<typeAlias alias="bankInfo"
+		type="com.hbs.domain.common.pojo.baseinfo.BankInfo" />
+	<resultMap id="bankInfo_result" class="bankInfo">
+		<result property="seqId" column="SEQID" />
+		<result property="baseSeqId" column="BASE_SEQID" />
+		<result property="commCode" column="C_CODE" />
+		<result property="state" column="STATE" />
+		<result property="accountName" column="ACCOUNT_NAME" />
+		<result property="accountBank" column="ACCOUNT_BANK" />
+		<result property="account" column="ACCOUNT" />
+	</resultMap>
 
-<select id="BankInfo_getNextId" resultClass="java.lang.String">
-<![CDATA[
-    SELECT ltrim(to_char(Seq_T_VENDOR_BANK_Id.Nextval,'0000000000')) 
-           AS Id 
-    FROM dual
-]]>
-</select>
 
-<insert id="BankInfo_insertBankInfo" parameterClass="bankInfo" >
+
+	<insert id="Vendor_BankInfo_insertBankInfo" parameterClass="bankInfo">
 <![CDATA[
     INSERT INTO T_VENDOR_BANK (
+    		BASE_SEQID,
             C_CODE, 
             STATE, 
             ACCOUNT_NAME, 
@@ -30,6 +28,7 @@
             ACCOUNT
         )
     VALUES (
+    		#baseSeqId#, 
             #commCode#,
             #state#,
             #accountName#,
@@ -37,34 +36,57 @@
             #account#
     )
 ]]>
-</insert>
+	</insert>
 
-<delete id="BankInfo_deleteBankInfo" parameterClass="string">
+	<delete id="Vendor_BankInfo_deleteBankInfoByID" parameterClass="string">
 <![CDATA[
-    DELETE  FROM  T_VENDOR_BANK WHERE C_CODE = #commCode#
+    DELETE  FROM  T_VENDOR_BANK WHERE SEQID = #seqId#
 ]]>
-</delete>    
+	</delete>
 
-<update id="BankInfo_updateBankInfo" parameterClass="bankInfo">
-    UPDATE T_VENDOR_BANK 
-    SET
-    	C_CODE = #commCode#
-	<isNotEmpty prepend="," property="state">
-            STATE = #state#
-	</isNotEmpty>
-	<isNotEmpty prepend="," property="accountName">
-            ACCOUNT_NAME = #accountName#
-	</isNotEmpty>
-	<isNotEmpty prepend="," property="accountBank">
-            ACCOUNT_BANK = #accountBank#
-	</isNotEmpty>
-	<isNotEmpty prepend="," property="account">
-            ACCOUNT = #account#
-	</isNotEmpty>
-    WHERE C_CODE = #commCode#
-</update> 
+	<delete id="Vendor_BankInfo_deleteBankInfo" parameterClass="bankInfo">
+<![CDATA[
+    DELETE  FROM  T_VENDOR_BANK
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property="commCode">
+				C_CODE = #commCode#
+		</isNotEmpty>
+			<isNotEmpty prepend="and" property="state">
+				STATE = #state#
+		</isNotEmpty>
+		</dynamic>
+	</delete>
 
-<select id="BankInfo_findBankInfo" resultMap="bankInfo_result" parameterClass="string">
+	<update id="Vendor_BankInfo_updateBankInfo" parameterClass="bankInfo">
+		UPDATE T_VENDOR_BANK
+		SET
+		C_CODE = #commCode#
+		<isNotEmpty prepend="," property="state">
+			STATE = #state#
+	</isNotEmpty>
+		<isNotEmpty prepend="," property="accountName">
+			ACCOUNT_NAME = #accountName#
+	</isNotEmpty>
+		<isNotEmpty prepend="," property="accountBank">
+			ACCOUNT_BANK = #accountBank#
+	</isNotEmpty>
+		<isNotEmpty prepend="," property="account">
+			ACCOUNT = #account#
+	</isNotEmpty>
+		WHERE WHERE SEQID = #seqId#
+	</update>
+
+	<update id="Vendor_BankInfo_updateBankInfoByState" parameterClass="bankInfo">
+		UPDATE T_VENDOR_BANK
+		SET
+		STATE = #state#
+
+		WHERE SEQID = #seqId#
+</update>
+
+	<select id="Vendor_BankInfo_findBankInfo" resultMap="bankInfo_result"
+		parameterClass="string">
 <![CDATA[
     SELECT
             C_CODE, 
@@ -74,9 +96,10 @@
             ACCOUNT
     FROM T_VENDOR_BANK WHERE WHERE C_CODE = #commCode# AND STATE = #state#
 ]]>
-</select>
+	</select>
 
-<select id="BankInfo_listBankInfo" resultMap="bankInfo_result" parameterClass="bankInfo">
+	<select id="Vendor_BankInfo_listBankInfo" resultMap="bankInfo_result"
+		parameterClass="bankInfo">
 <![CDATA[
     SELECT
             C_CODE, 
@@ -87,48 +110,24 @@
     FROM T_VENDOR_BANK
 ]]>
 		<dynamic prepend="WHERE">
-			<isNotEmpty prepend="and" property = "commCode">
+			<isNotEmpty prepend="and" property="commCode">
 				C_CODE = #commCode#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "state">
+			<isNotEmpty prepend="and" property="state">
 				STATE = #state#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "accountName">
-				ACCOUNT_NAME = #accountName#
+			<isNotEmpty prepend="and" property="accountName">
+				ACCOUNT_NAME =
+				#accountName#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "accountBank">
-				ACCOUNT_BANK = #accountBank#
+			<isNotEmpty prepend="and" property="accountBank">
+				ACCOUNT_BANK =
+				#accountBank#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "account">
+			<isNotEmpty prepend="and" property="account">
 				ACCOUNT = #account#
 			</isNotEmpty>
 		</dynamic>
-</select>
-
-
-<select id="BankInfo_listBankInfoCount" resultClass="java.lang.Integer" parameterClass="bankInfo">
-<![CDATA[
-    SELECT
-		COUNT(*)
-    FROM T_VENDOR_BANK
-]]>
-		<dynamic prepend="WHERE">
-			<isNotEmpty prepend="and" property = "commCode">
-				C_CODE = #commCode#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "state">
-				STATE = #state#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "accountName">
-				ACCOUNT_NAME = #accountName#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "accountBank">
-				ACCOUNT_BANK = #accountBank#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "account">
-				ACCOUNT = #account#
-			</isNotEmpty>
-		</dynamic>
-</select>
+	</select>
 
 </sqlMap>

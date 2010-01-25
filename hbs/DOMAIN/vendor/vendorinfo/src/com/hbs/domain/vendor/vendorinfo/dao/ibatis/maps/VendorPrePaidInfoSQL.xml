@@ -2,32 +2,28 @@
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
 <!-- Always ensure to use the correct XML header as above! -->
-<sqlMap namespace="PrePaidInfo">
+<sqlMap namespace="Vendor_PrePaidInfo">
 <typeAlias alias="prePaidInfo" type="com.hbs.domain.common.pojo.baseinfo.PrePaidInfo"/> 
 <resultMap id="prePaidInfo_result" class="prePaidInfo">
+	<result property="seqId" column="SEQID"/>
+    <result property="baseSeqId" column="BASE_SEQID"/>
     <result property="commCode" column="C_CODE"/>
     <result property="state" column="STATE"/>
     <result property="prePaid" column="PRE_PAID"/>
     <result property="reminderDay" column="REMINDER_DAY"/>
 </resultMap>
 
-<select id="PrePaidInfo_getNextId" resultClass="java.lang.String">
-<![CDATA[
-    SELECT ltrim(to_char(Seq_T_VENDOR_PREPAID_Id.Nextval,'0000000000')) 
-           AS Id 
-    FROM dual
-]]>
-</select>
-
-<insert id="PrePaidInfo_insertPrePaidInfo" parameterClass="prePaidInfo" >
+<insert id="Vendor_PrePaidInfo_insertPrePaidInfo" parameterClass="prePaidInfo" >
 <![CDATA[
     INSERT INTO T_VENDOR_PREPAID (
+    		BASE_SEQID,
             C_CODE, 
             STATE, 
             PRE_PAID, 
             REMINDER_DAY
         )
     VALUES (
+    		#baseSeqId#,
             #commCode#,
             #state#,
             #prePaid#,
@@ -36,13 +32,27 @@
 ]]>
 </insert>
 
-<delete id="PrePaidInfo_deletePrePaidInfo" parameterClass="string">
+<delete id="Vendor_PrePaidInfo_deletePrePaidInfoByID" parameterClass="string">
 <![CDATA[
-    DELETE  FROM  T_VENDOR_PREPAID WHERE C_CODE = #commCode#
+    DELETE  FROM  T_VENDOR_PREPAID WHERE SEQID = #seqId#
 ]]>
 </delete>    
 
-<update id="PrePaidInfo_updatePrePaidInfo" parameterClass="prePaidInfo">
+<delete id="Vendor_PrePaidInfo_deletePrePaidInfo" parameterClass="prePaidInfo">
+<![CDATA[
+    DELETE  FROM  T_VENDOR_PREPAID
+]]>
+<dynamic prepend="WHERE">
+		<isNotEmpty prepend="and" property="commCode">
+			C_CODE = #commCode#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="state">
+			STATE = #state#
+		</isNotEmpty>
+	</dynamic>
+</delete>
+
+<update id="Vendor_PrePaidInfo_updatePrePaidInfo" parameterClass="prePaidInfo">
     UPDATE T_VENDOR_PREPAID 
     SET
     	C_CODE = #commCode#
@@ -55,23 +65,35 @@
 	<isNotEmpty prepend="," property="reminderDay">
             REMINDER_DAY = #reminderDay#
 	</isNotEmpty>
-    WHERE C_CODE = #commCode#
+    WHERE SEQID = #seqId#
 </update> 
 
-<select id="PrePaidInfo_findPrePaidInfo" resultMap="prePaidInfo_result" parameterClass="string">
+<update id="Vendor_PrePaidInfo_updatePrePaidInfoByState" parameterClass="prePaidInfo">
+	UPDATE T_VENDOR_PREPAID 
+    SET
+    	STATE = #state#
+	
+    WHERE SEQID = #seqId#
+</update>
+
+<select id="Vendor_PrePaidInfo_findPrePaidInfo" resultMap="prePaidInfo_result" parameterClass="prePaidInfo">
 <![CDATA[
     SELECT
+    		SEQID,
+            BASE_SEQID,
             C_CODE, 
             STATE, 
             PRE_PAID, 
             REMINDER_DAY
-    FROM T_VENDOR_PREPAID WHERE C_CODE = #commCode#
+    FROM T_VENDOR_PREPAID WHERE C_CODE = #commCode# AND STATE = #state#
 ]]>
 </select>
 
-<select id="PrePaidInfo_listPrePaidInfo" resultMap="prePaidInfo_result" parameterClass="prePaidInfo">
+<select id="Vendor_PrePaidInfo_listPrePaidInfo" resultMap="prePaidInfo_result" parameterClass="prePaidInfo">
 <![CDATA[
     SELECT
+    		SEQID,
+            BASE_SEQID,
             C_CODE, 
             STATE, 
             PRE_PAID, 
@@ -79,42 +101,15 @@
     FROM T_VENDOR_PREPAID
 ]]>
 		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "baseSeqId">
+				BASE_SEQID = #baseSeqId#
+			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "commCode">
 				C_CODE = #commCode#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "state">
 				STATE = #state#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "prePaid">
-				PRE_PAID = #prePaid#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "reminderDay">
-				REMINDER_DAY = #reminderDay#
-			</isNotEmpty>
+			</isNotEmpty>			
 		</dynamic>
 </select>
-
-
-<select id="PrePaidInfo_listPrePaidInfoCount" resultClass="java.lang.Integer" parameterClass="prePaidInfo">
-<![CDATA[
-    SELECT
-		COUNT(*)
-    FROM T_VENDOR_PREPAID
-]]>
-		<dynamic prepend="WHERE">
-			<isNotEmpty prepend="and" property = "commCode">
-				C_CODE = #commCode#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "state">
-				STATE = #state#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "prePaid">
-				PRE_PAID = #prePaid#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "reminderDay">
-				REMINDER_DAY = #reminderDay#
-			</isNotEmpty>
-		</dynamic>
-</select>
-
 </sqlMap>
