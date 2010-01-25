@@ -79,9 +79,9 @@ public class AccountPreiodMgrTest{
         accountPreiod.setMaxMoney(new BigDecimal(500));
         accountPreiod.setReminderDay("1");  
         
-        int i = mgr.updateAccountPreiod(accountPreiod, "1", "yangzj","123456");
-       
-        System.out.println("testInsert result--------------------------------------" + i);
+//        int i = mgr.updateAccountPreiod(accountPreiod, "1", "yangzj","123456");
+//       
+//        System.out.println("testInsert result--------------------------------------" + i);
 		}catch(Exception e){
         	e.printStackTrace();
         }
