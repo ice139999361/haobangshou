@@ -4,8 +4,8 @@
 <sqlMapConfig>
     <sqlMap resource="com/hbs/domain/customer/customerinfo/dao/ibatis/maps/AccountPreiodSQL.xml"/>
 	<sqlMap resource="com/hbs/domain/customer/customerinfo/dao/ibatis/maps/BankInfoSQL.xml"/>
-	 <sqlMap resource="com/hbs/domain/customer/customerinfo/dao/ibatis/maps/ContactInfoSQL.xml"/>
-	<!-- <sqlMap resource="com/hbs/domain/customer/customerinfo/dao/ibatis/maps/CustomerInfoSQL.xml"/> -->
+	<sqlMap resource="com/hbs/domain/customer/customerinfo/dao/ibatis/maps/ContactInfoSQL.xml"/>
+	<sqlMap resource="com/hbs/domain/customer/customerinfo/dao/ibatis/maps/CustomerInfoSQL.xml"/>
 	<sqlMap resource="com/hbs/domain/customer/customerinfo/dao/ibatis/maps/OperLogSQL.xml"/>
 	<sqlMap resource="com/hbs/domain/customer/customerinfo/dao/ibatis/maps/OperLogHisSQL.xml"/> 
 	<sqlMap resource="com/hbs/domain/customer/customerinfo/dao/ibatis/maps/CustPartNoInfoSQL.xml"/>
