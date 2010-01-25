@@ -6,17 +6,17 @@
  */
 package com.hbs.common.manager.baseinfo;
 
-import java.util.Date;
+
 import java.util.List;
 
 import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.customer.common.constants.StateConstants;
 
 
-import com.hbs.domain.common.dao.baseinfo.OperLogDao;
+
 import com.hbs.domain.common.dao.baseinfo.PrePaidInfoDao;
 
-import com.hbs.domain.common.pojo.baseinfo.OperLog;
+
 import com.hbs.domain.common.pojo.baseinfo.PrePaidInfo;
 
 public abstract class PrePaidMgr {
@@ -60,63 +60,63 @@ public abstract class PrePaidMgr {
 	 * @param staffName
 	 * @throws Exception
 	 */
-	public int updatePrePaidInfo(PrePaidInfo prePaidInfo,String staffId,String staffName,String otherInfo)throws Exception{
+	public int updatePrePaidInfo(PrePaidInfo prePaidInfo)throws Exception{
 		int ret =0;
 		int state = Integer.parseInt(prePaidInfo.getState());
 		PrePaidInfoDao aPrepaidDao = (PrePaidInfoDao)BeanLocator.getInstance().getBean(getPrePaidDao());
-		String strLogType = null;
+		//String strLogType = null;
 		switch (state){
 		case 0:  //审批通过,先删除后插入,同时删除待审批数据,待办未做
 			aPrepaidDao.deletePrePaidInfo(prePaidInfo);
 			aPrepaidDao.insertPrePaidInfo(prePaidInfo);			
 			aPrepaidDao.deletePrePaidInfoByID(prePaidInfo.getSeqId());
-			strLogType = "审批数据";
+			//strLogType = "审批数据";
 			break;
 		case 1://没有提交的数据修改		
 			aPrepaidDao.updatePrePaidInfo(prePaidInfo);
-			strLogType = "修改临时数据";
+			//strLogType = "修改临时数据";
 			break;
 		case 2://提交数据只修改状态
 			aPrepaidDao.updatePrePaidInfo(prePaidInfo);
-			strLogType = "提交临时数据";
+			//strLogType = "提交临时数据";
 			break;
 		case 3://审批不通过数据只修改状态
 			aPrepaidDao.updatePrePaidInfoByState(prePaidInfo);
-			strLogType = "审批不通过数据";
+			//strLogType = "审批不通过数据";
 			break;
 		case 4://废弃数据只修改状态
 			aPrepaidDao.deletePrePaidInfo(prePaidInfo);
 			aPrepaidDao.updatePrePaidInfoByState(prePaidInfo);
-			strLogType = "废弃数据";
+			//strLogType = "废弃数据";
 			break;
 		case 5://锁定数据只修改状态
 			aPrepaidDao.updatePrePaidInfoByState(prePaidInfo);
-			strLogType = "锁定数据";
+			//strLogType = "锁定数据";
 			break;
 		case 6 ://解锁数据，只修改状态
 			
 			prePaidInfo.setState(new Integer(StateConstants.STATE_0).toString());
 			
 			aPrepaidDao.updatePrePaidInfoByState(prePaidInfo);
-			strLogType = "解锁数据";
+			//strLogType = "解锁数据";
 		default:
 			ret =1;
 		}
 		
-		if(null != staffId){//不是随主记录操作，需要记录操作日志
-			OperLogDao logDao = (OperLogDao)BeanLocator.getInstance().getBean(getLogDao());
-			OperLog log = new OperLog();
-			log.setStaffId(staffId);
-			log.setStaffName(staffName);
-			log.setOperTime(new Date());
-			log.setOperObject("结算信息");
-			log.setOperKey(prePaidInfo.getBaseSeqId());
-			log.setOperType(strLogType);
-			if(otherInfo != null){
-				log.setOperContent(otherInfo);
-			}
-			logDao.insertOperLog(log);
-		}
+//		if(null != staffId){//不是随主记录操作，需要记录操作日志
+//			OperLogDao logDao = (OperLogDao)BeanLocator.getInstance().getBean(getLogDao());
+//			OperLog log = new OperLog();
+//			log.setStaffId(staffId);
+//			log.setStaffName(staffName);
+//			log.setOperTime(new Date());
+//			log.setOperObject("结算信息");
+//			log.setOperKey(prePaidInfo.getBaseSeqId());
+//			log.setOperType(strLogType);
+//			if(otherInfo != null){
+//				log.setOperContent(otherInfo);
+//			}
+//			logDao.insertOperLog(log);
+//		}
 		return ret;
 	}
 	

@@ -6,15 +6,15 @@
  */
 package com.hbs.common.manager.baseinfo;
 
-import java.util.Date;
+
 import java.util.List;
 
 import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.customer.common.constants.StateConstants;
 import com.hbs.domain.common.dao.baseinfo.ContactInfoDao;
-import com.hbs.domain.common.dao.baseinfo.OperLogDao;
+
 import com.hbs.domain.common.pojo.baseinfo.ContactInfo;
-import com.hbs.domain.common.pojo.baseinfo.OperLog;
+
 
 public abstract class ContactMgr {
 	
@@ -39,18 +39,16 @@ public abstract class ContactMgr {
 	 * @param staffName
 	 * @throws Exception
 	 */
-	public int insertContactInfo(ContactInfo contactInfo, String staffId,String staffName) throws Exception{
+	public int insertContactInfo(ContactInfo contactInfo) throws Exception{
 		int ret =0;
 		ContactInfoDao contactInfoDao =(ContactInfoDao)BeanLocator.getInstance().getBean(getContactInfoDao());
+		ContactInfo cInfo = contactInfoDao.findContactInfo(contactInfo);
+		if(null == cInfo){
 		contactInfoDao.insertContactInfo(contactInfo);
-		if(null != staffId){//说明信息是单独处理,需要单独记录操作日志
-//			int state = Integer.parseInt(bankInfo.getState());
-//			switch (state){
-//			case 1://插入临时数据，还没有提交
-//			case 2://插入提交的数据
-//			}
-			operLog(staffId,staffName, "新增", contactInfo.getBaseSeqId(),null);
+		}else{
+			ret =1;
 		}
+		
 		return ret;
 	}
 	
@@ -63,10 +61,10 @@ public abstract class ContactMgr {
 	 * @return
 	 * @throws Exception
 	 */
-	public int insertContactInfoList(List<ContactInfo> contactInfoList, String staffId,String staffName) throws Exception{
+	public int insertContactInfoList(List<ContactInfo> contactInfoList) throws Exception{
 		int ret =0;
 		for(ContactInfo contactInfo : contactInfoList){
-			insertContactInfo( contactInfo,  staffId, staffName);
+			insertContactInfo( contactInfo);
 		}
 		return ret;
 	}
@@ -78,38 +76,38 @@ public abstract class ContactMgr {
 	 * @param staffName
 	 * @throws Exception
 	 */
-	public int updateContactInfo(ContactInfo contactInfo, String staffId,String staffName,String otherInfo)throws Exception{
+	public int updateContactInfo(ContactInfo contactInfo)throws Exception{
 		int ret =0;
 		int state = Integer.parseInt(contactInfo.getState());
 		ContactInfoDao contactInfoDao =(ContactInfoDao)BeanLocator.getInstance().getBean(getContactInfoDao());
-		String strLogType = null;
+		//String strLogType = null;
 		switch (state){
 		case 0:  //审批通过,先删除后插入,同时删除待审批数据,待办未做
 			contactInfoDao.deleteContactInfo(contactInfo);
 			contactInfoDao.insertContactInfo(contactInfo);			
 			contactInfoDao.deleteContactInfoByID(contactInfo.getSeqId());
-			strLogType = "审批数据";
+			//strLogType = "审批数据";
 			break;
 		case 1://没有提交的数据修改		
 			contactInfoDao.updateContactInfo(contactInfo);
-			strLogType = "修改临时数据";
+			//strLogType = "修改临时数据";
 			break;
 		case 2://提交数据只修改状态
 			contactInfoDao.updateContactInfo(contactInfo);
-			strLogType = "提交临时数据";
+			//strLogType = "提交临时数据";
 			break;
 		case 3://审批不通过数据只修改状态
 			contactInfoDao.updateContactInfoByState(contactInfo);
-			strLogType = "审批不通过数据";
+			//strLogType = "审批不通过数据";
 			break;
 		case 4://废弃数据只修改状态
 			contactInfoDao.deleteContactInfo(contactInfo);
 			contactInfoDao.updateContactInfoByState(contactInfo);
-			strLogType = "废弃数据";
+			//strLogType = "废弃数据";
 			break;
 		case 5://锁定数据只修改状态
 			contactInfoDao.updateContactInfoByState(contactInfo);
-			strLogType = "锁定数据";
+			//strLogType = "锁定数据";
 			break;
 			
 		case 6 ://解锁数据，只修改状态
@@ -117,13 +115,11 @@ public abstract class ContactMgr {
 			contactInfo.setState(new Integer(StateConstants.STATE_0).toString());
 			
 			contactInfoDao.updateContactInfoByState(contactInfo);
-			strLogType = "解锁数据";
+			//strLogType = "解锁数据";
 		default:
 			ret =1;
 		}
-		if(null != staffName){
-			operLog( staffId, staffName, strLogType, contactInfo.getBaseSeqId(), otherInfo);
-		}
+		
 		return ret;
 	}
 	/**
@@ -138,7 +134,7 @@ public abstract class ContactMgr {
 	public int updateContactInfoList(List<ContactInfo> contactInfoList, String staffId,String staffName,String otherInfo)throws Exception{
 		int ret =0 ;
 		for(ContactInfo contactInfo : contactInfoList){
-			updateContactInfo( contactInfo,  staffId, staffName, otherInfo);
+			updateContactInfo( contactInfo);
 		}
 		return ret;
 	}
@@ -150,20 +146,20 @@ public abstract class ContactMgr {
 	 * @param operKey
 	 * @param otherInfo
 	 */
-	private void operLog(String staffId,String staffName,String logType,String operKey,String otherInfo){
-		OperLogDao logDao = (OperLogDao)BeanLocator.getInstance().getBean(getLogDao());
-		OperLog log = new OperLog();
-		log.setStaffId(staffId);
-		log.setStaffName(staffName);
-		log.setOperTime(new Date());
-		log.setOperObject("联系人信息");
-		log.setOperKey(operKey);
-		log.setOperType(logType);
-		if(otherInfo != null){
-			log.setOperContent(otherInfo);
-		}
-		logDao.insertOperLog(log);
-	}
+//	private void operLog(String staffId,String staffName,String logType,String operKey,String otherInfo){
+//		OperLogDao logDao = (OperLogDao)BeanLocator.getInstance().getBean(getLogDao());
+//		OperLog log = new OperLog();
+//		log.setStaffId(staffId);
+//		log.setStaffName(staffName);
+//		log.setOperTime(new Date());
+//		log.setOperObject("联系人信息");
+//		log.setOperKey(operKey);
+//		log.setOperType(logType);
+//		if(otherInfo != null){
+//			log.setOperContent(otherInfo);
+//		}
+//		logDao.insertOperLog(log);
+//	}
 	
 	/**
 	 * 根据主键查询联系人
@@ -171,9 +167,9 @@ public abstract class ContactMgr {
 	 * @return
 	 * @throws Exception
 	 */
-	public ContactInfo getContactInfo(String pk) throws Exception{
+	public ContactInfo getContactInfo(ContactInfo contactInfo) throws Exception{
 		ContactInfoDao contactInfoDao =(ContactInfoDao)BeanLocator.getInstance().getBean(getContactInfoDao());
-		return contactInfoDao.findContactInfo(pk);
+		return contactInfoDao.findContactInfo(contactInfo);
 	}
 	/**
 	 * 查询联系人信息列表
