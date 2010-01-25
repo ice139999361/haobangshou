@@ -86,7 +86,7 @@
     WHERE SEQID = #seqId#
 </update> 
 
-<select id="BankInfo_findBankInfo" resultMap="bankInfo_result" parameterClass="String">
+<select id="BankInfo_findBankInfo" resultMap="bankInfo_result" parameterClass="bankInfo">
 <![CDATA[
     SELECT
             SEQID, 
@@ -96,7 +96,7 @@
             ACCOUNT_NAME, 
             ACCOUNT_BANK, 
             ACCOUNT
-    FROM T_CUST_BANK WHERE SEQID = #seqId#
+    FROM T_CUST_BANK WHERE C_CODE = #commCode# AND STATE = #state#
 ]]>
 </select>
 
