@@ -2,10 +2,11 @@
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
 <!-- Always ensure to use the correct XML header as above! -->
-<sqlMap namespace="ContactInfo">
+<sqlMap namespace="Vendor_ContactInfo">
 <typeAlias alias="contactInfo" type="com.hbs.domain.common.pojo.baseinfo.ContactInfo"/> 
 <resultMap id="contactInfo_result" class="contactInfo">
     <result property="SEQID" column="SEQID"/>
+    <result property="baseSeqId" column="BASE_SEQID"/>
     <result property="commCode" column="C_CODE"/>
     <result property="state" column="STATE"/>
     <result property="conType" column="CON_TYPE"/>
@@ -23,18 +24,11 @@
     <result property="isPrimary" column="IS_PRIMARY"/>
 </resultMap>
 
-<select id="ContactInfo_getNextId" resultClass="java.lang.String">
-<![CDATA[
-    SELECT ltrim(to_char(Seq_T_VENDOR_CONTACT_INFO_Id.Nextval,'0000000000')) 
-           AS Id 
-    FROM dual
-]]>
-</select>
 
-<insert id="ContactInfo_insertContactInfo" parameterClass="contactInfo" >
+<insert id="Vendor_ContactInfo_insertContactInfo" parameterClass="contactInfo" >
 <![CDATA[
     INSERT INTO T_VENDOR_CONTACT_INFO (
-            SEQID, 
+            BASE_SEQID, 
             C_CODE, 
             STATE, 
             CON_TYPE, 
@@ -52,7 +46,7 @@
             IS_PRIMARY
         )
     VALUES (
-            #SEQID#,
+            #baseSeqId#,
             #commCode#,
             #state#,
             #conType#,
@@ -72,16 +66,30 @@
 ]]>
 </insert>
 
-<delete id="ContactInfo_deleteContactInfo" parameterClass="string">
+<delete id="Vendor_ContactInfo_deleteContactInfoByID" parameterClass="string">
 <![CDATA[
-    DELETE  FROM  T_VENDOR_CONTACT_INFO WHERE SEQID = #SEQID#
+    DELETE  FROM  T_VENDOR_CONTACT_INFO WHERE SEQID = #seqId#
 ]]>
 </delete>    
 
-<update id="ContactInfo_updateContactInfo" parameterClass="contactInfo">
+<delete id="Vendor_ContactInfo_deleteContactInfo" parameterClass="contactInfo">
+<![CDATA[
+    DELETE  FROM  T_VENDOR_CONTACT_INFO
+]]>
+<dynamic prepend="WHERE">
+		<isNotEmpty prepend="and" property="commCode">
+			C_CODE = #commCode#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="state">
+			STATE = #state#
+		</isNotEmpty>
+	</dynamic>
+</delete>
+
+<update id="Vendor_ContactInfo_updateContactInfo" parameterClass="contactInfo">
     UPDATE T_VENDOR_CONTACT_INFO 
     SET
-    	SEQID = #SEQID#
+    	SEQID = #seqId#
 	<isNotEmpty prepend="," property="commCode">
             C_CODE = #commCode#
 	</isNotEmpty>
@@ -127,13 +135,23 @@
 	<isNotEmpty prepend="," property="isPrimary">
             IS_PRIMARY = #isPrimary#
 	</isNotEmpty>
-    WHERE SEQID = #SEQID#
+    WHERE SEQID = #seqId#
 </update> 
 
-<select id="ContactInfo_findContactInfo" resultMap="contactInfo_result" parameterClass="contactInfo">
+<update id="Vendor_ContactInfo_updateContactInfoByState" parameterClass="contactInfo">
+    UPDATE T_VENDOR_CONTACT_INFO 
+    SET
+    	STATE = #state#
+	
+    WHERE SEQID = #seqId#
+</update>
+
+
+<select id="Vendor_ContactInfo_findContactInfo" resultMap="contactInfo_result" parameterClass="contactInfo">
 <![CDATA[
     SELECT
             SEQID, 
+            BASE_SEQID,
             C_CODE, 
             STATE, 
             CON_TYPE, 
@@ -153,10 +171,11 @@
 ]]>
 </select>
 
-<select id="ContactInfo_listContactInfo" resultMap="contactInfo_result" parameterClass="contactInfo">
+<select id="Vendor_ContactInfo_listContactInfo" resultMap="contactInfo_result" parameterClass="contactInfo">
 <![CDATA[
     SELECT
-            SEQID, 
+            SEQID,
+            BASE_SEQID, 
             C_CODE, 
             STATE, 
             CON_TYPE, 
@@ -175,8 +194,8 @@
     FROM T_VENDOR_CONTACT_INFO
 ]]>
 		<dynamic prepend="WHERE">
-			<isNotEmpty prepend="and" property = "SEQID">
-				SEQID = #SEQID#
+			<isNotEmpty prepend="and" property = "baseSeqId">
+				BASE_SEQID = #baseSeqId#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "commCode">
 				C_CODE = #commCode#
@@ -186,102 +205,7 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "conType">
 				CON_TYPE = #conType#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conName">
-				CON_NAME = #conName#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conDuty">
-				CON_DUTY = #conDuty#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conTel">
-				CON_TEL = #conTel#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conMobile">
-				CON_MOBILE = #conMobile#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conFax">
-				CON_FAX = #conFax#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conMail">
-				CON_MAIL = #conMail#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conQq">
-				CON_QQ = #conQq#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conMsn">
-				CON_MSN = #conMsn#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conOther">
-				CON_OTHER = #conOther#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conAddress">
-				CON_ADDRESS = #conAddress#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conZip">
-				CON_ZIP = #conZip#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "isPrimary">
-				IS_PRIMARY = #isPrimary#
-			</isNotEmpty>
-		</dynamic>
-</select>
-
-
-<select id="ContactInfo_listContactInfoCount" resultClass="java.lang.Integer" parameterClass="contactInfo">
-<![CDATA[
-    SELECT
-		COUNT(*)
-    FROM T_VENDOR_CONTACT_INFO
-]]>
-		<dynamic prepend="WHERE">
-			<isNotEmpty prepend="and" property = "SEQID">
-				SEQID = #SEQID#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "commCode">
-				C_CODE = #commCode#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "state">
-				STATE = #state#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conType">
-				CON_TYPE = #conType#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conName">
-				CON_NAME = #conName#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conDuty">
-				CON_DUTY = #conDuty#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conTel">
-				CON_TEL = #conTel#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conMobile">
-				CON_MOBILE = #conMobile#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conFax">
-				CON_FAX = #conFax#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conMail">
-				CON_MAIL = #conMail#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conQq">
-				CON_QQ = #conQq#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conMsn">
-				CON_MSN = #conMsn#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conOther">
-				CON_OTHER = #conOther#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conAddress">
-				CON_ADDRESS = #conAddress#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conZip">
-				CON_ZIP = #conZip#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "isPrimary">
-				IS_PRIMARY = #isPrimary#
-			</isNotEmpty>
+			</isNotEmpty>			
 		</dynamic>
 </select>
 
