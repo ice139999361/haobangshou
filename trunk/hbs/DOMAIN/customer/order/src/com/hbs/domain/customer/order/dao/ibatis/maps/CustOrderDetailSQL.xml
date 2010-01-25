@@ -293,6 +293,21 @@
 	<isNotEmpty prepend="," property="rltSendPoNo">
             RLT_SEND_PO_NO = #rltSendPoNo#
 	</isNotEmpty>
+	<isNotEmpty prepend="," property="SettlementType">
+            SETTLEMENT_TYPE = #SettlementType#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="staffId">
+            STAFF_ID = #staffId#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="staffName">
+            STAFF_NAME = #staffName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="salesId">
+            SALES_ID = #salesId#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="sales">
+            SALES = #sales#
+	</isNotEmpty>
     WHERE ORDER_SEQID = #operSeqId#
 </update> 
 
