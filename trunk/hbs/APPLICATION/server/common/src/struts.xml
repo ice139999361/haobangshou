@@ -7,21 +7,9 @@
 	<constant name="struts.devMode" value="false" />
 	
 	<!--start merged code-->	
-<!-- <include file="struts-app-auth.xml"/> -->
-<include file="struts-app-common-sims.xml"/>
-<!--<include file="struts-app-common.xml"/>
-<include file="struts-app-eoms.xml"/>
-<include file="struts-app-misdata.xml"/>
-<include file="struts-app-si.xml"/>
-<include file="struts-app-spreq-common.xml"/>
-<include file="struts-app-spreq-punish.xml"/>
-<include file="struts-app-spreq-service.xml"/>
-<include file="struts-app-spreq-sp.xml"/>
-<include file="struts-app-synthetical-resource.xml"/>
-<include file="struts-app-unifycase.xml"/>
-<include file="struts-component-attachment.xml"/>
-<include file="struts-framework-authproxy.xml"/>
-<include file="struts-framework-pendtask.xml"/>-->
+<include file="struts-plugin.xml"/>
+<include file="struts-app-common.xml"/>
+<include file="struts-app-customerInfo.xml"/>
 
 	<!--end merged code-->	
 </struts>
