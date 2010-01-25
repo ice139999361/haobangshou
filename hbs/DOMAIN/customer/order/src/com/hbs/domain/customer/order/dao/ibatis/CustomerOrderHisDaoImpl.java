@@ -137,5 +137,7 @@ public class CustomerOrderHisDaoImpl extends SqlMapClientDaoSupport implements C
 			throws DataAccessException {
 		// TODO Auto-generated method stub
 		
-	}  
+	}
+
+	
 }
