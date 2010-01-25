@@ -108,11 +108,11 @@ public class BankInfoDaoImpl extends SqlMapClientDaoSupport implements BankInfoD
      * @return bankInfo
      * @throws DataAccessException DataAccessException
      */
-    public BankInfo findBankInfo(String pk) throws DataAccessException {
+    public BankInfo findBankInfo(BankInfo bankInfo) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
-        	logger.debug("进入findBankInfo(BankInfo), 输入参数[" + pk + "]");
+        	logger.debug("进入findBankInfo(BankInfo), 输入参数[" + bankInfo + "]");
 		}
-        BankInfo tempBankInfo = (BankInfo) getSqlMapClientTemplate().queryForObject("BankInfo_findBankInfo", pk);
+        BankInfo tempBankInfo = (BankInfo) getSqlMapClientTemplate().queryForObject("BankInfo_findBankInfo", bankInfo);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开findBankInfo(BankInfo), 返回[" + tempBankInfo + "]");
 		}
