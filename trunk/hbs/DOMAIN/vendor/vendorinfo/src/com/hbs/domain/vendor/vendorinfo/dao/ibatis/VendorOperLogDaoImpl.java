@@ -32,7 +32,7 @@ public class VendorOperLogDaoImpl extends SqlMapClientDaoSupport implements Oper
     		logger.debug("进入insertOperLog(OperLog), 输入参数[" + operLog + "]");
     	}
         
-    	getSqlMapClientTemplate().insert("OperLog_insertOperLog", operLog);
+    	getSqlMapClientTemplate().insert("Vendor_OperLog_insertOperLog", operLog);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开insertOperLog(OperLog), 返回");
 		}
@@ -50,7 +50,7 @@ public class VendorOperLogDaoImpl extends SqlMapClientDaoSupport implements Oper
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入findOperLog(OperLog), 输入参数[" + pk + "]");
 		}
-        OperLog operLog = (OperLog) getSqlMapClientTemplate().queryForObject("OperLog_findOperLog", pk);
+        OperLog operLog = (OperLog) getSqlMapClientTemplate().queryForObject("Vendor_OperLog_findOperLog", pk);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开findOperLog(OperLog), 返回[" + operLog + "]");
 		}
@@ -68,7 +68,7 @@ public class VendorOperLogDaoImpl extends SqlMapClientDaoSupport implements Oper
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listOperLog(OperLog), 输入参数[" + operKey + "]");
 		}
-        List<OperLog> list = getSqlMapClientTemplate().queryForList("OperLog_listOperLog", operKey);
+        List<OperLog> list = getSqlMapClientTemplate().queryForList("Vendor_OperLog_listOperLog", operKey);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listOperLog(OperLog), 返回[" + list + "]");
 		}

@@ -32,7 +32,7 @@ public class VendorAccountPreiodDaoImpl extends SqlMapClientDaoSupport implement
     		logger.debug("进入insertAccountPreiod(AccountPreiod), 输入参数[" + accountPreiod + "]");
     	}
         
-    	getSqlMapClientTemplate().insert("AccountPreiod_insertAccountPreiod", accountPreiod);
+    	getSqlMapClientTemplate().insert("Vendor_AccountPreiod_insertAccountPreiod", accountPreiod);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开insertAccountPreiod(AccountPreiod), 返回");
 		}
@@ -48,7 +48,7 @@ public class VendorAccountPreiodDaoImpl extends SqlMapClientDaoSupport implement
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入deleteAccountPreiod(String), 输入参数[" + accountPreiod + "]");
 		}
-        getSqlMapClientTemplate().update("AccountPreiod_deleteAccountPreiod", accountPreiod);
+        getSqlMapClientTemplate().update("Vendor_AccountPreiod_deleteAccountPreiod", accountPreiod);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开deleteAccountPreiod(String)");
 		}
@@ -63,7 +63,7 @@ public class VendorAccountPreiodDaoImpl extends SqlMapClientDaoSupport implement
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入updateAccountPreiod(AccountPreiod), 输入参数[" + accountPreiod + "]");
 		}
-    	getSqlMapClientTemplate().update("AccountPreiod_updateAccountPreiod", accountPreiod);
+    	getSqlMapClientTemplate().update("Vendor_AccountPreiod_updateAccountPreiod", accountPreiod);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开updateAccountPreiod(AccountPreiod)");
 		}
@@ -78,7 +78,7 @@ public class VendorAccountPreiodDaoImpl extends SqlMapClientDaoSupport implement
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入updateAccountPreiod(AccountPreiod), 输入参数[" + accountPreiod + "]");
 		}
-    	getSqlMapClientTemplate().update("AccountPreiod_updateAccountPreiodByState", accountPreiod);
+    	getSqlMapClientTemplate().update("Vendor_AccountPreiod_updateAccountPreiodByState", accountPreiod);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开updateAccountPreiod(AccountPreiod)");
 		}
@@ -94,7 +94,7 @@ public class VendorAccountPreiodDaoImpl extends SqlMapClientDaoSupport implement
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入findAccountPreiod(AccountPreiod), 输入参数[" + accountPreiod + "]");
 		}
-        AccountPreiod aPreiod = (AccountPreiod) getSqlMapClientTemplate().queryForObject("AccountPreiod_findAccountPreiod", accountPreiod);
+        AccountPreiod aPreiod = (AccountPreiod) getSqlMapClientTemplate().queryForObject("Vendor_AccountPreiod_findAccountPreiod", accountPreiod);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开findAccountPreiod(AccountPreiod), 返回[" + accountPreiod + "]");
 		}
@@ -112,7 +112,7 @@ public class VendorAccountPreiodDaoImpl extends SqlMapClientDaoSupport implement
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listAccountPreiod(AccountPreiod), 输入参数[" + accountPreiod + "]");
 		}
-        List<AccountPreiod> list = getSqlMapClientTemplate().queryForList("AccountPreiod_listAccountPreiod", accountPreiod);
+        List<AccountPreiod> list = getSqlMapClientTemplate().queryForList("Vendor_AccountPreiod_listAccountPreiod", accountPreiod);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listAccountPreiod(AccountPreiod), 返回[" + list + "]");
 		}
@@ -128,7 +128,7 @@ public class VendorAccountPreiodDaoImpl extends SqlMapClientDaoSupport implement
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入deleteAccountPreiod(String), 输入参数[" + pk + "]");
 		}
-        getSqlMapClientTemplate().update("AccountPreiod_deleteAccountPreiodByID", pk);
+        getSqlMapClientTemplate().update("Vendor_AccountPreiod_deleteAccountPreiodByID", pk);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开deleteAccountPreiod(String)");
 		}

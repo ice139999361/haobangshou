@@ -32,7 +32,7 @@ public class VendorPrePaidInfoDaoImpl extends SqlMapClientDaoSupport implements 
     		logger.debug("进入insertPrePaidInfo(PrePaidInfo), 输入参数[" + prePaidInfo + "]");
     	}
         
-    	getSqlMapClientTemplate().insert("PrePaidInfo_insertPrePaidInfo", prePaidInfo);
+    	getSqlMapClientTemplate().insert("Vendor_PrePaidInfo_insertPrePaidInfo", prePaidInfo);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开insertPrePaidInfo(PrePaidInfo), 返回[]");
 		}
@@ -44,13 +44,28 @@ public class VendorPrePaidInfoDaoImpl extends SqlMapClientDaoSupport implements 
      * @param prePaidInfo prePaidInfo
      * @throws DataAccessException DataAccessException
      */
-    public void deletePrePaidInfo(String pk)throws DataAccessException {
+    public void deletePrePaidInfoByID(String pk)throws DataAccessException {
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入deletePrePaidInfo(String), 输入参数[" + pk + "]");
 		}
-        getSqlMapClientTemplate().update("PrePaidInfo_deletePrePaidInfo", pk);
+        getSqlMapClientTemplate().update("Vendor_PrePaidInfo_deletePrePaidInfoByID", pk);
 		if (logger.isDebugEnabled()) {
-    		logger.debug("离开deletePrePaidInfo(String)");
+    		logger.debug("离开deletePrePaidInfo");
+		}
+    }
+    
+    /**
+     * delete.
+     * @param prePaidInfo prePaidInfo
+     * @throws DataAccessException DataAccessException
+     */
+    public void deletePrePaidInfo(PrePaidInfo prePaidInfo)throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+    		logger.debug("进入deletePrePaidInfo(String), 输入参数[" + prePaidInfo + "]");
+		}
+        getSqlMapClientTemplate().update("Vendor_PrePaidInfo_deletePrePaidInfo", prePaidInfo);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开deletePrePaidInfo");
 		}
     }
     
@@ -63,7 +78,22 @@ public class VendorPrePaidInfoDaoImpl extends SqlMapClientDaoSupport implements 
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入updatePrePaidInfo(PrePaidInfo), 输入参数[" + prePaidInfo + "]");
 		}
-    	getSqlMapClientTemplate().update("PrePaidInfo_updatePrePaidInfo", prePaidInfo);
+    	getSqlMapClientTemplate().update("Vendor_PrePaidInfo_updatePrePaidInfo", prePaidInfo);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开updatePrePaidInfo(PrePaidInfo)");
+		}
+    }
+    
+    /**
+     * update.
+     * @param prePaidInfo prePaidInfo
+     * @throws DataAccessException DataAccessException
+     */
+    public void updatePrePaidInfoByState(PrePaidInfo prePaidInfo) throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+    		logger.debug("进入updatePrePaidInfo(PrePaidInfo), 输入参数[" + prePaidInfo + "]");
+		}
+    	getSqlMapClientTemplate().update("Vendor_PrePaidInfo_updatePrePaidInfoByState", prePaidInfo);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开updatePrePaidInfo(PrePaidInfo)");
 		}
@@ -75,15 +105,15 @@ public class VendorPrePaidInfoDaoImpl extends SqlMapClientDaoSupport implements 
      * @return prePaidInfo
      * @throws DataAccessException DataAccessException
      */
-    public PrePaidInfo findPrePaidInfo(String pk) throws DataAccessException {
+    public PrePaidInfo findPrePaidInfo(PrePaidInfo prePaidInfo) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
-        	logger.debug("进入findPrePaidInfo(PrePaidInfo), 输入参数[" + pk + "]");
+        	logger.debug("进入findPrePaidInfo(PrePaidInfo), 输入参数[" + prePaidInfo + "]");
 		}
-        PrePaidInfo prePaidInfo = (PrePaidInfo) getSqlMapClientTemplate().queryForObject("PrePaidInfo_findPrePaidInfo", pk);
+        PrePaidInfo tempPrePaidInfo = (PrePaidInfo) getSqlMapClientTemplate().queryForObject("Vendor_PrePaidInfo_findPrePaidInfo", prePaidInfo);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开findPrePaidInfo(PrePaidInfo), 返回[" + prePaidInfo + "]");
 		}
-        return prePaidInfo;
+        return tempPrePaidInfo;
     }
     
     /**
@@ -92,66 +122,17 @@ public class VendorPrePaidInfoDaoImpl extends SqlMapClientDaoSupport implements 
      * @return prePaidInfo list
      * @throws DataAccessException DataAccessException
      */
-    public List listPrePaidInfo(PrePaidInfo prePaidInfo) throws DataAccessException {
+    @SuppressWarnings("unchecked")
+	public List<PrePaidInfo> listPrePaidInfo(PrePaidInfo prePaidInfo) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listPrePaidInfo(PrePaidInfo), 输入参数[" + prePaidInfo + "]");
 		}
-        List list = getSqlMapClientTemplate().queryForList("PrePaidInfo_listPrePaidInfo", prePaidInfo);
+        List<PrePaidInfo> list = getSqlMapClientTemplate().queryForList("Vendor_PrePaidInfo_listPrePaidInfo", prePaidInfo);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listPrePaidInfo(PrePaidInfo), 返回[" + list + "]");
 		}
         return list;
     }  
     
-    /**
-     * listCount.
-     * @param prePaidInfo prePaidInfo
-     * @return list count
-     * @throws DataAccessException DataAccessException
-     */
-    public Integer listPrePaidInfoCount(PrePaidInfo prePaidInfo) throws DataAccessException {
-		if (logger.isDebugEnabled()) {
-        	logger.debug("进入listPrePaidInfoCount(PrePaidInfo), 输入参数[" + prePaidInfo + "]");
-		}
-        Integer count = (Integer)getSqlMapClientTemplate().queryForObject("PrePaidInfo_listPrePaidInfoCount", prePaidInfo);
-		if (logger.isDebugEnabled()) {
-        	logger.debug("离开listPrePaidInfoCount(PrePaidInfo), 返回[" + count + "]");
-		}
-        return count;
-    }
-
-	/* (non-Javadoc)
-	 * @see com.hbs.domain.common.dao.baseinfo.PrePaidInfoDao#deletePrePaidInfo(com.hbs.domain.common.pojo.baseinfo.PrePaidInfo)
-	 */
-	public void deletePrePaidInfo(PrePaidInfo prePaidInfo)
-			throws DataAccessException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/* (non-Javadoc)
-	 * @see com.hbs.domain.common.dao.baseinfo.PrePaidInfoDao#deletePrePaidInfoByID(java.lang.String)
-	 */
-	public void deletePrePaidInfoByID(String id) throws DataAccessException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/* (non-Javadoc)
-	 * @see com.hbs.domain.common.dao.baseinfo.PrePaidInfoDao#findPrePaidInfo(com.hbs.domain.common.pojo.baseinfo.PrePaidInfo)
-	 */
-	public PrePaidInfo findPrePaidInfo(PrePaidInfo prePaidInfo)
-			throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.hbs.domain.common.dao.baseinfo.PrePaidInfoDao#updatePrePaidInfoByState(com.hbs.domain.common.pojo.baseinfo.PrePaidInfo)
-	 */
-	public void updatePrePaidInfoByState(PrePaidInfo prePaidInfo)
-			throws DataAccessException {
-		// TODO Auto-generated method stub
-		
-	}  
+   
 }
