@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<package name="app-customerInfo" namespace="/customerInfo" extends="json-default">
+		
+		<global-results>
+			<result name="error" type="json">
+			    <param name="includeProperties">
+                 	success,errorReason.*
+                </param>
+            </result>
+ 			<result name="success" type="json">
+				<param name="includeProperties">
+                	success, result.*
+                </param>
+			</result>
+        </global-results>
+
+     	<action name="customerInfo!list" method="doList" 
+    			class="com.hbs.customerinfo.action.customerInfoNormalAction">
+		</action>
+    	<action name="customerInfo!getInfo" method="doGetInfo" 
+    			class="com.hbs.customerinfo.action.customerInfoNormalAction">
+		</action>
+    	<action name="customerInfo!saveTemp" method="doSaveTemp" 
+    			class="com.hbs.customerinfo.action.customerInfoNormalAction">
+		</action>
+    	<action name="customerInfo!save" method="doSave" 
+    			class="com.hbs.customerinfo.action.customerInfoNormalAction">
+		</action>
+		
+    </package>
+</struts>
