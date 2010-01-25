@@ -1,51 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 
-<beans> 
+<beans>
 	<!-- dao bean -->
 	<!-- 字典配置DAO实现类   -->
 	<bean id="configEncodeDao" class="com.hbs.domain.common.dao.ibatis.ConfigEncodeDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient"/>
-	</bean>	
-	
+	</bean>
+
 	<!-- 系统配置DAO实现类   -->
 	<bean id="systemConfigDao" class="com.hbs.domain.common.dao.ibatis.SystemConfigDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient"/>
 	</bean>
-		
+
 	<!-- 日志记录接口类 -->
-	<bean id="operLogDao"
-		class="com.hbs.domain.comomn.dao.baseinfo.OperLogDao"
-		abstract="true">		
+	<bean id="operLogDao" class="com.hbs.domain.comomn.dao.baseinfo.OperLogDao"
+		abstract="true">
 	</bean>
-	
+
 	<!-- 账期信息接口类 -->
 	<bean id="accountPreiodDao"
 		class="com.hbs.domain.comomn.dao.baseinfo.AccountPreiodDao"
-		abstract="true">		
+		abstract="true">
 	</bean>
-	
+
 	<!-- 银行信息接口类 -->
 	<bean id="bankInfoDao"
 		class="com.hbs.domain.comomn.dao.baseinfo.BankInfoDao"
-		abstract="true">		
+		abstract="true">
 	</bean>
-	
+
 	<!-- 联系人信息接口类 -->
 	<bean id="contactInfoDao"
 		class="com.hbs.domain.comomn.dao.baseinfo.ContactInfoDao"
-		abstract="true">		
+		abstract="true">
 	</bean>
-	
+
 	<!-- 发票信息接口类 -->
 	<bean id="invoiceInfoDao"
 		class="com.hbs.domain.comomn.dao.baseinfo.InvoiceInfoDao"
-		abstract="true">		
+		abstract="true">
 	</bean>
-	
+
 	<!-- 预付费信息接口类 -->
 	<bean id="prePaidInfoDao"
 		class="com.hbs.domain.comomn.dao.baseinfo.PrePaidInfoDao"
-		abstract="true">		
+		abstract="true">
 	</bean>
 </beans>
