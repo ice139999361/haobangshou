@@ -76,15 +76,15 @@ public class VendorContactInfoDaoImpl extends SqlMapClientDaoSupport implements 
      * @return contactInfo
      * @throws DataAccessException DataAccessException
      */
-    public ContactInfo findContactInfo(String pk) throws DataAccessException {
+    public ContactInfo findContactInfo(ContactInfo contactInfo) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
-        	logger.debug("进入findContactInfo(ContactInfo), 输入参数[" + pk + "]");
+        	logger.debug("进入findContactInfo(ContactInfo), 输入参数[" + contactInfo + "]");
 		}
-        ContactInfo contactInfo = (ContactInfo) getSqlMapClientTemplate().queryForObject("ContactInfo_findContactInfo", pk);
+        ContactInfo cInfo = (ContactInfo) getSqlMapClientTemplate().queryForObject("ContactInfo_findContactInfo", contactInfo);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开findContactInfo(ContactInfo), 返回[" + contactInfo + "]");
 		}
-        return contactInfo;
+        return cInfo;
     }
     
     /**
@@ -93,11 +93,12 @@ public class VendorContactInfoDaoImpl extends SqlMapClientDaoSupport implements 
      * @return contactInfo list
      * @throws DataAccessException DataAccessException
      */
-    public List listContactInfo(ContactInfo contactInfo) throws DataAccessException {
+    @SuppressWarnings("unchecked")
+	public List<ContactInfo> listContactInfo(ContactInfo contactInfo) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listContactInfo(ContactInfo), 输入参数[" + contactInfo + "]");
 		}
-        List list = getSqlMapClientTemplate().queryForList("ContactInfo_listContactInfo", contactInfo);
+        List<ContactInfo> list = getSqlMapClientTemplate().queryForList("ContactInfo_listContactInfo", contactInfo);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listContactInfo(ContactInfo), 返回[" + list + "]");
 		}

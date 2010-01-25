@@ -101,11 +101,12 @@ public class VendorAccountPreiodDaoImpl extends SqlMapClientDaoSupport implement
      * @return accountPreiod list
      * @throws DataAccessException DataAccessException
      */
-    public List listAccountPreiod(AccountPreiod accountPreiod) throws DataAccessException {
+    @SuppressWarnings("unchecked")
+	public List<AccountPreiod> listAccountPreiod(AccountPreiod accountPreiod) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listAccountPreiod(AccountPreiod), 输入参数[" + accountPreiod + "]");
 		}
-        List list = getSqlMapClientTemplate().queryForList("AccountPreiod_listAccountPreiod", accountPreiod);
+        List<AccountPreiod> list = getSqlMapClientTemplate().queryForList("AccountPreiod_listAccountPreiod", accountPreiod);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listAccountPreiod(AccountPreiod), 返回[" + list + "]");
 		}

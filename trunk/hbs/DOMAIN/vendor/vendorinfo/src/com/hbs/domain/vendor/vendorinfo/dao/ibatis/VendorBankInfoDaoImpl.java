@@ -75,15 +75,15 @@ public class VendorBankInfoDaoImpl extends SqlMapClientDaoSupport implements Ban
      * @return bankInfo
      * @throws DataAccessException DataAccessException
      */
-    public BankInfo findBankInfo(String pk) throws DataAccessException {
+    public BankInfo findBankInfo(BankInfo bankInfo) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
-        	logger.debug("进入findBankInfo(BankInfo), 输入参数[" + pk + "]");
+        	logger.debug("进入findBankInfo(BankInfo), 输入参数[" + bankInfo + "]");
 		}
-        BankInfo bankInfo = (BankInfo) getSqlMapClientTemplate().queryForObject("BankInfo_findBankInfo", pk);
+        BankInfo bInfo = (BankInfo) getSqlMapClientTemplate().queryForObject("BankInfo_findBankInfo", bankInfo);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开findBankInfo(BankInfo), 返回[" + bankInfo + "]");
 		}
-        return bankInfo;
+        return bInfo;
     }
     
     /**
@@ -92,11 +92,12 @@ public class VendorBankInfoDaoImpl extends SqlMapClientDaoSupport implements Ban
      * @return bankInfo list
      * @throws DataAccessException DataAccessException
      */
-    public List listBankInfo(BankInfo bankInfo) throws DataAccessException {
+    @SuppressWarnings("unchecked")
+	public List<BankInfo> listBankInfo(BankInfo bankInfo) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listBankInfo(BankInfo), 输入参数[" + bankInfo + "]");
 		}
-        List list = getSqlMapClientTemplate().queryForList("BankInfo_listBankInfo", bankInfo);
+        List<BankInfo> list = getSqlMapClientTemplate().queryForList("BankInfo_listBankInfo", bankInfo);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listBankInfo(BankInfo), 返回[" + list + "]");
 		}
