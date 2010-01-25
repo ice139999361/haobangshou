@@ -16,17 +16,10 @@
     <result property="reminderDay" column="REMINDER_DAY"/>
 </resultMap>
 
-<select id="AccountPreiod_getNextId" resultClass="java.lang.String">
-<![CDATA[
-    SELECT ltrim(to_char(Seq_T_VENDOR_ACCOUNT_PERIOD_Id.Nextval,'0000000000')) 
-           AS Id 
-    FROM dual
-]]>
-</select>
-
 <insert id="AccountPreiod_insertAccountPreiod" parameterClass="accountPreiod" >
 <![CDATA[
     INSERT INTO T_VENDOR_ACCOUNT_PERIOD (
+			BASE_SEQID,
             C_CODE, 
             STATE, 
             ACCOUNT_TYPE, 
@@ -38,6 +31,7 @@
             REMINDER_DAY
         )
     VALUES (
+			#baseSeqId#,
             #commCode#,
             #state#,
             #accountType#,
@@ -51,11 +45,25 @@
 ]]>
 </insert>
 
-<delete id="AccountPreiod_deleteAccountPreiod" parameterClass="string">
+<delete id="AccountPreiod_deleteAccountPreiodByID" parameterClass="string">
 <![CDATA[
-    DELETE  FROM  T_VENDOR_ACCOUNT_PERIOD WHERE C_CODE = #commCode#
+    DELETE  FROM  T_VENDOR_ACCOUNT_PERIOD WHERE SEQID = #seqId#
 ]]>
 </delete>    
+
+<delete id="AccountPreiod_deleteAccountPreiod" parameterClass="accountPreiod">
+<![CDATA[
+    DELETE  FROM  T_VENDOR_ACCOUNT_PERIOD
+]]>
+<dynamic prepend="WHERE">
+		<isNotEmpty prepend="and" property="commCode">
+			C_CODE = #commCode#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="state">
+			STATE = #state#
+		</isNotEmpty>
+	</dynamic>
+</delete> 
 
 <update id="AccountPreiod_updateAccountPreiod" parameterClass="accountPreiod">
     UPDATE T_VENDOR_ACCOUNT_PERIOD 
@@ -85,12 +93,21 @@
 	<isNotEmpty prepend="," property="reminderDay">
             REMINDER_DAY = #reminderDay#
 	</isNotEmpty>
-    WHERE C_CODE = #commCode#
+    WHERE SEQID = #seqId#
 </update> 
+
+<update id="AccountPreiod_updateAccountPreiodByState" parameterClass="accountPreiod">
+    UPDATE T_VENDOR_ACCOUNT_PERIOD 
+    SET
+    	STATE = #state#	
+    WHERE SEQID = #seqId#
+</update>
 
 <select id="AccountPreiod_findAccountPreiod" resultMap="accountPreiod_result" parameterClass="accountPreiod">
 <![CDATA[
     SELECT
+            SEQID,
+            BASE_SEQID,
             C_CODE, 
             STATE, 
             ACCOUNT_TYPE, 
@@ -107,6 +124,8 @@
 <select id="AccountPreiod_listAccountPreiod" resultMap="accountPreiod_result" parameterClass="accountPreiod">
 <![CDATA[
     SELECT
+			SEQID,
+            BASE_SEQID,
             C_CODE, 
             STATE, 
             ACCOUNT_TYPE, 
@@ -119,72 +138,15 @@
     FROM T_VENDOR_ACCOUNT_PERIOD
 ]]>
 		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "baseSeqId">
+				BASE_SEQID = #baseSeqId#
+			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "commCode">
 				C_CODE = #commCode#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "state">
 				STATE = #state#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "accountType">
-				ACCOUNT_TYPE = #accountType#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "accountPeriod">
-				ACCOUNT_PERIOD = #accountPeriod#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "periodStart">
-				PERIOD_START = #periodStart#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "accounDay">
-				ACCOUNT_DAY = #accounDay#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "settlementDay">
-				SETTLEMENT_DAY = #settlementDay#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "maxMoney">
-				MAX_MONEY = #maxMoney#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "reminderDay">
-				REMINDER_DAY = #reminderDay#
-			</isNotEmpty>
+			</isNotEmpty>			
 		</dynamic>
 </select>
-
-
-<select id="AccountPreiod_listAccountPreiodCount" resultClass="java.lang.Integer" parameterClass="accountPreiod">
-<![CDATA[
-    SELECT
-		COUNT(*)
-    FROM T_VENDOR_ACCOUNT_PERIOD
-]]>
-		<dynamic prepend="WHERE">
-			<isNotEmpty prepend="and" property = "commCode">
-				C_CODE = #commCode#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "state">
-				STATE = #state#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "accountType">
-				ACCOUNT_TYPE = #accountType#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "accountPeriod">
-				ACCOUNT_PERIOD = #accountPeriod#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "periodStart">
-				PERIOD_START = #periodStart#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "accounDay">
-				ACCOUNT_DAY = #accounDay#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "settlementDay">
-				SETTLEMENT_DAY = #settlementDay#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "maxMoney">
-				MAX_MONEY = #maxMoney#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "reminderDay">
-				REMINDER_DAY = #reminderDay#
-			</isNotEmpty>
-		</dynamic>
-</select>
-
 </sqlMap>
