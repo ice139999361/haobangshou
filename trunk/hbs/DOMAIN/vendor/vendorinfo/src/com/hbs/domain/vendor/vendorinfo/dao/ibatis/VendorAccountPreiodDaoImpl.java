@@ -75,7 +75,13 @@ public class VendorAccountPreiodDaoImpl extends SqlMapClientDaoSupport implement
 	 */
 	public void updateAccountPreiodByState(AccountPreiod accountPreiod)
 			throws DataAccessException {
-		// TODO Auto-generated method stub
+		if (logger.isDebugEnabled()) {
+    		logger.debug("进入updateAccountPreiod(AccountPreiod), 输入参数[" + accountPreiod + "]");
+		}
+    	getSqlMapClientTemplate().update("AccountPreiod_updateAccountPreiodByState", accountPreiod);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开updateAccountPreiod(AccountPreiod)");
+		}
 		
 	}
     /**
@@ -113,28 +119,19 @@ public class VendorAccountPreiodDaoImpl extends SqlMapClientDaoSupport implement
         return list;
     }  
     
-    /**
-     * listCount.
-     * @param accountPreiod accountPreiod
-     * @return list count
-     * @throws DataAccessException DataAccessException
-     */
-    public Integer listAccountPreiodCount(AccountPreiod accountPreiod) throws DataAccessException {
-		if (logger.isDebugEnabled()) {
-        	logger.debug("进入listAccountPreiodCount(AccountPreiod), 输入参数[" + accountPreiod + "]");
-		}
-        Integer count = (Integer)getSqlMapClientTemplate().queryForObject("AccountPreiod_listAccountPreiodCount", accountPreiod);
-		if (logger.isDebugEnabled()) {
-        	logger.debug("离开listAccountPreiodCount(AccountPreiod), 返回[" + count + "]");
-		}
-        return count;
-    }
+   
 
 	/* (non-Javadoc)
 	 * @see com.hbs.domain.common.dao.baseinfo.AccountPreiodDao#deleteAccountPreiodByID(java.lang.String)
 	 */
 	public void deleteAccountPreiodByID(String pk) throws DataAccessException {
-		// TODO Auto-generated method stub
+		if (logger.isDebugEnabled()) {
+    		logger.debug("进入deleteAccountPreiod(String), 输入参数[" + pk + "]");
+		}
+        getSqlMapClientTemplate().update("AccountPreiod_deleteAccountPreiodByID", pk);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开deleteAccountPreiod(String)");
+		}
 		
 	}  
 }
