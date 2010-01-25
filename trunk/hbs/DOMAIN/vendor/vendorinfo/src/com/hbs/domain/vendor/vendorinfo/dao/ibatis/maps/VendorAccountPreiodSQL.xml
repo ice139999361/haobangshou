@@ -88,7 +88,7 @@
     WHERE C_CODE = #commCode#
 </update> 
 
-<select id="AccountPreiod_findAccountPreiod" resultMap="accountPreiod_result" parameterClass="string">
+<select id="AccountPreiod_findAccountPreiod" resultMap="accountPreiod_result" parameterClass="accountPreiod">
 <![CDATA[
     SELECT
             C_CODE, 
@@ -100,7 +100,7 @@
             SETTLEMENT_DAY, 
             MAX_MONEY, 
             REMINDER_DAY
-    FROM T_VENDOR_ACCOUNT_PERIOD WHERE C_CODE = #commCode#
+    FROM T_VENDOR_ACCOUNT_PERIOD WHERE C_CODE = #commCode# AND STATE = #state#
 ]]>
 </select>
 

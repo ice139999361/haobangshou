@@ -130,7 +130,7 @@
     WHERE SEQID = #SEQID#
 </update> 
 
-<select id="ContactInfo_findContactInfo" resultMap="contactInfo_result" parameterClass="string">
+<select id="ContactInfo_findContactInfo" resultMap="contactInfo_result" parameterClass="contactInfo">
 <![CDATA[
     SELECT
             SEQID, 
@@ -149,7 +149,7 @@
             CON_ADDRESS, 
             CON_ZIP, 
             IS_PRIMARY
-    FROM T_VENDOR_CONTACT_INFO WHERE SEQID = #SEQID#
+    FROM T_VENDOR_CONTACT_INFO WHERE C_CODE = #commCode# AND STATE = #state#
 ]]>
 </select>
 
