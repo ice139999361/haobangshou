@@ -31,9 +31,6 @@ public class ContactInfoDaoImpl extends SqlMapClientDaoSupport implements Contac
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入insertContactInfo(ContactInfo), 输入参数[" + contactInfo + "]");
     	}
-        
-       
-        
     	getSqlMapClientTemplate().insert("ContactInfo_insertContactInfo", contactInfo);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开insertContactInfo(ContactInfo), 返回");
