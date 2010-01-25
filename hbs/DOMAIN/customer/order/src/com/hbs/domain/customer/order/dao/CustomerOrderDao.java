@@ -40,7 +40,7 @@ public interface CustomerOrderDao {
      * @return customerOrder
      * @throws DataAccessException DataAccessException
      */
-    CustomerOrder findCustomerOrder(String id) throws DataAccessException ;
+    CustomerOrder findCustomerOrder(CustomerOrder customerOrder) throws DataAccessException ;
     
     /**
      * list.
