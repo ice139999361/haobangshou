@@ -333,7 +333,13 @@ public class BaseAction extends ActionSupport {
 		this.domain = domain;
 	}
 
-//    protected Staff getLoginStaff() throws BusinessException {
-//        return (Staff) LoginHelper.getLoginStaff(domain);
-//    }
+	/**
+	 * 获取用户登录信息
+	 * @return 用户登录信息
+	 * @throws Exception
+	 */
+    protected Staff getLoginStaff() throws Exception {
+    	return new Staff("1", "user1");
+        //return (Staff) LoginHelper.getLoginStaff(domain);
+    }
 }
