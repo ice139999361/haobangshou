@@ -6,16 +6,16 @@
  */
 package com.hbs.common.manager.baseinfo;
 
-import java.util.Date;
+
 import java.util.List;
 
 import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.customer.common.constants.StateConstants;
 
 import com.hbs.domain.common.dao.baseinfo.AccountPreiodDao;
-import com.hbs.domain.common.dao.baseinfo.OperLogDao;
+
 import com.hbs.domain.common.pojo.baseinfo.AccountPreiod;
-import com.hbs.domain.common.pojo.baseinfo.OperLog;
+
 
 
 public abstract class AccountPreiodMgr {
@@ -63,64 +63,63 @@ public abstract class AccountPreiodMgr {
 	 * @param staffName
 	 * @throws Exception
 	 */
-	public int updateAccountPreiod(AccountPreiod accountPreiod,
-			String staffId, String staffName,String otherInfo) throws Exception {
+	public int updateAccountPreiod(AccountPreiod accountPreiod) throws Exception {
 		int ret =0;
 		int state = Integer.parseInt(accountPreiod.getState());
 		AccountPreiodDao aPreiodDao = (AccountPreiodDao)BeanLocator.getInstance().getBean(getAccountPreiodDao());
-		String strLogType = null;
+		//String strLogType = null;
 		switch (state){
 		case 0:  //审批通过,先删除后插入,同时删除待审批数据,待办未做
 			aPreiodDao.deleteAccountPreiod(accountPreiod);
 			aPreiodDao.insertAccountPreiod(accountPreiod);			
 			aPreiodDao.deleteAccountPreiodByID(accountPreiod.getSeqId());
-			strLogType = "审批数据";
+			//strLogType = "审批数据";
 			break;
 		case 1://没有提交的数据修改		
 			aPreiodDao.updateAccountPreiod(accountPreiod);
-			strLogType = "修改临时数据";
+			//strLogType = "修改临时数据";
 			break;
 		case 2://提交数据只修改状态
 			aPreiodDao.updateAccountPreiod(accountPreiod);
-			strLogType = "提交临时数据";
+			//strLogType = "提交临时数据";
 			break;
 		case 3://审批不通过数据只修改状态
 			aPreiodDao.updateAccountPreiodByState(accountPreiod);
-			strLogType = "审批不通过数据";
+			//strLogType = "审批不通过数据";
 			break;
 		case 4://废弃数据只修改状态
 			aPreiodDao.deleteAccountPreiod(accountPreiod);
 			aPreiodDao.updateAccountPreiodByState(accountPreiod);
-			strLogType = "废弃数据";
+			//strLogType = "废弃数据";
 			break;
 		case 5://锁定数据只修改状态
 			aPreiodDao.updateAccountPreiodByState(accountPreiod);
-			strLogType = "锁定数据";
+			//strLogType = "锁定数据";
 			break;
 		case 6 ://解锁数据，只修改状态
 			
 			accountPreiod.setState(new Integer(StateConstants.STATE_0).toString());
 			
 			aPreiodDao.updateAccountPreiodByState(accountPreiod);
-			strLogType = "解锁数据";
+			//strLogType = "解锁数据";
 		default:
 			ret =1;
 		}
 		
-		if(null != staffId){//不是随主记录操作，需要记录操作日志
-			OperLogDao logDao = (OperLogDao)BeanLocator.getInstance().getBean(getLogDao());
-			OperLog log = new OperLog();
-			log.setStaffId(staffId);
-			log.setStaffName(staffName);
-			log.setOperTime(new Date());
-			log.setOperObject("结算信息");
-			log.setOperKey(accountPreiod.getBaseSeqId());
-			log.setOperType(strLogType);
-			if(otherInfo != null){
-				log.setOperContent(otherInfo);
-			}
-			logDao.insertOperLog(log);
-		}
+//		if(null != staffId){//不是随主记录操作，需要记录操作日志
+//			OperLogDao logDao = (OperLogDao)BeanLocator.getInstance().getBean(getLogDao());
+//			OperLog log = new OperLog();
+//			log.setStaffId(staffId);
+//			log.setStaffName(staffName);
+//			log.setOperTime(new Date());
+//			log.setOperObject("结算信息");
+//			log.setOperKey(accountPreiod.getBaseSeqId());
+//			log.setOperType(strLogType);
+//			if(otherInfo != null){
+//				log.setOperContent(otherInfo);
+//			}
+//			logDao.insertOperLog(log);
+//		}
 		return ret;
 	}
 	/**
