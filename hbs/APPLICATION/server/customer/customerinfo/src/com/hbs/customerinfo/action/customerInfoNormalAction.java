@@ -112,7 +112,7 @@ public class customerInfoNormalAction extends BaseAction {
 	{
 		try
 		{
-			processListData();
+			//processListData();
 			int userid = 0;
 			try
 			{
@@ -150,8 +150,20 @@ public class customerInfoNormalAction extends BaseAction {
 	{
 		try
 		{
-			processListData();
+			//processListData();
 			CustomerInfoMgr mgr = new CustomerInfoMgr();
+			int userid = 0;
+			try
+			{
+				String s = custInfo.getStaffId();
+				userid = Integer.parseInt(s);
+			}
+			catch(NumberFormatException e)
+			{
+				userid = 0;
+			}
+			if(userid == 0)
+				setMyId(true);
 			int ret = mgr.updateCustomerInfo(custInfo, getLoginStaff().getStaffId(), getLoginStaff().getStaffName());
 			if(ret != 0)
 			{
