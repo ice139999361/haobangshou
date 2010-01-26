@@ -54,7 +54,7 @@ public interface ContactInfoDao {
      * @throws DataAccessException DataAccessException
      */
     ContactInfo findContactInfo(ContactInfo contactInfo) throws DataAccessException ;
-    
+    ContactInfo findContactInfoById(String id) throws DataAccessException ;
     /**
      * list.
      * @param contactInfo contactInfo
