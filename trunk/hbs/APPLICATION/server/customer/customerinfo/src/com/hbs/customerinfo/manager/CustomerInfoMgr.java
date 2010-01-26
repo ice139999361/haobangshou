@@ -113,7 +113,7 @@ public class CustomerInfoMgr {
 		int ret =0;
 		int iState = Integer.parseInt(custInfo.getState());
 		if(iState == StateConstants.STATE_2 ){
-			custInfo.setState(new Integer(StateConstants.STATE_0).toString());
+			custInfo.setState(new Integer(StateConstants.STATE_3).toString());
 			ret = innerUpdateCustomerInfo(custInfo,auditId,auditName,auditDesc);
 			if(ret ==0){//发提醒待办通知,先取消可能的待办，再添加新的待办
 				WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
