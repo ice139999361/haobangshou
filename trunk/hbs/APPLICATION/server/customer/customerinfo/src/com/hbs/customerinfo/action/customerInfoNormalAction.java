@@ -13,7 +13,7 @@ import com.hbs.common.action.base.BaseAction;
 import com.hbs.common.josn.JSONException;
 import com.hbs.common.josn.JSONUtil;
 import com.hbs.common.springhelper.BeanLocator;
-import com.hbs.customerinfo.action.CustomerInfoUtil.FieldErr;
+import com.hbs.customerinfo.action.FieldErr;
 import com.hbs.customerinfo.manager.CustomerInfoMgr;
 import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
 
