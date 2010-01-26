@@ -49,11 +49,17 @@
     DELETE  FROM  T_VENDOR_BANK
 ]]>
 		<dynamic prepend="WHERE">
-			<isNotEmpty prepend="and" property="commCode">
+		<isNotEmpty prepend="and" property="commCode">
 				C_CODE = #commCode#
 		</isNotEmpty>
-			<isNotEmpty prepend="and" property="state">
+		<isNotEmpty prepend="and" property="state">
 				STATE = #state#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="accountBank">
+					ACCOUNT_BANK = #accountBank#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="account">
+					ACCOUNT = #account#
 		</isNotEmpty>
 		</dynamic>
 	</delete>
@@ -74,7 +80,7 @@
 		<isNotEmpty prepend="," property="account">
 			ACCOUNT = #account#
 	</isNotEmpty>
-		WHERE WHERE SEQID = #seqId#
+		WHERE SEQID = #seqId#
 	</update>
 
 	<update id="Vendor_BankInfo_updateBankInfoByState" parameterClass="bankInfo">
@@ -86,15 +92,32 @@
 </update>
 
 	<select id="Vendor_BankInfo_findBankInfo" resultMap="bankInfo_result"
-		parameterClass="string">
+		parameterClass="bankInfo">
 <![CDATA[
-    SELECT
+    SELECT	
+    		SEQID,
+    		BASE_SEQID,
             C_CODE, 
             STATE, 
             ACCOUNT_NAME, 
             ACCOUNT_BANK, 
             ACCOUNT
-    FROM T_VENDOR_BANK WHERE WHERE C_CODE = #commCode# AND STATE = #state#
+    FROM T_VENDOR_BANK WHERE C_CODE = #commCode# AND STATE = #state# AND ACCOUNT = #account#
+]]>
+	</select>
+	
+	<select id="Vendor_BankInfo_findBankInfoById" resultMap="bankInfo_result"
+		parameterClass="string">
+<![CDATA[
+    SELECT
+    		SEQID,
+    		BASE_SEQID,
+            C_CODE, 
+            STATE, 
+            ACCOUNT_NAME, 
+            ACCOUNT_BANK, 
+            ACCOUNT
+    FROM T_VENDOR_BANK WHERE SEQID = #seqId#
 ]]>
 	</select>
 
@@ -102,6 +125,8 @@
 		parameterClass="bankInfo">
 <![CDATA[
     SELECT
+    		SEQID,
+    		BASE_SEQID,
             C_CODE, 
             STATE, 
             ACCOUNT_NAME, 
@@ -117,12 +142,10 @@
 				STATE = #state#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="accountName">
-				ACCOUNT_NAME =
-				#accountName#
+				ACCOUNT_NAME =#accountName#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="accountBank">
-				ACCOUNT_BANK =
-				#accountBank#
+				ACCOUNT_BANK =#accountBank#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="account">
 				ACCOUNT = #account#
