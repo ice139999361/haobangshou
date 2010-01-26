@@ -120,38 +120,38 @@ public class VendorInfoDaoTest extends AbstractTransactionalDataSourceSpringCont
      */
     public void testFindVendorInfo() {
         VendorInfoDao vendorInfoDao = (VendorInfoDao) this.getApplicationContext().getBean("vendorInfoDao");
-        VendorInfo vendorInfo = vendorInfoDao.findVendorInfo("1");
-        
-        System.out.println("testFind result--------------------------------------");
-        System.out.println("commCode=" + vendorInfo.getCommCode());
-        System.out.println("state=" + vendorInfo.getState());
-        System.out.println("shortName=" + vendorInfo.getShortName());
-        System.out.println("enShortName=" + vendorInfo.getEnShortName());
-        System.out.println("allName=" + vendorInfo.getAllName());
-        System.out.println("enName=" + vendorInfo.getEnName());
-        System.out.println("address=" + vendorInfo.getAddress());
-        System.out.println("enAddress=" + vendorInfo.getEnAddress());
-        System.out.println("commType=" + vendorInfo.getCommType());
-        System.out.println("commScale=" + vendorInfo.getCommScale());
-        System.out.println("webSite=" + vendorInfo.getWebSite());
-        System.out.println("representative=" + vendorInfo.getRepresentative());
-        System.out.println("taxCode=" + vendorInfo.getTaxCode());
-        System.out.println("companyBranch=" + vendorInfo.getCompanyBranch());
-        System.out.println("creditRate=" + vendorInfo.getCreditRate());
-        System.out.println("creditDesc=" + vendorInfo.getCreditDesc());
-        System.out.println("importantCode=" + vendorInfo.getImportantCode());
-        System.out.println("importantDesc=" + vendorInfo.getImportantDesc());
-        System.out.println("settlementType=" + vendorInfo.getSettlementType());
-        System.out.println("settlementDesc=" + vendorInfo.getSettlementDesc());
-        System.out.println("currency=" + vendorInfo.getCurrency());
-        System.out.println("currencyDesc=" + vendorInfo.getCurrencyDesc());
-        System.out.println("staffId=" + vendorInfo.getStaffId());
-        System.out.println("staffName=" + vendorInfo.getStaffName());
-        System.out.println("commDesc=" + vendorInfo.getCommDesc());
-        System.out.println("vendorCode=" + vendorInfo.getVendorCode());
-        System.out.println("contactFee=" + vendorInfo.getContactFee());
-        System.out.println("isShowPrice=" + vendorInfo.getIsShowPrice());
-        System.out.println("taxRate=" + vendorInfo.getTaxRate());
+//        VendorInfo vendorInfo = vendorInfoDao.findVendorInfo("1");
+//        
+//        System.out.println("testFind result--------------------------------------");
+//        System.out.println("commCode=" + vendorInfo.getCommCode());
+//        System.out.println("state=" + vendorInfo.getState());
+//        System.out.println("shortName=" + vendorInfo.getShortName());
+//        System.out.println("enShortName=" + vendorInfo.getEnShortName());
+//        System.out.println("allName=" + vendorInfo.getAllName());
+//        System.out.println("enName=" + vendorInfo.getEnName());
+//        System.out.println("address=" + vendorInfo.getAddress());
+//        System.out.println("enAddress=" + vendorInfo.getEnAddress());
+//        System.out.println("commType=" + vendorInfo.getCommType());
+//        System.out.println("commScale=" + vendorInfo.getCommScale());
+//        System.out.println("webSite=" + vendorInfo.getWebSite());
+//        System.out.println("representative=" + vendorInfo.getRepresentative());
+//        System.out.println("taxCode=" + vendorInfo.getTaxCode());
+//        System.out.println("companyBranch=" + vendorInfo.getCompanyBranch());
+//        System.out.println("creditRate=" + vendorInfo.getCreditRate());
+//        System.out.println("creditDesc=" + vendorInfo.getCreditDesc());
+//        System.out.println("importantCode=" + vendorInfo.getImportantCode());
+//        System.out.println("importantDesc=" + vendorInfo.getImportantDesc());
+//        System.out.println("settlementType=" + vendorInfo.getSettlementType());
+//        System.out.println("settlementDesc=" + vendorInfo.getSettlementDesc());
+//        System.out.println("currency=" + vendorInfo.getCurrency());
+//        System.out.println("currencyDesc=" + vendorInfo.getCurrencyDesc());
+//        System.out.println("staffId=" + vendorInfo.getStaffId());
+//        System.out.println("staffName=" + vendorInfo.getStaffName());
+//        System.out.println("commDesc=" + vendorInfo.getCommDesc());
+//        System.out.println("vendorCode=" + vendorInfo.getVendorCode());
+//        System.out.println("contactFee=" + vendorInfo.getContactFee());
+//        System.out.println("isShowPrice=" + vendorInfo.getIsShowPrice());
+//        System.out.println("taxRate=" + vendorInfo.getTaxRate());
     }
 
     /**
