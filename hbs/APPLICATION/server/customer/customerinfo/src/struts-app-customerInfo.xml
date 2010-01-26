@@ -21,16 +21,16 @@
         </global-results>
 
      	<action name="customerInfo!list" method="doList" 
-    			class="com.hbs.customerinfo.action.customerInfoNormalAction">
+    			class="com.hbs.customerinfo.action.CustomerInfoNormalAction">
 		</action>
     	<action name="customerInfo!getInfo" method="doGetInfo" 
-    			class="com.hbs.customerinfo.action.customerInfoNormalAction">
+    			class="com.hbs.customerinfo.action.CustomerInfoNormalAction">
 		</action>
     	<action name="customerInfo!saveTemp" method="doSaveTemp" 
-    			class="com.hbs.customerinfo.action.customerInfoNormalAction">
+    			class="com.hbs.customerinfo.action.CustomerInfoNormalAction">
 		</action>
     	<action name="customerInfo!save" method="doSave" 
-    			class="com.hbs.customerinfo.action.customerInfoNormalAction">
+    			class="com.hbs.customerinfo.action.CustomerInfoNormalAction">
 		</action>
 		
     </package>

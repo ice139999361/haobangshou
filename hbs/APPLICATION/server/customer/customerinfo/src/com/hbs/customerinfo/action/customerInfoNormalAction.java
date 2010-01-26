@@ -4,13 +4,18 @@
 package com.hbs.customerinfo.action;
 
 import java.lang.reflect.Array;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.hbs.common.action.base.BaseAction;
-import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
-import com.hbs.customerinfo.manager.CustomerInfoMgr;
 import com.hbs.common.josn.JSONException;
 import com.hbs.common.josn.JSONUtil;
+import com.hbs.common.springhelper.BeanLocator;
+import com.hbs.customerinfo.action.CustomerInfoUtil.FieldErr;
+import com.hbs.customerinfo.manager.CustomerInfoMgr;
+import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
 
 /**
  * 普通角色客户信息Action
@@ -18,8 +23,13 @@ import com.hbs.common.josn.JSONUtil;
  * @actions doList doGetInfo doSaveTemp doSave
  */
 @SuppressWarnings("serial")
-public class customerInfoNormalAction extends BaseAction {
+public class CustomerInfoNormalAction extends BaseAction {
 
+	/**
+	 * Manager名
+	 */
+	static final String custInfoMgrName = "customerInfoMgr";
+	
 	/**
 	 * 联系人列表字符串参数名
 	 */
@@ -33,7 +43,12 @@ public class customerInfoNormalAction extends BaseAction {
 	 */
 	static final String bankListName = "bankList";
 	
-	CustomerInfo custInfo;
+    /**
+     * logger.
+     */
+    private static final Logger logger = Logger.getLogger(CustomerInfoNormalAction.class);
+
+    CustomerInfo custInfo;
 	
 	/**
 	 * 获取客户信息
@@ -53,6 +68,8 @@ public class customerInfoNormalAction extends BaseAction {
 	protected void processListData() throws Exception
 	{
 		// TODO: 处理上传的List数据
+		if(true)
+			return;
 		try
 		{
 			String s = null;
@@ -88,17 +105,24 @@ public class customerInfoNormalAction extends BaseAction {
 	{
 		try
 		{
+			logger.debug("begin doList");
+			if(custInfo == null)
+			{
+				custInfo = new CustomerInfo();
+			}
 			setPagination(custInfo);
 			setMyId(false);
-			CustomerInfoMgr mgr = new CustomerInfoMgr();
+			CustomerInfoMgr mgr = (CustomerInfoMgr)BeanLocator.getInstance().getBean(custInfoMgrName);
 			setResult("list", mgr.getCustomerInfoList(custInfo));
 			setTotalCount(mgr.getCustomerInfoCount(custInfo));
 			setResult("count", getTotalCount());
+			logger.debug("end doList");
 			return SUCCESS;
 		}
 		catch(Exception e)
 		{
-			setErrorReason(e.getMessage(), e);
+			logger.error("catch Exception in doList.", e);
+			setErrorReason("内部错误");
 			return ERROR;
 		}
 	}
@@ -112,31 +136,49 @@ public class customerInfoNormalAction extends BaseAction {
 	{
 		try
 		{
-			//processListData();
-			int userid = 0;
-			try
+			logger.debug("begin doSaveTemp");
+			
+			if(custInfo == null)
 			{
-				String s = custInfo.getStaffId();
-				userid = Integer.parseInt(s);
+				logger.info("参数错误！");
+				setErrorReason("参数错误！");
+				return ERROR;				
 			}
-			catch(NumberFormatException e)
-			{
-				userid = 0;
-			}
-			if(userid == 0)
+
+			custInfo.setState("1");
+			if(CustomerInfoUtil.checkSetStaffId(custInfo))
 				setMyId(true);
-			CustomerInfoMgr mgr = new CustomerInfoMgr();
-			int ret = mgr.saveTempCustomerInfo(custInfo);
+			processListData();
+			List<FieldErr> errs = CustomerInfoUtil.checkInputFields(custInfo);
+			if(!errs.isEmpty())
+			{
+				String s = CustomerInfoUtil.formFieldsErrString(errs);
+				logger.info(s);
+				setErrorReason(s);
+				return ERROR;
+			}
+			
+			CustomerInfoMgr mgr = (CustomerInfoMgr)BeanLocator.getInstance().getBean(custInfoMgrName);
+			
+			CustomerInfo info2 = mgr.getCustomerInfo(custInfo, false);
+			int ret;
+			if(info2 != null)
+				ret = mgr.updateCustomerInfo(custInfo, getLoginStaff().getStaffId(), getLoginStaff().getStaffName());
+			else
+				ret = mgr.saveTempCustomerInfo(custInfo);
 			if(ret != 0)
 			{
+				logger.info("临时保存出错！");
 				setErrorReason("临时保存出错！");
 				return ERROR;
 			}
+			logger.debug("end doSaveTemp");
 			return SUCCESS;
 		}
 		catch(Exception e)
 		{
-			setErrorReason(e.getMessage(), e);
+			logger.error("catch Exception in doSaveTemp", e);
+			setErrorReason("内部错误");
             return ERROR;
 		}
 	}
@@ -150,21 +192,40 @@ public class customerInfoNormalAction extends BaseAction {
 	{
 		try
 		{
-			//processListData();
-			CustomerInfoMgr mgr = new CustomerInfoMgr();
-			int userid = 0;
-			try
+			logger.debug("begin doSave");
+			
+			if(custInfo == null)
 			{
-				String s = custInfo.getStaffId();
-				userid = Integer.parseInt(s);
+				logger.info("参数错误！");
+				setErrorReason("参数错误！");
+				return ERROR;				
 			}
-			catch(NumberFormatException e)
-			{
-				userid = 0;
-			}
-			if(userid == 0)
+
+			if(custInfo.getState() == null || custInfo.getState() == "")
+				custInfo.setState("2");
+			if(CustomerInfoUtil.checkSetStaffId(custInfo))
 				setMyId(true);
-			int ret = mgr.updateCustomerInfo(custInfo, getLoginStaff().getStaffId(), getLoginStaff().getStaffName());
+			processListData();			
+			List<FieldErr> errs = CustomerInfoUtil.checkInputFields(custInfo);
+			if(!errs.isEmpty())
+			{
+				String s = CustomerInfoUtil.formFieldsErrString(errs);
+				logger.info(s);
+				setErrorReason(s);
+				return ERROR;
+			}
+			
+			CustomerInfoMgr mgr = (CustomerInfoMgr)BeanLocator.getInstance().getBean(custInfoMgrName);
+			
+			CustomerInfo info2 = mgr.getCustomerInfo(custInfo, false);
+			int ret;
+			if(info2 != null)
+				ret = mgr.updateCustomerInfo(custInfo, getLoginStaff().getStaffId(), getLoginStaff().getStaffName());
+			else
+			{
+				custInfo.setState("1");
+				ret = mgr.commitCustomerInfo(custInfo, getLoginStaff().getStaffId(), getLoginStaff().getStaffName());
+			}
 			if(ret != 0)
 			{
 				String s;
@@ -179,16 +240,20 @@ public class customerInfoNormalAction extends BaseAction {
 				default:
 					s = "保存出错！";
 				}
+				logger.info(s);
 				setErrorReason(s);
 				return ERROR;
 			}
+			logger.debug("end doSave");
 			return SUCCESS;
 		}
 		catch(Exception e)
 		{
-			setErrorReason(e.getMessage(), e);
+			logger.error("catch Exception in doSave", e);
+			setErrorReason("内部错误");
             return ERROR;
 		}
+
 	}
 	
 	/**
@@ -202,15 +267,23 @@ public class customerInfoNormalAction extends BaseAction {
 	{
 		try
 		{
+			logger.debug("begin doSave");
+			if(!CustomerInfoUtil.checkKeyFields(custInfo))
+			{
+				logger.info("参数为空！");
+				setErrorReason("参数为空！");
+				return ERROR;
+			}
 			setMyId(false);
-			CustomerInfoMgr mgr = new CustomerInfoMgr();
+			CustomerInfoMgr mgr = (CustomerInfoMgr)BeanLocator.getInstance().getBean(custInfoMgrName);
 			custInfo = mgr.getCustomerInfo(custInfo, true);
 			this.setResult("custInfo", custInfo);
 			return SUCCESS;
 		}
 		catch(Exception e)
 		{
-			setErrorReason(e.getMessage(), e);
+			logger.error("catch Exception in doGetInfo", e);
+			setErrorReason("内部错误");
             return ERROR;
 		}
 	}
