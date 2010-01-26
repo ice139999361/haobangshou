@@ -42,7 +42,7 @@ public class CustPartNoInfoMgr {
 		
 		tempInfo = custPartNoInfoDao.findCustPartNoInfoByBizKey(tempInfo);
 		Integer seqID =0;
-		if(null != tempInfo){//不存在
+		if(null == tempInfo){//不存在
 			seqID = custPartNoInfoDao.insertCustPartNoInfo(custPartNoInfo);
 		}else{
 			ret = 1;
