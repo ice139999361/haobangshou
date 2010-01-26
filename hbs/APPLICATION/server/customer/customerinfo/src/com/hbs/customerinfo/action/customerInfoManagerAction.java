@@ -10,7 +10,7 @@ import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
  * @actions doAuditAgree doAuditDisAgree doList doGetInfo
  */
 @SuppressWarnings("serial")
-public class customerInfoManagerAction extends BaseAction {
+public class CustomerInfoManagerAction extends BaseAction {
 	
 	/**
 	 * 待审批状态。state需要字符串，而Constants的类型不匹配。并且也不直观。
