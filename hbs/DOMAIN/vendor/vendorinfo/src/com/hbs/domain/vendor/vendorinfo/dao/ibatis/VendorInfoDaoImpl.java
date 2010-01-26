@@ -27,18 +27,15 @@ public class VendorInfoDaoImpl extends SqlMapClientDaoSupport implements VendorI
      * @return id
      * @throws DataAccessException DataAccessException
      */
-    public void insertVendorInfo(VendorInfo vendorInfo) throws DataAccessException {
+    public int insertVendorInfo(VendorInfo vendorInfo) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入insertVendorInfo(VendorInfo), 输入参数[" + vendorInfo + "]");
     	}
-        
-       
-        
-    	getSqlMapClientTemplate().insert("VendorInfo_insertVendorInfo", vendorInfo);
+		int id = (Integer)getSqlMapClientTemplate().insert("VendorInfo_insertVendorInfo", vendorInfo);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开insertVendorInfo(VendorInfo), 返回");
 		}
-    	
+    	return id;
     }
 
     /**
@@ -77,11 +74,22 @@ public class VendorInfoDaoImpl extends SqlMapClientDaoSupport implements VendorI
      * @return vendorInfo
      * @throws DataAccessException DataAccessException
      */
-    public VendorInfo findVendorInfo(String pk) throws DataAccessException {
+    public VendorInfo findVendorInfoByID(String pk) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入findVendorInfo(VendorInfo), 输入参数[" + pk + "]");
 		}
-        VendorInfo vendorInfo = (VendorInfo) getSqlMapClientTemplate().queryForObject("VendorInfo_findVendorInfo", pk);
+        VendorInfo vendorInfo = (VendorInfo) getSqlMapClientTemplate().queryForObject("VendorInfo_findVendorInfoByID", pk);
+		if (logger.isDebugEnabled()) {
+        	logger.debug("离开findVendorInfo(VendorInfo), 返回[" + vendorInfo + "]");
+		}
+        return vendorInfo;
+    }
+    
+    public VendorInfo findVendorInfoByBase(VendorInfo vInfo) throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+        	logger.debug("进入findVendorInfo(VendorInfo), 输入参数[" + vInfo + "]");
+		}
+        VendorInfo vendorInfo = (VendorInfo) getSqlMapClientTemplate().queryForObject("VendorInfo_findVendorInfoByBase", vInfo);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开findVendorInfo(VendorInfo), 返回[" + vendorInfo + "]");
 		}
@@ -94,11 +102,12 @@ public class VendorInfoDaoImpl extends SqlMapClientDaoSupport implements VendorI
      * @return vendorInfo list
      * @throws DataAccessException DataAccessException
      */
-    public List listVendorInfo(VendorInfo vendorInfo) throws DataAccessException {
+    @SuppressWarnings("unchecked")
+	public List<VendorInfo> listVendorInfo(VendorInfo vendorInfo) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listVendorInfo(VendorInfo), 输入参数[" + vendorInfo + "]");
 		}
-        List list = getSqlMapClientTemplate().queryForList("VendorInfo_listVendorInfo", vendorInfo);
+        List<VendorInfo> list = getSqlMapClientTemplate().queryForList("VendorInfo_listVendorInfo", vendorInfo);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listVendorInfo(VendorInfo), 返回[" + list + "]");
 		}
