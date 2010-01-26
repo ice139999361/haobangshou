@@ -5,6 +5,7 @@
 <sqlMap namespace="VendorInfo">
 <typeAlias alias="vendorInfo" type="com.hbs.domain.vendor.vendorinfo.pojo.VendorInfo"/> 
 <resultMap id="vendorInfo_result" class="vendorInfo">
+	<result property="baseSeqId" column="BASE_SEQID" />
     <result property="commCode" column="C_CODE"/>
     <result property="state" column="STATE"/>
     <result property="shortName" column="SHORT_NAME"/>
@@ -36,13 +37,7 @@
     <result property="taxRate" column="TAX_RATE"/>
 </resultMap>
 
-<select id="VendorInfo_getNextId" resultClass="java.lang.String">
-<![CDATA[
-    SELECT ltrim(to_char(Seq_T_VENDOR_INFO_Id.Nextval,'0000000000')) 
-           AS Id 
-    FROM dual
-]]>
-</select>
+
 
 <insert id="VendorInfo_insertVendorInfo" parameterClass="vendorInfo" >
 <![CDATA[
@@ -109,6 +104,10 @@
             #taxRate#
     )
 ]]>
+
+<selectKey resultClass="Integer" keyProperty="baseSeqId">
+            SELECT LAST_INSERT_ID()  
+</selectKey>
 </insert>
 
 <delete id="VendorInfo_deleteVendorInfo" parameterClass="string">
@@ -208,9 +207,10 @@
     WHERE C_CODE = #commCode#
 </update> 
 
-<select id="VendorInfo_findVendorInfo" resultMap="vendorInfo_result" parameterClass="string">
+<select id="VendorInfo_findVendorInfoByBase" resultMap="vendorInfo_result" parameterClass="vendorInfo">
 <![CDATA[
     SELECT
+			BASE_SEQID,
             C_CODE, 
             STATE, 
             SHORT_NAME, 
@@ -240,13 +240,51 @@
             CONTACT_FEE, 
             IS_SHOW_PRICE, 
             TAX_RATE
-    FROM T_VENDOR_INFO WHERE C_CODE = #commCode#
+    FROM T_VENDOR_INFO WHERE C_CODE = #commCode# AND STATE = #state#
+]]>
+</select>
+
+<select id="VendorInfo_findVendorInfoByID" resultMap="vendorInfo_result" parameterClass="string">
+<![CDATA[
+    SELECT
+			BASE_SEQID,
+            C_CODE, 
+            STATE, 
+            SHORT_NAME, 
+            EN_SHORT_NAME, 
+            ALL_NAME, 
+            EN_NAME, 
+            ADDRESS, 
+            EN_ADDRESS, 
+            C_TYPE, 
+            C_SCALE, 
+            WEBSITE, 
+            REPRESENTATIVE, 
+            TAX_CODE, 
+            COMPANY_BRANCH, 
+            CREDIT_RATE, 
+            CREDIT_DESC, 
+            IMPORTANT_CODE, 
+            IMPORTANT_DESC, 
+            SETTLEMENT_TYPE, 
+            SETTLEMENT_DESC, 
+            CURRENCY, 
+            CURRENCY_DESC, 
+            STAFF_ID, 
+            STAFF_NAME, 
+            COMM_DESC, 
+            VENDOR_CODE, 
+            CONTACT_FEE, 
+            IS_SHOW_PRICE, 
+            TAX_RATE
+    FROM T_VENDOR_INFO WHERE BASE_SEQID = #baseSeqId#
 ]]>
 </select>
 
 <select id="VendorInfo_listVendorInfo" resultMap="vendorInfo_result" parameterClass="vendorInfo">
 <![CDATA[
     SELECT
+			BASE_SEQID,
             C_CODE, 
             STATE, 
             SHORT_NAME, 
