@@ -130,7 +130,21 @@ public class VendorBankInfoDaoImpl extends SqlMapClientDaoSupport implements Ban
         	logger.debug("离开listBankInfo(BankInfo), 返回[" + list + "]");
 		}
         return list;
-    }  
+    }
+
+	/* (non-Javadoc)
+	 * @see com.hbs.domain.common.dao.baseinfo.BankInfoDao#findBankInfoById(java.lang.String)
+	 */
+	public BankInfo findBankInfoById(String id) throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+        	logger.debug("进入findBankInfo(BankInfo), 输入参数[" + id + "]");
+		}
+        BankInfo bInfo = (BankInfo) getSqlMapClientTemplate().queryForObject("Vendor_BankInfo_findBankInfoById", id);
+		if (logger.isDebugEnabled()) {
+        	logger.debug("离开findBankInfo(BankInfo), 返回[" + id + "]");
+		}
+        return bInfo;
+	}  
     
     
 }
