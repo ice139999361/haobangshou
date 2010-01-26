@@ -136,6 +136,21 @@ public class VendorContactInfoDaoImpl extends SqlMapClientDaoSupport implements 
         	logger.debug("离开listContactInfo(ContactInfo), 返回[" + list + "]");
 		}
         return list;
-    }      
+    }
+
+	/* (non-Javadoc)
+	 * @see com.hbs.domain.common.dao.baseinfo.ContactInfoDao#findContactInfoById(java.lang.String)
+	 */
+	public ContactInfo findContactInfoById(String id)
+			throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+        	logger.debug("进入findContactInfo(ContactInfo), 输入参数[" + id + "]");
+		}
+        ContactInfo cInfo = (ContactInfo) getSqlMapClientTemplate().queryForObject("Vendor_ContactInfo_findContactInfoById", id);
+		if (logger.isDebugEnabled()) {
+        	logger.debug("离开findContactInfo(ContactInfo), 返回[" + id + "]");
+		}
+        return cInfo;
+	}      
     
 }
