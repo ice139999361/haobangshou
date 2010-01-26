@@ -15,7 +15,11 @@ import com.hbs.domain.common.dao.baseinfo.ContactInfoDao;
 
 import com.hbs.domain.common.pojo.baseinfo.ContactInfo;
 
-
+/**
+ * 本类及实现的子类供客户基本信息和供应商基本信息调用
+ * action一层不需要调用，action面对的只是客户基本信息
+ * 服务类和供应商基本信息服务类
+ */
 public abstract class ContactMgr {
 	
 	
@@ -69,6 +73,20 @@ public abstract class ContactMgr {
 		return ret;
 	}
 	/**
+	 * 删除正式信息及临时信息，供基本信息调用
+	 * @param contactInfo
+	 * @param isDelCurrent  是否同时删除本次操作的数据
+	 * @throws Exception
+	 */
+	public void deleteContactInfo(ContactInfo contactInfo,boolean isDelCurrent)throws Exception{
+		ContactInfoDao contactInfoDao =(ContactInfoDao)BeanLocator.getInstance().getBean(getContactInfoDao());
+		contactInfoDao.deleteContactInfo(contactInfo);
+		if(isDelCurrent){
+			contactInfoDao.deleteContactInfoByID(contactInfo.getSeqId());
+		}
+	}
+	
+	/**
 	 * 更新联系人信息
 	 * @param bankInfo
 	 * @param state
@@ -82,17 +100,18 @@ public abstract class ContactMgr {
 		ContactInfoDao contactInfoDao =(ContactInfoDao)BeanLocator.getInstance().getBean(getContactInfoDao());
 		//String strLogType = null;
 		switch (state){
-		case 0:  //审批通过,先删除后插入,同时删除待审批数据,待办未做
-			contactInfoDao.deleteContactInfo(contactInfo);
+		case 0:  //审批通过,先删除后插入,同时删除待审批数据
+		     //删除操作由基本信息类删除
+			//contactInfoDao.deleteContactInfo(contactInfo);
 			contactInfoDao.insertContactInfo(contactInfo);			
-			contactInfoDao.deleteContactInfoByID(contactInfo.getSeqId());
+			//contactInfoDao.deleteContactInfoByID(contactInfo.getSeqId());
 			//strLogType = "审批数据";
 			break;
 		case 1://没有提交的数据修改		
 			contactInfoDao.updateContactInfo(contactInfo);
 			//strLogType = "修改临时数据";
 			break;
-		case 2://提交数据只修改状态
+		case 2://提交数据修改
 			contactInfoDao.updateContactInfo(contactInfo);
 			//strLogType = "提交临时数据";
 			break;
@@ -100,8 +119,9 @@ public abstract class ContactMgr {
 			contactInfoDao.updateContactInfoByState(contactInfo);
 			//strLogType = "审批不通过数据";
 			break;
-		case 4://废弃数据只修改状态
-			contactInfoDao.deleteContactInfo(contactInfo);
+		case 4://废弃数据，把已经废弃的数据清除掉，同时如果把本次废弃的数据状态置为废弃
+			//删除废弃数据由基本信息操作
+			//contactInfoDao.deleteContactInfo(contactInfo);
 			contactInfoDao.updateContactInfoByState(contactInfo);
 			//strLogType = "废弃数据";
 			break;
@@ -170,6 +190,11 @@ public abstract class ContactMgr {
 	public ContactInfo getContactInfo(ContactInfo contactInfo) throws Exception{
 		ContactInfoDao contactInfoDao =(ContactInfoDao)BeanLocator.getInstance().getBean(getContactInfoDao());
 		return contactInfoDao.findContactInfo(contactInfo);
+	}
+	
+	public ContactInfo getContactInfo(String id) throws Exception{
+		ContactInfoDao contactInfoDao =(ContactInfoDao)BeanLocator.getInstance().getBean(getContactInfoDao());
+		return contactInfoDao.findContactInfoById(id);
 	}
 	/**
 	 * 查询联系人信息列表

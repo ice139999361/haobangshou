@@ -18,7 +18,11 @@ import com.hbs.domain.common.dao.baseinfo.PrePaidInfoDao;
 
 
 import com.hbs.domain.common.pojo.baseinfo.PrePaidInfo;
-
+/**
+ * 本类及实现的子类供客户基本信息和供应商基本信息调用
+ * action一层不需要调用，action面对的只是客户基本信息
+ * 服务类和供应商基本信息服务类
+ */
 public abstract class PrePaidMgr {
 	
 	/**
@@ -54,6 +58,21 @@ public abstract class PrePaidMgr {
 	}
 	
 	/**
+	 * 删除正式信息及临时信息，供基本信息调用
+	 * @param prePaidInfo
+	 * @param isDelCurrent  是否同时删除本次操作的数据
+	 * @throws Exception
+	 */
+	public void deletePrePaidInfo(PrePaidInfo prePaidInfo,boolean isDelCurrent)throws Exception{
+		PrePaidInfoDao aPrepaidDao = (PrePaidInfoDao)BeanLocator.getInstance().getBean(getPrePaidDao());
+		aPrepaidDao.deletePrePaidInfo(prePaidInfo);
+		if(isDelCurrent){
+			aPrepaidDao.deletePrePaidInfoByID(prePaidInfo.getSeqId());
+		}
+	}
+	
+	
+	/**
 	 * 更新预付费信息
 	 * @param accountPreiod
 	 * @param staffId
@@ -66,10 +85,11 @@ public abstract class PrePaidMgr {
 		PrePaidInfoDao aPrepaidDao = (PrePaidInfoDao)BeanLocator.getInstance().getBean(getPrePaidDao());
 		//String strLogType = null;
 		switch (state){
-		case 0:  //审批通过,先删除后插入,同时删除待审批数据,待办未做
-			aPrepaidDao.deletePrePaidInfo(prePaidInfo);
+		case 0:  //审批通过,先删除后插入,同时删除待审批数据
+		     //删除操作由基本信息类删除
+			//aPrepaidDao.deletePrePaidInfo(prePaidInfo);
 			aPrepaidDao.insertPrePaidInfo(prePaidInfo);			
-			aPrepaidDao.deletePrePaidInfoByID(prePaidInfo.getSeqId());
+			//aPrepaidDao.deletePrePaidInfoByID(prePaidInfo.getSeqId());
 			//strLogType = "审批数据";
 			break;
 		case 1://没有提交的数据修改		
@@ -84,8 +104,9 @@ public abstract class PrePaidMgr {
 			aPrepaidDao.updatePrePaidInfoByState(prePaidInfo);
 			//strLogType = "审批不通过数据";
 			break;
-		case 4://废弃数据只修改状态
-			aPrepaidDao.deletePrePaidInfo(prePaidInfo);
+		case 4://废弃数据，把已经废弃的数据清除掉，同时如果把本次废弃的数据状态置为废弃
+			//删除废弃数据由基本信息操作
+			//aPrepaidDao.deletePrePaidInfo(prePaidInfo);
 			aPrepaidDao.updatePrePaidInfoByState(prePaidInfo);
 			//strLogType = "废弃数据";
 			break;

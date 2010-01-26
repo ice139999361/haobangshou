@@ -18,8 +18,9 @@ import com.hbs.domain.common.pojo.baseinfo.BankInfo;
 
 
 /**
- * @author yangzj
- *
+ * 本类及实现的子类供客户基本信息和供应商基本信息调用
+ * action一层不需要调用，action面对的只是客户基本信息
+ * 服务类和供应商基本信息服务类
  */
 public abstract class BankInfoMgr {
 
@@ -68,6 +69,19 @@ public abstract class BankInfoMgr {
 		return ret;
 	}
 	/**
+	 * 删除正式信息及临时信息，供基本信息调用
+	 * @param bankInfo
+	 * @param isDelCurrent  是否同时删除本次操作的数据
+	 * @throws Exception
+	 */
+	public void deleteBankInfo(BankInfo bankInfo,boolean isDelCurrent)throws Exception{
+		BankInfoDao bankInfoDao = (BankInfoDao)BeanLocator.getInstance().getBean(getBankInfoDao());
+		bankInfoDao.deleteBankInfo(bankInfo);
+		if(isDelCurrent){
+			bankInfoDao.deleteBankInfoByID(bankInfo.getSeqId());
+		}		
+	}
+	/**
 	 * 更新银行信息
 	 * @param bankInfo
 	 * @param state
@@ -81,10 +95,11 @@ public abstract class BankInfoMgr {
 		BankInfoDao bankInfoDao = (BankInfoDao)BeanLocator.getInstance().getBean(getBankInfoDao());
 		//String strLogType = null;
 		switch (state){
-		case 0:  //审批通过,先删除后插入,同时删除待审批数据,待办未做
-			bankInfoDao.deleteBankInfo(bankInfo);
+		case 0:  //审批通过,先删除后插入,同时删除待审批数据
+		         //删除操作由基本信息类删除
+			//bankInfoDao.deleteBankInfo(bankInfo);
 			bankInfoDao.insertBankInfo(bankInfo);			
-			bankInfoDao.deleteBankInfoByID(bankInfo.getSeqId());
+			//bankInfoDao.deleteBankInfoByID(bankInfo.getSeqId());
 			//strLogType = "审批数据";
 			break;
 		case 1://没有提交的数据修改		
@@ -99,8 +114,9 @@ public abstract class BankInfoMgr {
 			bankInfoDao.updateBankInfoByState(bankInfo);
 			//strLogType = "审批不通过数据";
 			break;
-		case 4://废弃数据只修改状态
-			bankInfoDao.deleteBankInfo(bankInfo);
+		case 4://废弃数据，把已经废弃的数据清除掉，同时如果把本次废弃的数据状态置为废弃
+			//删除废弃数据由基本信息操作
+			//bankInfoDao.deleteBankInfo(bankInfo);
 			bankInfoDao.updateBankInfoByState(bankInfo);
 			//strLogType = "废弃数据";
 			break;
@@ -166,7 +182,7 @@ public abstract class BankInfoMgr {
 	
 	/**
 	 * 查询银行信息，以主键查询
-	 * @param pk
+	 * @param bankInfo 
 	 * @return
 	 * @throws Exception
 	 */
@@ -175,6 +191,10 @@ public abstract class BankInfoMgr {
 		return bankInfoDao.findBankInfo(bankInfo);
 	}
 	
+	public BankInfo getBankInfoById(String seqId) throws Exception{
+		BankInfoDao bankInfoDao = (BankInfoDao)BeanLocator.getInstance().getBean(getBankInfoDao());
+		return bankInfoDao.findBankInfoById(seqId);
+	}
 	/**
 	 * 查询银行信息列表
 	 * @param bankInfo
