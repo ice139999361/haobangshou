@@ -49,11 +49,13 @@ public interface BankInfoDao {
 
     /**
      * find.
-     * @param id id
+     * @param bankInfo
      * @return bankInfo
      * @throws DataAccessException DataAccessException
      */
     BankInfo findBankInfo(BankInfo bankInfo) throws DataAccessException ;
+    
+    BankInfo findBankInfoById(String id) throws DataAccessException;
     
     /**
      * list.
