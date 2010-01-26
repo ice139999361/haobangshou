@@ -9,6 +9,7 @@ package com.hbs.customerinfo.manager;
 import java.util.Date;
 import java.util.List;
 
+import com.hbs.common.manager.baseinfo.AccountPreiodMgr;
 import com.hbs.common.manager.baseinfo.BankInfoMgr;
 import com.hbs.common.manager.baseinfo.ContactMgr;
 import com.hbs.common.manager.baseinfo.PrePaidMgr;
@@ -58,7 +59,7 @@ public class CustomerInfoMgr {
 		int iState = Integer.parseInt(custInfo.getState());
 		if(iState == StateConstants.STATE_1 || iState == StateConstants.STATE_3){
 			custInfo.setState(new Integer(StateConstants.STATE_2).toString());
-				ret = updateCustomerInfo(custInfo,staffId,staffName);	
+				ret = innerUpdateCustomerInfo(custInfo,staffId,staffName,null);	
 				if(ret == 0){//发待办通知,先取消可能的待办，再添加新的待办
 					WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
 					waitTaskInfo.setStaffName(custInfo.getStaffName());
@@ -85,7 +86,7 @@ public class CustomerInfoMgr {
 		int iState = Integer.parseInt(custInfo.getState());
 		if(iState == StateConstants.STATE_2 ){
 			custInfo.setState(new Integer(StateConstants.STATE_0).toString());
-			ret = updateCustomerInfo(custInfo,auditId,auditName,auditDesc);
+			ret = innerUpdateCustomerInfo(custInfo,auditId,auditName,auditDesc);
 			if(ret ==0){//发提醒待办通知,先取消可能的待办，再添加新的待办
 				WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
 				waitTaskInfo.setStaffName(custInfo.getStaffName());
@@ -113,7 +114,7 @@ public class CustomerInfoMgr {
 		int iState = Integer.parseInt(custInfo.getState());
 		if(iState == StateConstants.STATE_2 ){
 			custInfo.setState(new Integer(StateConstants.STATE_0).toString());
-			ret = updateCustomerInfo(custInfo,auditId,auditName,auditDesc);
+			ret = innerUpdateCustomerInfo(custInfo,auditId,auditName,auditDesc);
 			if(ret ==0){//发提醒待办通知,先取消可能的待办，再添加新的待办
 				WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
 				waitTaskInfo.setStaffId(custInfo.getStaffId());
@@ -151,7 +152,7 @@ public class CustomerInfoMgr {
 			break;
 		case 3:
 			custInfo.setState(new Integer(StateConstants.STATE_2).toString());
-			ret = updateCustomerInfo(custInfo,staffId,staffName);
+			ret = innerUpdateCustomerInfo(custInfo,staffId,staffName,null);
 			if(ret == 0){//发待办通知,先取消可能的待办，再添加新的待办
 				WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
 				waitTaskInfo.setStaffName(custInfo.getStaffName());
@@ -193,7 +194,7 @@ public class CustomerInfoMgr {
 		switch(iState){
 		case 0:
 			custInfo.setState(new Integer(StateConstants.STATE_5).toString());
-			ret = updateCustomerInfo(custInfo,staffId,staffName,lockDesc);
+			ret = innerUpdateCustomerInfo(custInfo,staffId,staffName,lockDesc);
 			break;
 		default:
 			ret =2;
@@ -216,7 +217,7 @@ public class CustomerInfoMgr {
 		switch(iState){
 		case 5:
 			custInfo.setState(new Integer(StateConstants.STATE_6).toString());
-			ret = updateCustomerInfo(custInfo,staffId,staffName,lockDesc);
+			ret = innerUpdateCustomerInfo(custInfo,staffId,staffName,lockDesc);
 			break;
 		default:
 			ret =2;
@@ -238,7 +239,7 @@ public class CustomerInfoMgr {
 		switch(iState){
 		case 3:
 			custInfo.setState(new Integer(StateConstants.STATE_4).toString());
-			ret = updateCustomerInfo(custInfo,staffId,staffName,delDesc);
+			ret = innerUpdateCustomerInfo(custInfo,staffId,staffName,delDesc);
 			break;
 		default:
 			ret =2;
@@ -391,8 +392,8 @@ public class CustomerInfoMgr {
 			if(null != aPreiod){
 				aPreiod.setBaseSeqId(baseSeqId.toString());
 				aPreiod.setState(customerInfo.getState());
-				CustAccountPreiodMgr custAccountPreiodMgr =(CustAccountPreiodMgr)BeanLocator.getInstance().getBean(CustInfoConstants.CUSTACCOUNTPREIODMGR);
-				custAccountPreiodMgr.insertAccountPreiod(aPreiod);
+				AccountPreiodMgr accountPreiodMgr =(AccountPreiodMgr)BeanLocator.getInstance().getBean(CustInfoConstants.CUSTACCOUNTPREIODMGR);
+				accountPreiodMgr.insertAccountPreiod(aPreiod);
 			}
 			
 			/**  预付费信息			 */
@@ -449,7 +450,7 @@ public class CustomerInfoMgr {
 	 * @param customerInfo
 	 * @throws Exception
 	 */
-	private int updateCustomerInfo(CustomerInfo customerInfo,String staffId,String staffName,String otherInfo)throws Exception{
+	private int innerUpdateCustomerInfo(CustomerInfo customerInfo,String staffId,String staffName,String otherInfo)throws Exception{
 		int ret =0;
 		int state = Integer.parseInt(customerInfo.getState());
 		CustomerInfoDao customerInfoDao = (CustomerInfoDao)BeanLocator.getInstance().getBean(CUSTOMERINFODAO);
@@ -465,8 +466,8 @@ public class CustomerInfoMgr {
 			customerInfoDao.updateCustomerInfo(customerInfo);
 			strLogType = "修改临时数据";
 			break;
-		case 2://提交数据只修改状态
-			customerInfoDao.updateCustomerInfo(customerInfo);;
+		case 2://提交数据,
+			customerInfoDao.updateCustomerInfo(customerInfo);
 			strLogType = "提交审批数据";
 			break;
 		case 3://审批不通过数据只修改状态
