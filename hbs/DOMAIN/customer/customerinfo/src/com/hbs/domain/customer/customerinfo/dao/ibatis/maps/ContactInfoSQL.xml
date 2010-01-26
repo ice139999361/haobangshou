@@ -83,6 +83,12 @@
 		<isNotEmpty prepend="and" property="state">
 			STATE = #state#
 		</isNotEmpty>
+		<isNotEmpty prepend="," property="conType">
+            CON_TYPE = #conType#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="conName">
+            CON_NAME = #conName#
+		</isNotEmpty>
 	</dynamic>
 </delete>
   
@@ -167,7 +173,31 @@
             CON_ADDRESS, 
             CON_ZIP, 
             IS_PRIMARY
-    FROM T_CUSTOMER_CONTACT_INFO WHERE C_CODE = #commCode# AND STATE = #state#
+    FROM T_CUSTOMER_CONTACT_INFO WHERE C_CODE = #commCode# AND STATE = #state# AND CON_TYPE = #conType# AND CON_NAME = #conName# 
+]]>
+</select>
+
+<select id="ContactInfo_findContactInfoById" resultMap="contactInfo_result" parameterClass="String">
+<![CDATA[
+    SELECT
+            SEQID, 
+            BASE_SEQID,
+            C_CODE, 
+            STATE, 
+            CON_TYPE, 
+            CON_NAME, 
+            CON_DUTY, 
+            CON_TEL, 
+            CON_MOBILE, 
+            CON_FAX, 
+            CON_MAIL, 
+            CON_QQ, 
+            CON_MSN, 
+            CON_OTHER, 
+            CON_ADDRESS, 
+            CON_ZIP, 
+            IS_PRIMARY
+    FROM T_CUSTOMER_CONTACT_INFO WHERE SEQID = #seqId# 
 ]]>
 </select>
 
