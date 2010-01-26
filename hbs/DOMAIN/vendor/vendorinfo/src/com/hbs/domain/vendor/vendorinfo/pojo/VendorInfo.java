@@ -1,6 +1,13 @@
 package com.hbs.domain.vendor.vendorinfo.pojo;
 
 import java.math.BigDecimal;
+import java.util.List;
+
+import com.hbs.domain.common.pojo.base.BaseDomain;
+import com.hbs.domain.common.pojo.baseinfo.AccountPreiod;
+import com.hbs.domain.common.pojo.baseinfo.BankInfo;
+import com.hbs.domain.common.pojo.baseinfo.ContactInfo;
+import com.hbs.domain.common.pojo.baseinfo.PrePaidInfo;
 
 
 /**
@@ -8,8 +15,14 @@ import java.math.BigDecimal;
  * @author hbs
  *
  */
-public class VendorInfo {
+public class VendorInfo extends BaseDomain{
     
+	
+	/**
+	 * 序列号
+	 */
+	private Integer baseSeqId;
+	
     /**
      * 供应商编码，格式GV0001.
      */
@@ -157,7 +170,38 @@ public class VendorInfo {
 
 
     
-    public String getCommCode() {
+    /**
+     * 联系列表
+     */
+    private List<ContactInfo> listContactInfo;
+    /**
+     * 银行列表
+     */
+    private List<BankInfo> listBankInfo;
+    /**
+     * 账期信息
+     */
+    private AccountPreiod accountPreiod;
+    /**
+     * 预付费信息
+     */
+    private PrePaidInfo prePaidInfo;
+    
+    /**
+	 * @return the baseSeqId
+	 */
+	public Integer getBaseSeqId() {
+		return baseSeqId;
+	}
+
+	/**
+	 * @param baseSeqId the baseSeqId to set
+	 */
+	public void setBaseSeqId(Integer baseSeqId) {
+		this.baseSeqId = baseSeqId;
+	}
+
+	public String getCommCode() {
         return this.commCode;
     }	
   
@@ -389,4 +433,64 @@ public class VendorInfo {
         this.taxRate = taxRate;
     }
 
+	/**
+	 * @return the listContactInfo
+	 */
+	public List<ContactInfo> getListContactInfo() {
+		return listContactInfo;
+	}
+
+	/**
+	 * @param listContactInfo the listContactInfo to set
+	 */
+	public void setListContactInfo(List<ContactInfo> listContactInfo) {
+		this.listContactInfo = listContactInfo;
+	}
+
+	/**
+	 * @return the listBankInfo
+	 */
+	public List<BankInfo> getListBankInfo() {
+		return listBankInfo;
+	}
+
+	/**
+	 * @param listBankInfo the listBankInfo to set
+	 */
+	public void setListBankInfo(List<BankInfo> listBankInfo) {
+		this.listBankInfo = listBankInfo;
+	}
+
+	/**
+	 * @return the accountPreiod
+	 */
+	public AccountPreiod getAccountPreiod() {
+		return accountPreiod;
+	}
+
+	/**
+	 * @param accountPreiod the accountPreiod to set
+	 */
+	public void setAccountPreiod(AccountPreiod accountPreiod) {
+		this.accountPreiod = accountPreiod;
+	}
+
+	/**
+	 * @return the prePaidInfo
+	 */
+	public PrePaidInfo getPrePaidInfo() {
+		return prePaidInfo;
+	}
+
+	/**
+	 * @param prePaidInfo the prePaidInfo to set
+	 */
+	public void setPrePaidInfo(PrePaidInfo prePaidInfo) {
+		this.prePaidInfo = prePaidInfo;
+	}
+
+	
+	public String getLogKey(){
+		return this.commCode;
+	}
 }
