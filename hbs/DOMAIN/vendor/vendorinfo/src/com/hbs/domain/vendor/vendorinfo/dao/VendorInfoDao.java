@@ -17,7 +17,7 @@ public interface VendorInfoDao {
      * @return id
      * @throws DataAccessException DataAccessException
      */
-    void insertVendorInfo(VendorInfo vendorInfo) throws DataAccessException ;
+    int insertVendorInfo(VendorInfo vendorInfo) throws DataAccessException ;
 
     /**
      * delete.
@@ -39,7 +39,8 @@ public interface VendorInfoDao {
      * @return vendorInfo
      * @throws DataAccessException DataAccessException
      */
-    VendorInfo findVendorInfo(String id) throws DataAccessException ;
+    VendorInfo findVendorInfoByID(String pk) throws DataAccessException ;
+    VendorInfo findVendorInfoByBase(VendorInfo vInfo) throws DataAccessException;
     
     /**
      * list.
@@ -47,7 +48,7 @@ public interface VendorInfoDao {
      * @return vendorInfo list
      * @throws DataAccessException DataAccessException
      */
-    List listVendorInfo(VendorInfo vendorInfo) throws DataAccessException ;
+    List<VendorInfo> listVendorInfo(VendorInfo vendorInfo) throws DataAccessException ;
     
     /**
      * listCount.
