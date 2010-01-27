@@ -124,7 +124,7 @@ public class CustomerInfoMgr {
 		if(iState == StateConstants.STATE_2 ){
 			custInfo.setState(new Integer(StateConstants.STATE_3).toString());
 			ret = innerUpdateCustomerInfo(custInfo,auditId,auditName,auditDesc);
-			if(ret ==0){//发提醒待办通知,先取消可能的待办，再添加新的待办
+			if(ret ==0){//发待办通知,先取消可能的待办，再添加新的待办
 				WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
 				Map<String , String> hmParam = new HashMap<String,String>();
 				hmParam.put("$staffName", custInfo.getStaffName());
@@ -266,7 +266,7 @@ public class CustomerInfoMgr {
 		return ret;
 	}
     /**
-     * 
+     * 查询单条客户信息
      * @param custInfo 查询的字段为：baseSeqId 或 commCode,State组合 
      * @param isAll   是否包含所有信息，联系人信息，银行信息，账期信息
      * @return CustomerInfo
@@ -349,7 +349,7 @@ public class CustomerInfoMgr {
 		return prePaidMgr.getPrePaidInfo(pInfo);
 	}
 	/**
-	 * 获取满足客户信息，支持模糊查询及分页查询
+	 * 获取满足条件的客户信息，支持模糊查询及分页查询
 	 * @param cInfo
 	 * @return
 	 * @throws Exception
