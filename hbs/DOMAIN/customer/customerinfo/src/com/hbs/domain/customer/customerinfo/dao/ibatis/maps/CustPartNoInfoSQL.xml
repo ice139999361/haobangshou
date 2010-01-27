@@ -26,8 +26,7 @@
 
 <insert id="CustPartNoInfo_insertCustPartNoInfo" parameterClass="custPartNoInfo" >
  <![CDATA[
-    INSERT INTO T_CUST_PART_NO_INFO (
-    		
+    INSERT INTO T_CUST_PART_NO_INFO (    		
             C_PART_NO, 
             C_CODE, 
             STATE, 
@@ -44,8 +43,7 @@
             SAMPLE_CODE, 
             VENDOR_CODE
         )
-    VALUES (
-    		
+    VALUES (    		
             #custPartNo#,
             #commCode#,
             #state#,
@@ -75,7 +73,7 @@
 ]]>
 </delete>
 
-<delete id="CustPartNoInfo_deleteCustPartNoInfoByByBizKey" parameterClass="custPartNoInfo">
+<delete id="CustPartNoInfo_deleteCustPartNoInfoByBizKey" parameterClass="custPartNoInfo">
 <![CDATA[
     DELETE  FROM  T_CUST_PART_NO_INFO
 ]]>
@@ -175,7 +173,7 @@
 ]]>
 </select>
 
-<select id="CustPartNoInfo_findCustPartNoInfoByByBizKey" resultMap="custPartNoInfo_result" parameterClass="custPartNoInfo">
+<select id="CustPartNoInfo_findCustPartNoInfoByBizKey" resultMap="custPartNoInfo_result" parameterClass="custPartNoInfo">
 <![CDATA[
     SELECT
     		SEQID,
