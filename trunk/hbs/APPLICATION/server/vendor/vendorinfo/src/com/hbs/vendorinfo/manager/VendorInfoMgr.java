@@ -15,11 +15,11 @@ import com.hbs.common.manager.baseinfo.BankInfoMgr;
 import com.hbs.common.manager.baseinfo.ContactMgr;
 import com.hbs.common.manager.baseinfo.PrePaidMgr;
 
+
 import com.hbs.common.springhelper.BeanLocator;
 
-import com.hbs.customerinfo.manager.CustAccountPreiodMgr;
 
-import com.hbs.vendor.common.constants.StateConstants;
+
 
 import com.hbs.domain.common.pojo.baseinfo.AccountPreiod;
 import com.hbs.domain.common.pojo.baseinfo.BankInfo;
@@ -27,9 +27,11 @@ import com.hbs.domain.common.pojo.baseinfo.ContactInfo;
 import com.hbs.domain.common.pojo.baseinfo.PrePaidInfo;
 
 
+
 import com.hbs.domain.vendor.vendorinfo.dao.VendorInfoDao;
 import com.hbs.domain.vendor.vendorinfo.pojo.VendorInfo;
 import com.hbs.domain.waittask.pojo.WaitTaskInfo;
+import com.hbs.vendor.common.constants.StateConstants;
 import com.hbs.vendor.common.utils.VendorLogUtils;
 import com.hbs.vendor.common.utils.VendorWaitTaskUtils;
 import com.hbs.vendorinfo.constants.VendorInfoConstants;
@@ -139,9 +141,307 @@ public class VendorInfoMgr {
 		return ret;
 	}
 	
+	/**
+	 * 审批同意供应商资料
+	 * @param vInfo
+	 * @param auditId   审批人ID
+	 * @param auditName 审批人姓名
+	 * @param auditDesc 审批意见
+	 * @return  0---成功   1--无此状态  2---状态不正确
+	 * @throws Exception
+	 */
+	public int auditAgreeVendorInfo(VendorInfo vInfo , String auditId, String auditName,String auditDesc) throws Exception{
+		int ret =0;
+		int iState = Integer.parseInt(vInfo.getState());
+		if(iState == StateConstants.STATE_2 ){
+			vInfo.setState(new Integer(StateConstants.STATE_0).toString());
+			ret = this.innerUpdateVendorInfo(vInfo, auditId, auditName, auditDesc);
+			if(ret == 0){//发提醒待办通知
+				WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
+				Map<String , String> hmParam = new HashMap<String,String>();
+				hmParam.put("$staffName", auditName);
+				hmParam.put("$commCode", vInfo.getCommCode());
+				hmParam.put("$shortName", vInfo.getShortName());
+				waitTaskInfo.setHmParam(hmParam);
+				waitTaskInfo.setStaffId(vInfo.getStaffId());
+				waitTaskInfo.setBusinessKey(vInfo.getWaitTaskKey());
+				VendorWaitTaskUtils.processCreateWaitTask("VENDOR002", null, waitTaskInfo);				
+			}
+		}else{
+			ret =2;
+		}
+		return ret;
+	}
+	/**
+	 * 审批不同意供应商资料
+	 * @param vInfo
+	 * @param auditId   审批人ID
+	 * @param auditName 审批人姓名
+	 * @param auditDesc 审批意见
+	 * @return  0---成功   1--无此状态  2---状态不正确
+	 * @throws Exception
+	 */
+	public int auditDisAgreeVendorInfo(VendorInfo vInfo , String auditId, String auditName,String auditDesc) throws Exception{
+		int ret =0;
+		int iState = Integer.parseInt(vInfo.getState());
+		if(iState == StateConstants.STATE_2 ){
+			vInfo.setState(new Integer(StateConstants.STATE_3).toString());
+			ret = this.innerUpdateVendorInfo(vInfo, auditId, auditName, auditDesc);
+			if(ret == 0){//发待办通知,先取消可能的待办，再添加新的待办
+				WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
+				Map<String , String> hmParam = new HashMap<String,String>();
+				hmParam.put("$staffName", auditName);
+				hmParam.put("$commCode", vInfo.getCommCode());
+				hmParam.put("$shortName", vInfo.getShortName());
+				waitTaskInfo.setHmParam(hmParam);
+				waitTaskInfo.setStaffId(vInfo.getStaffId());
+				waitTaskInfo.setBusinessKey(vInfo.getWaitTaskKey());
+				VendorWaitTaskUtils.processCreateWaitTask("VENDOR003", null, waitTaskInfo);				
+			}
+		}else{
+			ret =2;
+		}
+		return ret;
+	}
+	
+	/**
+	 * 修改客户信息，修改前的状态可能不同，需要区别对待
+	 * 修改前状态为1 ，对临时数据做修改
+	 * 修改前状态为0 ，对正式数据做修改，直接提交领导审批
+	 * 修改前状态为3 ，对审批不通过的数据修改，直接提交领导审批
+		//其他状态不存在修改操作
+	 * @param vInfo
+	 * @return 0---成功   1--无此状态  2---状态不正确
+	 * @throws Exception
+	 */
+	public int updateCustomerInfo(VendorInfo vInfo) throws Exception{
+		int ret =0;
+		int iState = Integer.parseInt(vInfo.getState());
+		//状态为1 ，对临时数据做修改
+		//状态为0 ，对正式数据做修改，直接提交领导审批
+		//状态为3 ，对审批不通过的数据修改，直接提交领导审批
+		//其他状态不存在修改操作
+		switch(iState) {
+		case 1:
+			ret = this.innerUpdateVendorInfo(vInfo, vInfo.getStaffId(), vInfo.getStaffName(), null);
+			break;
+		case 3:
+			vInfo.setState(new Integer(StateConstants.STATE_2).toString());
+			ret = this.innerUpdateVendorInfo(vInfo, vInfo.getStaffId(), vInfo.getStaffName(), null);
+			if(ret == 0){//发待办通知,先取消可能的待办，再添加新的待办
+				WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
+				Map<String , String> hmParam = new HashMap<String,String>();
+				hmParam.put("$staffName", vInfo.getStaffName());
+				hmParam.put("$commCode", vInfo.getCommCode());
+				hmParam.put("$shortName", vInfo.getShortName());
+				waitTaskInfo.setHmParam(hmParam);
+				waitTaskInfo.setBusinessKey(vInfo.getWaitTaskKey());
+				VendorWaitTaskUtils.processCreateWaitTask("VENDOR001", null, waitTaskInfo);				
+			}
+			break;
+		case 0:
+			vInfo.setState(new Integer(StateConstants.STATE_2).toString());
+			ret = insertVendorInfo(vInfo);
+			if(ret == 0){//发待办通知,先取消可能的待办，再添加新的待办
+				WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
+				Map<String , String> hmParam = new HashMap<String,String>();
+				hmParam.put("$staffName", vInfo.getStaffName());
+				hmParam.put("$commCode", vInfo.getCommCode());
+				hmParam.put("$shortName", vInfo.getShortName());
+				waitTaskInfo.setHmParam(hmParam);
+				waitTaskInfo.setBusinessKey(vInfo.getWaitTaskKey());
+				VendorWaitTaskUtils.processCreateWaitTask("VENDOR001", null, waitTaskInfo);				
+			}
+			break;
+			
+		default:
+			ret =2;
+		}
+		
+		return ret;
+	}
+	
+	/**
+	 * 锁定供应商资料，财务执行，只能对正式数据做锁定操作
+	 * 供应商应该没有锁定操作
+	 * @param vInfo
+	 * @param staffId  操作人ID
+	 * @param staffName 操作人姓名
+	 * @param lockDesc  锁定说明
+	 * @return 0---成功   1--无此状态  2---状态不正确
+	 * @throws Exception
+	 */
+	@Deprecated
+	public int lockVendorInfo(VendorInfo vInfo , String staffId,String staffName,String lockDesc) throws Exception{
+		int ret =0;
+		int iState = Integer.parseInt(vInfo.getState());
+		switch(iState){
+		case 0:
+			vInfo.setState(new Integer(StateConstants.STATE_5).toString());
+			ret = innerUpdateVendorInfo(vInfo,staffId,staffName,lockDesc);
+			break;
+		default:
+			ret =2;
+		}
+		return ret;
+		
+	}
+	
+	/**
+	 * 解锁供应商资料，财务执行，只能对锁定数据做解锁操作
+	 * 供应商应该没有解锁操作 
+	 * @param vInfo
+	 * @param staffId  操作人ID
+	 * @param staffName 操作人姓名
+	 * @param lockDesc  解锁说明
+	 * @return 0---成功   1--无此状态  2---状态不正确
+	 * @throws Exception
+	 */
+	@Deprecated
+	public int unlockVendorInfo(VendorInfo vInfo , String staffId,String staffName,String lockDesc) throws Exception{
+		int ret =0;
+		int iState = Integer.parseInt(vInfo.getState());
+		switch(iState){
+		case 5:
+			vInfo.setState(new Integer(StateConstants.STATE_6).toString());
+			ret = innerUpdateVendorInfo(vInfo,staffId,staffName,lockDesc);
+			break;
+		default:
+			ret =2;
+		}
+		return ret;
+	}
 	
 	
+	/**
+	 * 废除供应商数据，只有在审批不通过的状态，才能有废除操作
+	 * @param vInfo	 
+	 * @param delDesc   废除原因
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteVendorInfo(VendorInfo vInfo,String delDesc) throws Exception{
+		int ret =0;
+		int iState = Integer.parseInt(vInfo.getState());
+		switch(iState){
+		case 3:
+			vInfo.setState(new Integer(StateConstants.STATE_4).toString());
+			ret = innerUpdateVendorInfo(vInfo,vInfo.getStaffId(),vInfo.getStaffName(),delDesc);
+			break;
+		default:
+			ret =2;
+		}
+		return ret;
+	}
 	
+	
+	 /**
+     * 查询单条供应商信息
+     * @param vInfo 查询的字段为：baseSeqId 或 commCode,State组合 
+     * @param isAll   是否包含所有信息，联系人信息，银行信息，账期信息
+     * @return CustomerInfo
+     * @throws Exception
+     */
+	public VendorInfo getVendorInfo(VendorInfo vInfo,boolean isAll)throws Exception{
+		VendorInfo retInfo = null;
+		VendorInfoDao vInfoDao = (VendorInfoDao)BeanLocator.getInstance().getBean(VENDORINFO_DAO);
+		if(null != vInfo.getBaseSeqId()){//以主键查询
+			retInfo = vInfoDao.findVendorInfoByID(vInfo.getBaseSeqId().toString());
+		}else{//以commCode,State组合
+			retInfo = vInfoDao.findVendorInfoByBase(vInfo);
+		}
+		if((null != retInfo) && isAll){//需要查询附属的信息
+			/** 银行信息  */
+			retInfo.setListBankInfo(getBankInfoList(retInfo.getCommCode(),retInfo.getState()));
+			/** 联系人信息 */
+			retInfo.setListContactInfo(getContactInfoList(retInfo.getCommCode(),retInfo.getState()));
+			
+			/**  获取账期或预付费信息    */
+			retInfo.setAccountPreiod(getAccountPreiod(retInfo.getCommCode(),retInfo.getState()));
+			retInfo.setPrePaidInfo(getPrePaidInfo(retInfo.getCommCode(),retInfo.getState()));
+		}
+		return retInfo;
+	}
+	
+	
+	/**
+	 * 获取满足条件的供应商信息，支持模糊查询及分页查询
+	 * @param cInfo
+	 * @return
+	 * @throws Exception
+	 */
+	public List<VendorInfo> getVendorInfoList(VendorInfo vInfo)throws Exception{
+		VendorInfoDao vInfoDao = (VendorInfoDao)BeanLocator.getInstance().getBean(VENDORINFO_DAO);
+		return vInfoDao.listVendorInfo(vInfo);
+	}
+	/**
+	 * 获取满足条件的客户数量
+	 * @param cInfo
+	 * @return
+	 * @throws Exception
+	 */
+	public Integer getCustomerInfoCount(VendorInfo vInfo)throws Exception{
+		VendorInfoDao vInfoDao = (VendorInfoDao)BeanLocator.getInstance().getBean(VENDORINFO_DAO);
+		return vInfoDao.listVendorInfoCount(vInfo);
+	}
+	
+	
+	/**
+	 * 获取银行信息
+	 * @param commCode 客户编码
+	 * @param state   状态
+	 * @return
+	 * @throws Exception
+	 */
+	private List<BankInfo> getBankInfoList(String commCode, String state) throws Exception{
+		BankInfoMgr bankInfoMgr =(BankInfoMgr)BeanLocator.getInstance().getBean(VendorInfoConstants.VENDOR_BANKINFOMGR);
+		BankInfo bInfo = new BankInfo();
+		bInfo.setCommCode(commCode);
+		bInfo.setState(state);
+		return bankInfoMgr.listBankInfo(bInfo);
+	}
+	/**
+	 * 获取联系人信息
+	 * @param commCode
+	 * @param state
+	 * @return
+	 * @throws Exception
+	 */
+	private List<ContactInfo> getContactInfoList(String commCode, String state) throws Exception{
+		ContactMgr contactInfoMgr = (ContactMgr)BeanLocator.getInstance().getBean(VendorInfoConstants.VENDOR_CONTACTMGR);
+		ContactInfo cInfo = new ContactInfo();
+		cInfo.setCommCode(commCode);
+		cInfo.setState(state);
+		return contactInfoMgr.listContactInfo(cInfo);
+	}
+	/**
+	 * 获取账期信息
+	 * @param commCode
+	 * @param state
+	 * @return
+	 * @throws Exception
+	 */
+	private AccountPreiod getAccountPreiod(String commCode, String state) throws Exception{
+		AccountPreiodMgr custAccountPreiodMgr =(AccountPreiodMgr)BeanLocator.getInstance().getBean(VendorInfoConstants.VENDOR_ACCOUNTPREIODMGR);
+		AccountPreiod aInfo = new AccountPreiod();
+		aInfo.setCommCode(commCode);
+		aInfo.setState(state);
+		return custAccountPreiodMgr.getAccountPreiod(aInfo);
+	}
+	/**
+	 * 获取预付费信息
+	 * @param commCode
+	 * @param state
+	 * @return
+	 * @throws Exception
+	 */
+	private PrePaidInfo getPrePaidInfo(String commCode, String state) throws Exception{
+		PrePaidMgr prePaidMgr =(PrePaidMgr)BeanLocator.getInstance().getBean(VendorInfoConstants.VENDOR_PREPAIDMGR);
+		PrePaidInfo  pInfo = new PrePaidInfo();
+		pInfo.setCommCode(commCode);
+		pInfo.setState(state);
+		return prePaidMgr.getPrePaidInfo(pInfo);
+	}
 	/**
 	 * 删除正式信息及临时信息
 	 * @param vInfo
@@ -172,8 +472,8 @@ public class VendorInfoMgr {
 		AccountPreiod aPreiod = vInfo.getAccountPreiod();
 		if(null != aPreiod){	
 			aPreiod.setState(vInfo.getState());
-			CustAccountPreiodMgr custAccountPreiodMgr =(CustAccountPreiodMgr)BeanLocator.getInstance().getBean(VendorInfoConstants.VENDOR_ACCOUNTPREIODMGR);
-			custAccountPreiodMgr.deleteAccountPreiod(aPreiod, isDelCurrent);
+			AccountPreiodMgr accountPreiodMgr =(AccountPreiodMgr)BeanLocator.getInstance().getBean(VendorInfoConstants.VENDOR_ACCOUNTPREIODMGR);
+			accountPreiodMgr.deleteAccountPreiod(aPreiod, isDelCurrent);
 		}
 		
 		/**  预付费信息			 */

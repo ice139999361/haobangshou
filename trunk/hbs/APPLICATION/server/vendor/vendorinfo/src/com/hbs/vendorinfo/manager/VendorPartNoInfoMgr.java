@@ -1,0 +1,376 @@
+/**
+ * system ：hbs
+ * desc:
+ * version: 1.0
+ * author : yangzj
+ */
+package com.hbs.vendorinfo.manager;
+
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
+import com.hbs.common.springhelper.BeanLocator;
+
+
+
+import com.hbs.domain.vendor.vendorinfo.dao.VendorPartNoInfoDao;
+import com.hbs.domain.vendor.vendorinfo.pojo.VendorPartNoInfo;
+import com.hbs.domain.waittask.pojo.WaitTaskInfo;
+import com.hbs.vendor.common.constants.StateConstants;
+import com.hbs.vendor.common.utils.VendorLogUtils;
+import com.hbs.vendor.common.utils.VendorWaitTaskUtils;
+
+
+public class VendorPartNoInfoMgr {
+
+	private static final String VENDOR_PARTNOINFODAO ="vendorPartNoInfoDao";
+	
+	/**
+	 * 保存供应商临时物料关系信息，状态为1
+	 * @param vPartNoInfo
+	 * @return 0--成功  1--存在重复数据
+	 * @throws Exception
+	 */
+	public int saveTempVendorPartNoInfo(VendorPartNoInfo vPartNoInfo)throws Exception{
+		vPartNoInfo.setState(new Integer(StateConstants.STATE_1).toString());
+		return insertVendorPartNoInfo(vPartNoInfo);
+	}
+	/**
+	 * 批量保存供应商临时物料关系信息，状态为1
+	 * @param vPartNoInfoList
+	 * @return
+	 * @throws Exception
+	 */
+	public int saveTempVendorPartNoInfoList(List<VendorPartNoInfo> vPartNoInfoList)throws Exception{
+		int ret =0;
+		for(VendorPartNoInfo vPartNoInfo : vPartNoInfoList){
+			vPartNoInfo.setState(new Integer(StateConstants.STATE_1).toString());
+			insertVendorPartNoInfo( vPartNoInfo);
+		}
+		return ret;		
+	}
+	/**
+	  * 提交数据审批,数据的状态为临时状态,或者为领导审批拒绝的状态,才可以提交审批
+	 * 数据状态修改的同时，需要发待办通知
+	 * @param vPartNoInfo
+	 * @return
+	 * @throws Exception
+	 */
+	public int commitVendorPartNoInfo(VendorPartNoInfo vPartNoInfo) throws Exception{
+		int ret =0;
+		//获取提交数据打状态
+		int iState = Integer.parseInt(vPartNoInfo.getState());
+		if(iState == StateConstants.STATE_1 || iState == StateConstants.STATE_3){
+			vPartNoInfo.setState(new Integer(StateConstants.STATE_2).toString());
+			ret = this.innerUpdateVendorPartNoInfo(vPartNoInfo, vPartNoInfo.getStaffId(), vPartNoInfo.getStaffName(), null);
+		}
+		//待办处理
+		
+		if(ret == 0){//发待办通知,先取消可能的待办，再添加新的待办
+			WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
+			Map<String , String> hmParam = new HashMap<String,String>();
+			hmParam.put("$staffName", vPartNoInfo.getStaffName());
+			hmParam.put("$commCode", vPartNoInfo.getCommCode());
+			hmParam.put("$cpartNo", vPartNoInfo.getCustPartNo());
+			waitTaskInfo.setHmParam(hmParam);
+			waitTaskInfo.setBusinessKey(vPartNoInfo.getWaitTaskBizKey());
+			VendorWaitTaskUtils.processCreateWaitTask("VENDOR_PARTNO_001", null, waitTaskInfo);
+			
+		}
+		return ret;
+	}
+	
+	
+	/**
+	 * 审批同意供应商物料资料
+	 * @param vPartNoInfo
+	 * @param auditId  审批人ID
+	 * @param auditName 审批人姓名
+	 * @param auditDesc 审批意见
+	 * @return  0---成功   1--无此状态  2---状态不正确
+	 * @throws Exception
+	 */
+	public int auditAgreeCustPartNoInfo(VendorPartNoInfo vPartNoInfo, String auditId, String auditName,String auditDesc) throws Exception{
+		int ret =0;
+		int iState = Integer.parseInt(vPartNoInfo.getState());
+		if(iState == StateConstants.STATE_2 ){
+			vPartNoInfo.setState(new Integer(StateConstants.STATE_0).toString());
+			ret = innerUpdateVendorPartNoInfo(vPartNoInfo,auditId,auditName,auditDesc);
+			if(ret ==0){//发提醒待办通知,先取消可能的待办，再添加新的待办
+				WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
+				Map<String , String> hmParam = new HashMap<String,String>();
+				hmParam.put("$staffName", auditName);
+				hmParam.put("$commCode", vPartNoInfo.getCommCode());
+				hmParam.put("$cpartNo", vPartNoInfo.getCustPartNo());
+				waitTaskInfo.setHmParam(hmParam);
+				waitTaskInfo.setStaffId(vPartNoInfo.getStaffId());
+				waitTaskInfo.setBusinessKey(vPartNoInfo.getWaitTaskBizKey());
+				VendorWaitTaskUtils.processCreateWaitTask("VENDOR_PARTNO_002", null, waitTaskInfo);
+				
+				
+			}
+		}else{
+			ret =2;//表示数据提交的状态不正确
+		}
+		
+		return 0;
+	}
+	
+	/**
+	 * 审批不同意供应商物料资料
+	 * @param vPartNoInfo
+	 * @param auditId  审批人ID
+	 * @param auditName  审批人姓名
+	 * @param auditDesc  审批意见
+	 * @return 0---成功   1--无此状态  2---状态不正确
+	 * @throws Exception
+	 */
+	public int auditDisAgreeCustPartNoInfo(VendorPartNoInfo vPartNoInfo,String auditId, String auditName,String auditDesc) throws Exception{
+		int ret =0;
+		int iState = Integer.parseInt(vPartNoInfo.getState());
+		if(iState == StateConstants.STATE_2 ){
+			vPartNoInfo.setState(new Integer(StateConstants.STATE_3).toString());
+			ret = innerUpdateVendorPartNoInfo(vPartNoInfo,auditId,auditName,auditDesc);
+			if(ret ==0){//发待办通知,先取消可能的待办，再添加新的待办
+				WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
+				Map<String , String> hmParam = new HashMap<String,String>();
+				hmParam.put("$staffName", auditName);
+				hmParam.put("$commCode", vPartNoInfo.getCommCode());
+				hmParam.put("$cpartNo", vPartNoInfo.getCustPartNo());
+				waitTaskInfo.setHmParam(hmParam);
+				waitTaskInfo.setStaffId(vPartNoInfo.getStaffId());
+				waitTaskInfo.setBusinessKey(vPartNoInfo.getWaitTaskBizKey());
+				VendorWaitTaskUtils.processCreateWaitTask("VENDOR_PARTNO_003", null, waitTaskInfo);
+				
+			}
+		}else{
+			ret =2;//表示数据提交的状态不正确
+		}
+		
+		return 0;
+	}
+	
+	/**
+	 * 修改供应商物料信息，修改前的状态可能不同，需要区别对待
+	 * 修改前状态为1 ，对临时数据做修改
+	 * 修改前状态为0 ，对正式数据做修改，直接提交领导审批
+	 * 修改前状态为3 ，对审批不通过的数据修改，直接提交领导审批
+		//其他状态不存在修改操作 
+	 * @param vPartNoInfo
+	 * @return 0---成功   1--无此状态  2---状态不正确
+	 * @throws Exception
+	 */
+	public int updateVendorPartNoInfo(VendorPartNoInfo vPartNoInfo) throws Exception{
+		int ret =0;
+		int iState = Integer.parseInt(vPartNoInfo.getState());
+		//状态为1 ，对临时数据做修改
+		//状态为0 ，对正式数据做修改，直接提交领导审批
+		//状态为3 ，对审批不通过的数据修改，直接提交领导审批
+		//其他状态不存在修改操作
+		switch(iState) {
+		case 1:
+			ret = innerUpdateVendorPartNoInfo(vPartNoInfo,vPartNoInfo.getStaffId(),vPartNoInfo.getStaffName(),null);
+			break;
+		case 3:
+			vPartNoInfo.setState(new Integer(StateConstants.STATE_2).toString());
+			ret = innerUpdateVendorPartNoInfo(vPartNoInfo,vPartNoInfo.getStaffId(),vPartNoInfo.getStaffName(),null);
+			if(ret == 0){//发待办通知,先取消可能的待办，再添加新的待办
+				WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
+				Map<String , String> hmParam = new HashMap<String,String>();
+				hmParam.put("$staffName", vPartNoInfo.getStaffName());
+				hmParam.put("$commCode", vPartNoInfo.getCommCode());
+				hmParam.put("$cpartNo", vPartNoInfo.getCustPartNo());
+				waitTaskInfo.setHmParam(hmParam);
+				waitTaskInfo.setBusinessKey(vPartNoInfo.getWaitTaskBizKey());
+				VendorWaitTaskUtils.processCreateWaitTask("VENDOR_PARTNO_001", null, waitTaskInfo);
+			}
+			break;
+		case 0:
+			vPartNoInfo.setState(new Integer(StateConstants.STATE_2).toString());
+			ret = insertVendorPartNoInfo(vPartNoInfo);
+			if(ret == 0){//发待办通知,先取消可能的待办，再添加新的待办
+				WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
+				Map<String , String> hmParam = new HashMap<String,String>();
+				hmParam.put("$staffName", vPartNoInfo.getStaffName());
+				hmParam.put("$commCode", vPartNoInfo.getCommCode());
+				hmParam.put("$cpartNo", vPartNoInfo.getCustPartNo());
+				waitTaskInfo.setHmParam(hmParam);
+				waitTaskInfo.setBusinessKey(vPartNoInfo.getWaitTaskBizKey());
+				VendorWaitTaskUtils.processCreateWaitTask("VENDOR_PARTNO_001", null, waitTaskInfo);
+			}
+			break;
+			
+		default:
+			ret =2;
+		}
+		
+		return ret;
+	}
+	/**
+	 * * 废除供应商物料数据，只有在审批不通过的状态，才能有废除操作
+	 * @param vPartNoInfo
+	 * @param delDesc   废除原因
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteVendorPartNoInfo(VendorPartNoInfo vPartNoInfo,String delDesc) throws Exception{
+		int ret =0;
+		int iState = Integer.parseInt(vPartNoInfo.getState());
+		switch(iState){
+		case 3:
+			vPartNoInfo.setState(new Integer(StateConstants.STATE_4).toString());
+			ret = innerUpdateVendorPartNoInfo(vPartNoInfo,vPartNoInfo.getStaffId(),vPartNoInfo.getStaffName(),delDesc);
+			break;
+		default:
+			ret =2;
+		}
+		return ret;
+	}
+	
+	
+	/**
+	 * 新增物料关系，判断是否存在相同业务关键字的数据存在，如果存在，则提示数据重复
+	 * @param vPartNoInfo	
+	 * @return 0--成功  1--存在重复数据
+	 * @throws Exception
+	 */
+	private int insertVendorPartNoInfo(VendorPartNoInfo vPartNoInfo) throws Exception{
+		int ret =0;
+		VendorPartNoInfoDao vPartNoInfoDao = (VendorPartNoInfoDao)BeanLocator.getInstance().getBean(VENDOR_PARTNOINFODAO);
+		//查询物料关系，判断插入的数据是否已经存在
+		VendorPartNoInfo tempInfo = new VendorPartNoInfo();
+		tempInfo.setCommCode(vPartNoInfo.getCommCode());
+		tempInfo.setCustPartNo(vPartNoInfo.getCustPartNo());
+		tempInfo.setPartNo(vPartNoInfo.getPartNo());
+		tempInfo.setState(vPartNoInfo.getState());
+		
+		tempInfo = vPartNoInfoDao.findVendorPartNoInfoByBizKey(tempInfo);
+		//Integer seqID =0;
+		if(null == tempInfo){//不存在
+			vPartNoInfoDao.insertVendorPartNoInfo(vPartNoInfo);
+		}else{
+			ret = 1;
+		}
+		//记录日志			
+		VendorLogUtils.operLog(vPartNoInfo.getStaffId(), vPartNoInfo.getStaffName(), "新增", "物料对照关系信息", vPartNoInfo.getLogBizKey(), null, null);
+		
+		return ret;
+	}
+	
+	/**
+	 * 更新信息
+	 * @param vPartNoInfo
+	 * @param staffId
+	 * @param staffName
+	 * @param otherInfo
+	 * @return
+	 * @throws Exception
+	 */
+	private int innerUpdateVendorPartNoInfo(VendorPartNoInfo vPartNoInfo,String staffId,String staffName,String otherInfo)throws Exception{
+		int ret =0;
+		int state = Integer.parseInt(vPartNoInfo.getState());
+		VendorPartNoInfoDao vPartNoInfoDao = (VendorPartNoInfoDao)BeanLocator.getInstance().getBean(VENDOR_PARTNOINFODAO);
+		String strLogType = null;
+		switch (state){
+		case 0:  //审批通过,先删除后插入,同时删除待审批数据,待办未做
+			vPartNoInfoDao.deleteVendorPartNoInfoByBizKey(vPartNoInfo);
+			vPartNoInfoDao.insertVendorPartNoInfo(vPartNoInfo);			
+			vPartNoInfoDao.deleteVendorPartNoInfoByID(vPartNoInfo.getSeqId().toString());
+			strLogType = "审批数据";
+			break;
+		case 1://没有提交的数据修改		
+			vPartNoInfoDao.updateVendorPartNoInfo(vPartNoInfo);
+			strLogType = "修改临时数据";
+			break;
+		case 2://提交数据修改
+			vPartNoInfoDao.updateVendorPartNoInfo(vPartNoInfo);
+			strLogType = "提交临时数据";
+			break;
+		case 3://审批不通过数据只修改状态
+			vPartNoInfoDao.updateVendorPartNoInfoByState(vPartNoInfo);
+			strLogType = "审批不通过数据";
+			break;
+		case 4://废弃数据只修改状态			
+			vPartNoInfoDao.updateVendorPartNoInfoByState(vPartNoInfo);
+			strLogType = "废弃数据";
+			break;
+		case 5://锁定数据只修改状态
+			vPartNoInfoDao.updateVendorPartNoInfoByState(vPartNoInfo);
+			strLogType = "锁定数据";
+			break;
+		default:
+			ret =1;
+		}
+		if(null != staffName){			
+			VendorLogUtils.operLog(staffId, staffName, strLogType, "供应商物料信息", vPartNoInfo.getLogBizKey(), null, otherInfo);
+		}
+		return ret;
+	}
+	
+	/**
+	 * 批量更新
+	 * @param vPartNoInfoList
+	 * @param staffId
+	 * @param staffName
+	 * @param otherInfo
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateVendorPartNoInfoList(List<VendorPartNoInfo> vPartNoInfoList)throws Exception{
+		int ret =0;
+		for(VendorPartNoInfo vPartNoInfo : vPartNoInfoList){
+			updateVendorPartNoInfo( vPartNoInfo);
+		}
+		
+		return ret;
+	}
+	
+	
+	/**
+	 * 根据数据id获取信息
+	 * @param seqId
+	 * @return
+	 * @throws Exception
+	 */
+	public VendorPartNoInfo getVendorPartNoInfoByID(String seqId)throws Exception{
+		VendorPartNoInfoDao vPartNoInfoDao = (VendorPartNoInfoDao)BeanLocator.getInstance().getBean(VENDOR_PARTNOINFODAO);
+		return vPartNoInfoDao.findVendorPartNoInfoByID(seqId);
+	}
+	
+	/**
+	 * 根据业务主键获取信息
+	 * @param vPartNoInfo
+	 * @return
+	 * @throws Exception
+	 */
+	public VendorPartNoInfo getVendorPartNoInfoByBizKey(VendorPartNoInfo vPartNoInfo) throws Exception{
+		VendorPartNoInfoDao vPartNoInfoDao = (VendorPartNoInfoDao)BeanLocator.getInstance().getBean(VENDOR_PARTNOINFODAO);
+		return vPartNoInfoDao.findVendorPartNoInfoByBizKey(vPartNoInfo);
+	}
+	
+	/**
+	 * 获取列表信息
+	 * @param vPartNoInfo
+	 * @return
+	 * @throws Exception
+	 */
+	public List<VendorPartNoInfo> listVendorPartNoInfo(VendorPartNoInfo vPartNoInfo) throws Exception{
+		VendorPartNoInfoDao vPartNoInfoDao = (VendorPartNoInfoDao)BeanLocator.getInstance().getBean(VENDOR_PARTNOINFODAO);
+		return vPartNoInfoDao.listVendorPartNoInfo(vPartNoInfo);
+	}
+	
+	/**
+	 * 获取总记录数
+	 * @param vPartNoInfo
+	 * @return
+	 * @throws Exception
+	 */
+	public Integer listVendorPartNoInfoCount(VendorPartNoInfo vPartNoInfo) throws Exception{
+		VendorPartNoInfoDao vPartNoInfoDao = (VendorPartNoInfoDao)BeanLocator.getInstance().getBean(VENDOR_PARTNOINFODAO);
+		return vPartNoInfoDao.listVendorPartNoInfoCount(vPartNoInfo);
+	}
+
+}
