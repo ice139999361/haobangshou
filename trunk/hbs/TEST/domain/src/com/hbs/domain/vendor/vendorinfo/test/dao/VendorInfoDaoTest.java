@@ -68,7 +68,7 @@ public class VendorInfoDaoTest extends AbstractTransactionalDataSourceSpringCont
     public void testDeleteVendorInfo() {
         VendorInfoDao vendorInfoDao = (VendorInfoDao) this.getApplicationContext().getBean("vendorInfoDao");
         VendorInfo vendorInfo = new VendorInfo();
-        vendorInfoDao.deleteVendorInfo("1");
+       // vendorInfoDao.deleteVendorInfo("1");
         
         // 如果执行setComplete()，增、删、改等操作被提交，否则将强制回滚
         setComplete(); 
