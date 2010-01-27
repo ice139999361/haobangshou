@@ -78,6 +78,8 @@
 			    			<columns>
 			    				<column header="是否是主联系人" dataIndex="l11" xtype="textfield"/>
 			    			</columns>
+			    			
+			    			<submitFields value="l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11" />
 			    		</complexgrid>
 			    		
 			    		<complexgrid id="consigneegrid" title="客户收货人信息" itemsFun="contactFun" itemsAlign="after" frame="true" height="200" deftbar="true" url="1">
