@@ -43,11 +43,21 @@ public class VendorInfoDaoImpl extends SqlMapClientDaoSupport implements VendorI
      * @param vendorInfo vendorInfo
      * @throws DataAccessException DataAccessException
      */
-    public void deleteVendorInfo(String pk)throws DataAccessException {
+    public void deleteVendorInfoByID(String pk)throws DataAccessException {
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入deleteVendorInfo(String), 输入参数[" + pk + "]");
 		}
-        getSqlMapClientTemplate().update("VendorInfo_deleteVendorInfo", pk);
+        getSqlMapClientTemplate().update("VendorInfo_deleteVendorInfoByID", pk);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开deleteVendorInfo(String)");
+		}
+    }
+    
+    public void deleteVendorInfoByBase(VendorInfo vendorInfo)throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+    		logger.debug("进入deleteVendorInfo(String), 输入参数[" + vendorInfo + "]");
+		}
+        getSqlMapClientTemplate().update("VendorInfo_deleteVendorInfoByBase", vendorInfo);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开deleteVendorInfo(String)");
 		}
@@ -59,6 +69,16 @@ public class VendorInfoDaoImpl extends SqlMapClientDaoSupport implements VendorI
      * @throws DataAccessException DataAccessException
      */
     public void updateVendorInfo(VendorInfo vendorInfo) throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+    		logger.debug("进入updateVendorInfo(VendorInfo), 输入参数[" + vendorInfo + "]");
+		}
+    	getSqlMapClientTemplate().update("VendorInfo_updateVendorInfo", vendorInfo);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开updateVendorInfo(VendorInfo)");
+		}
+    }
+    
+    public void updateVendorInfoByState(VendorInfo vendorInfo) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入updateVendorInfo(VendorInfo), 输入参数[" + vendorInfo + "]");
 		}
