@@ -493,4 +493,8 @@ public class VendorInfo extends BaseDomain{
 	public String getLogKey(){
 		return this.commCode;
 	}
+	
+	public String getWaitTaskKey(){
+		return this.commCode;
+	}
 }
