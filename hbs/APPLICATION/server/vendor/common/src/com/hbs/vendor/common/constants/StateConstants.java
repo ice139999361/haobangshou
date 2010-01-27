@@ -10,7 +10,7 @@ package com.hbs.vendor.common.constants;
  * @author Administrator
  *
  */
-public final class StateConstants {
+public interface StateConstants {
 	
 	public static final int STATE_0= 0;
 	
