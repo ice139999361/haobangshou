@@ -22,14 +22,6 @@
     <result property="sampleCode" column="SAMPLE_CODE"/>
 </resultMap>
 
-<select id="VendorPartNoInfo_getNextId" resultClass="java.lang.String">
-<![CDATA[
-    SELECT ltrim(to_char(Seq_T_VENDOR_PART_NO_INFO_Id.Nextval,'0000000000')) 
-           AS Id 
-    FROM dual
-]]>
-</select>
-
 <insert id="VendorPartNoInfo_insertVendorPartNoInfo" parameterClass="vendorPartNoInfo" >
 <![CDATA[
     INSERT INTO T_VENDOR_PART_NO_INFO (
@@ -67,13 +59,43 @@
             #sampleCode#
     )
 ]]>
+<selectKey resultClass="Integer" keyProperty="seqId">
+            SELECT LAST_INSERT_ID()  
+  </selectKey>
 </insert>
 
-<delete id="VendorPartNoInfo_deleteVendorPartNoInfo" parameterClass="string">
+<delete id="VendorPartNoInfo_deleteVendorPartNoInfoByID" parameterClass="string">
 <![CDATA[
-    DELETE  FROM  T_VENDOR_PART_NO_INFO WHERE C_PART_NO = #custPartNo#
+    DELETE  FROM  T_VENDOR_PART_NO_INFO WHERE SEQID = #seqId#
 ]]>
-</delete>    
+</delete>  
+
+<delete id="VendorPartNoInfo_deleteVendorPartNoInfoByBizKey" parameterClass="vendorPartNoInfo">
+<![CDATA[
+    DELETE  FROM  T_VENDOR_PART_NO_INFO 
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "custPartNo">
+				C_PART_NO = #custPartNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "commCode">
+				C_CODE = #commCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "state">
+				STATE = #state#
+			</isNotEmpty>			
+			<isNotEmpty prepend="and" property = "partNo">
+				PART_NO = #partNo#
+			</isNotEmpty>			
+		</dynamic>
+</delete> 
+
+
+<update id="VendorPartNoInfo_updateVendorPartNoInfoByState" parameterClass="vendorPartNoInfo">
+    UPDATE T_VENDOR_PART_NO_INFO 
+    	SET STATE = #state#
+    WHERE SEQID = #seqId#
+</update>  
 
 <update id="VendorPartNoInfo_updateVendorPartNoInfo" parameterClass="vendorPartNoInfo">
     UPDATE T_VENDOR_PART_NO_INFO 
@@ -121,12 +143,13 @@
 	<isNotEmpty prepend="," property="sampleCode">
             SAMPLE_CODE = #sampleCode#
 	</isNotEmpty>
-    WHERE C_PART_NO = #custPartNo#
+    WHERE SEQID = #seqId#
 </update> 
 
-<select id="VendorPartNoInfo_findVendorPartNoInfo" resultMap="vendorPartNoInfo_result" parameterClass="string">
+<select id="VendorPartNoInfo_findVendorPartNoInfoByID" resultMap="vendorPartNoInfo_result" parameterClass="string">
 <![CDATA[
     SELECT
+    		SEQID,
             C_PART_NO, 
             C_CODE, 
             STATE, 
@@ -142,13 +165,51 @@
             MIN_AMOUNT, 
             MIN_PACKAGE, 
             SAMPLE_CODE
-    FROM T_VENDOR_PART_NO_INFO WHERE C_PART_NO = #custPartNo#
+    FROM T_VENDOR_PART_NO_INFO WHERE SEQID = #seqId#
 ]]>
+</select>
+
+<select id="VendorPartNoInfo_findVendorPartNoInfoByBizKey" resultMap="vendorPartNoInfo_result" parameterClass="vendorPartNoInfo">
+<![CDATA[
+    SELECT
+    		SEQID,
+            C_PART_NO, 
+            C_CODE, 
+            STATE, 
+            PN_DESC, 
+            PRICE, 
+            PRICE_TAX, 
+            CREATE_DATE, 
+            STAFF_ID, 
+            STAFF_NAME, 
+            PART_NO, 
+            P_CAT_CODE, 
+            P_CLS_CODE, 
+            MIN_AMOUNT, 
+            MIN_PACKAGE, 
+            SAMPLE_CODE
+    FROM T_VENDOR_PART_NO_INFO 
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "custPartNo">
+				C_PART_NO = #custPartNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "commCode">
+				C_CODE = #commCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "state">
+				STATE = #state#
+			</isNotEmpty>			
+			<isNotEmpty prepend="and" property = "partNo">
+				PART_NO = #partNo#
+			</isNotEmpty>			
+		</dynamic>
 </select>
 
 <select id="VendorPartNoInfo_listVendorPartNoInfo" resultMap="vendorPartNoInfo_result" parameterClass="vendorPartNoInfo">
 <![CDATA[
     SELECT
+    		SEQID,
             C_PART_NO, 
             C_CODE, 
             STATE, 
@@ -168,7 +229,7 @@
 ]]>
 		<dynamic prepend="WHERE">
 			<isNotEmpty prepend="and" property = "custPartNo">
-				C_PART_NO = #custPartNo#
+				C_PART_NO like '%$custPartNo$%'
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "commCode">
 				C_CODE = #commCode#
@@ -177,54 +238,35 @@
 				STATE = #state#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "pnDesc">
-				PN_DESC = #pnDesc#
+				PN_DESC like '%$pnDesc$%'
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "price">
-				PRICE = #price#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "priceTax">
-				PRICE_TAX = #priceTax#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "createDate">
-				CREATE_DATE = #createDate#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "staffId">
-				STAFF_ID = #staffId#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "staffName">
-				STAFF_NAME = #staffName#
-			</isNotEmpty>
+			
 			<isNotEmpty prepend="and" property = "partNo">
-				PART_NO = #partNo#
+				PART_NO like '%$partNo$%'
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "catCode">
-				P_CAT_CODE = #catCode#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "clsName">
-				P_CLS_CODE = #clsName#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "minAmount">
-				MIN_AMOUNT = #minAmount#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "minPackage">
-				MIN_PACKAGE = #minPackage#
-			</isNotEmpty>
+			
 			<isNotEmpty prepend="and" property = "sampleCode">
 				SAMPLE_CODE = #sampleCode#
 			</isNotEmpty>
+			<isNotEmpty prepend="order by" property="sort">
+                   $sort$
+            </isNotEmpty>
 		</dynamic>
+		<![CDATA[
+      		LIMIT #start# ,#end#
+		]]>
 </select>
 
 
 <select id="VendorPartNoInfo_listVendorPartNoInfoCount" resultClass="java.lang.Integer" parameterClass="vendorPartNoInfo">
 <![CDATA[
     SELECT
-		COUNT(*)
+		COUNT(1)
     FROM T_VENDOR_PART_NO_INFO
 ]]>
 		<dynamic prepend="WHERE">
 			<isNotEmpty prepend="and" property = "custPartNo">
-				C_PART_NO = #custPartNo#
+				C_PART_NO like '%$custPartNo$%'
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "commCode">
 				C_CODE = #commCode#
@@ -233,38 +275,13 @@
 				STATE = #state#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "pnDesc">
-				PN_DESC = #pnDesc#
+				PN_DESC like '%$pnDesc$%'
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "price">
-				PRICE = #price#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "priceTax">
-				PRICE_TAX = #priceTax#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "createDate">
-				CREATE_DATE = #createDate#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "staffId">
-				STAFF_ID = #staffId#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "staffName">
-				STAFF_NAME = #staffName#
-			</isNotEmpty>
+			
 			<isNotEmpty prepend="and" property = "partNo">
-				PART_NO = #partNo#
+				PART_NO like '%$partNo$%'
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "catCode">
-				P_CAT_CODE = #catCode#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "clsName">
-				P_CLS_CODE = #clsName#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "minAmount">
-				MIN_AMOUNT = #minAmount#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "minPackage">
-				MIN_PACKAGE = #minPackage#
-			</isNotEmpty>
+			
 			<isNotEmpty prepend="and" property = "sampleCode">
 				SAMPLE_CODE = #sampleCode#
 			</isNotEmpty>

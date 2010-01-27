@@ -10,6 +10,8 @@ import java.util.Date;
  */
 public class VendorPartNoInfo {
     
+	private Integer seqId;
+	
     /**
      * 供应商物料编号.
      */
@@ -87,7 +89,15 @@ public class VendorPartNoInfo {
 
 
     
-    public String getCustPartNo() {
+    public Integer getSeqId() {
+		return seqId;
+	}
+
+	public void setSeqId(Integer seqId) {
+		this.seqId = seqId;
+	}
+
+	public String getCustPartNo() {
         return this.custPartNo;
     }	
   
@@ -207,4 +217,19 @@ public class VendorPartNoInfo {
         this.sampleCode = sampleCode;
     }
 
+    
+    public String getLogBizKey(){
+		StringBuilder sb = new StringBuilder();		
+		sb.append(partNo).append(";");
+		sb.append(commCode).append(";");
+		sb.append(state);
+		return sb.toString();
+	}
+	
+	public String getWaitTaskBizKey(){
+		StringBuilder sb = new StringBuilder();		
+		sb.append(partNo).append(";").append(this.custPartNo).append(";");
+		sb.append(commCode);		
+		return sb.toString();
+	}
 }

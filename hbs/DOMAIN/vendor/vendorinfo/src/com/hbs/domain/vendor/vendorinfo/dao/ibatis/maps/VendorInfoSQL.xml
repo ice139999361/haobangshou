@@ -30,8 +30,7 @@
     <result property="currencyDesc" column="CURRENCY_DESC"/>
     <result property="staffId" column="STAFF_ID"/>
     <result property="staffName" column="STAFF_NAME"/>
-    <result property="commDesc" column="COMM_DESC"/>
-    <result property="vendorCode" column="VENDOR_CODE"/>
+    <result property="commDesc" column="COMM_DESC"/>    
     <result property="contactFee" column="CONTACT_FEE"/>
     <result property="isShowPrice" column="IS_SHOW_PRICE"/>
     <result property="taxRate" column="TAX_RATE"/>
@@ -66,8 +65,7 @@
             CURRENCY_DESC, 
             STAFF_ID, 
             STAFF_NAME, 
-            COMM_DESC, 
-            VENDOR_CODE, 
+            COMM_DESC,             
             CONTACT_FEE, 
             IS_SHOW_PRICE, 
             TAX_RATE
@@ -97,8 +95,7 @@
             #currencyDesc#,
             #staffId#,
             #staffName#,
-            #commDesc#,
-            #vendorCode#,
+            #commDesc#,           
             #contactFee#,
             #isShowPrice#,
             #taxRate#
@@ -211,10 +208,7 @@
 	</isNotEmpty>
 	<isNotEmpty prepend="," property="commDesc">
             COMM_DESC = #commDesc#
-	</isNotEmpty>
-	<isNotEmpty prepend="," property="vendorCode">
-            VENDOR_CODE = #vendorCode#
-	</isNotEmpty>
+	</isNotEmpty>	
 	<isNotEmpty prepend="," property="contactFee">
             CONTACT_FEE = #contactFee#
 	</isNotEmpty>
@@ -256,7 +250,6 @@
             STAFF_ID, 
             STAFF_NAME, 
             COMM_DESC, 
-            VENDOR_CODE, 
             CONTACT_FEE, 
             IS_SHOW_PRICE, 
             TAX_RATE
@@ -293,7 +286,6 @@
             STAFF_ID, 
             STAFF_NAME, 
             COMM_DESC, 
-            VENDOR_CODE, 
             CONTACT_FEE, 
             IS_SHOW_PRICE, 
             TAX_RATE
@@ -330,7 +322,6 @@
             STAFF_ID, 
             STAFF_NAME, 
             COMM_DESC, 
-            VENDOR_CODE, 
             CONTACT_FEE, 
             IS_SHOW_PRICE, 
             TAX_RATE
@@ -338,64 +329,31 @@
 ]]>
 		<dynamic prepend="WHERE">
 			<isNotEmpty prepend="and" property = "commCode">
-				C_CODE = #commCode#
+				C_CODE like '%$commCode$%'
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "state">
 				STATE = #state#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "shortName">
-				SHORT_NAME = #shortName#
+				SHORT_NAME like '%$shortName$%'
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "enShortName">
-				EN_SHORT_NAME = #enShortName#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "allName">
-				ALL_NAME = #allName#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "enName">
-				EN_NAME = #enName#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "address">
-				ADDRESS = #address#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "enAddress">
-				EN_ADDRESS = #enAddress#
-			</isNotEmpty>
+				EN_SHORT_NAME like '%$enShortName$%'
+			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "commType">
-				C_TYPE = #commType#
+				C_TYPE like '%$commType$%'
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "commScale">
-				C_SCALE = #commScale#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "webSite">
-				WEBSITE = #webSite#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "representative">
-				REPRESENTATIVE = #representative#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "taxCode">
-				TAX_CODE = #taxCode#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "companyBranch">
-				COMPANY_BRANCH = #companyBranch#
-			</isNotEmpty>
+				C_SCALE like '%$commScale$%'
+			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "creditRate">
 				CREDIT_RATE = #creditRate#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "creditDesc">
-				CREDIT_DESC = #creditDesc#
-			</isNotEmpty>
+			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "importantCode">
 				IMPORTANT_CODE = #importantCode#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "importantDesc">
-				IMPORTANT_DESC = #importantDesc#
-			</isNotEmpty>
+			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "settlementType">
 				SETTLEMENT_TYPE = #settlementType#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "settlementDesc">
-				SETTLEMENT_DESC = #settlementDesc#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "currency">
 				CURRENCY = #currency#
@@ -409,91 +367,49 @@
 			<isNotEmpty prepend="and" property = "staffName">
 				STAFF_NAME = #staffName#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "commDesc">
-				COMM_DESC = #commDesc#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "vendorCode">
-				VENDOR_CODE = #vendorCode#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "contactFee">
-				CONTACT_FEE = #contactFee#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "isShowPrice">
-				IS_SHOW_PRICE = #isShowPrice#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "taxRate">
-				TAX_RATE = #taxRate#
-			</isNotEmpty>
+			<isNotEmpty prepend="order by" property="sort">
+                   $sort$
+            </isNotEmpty>			
 		</dynamic>
+		<![CDATA[
+      		LIMIT #start# ,#end#
+		]]>
 </select>
 
 
 <select id="VendorInfo_listVendorInfoCount" resultClass="java.lang.Integer" parameterClass="vendorInfo">
 <![CDATA[
     SELECT
-		COUNT(*)
+		COUNT(1)
     FROM T_VENDOR_INFO
 ]]>
 		<dynamic prepend="WHERE">
 			<isNotEmpty prepend="and" property = "commCode">
-				C_CODE = #commCode#
+				C_CODE like '%$commCode$%'
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "state">
 				STATE = #state#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "shortName">
-				SHORT_NAME = #shortName#
+				SHORT_NAME like '%$shortName$%'
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "enShortName">
-				EN_SHORT_NAME = #enShortName#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "allName">
-				ALL_NAME = #allName#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "enName">
-				EN_NAME = #enName#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "address">
-				ADDRESS = #address#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "enAddress">
-				EN_ADDRESS = #enAddress#
-			</isNotEmpty>
+				EN_SHORT_NAME like '%$enShortName$%'
+			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "commType">
-				C_TYPE = #commType#
+				C_TYPE like '%$commType$%'
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "commScale">
-				C_SCALE = #commScale#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "webSite">
-				WEBSITE = #webSite#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "representative">
-				REPRESENTATIVE = #representative#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "taxCode">
-				TAX_CODE = #taxCode#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "companyBranch">
-				COMPANY_BRANCH = #companyBranch#
-			</isNotEmpty>
+				C_SCALE like '%$commScale$%'
+			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "creditRate">
 				CREDIT_RATE = #creditRate#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "creditDesc">
-				CREDIT_DESC = #creditDesc#
-			</isNotEmpty>
+			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "importantCode">
 				IMPORTANT_CODE = #importantCode#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "importantDesc">
-				IMPORTANT_DESC = #importantDesc#
-			</isNotEmpty>
+			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "settlementType">
 				SETTLEMENT_TYPE = #settlementType#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "settlementDesc">
-				SETTLEMENT_DESC = #settlementDesc#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "currency">
 				CURRENCY = #currency#
@@ -506,21 +422,6 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "staffName">
 				STAFF_NAME = #staffName#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "commDesc">
-				COMM_DESC = #commDesc#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "vendorCode">
-				VENDOR_CODE = #vendorCode#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "contactFee">
-				CONTACT_FEE = #contactFee#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "isShowPrice">
-				IS_SHOW_PRICE = #isShowPrice#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "taxRate">
-				TAX_RATE = #taxRate#
 			</isNotEmpty>
 		</dynamic>
 </select>
