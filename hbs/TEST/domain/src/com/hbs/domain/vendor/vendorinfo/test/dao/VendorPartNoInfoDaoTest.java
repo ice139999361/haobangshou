@@ -55,7 +55,7 @@ public class VendorPartNoInfoDaoTest extends AbstractTransactionalDataSourceSpri
     public void testDeleteVendorPartNoInfo() {
         VendorPartNoInfoDao vendorPartNoInfoDao = (VendorPartNoInfoDao) this.getApplicationContext().getBean("vendorPartNoInfoDao");
         VendorPartNoInfo vendorPartNoInfo = new VendorPartNoInfo();
-        vendorPartNoInfoDao.deleteVendorPartNoInfo("1");
+       // vendorPartNoInfoDao.deleteVendorPartNoInfo("1");
         
         // 如果执行setComplete()，增、删、改等操作被提交，否则将强制回滚
         setComplete(); 
@@ -93,24 +93,24 @@ public class VendorPartNoInfoDaoTest extends AbstractTransactionalDataSourceSpri
      */
     public void testFindVendorPartNoInfo() {
         VendorPartNoInfoDao vendorPartNoInfoDao = (VendorPartNoInfoDao) this.getApplicationContext().getBean("vendorPartNoInfoDao");
-        VendorPartNoInfo vendorPartNoInfo = vendorPartNoInfoDao.findVendorPartNoInfo("1");
-        
-        System.out.println("testFind result--------------------------------------");
-        System.out.println("custPartNo=" + vendorPartNoInfo.getCustPartNo());
-        System.out.println("commCode=" + vendorPartNoInfo.getCommCode());
-        System.out.println("state=" + vendorPartNoInfo.getState());
-        System.out.println("pnDesc=" + vendorPartNoInfo.getPnDesc());
-        System.out.println("price=" + vendorPartNoInfo.getPrice());
-        System.out.println("priceTax=" + vendorPartNoInfo.getPriceTax());
-        System.out.println("createDate=" + vendorPartNoInfo.getCreateDate());
-        System.out.println("staffId=" + vendorPartNoInfo.getStaffId());
-        System.out.println("staffName=" + vendorPartNoInfo.getStaffName());
-        System.out.println("partNo=" + vendorPartNoInfo.getPartNo());
-        System.out.println("catCode=" + vendorPartNoInfo.getCatCode());
-        System.out.println("clsName=" + vendorPartNoInfo.getClsName());
-        System.out.println("minAmount=" + vendorPartNoInfo.getMinAmount());
-        System.out.println("minPackage=" + vendorPartNoInfo.getMinPackage());
-        System.out.println("sampleCode=" + vendorPartNoInfo.getSampleCode());
+//        VendorPartNoInfo vendorPartNoInfo = vendorPartNoInfoDao.findVendorPartNoInfo("1");
+//        
+//        System.out.println("testFind result--------------------------------------");
+//        System.out.println("custPartNo=" + vendorPartNoInfo.getCustPartNo());
+//        System.out.println("commCode=" + vendorPartNoInfo.getCommCode());
+//        System.out.println("state=" + vendorPartNoInfo.getState());
+//        System.out.println("pnDesc=" + vendorPartNoInfo.getPnDesc());
+//        System.out.println("price=" + vendorPartNoInfo.getPrice());
+//        System.out.println("priceTax=" + vendorPartNoInfo.getPriceTax());
+//        System.out.println("createDate=" + vendorPartNoInfo.getCreateDate());
+//        System.out.println("staffId=" + vendorPartNoInfo.getStaffId());
+//        System.out.println("staffName=" + vendorPartNoInfo.getStaffName());
+//        System.out.println("partNo=" + vendorPartNoInfo.getPartNo());
+//        System.out.println("catCode=" + vendorPartNoInfo.getCatCode());
+//        System.out.println("clsName=" + vendorPartNoInfo.getClsName());
+//        System.out.println("minAmount=" + vendorPartNoInfo.getMinAmount());
+//        System.out.println("minPackage=" + vendorPartNoInfo.getMinPackage());
+//        System.out.println("sampleCode=" + vendorPartNoInfo.getSampleCode());
     }
 
     /**
