@@ -46,5 +46,6 @@ var custbankFun = function() {
 	cgh.appendColumn({header: "开户行" 	 , dataIndex: "l2"	, xtype: "textfield", width: 200});
 	cgh.appendColumn({header: "帐号" 		 , dataIndex: "l3"	, xtype: "textfield"});
 	
+	cgh.setSubmitFields("l1,l2,l3");
 	return cgh;
 }
