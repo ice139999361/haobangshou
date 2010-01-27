@@ -513,7 +513,7 @@ public class CustomerInfoMgr {
 	}
 	/**
 	 * 更新客户基本信息，包括更新客户信息，银行信息
-	 * 联系人信息，账期信息或预付费信息，更新的形象包括所有信息
+	 * 联系人信息，账期信息或预付费信息，更新的信息包括所有信息
 	 * @param customerInfo
 	 * @throws Exception
 	 */
