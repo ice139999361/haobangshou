@@ -7,7 +7,9 @@
 package com.hbs.customerinfo.manager;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.hbs.common.manager.baseinfo.AccountPreiodMgr;
 import com.hbs.common.manager.baseinfo.BankInfoMgr;
@@ -62,7 +64,10 @@ public class CustomerInfoMgr {
 				ret = innerUpdateCustomerInfo(custInfo,staffId,staffName,null);	
 				if(ret == 0){//发待办通知,先取消可能的待办，再添加新的待办
 					WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
-					waitTaskInfo.setStaffName(custInfo.getStaffName());
+					Map<String , String> hmParam = new HashMap<String,String>();
+					hmParam.put("$staffName", custInfo.getStaffName());
+					hmParam.put("$businessKey", custInfo.getCommCode());
+					waitTaskInfo.setHmParam(hmParam);
 					waitTaskInfo.setBusinessKey(custInfo.getCommCode());
 					WaitTaskMgr.deleteWaitTask(custInfo.getCommCode());
 					WaitTaskMgr.createWaitTask("CUSTOMER001", waitTaskInfo);
@@ -89,7 +94,11 @@ public class CustomerInfoMgr {
 			ret = innerUpdateCustomerInfo(custInfo,auditId,auditName,auditDesc);
 			if(ret ==0){//发提醒待办通知,先取消可能的待办，再添加新的待办
 				WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
-				waitTaskInfo.setStaffName(custInfo.getStaffName());
+				Map<String , String> hmParam = new HashMap<String,String>();
+				hmParam.put("$staffName", custInfo.getStaffName());
+				hmParam.put("$businessKey", custInfo.getCommCode());
+				waitTaskInfo.setHmParam(hmParam);
+				
 				waitTaskInfo.setBusinessKey(custInfo.getCommCode());
 				WaitTaskMgr.deleteWaitTask(custInfo.getCommCode());
 				WaitTaskMgr.createWaitTask("CUSTOMER002", waitTaskInfo);
@@ -117,8 +126,12 @@ public class CustomerInfoMgr {
 			ret = innerUpdateCustomerInfo(custInfo,auditId,auditName,auditDesc);
 			if(ret ==0){//发提醒待办通知,先取消可能的待办，再添加新的待办
 				WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
+				Map<String , String> hmParam = new HashMap<String,String>();
+				hmParam.put("$staffName", custInfo.getStaffName());
+				hmParam.put("$businessKey", custInfo.getCommCode());
+				waitTaskInfo.setHmParam(hmParam);
 				waitTaskInfo.setStaffId(custInfo.getStaffId());
-				waitTaskInfo.setStaffName(custInfo.getStaffName());
+				
 				waitTaskInfo.setBusinessKey(custInfo.getCommCode());
 				WaitTaskMgr.deleteWaitTask(custInfo.getCommCode());
 				WaitTaskMgr.createWaitTask("CUSTOMER003", waitTaskInfo);
@@ -155,7 +168,10 @@ public class CustomerInfoMgr {
 			ret = innerUpdateCustomerInfo(custInfo,staffId,staffName,null);
 			if(ret == 0){//发待办通知,先取消可能的待办，再添加新的待办
 				WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
-				waitTaskInfo.setStaffName(custInfo.getStaffName());
+				Map<String , String> hmParam = new HashMap<String,String>();
+				hmParam.put("$staffName", custInfo.getStaffName());
+				hmParam.put("$businessKey", custInfo.getCommCode());
+				waitTaskInfo.setHmParam(hmParam);				
 				waitTaskInfo.setBusinessKey(custInfo.getCommCode());
 				WaitTaskMgr.deleteWaitTask(custInfo.getCommCode());
 				WaitTaskMgr.createWaitTask("CUSTOMER001", waitTaskInfo);
@@ -166,7 +182,10 @@ public class CustomerInfoMgr {
 			ret = insertCustomerInfo(custInfo);
 			if(ret == 0){//发待办通知,先取消可能的待办，再添加新的待办
 				WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
-				waitTaskInfo.setStaffName(custInfo.getStaffName());
+				Map<String , String> hmParam = new HashMap<String,String>();
+				hmParam.put("$staffName", custInfo.getStaffName());
+				hmParam.put("$businessKey", custInfo.getCommCode());
+				waitTaskInfo.setHmParam(hmParam);				
 				waitTaskInfo.setBusinessKey(custInfo.getCommCode());
 				WaitTaskMgr.deleteWaitTask(custInfo.getCommCode());
 				WaitTaskMgr.createWaitTask("CUSTOMER001", waitTaskInfo);
