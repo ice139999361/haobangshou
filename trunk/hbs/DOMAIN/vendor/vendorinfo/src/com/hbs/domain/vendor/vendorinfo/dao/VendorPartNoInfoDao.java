@@ -17,14 +17,15 @@ public interface VendorPartNoInfoDao {
      * @return id
      * @throws DataAccessException DataAccessException
      */
-    void insertVendorPartNoInfo(VendorPartNoInfo vendorPartNoInfo) throws DataAccessException ;
+    int insertVendorPartNoInfo(VendorPartNoInfo vendorPartNoInfo) throws DataAccessException ;
 
     /**
      * delete.
      * @param vendorPartNoInfo vendorPartNoInfo
      * @throws DataAccessException DataAccessException
      */
-    void deleteVendorPartNoInfo(String id) throws DataAccessException ;
+    void deleteVendorPartNoInfoByID(String id) throws DataAccessException ;
+    void deleteVendorPartNoInfoByBizKey(VendorPartNoInfo vendorPartNoInfo) throws DataAccessException ;
     
     /**
      * update.
@@ -32,6 +33,7 @@ public interface VendorPartNoInfoDao {
      * @throws DataAccessException DataAccessException
      */
     void updateVendorPartNoInfo(VendorPartNoInfo vendorPartNoInfo) throws DataAccessException ;
+    void updateVendorPartNoInfoByState(VendorPartNoInfo vendorPartNoInfo) throws DataAccessException ;
 
     /**
      * find.
@@ -39,7 +41,8 @@ public interface VendorPartNoInfoDao {
      * @return vendorPartNoInfo
      * @throws DataAccessException DataAccessException
      */
-    VendorPartNoInfo findVendorPartNoInfo(String id) throws DataAccessException ;
+    VendorPartNoInfo findVendorPartNoInfoByID(String id) throws DataAccessException ;
+    VendorPartNoInfo findVendorPartNoInfoByBizKey(VendorPartNoInfo vendorPartNoInfo) throws DataAccessException ;
     
     /**
      * list.
@@ -47,7 +50,7 @@ public interface VendorPartNoInfoDao {
      * @return vendorPartNoInfo list
      * @throws DataAccessException DataAccessException
      */
-    List listVendorPartNoInfo(VendorPartNoInfo vendorPartNoInfo) throws DataAccessException ;
+    List<VendorPartNoInfo> listVendorPartNoInfo(VendorPartNoInfo vendorPartNoInfo) throws DataAccessException ;
     
     /**
      * listCount.
