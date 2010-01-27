@@ -98,7 +98,7 @@ public class CustomerInfoMgr {
 				hmParam.put("$staffName", custInfo.getStaffName());
 				hmParam.put("$businessKey", custInfo.getCommCode());
 				waitTaskInfo.setHmParam(hmParam);
-				
+				waitTaskInfo.setStaffId(custInfo.getStaffId());
 				waitTaskInfo.setBusinessKey(custInfo.getCommCode());
 				WaitTaskMgr.deleteWaitTask(custInfo.getCommCode());
 				WaitTaskMgr.createWaitTask("CUSTOMER002", waitTaskInfo);
@@ -161,7 +161,7 @@ public class CustomerInfoMgr {
 		//其他状态不存在修改操作
 		switch(iState) {
 		case 1:
-			ret = updateCustomerInfo(custInfo,staffId,staffName);
+			ret = innerUpdateCustomerInfo(custInfo,staffId,staffName,null);
 			break;
 		case 3:
 			custInfo.setState(new Integer(StateConstants.STATE_2).toString());
