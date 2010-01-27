@@ -250,4 +250,19 @@ public class CustPartNoInfo extends BaseDomain{
 		return super.toString();
 	}
 	
+	
+	public String getLogBizKey(){
+		StringBuilder sb = new StringBuilder();		
+		sb.append(partNo).append(";");
+		sb.append(commCode).append(";");
+		sb.append(state);
+		return sb.toString();
+	}
+	
+	public String getWaitTaskBizKey(){
+		StringBuilder sb = new StringBuilder();		
+		sb.append(partNo).append(";").append(this.custPartNo).append(";");
+		sb.append(commCode);		
+		return sb.toString();
+	}
 }
