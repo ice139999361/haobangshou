@@ -16,7 +16,7 @@
 
 DROP TABLE IF EXISTS `t_vendor_info`;
 CREATE TABLE `t_vendor_info` (
-  `BASE_SEQID` int(11) NOT NULL COMMENT '   ',
+  `BASE_SEQID` int(11) NOT NULL auto_increment COMMENT '   ',
   `C_CODE` varchar(32) NOT NULL COMMENT '供应商编码，格式GV0001',
   `STATE` varchar(2) NOT NULL COMMENT '状态  0----正式数据  1---临时数据（没有提交审批）  2---待审批数据  3---审批不通过  4---废弃数据  5----锁定',
   `SHORT_NAME` varchar(32) NOT NULL COMMENT '供应商简称',
