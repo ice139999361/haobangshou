@@ -24,7 +24,8 @@ public interface VendorInfoDao {
      * @param vendorInfo vendorInfo
      * @throws DataAccessException DataAccessException
      */
-    void deleteVendorInfo(String id) throws DataAccessException ;
+    void deleteVendorInfoByID(String id) throws DataAccessException ;
+    void deleteVendorInfoByBase(VendorInfo vendorInfo) throws DataAccessException ;
     
     /**
      * update.
@@ -32,7 +33,7 @@ public interface VendorInfoDao {
      * @throws DataAccessException DataAccessException
      */
     void updateVendorInfo(VendorInfo vendorInfo) throws DataAccessException ;
-
+    void updateVendorInfoByState(VendorInfo vendorInfo) throws DataAccessException ;
     /**
      * find.
      * @param id id
