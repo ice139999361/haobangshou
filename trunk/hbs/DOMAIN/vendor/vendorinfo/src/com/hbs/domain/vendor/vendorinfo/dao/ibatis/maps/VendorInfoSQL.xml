@@ -110,11 +110,31 @@
 </selectKey>
 </insert>
 
-<delete id="VendorInfo_deleteVendorInfo" parameterClass="string">
+<delete id="VendorInfo_deleteVendorInfoByID" parameterClass="string">
 <![CDATA[
-    DELETE  FROM  T_VENDOR_INFO WHERE C_CODE = #commCode#
+    DELETE  FROM  T_VENDOR_INFO WHERE BASE_SEQID = #baseSeqId#
 ]]>
+</delete>
+
+<delete id="VendorInfo_deleteVendorInfoByBase" parameterClass="string">
+<![CDATA[
+    DELETE  FROM  T_VENDOR_INFO WHERE BASE_SEQID = #baseSeqId#
+]]>
+	<dynamic prepend="WHERE">
+		<isNotEmpty prepend="and" property="commCode">
+			C_CODE = #commCode#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="state">
+			STATE = #state#
+		</isNotEmpty>
+	</dynamic>
 </delete>    
+
+<update id="VendorInfo_updateVendorInfoByState" parameterClass="vendorInfo">
+	UPDATE T_VENDOR_INFO 
+		SET STATE =#state#
+	WHERE BASE_SEQID = #baseSeqId#
+</update>
 
 <update id="VendorInfo_updateVendorInfo" parameterClass="vendorInfo">
     UPDATE T_VENDOR_INFO 
@@ -204,7 +224,7 @@
 	<isNotEmpty prepend="," property="taxRate">
             TAX_RATE = #taxRate#
 	</isNotEmpty>
-    WHERE C_CODE = #commCode#
+   WHERE BASE_SEQID = #baseSeqId#
 </update> 
 
 <select id="VendorInfo_findVendorInfoByBase" resultMap="vendorInfo_result" parameterClass="vendorInfo">
