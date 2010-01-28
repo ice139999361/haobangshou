@@ -92,5 +92,6 @@
 	<!-- app -->
     <import resource="classpath:applicationContext-app-common.xml" />
     <import resource="classpath:applicationContext-app-customerinfo.xml" />
-
+	<import resource="classpath:applicationContext-app-customerorder.xml" />
+	<import resource="classpath:applicationContext-app-vendorinfo.xml" />
 </beans>
