@@ -56,4 +56,14 @@ public class DateUtils {
 		}
 		return dtStart.toString(MONTHFORMAT);
 	}
+	
+	/**
+	 * 根据传入的日期格式，返回当前时间的格式化字符串
+	 * @param format
+	 * @return
+	 */
+	public static String getCurFormatDate(String format){
+		DateTime curTime = new DateTime(new Date());
+		return curTime.toString(format);
+	}
 }
