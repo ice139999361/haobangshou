@@ -4,4 +4,5 @@
 <sqlMapConfig>
 	<sqlMap resource="com/hbs/domain/common/dao/ibatis/maps/ConfigEncodeSQL.xml"/>
 	<sqlMap resource="com/hbs/domain/common/dao/ibatis/maps/SystemConfigSQL.xml"/>
+	<sqlMap resource="com/hbs/domain/common/dao/ibatis/maps/SysSequenceSQL.xml"/>
 </sqlMapConfig>

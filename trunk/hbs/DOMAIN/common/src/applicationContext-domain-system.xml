@@ -13,6 +13,11 @@
 		<property name="sqlMapClient" ref="sqlMapClient"/>
 	</bean>
 
+	<!-- 系统sequence实现类   -->
+	<bean id="sysSequenceDao" class="com.hbs.domain.common.dao.ibatis.SysSequenceDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+
 	<!-- 日志记录接口类 -->
 	<bean id="operLogDao" class="com.hbs.domain.comomn.dao.baseinfo.OperLogDao"
 		abstract="true">
