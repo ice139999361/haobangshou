@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+	<!-- 供应商账期信息实现类   parent="accountPreiodMgr" -->
+	<bean id="vendorAccountPreiodMgr"  class="com.hbs.vendorinfo.manager.VendorAccountPreiodMgr">		
+	</bean>
+	
+	<!-- 供应商银行信息实现类   parent="bankInfoMgr" -->
+	<bean id="vendorBankInfoMgr"  class="com.hbs.vendorinfo.manager.VendorBankInfoMgr">		
+	</bean>
+	
+	<!-- 供应商联系信息实现类   parent="contactMgr" -->
+	<bean id="vendorContactMgr"  class="com.hbs.vendorinfo.manager.VendorContactMgr">		
+	</bean>
+	
+	<!-- 供应商预付费信息实现类   parent="prePaidMgr" -->
+	<bean id="vendorPrePaidMgr"  class="com.hbs.vendorinfo.manager.VendorPrePaidMgr">		
+	</bean>
+	
+	<!-- 供应商信息实现类   -->
+	<bean id="vendorInfoMgr"  class="com.hbs.vendorinfo.manager.VendorInfoMgr">		
+	</bean>
+	
+	<!-- 供应商物料关系信息实现类   -->
+	<bean id="vendorPartNoInfoMgr"  class="com.hbs.vendorinfo.manager.VendorPartNoInfoMgr">		
+	</bean>
+	
+</beans>
