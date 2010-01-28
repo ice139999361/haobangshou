@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="SysSequence">
+<typeAlias alias="sysSequence" type="com.hbs.domain.common.pojo.SysSequence"/> 
+<resultMap id="sysSequence_result" class="sysSequence">
+    <result property="seqType" column="SEQ_TYPE"/>
+    <result property="seqKey" column="SEQ_KEY"/>
+    <result property="seqValue" column="SEQ_VALUE"/>
+    <result property="seqLength" column="SEQ_LENGTH"/>
+    <result property="seqPrefix" column="SEQ_PREFIX"/>
+    <result property="seqMiddle" column="SEQ_MIDDLE"/>
+</resultMap>
+
+
+<update id="SysSequence_updateSysSequence" parameterClass="sysSequence">
+    UPDATE T_SYS_SEQUENCE 
+    SET
+    	SEQ_TYPE = #seqType#	
+	<isNotEmpty prepend="," property="seqValue">
+            SEQ_VALUE = #seqValue#
+	</isNotEmpty>		
+	<isNotEmpty prepend="," property="seqMiddle">
+            SEQ_MIDDLE = #seqMiddle#
+	</isNotEmpty>
+    WHERE SEQ_TYPE = #seqType#
+</update> 
+
+<select id="SysSequence_findSysSequence" resultMap="sysSequence_result" parameterClass="string">
+<![CDATA[
+    SELECT
+            SEQ_TYPE, 
+            SEQ_KEY, 
+            SEQ_VALUE, 
+            SEQ_LENGTH, 
+            SEQ_PREFIX, 
+            SEQ_MIDDLE
+    FROM T_SYS_SEQUENCE WHERE SEQ_TYPE = #seqType#
+]]>
+</select>
+
+</sqlMap>
