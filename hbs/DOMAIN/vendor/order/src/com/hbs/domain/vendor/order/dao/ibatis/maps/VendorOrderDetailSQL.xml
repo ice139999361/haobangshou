@@ -30,18 +30,10 @@
     <result property="rltRecPoNo" column="RLT_REC_PO_NO"/>
 </resultMap>
 
-<select id="VendorOrderDetail_getNextId" resultClass="java.lang.String">
-<![CDATA[
-    SELECT ltrim(to_char(Seq_T_VENDOR_ORDER_DETAIL_Id.Nextval,'0000000000')) 
-           AS Id 
-    FROM dual
-]]>
-</select>
 
 <insert id="VendorOrderDetail_insertVendorOrderDetail" parameterClass="vendorOrderDetail" >
 <![CDATA[
-    INSERT INTO T_VENDOR_ORDER_DETAIL (
-            ORDER_SEQID, 
+    INSERT INTO T_VENDOR_ORDER_DETAIL (            
             C_CODE, 
             SHORT_NAME, 
             PO_NO_TYPE, 
@@ -65,8 +57,7 @@
             ACTIVE_STATE, 
             RLT_REC_PO_NO
         )
-    VALUES (
-            #operSeqId#,
+    VALUES (           
             #commCode#,
             #shortName#,
             #poNoType#,
