@@ -393,10 +393,7 @@
 				<![CDATA[	
 					ORDER_TIME <= STR_TO_DATE('$dynamicFields.likeEndTime$','%Y-%m-%d')
 				]]>
-			</isNotEmpty>				
-			<isNotEmpty prepend="order by" property="sort">
-                   $sort$
-            </isNotEmpty>
+			</isNotEmpty>
 		</dynamic>
 </select>
 
