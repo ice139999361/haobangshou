@@ -29,20 +29,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 	 * Manager名
 	 */
 	static final String custInfoMgrName = "customerInfoMgr";
-	
-	/**
-	 * 联系人列表字符串参数名
-	 */
-	static final String contactListName1 = "contactList1";
-	/**
-	 * 收货人列表字符串参数名
-	 */
-	static final String contactListName2 = "contactList2";
-	/**
-	 * 银行列表字符串参数名
-	 */
-	static final String bankListName = "bankList";
-	
+		
     /**
      * logger.
      */
@@ -61,39 +48,6 @@ public class CustomerInfoNormalAction extends BaseAction {
 	 * @param a 客户信息
 	 */
 	public void setCustInfo(CustomerInfo a) { this.custInfo = a; }
-	
-	/**
-	 * 处理上传的List数据。将String数组转换为List
-	 */
-	protected void processListData() throws Exception
-	{
-		// TODO: 处理上传的List数据
-		if(true)
-			return;
-		try
-		{
-			String s = null;
-			@SuppressWarnings("unused")
-			Object o = null;
-			
-			Object aa = custInfo.getListContactInfo();
-			s = this.getHttpServletRequest().getParameter(contactListName1);
-			o = JSONUtil.deserialize(s);
-			for(int i = 0; i < Array.getLength(o); i++)
-			{
-				Map item = (Map)Array.get(o, i);
-				
-			}
-		}
-		catch(JSONException e)
-		{
-			throw new Exception("列表数据格式错误！", e);
-		}
-		catch(Exception e)
-		{
-			throw e;
-		}
-	}
 	
 	/**
 	 * 查询，限定自己能管理的客户信息。调用mgr.getCustomerInfoListByUser。
@@ -148,7 +102,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 			custInfo.setState("1");
 			if(CustomerInfoUtil.checkSetStaffId(custInfo))
 				setMyId(true);
-			processListData();
+			CustomerInfoUtil.processListData(custInfo, this.getHttpServletRequest());
 			List<FieldErr> errs = CustomerInfoUtil.checkInputFields(custInfo);
 			if(!errs.isEmpty())
 			{
@@ -205,7 +159,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 				custInfo.setState("2");
 			if(CustomerInfoUtil.checkSetStaffId(custInfo))
 				setMyId(true);
-			processListData();			
+			CustomerInfoUtil.processListData(custInfo, this.getHttpServletRequest());
 			List<FieldErr> errs = CustomerInfoUtil.checkInputFields(custInfo);
 			if(!errs.isEmpty())
 			{
