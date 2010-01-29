@@ -189,27 +189,28 @@ DROP TABLE IF EXISTS `t_vendor_order`;
 CREATE TABLE `t_vendor_order` (
   `C_CODE` varchar(32) NOT NULL COMMENT '供应商编码',
   `PO_NO` varchar(16) NOT NULL COMMENT '供应商订单编号,系统自动产生格式：P年月日001，P091212001',
-  `PO_NO_TYPE` varchar(2) NOT NULL DEFAULT '0' COMMENT '供应商订单类型  0----订单  1---退货单',
+  `PO_NO_TYPE` varchar(2) NOT NULL default '0' COMMENT '供应商订单类型  0----订单  1---退货单',
   `SHORT_NAME` varchar(64) NOT NULL COMMENT '简称',
-  `CREATE_TIME` datetime DEFAULT NULL COMMENT '创建日期',
-  `CON_NAME` varchar(32) DEFAULT NULL COMMENT '联系人，对应供应商联系人中的主联系人',
-  `CON_TEL` varchar(32) DEFAULT NULL COMMENT '电话，对应供应商主联系人的电话',
-  `CON_FAX` varchar(32) DEFAULT NULL COMMENT '传真，对应供应商主联系人的传真',
-  `COMPANY_BRANCH` varchar(128) DEFAULT NULL COMMENT '对应供应商信息中对应的分公司或分支机构',
-  `SETTLEMENT_TYPE` varchar(32) DEFAULT NULL COMMENT '结算方式，对应供应商信息中的结算方式',
-  `RECEIVE_NAME` varchar(32) DEFAULT NULL COMMENT '收货人',
-  `RECEIVE_ADDRESS` varchar(256) DEFAULT NULL COMMENT '收货地址',
-  `RECEIVE_ZIP` varchar(16) DEFAULT NULL COMMENT '收货邮编',
-  `OPER_ID` varchar(20) DEFAULT NULL COMMENT '操作人员ID',
-  `OPER_STAFF` varchar(32) DEFAULT NULL COMMENT '录入订单的人',
-  `SALES` varchar(32) DEFAULT NULL COMMENT '负责客户的销售人员，对应客户信息的销售人员  负责采购的采购人员，对应供应商的采购人员',
-  `IS_SHOW_PRICE` varchar(2) DEFAULT NULL COMMENT '订单是否显示单价（后台根据供应商信息自动处理）',
-  `ORDER_TIME` datetime DEFAULT NULL COMMENT '正式形成订单日期（业务员正式提交日期）',
-  `PERIOD` varchar(8) DEFAULT NULL COMMENT '订单所属账期',
-  `STATE` varchar(8) DEFAULT NULL COMMENT '订单业务状态  01---采购创建采购订单（采购临时保存订单，其他人无法查看）  02---采购确认采购订单（可以正式走流程，其他人可以查看）  03---采购取消采购订单（订单取消，所有订单明细全部取消，对账期订单)  04---采购确认交期(交期确认后，采购单不再修改)  00---关闭采购订单  60----部分入库  61----全部入库',
-  `ACTIVE_SATE` varchar(8) DEFAULT NULL COMMENT '订单活动状态：  PAUSE---采购暂停订单（暂停状态，订单的业务状态停留在当前，除业务外，不能激活订单）  ACTIVE---采购激活订单（激活暂停的订单，采购操作）',
-  PRIMARY KEY (`C_CODE`,`PO_NO`)
+  `CREATE_TIME` datetime default NULL COMMENT '创建日期',
+  `CON_NAME` varchar(32) default NULL COMMENT '联系人，对应供应商联系人中的主联系人',
+  `CON_TEL` varchar(32) default NULL COMMENT '电话，对应供应商主联系人的电话',
+  `CON_FAX` varchar(32) default NULL COMMENT '传真，对应供应商主联系人的传真',
+  `COMPANY_BRANCH` varchar(128) default NULL COMMENT '对应供应商信息中对应的分公司或分支机构',
+  `SETTLEMENT_TYPE` varchar(32) default NULL COMMENT '结算方式，对应供应商信息中的结算方式',
+  `RECEIVE_NAME` varchar(32) default NULL COMMENT '收货人',
+  `RECEIVE_ADDRESS` varchar(256) default NULL COMMENT '收货地址',
+  `RECEIVE_ZIP` varchar(16) default NULL COMMENT '收货邮编',
+  `OPER_ID` varchar(20) default NULL COMMENT '操作人员ID',
+  `OPER_STAFF` varchar(32) default NULL COMMENT '录入订单的人',
+  `SALES` varchar(32) default NULL COMMENT '负责客户的销售人员，对应客户信息的销售人员  负责采购的采购人员，对应供应商的采购人员',
+  `IS_SHOW_PRICE` varchar(2) default NULL COMMENT '订单是否显示单价（后台根据供应商信息自动处理）',
+  `ORDER_TIME` datetime default NULL COMMENT '正式形成订单日期（业务员正式提交日期）',
+  `PERIOD` varchar(8) default NULL COMMENT '订单所属账期',
+  `STATE` varchar(8) default NULL COMMENT '订单业务状态  01---采购创建采购订单（采购临时保存订单，其他人无法查看）  02---采购确认采购订单（可以正式走流程，其他人可以查看）  03---采购取消采购订单（订单取消，所有订单明细全部取消，对账期订单)  04---采购确认交期(交期确认后，采购单不再修改)  00---关闭采购订单  60----部分入库  61----全部入库',
+  `ACTIVE_SATE` varchar(8) default NULL COMMENT '订单活动状态：  PAUSE---采购暂停订单（暂停状态，订单的业务状态停留在当前，除业务外，不能激活订单）  ACTIVE---采购激活订单（激活暂停的订单，采购操作）',
+  PRIMARY KEY  (`C_CODE`,`PO_NO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='供应商采购单表';
+
 
 #
 # Dumping data for table t_vendor_order
@@ -253,6 +254,7 @@ CREATE TABLE `t_vendor_order_detail` (
   KEY `RLT_VENDOR_ORDER_PART_NO` (`C_CODE`,`PO_NO`),
   CONSTRAINT `t_vendor_order_detail_ibfk_1` FOREIGN KEY (`C_CODE`, `PO_NO`) REFERENCES `t_vendor_order` (`C_CODE`, `PO_NO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='供应商采购订单物料明细表，关联订单表';
+
 
 #
 # Dumping data for table t_vendor_order_detail
