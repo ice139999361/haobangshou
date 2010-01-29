@@ -3,12 +3,14 @@ package com.hbs.domain.vendor.order.pojo;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.hbs.domain.common.pojo.base.BaseDomain;
+
 /**
  * VendorOrderDetail对象.
  * @author hbs
  *
  */
-public class VendorOrderDetail {
+public class VendorOrderDetail extends BaseDomain{
     
     /**
      * 唯一的seqid（序列号）.
@@ -126,8 +128,64 @@ public class VendorOrderDetail {
     private String rltRecPoNo;
 
 
+    /**
+     * 操作人员ID
+     */
+    private String staffId;
     
-    public String getOperSeqId() {
+    /**
+     * 操作人员姓名
+     */
+    private String staffName;
+    
+    /**
+     * 结算方式
+     */
+    private String SettlementType;
+    
+    /**
+	 * @return the staffId
+	 */
+	public String getStaffId() {
+		return staffId;
+	}
+
+	/**
+	 * @param staffId the staffId to set
+	 */
+	public void setStaffId(String staffId) {
+		this.staffId = staffId;
+	}
+
+	/**
+	 * @return the staffName
+	 */
+	public String getStaffName() {
+		return staffName;
+	}
+
+	/**
+	 * @param staffName the staffName to set
+	 */
+	public void setStaffName(String staffName) {
+		this.staffName = staffName;
+	}
+
+	/**
+	 * @return the settlementType
+	 */
+	public String getSettlementType() {
+		return SettlementType;
+	}
+
+	/**
+	 * @param settlementType the settlementType to set
+	 */
+	public void setSettlementType(String settlementType) {
+		SettlementType = settlementType;
+	}
+
+	public String getOperSeqId() {
         return this.operSeqId;
     }	
   

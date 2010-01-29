@@ -87,7 +87,7 @@
 
 <update id="VendorOrder_updateVendorOrderByActiveState" parameterClass="vendorOrder">
 <![CDATA[
-    UPDATE T_CUST_ORDER
+    UPDATE T_VENDOR_ORDER
     SET ACTIVE_STATE = #activeState# 
     WHERE C_CODE = #commCode# AND PO_NO = #poNo#
 ]]>	
@@ -95,7 +95,7 @@
 
 <update id="VendorOrder_updateVendorOrderByState" parameterClass="vendorOrder">
 	<![CDATA[
-	    UPDATE T_CUST_ORDER
+	    UPDATE T_VENDOR_ORDER
 	    SET STATE = #state#     
 	]]>	
 	<dynamic prepend="WHERE">					
