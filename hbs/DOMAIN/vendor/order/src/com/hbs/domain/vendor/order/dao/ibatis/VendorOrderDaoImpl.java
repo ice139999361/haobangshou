@@ -70,17 +70,37 @@ public class VendorOrderDaoImpl extends SqlMapClientDaoSupport implements Vendor
 		}
     }
     
+    public void updateVendorOrderByState(VendorOrder vendorOrder) throws DataAccessException{
+    	if (logger.isDebugEnabled()) {
+    		logger.debug("进入updateVendorOrder(VendorOrder), 输入参数[" + vendorOrder + "]");
+		}
+    	getSqlMapClientTemplate().update("VendorOrder_updateVendorOrderByState", vendorOrder);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开updateVendorOrder(VendorOrder)");
+		}
+    }
+    
+    public void updateVendorOrderByActiveState(VendorOrder vendorOrder) throws DataAccessException{
+    	if (logger.isDebugEnabled()) {
+    		logger.debug("进入updateVendorOrder(VendorOrder), 输入参数[" + vendorOrder + "]");
+		}
+    	getSqlMapClientTemplate().update("VendorOrder_updateVendorOrderByActiveState", vendorOrder);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开updateVendorOrder(VendorOrder)");
+		}
+    	
+    }
     /**
      * find.
      * @param id id
      * @return vendorOrder
      * @throws DataAccessException DataAccessException
      */
-    public VendorOrder findVendorOrder(String pk) throws DataAccessException {
+    public VendorOrder findVendorOrder(VendorOrder vOrder) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
-        	logger.debug("进入findVendorOrder(VendorOrder), 输入参数[" + pk + "]");
+        	logger.debug("进入findVendorOrder(VendorOrder), 输入参数[" + vOrder + "]");
 		}
-        VendorOrder vendorOrder = (VendorOrder) getSqlMapClientTemplate().queryForObject("VendorOrder_findVendorOrder", pk);
+        VendorOrder vendorOrder = (VendorOrder) getSqlMapClientTemplate().queryForObject("VendorOrder_findVendorOrder", vOrder);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开findVendorOrder(VendorOrder), 返回[" + vendorOrder + "]");
 		}
@@ -93,11 +113,12 @@ public class VendorOrderDaoImpl extends SqlMapClientDaoSupport implements Vendor
      * @return vendorOrder list
      * @throws DataAccessException DataAccessException
      */
-    public List listVendorOrder(VendorOrder vendorOrder) throws DataAccessException {
+    @SuppressWarnings("unchecked")
+	public List<VendorOrder> listVendorOrder(VendorOrder vendorOrder) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listVendorOrder(VendorOrder), 输入参数[" + vendorOrder + "]");
 		}
-        List list = getSqlMapClientTemplate().queryForList("VendorOrder_listVendorOrder", vendorOrder);
+        List<VendorOrder> list = getSqlMapClientTemplate().queryForList("VendorOrder_listVendorOrder", vendorOrder);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listVendorOrder(VendorOrder), 返回[" + list + "]");
 		}

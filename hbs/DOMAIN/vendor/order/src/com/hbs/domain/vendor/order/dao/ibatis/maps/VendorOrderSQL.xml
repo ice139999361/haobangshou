@@ -26,6 +26,7 @@
     <result property="period" column="PERIOD"/>
     <result property="state" column="STATE"/>
     <result property="activeState" column="ACTIVE_STATE"/>
+    <result property="custCcode" column="CUST_C_CODE"/>
 </resultMap>
 
 <insert id="VendorOrder_insertVendorOrder" parameterClass="vendorOrder" >
@@ -51,7 +52,8 @@
             ORDER_TIME, 
             PERIOD, 
             STATE, 
-            ACTIVE_STATE
+            ACTIVE_STATE,
+            CUST_C_CODE
         )
     VALUES (
             #commCode#,
@@ -74,7 +76,8 @@
             #orderTime#,
             #period#,
             #state#,
-            #activeState#
+            #activeState#,
+            #custCcode#
     )
 ]]>
 </insert>
@@ -177,6 +180,9 @@
 	<isNotEmpty prepend="," property="activeState">
             ACTIVE_STATE = #activeState#
 	</isNotEmpty>
+	<isNotEmpty prepend="," property="custCcode">
+            CUST_C_CODE = #custCcode#
+	</isNotEmpty>
     WHERE C_CODE = #commCode# AND PO_NO = #poNo#
 </update> 
 
@@ -203,7 +209,8 @@
             ORDER_TIME, 
             PERIOD, 
             STATE, 
-            ACTIVE_STATE
+            ACTIVE_STATE,
+            CUST_C_CODE
     FROM T_VENDOR_ORDER WHERE C_CODE = #commCode# AND PO_NO = #poNo#
 ]]>
 </select>
@@ -231,7 +238,8 @@
             ORDER_TIME, 
             PERIOD, 
             STATE, 
-            ACTIVE_STATE
+            ACTIVE_STATE,
+            CUST_C_CODE
     FROM T_VENDOR_ORDER
 ]]>
 		<dynamic prepend="WHERE">

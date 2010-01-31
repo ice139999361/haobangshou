@@ -27,7 +27,7 @@ public class VendorOrderDetailHisDaoImpl extends SqlMapClientDaoSupport implemen
      * @return id
      * @throws DataAccessException DataAccessException
      */
-    public void insertVendorOrderDetail(VendorOrderDetail vendorOrderDetail) throws DataAccessException {
+    public int insertVendorOrderDetail(VendorOrderDetail vendorOrderDetail) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入insertVendorOrderDetail(VendorOrderDetail), 输入参数[" + vendorOrderDetail + "]");
     	}
@@ -36,7 +36,7 @@ public class VendorOrderDetailHisDaoImpl extends SqlMapClientDaoSupport implemen
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开insertVendorOrderDetail(VendorOrderDetail), 返回");
 		}
-    	
+    	return 0;
     }
 
     /**
@@ -118,5 +118,50 @@ public class VendorOrderDetailHisDaoImpl extends SqlMapClientDaoSupport implemen
         	logger.debug("离开listVendorOrderDetailCount(VendorOrderDetail), 返回[" + count + "]");
 		}
         return count;
-    }  
+    }
+
+	/* (non-Javadoc)
+	 * @see com.hbs.domain.vendor.order.dao.VendorOrderDetailDao#updateVendorOrderDetailByState(com.hbs.domain.vendor.order.pojo.VendorOrderDetail)
+	 */
+	public void updateVendorOrderDetailByState(
+			VendorOrderDetail vendorOrderDetail) throws DataAccessException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.hbs.domain.vendor.order.dao.VendorOrderDetailDao#updateVendorOrderDetailByActiveState(com.hbs.domain.vendor.order.pojo.VendorOrderDetail)
+	 */
+	public void updateVendorOrderDetailByActiveState(
+			VendorOrderDetail vendorOrderDetail) throws DataAccessException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.hbs.domain.vendor.order.dao.VendorOrderDetailDao#findVendorOrderDetailByBizKey(com.hbs.domain.vendor.order.pojo.VendorOrderDetail)
+	 */
+	public VendorOrderDetail findVendorOrderDetailByBizKey(
+			VendorOrderDetail vendorOrderDetail) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.hbs.domain.vendor.order.dao.VendorOrderDetailDao#findVendorOrderDetailById(java.lang.String)
+	 */
+	public VendorOrderDetail findVendorOrderDetailById(String id)
+			throws DataAccessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.hbs.domain.vendor.order.dao.VendorOrderDetailDao#updateVendorOrderDetailAmount(com.hbs.domain.vendor.order.pojo.VendorOrderDetail)
+	 */
+	public void updateVendorOrderDetailAmount(
+			VendorOrderDetail vendorOrderDetail) throws DataAccessException {
+		// TODO Auto-generated method stub
+		
+	}  
 }

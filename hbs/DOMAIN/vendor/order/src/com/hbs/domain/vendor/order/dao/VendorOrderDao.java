@@ -32,14 +32,16 @@ public interface VendorOrderDao {
      * @throws DataAccessException DataAccessException
      */
     void updateVendorOrder(VendorOrder vendorOrder) throws DataAccessException ;
-
+    void updateVendorOrderByState(VendorOrder vendorOrder) throws DataAccessException ;
+    void updateVendorOrderByActiveState(VendorOrder vendorOrder) throws DataAccessException ;
+    
     /**
      * find.
      * @param id id
      * @return vendorOrder
      * @throws DataAccessException DataAccessException
      */
-    VendorOrder findVendorOrder(String id) throws DataAccessException ;
+    VendorOrder findVendorOrder(VendorOrder vendorOrder) throws DataAccessException ;
     
     /**
      * list.
@@ -47,7 +49,7 @@ public interface VendorOrderDao {
      * @return vendorOrder list
      * @throws DataAccessException DataAccessException
      */
-    List listVendorOrder(VendorOrder vendorOrder) throws DataAccessException ;
+    List<VendorOrder> listVendorOrder(VendorOrder vendorOrder) throws DataAccessException ;
     
     /**
      * listCount.

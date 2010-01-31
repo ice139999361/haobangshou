@@ -31,6 +31,7 @@
     <result property="SettlementType" column="SETTLEMENT_TYPE"/>
     <result property="staffId" column="STAFF_ID"/>
     <result property="staffName" column="STAFF_NAME"/>
+    <result property="custCcode" column="CUST_C_CODE"/>
 </resultMap>
 
 
@@ -61,7 +62,8 @@
             RLT_REC_PO_NO,
 			SETTLEMENT_TYPE,
             STAFF_ID,
-            STAFF_NAME
+            STAFF_NAME,
+            CUST_C_CODE
         )
     VALUES (           
             #commCode#,
@@ -88,9 +90,13 @@
             #rltRecPoNo#,
 			#settlementType#,
             #staffId#,
-            #staffName#
+            #staffName#,
+            #custCcode#
     )
 ]]>
+ <selectKey resultClass="Integer" keyProperty="operSeqId">
+            SELECT LAST_INSERT_ID()  
+  </selectKey>
 </insert>
 
 <delete id="VendorOrderDetail_deleteVendorOrderDetail" parameterClass="string">
@@ -102,9 +108,28 @@
 <update id="VendorOrderDetail_updateVendorOrderDetailByActiveState" parameterClass="vendorOrderDetail">
 <![CDATA[
     UPDATE T_VENDOR_ORDER_DETAIL
-    SET ACTIVE_STATE = #activeState# 
-    WHERE ORDER_SEQID = #operSeqId#
+    SET ACTIVE_STATE = #activeState#     
 ]]>	
+<dynamic prepend="WHERE">
+				<isNotEmpty prepend="and" property = "operSeqId">
+					ORDER_SEQID = #operSeqId#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property = "commCode">
+					C_CODE = #commCode#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property = "poNo">
+					PO_NO = #poNo#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property = "cpartNo">
+					C_PART_NO = #cpartNo#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property = "partNo">
+					PART_NO = #partNo#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property = "specDesc">
+					SPEC_DESC = #specDesc#
+				</isNotEmpty>				
+	</dynamic>
 </update>
 
 <update id="VendorOrderDetail_updateVendorOrderDetailByState" parameterClass="vendorOrderDetail">
@@ -151,7 +176,7 @@
             STATE = #state#
 		</isNotEmpty>	
 		<isNotEmpty prepend="," property="deliveryAmount">
-            DELIVERY_AMOUNT = DELIVERY_AMOUNT +  #deliveryAmount#
+            DELIVERY_AMOUNT = #deliveryAmount#
 		</isNotEmpty>
 	<dynamic prepend="WHERE">
 				<isNotEmpty prepend="and" property = "operSeqId">
@@ -259,6 +284,9 @@
 	<isNotEmpty prepend="," property="staffName">
             STAFF_NAME = #staffName#
 	</isNotEmpty>
+	<isNotEmpty prepend="," property="custCcode">
+            CUST_C_CODE = #custCcode#
+	</isNotEmpty>
     WHERE ORDER_SEQID = #operSeqId#
 </update> 
 
@@ -290,7 +318,8 @@
             RLT_REC_PO_NO,
 			SETTLEMENT_TYPE,
             STAFF_ID,
-            STAFF_NAME
+            STAFF_NAME,
+            CUST_C_CODE
     FROM T_VENDOR_ORDER_DETAIL WHERE ORDER_SEQID = #operSeqId#
 ]]>
 </select>
@@ -323,7 +352,8 @@
             RLT_REC_PO_NO,
 			SETTLEMENT_TYPE,
             STAFF_ID,
-            STAFF_NAME
+            STAFF_NAME,
+            CUST_C_CODE
     FROM T_VENDOR_ORDER_DETAIL
 ]]>
 	<dynamic prepend="WHERE">
@@ -381,7 +411,8 @@
             RLT_REC_PO_NO,
 			SETTLEMENT_TYPE,
             STAFF_ID,
-            STAFF_NAME
+            STAFF_NAME,
+            CUST_C_CODE
     FROM T_VENDOR_ORDER_DETAIL
 ]]>
 		<dynamic prepend="WHERE">
@@ -433,7 +464,13 @@
 			<isNotEmpty prepend="and" property = "settlementType">
 				SETTLEMENT_TYPE = #settlementType#
 			</isNotEmpty>
+			<isNotEmpty prepend="order by" property="sort">
+                   $sort$
+            </isNotEmpty>
 		</dynamic>
+		<![CDATA[
+      		LIMIT #start# ,#end#
+		]]>
 </select>
 
 

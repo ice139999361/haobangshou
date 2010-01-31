@@ -1,6 +1,7 @@
 package com.hbs.domain.vendor.order.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * VendorOrder对象.
@@ -20,7 +21,11 @@ public class VendorOrder {
     private String poNo;
     
     /**
-     * 订单类型0----订单1---退货单.
+     * 供应商订单类型
+        0----客户采购单
+        1---退货单
+        2---常规备货采购单
+        3--特定客户备货采购单
      */
     private String poNoType;
     
@@ -112,11 +117,36 @@ public class VendorOrder {
     /**
      * 订单的活动状态.
      */
-    private String activeState;
-
-
+    private String activeState="active";
     
-    public String getCommCode() {
+    /**
+     * 针对0----客户采购单，3-- 特定客户备货有效
+     */
+    private String custCcode;
+
+    public String getCustCcode() {
+		return custCcode;
+	}
+
+	public void setCustCcode(String custCcode) {
+		this.custCcode = custCcode;
+	}
+
+	/**
+     * 订单明细列表
+     */
+    private List<VendorOrderDetail> vendorOrderDetailList;
+    
+    public List<VendorOrderDetail> getVendorOrderDetailList() {
+		return vendorOrderDetailList;
+	}
+
+	public void setVendorOrderDetailList(
+			List<VendorOrderDetail> vendorOrderDetailList) {
+		this.vendorOrderDetailList = vendorOrderDetailList;
+	}
+
+	public String getCommCode() {
         return this.commCode;
     }	
   
@@ -284,4 +314,9 @@ public class VendorOrder {
         this.activeState = activeState;
     }
 
+    public String getLogKey(){
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(this.commCode).append(";").append(this.poNo);
+    	return sb.toString();
+    }
 }
