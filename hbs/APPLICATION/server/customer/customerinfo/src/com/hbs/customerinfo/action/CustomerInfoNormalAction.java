@@ -100,8 +100,6 @@ public class CustomerInfoNormalAction extends BaseAction {
 			}
 
 			custInfo.setState("1");
-			if(CustomerInfoUtil.checkSetStaffId(custInfo))
-				setMyId(true);
 			CustomerInfoUtil.processListData(custInfo, this.getHttpServletRequest());
 			List<FieldErr> errs = CustomerInfoUtil.checkInputFields(custInfo);
 			if(!errs.isEmpty())
@@ -111,6 +109,8 @@ public class CustomerInfoNormalAction extends BaseAction {
 				setErrorReason(s);
 				return ERROR;
 			}
+			if(CustomerInfoUtil.checkSetStaffId(custInfo))
+				setMyId(true);
 			
 			CustomerInfoMgr mgr = (CustomerInfoMgr)BeanLocator.getInstance().getBean(custInfoMgrName);
 			

@@ -7,9 +7,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
+
+import com.hbs.domain.common.pojo.ConfigEncode;
 import com.hbs.domain.common.pojo.baseinfo.BankInfo;
 import com.hbs.domain.common.pojo.baseinfo.ContactInfo;
 import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
+import com.hbs.common.manager.configencode.ConfigEncodeMgr;
 
 /**
  * Action中对CustomerInfo的一些通用处理函数集
@@ -17,7 +21,12 @@ import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
  *
  */
 public class CustomerInfoUtil {
-	
+
+	/**
+     * logger.
+     */
+    private static final Logger logger = Logger.getLogger(CustomerInfoUtil.class);
+    
 	/**
 	 * 判断是否填写了key字段。custInfo.baseSeqId 或 (custInfo.commCode + custInfo.state)
 	 * @param custInfo
@@ -53,23 +62,59 @@ public class CustomerInfoUtil {
 	
 	
 	/**
-	 * 对输入的客户信息进行校验
+	 * 对输入的客户信息进行校验，内部调用checkSelectFields。
 	 * @param custInfo	客户信息
 	 * @return 出错信息，格式：Map<出错字段,出错信息>
 	 */
 	public static List<FieldErr> checkInputFields(CustomerInfo custInfo)
 	{
 		ArrayList<FieldErr> list = new ArrayList<FieldErr>();
+		if(custInfo == null)
+			return list;
 		
 		String s;
-		// TODO:完成checkInputFields，对输入的客户信息进行校验
+		// DONE:完成checkInputFields，对输入的客户信息进行校验
 		s = custInfo.getVendorCode();
 		if(s == null || s.length() == 0)
 		{
 			list.add(new FieldErr("venderCode","venderCode没有填写"));
 		}
-			
+		s = custInfo.getCommCode();
+		if(s == null || s.length() == 0)
+		{
+			list.add(new FieldErr("CommCode","CommCode没有填写"));
+		}
+		s = custInfo.getShortName();
+		if(s == null || s.length() == 0)
+		{
+			list.add(new FieldErr("ShortName","ShortName没有填写"));
+		}
+		s = custInfo.getAllName();
+		if(s == null || s.length() == 0)
+		{
+			list.add(new FieldErr("AllName","AllName没有填写"));
+		}
+		s = custInfo.getIsShowPrice();
+		if(s == null || s.length() == 0)
+		{
+			list.add(new FieldErr("IsShowPrice","IsShowPrice没有填写"));
+		}
+		s = custInfo.getAssStaffId();
+		if(s == null || s.length() == 0)
+		{
+			int i;
+			try{
+				i = Integer.parseInt(s);
+			}catch(Exception e){
+				i=0;
+			}
+			if(i == 0)
+			list.add(new FieldErr("AssStaff","AssStaff没有填写"));
+		}
 		
+		List<FieldErr> list2 = checkSelectFields(custInfo);
+		if(list2 != null && list2.size() > 0)
+			list.addAll(list2);
 		
 		return list;
 	}
@@ -183,7 +228,7 @@ s	 */
 			}
 			catch(Exception e)
 			{
-				
+				logger.info("processListData处理contactList1出错", e);
 			}
 			
 			try
@@ -200,7 +245,7 @@ s	 */
 			}
 			catch(Exception e)
 			{
-				
+				logger.info("processListData处理contactList2出错", e);
 			}
 			if(listAll.size()>0)
 				custInfo.setListContactInfo(listAll);
@@ -211,12 +256,12 @@ s	 */
 			}
 			catch(Exception e)
 			{
-				
+				logger.info("processListData处理bankList出错", e);
 			}
 		}
 		catch(Exception e)
 		{
-		
+			logger.info("processListData出错", e);
 		}
 	}
 	
@@ -243,7 +288,7 @@ s	 */
 				}
 				catch(Exception e)
 				{
-					
+					logger.info("splitIntoList处理数据"+values[i]+"出错", e);
 				}
 			}
 			return list;
@@ -294,16 +339,117 @@ s	 */
 				}
 				catch(Exception e)
 				{
-					
+					logger.info("splitIntoFields处理字段"+fieldNames[i]+"出错", e);
 				}
 			}
 			
 		}
 		catch(Exception e)
 		{
-			
+			logger.info("splitIntoFields出错", e);
 		}
 	
 	}
 
+	/**
+	 * 检查选择数据。检查选项值，填写选项的说明字段
+	 * @param custInfo
+	 */
+	public static List<FieldErr> checkSelectFields(CustomerInfo custInfo)
+	{
+		if(custInfo == null)
+			return null;
+		List<FieldErr> list = new ArrayList<FieldErr>();
+		
+		try
+		{
+			String s;
+			ConfigEncode ce = new ConfigEncode();
+			ConfigEncode ce2;
+			
+			s = custInfo.getImportantCode();
+			if(s != null && s.length() != 0)
+			{
+				ce.setEncodeType("IMPORTANT");
+				ce.setEncodeKey(s);
+				ce2 = ConfigEncodeMgr.getConfigEncode(ce);
+				if(ce2 == null)
+					list.add(new FieldErr("importantCode", "importantCode的值不正确"));
+				else
+					custInfo.setImportantDesc(ce2.getEncodeValue());
+			}
+				
+			s = custInfo.getCreditRate();
+			if(s != null && s.length() != 0)
+			{
+				ce.setEncodeType("CREDIT");
+				ce.setEncodeKey(s);
+				ce2 = ConfigEncodeMgr.getConfigEncode(ce);
+				if(ce2 == null)
+					list.add(new FieldErr("CreditRate", "CreditRate的值不正确"));
+				else
+					custInfo.setCreditDesc(ce2.getEncodeValue());
+			}
+				
+			s = custInfo.getSettlementType();
+			if(s != null && s.length() != 0)
+			{
+				ce.setEncodeType("SETTLEMENT");
+				ce.setEncodeKey(s);
+				ce2 = ConfigEncodeMgr.getConfigEncode(ce);
+				if(ce2 == null)
+					list.add(new FieldErr("SettlementType", "SettlementType的值不正确"));
+				else
+					custInfo.setSettlementType(ce2.getEncodeValue());
+			}
+			
+			s = custInfo.getCurrency();
+			if(s != null && s.length() != 0)
+			{
+				ce.setEncodeType("Currency");
+				ce.setEncodeKey(s);
+				ce2 = ConfigEncodeMgr.getConfigEncode(ce);
+				if(ce2 == null)
+					list.add(new FieldErr("Currency", "Currency的值不正确"));
+				else
+					custInfo.setCurrency(ce2.getEncodeValue());
+			}
+			
+			int i;
+			s = custInfo.getStaffId();
+			if(s != null && s.length() != 0)
+			{
+				try{
+					i = Integer.parseInt(s);
+				}catch(Exception e){
+					i = 0;
+				}
+				if(i != 0)
+				{
+					//TODO：用户信息需要处理					
+					//custInfo.setStaffName(s);
+				}
+			}
+			s = custInfo.getAssStaffId();
+			if(s != null && s.length() != 0)
+			{
+				try{
+					i = Integer.parseInt(s);
+				}catch(Exception e){
+					i = 0;
+				}
+				if(i != 0)
+				{
+					//TODO：用户信息需要处理					
+					//custInfo.setAssStaffName(s);
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			logger.info("checkSelectFields出错", e);
+		}
+		
+		return list;
+	}
 }
