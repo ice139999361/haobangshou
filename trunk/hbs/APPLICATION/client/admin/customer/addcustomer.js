@@ -1,49 +1,51 @@
 ExtConvertHelper.init(function() {
-	// -------------------------------------- »ñÈ¡ĞèÒª³Ö¾ÃÓÃµ½µÄ¶ÔÏó
+	// -------------------------------------- è·å–éœ€è¦æŒä¹…ç”¨åˆ°çš„å¯¹è±¡
 	
-	// »ñÈ¡Ìá½»°´Å¥
+	// è·å–æäº¤æŒ‰é’®
 	var submitBtn 	= Ext.getCmp("submitBtn");
-	// »ñÈ¡±£´æ°´Å¥
+	// è·å–ä¿å­˜æŒ‰é’®
 	var saveBtn 		= Ext.getCmp("saveBtn");
-	// »ñÈ¡·µ»Ø°´Å¥
+	// è·å–è¿”å›æŒ‰é’®
 	var backBtn 		= Ext.getCmp("backBtn");
-	// »ñÈ¡¿Í»§ÁªÏµÈËĞÅÏ¢±í¸ñ
-	var contactgrid = Ext.getCmp("contactgrid");
-	// »ñÈ¡¿Í»§ÊÕ»õÈËĞÅÏ¢±í¸ñ
-	var consigneegrid = Ext.getCmp("consigneegrid");
-	// »ñÈ¡¿Í»§ÒøĞĞĞÅÏ¢±í¸ñ
-	var custbankgrid = Ext.getCmp("custbankgrid");
 	
 	
 	
-	// -------------------------------------- Ó¦ÓÃÂß¼­´¦Àí
+	// -------------------------------------- åº”ç”¨é€»è¾‘å¤„ç†
 	
 	/**
-	 * Ìá½»Êı¾İ
-	 * @param url  (String) Ìá½»µÄurl
+	 * æäº¤æ•°æ®
+	 * @param url  (String) æäº¤çš„url
 	 */
 	function submitData(url) {
-		// ÑéÖ¤ form ÄÚÈİÊÇ·ûÂú×ãÒªÇó
+		// éªŒè¯ form å†…å®¹æ˜¯ç¬¦æ»¡è¶³è¦æ±‚
 		//if(!ExtConvertHelper.isFormValid("form")) return;
 		
-		// »ñÈ¡£¨¿Í»§ÁªÏµÈËĞÅÏ¢¡¢¿Í»§ÊÕ»õÈËĞÅÏ¢¡¢¿Í»§ÒøĞĞĞÅÏ¢£©±í¸ñÖĞµÄÌá½»Êı¾İ
+		// è·å–ï¼ˆå®¢æˆ·è”ç³»äººä¿¡æ¯ã€å®¢æˆ·æ”¶è´§äººä¿¡æ¯ã€å®¢æˆ·é“¶è¡Œä¿¡æ¯ï¼‰è¡¨æ ¼ä¸­çš„æäº¤æ•°æ®
 		var girdData = HBSConvertHelper.getGridSubmitData("contactgrid,consigneegrid,custbankgrid", "contactlist,consigneelist,custbanklist");
 		
-		alert(girdData)
-		
-		ExtConvertHelper.submitForm("form", url);
+		// æäº¤æ•°æ®
+		ExtConvertHelper.submitForm("form", url, girdData, function(form, action) {
+			// è·å–æˆåŠŸåçš„æç¤ºä¿¡æ¯
+			var msg = ExtConvertHelper.getMessageInfo(action, "æ“ä½œæˆåŠŸï¼");
+			
+			// å¼¹å‡ºæç¤ºæ¡†ç»™ç”¨æˆ·
+			Ext.Msg.alert("æç¤º", msg, function() {
+				// ç”¨æˆ·å•å‡»åé‡è½½æ­¤é¡µé¢
+				location.reload();
+			});
+		});
 	}
 	
-	// µ±Ìá½»°´Å¥±»µ¥»÷Ê±
+	// å½“æäº¤æŒ‰é’®è¢«å•å‡»æ—¶
 	submitBtn.on("click", function() {
-		submitData("aaa.action");
+		submitData("/customerInfo/customerInfo!save.action");
 	});
 	
-	// µ±±£´æ°´Å¥±»µ¥»÷Ê±
+	// å½“ä¿å­˜æŒ‰é’®è¢«å•å‡»æ—¶
 	saveBtn.on("click", function() {
-		submitData("aaa.action");
+		submitData("/customerInfo/customerInfo!saveTemp.action");
 	});
 	
-	// µ±µ¥»úÈ¡Ïû°´Å¥Ê±£¬µ÷ÓÃÄ¬ÈÏµÄ¹Ø±Õ´°¿Ú·½·¨
+	// å½“å•æœºå–æ¶ˆæŒ‰é’®æ—¶ï¼Œè°ƒç”¨é»˜è®¤çš„å…³é—­çª—å£æ–¹æ³•
 	backBtn.on("click", ExtConvertHelper.defaultCloseTab);
 });
