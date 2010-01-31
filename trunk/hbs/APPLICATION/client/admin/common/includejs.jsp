@@ -39,11 +39,9 @@
 	// 添加 Rtplt 组件的 JavaScript 代码
 	document.writeln('<script type="text/javascript" src="<%=contextPath %>/rtplt/rtpltjs-all.js"><\/script>');
 	
+	// 添加应用级别的帮助工具类
+	document.writeln('<script type="text/javascript" src="<%=contextPath %>/common/HBSConvertHelper.js"><\/script>');
+	
 	// 添加 Rtplt 组件的 JavaScript 代码
 	document.writeln('<script type="text/javascript" src="<%=contextPath %>/dmplt/dmpltjs-all.js"><\/script>');
-	/*
-	document.writeln('<script type="text/javascript" src="<%=contextPath %>/portal/component/toppanel/TopPanel.js"><\/script>');
-	document.writeln('<script type="text/javascript" src="<%=contextPath %>/portal/component/bottompanel/BottomPanel.js"><\/script>');
-	document.writeln('<script type="text/javascript" src="<%=contextPath %>/portal/component/extend.js"><\/script>');
-	*/
 </script>
