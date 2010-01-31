@@ -26,12 +26,12 @@ public class VendorOrderDetailDaoTest extends AbstractTransactionalDataSourceSpr
     public void testInsertVendorOrderDetail() {
         VendorOrderDetailDao vendorOrderDetailDao = (VendorOrderDetailDao)this.getApplicationContext().getBean("vendorOrderDetailDao");
         VendorOrderDetail vendorOrderDetail = new VendorOrderDetail();
-        vendorOrderDetail.setOperSeqId("1");
+       // vendorOrderDetail.setOperSeqId("1");
         vendorOrderDetail.setCommCode("1");
         vendorOrderDetail.setShortName("1");
         vendorOrderDetail.setPoNoType("1");
         vendorOrderDetail.setPoNo("1");
-        vendorOrderDetail.setCpartNo(new Date());
+       // vendorOrderDetail.setCpartNo(new Date());
         vendorOrderDetail.setPartNo("1");
         vendorOrderDetail.setPnDesc("1");
 //        vendorOrderDetail.setCprice("1");
@@ -75,12 +75,12 @@ public class VendorOrderDetailDaoTest extends AbstractTransactionalDataSourceSpr
     public void testUpdateVendorOrderDetail() {
         VendorOrderDetailDao vendorOrderDetailDao = (VendorOrderDetailDao) this.getApplicationContext().getBean("vendorOrderDetailDao");
         VendorOrderDetail vendorOrderDetail = new VendorOrderDetail();
-        vendorOrderDetail.setOperSeqId("1");
+      //  vendorOrderDetail.setOperSeqId("1");
         vendorOrderDetail.setCommCode("1");
         vendorOrderDetail.setShortName("1");
         vendorOrderDetail.setPoNoType("1");
         vendorOrderDetail.setPoNo("1");
-        vendorOrderDetail.setCpartNo(new Date());
+     //   vendorOrderDetail.setCpartNo(new Date());
         vendorOrderDetail.setPartNo("1");
         vendorOrderDetail.setPnDesc("1");
 //        vendorOrderDetail.setCprice("1");
@@ -109,32 +109,32 @@ public class VendorOrderDetailDaoTest extends AbstractTransactionalDataSourceSpr
      */
     public void testFindVendorOrderDetail() {
         VendorOrderDetailDao vendorOrderDetailDao = (VendorOrderDetailDao) this.getApplicationContext().getBean("vendorOrderDetailDao");
-        VendorOrderDetail vendorOrderDetail = vendorOrderDetailDao.findVendorOrderDetail("1");
-        
-        System.out.println("testFind result--------------------------------------");
-        System.out.println("operSeqId=" + vendorOrderDetail.getOperSeqId());
-        System.out.println("commCode=" + vendorOrderDetail.getCommCode());
-        System.out.println("shortName=" + vendorOrderDetail.getShortName());
-        System.out.println("poNoType=" + vendorOrderDetail.getPoNoType());
-        System.out.println("poNo=" + vendorOrderDetail.getPoNo());
-        System.out.println("cpartNo=" + vendorOrderDetail.getCpartNo());
-        System.out.println("partNo=" + vendorOrderDetail.getPartNo());
-        System.out.println("pnDesc=" + vendorOrderDetail.getPnDesc());
-        System.out.println("cprice=" + vendorOrderDetail.getCprice());
-        System.out.println("isTax=" + vendorOrderDetail.getIsTax());
-        System.out.println("taxRate=" + vendorOrderDetail.getTaxRate());
-        System.out.println("specDesc=" + vendorOrderDetail.getSpecDesc());
-        System.out.println("commDesc=" + vendorOrderDetail.getCommDesc());
-        System.out.println("amount=" + vendorOrderDetail.getAmount());
-        System.out.println("money=" + vendorOrderDetail.getMoney());
-        System.out.println("deliveryAmount=" + vendorOrderDetail.getDeliveryAmount());
-        System.out.println("orgDeliveryDate=" + vendorOrderDetail.getOrgDeliveryDate());
-        System.out.println("verDeliveryDate=" + vendorOrderDetail.getVerDeliveryDate());
-        System.out.println("period=" + vendorOrderDetail.getPeriod());
-        System.out.println("rltOrderPoNo=" + vendorOrderDetail.getRltOrderPoNo());
-        System.out.println("state=" + vendorOrderDetail.getState());
-        System.out.println("activeState=" + vendorOrderDetail.getActiveState());
-        System.out.println("rltRecPoNo=" + vendorOrderDetail.getRltRecPoNo());
+//        VendorOrderDetail vendorOrderDetail = vendorOrderDetailDao.findVendorOrderDetail("1");
+//        
+//        System.out.println("testFind result--------------------------------------");
+//        System.out.println("operSeqId=" + vendorOrderDetail.getOperSeqId());
+//        System.out.println("commCode=" + vendorOrderDetail.getCommCode());
+//        System.out.println("shortName=" + vendorOrderDetail.getShortName());
+//        System.out.println("poNoType=" + vendorOrderDetail.getPoNoType());
+//        System.out.println("poNo=" + vendorOrderDetail.getPoNo());
+//        System.out.println("cpartNo=" + vendorOrderDetail.getCpartNo());
+//        System.out.println("partNo=" + vendorOrderDetail.getPartNo());
+//        System.out.println("pnDesc=" + vendorOrderDetail.getPnDesc());
+//        System.out.println("cprice=" + vendorOrderDetail.getCprice());
+//        System.out.println("isTax=" + vendorOrderDetail.getIsTax());
+//        System.out.println("taxRate=" + vendorOrderDetail.getTaxRate());
+//        System.out.println("specDesc=" + vendorOrderDetail.getSpecDesc());
+//        System.out.println("commDesc=" + vendorOrderDetail.getCommDesc());
+//        System.out.println("amount=" + vendorOrderDetail.getAmount());
+//        System.out.println("money=" + vendorOrderDetail.getMoney());
+//        System.out.println("deliveryAmount=" + vendorOrderDetail.getDeliveryAmount());
+//        System.out.println("orgDeliveryDate=" + vendorOrderDetail.getOrgDeliveryDate());
+//        System.out.println("verDeliveryDate=" + vendorOrderDetail.getVerDeliveryDate());
+//        System.out.println("period=" + vendorOrderDetail.getPeriod());
+//        System.out.println("rltOrderPoNo=" + vendorOrderDetail.getRltOrderPoNo());
+//        System.out.println("state=" + vendorOrderDetail.getState());
+//        System.out.println("activeState=" + vendorOrderDetail.getActiveState());
+//        System.out.println("rltRecPoNo=" + vendorOrderDetail.getRltRecPoNo());
     }
 
     /**
@@ -143,7 +143,7 @@ public class VendorOrderDetailDaoTest extends AbstractTransactionalDataSourceSpr
     public void testListVendorOrderDetail() {
         VendorOrderDetailDao vendorOrderDetailDao = (VendorOrderDetailDao) this.getApplicationContext().getBean("vendorOrderDetailDao");
         VendorOrderDetail vendorOrderDetail = new VendorOrderDetail();
-        vendorOrderDetail.setOperSeqId("1");
+      //  vendorOrderDetail.setOperSeqId("1");
         vendorOrderDetail.setCommCode("1");
         vendorOrderDetail.setShortName("1");
         vendorOrderDetail.setPoNoType("1");
@@ -204,7 +204,7 @@ public class VendorOrderDetailDaoTest extends AbstractTransactionalDataSourceSpr
     public void testListVendorOrderDetailCount() {
         VendorOrderDetailDao vendorOrderDetailDao = (VendorOrderDetailDao) this.getApplicationContext().getBean("vendorOrderDetailDao");
         VendorOrderDetail vendorOrderDetail = new VendorOrderDetail();
-        vendorOrderDetail.setOperSeqId("1");
+      //  vendorOrderDetail.setOperSeqId("1");
         vendorOrderDetail.setCommCode("1");
         vendorOrderDetail.setShortName("1");
         vendorOrderDetail.setPoNoType("1");

@@ -105,30 +105,30 @@ public class VendorOrderHisDaoTest extends AbstractTransactionalDataSourceSpring
      */
     public void testFindVendorOrder() {
         VendorOrderDao vendorOrderDao = (VendorOrderDao) this.getApplicationContext().getBean("vendorOrderDao");
-        VendorOrder vendorOrder = vendorOrderDao.findVendorOrder("1");
-        
-        System.out.println("testFind result--------------------------------------");
-        System.out.println("commCode=" + vendorOrder.getCommCode());
-        System.out.println("poNo=" + vendorOrder.getPoNo());
-        System.out.println("poNoType=" + vendorOrder.getPoNoType());
-        System.out.println("shortName=" + vendorOrder.getShortName());
-        System.out.println("createTime=" + vendorOrder.getCreateTime());
-        System.out.println("conName=" + vendorOrder.getConName());
-        System.out.println("conTel=" + vendorOrder.getConTel());
-        System.out.println("conFax=" + vendorOrder.getConFax());
-        System.out.println("companyBranch=" + vendorOrder.getCompanyBranch());
-        System.out.println("SettlementType=" + vendorOrder.getSettlementType());
-        System.out.println("ReceiveName=" + vendorOrder.getReceiveName());
-        System.out.println("receiveAddress=" + vendorOrder.getReceiveAddress());
-        System.out.println("receiveZip=" + vendorOrder.getReceiveZip());
-        System.out.println("staffId=" + vendorOrder.getStaffId());
-        System.out.println("staffName=" + vendorOrder.getStaffName());
-        System.out.println("sales=" + vendorOrder.getSales());
-        System.out.println("isShowPrice=" + vendorOrder.getIsShowPrice());
-        System.out.println("orderTime=" + vendorOrder.getOrderTime());
-        System.out.println("period=" + vendorOrder.getPeriod());
-        System.out.println("state=" + vendorOrder.getState());
-        System.out.println("activeState=" + vendorOrder.getActiveState());
+//        VendorOrder vendorOrder = vendorOrderDao.findVendorOrder("1");
+//        
+//        System.out.println("testFind result--------------------------------------");
+//        System.out.println("commCode=" + vendorOrder.getCommCode());
+//        System.out.println("poNo=" + vendorOrder.getPoNo());
+//        System.out.println("poNoType=" + vendorOrder.getPoNoType());
+//        System.out.println("shortName=" + vendorOrder.getShortName());
+//        System.out.println("createTime=" + vendorOrder.getCreateTime());
+//        System.out.println("conName=" + vendorOrder.getConName());
+//        System.out.println("conTel=" + vendorOrder.getConTel());
+//        System.out.println("conFax=" + vendorOrder.getConFax());
+//        System.out.println("companyBranch=" + vendorOrder.getCompanyBranch());
+//        System.out.println("SettlementType=" + vendorOrder.getSettlementType());
+//        System.out.println("ReceiveName=" + vendorOrder.getReceiveName());
+//        System.out.println("receiveAddress=" + vendorOrder.getReceiveAddress());
+//        System.out.println("receiveZip=" + vendorOrder.getReceiveZip());
+//        System.out.println("staffId=" + vendorOrder.getStaffId());
+//        System.out.println("staffName=" + vendorOrder.getStaffName());
+//        System.out.println("sales=" + vendorOrder.getSales());
+//        System.out.println("isShowPrice=" + vendorOrder.getIsShowPrice());
+//        System.out.println("orderTime=" + vendorOrder.getOrderTime());
+//        System.out.println("period=" + vendorOrder.getPeriod());
+//        System.out.println("state=" + vendorOrder.getState());
+//        System.out.println("activeState=" + vendorOrder.getActiveState());
     }
 
     /**
