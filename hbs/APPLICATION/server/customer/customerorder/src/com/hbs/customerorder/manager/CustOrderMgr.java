@@ -309,7 +309,7 @@ public class CustOrderMgr {
 	 * 前台调用时不需要改变状态，由后台判断改变
 	 * 当订单状态变为暂停时，取消所有待办
 	 * @param cOrder
-	 * @param operContents
+	 * @param operContents  操作说明，记录日志
 	 * @return
 	 * @throws Exception
 	 */
@@ -319,7 +319,7 @@ public class CustOrderMgr {
 		if((CustOrderConstants.ORDER_ACTIVE_STATE).equals(activeState)){
 			cOrder.setActiveState(CustOrderConstants.ORDER_PAUSE_STATE);
 		}else{
-			cOrder.setActiveState(CustOrderConstants.ORDER_PAUSE_STATE);
+			cOrder.setActiveState(CustOrderConstants.ORDER_ACTIVE_STATE);
 		}
 		CustomerOrderDao cOrderDao =(CustomerOrderDao)BeanLocator.getInstance().getBean("customerOrderDao");
 		cOrderDao.updateCustomerOrderByActiveState(cOrder);
