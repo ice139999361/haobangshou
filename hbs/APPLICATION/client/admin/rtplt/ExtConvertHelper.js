@@ -45,17 +45,17 @@ var ExtConvertHelper = {
 			// 返回主的 Panel 模板
 			return app.getPortal().contentMgr.mainPanel;
 	 }
-	,submitForm: function(formId, url, success, failure, params) {
+	,submitForm: function(formId, url, params, success, failure) {
 
 			Ext.getCmp(formId).getForm().submit({
-				url:SERVER_PATH + url,
-				params: params,
+				url: SERVER_PATH + url,
+				params: this._processParams(params),
 			  waitTitle: '提示',
 			  clientValidation: false,
 				waitMsg: '请等待：正在提交请求',
 				success: success ? success : function(){},
 				failure: failure ? failure : function(form, action){
-																			 var message = action.result && action.result.data ? action.result.data.msg : "请求失败：服务器异常";
+																			 var message = ExtConvertHelper.getMessageInfo(action, "请求失败：服务器异常");
 																			 Ext.Msg.alert("提示", message);
 																		 }
 			});
@@ -110,21 +110,6 @@ var ExtConvertHelper = {
 			
 			// 通过
 			return true;
-	 }
-	,__convertExtItem: function(obj, supPro, supObj) {
-		  var aItem = [];
-		  for(var pro in obj) {
-		  	var val = obj[pro];
-		  	if(val instanceof Array) {
-		  		for(var i = 0 ; i < val.length ; i++) {
-		  			aItem.push(ExtConvertHelper.convertDOMJSON(val[i], pro, obj));
-		  		}
-		  	} else if(typeof val == "object") {
-		  		aItem.push(ExtConvertHelper.convertDOMJSON(val, pro, obj));
-		  	}
-		  }
-		  
-		  return aItem;
 	 }
 	,convertDOMJSON: function(obj, supPro, supObj) {
 			// 为每个属性进行量身定制的改革
@@ -199,7 +184,46 @@ var ExtConvertHelper = {
 			
 			return new cmptype(config);
 	 }
-	 
+	 // 获取需要的提示
+	,getMessageInfo: function(action, msg) {
+		 	return action.result && action.result.data ? action.result.data.msg : msg;
+	 }
+	 // 格式化要提交的参数
+	,_processParams: function(params) {
+			// 获取当前毫秒数
+			var currentTimeMillis = this.getCurrentTimeMillis();
+			
+			// 如果参数不存在
+			if (!params) {
+				return "_t=" + currentTimeMillis;
+			} 
+			// 如果是 string 格式的参数
+			else if (typeof params == "string") {
+				return encodeURIComponent(params + "&_t=" + currentTimeMillis);
+			}
+			// 其他格式，认为是 object
+			else {
+				params._t = currentTimeMillis;
+				return params;
+			}
+			
+			return params;
+	 }
+	 ,__convertExtItem: function(obj, supPro, supObj) {
+		  var aItem = [];
+		  for(var pro in obj) {
+		  	var val = obj[pro];
+		  	if(val instanceof Array) {
+		  		for(var i = 0 ; i < val.length ; i++) {
+		  			aItem.push(ExtConvertHelper.convertDOMJSON(val[i], pro, obj));
+		  		}
+		  	} else if(typeof val == "object") {
+		  		aItem.push(ExtConvertHelper.convertDOMJSON(val, pro, obj));
+		  	}
+		  }
+		  
+		  return aItem;
+	 }
 	 
 	 /*--------------- 属性及常量 ---------------*/
 	 // 序列值
