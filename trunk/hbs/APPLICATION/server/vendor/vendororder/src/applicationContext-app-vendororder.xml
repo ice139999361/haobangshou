@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans >
+	<!-- 供应商采购单 -->
+	<bean id="vendorOrderMgr" class="com.hbs.vendororder.manager.VendorOrderMgr">		
+	</bean>
+	
+	<!-- 供应商订单明细   -->
+	<bean id="vendorOrderDetailMgr" class="com.hbs.vendororder.manager.VendorOrderDetailMgr">		
+	</bean>
+	
+	<!-- 订单状态接口类 -->
+	<bean id="vendorOrderState"
+		class="com.hbs.vendororder.manager.helper.VendorOrderState"
+		abstract="true">		
+	</bean>
+	
+	<!-- 账期状态实现类  parent ="vendorOrderState" vendorOrder 订单类型（订单）  结算方式（账期结算） -->
+	<bean id="vendorOrder01" class="com.hbs.vendororder.manager.helper.PeriodVendorOrderState">		
+	</bean>
+	<bean id="vendorOrder21" class="com.hbs.vendororder.manager.helper.PeriodVendorOrderState">		
+	</bean>
+	<bean id="vendorOrder31" class="com.hbs.vendororder.manager.helper.PeriodVendorOrderState">		
+	</bean>
+	
+	<!-- 预付费状态实现类 parent ="vendorOrderState" vendorOrder 订单类型（订单）  结算方式（预付X%,剩余货到付款） -->
+	<bean id="vendorOrder02" class="com.hbs.vendororder.manager.helper.PrepaidVendorOrderState">		
+	</bean>
+	<bean id="vendorOrder22" class="com.hbs.vendororder.manager.helper.PrepaidVendorOrderState">		
+	</bean>
+	<bean id="vendorOrder32" class="com.hbs.vendororder.manager.helper.PrepaidVendorOrderState">		
+	</bean>
+	
+	<!-- 预付费状态实现类 parent ="vendorOrderState" vendorOrder 订单类型（订单）  结算方式（预付X%剩余款到发货）-->
+	<bean id="vendorOrder03" class="com.hbs.vendororder.manager.helper.PrepaidCustOrderState">		
+	</bean>
+	<bean id="vendorOrder23" class="com.hbs.vendororder.manager.helper.PrepaidCustOrderState">		
+	</bean>
+	<bean id="vendorOrder33" class="com.hbs.vendororder.manager.helper.PrepaidCustOrderState">		
+	</bean>
+</beans>
