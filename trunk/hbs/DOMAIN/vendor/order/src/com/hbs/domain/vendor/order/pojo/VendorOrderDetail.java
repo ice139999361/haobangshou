@@ -15,7 +15,7 @@ public class VendorOrderDetail extends BaseDomain{
     /**
      * 唯一的seqid（序列号）.
      */
-    private String operSeqId;
+    private Integer operSeqId;
     
     /**
      * 供应商编码.
@@ -28,7 +28,11 @@ public class VendorOrderDetail extends BaseDomain{
     private String shortName;
     
     /**
-     * 订单类型0-订单1-退货单.
+     * 供应商订单类型
+        0----客户采购单
+        1---退货单
+        2---常规备货采购单
+        3--特定客户备货采购单
      */
     private String poNoType;
     
@@ -40,7 +44,7 @@ public class VendorOrderDetail extends BaseDomain{
     /**
      * 物料编号.
      */
-    private Date cpartNo;
+    private String cpartNo;
     
     /**
      * 公司物料编号.
@@ -65,7 +69,7 @@ public class VendorOrderDetail extends BaseDomain{
     /**
      * 税率.
      */
-    private BigDecimal taxRate;
+    private BigDecimal taxRate ;
     
     /**
      * 特殊备注，如有的客户物料中有批次概念，可以填入该字段.
@@ -80,7 +84,7 @@ public class VendorOrderDetail extends BaseDomain{
     /**
      * 订货数量.
      */
-    private Integer amount;
+    private Integer amount =0;
     
     /**
      * 总金额.
@@ -120,7 +124,7 @@ public class VendorOrderDetail extends BaseDomain{
     /**
      * 订单的活动状态.
      */
-    private String activeState;
+    private String activeState="active";
     
     /**
      * 关联的入库单号，可能有多个，以.
@@ -143,7 +147,21 @@ public class VendorOrderDetail extends BaseDomain{
      */
     private String SettlementType;
     
+    
     /**
+     * 针对0----客户采购单，3-- 特定客户备货有效
+     */
+    private String custCcode;
+    
+    public String getCustCcode() {
+		return custCcode;
+	}
+
+	public void setCustCcode(String custCcode) {
+		this.custCcode = custCcode;
+	}
+
+	/**
 	 * @return the staffId
 	 */
 	public String getStaffId() {
@@ -185,11 +203,11 @@ public class VendorOrderDetail extends BaseDomain{
 		SettlementType = settlementType;
 	}
 
-	public String getOperSeqId() {
+	public Integer getOperSeqId() {
         return this.operSeqId;
     }	
   
-    public void setOperSeqId(String operSeqId) {
+    public void setOperSeqId(Integer operSeqId) {
         this.operSeqId = operSeqId;
     }
     
@@ -225,11 +243,11 @@ public class VendorOrderDetail extends BaseDomain{
         this.poNo = poNo;
     }
     
-    public Date getCpartNo() {
+    public String getCpartNo() {
         return this.cpartNo;
     }	
   
-    public void setCpartNo(Date cpartNo) {
+    public void setCpartNo(String cpartNo) {
         this.cpartNo = cpartNo;
     }
     
@@ -369,4 +387,10 @@ public class VendorOrderDetail extends BaseDomain{
         this.rltRecPoNo = rltRecPoNo;
     }
 
+    
+    public String getLogKey(){
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(this.commCode).append(";").append(this.poNo).append(this.operSeqId);
+    	return sb.toString();
+    }
 }

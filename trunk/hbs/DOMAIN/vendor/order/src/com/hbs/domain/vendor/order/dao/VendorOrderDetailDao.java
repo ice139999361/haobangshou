@@ -17,7 +17,7 @@ public interface VendorOrderDetailDao {
      * @return id
      * @throws DataAccessException DataAccessException
      */
-    void insertVendorOrderDetail(VendorOrderDetail vendorOrderDetail) throws DataAccessException ;
+    int insertVendorOrderDetail(VendorOrderDetail vendorOrderDetail) throws DataAccessException ;
 
     /**
      * delete.
@@ -32,14 +32,17 @@ public interface VendorOrderDetailDao {
      * @throws DataAccessException DataAccessException
      */
     void updateVendorOrderDetail(VendorOrderDetail vendorOrderDetail) throws DataAccessException ;
-
+    void updateVendorOrderDetailByState(VendorOrderDetail vendorOrderDetail) throws DataAccessException ;
+    void updateVendorOrderDetailByActiveState(VendorOrderDetail vendorOrderDetail) throws DataAccessException ;
+    void updateVendorOrderDetailAmount(VendorOrderDetail vendorOrderDetail) throws DataAccessException ;
     /**
      * find.
      * @param id id
      * @return vendorOrderDetail
      * @throws DataAccessException DataAccessException
      */
-    VendorOrderDetail findVendorOrderDetail(String id) throws DataAccessException ;
+    VendorOrderDetail findVendorOrderDetailById(String id) throws DataAccessException ;
+    VendorOrderDetail findVendorOrderDetailByBizKey(VendorOrderDetail vendorOrderDetail) throws DataAccessException ;
     
     /**
      * list.
@@ -47,7 +50,7 @@ public interface VendorOrderDetailDao {
      * @return vendorOrderDetail list
      * @throws DataAccessException DataAccessException
      */
-    List listVendorOrderDetail(VendorOrderDetail vendorOrderDetail) throws DataAccessException ;
+    List<VendorOrderDetail> listVendorOrderDetail(VendorOrderDetail vendorOrderDetail) throws DataAccessException ;
     
     /**
      * listCount.

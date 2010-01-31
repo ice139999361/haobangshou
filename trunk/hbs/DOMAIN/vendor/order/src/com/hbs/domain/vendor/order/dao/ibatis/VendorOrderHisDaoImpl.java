@@ -119,5 +119,32 @@ public class VendorOrderHisDaoImpl extends SqlMapClientDaoSupport implements Ven
         	logger.debug("Àë¿ªlistVendorOrderCount(VendorOrder), ·µ»Ø[" + count + "]");
 		}
         return count;
-    }  
+    }
+
+	/* (non-Javadoc)
+	 * @see com.hbs.domain.vendor.order.dao.VendorOrderDao#updateVendorOrderByState(com.hbs.domain.vendor.order.pojo.VendorOrder)
+	 */
+	public void updateVendorOrderByState(VendorOrder vendorOrder)
+			throws DataAccessException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.hbs.domain.vendor.order.dao.VendorOrderDao#updateVendorOrderByActiveState(com.hbs.domain.vendor.order.pojo.VendorOrder)
+	 */
+	public void updateVendorOrderByActiveState(VendorOrder vendorOrder)
+			throws DataAccessException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.hbs.domain.vendor.order.dao.VendorOrderDao#findVendorOrder(com.hbs.domain.vendor.order.pojo.VendorOrder)
+	 */
+	public VendorOrder findVendorOrder(VendorOrder vendorOrder)
+			throws DataAccessException {
+		// TODO Auto-generated method stub
+		return null;
+	}  
 }

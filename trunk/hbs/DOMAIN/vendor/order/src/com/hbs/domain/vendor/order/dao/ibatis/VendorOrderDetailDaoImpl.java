@@ -27,17 +27,17 @@ public class VendorOrderDetailDaoImpl extends SqlMapClientDaoSupport implements 
      * @return id
      * @throws DataAccessException DataAccessException
      */
-    public void insertVendorOrderDetail(VendorOrderDetail vendorOrderDetail) throws DataAccessException {
+    public int  insertVendorOrderDetail(VendorOrderDetail vendorOrderDetail) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入insertVendorOrderDetail(VendorOrderDetail), 输入参数[" + vendorOrderDetail + "]");
     	}
         
         
-    	getSqlMapClientTemplate().insert("VendorOrderDetail_insertVendorOrderDetail", vendorOrderDetail);
+    	int seqid = (Integer)getSqlMapClientTemplate().insert("VendorOrderDetail_insertVendorOrderDetail", vendorOrderDetail);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开insertVendorOrderDetail(VendorOrderDetail), 返回");
 		}
-    	
+    	return seqid;
     }
 
     /**
@@ -69,18 +69,57 @@ public class VendorOrderDetailDaoImpl extends SqlMapClientDaoSupport implements 
     		logger.debug("离开updateVendorOrderDetail(VendorOrderDetail)");
 		}
     }
+    public void updateVendorOrderDetailByState(VendorOrderDetail vendorOrderDetail) throws DataAccessException {
+    	if (logger.isDebugEnabled()) {
+    		logger.debug("进入updateVendorOrderDetail(VendorOrderDetail), 输入参数[" + vendorOrderDetail + "]");
+		}
+    	getSqlMapClientTemplate().update("VendorOrderDetail_updateVendorOrderDetailByState", vendorOrderDetail);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开updateVendorOrderDetail(VendorOrderDetail)");
+		}
+    }
     
+    public void updateVendorOrderDetailByActiveState(VendorOrderDetail vendorOrderDetail) throws DataAccessException{
+    	if (logger.isDebugEnabled()) {
+    		logger.debug("进入updateVendorOrderDetail(VendorOrderDetail), 输入参数[" + vendorOrderDetail + "]");
+		}
+    	getSqlMapClientTemplate().update("VendorOrderDetail_updateVendorOrderDetailByActiveState", vendorOrderDetail);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开updateVendorOrderDetail(VendorOrderDetail)");
+		}
+    }
+    
+	public void updateVendorOrderDetailAmount(VendorOrderDetail vendorOrderDetail) throws DataAccessException{
+		if (logger.isDebugEnabled()) {
+    		logger.debug("进入updateVendorOrderDetail(VendorOrderDetail), 输入参数[" + vendorOrderDetail + "]");
+		}
+    	getSqlMapClientTemplate().update("VendorOrderDetail_updateVendorOrderDetailAmount", vendorOrderDetail);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开updateVendorOrderDetail(VendorOrderDetail)");
+		}	
+	}
     /**
      * find.
      * @param id id
      * @return vendorOrderDetail
      * @throws DataAccessException DataAccessException
      */
-    public VendorOrderDetail findVendorOrderDetail(String pk) throws DataAccessException {
+    public VendorOrderDetail findVendorOrderDetailById(String pk) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入findVendorOrderDetail(VendorOrderDetail), 输入参数[" + pk + "]");
 		}
-        VendorOrderDetail vendorOrderDetail = (VendorOrderDetail) getSqlMapClientTemplate().queryForObject("VendorOrderDetail_findVendorOrderDetail", pk);
+        VendorOrderDetail vendorOrderDetail = (VendorOrderDetail) getSqlMapClientTemplate().queryForObject("VendorOrderDetail_findVendorOrderDetailById", pk);
+		if (logger.isDebugEnabled()) {
+        	logger.debug("离开findVendorOrderDetail(VendorOrderDetail), 返回[" + vendorOrderDetail + "]");
+		}
+        return vendorOrderDetail;
+    }
+    
+    public VendorOrderDetail findVendorOrderDetailByBizKey(VendorOrderDetail vDetail) throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+        	logger.debug("进入findVendorOrderDetail(VendorOrderDetail), 输入参数[" + vDetail + "]");
+		}
+        VendorOrderDetail vendorOrderDetail = (VendorOrderDetail) getSqlMapClientTemplate().queryForObject("VendorOrderDetail_findVendorOrderDetailByBizKey", vDetail);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开findVendorOrderDetail(VendorOrderDetail), 返回[" + vendorOrderDetail + "]");
 		}
@@ -93,11 +132,12 @@ public class VendorOrderDetailDaoImpl extends SqlMapClientDaoSupport implements 
      * @return vendorOrderDetail list
      * @throws DataAccessException DataAccessException
      */
-    public List listVendorOrderDetail(VendorOrderDetail vendorOrderDetail) throws DataAccessException {
+    @SuppressWarnings("unchecked")
+	public List<VendorOrderDetail> listVendorOrderDetail(VendorOrderDetail vendorOrderDetail) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listVendorOrderDetail(VendorOrderDetail), 输入参数[" + vendorOrderDetail + "]");
 		}
-        List list = getSqlMapClientTemplate().queryForList("VendorOrderDetail_listVendorOrderDetail", vendorOrderDetail);
+        List<VendorOrderDetail> list = getSqlMapClientTemplate().queryForList("VendorOrderDetail_listVendorOrderDetail", vendorOrderDetail);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listVendorOrderDetail(VendorOrderDetail), 返回[" + list + "]");
 		}
