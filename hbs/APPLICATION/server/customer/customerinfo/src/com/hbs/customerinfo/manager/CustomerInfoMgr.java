@@ -41,7 +41,7 @@ public class CustomerInfoMgr {
 	/**
 	 * 保存客户信息的临时数据,数据状态为临时状态,
 	 * @param custInfo
-	 * @return  0---成功   1---失败
+	 * @return  >0---成功   -1---失败
 	 * @throws Exception
 	 */
 	public int saveTempCustomerInfo(CustomerInfo custInfo) throws Exception{
@@ -49,33 +49,43 @@ public class CustomerInfoMgr {
 		return insertCustomerInfo(custInfo);
 	}
 	/**
-	 * 提交数据审批,数据的状态为临时状态,或者为领导审批拒绝的状态,才可以提交审批
+	 * 提交数据审批,
+	 * 获取提交数据的baseSeqId ，如果不存在，表示没有保存过，需要先保存
+	 * 数据的状态为临时状态,或者为领导审批拒绝的状态,才可以提交审批
 	 * 数据状态修改的同时，需要发待办通知
+	 * 
 	 * @param custInfo
-	 * @return 0---成功   1--无此状态  2---状态不正确
+	 * @return > 0---成功    -1---存在重复数据  -2---状态不正确
 	 * @throws Exception
 	 */
 	public int commitCustomerInfo(CustomerInfo custInfo,String staffId,String staffName) throws Exception{
 		int ret =0;
-		//获取提交数据打状态
-		int iState = Integer.parseInt(custInfo.getState());
-		if(iState == StateConstants.STATE_1 || iState == StateConstants.STATE_3){
+		//获取提交数据的baseSeqId ，如果不存在，表示没有保存过，需要先保存
+		Integer ibaseSeqId = custInfo.getBaseSeqId();
+		if(null == ibaseSeqId){
 			custInfo.setState(new Integer(StateConstants.STATE_2).toString());
-				ret = innerUpdateCustomerInfo(custInfo,staffId,staffName,null);	
-				if(ret == 0){//发待办通知,先取消可能的待办，再添加新的待办
-					WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
-					Map<String , String> hmParam = new HashMap<String,String>();
-					hmParam.put("$staffName", custInfo.getStaffName());
-					hmParam.put("$businessKey", custInfo.getCommCode());
-					waitTaskInfo.setHmParam(hmParam);
-					waitTaskInfo.setBusinessKey(custInfo.getCommCode());
-					WaitTaskMgr.deleteWaitTask(custInfo.getCommCode());
-					WaitTaskMgr.createWaitTask("CUSTOMER001", waitTaskInfo);
-				}
+			ret = this.insertCustomerInfo(custInfo);
 		}else{
-			ret =2;//表示数据提交的状态不正确
+			//获取提交数据打状态
+			int iState = Integer.parseInt(custInfo.getState());
+			if(iState == StateConstants.STATE_1 || iState == StateConstants.STATE_3){
+				custInfo.setState(new Integer(StateConstants.STATE_2).toString());
+					ret = innerUpdateCustomerInfo(custInfo,staffId,staffName,null);	
+					if(ret == 0){//发待办通知,先取消可能的待办，再添加新的待办
+						ret = custInfo.getBaseSeqId();//设置baseSeqId返回
+						WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
+						Map<String , String> hmParam = new HashMap<String,String>();
+						hmParam.put("$staffName", custInfo.getStaffName());
+						hmParam.put("$businessKey", custInfo.getCommCode());
+						waitTaskInfo.setHmParam(hmParam);
+						waitTaskInfo.setBusinessKey(custInfo.getCommCode());
+						WaitTaskMgr.deleteWaitTask(custInfo.getCommCode());
+						WaitTaskMgr.createWaitTask("CUSTOMER001", waitTaskInfo);
+					}
+			}else{
+				ret =-2;//表示数据提交的状态不正确
+			}
 		}
-		
 		return ret;
 	}
 	/**
@@ -375,7 +385,7 @@ public class CustomerInfoMgr {
 	 * 正式提交后，状态为待经理审批，
 	 * 经理审批通过后的状态为正式数据
 	 * @param customerInfo
-	 * @return 0--成功  1--存在重复数据
+	 * @return baseSeqId--成功  -1--存在重复数据
 	 * @throws Exception
 	 */
 	private int insertCustomerInfo(CustomerInfo customerInfo) throws Exception{
@@ -385,6 +395,7 @@ public class CustomerInfoMgr {
 		Integer baseSeqId =0; //主信息插入返回的baseSeqId
 		if(null == tempInfo){
 			baseSeqId = customerInfoDao.insertCustomerInfo(customerInfo);
+			ret = baseSeqId;
 			/** 联系人信息 */
 			List<ContactInfo> contactInfoList = customerInfo.getListContactInfo();
 			if(null != contactInfoList && contactInfoList.size() >0){//存在联系人信息
@@ -432,9 +443,9 @@ public class CustomerInfoMgr {
 //			}			
 			//记录操作日志
 			int iState = Integer.parseInt(customerInfo.getState());
-			operLog( customerInfo.getStaffId(), customerInfo.getStaffName(), (iState ==2 ? "修改" : "新增"), baseSeqId.toString(), null);
+			operLog( customerInfo.getStaffId(), customerInfo.getStaffName(), (iState ==2 ? "提交审批数据" : "新增客户信息"), baseSeqId.toString(), null);
 		}else{
-			ret =1;
+			ret = -1;
 		}
 		
 		return ret;
