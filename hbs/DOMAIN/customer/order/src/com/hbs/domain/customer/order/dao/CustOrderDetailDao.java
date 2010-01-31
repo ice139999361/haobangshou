@@ -36,6 +36,12 @@ public interface CustOrderDetailDao {
     void updateCustOrderDetailByState(CustOrderDetail custOrderDetail) throws DataAccessException;
     void updateCustOrderDetailAmount(CustOrderDetail custOrderDetail) throws DataAccessException;
     /**
+     * 采购单的采购单号更新到客户订单相关联的采购单号
+     * @param custOrderDetail
+     * @throws DataAccessException
+     */
+    void updateCustOrderDetailByRltPoNo(CustOrderDetail custOrderDetail) throws DataAccessException;
+    /**
      * find.
      * @param id id
      * @return custOrderDetail
