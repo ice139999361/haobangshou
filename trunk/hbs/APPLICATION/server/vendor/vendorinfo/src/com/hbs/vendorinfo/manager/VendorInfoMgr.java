@@ -42,7 +42,7 @@ public class VendorInfoMgr {
 	/**
 	 * 保存供应商信息的临时数据,数据状态为临时状态
 	 * @param vInfo
-	 * @return 0---成功   1---失败
+	 * @return > 0---成功   -1---失败
 	 * @throws Exception
 	 */
 	public int saveTempVendorInfo(VendorInfo vInfo) throws Exception{
@@ -53,7 +53,7 @@ public class VendorInfoMgr {
 	/**
 	 * 保存供应商基本信息
 	 * @param vInfo
-	 * @return
+	 * @return baseSeqId--成功  -1--存在重复数据
 	 * @throws Exception
 	 */
 	private int insertVendorInfo(VendorInfo vInfo) throws Exception{
@@ -63,6 +63,8 @@ public class VendorInfoMgr {
 		Integer baseSeqId =0; //主信息插入返回的baseSeqId
 		if(null == vendorInfo){
 			baseSeqId = vInfoDao.insertVendorInfo(vInfo);
+			ret = baseSeqId;
+			
 			/** 联系人信息 */
 			List<ContactInfo> contactInfoList = vInfo.getListContactInfo();
 			if(null != contactInfoList && contactInfoList.size() >0){//存在联系人信息
@@ -103,40 +105,50 @@ public class VendorInfoMgr {
 				prePaidMgr.insertPrePaidInfo(pInfo);
 			}
 			int iState = Integer.parseInt(vInfo.getState());
-			VendorLogUtils.operLog(vInfo.getStaffId(), vInfo.getStaffName(), (iState ==2 ? "修改" : "新增"), "供应商信息", vInfo.getLogKey(), null, null);
+			VendorLogUtils.operLog(vInfo.getStaffId(), vInfo.getStaffName(), (iState ==2 ? "提交审批数据"  : "新增"), "供应商信息", vInfo.getLogKey(), null, null);
 		}else{
-			ret =1;
+			ret =-1;
 		}
 		
 		return ret;
 	}
 	
 	/**
-	 * 提交数据审批,数据的状态为临时状态,或者为领导审批拒绝的状态,才可以提交审批
+	 * 提交数据审批,
+	 * 获取提交数据的baseSeqId ，如果不存在，表示没有保存过，需要先保存
+	 * 数据的状态为临时状态,或者为领导审批拒绝的状态,才可以提交审批
 	 * 数据状态修改的同时，需要发待办通知 
 	 * @param vInfo
-	 * @return 0---成功   1--无此状态  2---状态不正确
+	  * @return > 0---成功    -1---存在重复数据  -2---状态不正确
 	 * @throws Exception
 	 */
 	public int commitVendorInfo(VendorInfo vInfo) throws Exception{
 		int ret =0;
-		//获取需要提交数据的状态
-		int iState = Integer.parseInt(vInfo.getState());
-		if(iState == StateConstants.STATE_1 || iState == StateConstants.STATE_3 ){
+		//获取提交数据的baseSeqId ，如果不存在，表示没有保存过，需要先保存
+		Integer ibaseSeqId = vInfo.getBaseSeqId();
+		if(null == ibaseSeqId){
 			vInfo.setState(new Integer(StateConstants.STATE_2).toString());
-			ret = this.innerUpdateVendorInfo(vInfo, vInfo.getStaffId(), vInfo.getStaffName(), null);
-			if(ret == 0){//发待办通知,先取消可能的待办，再添加新的待办
-				WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
-				Map<String , String> hmParam = new HashMap<String,String>();
-				hmParam.put("$staffName", vInfo.getStaffName());
-				hmParam.put("$commCode", vInfo.getCommCode());
-				hmParam.put("$shortName", vInfo.getShortName());
-				waitTaskInfo.setHmParam(hmParam);
-				waitTaskInfo.setBusinessKey(vInfo.getWaitTaskKey());
-				VendorWaitTaskUtils.processCreateWaitTask("VENDOR001", null, waitTaskInfo);				
+			ret = this.insertVendorInfo(vInfo);
+		}else{
+			//获取需要提交数据的状态
+			int iState = Integer.parseInt(vInfo.getState());
+			if(iState == StateConstants.STATE_1 || iState == StateConstants.STATE_3 ){
+				vInfo.setState(new Integer(StateConstants.STATE_2).toString());
+				ret = this.innerUpdateVendorInfo(vInfo, vInfo.getStaffId(), vInfo.getStaffName(), null);
+				if(ret == 0){//发待办通知,先取消可能的待办，再添加新的待办
+					ret = vInfo.getBaseSeqId();
+					WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
+					Map<String , String> hmParam = new HashMap<String,String>();
+					hmParam.put("$staffName", vInfo.getStaffName());
+					hmParam.put("$commCode", vInfo.getCommCode());
+					hmParam.put("$shortName", vInfo.getShortName());
+					waitTaskInfo.setHmParam(hmParam);
+					waitTaskInfo.setBusinessKey(vInfo.getWaitTaskKey());
+					VendorWaitTaskUtils.processCreateWaitTask("VENDOR001", null, waitTaskInfo);				
+				}
+			}else{//数据的状态表示不能提交
+				ret =-2; 
 			}
-		}else{//数据的状态表示不能提交
-			ret =2; 
 		}
 		return ret;
 	}
