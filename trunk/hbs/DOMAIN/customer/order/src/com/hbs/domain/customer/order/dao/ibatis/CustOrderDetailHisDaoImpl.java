@@ -167,5 +167,14 @@ public class CustOrderDetailHisDaoImpl extends SqlMapClientDaoSupport implements
 			throws DataAccessException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.hbs.domain.customer.order.dao.CustOrderDetailDao#updateCustOrderDetailByRltPoNo(com.hbs.domain.customer.order.pojo.CustOrderDetail)
+	 */
+	public void updateCustOrderDetailByRltPoNo(CustOrderDetail custOrderDetail)
+			throws DataAccessException {
+		// TODO Auto-generated method stub
+		
 	}  
 }

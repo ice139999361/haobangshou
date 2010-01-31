@@ -169,6 +169,31 @@
 	</dynamic>
 </update>
 
+<update id="CustOrderDetail_updateCustOrderDetailByRltPoNo" parameterClass="custOrderDetail">
+	UPDATE T_CUST_ORDER_DETAIL
+	    SET PO_NO = #poNo#,
+	    <isNotEmpty prepend="," property="rltOrderPoNo">
+         <![CDATA[ 
+         	RLT_ORDER_PO_NO = CONCAT_WS(',',RLT_ORDER_PO_NO,#rltOrderPoNo#)
+         ]]>    
+		</isNotEmpty>
+	    RLT_ORDER_PO_NO = #rltOrderPoNo#
+	<dynamic prepend="WHERE">				
+				<isNotEmpty prepend="and" property = "commCode">
+					C_CODE = #commCode#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property = "poNo">
+					PO_NO = #poNo#
+				</isNotEmpty>				
+				<isNotEmpty prepend="and" property = "partNo">
+					PART_NO = #partNo#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property = "specDesc">
+					SPEC_DESC = #specDesc#
+				</isNotEmpty>
+	</dynamic>
+</update>
+
 <update id="CustOrderDetail_updateCustOrderDetailAmount" parameterClass="custOrderDetail">
 	
 	UPDATE T_CUST_ORDER_DETAIL
@@ -546,7 +571,13 @@
 			<isNotEmpty prepend="and" property = "rltSendPoNo">
 				RLT_SEND_PO_NO = #rltSendPoNo#
 			</isNotEmpty>
+			<isNotEmpty prepend="order by" property="sort">
+                   $sort$
+            </isNotEmpty>
 		</dynamic>
+		<![CDATA[
+      		LIMIT #start# ,#end#
+		]]>
 </select>
 
 

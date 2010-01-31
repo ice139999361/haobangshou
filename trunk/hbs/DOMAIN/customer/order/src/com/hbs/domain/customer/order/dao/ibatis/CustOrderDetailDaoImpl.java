@@ -97,6 +97,17 @@ public class CustOrderDetailDaoImpl extends SqlMapClientDaoSupport implements Cu
     		logger.debug("离开updateCustOrderDetail(CustOrderDetail)");
 		}
     } 
+    
+    public void updateCustOrderDetailByRltPoNo(CustOrderDetail custOrderDetail) throws DataAccessException{
+    	if (logger.isDebugEnabled()) {
+    		logger.debug("进入updateCustOrderDetail(CustOrderDetail), 输入参数[" + custOrderDetail + "]");
+		}
+    	getSqlMapClientTemplate().update("CustOrderDetail_updateCustOrderDetailByRltPoNo", custOrderDetail);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开updateCustOrderDetail(CustOrderDetail)");
+		}
+    }
+    
     /**
      * find.
      * @param id id
