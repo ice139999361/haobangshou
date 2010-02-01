@@ -117,7 +117,7 @@
     WHERE HOUSE_SEQID = #houseSeqId#
 </update> 
 
-<select id="WareHouseInfo_findWareHouseInfo" resultMap="wareHouseInfo_result" parameterClass="string">
+<select id="WareHouseInfo_findWareHouseInfoById" resultMap="wareHouseInfo_result" parameterClass="string">
 <![CDATA[
     SELECT
             HOUSE_SEQID, 
@@ -137,6 +137,62 @@
             STATE
     FROM T_WAREHOUSE_INFO WHERE HOUSE_SEQID = #houseSeqId#
 ]]>
+</select>
+
+<select id="WareHouseInfo_findWareHouseInfoByBizKey" resultMap="wareHouseInfo_result" parameterClass="wareHouseInfo">
+<![CDATA[
+    SELECT
+            HOUSE_SEQID, 
+            HOUSE_TYPE, 
+            HOUSE_USE, 
+            VENDOR_CODE, 
+            PO_NO, 
+            PART_NO, 
+            PN_DESC, 
+            C_PART_NO, 
+            CUST_CODE, 
+            TOTAL_AMOUNT, 
+            LOCK_AMOUNT, 
+            USE_AMOUNT, 
+            MAX_AMOUNT, 
+            MIN_AMOUNT, 
+            STATE
+    FROM T_WAREHOUSE_INFO 
+]]>
+<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "houseSeqId">
+				HOUSE_SEQID = #houseSeqId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "houseType">
+				HOUSE_TYPE = #houseType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "houseUse">
+				HOUSE_USE = #houseUse#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "vendorCode">
+				VENDOR_CODE = #vendorCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "poNo">
+				PO_NO = #poNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "partNo">
+				PART_NO = #partNo#
+			</isNotEmpty>			
+			<isNotEmpty prepend="and" property = "cpartNo">
+				C_PART_NO = #cpartNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "custCode">
+				CUST_CODE = #custCode#
+			</isNotEmpty>
+			<isEmpty prepend="and" property = "custCode">
+				<![CDATA[	
+					CUST_CODE is null
+				]]>
+			</isEmpty>
+			<isNotEmpty prepend="and" property = "state">
+				STATE = #state#
+			</isNotEmpty>
+		</dynamic>
 </select>
 
 <select id="WareHouseInfo_listWareHouseInfo" resultMap="wareHouseInfo_result" parameterClass="wareHouseInfo">
