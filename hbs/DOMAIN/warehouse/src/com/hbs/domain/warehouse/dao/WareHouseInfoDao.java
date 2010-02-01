@@ -32,14 +32,15 @@ public interface WareHouseInfoDao {
      * @throws DataAccessException DataAccessException
      */
     void updateWareHouseInfo(WareHouseInfo wareHouseInfo) throws DataAccessException ;
-
+    void updateWareHouseInfoByMaxMin(WareHouseInfo wareHouseInfo) throws DataAccessException ;
     /**
      * find.
      * @param id id
      * @return wareHouseInfo
      * @throws DataAccessException DataAccessException
      */
-    WareHouseInfo findWareHouseInfo(String id) throws DataAccessException ;
+    WareHouseInfo findWareHouseInfoById(String id) throws DataAccessException ;
+    WareHouseInfo findWareHouseInfoByBizKey(WareHouseInfo wareHouseInfo) throws DataAccessException ;
     
     /**
      * list.
@@ -47,7 +48,7 @@ public interface WareHouseInfoDao {
      * @return wareHouseInfo list
      * @throws DataAccessException DataAccessException
      */
-    List listWareHouseInfo(WareHouseInfo wareHouseInfo) throws DataAccessException ;
+    List<WareHouseInfo> listWareHouseInfo(WareHouseInfo wareHouseInfo) throws DataAccessException ;
     
     /**
      * listCount.

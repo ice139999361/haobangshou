@@ -66,7 +66,18 @@
 ]]>
 </delete>    
 
-
+<update id="WareHouseInfo_updateWareHouseInfoByMaxMin" parameterClass="wareHouseInfo">
+    UPDATE T_WAREHOUSE_INFO 
+    SET
+		HOUSE_SEQID = #houseSeqId#
+	<isNotEmpty prepend="," property="maxAmount">
+            MAX_AMOUNT = #maxAmount#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="minAmount">
+            MIN_AMOUNT = #minAmount#
+	</isNotEmpty>	
+    WHERE HOUSE_SEQID = #houseSeqId#
+</update>
 
 <update id="WareHouseInfo_updateWareHouseInfo" parameterClass="wareHouseInfo">
     UPDATE T_WAREHOUSE_INFO 
@@ -227,48 +238,36 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "vendorCode">
 				VENDOR_CODE = #vendorCode#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "poNo">
-				PO_NO = #poNo#
-			</isNotEmpty>
+			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "partNo">
-				PART_NO = #partNo#
+				PART_NO like '%$partNo$%'
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "pnDesc">
-				PN_DESC = #pnDesc#
+				PN_DESC like '%$pnDesc$%'
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "cpartNo">
-				C_PART_NO = #cpartNo#
+				C_PART_NO like '%$cpartNo$%'
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "custCode">
 				CUST_CODE = #custCode#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "totalAmount">
-				TOTAL_AMOUNT = #totalAmount#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "lockAmount">
-				LOCK_AMOUNT = #lockAmount#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "useAmount">
-				USE_AMOUNT = #useAmount#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "maxAmount">
-				MAX_AMOUNT = #maxAmount#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "minAmount">
-				MIN_AMOUNT = #minAmount#
-			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "state">
 				STATE = #state#
 			</isNotEmpty>
+			<isNotEmpty prepend="order by" property="sort">
+                   $sort$
+            </isNotEmpty>
 		</dynamic>
+		<![CDATA[
+      		LIMIT #start# ,#end#
+		]]>
 </select>
 
 
 <select id="WareHouseInfo_listWareHouseInfoCount" resultClass="java.lang.Integer" parameterClass="wareHouseInfo">
 <![CDATA[
     SELECT
-		COUNT(*)
+		COUNT(1)
     FROM T_WAREHOUSE_INFO
 ]]>
 		<dynamic prepend="WHERE">
@@ -283,36 +282,18 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "vendorCode">
 				VENDOR_CODE = #vendorCode#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "poNo">
-				PO_NO = #poNo#
-			</isNotEmpty>
+			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "partNo">
-				PART_NO = #partNo#
+				PART_NO like '%$partNo$%'
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "pnDesc">
-				PN_DESC = #pnDesc#
+				PN_DESC like '%$pnDesc$%'
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "cpartNo">
-				C_PART_NO = #cpartNo#
+				C_PART_NO like '%$cpartNo$%'
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "custCode">
 				CUST_CODE = #custCode#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "totalAmount">
-				TOTAL_AMOUNT = #totalAmount#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "lockAmount">
-				LOCK_AMOUNT = #lockAmount#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "useAmount">
-				USE_AMOUNT = #useAmount#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "maxAmount">
-				MAX_AMOUNT = #maxAmount#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "minAmount">
-				MIN_AMOUNT = #minAmount#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "state">
 				STATE = #state#

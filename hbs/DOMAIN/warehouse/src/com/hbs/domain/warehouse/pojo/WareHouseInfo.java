@@ -83,7 +83,7 @@ public class WareHouseInfo extends BaseDomain{
     /**
      * 库存状态0---有可用库存 1---无可用库存.
      */
-    private String state;
+    private String state="0";
 
 
     
@@ -206,5 +206,48 @@ public class WareHouseInfo extends BaseDomain{
     public void setState(String state) {
         this.state = state;
     }
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		if(this.houseSeqId != null){
+			sb.append("houseSeqId=").append(this.houseSeqId).append(" ");
+		}
+		if(this.houseType != null){
+			sb.append("houseType=").append(this.houseType).append(" ");
+		}
+		if(this.houseUse != null){
+			sb.append("houseUse=").append(this.houseUse).append(" ");
+		}
+		if(this.vendorCode != null){
+			sb.append("vendorCode=").append(this.vendorCode).append(" ");
+		}
+//		if(this.poNo != null){
+//			sb.append("poNo=").append(this.poNo).append(" ");
+//		}
+		if(this.partNo != null){
+			sb.append("partNo=").append(this.partNo).append(" ");
+		}
+		if(this.pnDesc != null){
+			sb.append("pnDesc=").append(this.pnDesc).append(" ");
+		}
+		if(this.cpartNo != null){
+			sb.append("cpartNo=").append(this.cpartNo).append(" ");
+		}
+		if(this.totalAmount != null){
+			sb.append("totalAmount=").append(this.totalAmount).append(" ");
+		}
+		if(this.lockAmount != null){
+			sb.append("lockAmount=").append(this.lockAmount).append(" ");
+		}
+		if(this.useAmount != null){
+			sb.append("useAmount=").append(this.useAmount).append(" ");
+		}
+		if(this.state != null){
+			sb.append("state=").append(this.state).append(" ");
+		}
+		
+		return sb.toString();
+	}
 
 }
