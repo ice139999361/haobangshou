@@ -22,18 +22,10 @@
     <result property="state" column="STATE"/>
 </resultMap>
 
-<select id="WareHouseInfo_getNextId" resultClass="java.lang.String">
-<![CDATA[
-    SELECT ltrim(to_char(Seq_T_WAREHOUSE_INFO_Id.Nextval,'0000000000')) 
-           AS Id 
-    FROM dual
-]]>
-</select>
 
 <insert id="WareHouseInfo_insertWareHouseInfo" parameterClass="wareHouseInfo" >
 <![CDATA[
-    INSERT INTO T_WAREHOUSE_INFO (
-            HOUSE_SEQID, 
+    INSERT INTO T_WAREHOUSE_INFO (            
             HOUSE_TYPE, 
             HOUSE_USE, 
             VENDOR_CODE, 
@@ -49,8 +41,7 @@
             MIN_AMOUNT, 
             STATE
         )
-    VALUES (
-            #houseSeqId#,
+    VALUES (           
             #houseType#,
             #houseUse#,
             #vendorCode#,
@@ -74,6 +65,8 @@
     DELETE  FROM  T_WAREHOUSE_INFO WHERE HOUSE_SEQID = #houseSeqId#
 ]]>
 </delete>    
+
+
 
 <update id="WareHouseInfo_updateWareHouseInfo" parameterClass="wareHouseInfo">
     UPDATE T_WAREHOUSE_INFO 
