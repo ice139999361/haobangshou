@@ -235,6 +235,7 @@ var ExtConvertHelper = {
 		 ,"datefield" 		: Ext.form.DateField
 		 ,"textarea"			: Ext.form.TextArea
 		 ,"numberfield"		: Ext.form.NumberField
+		 ,"dictcombo"     : "ExtUx.widget.DictCombo"
 	 }
 };
 //alert(ExtConvertHelper.convertDOMJSON)

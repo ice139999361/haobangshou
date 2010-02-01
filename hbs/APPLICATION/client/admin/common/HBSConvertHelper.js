@@ -83,6 +83,8 @@ var HBSConvertHelper = {
 	 			// 装载数据到集合
 	 			if(tmp) _data.push(tmp);
 	 			
+	 			// 装载提交的 fields
+	 			_data.push((_paramName + "Fields=" + _grid.getSubmitFields()));
 	 		});
 	 		
 	 		return _data.join("&");
