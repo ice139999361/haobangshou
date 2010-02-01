@@ -69,18 +69,37 @@ public class WareHouseInfoDaoImpl extends SqlMapClientDaoSupport implements Ware
     		logger.debug("离开updateWareHouseInfo(WareHouseInfo)");
 		}
     }
-    
+    public void updateWareHouseInfoByMaxMin(WareHouseInfo wareHouseInfo) throws DataAccessException {
+    	if (logger.isDebugEnabled()) {
+    		logger.debug("进入updateWareHouseInfo(WareHouseInfo), 输入参数[" + wareHouseInfo + "]");
+		}
+    	getSqlMapClientTemplate().update("WareHouseInfo_updateWareHouseInfoByMaxMin", wareHouseInfo);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开updateWareHouseInfo(WareHouseInfo)");
+		}
+    }
     /**
      * find.
      * @param id id
      * @return wareHouseInfo
      * @throws DataAccessException DataAccessException
      */
-    public WareHouseInfo findWareHouseInfo(String pk) throws DataAccessException {
+    public WareHouseInfo findWareHouseInfoById(String pk) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入findWareHouseInfo(WareHouseInfo), 输入参数[" + pk + "]");
 		}
-        WareHouseInfo wareHouseInfo = (WareHouseInfo) getSqlMapClientTemplate().queryForObject("WareHouseInfo_findWareHouseInfo", pk);
+        WareHouseInfo wareHouseInfo = (WareHouseInfo) getSqlMapClientTemplate().queryForObject("WareHouseInfo_findWareHouseInfoById", pk);
+		if (logger.isDebugEnabled()) {
+        	logger.debug("离开findWareHouseInfo(WareHouseInfo), 返回[" + wareHouseInfo + "]");
+		}
+        return wareHouseInfo;
+    }
+    
+    public WareHouseInfo findWareHouseInfoByBizKey(WareHouseInfo warehouseInfo) throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+        	logger.debug("进入findWareHouseInfo(WareHouseInfo), 输入参数[" + warehouseInfo + "]");
+		}
+        WareHouseInfo wareHouseInfo = (WareHouseInfo) getSqlMapClientTemplate().queryForObject("WareHouseInfo_findWareHouseInfoByBizKey", warehouseInfo);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开findWareHouseInfo(WareHouseInfo), 返回[" + wareHouseInfo + "]");
 		}
@@ -93,11 +112,12 @@ public class WareHouseInfoDaoImpl extends SqlMapClientDaoSupport implements Ware
      * @return wareHouseInfo list
      * @throws DataAccessException DataAccessException
      */
-    public List listWareHouseInfo(WareHouseInfo wareHouseInfo) throws DataAccessException {
+    @SuppressWarnings("unchecked")
+	public List<WareHouseInfo> listWareHouseInfo(WareHouseInfo wareHouseInfo) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listWareHouseInfo(WareHouseInfo), 输入参数[" + wareHouseInfo + "]");
 		}
-        List list = getSqlMapClientTemplate().queryForList("WareHouseInfo_listWareHouseInfo", wareHouseInfo);
+        List<WareHouseInfo> list = getSqlMapClientTemplate().queryForList("WareHouseInfo_listWareHouseInfo", wareHouseInfo);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listWareHouseInfo(WareHouseInfo), 返回[" + list + "]");
 		}
