@@ -1,12 +1,14 @@
 package com.hbs.domain.warehouse.pojo;
 
+import com.hbs.domain.common.pojo.base.BaseDomain;
+
 
 /**
  * WareHouseInfo∂‘œÛ.
  * @author hbs
  *
  */
-public class WareHouseInfo {
+public class WareHouseInfo extends BaseDomain{
     
     /**
      * –Ú¡–∫≈.
