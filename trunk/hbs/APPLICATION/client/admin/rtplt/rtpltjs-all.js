@@ -18,6 +18,7 @@ document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt
 document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/MenuTreeLoader.js"><\/script>');
 document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/TreeMenu.js"><\/script>');
 document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/XPagingToolbar.js"><\/script>');
+document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/DictCombo.js"><\/script>');
 document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/ColumnPanelHelper.js"><\/script>');
 document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/QueryForm.js"><\/script>');
 document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/ListPanel.js"><\/script>');
