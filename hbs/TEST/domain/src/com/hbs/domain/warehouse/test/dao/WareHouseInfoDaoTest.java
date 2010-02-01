@@ -92,24 +92,24 @@ public class WareHouseInfoDaoTest extends AbstractTransactionalDataSourceSpringC
      */
     public void testFindWareHouseInfo() {
         WareHouseInfoDao wareHouseInfoDao = (WareHouseInfoDao) this.getApplicationContext().getBean("wareHouseInfoDao");
-        WareHouseInfo wareHouseInfo = wareHouseInfoDao.findWareHouseInfo("1");
-        
-        System.out.println("testFind result--------------------------------------");
-        System.out.println("houseSeqId=" + wareHouseInfo.getHouseSeqId());
-        System.out.println("houseType=" + wareHouseInfo.getHouseType());
-        System.out.println("houseUse=" + wareHouseInfo.getHouseUse());
-        System.out.println("vendorCode=" + wareHouseInfo.getVendorCode());
-        System.out.println("poNo=" + wareHouseInfo.getPoNo());
-        System.out.println("partNo=" + wareHouseInfo.getPartNo());
-        System.out.println("pnDesc=" + wareHouseInfo.getPnDesc());
-        System.out.println("cpartNo=" + wareHouseInfo.getCpartNo());
-        System.out.println("custCode=" + wareHouseInfo.getCustCode());
-        System.out.println("totalAmount=" + wareHouseInfo.getTotalAmount());
-        System.out.println("lockAmount=" + wareHouseInfo.getLockAmount());
-        System.out.println("useAmount=" + wareHouseInfo.getUseAmount());
-        System.out.println("maxAmount=" + wareHouseInfo.getMaxAmount());
-        System.out.println("minAmount=" + wareHouseInfo.getMinAmount());
-        System.out.println("state=" + wareHouseInfo.getState());
+//        WareHouseInfo wareHouseInfo = wareHouseInfoDao.findWareHouseInfo("1");
+//        
+//        System.out.println("testFind result--------------------------------------");
+//        System.out.println("houseSeqId=" + wareHouseInfo.getHouseSeqId());
+//        System.out.println("houseType=" + wareHouseInfo.getHouseType());
+//        System.out.println("houseUse=" + wareHouseInfo.getHouseUse());
+//        System.out.println("vendorCode=" + wareHouseInfo.getVendorCode());
+//        System.out.println("poNo=" + wareHouseInfo.getPoNo());
+//        System.out.println("partNo=" + wareHouseInfo.getPartNo());
+//        System.out.println("pnDesc=" + wareHouseInfo.getPnDesc());
+//        System.out.println("cpartNo=" + wareHouseInfo.getCpartNo());
+//        System.out.println("custCode=" + wareHouseInfo.getCustCode());
+//        System.out.println("totalAmount=" + wareHouseInfo.getTotalAmount());
+//        System.out.println("lockAmount=" + wareHouseInfo.getLockAmount());
+//        System.out.println("useAmount=" + wareHouseInfo.getUseAmount());
+//        System.out.println("maxAmount=" + wareHouseInfo.getMaxAmount());
+//        System.out.println("minAmount=" + wareHouseInfo.getMinAmount());
+//        System.out.println("state=" + wareHouseInfo.getState());
     }
 
     /**
