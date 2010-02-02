@@ -46,7 +46,7 @@ public class CustPartNoInfoNormalAction extends BaseAction {
     {
     	try
     	{
-			logger.debug("begin doList");
+			if (logger.isDebugEnabled())    logger.debug("begin doList");
 
 			if(!checkCommonFields())
 				return ERROR;
@@ -56,7 +56,7 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 			setResult("list", mgr.listCustPartNoInfo(custPartNoInfo));
 			setTotalCount(mgr.listCustPartNoInfoCount(custPartNoInfo));
 			setResult("count", getTotalCount());
-			logger.debug("end doList");
+			if (logger.isDebugEnabled())    logger.debug("end doList");
     		return SUCCESS;
     	}
     	catch(Exception e)
@@ -76,7 +76,7 @@ public class CustPartNoInfoNormalAction extends BaseAction {
     {
     	try
     	{
-			logger.debug("begin doSave");
+			if (logger.isDebugEnabled())    logger.debug("begin doSave");
 
 			if(!checkCommonFields())
 				return ERROR;
@@ -100,7 +100,7 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 				setErrorReason("±£´æ³ö´í£¡");
 				return ERROR;
 			}
-			logger.debug("end doSave");
+			if (logger.isDebugEnabled())    logger.debug("end doSave");
     		return SUCCESS;
     	}
     	catch(Exception e)

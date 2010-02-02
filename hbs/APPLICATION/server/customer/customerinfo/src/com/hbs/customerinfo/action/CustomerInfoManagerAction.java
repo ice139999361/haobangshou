@@ -70,7 +70,7 @@ public class CustomerInfoManagerAction extends BaseAction {
 	{
 		try
 		{
-			logger.debug("begin doAuditAgree");
+			if (logger.isDebugEnabled())    logger.debug("begin doAuditAgree");
 			
 			if(!CustomerInfoUtil.checkKeyFields(custInfo))
 			{
@@ -98,7 +98,7 @@ public class CustomerInfoManagerAction extends BaseAction {
 				setErrorReason(s);
 				return ERROR;
 			}
-			logger.debug("end doAuditAgree");
+			if (logger.isDebugEnabled())    logger.debug("end doAuditAgree");
 			return SUCCESS;
 		}
 		catch(Exception e)
@@ -121,7 +121,7 @@ public class CustomerInfoManagerAction extends BaseAction {
 	{
 		try
 		{
-			logger.debug("begin doAuditDisAgree");
+			if (logger.isDebugEnabled())    logger.debug("begin doAuditDisAgree");
 			if(!CustomerInfoUtil.checkKeyFields(custInfo))
 			{
 				logger.info("参数错误！");
@@ -148,7 +148,7 @@ public class CustomerInfoManagerAction extends BaseAction {
 				setErrorReason(s);
 				return ERROR;
 			}
-			logger.debug("end doAuditDisAgree");
+			if (logger.isDebugEnabled())    logger.debug("end doAuditDisAgree");
 			return SUCCESS;
 		}
 		catch(Exception e)
@@ -169,13 +169,13 @@ public class CustomerInfoManagerAction extends BaseAction {
 	{
 		try
 		{
-			logger.debug("begin doList");
+			if (logger.isDebugEnabled())    logger.debug("begin doList");
 			CustomerInfoMgr mgr = (CustomerInfoMgr)BeanLocator.getInstance().getBean(custInfoMgrName);
 			setPagination(custInfo);
 			setResult("list", mgr.getCustomerInfoList(custInfo));
 			setTotalCount(mgr.getCustomerInfoCount(custInfo));
 			setResult("count", getTotalCount());
-			logger.debug("end doList");
+			if (logger.isDebugEnabled())    logger.debug("end doList");
 			return SUCCESS;
 		}
 		catch(Exception e)
@@ -196,7 +196,7 @@ public class CustomerInfoManagerAction extends BaseAction {
 	{
 		try
 		{
-			logger.debug("begin doListForAudit");
+			if (logger.isDebugEnabled())    logger.debug("begin doListForAudit");
 			CustomerInfoMgr mgr = (CustomerInfoMgr)BeanLocator.getInstance().getBean(custInfoMgrName);
 			custInfo = new CustomerInfo();
 			custInfo.setState(stateForAudit);
@@ -204,7 +204,7 @@ public class CustomerInfoManagerAction extends BaseAction {
 			setResult("list", mgr.getCustomerInfoList(custInfo));
 			setTotalCount(mgr.getCustomerInfoCount(custInfo));
 			setResult("count", getTotalCount());
-			logger.debug("end doListForAudit");
+			if (logger.isDebugEnabled())    logger.debug("end doListForAudit");
 			return SUCCESS;
 		}
 		catch(Exception e)
@@ -226,7 +226,7 @@ public class CustomerInfoManagerAction extends BaseAction {
 	{
 		try
 		{
-			logger.debug("begin doGetInfo");
+			if (logger.isDebugEnabled())    logger.debug("begin doGetInfo");
 			if(!CustomerInfoUtil.checkKeyFields(custInfo))
 			{
 				logger.info("参数错误！");
@@ -236,7 +236,7 @@ public class CustomerInfoManagerAction extends BaseAction {
 			CustomerInfoMgr mgr = (CustomerInfoMgr)BeanLocator.getInstance().getBean(custInfoMgrName);
 			getCustInfoValue(mgr);
 			this.setResult("custInfo", custInfo);
-			logger.debug("end doGetInfo");
+			if (logger.isDebugEnabled())    logger.debug("end doGetInfo");
 			return SUCCESS;
 		}
 		catch(Exception e)
