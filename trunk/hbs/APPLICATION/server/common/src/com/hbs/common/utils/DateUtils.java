@@ -66,4 +66,21 @@ public class DateUtils {
 		DateTime curTime = new DateTime(new Date());
 		return curTime.toString(format);
 	}
+	
+	/**
+	 * 根据传入的日期和需要的格式，返回格式化字符串
+	 * 如果传入的格式为null，使用系统缺省的格式
+	 * @param date
+	 * @param format
+	 * @return
+	 */
+	public static String getFormatDate(Date date,String format){
+		String ft = null;
+		if(null == format){
+			ft = DATEFORMAT;
+		}else{
+			ft = format;
+		}
+		return (new DateTime(date)).toString(ft);
+	}
 }
