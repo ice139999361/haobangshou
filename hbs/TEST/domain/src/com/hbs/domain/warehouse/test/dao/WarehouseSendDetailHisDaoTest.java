@@ -93,7 +93,7 @@ public class WarehouseSendDetailHisDaoTest extends AbstractTransactionalDataSour
 //        warehouseSendDetail.setVendorCode("1");
         warehouseSendDetail.setVendorPoNo("1");
         warehouseSendDetail.setPeriod("1");
-        warehouseSendDetail.setCREATE_TIME(new Date());
+       // warehouseSendDetail.setCREATE_TIME(new Date());
         warehouseSendDetail.setState("1");
         warehouseSendDetail.setActiveState("1");
         warehouseSendDetail.setFinanceState("1");
@@ -130,7 +130,7 @@ public class WarehouseSendDetailHisDaoTest extends AbstractTransactionalDataSour
         System.out.println("vendorCode=" + warehouseSendDetail.getVendorCode());
         System.out.println("vendorPoNo=" + warehouseSendDetail.getVendorPoNo());
         System.out.println("period=" + warehouseSendDetail.getPeriod());
-        System.out.println("CREATE_TIME=" + warehouseSendDetail.getCREATE_TIME());
+      //  System.out.println("CREATE_TIME=" + warehouseSendDetail.getCREATE_TIME());
         System.out.println("state=" + warehouseSendDetail.getState());
         System.out.println("activeState=" + warehouseSendDetail.getActiveState());
         System.out.println("financeState=" + warehouseSendDetail.getFinanceState());
@@ -161,7 +161,7 @@ public class WarehouseSendDetailHisDaoTest extends AbstractTransactionalDataSour
         warehouseSendDetail.setVendorCode("1");
         warehouseSendDetail.setVendorPoNo("1");
         warehouseSendDetail.setPeriod("1");
-        warehouseSendDetail.setCREATE_TIME(null);
+      //  warehouseSendDetail.setCREATE_TIME(null);
         warehouseSendDetail.setState("1");
         warehouseSendDetail.setActiveState("1");
         warehouseSendDetail.setFinanceState("1");
@@ -189,7 +189,7 @@ public class WarehouseSendDetailHisDaoTest extends AbstractTransactionalDataSour
             System.out.println(i + " vendorCode=" + tmpWarehouseSendDetail.getVendorCode());
             System.out.println(i + " vendorPoNo=" + tmpWarehouseSendDetail.getVendorPoNo());
             System.out.println(i + " period=" + tmpWarehouseSendDetail.getPeriod());
-            System.out.println(i + " CREATE_TIME=" + tmpWarehouseSendDetail.getCREATE_TIME());
+        //    System.out.println(i + " CREATE_TIME=" + tmpWarehouseSendDetail.getCREATE_TIME());
             System.out.println(i + " state=" + tmpWarehouseSendDetail.getState());
             System.out.println(i + " activeState=" + tmpWarehouseSendDetail.getActiveState());
             System.out.println(i + " financeState=" + tmpWarehouseSendDetail.getFinanceState());
@@ -222,7 +222,7 @@ public class WarehouseSendDetailHisDaoTest extends AbstractTransactionalDataSour
         warehouseSendDetail.setVendorCode("1");
         warehouseSendDetail.setVendorPoNo("1");
         warehouseSendDetail.setPeriod("1");
-        warehouseSendDetail.setCREATE_TIME(null);
+      //  warehouseSendDetail.setCREATE_TIME(null);
         warehouseSendDetail.setState("1");
         warehouseSendDetail.setActiveState("1");
         warehouseSendDetail.setFinanceState("1");
