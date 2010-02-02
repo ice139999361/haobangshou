@@ -1,13 +1,17 @@
 package com.hbs.domain.warehouse.pojo;
 
 import java.util.Date;
+import java.util.List;
+
+import com.hbs.common.utils.DateUtils;
+import com.hbs.domain.common.pojo.base.BaseDomain;
 
 /**
  * WarehouseRecInfo对象.
  * @author hbs
  *
  */
-public class WarehouseRecInfo {
+public class WarehouseRecInfo extends BaseDomain{
     
     /**
      * 供应商入库单号（供应商送货单号）.
@@ -52,7 +56,7 @@ public class WarehouseRecInfo {
     /**
      * 操作时间.
      */
-    private String operTime;
+    private Date operTime;
     
     /**
      * 收货单备注.
@@ -67,12 +71,12 @@ public class WarehouseRecInfo {
     /**
      * 收货单（入库单）状态.
      */
-    private Integer state;
+    private String state;
     
     /**
      * 活动状态.
      */
-    private Integer activeState;
+    private String activeState;
     
     /**
      * 财务结算状态0----未对账1---已对账.
@@ -84,9 +88,21 @@ public class WarehouseRecInfo {
      */
     private String poNoType;
 
-
+    /**
+     * 供应商入库单明细
+     */
+    private List<WarehouseRecDetail> detailList;
     
-    public String getRecPoNo() {
+    
+    public List<WarehouseRecDetail> getDetailList() {
+		return detailList;
+	}
+
+	public void setDetailList(List<WarehouseRecDetail> detailList) {
+		this.detailList = detailList;
+	}
+
+	public String getRecPoNo() {
         return this.recPoNo;
     }	
   
@@ -150,11 +166,11 @@ public class WarehouseRecInfo {
         this.operStaff = operStaff;
     }
     
-    public String getOperTime() {
+    public Date getOperTime() {
         return this.operTime;
     }	
   
-    public void setOperTime(String operTime) {
+    public void setOperTime(Date operTime) {
         this.operTime = operTime;
     }
     
@@ -174,19 +190,19 @@ public class WarehouseRecInfo {
         this.period = period;
     }
     
-    public Integer getState() {
+    public String getState() {
         return this.state;
     }	
   
-    public void setState(Integer state) {
+    public void setState(String state) {
         this.state = state;
     }
     
-    public Integer getActiveState() {
+    public String getActiveState() {
         return this.activeState;
     }	
   
-    public void setActiveState(Integer activeState) {
+    public void setActiveState(String activeState) {
         this.activeState = activeState;
     }
     
@@ -205,5 +221,62 @@ public class WarehouseRecInfo {
     public void setPoNoType(String poNoType) {
         this.poNoType = poNoType;
     }
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		if(null != this.recPoNo){
+			sb.append("recPoNo=").append(this.recPoNo).append(" ");
+		}
+		if(null != this.vendorCode){
+			sb.append("vendorCode=").append(this.vendorCode).append(" ");
+		}
+		if(null != this.shortName){
+			sb.append("shortName=").append(this.shortName).append(" ");
+		}
+		if(null != this.poNoDate){
+			sb.append("poNoDate=").append(DateUtils.getFormatDate(this.poNoDate,null)).append(" ");
+		}
+		if(null != this.applyDate){
+			sb.append("applyDate=").append(DateUtils.getFormatDate(this.applyDate,null)).append(" ");
+		}
+		if(null != this.houseType){
+			sb.append("houseType=").append(this.houseType).append(" ");
+		}
+		if(null != this.operId){
+			sb.append("operId=").append(this.operId).append(" ");
+		}
+		if(null != this.operStaff){
+			sb.append("operStaff=").append(this.operStaff).append(" ");
+		}
+		if(null != this.operTime){
+			sb.append("operTime=").append(DateUtils.getFormatDate(this.operTime,null)).append(" ");
+		}
+		if(null != this.receiveDesc){
+			sb.append("receiveDesc=").append(this.receiveDesc).append(" ");
+		}
+		if(null != this.period){
+			sb.append("period=").append(this.period).append(" ");
+		}
+		if(null != this.state){
+			sb.append("state=").append(this.state).append(" ");
+		}
+		if(null != this.activeState){
+			sb.append("activeState=").append(this.activeState).append(" ");
+		}
+		if(null != this.financeState){
+			sb.append("financeState=").append(this.financeState).append(" ");
+		}
+		
+		if(null != this.poNoType){
+			sb.append("poNoType=").append(this.poNoType).append(" ");
+		}
+		
+		if(null != this.detailList){
+			sb.append("detailList=").append((this.detailList).size()).append(" ");
+		}
+		
+		return sb.toString();
+	}
 
 }

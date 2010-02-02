@@ -124,7 +124,7 @@
     WHERE REC_PO_NO = #recPoNo#
 </update> 
 
-<select id="WarehouseRecInfo_findWarehouseRecInfo" resultMap="warehouseRecInfo_result" parameterClass="string">
+<select id="WarehouseRecInfo_findWarehouseRecInfo" resultMap="warehouseRecInfo_result" parameterClass="warehouseRecInfo">
 <![CDATA[
     SELECT
             REC_PO_NO, 
@@ -142,7 +142,7 @@
             ACTIVE_STATE, 
             FINANCE_STATE, 
             PO_NO_TYPE
-    FROM T_WAREHOUSE_RECEIVE WHERE REC_PO_NO = #recPoNo#
+    FROM T_WAREHOUSE_RECEIVE WHERE REC_PO_NO = #recPoNo# AND C_CODE=#vendorCode#
 ]]>
 </select>
 

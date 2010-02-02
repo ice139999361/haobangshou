@@ -118,5 +118,14 @@ public class WarehouseRecInfoHisDaoImpl extends SqlMapClientDaoSupport implement
         	logger.debug("Àë¿ªlistWarehouseRecInfoCount(WarehouseRecInfo), ·µ»Ø[" + count + "]");
 		}
         return count;
-    }  
+    }
+
+	/* (non-Javadoc)
+	 * @see com.hbs.domain.warehouse.dao.WarehouseRecInfoDao#findWarehouseRecInfo(com.hbs.domain.warehouse.pojo.WarehouseRecInfo)
+	 */
+	public WarehouseRecInfo findWarehouseRecInfo(
+			WarehouseRecInfo warehouseRecInfo) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return null;
+	}  
 }

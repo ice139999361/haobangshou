@@ -39,7 +39,7 @@ public interface WarehouseRecInfoDao {
      * @return warehouseRecInfo
      * @throws DataAccessException DataAccessException
      */
-    WarehouseRecInfo findWarehouseRecInfo(String id) throws DataAccessException ;
+    WarehouseRecInfo findWarehouseRecInfo(WarehouseRecInfo warehouseRecInfo) throws DataAccessException ;
     
     /**
      * list.
