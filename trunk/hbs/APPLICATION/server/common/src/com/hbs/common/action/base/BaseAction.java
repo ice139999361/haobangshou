@@ -215,7 +215,7 @@ public class BaseAction extends ActionSupport {
 	 */
 	public void setPagination(BaseDomain domain) {
 		// …Ë÷√∑÷“≥ Ù–‘: start,limit,sort,order
-		domain.setStart(getStart() + 1);
+		domain.setStart(getStart());
 		domain.setEnd(getStart() + getLimit());
 		domain.setSort(getSort());
 		domain.setOrder(getDir());

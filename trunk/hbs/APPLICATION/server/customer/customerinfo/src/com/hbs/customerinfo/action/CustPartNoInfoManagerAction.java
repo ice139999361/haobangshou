@@ -48,7 +48,7 @@ public class CustPartNoInfoManagerAction extends BaseAction {
     {
     	try
     	{
-			logger.debug("begin doList");
+			if (logger.isDebugEnabled())    logger.debug("begin doList");
 
 			if(!checkCommonFields())
 				return ERROR;
@@ -58,7 +58,7 @@ public class CustPartNoInfoManagerAction extends BaseAction {
 			setResult("list", mgr.listCustPartNoInfo(custPartNoInfo));
 			setTotalCount(mgr.listCustPartNoInfoCount(custPartNoInfo));
 			setResult("count", getTotalCount());
-			logger.debug("end doList");
+			if (logger.isDebugEnabled())    logger.debug("end doList");
     		return SUCCESS;
     	}
     	catch(Exception e)
@@ -78,7 +78,7 @@ public class CustPartNoInfoManagerAction extends BaseAction {
     public String doAuditAgree()
     {
     	try{
-    		logger.debug("begin doAuditAgree");
+    		if (logger.isDebugEnabled())    logger.debug("begin doAuditAgree");
     		
 			if(!checkCommonFields())
 				return ERROR;
@@ -100,7 +100,7 @@ public class CustPartNoInfoManagerAction extends BaseAction {
 				return ERROR;
 			}
 		
-    		logger.debug("end doAuditAgree");
+    		if (logger.isDebugEnabled())    logger.debug("end doAuditAgree");
     		return SUCCESS;
     	}catch(Exception e){
     		logger.error("catch Exception in doAuditAgree.", e);
@@ -118,7 +118,7 @@ public class CustPartNoInfoManagerAction extends BaseAction {
     public String doAuditDisAgree()
     {
     	try{
-    		logger.debug("begin doAuditDisAgree");
+    		if (logger.isDebugEnabled())    logger.debug("begin doAuditDisAgree");
     		
 			if(!checkCommonFields())
 				return ERROR;
@@ -140,7 +140,7 @@ public class CustPartNoInfoManagerAction extends BaseAction {
 				return ERROR;
 			}
 		
-    		logger.debug("end doAuditDisAgree");
+    		if (logger.isDebugEnabled())    logger.debug("end doAuditDisAgree");
     		return SUCCESS;
     	}catch(Exception e){
     		logger.error("catch Exception in doAuditDisAgree.", e);
