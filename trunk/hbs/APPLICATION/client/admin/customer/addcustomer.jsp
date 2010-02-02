@@ -26,14 +26,14 @@
 				    				<textfield fieldLabel="性质"                   name="custInfo.commType"       labelStyle="width:150" />
 				    				<textfield fieldLabel="客户公司网址"           name="custInfo.webSite"        labelStyle="width:150" />
 				    				<textfield fieldLabel="客户纳税人识别号"       name="custInfo.taxCode"        labelStyle="width:150" />
-				    				<dictcombo fieldLabel="客户信用度"             name="custInfo.creditRate"     labelStyle="width:150" paramsValue="abc" emptyText="请选择" />
-				    				<dictcombo fieldLabel="客户的重要程度"         name="custInfo.importantCode"  labelStyle="width:150" paramsValue="abc" emptyText="请选择" />
-				    				<dictcombo fieldLabel="客户结算类型"           name="custInfo.settlementType" labelStyle="width:150" paramsValue="abc" emptyText="请选择" />
+				    				<dictcombo fieldLabel="客户信用度"             name="custInfo.creditRate"     labelStyle="width:150" paramsValue="CREDIT_RATE" emptyText="请选择" />
+				    				<dictcombo fieldLabel="客户的重要程度"         name="custInfo.importantCode"  labelStyle="width:150" paramsValue="IMPORTANT_CODE" emptyText="请选择" />
+				    				<dictcombo fieldLabel="客户结算类型"           name="custInfo.settlementType" labelStyle="width:150" paramsValue="SETTLEMENT_TYPE" emptyText="请选择" />
 				    				<textfield fieldLabel="销售人员ID"             name="custInfo.staffId"        labelStyle="width:150" />
 				    				<textfield fieldLabel="客户备注"               name="custInfo.commDesc"       labelStyle="width:150" />
 				    				<textfield fieldLabel="合同费"                 name="custInfo.contractFee"    labelStyle="width:150" />
 				    				<textfield fieldLabel="对应的业务部助理ID"     name="custInfo.assStaffId"     labelStyle="width:150" />
-				    				<dictcombo fieldLabel="发货单是否显示单价"     name="custInfo.isShowPrice"    labelStyle="width:150" paramsValue="abc" emptyText="请选择" />
+				    				<dictcombo fieldLabel="发货单是否显示单价"     name="custInfo.isShowPrice"    labelStyle="width:150" paramsValue="IS_SHOW_PRICE" emptyText="请选择" />
 				    				
 				    				
 				    				<textfield fieldLabel="英文简称"               name="custInfo.enShortName"    labelStyle="width:150" />
@@ -41,10 +41,10 @@
 				    				<textfield fieldLabel="公司英文地址"           name="custInfo.enAddress"      labelStyle="width:150" />
 				    				<textfield fieldLabel="规模"                   name="custInfo.commScale"      labelStyle="width:150" />
 				    				<textfield fieldLabel="客户法人代表"           name="custInfo.representative" labelStyle="width:150" />
-				    				<dictcombo fieldLabel="对应的分公司或分支机构" name="custInfo.companyBranch"  labelStyle="width:150" paramsValue="abc" emptyText="请选择" />
+				    				<dictcombo fieldLabel="对应的分公司或分支机构" name="custInfo.companyBranch"  labelStyle="width:150" paramsValue="COMPANY_BRANCH" emptyText="请选择" />
 				    				<textfield fieldLabel="信用等级描述"           name="custInfo.creditDesc"     labelStyle="width:150" />
 				    				<textfield fieldLabel="客户重要程度描述"       name="custInfo.importantDesc"  labelStyle="width:150" />
-				    				<dictcombo fieldLabel="客户结算币种"           name="custInfo.currency"       labelStyle="width:150" paramsValue="abc" emptyText="请选择" />
+				    				<dictcombo fieldLabel="客户结算币种"           name="custInfo.currency"       labelStyle="width:150" paramsValue="CURRENCY" emptyText="请选择" />
 				    				<textfield fieldLabel="销售人员名字"           name="custInfo.staffName"      labelStyle="width:150" />
 				    				<textfield fieldLabel="供应商编码"             name="custInfo.vendorCode"     labelStyle="width:150" />
 				    				<textfield fieldLabel="交易税率"               name="custInfo.taxRate"        labelStyle="width:150" />
@@ -77,7 +77,7 @@
 			    			</fields>
 			    			
 			    			<columns>
-			    				<column header="是否是主联系人" dataIndex="isPrimary" xtype="dictcombo" paramsValue="abc" emptyText="请选择" />
+			    				<column header="是否是主联系人" dataIndex="isPrimary" xtype="dictcombo" paramsValue="IS_PRIMARY" emptyText="请选择" />
 			    			</columns>
 			    			
 			    			<submitFields value="conName,conDuty,conTel,conMobile,conFax,conMail,conQq,conMsn,conOther,isPrimary" />
@@ -93,7 +93,7 @@
 			    			<columns>
 			    				<column header="收货地址" 			dataIndex="conAddress" xtype="textfield" />
 			    				<column header="收货邮编" 			dataIndex="conZip"     xtype="textfield" />
-			    				<column header="是否是主收货人" dataIndex="isPrimary"  xtype="dictcombo" paramsValue="abc" emptyText="请选择" />
+			    				<column header="是否是主收货人" dataIndex="isPrimary"  xtype="dictcombo" paramsValue="IS_PRIMARY" emptyText="请选择" />
 			    			</columns>
 			    			
 			    			<submitFields value="conName,conDuty,conTel,conMobile,conFax,conMail,conQq,conMsn,conOther,conAddress,conZip,isPrimary" />

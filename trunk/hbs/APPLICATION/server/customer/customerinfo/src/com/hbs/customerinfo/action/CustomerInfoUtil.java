@@ -163,7 +163,7 @@ s	 */
 	 */
 	static final String[] bankListFields = {"accountName", "accountBank", "account"};
 	
-	private static final String spliter = "||;;";
+	private static final String spliter = "\\|\\|;;";
 
 	static{
 		// 根据联系人字段名生成收货人字段名
@@ -327,13 +327,26 @@ s	 */
 			// 将数据接入对应字段
 			for(int i = 0; i < fieldNames.length; i++)
 			{
+				if(fieldNames[i] == null || fieldNames[i].length() == 0)
+					continue;
 				try
 				{
 					o.getClass().getDeclaredField(fieldNames[i]).set(o, ar[i]);
 				}
 				catch(Exception e)
 				{
-					logger.info("splitIntoFields处理字段"+fieldNames[i]+"出错", e);
+					if(logger.isDebugEnabled())	logger.debug("splitIntoFields处理字段"+fieldNames[i]+"出错", e);
+					String setName = "set" + fieldNames[i].substring(0, 1).toUpperCase() + fieldNames[i].substring(1);
+					try{
+						o.getClass().getDeclaredMethod(setName, String.class).invoke(o, ar[i]);
+					}catch(Exception e1){
+						if(logger.isDebugEnabled())	logger.debug("splitIntoFields处理"+setName+"(String)出错", e1);
+						try{
+							o.getClass().getDeclaredMethod(setName, Integer.class).invoke(o, Integer.parseInt(ar[i]));
+						}catch(Exception e2){
+							if(logger.isDebugEnabled())	logger.debug("splitIntoFields处理"+setName+"(Integer)出错", e2);
+						}
+					}
 				}
 			}
 		}
@@ -362,7 +375,7 @@ s	 */
 			s = custInfo.getImportantCode();
 			if(s != null && s.length() != 0)
 			{
-				ce.setEncodeType("IMPORTANT");
+				ce.setEncodeType("IMPORTANT_CODE");
 				ce.setEncodeKey(s);
 				ce2 = ConfigEncodeMgr.getConfigEncode(ce);
 				if(ce2 == null)
@@ -374,7 +387,7 @@ s	 */
 			s = custInfo.getCreditRate();
 			if(s != null && s.length() != 0)
 			{
-				ce.setEncodeType("CREDIT");
+				ce.setEncodeType("CREDIT_RATE");
 				ce.setEncodeKey(s);
 				ce2 = ConfigEncodeMgr.getConfigEncode(ce);
 				if(ce2 == null)
@@ -386,7 +399,7 @@ s	 */
 			s = custInfo.getSettlementType();
 			if(s != null && s.length() != 0)
 			{
-				ce.setEncodeType("SETTLEMENT");
+				ce.setEncodeType("SETTLEMENT_TYPE");
 				ce.setEncodeKey(s);
 				ce2 = ConfigEncodeMgr.getConfigEncode(ce);
 				if(ce2 == null)
@@ -398,7 +411,7 @@ s	 */
 			s = custInfo.getCurrency();
 			if(s != null && s.length() != 0)
 			{
-				ce.setEncodeType("Currency");
+				ce.setEncodeType("CURRENCY");
 				ce.setEncodeKey(s);
 				ce2 = ConfigEncodeMgr.getConfigEncode(ce);
 				if(ce2 == null)
