@@ -118,33 +118,7 @@ public class CustomerInfoUtil {
 		
 		return list;
 	}
-	
-	/**
-	 * 根据checkInputFields的出错信息生成出错字符串
-	 * @param err checkInputFields的出错信息
-	 * @return
-	 */
-	public static String formFieldsErrString(List<FieldErr> err)
-	{
-		if(err == null || err.size() == 0)
-			return "";
 		
-		StringBuilder sb = new StringBuilder();
-		Iterator<FieldErr> it = err.iterator();
-		
-		while(it.hasNext())
-		{
-			FieldErr e = it.next();
-			if(sb.length()>0)
-				sb.append("<br />");
-			sb.append(e.getField());
-			sb.append(":");
-			sb.append(e.getMessage());
-		}
-		
-		return sb.toString();
-	}
-	
 	/**
 	 * 判断是否需要设置staffId
 	 * @param custInfo
@@ -167,7 +141,7 @@ s	 */
 	/**
 	 * 联系人列表字符串参数名
 	 */
-	static final String contactListName1 = "contactList1";
+	static final String contactListName1 = "contactlist";
 	/**
 	 * 联系人列表字符串对应字段名
 	 */
@@ -175,7 +149,7 @@ s	 */
 	/**
 	 * 收货人列表字符串参数名
 	 */
-	static final String contactListName2 = "contactList2";
+	static final String contactListName2 = "consigneelist";
 	/**
 	 * 收货人列表字符串对应字段名
 	 */
@@ -183,7 +157,7 @@ s	 */
 	/**
 	 * 银行列表字符串参数名
 	 */
-	static final String bankListName = "bankList";
+	static final String bankListName = "custbanklist";
 	/**
 	 * 银行列表字符串对应字段名
 	 */
@@ -203,11 +177,10 @@ s	 */
 	/**
 	 * 处理上传的List数据。将String数组转换为List
 	 */
-	@SuppressWarnings("unchecked")
 	public static void processListData(CustomerInfo custInfo, HttpServletRequest request) throws Exception
 	{
 		// Done: 处理上传的List数据
-		if(true)
+		if(false)
 			return;
 		try
 		{
@@ -274,6 +247,19 @@ s	 */
 	 */
 	private static List splitIntoList(Class itemClass, String[] values, String[] fieldNames)
 	{
+		return splitIntoList(itemClass, values, fieldNames, ",");
+	}
+	
+	/**
+	 * 将一组数据写入对象列表中
+	 * @param itemClass	列表对象的Class
+	 * @param values	一组数据。一个字符串数组，每个字符串对应一行数据
+	 * @param fieldNames	每列数据对应的字段名
+	 * @param spliter	values的分隔符
+	 * @return
+	 */
+	private static List splitIntoList(Class itemClass, String[] values, String[] fieldNames, String spliter)
+	{
 		//DONE:完成splitIntoList
 		try
 		{
@@ -283,7 +269,7 @@ s	 */
 				try
 				{
 					Object o = itemClass.newInstance();
-					splitIntoFields(o, values[i], fieldNames);
+					splitIntoFields(o, values[i], fieldNames, spliter);
 					list.add(o);
 				}
 				catch(Exception e)
@@ -305,6 +291,7 @@ s	 */
 	 * @param values	一行数据，每列以“,”分隔
 	 * @param fieldNames	每列数据对应的字段名
 	 */
+	@SuppressWarnings("unused")
 	private static void splitIntoFields(Object o, String values,
 			String[] fieldNames)
 	{
@@ -342,13 +329,11 @@ s	 */
 					logger.info("splitIntoFields处理字段"+fieldNames[i]+"出错", e);
 				}
 			}
-			
 		}
 		catch(Exception e)
 		{
 			logger.info("splitIntoFields出错", e);
 		}
-	
 	}
 
 	/**
