@@ -75,11 +75,11 @@ public class WarehouseRecInfoDaoImpl extends SqlMapClientDaoSupport implements W
      * @return warehouseRecInfo
      * @throws DataAccessException DataAccessException
      */
-    public WarehouseRecInfo findWarehouseRecInfo(String pk) throws DataAccessException {
+    public WarehouseRecInfo findWarehouseRecInfo(WarehouseRecInfo whrInfo) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
-        	logger.debug("进入findWarehouseRecInfo(WarehouseRecInfo), 输入参数[" + pk + "]");
+        	logger.debug("进入findWarehouseRecInfo(WarehouseRecInfo), 输入参数[" + whrInfo + "]");
 		}
-        WarehouseRecInfo warehouseRecInfo = (WarehouseRecInfo) getSqlMapClientTemplate().queryForObject("WarehouseRecInfo_findWarehouseRecInfo", pk);
+        WarehouseRecInfo warehouseRecInfo = (WarehouseRecInfo) getSqlMapClientTemplate().queryForObject("WarehouseRecInfo_findWarehouseRecInfo", whrInfo);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开findWarehouseRecInfo(WarehouseRecInfo), 返回[" + warehouseRecInfo + "]");
 		}
