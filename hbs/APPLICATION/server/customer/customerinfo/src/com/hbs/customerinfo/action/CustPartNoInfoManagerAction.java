@@ -10,17 +10,15 @@ import org.apache.log4j.Logger;
 import com.hbs.common.action.base.BaseAction;
 import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.customerinfo.manager.CustPartNoInfoMgr;
-import com.hbs.customerinfo.manager.CustomerInfoMgr;
 import com.hbs.domain.customer.customerinfo.pojo.CustPartNoInfo;
-import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
 
 /**
- * 客户物料关系普通用户Action
+ * 客户物料关系经理用户Action
  * @author xyf
- * @actions doList doSave
+ * @actions doAuditAgree doAuditDisAgree doList
  */
 @SuppressWarnings("serial")
-public class CustPartNoInfoNormalAction extends BaseAction {
+public class CustPartNoInfoManagerAction extends BaseAction {
 
 	/**
 	 * Manager名
@@ -36,8 +34,12 @@ public class CustPartNoInfoNormalAction extends BaseAction {
     public CustPartNoInfo getCustPartNoInfo() { return custPartNoInfo; }
     public void setCustPartNoInfo(CustPartNoInfo custPartNoInfo) { this.custPartNoInfo = custPartNoInfo; }
     
+	String auditDesc;
+	public String getAuditDesc() { return auditDesc; }
+	public void setAuditDesc(String a) { auditDesc = a; }
+
     /**
-     * 查询客户物料关系，判断了用户是否可以查看。
+     * 查询客户物料关系
  	 * @action.input custPartNoInfo.commCode + custPartNoInfo.查询条件
 	 * @action.result list：列表 count：总数
      * @return
@@ -66,21 +68,20 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 			return ERROR;
     	}
     }
-    
+
     /**
-     * 保存客户物料关系
-     * @action.input	custPartNoInfo.*
+     * 审批同意
+     * @action.input 	custPartNoInfo.*
+	 * @action.input	auditDesc	审批意见
      * @return
      */
-    public String doSave()
+    public String doAuditAgree()
     {
-    	try
-    	{
-			logger.debug("begin doSave");
-
+    	try{
+    		logger.debug("begin doAuditAgree");
+    		
 			if(!checkCommonFields())
 				return ERROR;
-
 			List<FieldErr> errs = CustPartNoInfoUtil.checkInputFields(custPartNoInfo);
 			if(errs.isEmpty())
 			{
@@ -89,41 +90,67 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 				setErrorReason(s);
 				return ERROR;
 			}
-			if(CustPartNoInfoUtil.checkSetStaffId(custPartNoInfo))
-				setMyId(true);
 			
 			CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)BeanLocator.getInstance().getBean(custPartNoInfoMgrName);
-			int i = mgr.commitCustPartNoInfo(custPartNoInfo);
+			int i = mgr.auditAgreeCustPartNoInfo(custPartNoInfo, getLoginStaff().getStaffId(), getLoginStaff().getStaffName(), auditDesc);
 			if(i != 0)
 			{
-				logger.info("保存出错！");
-				setErrorReason("保存出错！");
+				logger.info("审批出错！");
+				setErrorReason("审批出错！");
 				return ERROR;
 			}
-			logger.debug("end doSave");
+		
+    		logger.debug("end doAuditAgree");
     		return SUCCESS;
+    	}catch(Exception e){
+    		logger.error("catch Exception in doAuditAgree.", e);
+			setErrorReason("内部错误");
+			return ERROR;
     	}
-    	catch(Exception e)
-    	{
-    		logger.error("catch Exception in doSave.", e);
+    }
+    
+    /**
+     * 审批不同意
+     * @action.input 	custPartNoInfo.*
+	 * @action.input	auditDesc	审批意见
+     * @return
+     */
+    public String doAuditDisAgree()
+    {
+    	try{
+    		logger.debug("begin doAuditDisAgree");
+    		
+			if(!checkCommonFields())
+				return ERROR;
+			List<FieldErr> errs = CustPartNoInfoUtil.checkInputFields(custPartNoInfo);
+			if(errs.isEmpty())
+			{
+				String s = FieldErr.formFieldsErrString(errs);
+				logger.info(s);
+				setErrorReason(s);
+				return ERROR;
+			}
+			
+			CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)BeanLocator.getInstance().getBean(custPartNoInfoMgrName);
+			int i = mgr.auditDisAgreeCustPartNoInfo(custPartNoInfo, getLoginStaff().getStaffId(), getLoginStaff().getStaffName(), auditDesc);
+			if(i != 0)
+			{
+				logger.info("审批出错！");
+				setErrorReason("审批出错！");
+				return ERROR;
+			}
+		
+    		logger.debug("end doAuditDisAgree");
+    		return SUCCESS;
+    	}catch(Exception e){
+    		logger.error("catch Exception in doAuditDisAgree.", e);
 			setErrorReason("内部错误");
 			return ERROR;
     	}
     }
     
 	/**
-	 * 设置STAFF信息为当前用户信息
-	 * @param setName 是否设置用户名。为true时设置staffName为当前用户的staffName；为false时设置staffName为null。
-	 * 在查询时，为false；在增、改时，为true。
-	 * @throws Exception
-	 */
-	private void setMyId(boolean setName) throws Exception {
-		custPartNoInfo.setStaffId(getLoginStaff().getStaffId());
-		custPartNoInfo.setStaffName(setName ? getLoginStaff().getStaffName() : null);
-	}
-	
-	/**
-	 * 检查客户编码是否填写，并判断是否有权限操作。如果出现问题，本函数内设置了ErrorReaseon。
+	 * 检查客户编码是否填写。如果出现问题，本函数内设置了ErrorReaseon。
 	 * @return
 	 */
 	protected boolean checkCommonFields()
@@ -144,17 +171,6 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 				return false;
 			}
 			
-			//DONE：限制范围
-			CustomerInfoMgr custmgr = (CustomerInfoMgr)BeanLocator.getInstance().getBean(CustomerInfoNormalAction.custInfoMgrName);
-			CustomerInfo custInfo = new CustomerInfo();
-			custInfo = custmgr.getCustomerInfo(custInfo, false);
-			String id = getLoginStaff().getStaffId();
-			if(custInfo == null || (custInfo.getStaffId() != id && custInfo.getAssStaffId() != id))
-			{
-				logger.info("您没有权限访问！");
-				setErrorReason("您没有权限访问！");
-				return false;
-			}
 			return true;
 		}catch(Exception e){
 			logger.error("catch Exception in checkCommonFields", e);

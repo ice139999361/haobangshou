@@ -20,6 +20,7 @@
 			</result>
         </global-results>
 
+		<!-- 普通用户客户信息 -->
      	<action name="customerInfo!list" method="doList" 
     			class="com.hbs.customerinfo.action.CustomerInfoNormalAction">
 		</action>
@@ -29,8 +30,42 @@
     	<action name="customerInfo!saveTemp" method="doSaveTemp" 
     			class="com.hbs.customerinfo.action.CustomerInfoNormalAction">
 		</action>
-    	<action name="customerInfo!save" method="doSave" 
+     	<action name="customerInfo!save" method="doSave" 
     			class="com.hbs.customerinfo.action.CustomerInfoNormalAction">
+		</action>
+
+		<!-- 经理用户客户信息 -->
+     	<action name="customerInfoMgr!list" method="doList" 
+    			class="com.hbs.customerinfo.action.CustomerInfoManagerAction">
+		</action>
+    	<action name="customerInfoMgr!getInfo" method="doGetInfo" 
+    			class="com.hbs.customerinfo.action.CustomerInfoManagerAction">
+		</action>
+     	<action name="customerInfoMgr!auditAgree" method="doAuditAgree" 
+    			class="com.hbs.customerinfo.action.CustomerInfoManagerAction">
+		</action>
+     	<action name="customerInfoMgr!auditDisAgree" method="doAuditDisAgree" 
+    			class="com.hbs.customerinfo.action.CustomerInfoManagerAction">
+		</action>
+		
+		
+		<!-- 普通用户客户物料信息 -->
+     	<action name="custPartNoInfo!list" method="doList" 
+    			class="com.hbs.customerinfo.action.CustPartNoInfoNormalAction">
+		</action>
+      	<action name="custPartNoInfo!save" method="doSave" 
+    			class="com.hbs.customerinfo.action.CustPartNoInfoNormalAction">
+		</action>
+		
+		<!-- 普通用户客户物料信息 -->
+     	<action name="custPartNoInfoMgr!list" method="doList" 
+    			class="com.hbs.customerinfo.action.CustPartNoInfoManagerAction">
+		</action>
+      	<action name="custPartNoInfoMgr!auditAgree" method="doAuditAgree" 
+    			class="com.hbs.customerinfo.action.CustPartNoInfoManagerAction">
+		</action>
+      	<action name="custPartNoInfoMgr!auditDisAgree" method="doAuditDisAgree" 
+    			class="com.hbs.customerinfo.action.CustPartNoInfoManagerAction">
 		</action>
 		
     </package>

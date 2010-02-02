@@ -3,16 +3,13 @@
  */
 package com.hbs.customerinfo.action;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.hbs.common.manager.configencode.ConfigEncodeMgr;
-import com.hbs.domain.common.pojo.ConfigEncode;
 import com.hbs.domain.customer.customerinfo.pojo.CustPartNoInfo;
-import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
 
 /**
  * Action中对CustPartNoInfo的一些通用处理函数集
@@ -26,22 +23,22 @@ public class CustPartNoInfoUtil {
     private static final Logger logger = Logger.getLogger(CustPartNoInfoUtil.class);
 	
     /**
-	 * 判断是否填写了key字段。custPNInfo.SeqId 或 (custPNInfo.commCode + custPNInfo.state)
-	 * @param custPNInfo
+	 * 判断是否填写了key字段。custPartNoInfo.SeqId 或 (custPartNoInfo.commCode + custPartNoInfo.state)
+	 * @param custPartNoInfo
 	 * @return
 	 */
-	public static boolean checkKeyFields(CustPartNoInfo custPNInfo)
+	public static boolean checkKeyFields(CustPartNoInfo custPartNoInfo)
 	{
 		try
 		{
-			if(custPNInfo == null)
+			if(custPartNoInfo == null)
 				return false;
-			if(custPNInfo.getSeqId() != 0)
+			if(custPartNoInfo.getSeqId() != 0)
 				return true;
-			String s = custPNInfo.getCommCode();
+			String s = custPartNoInfo.getCommCode();
 			if(s == null || s.length() == 0)
 				return false;
-			s = custPNInfo.getState();
+			s = custPartNoInfo.getState();
 			try
 			{
 				Integer.parseInt(s);
@@ -59,30 +56,50 @@ public class CustPartNoInfoUtil {
 	}
 	
 	/**
-	 * 对输入的客户信息进行校验，内部调用checkSelectFields。
-	 * @param custPNInfo	客户信息
+	 * 对输入的客户物料信息进行校验，内部调用checkSelectFields。
+	 * @param custPartNoInfo	客户物料关系信息
 	 * @return 出错信息，格式：Map<出错字段,出错信息>
 	 */
-	public static List<FieldErr> checkInputFields(CustPartNoInfo custPNInfo)
+	public static List<FieldErr> checkInputFields(CustPartNoInfo custPartNoInfo)
 	{
 		ArrayList<FieldErr> list = new ArrayList<FieldErr>();
-		if(custPNInfo == null)
+		if(custPartNoInfo == null)
 			return list;
 		
 		String s;
 		// DONE:完成checkInputFields，对输入的客户信息进行校验
-		s = custPNInfo.getVendorCode();
+		s = custPartNoInfo.getVendorCode();
 		if(s == null || s.length() == 0)
 		{
 			list.add(new FieldErr("venderCode","venderCode没有填写"));
 		}
-		s = custPNInfo.getCommCode();
+		s = custPartNoInfo.getCommCode();
 		if(s == null || s.length() == 0)
 		{
 			list.add(new FieldErr("CommCode","CommCode没有填写"));
 		}
+		s = custPartNoInfo.getCustPartNo();
+		if(s == null || s.length() == 0)
+		{
+			list.add(new FieldErr("CustPartNo","CustPartNo没有填写"));
+		}
+		s = custPartNoInfo.getPnDesc();
+		if(s == null || s.length() == 0)
+		{
+			list.add(new FieldErr("PnDesc","PnDesc没有填写"));
+		}
+		BigDecimal num = custPartNoInfo.getPrice();
+		if(num.abs().movePointRight(3).compareTo(BigDecimal.ONE) <= 0)
+		{
+			list.add(new FieldErr("Price","Price没有填写"));
+		}
+		s = custPartNoInfo.getPartNo();
+		if(s == null || s.length() == 0)
+		{
+			list.add(new FieldErr("PartNo","PartNo没有填写"));
+		}
 		
-		List<FieldErr> list2 = checkSelectFields(custPNInfo);
+		List<FieldErr> list2 = checkSelectFields(custPartNoInfo);
 		if(list2 != null && list2.size() > 0)
 			list.addAll(list2);
 		
@@ -91,22 +108,20 @@ public class CustPartNoInfoUtil {
 	
 	/**
 	 * 检查选择数据。检查选项值，填写选项的说明字段
-	 * @param custPNInfo
+	 * @param custPartNoInfo
 	 */
-	public static List<FieldErr> checkSelectFields(CustPartNoInfo custPNInfo)
+	public static List<FieldErr> checkSelectFields(CustPartNoInfo custPartNoInfo)
 	{
-		if(custPNInfo == null)
+		if(custPartNoInfo == null)
 			return null;
 		List<FieldErr> list = new ArrayList<FieldErr>();
 		
 		try
 		{
 			String s;
-			ConfigEncode ce = new ConfigEncode();
-			ConfigEncode ce2;
 			
 			int i;
-			s = custPNInfo.getStaffId();
+			s = custPartNoInfo.getStaffId();
 			if(s != null && s.length() != 0)
 			{
 				try{
@@ -128,5 +143,23 @@ public class CustPartNoInfoUtil {
 		
 		return list;
 	}
-		
+
+	/**
+	 * 判断是否需要设置staffId
+	 * @param custPartNoInfo
+	 * @return
+	 */
+	public static boolean checkSetStaffId(CustPartNoInfo custPartNoInfo) {
+		int userid = 0;
+		try
+		{
+			String s = custPartNoInfo.getStaffId();
+			userid = Integer.parseInt(s);
+		}
+		catch(NumberFormatException e)
+		{
+			userid = 0;
+		}
+		return (userid == 0);
+	}
 }

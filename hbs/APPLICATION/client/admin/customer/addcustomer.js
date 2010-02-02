@@ -1,51 +1,51 @@
 ExtConvertHelper.init(function() {
-	// -------------------------------------- è·å–éœ€è¦æŒä¹…ç”¨åˆ°çš„å¯¹è±¡
+	// -------------------------------------- »ñÈ¡ĞèÒª³Ö¾ÃÓÃµ½µÄ¶ÔÏó
 	
-	// è·å–æäº¤æŒ‰é’®
+	// »ñÈ¡Ìá½»°´Å¥
 	var submitBtn 	= Ext.getCmp("submitBtn");
-	// è·å–ä¿å­˜æŒ‰é’®
+	// »ñÈ¡±£´æ°´Å¥
 	var saveBtn 		= Ext.getCmp("saveBtn");
-	// è·å–è¿”å›æŒ‰é’®
+	// »ñÈ¡·µ»Ø°´Å¥
 	var backBtn 		= Ext.getCmp("backBtn");
 	
 	
 	
-	// -------------------------------------- åº”ç”¨é€»è¾‘å¤„ç†
+	// -------------------------------------- Ó¦ÓÃÂß¼­´¦Àí
 	
 	/**
-	 * æäº¤æ•°æ®
-	 * @param url  (String) æäº¤çš„url
+	 * Ìá½»Êı¾İ
+	 * @param url  (String) Ìá½»µÄurl
 	 */
 	function submitData(url) {
-		// éªŒè¯ form å†…å®¹æ˜¯ç¬¦æ»¡è¶³è¦æ±‚
+		// ÑéÖ¤ form ÄÚÈİÊÇ·ûÂú×ãÒªÇó
 		//if(!ExtConvertHelper.isFormValid("form")) return;
 		
-		// è·å–ï¼ˆå®¢æˆ·è”ç³»äººä¿¡æ¯ã€å®¢æˆ·æ”¶è´§äººä¿¡æ¯ã€å®¢æˆ·é“¶è¡Œä¿¡æ¯ï¼‰è¡¨æ ¼ä¸­çš„æäº¤æ•°æ®
+		// »ñÈ¡£¨¿Í»§ÁªÏµÈËĞÅÏ¢¡¢¿Í»§ÊÕ»õÈËĞÅÏ¢¡¢¿Í»§ÒøĞĞĞÅÏ¢£©±í¸ñÖĞµÄÌá½»Êı¾İ
 		var girdData = HBSConvertHelper.getGridSubmitData("contactgrid,consigneegrid,custbankgrid", "contactlist,consigneelist,custbanklist");
 		
-		// æäº¤æ•°æ®
+		// Ìá½»Êı¾İ
 		ExtConvertHelper.submitForm("form", url, girdData, function(form, action) {
-			// è·å–æˆåŠŸåçš„æç¤ºä¿¡æ¯
-			var msg = ExtConvertHelper.getMessageInfo(action, "æ“ä½œæˆåŠŸï¼");
+			// »ñÈ¡³É¹¦ºóµÄÌáÊ¾ĞÅÏ¢
+			var msg = ExtConvertHelper.getMessageInfo(action, "²Ù×÷³É¹¦£¡");
 			
-			// å¼¹å‡ºæç¤ºæ¡†ç»™ç”¨æˆ·
-			Ext.Msg.alert("æç¤º", msg, function() {
-				// ç”¨æˆ·å•å‡»åé‡è½½æ­¤é¡µé¢
+			// µ¯³öÌáÊ¾¿ò¸øÓÃ»§
+			Ext.Msg.alert("ÌáÊ¾", msg, function() {
+				// ÓÃ»§µ¥»÷ºóÖØÔØ´ËÒ³Ãæ
 				location.reload();
 			});
 		});
 	}
 	
-	// å½“æäº¤æŒ‰é’®è¢«å•å‡»æ—¶
+	// µ±Ìá½»°´Å¥±»µ¥»÷Ê±
 	submitBtn.on("click", function() {
 		submitData("/customerInfo/customerInfo!save.action");
 	});
 	
-	// å½“ä¿å­˜æŒ‰é’®è¢«å•å‡»æ—¶
+	// µ±±£´æ°´Å¥±»µ¥»÷Ê±
 	saveBtn.on("click", function() {
 		submitData("/customerInfo/customerInfo!saveTemp.action");
 	});
 	
-	// å½“å•æœºå–æ¶ˆæŒ‰é’®æ—¶ï¼Œè°ƒç”¨é»˜è®¤çš„å…³é—­çª—å£æ–¹æ³•
+	// µ±µ¥»úÈ¡Ïû°´Å¥Ê±£¬µ÷ÓÃÄ¬ÈÏµÄ¹Ø±Õ´°¿Ú·½·¨
 	backBtn.on("click", ExtConvertHelper.defaultCloseTab);
 });
