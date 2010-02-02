@@ -199,7 +199,7 @@ var ExtConvertHelper = {
 			} 
 			// 如果是 string 格式的参数
 			else if (typeof params == "string") {
-				return encodeURIComponent(params + "&_t=" + currentTimeMillis);
+				return encodeURI(params + "&_t=" + currentTimeMillis);
 			}
 			// 其他格式，认为是 object
 			else {
