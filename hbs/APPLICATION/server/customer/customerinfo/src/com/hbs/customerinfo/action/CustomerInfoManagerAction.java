@@ -1,6 +1,9 @@
 package com.hbs.customerinfo.action;
 
+import org.apache.log4j.Logger;
+
 import com.hbs.common.action.base.BaseAction;
+import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.customerinfo.manager.CustomerInfoMgr;
 import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
 
@@ -13,9 +16,19 @@ import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
 public class CustomerInfoManagerAction extends BaseAction {
 	
 	/**
+	 * Manager名
+	 */
+	static final String custInfoMgrName = "customerInfoMgr";
+		
+    /**
+     * logger.
+     */
+    private static final Logger logger = Logger.getLogger(CustomerInfoManagerAction.class);
+
+    /**
 	 * 待审批状态。state需要字符串，而Constants的类型不匹配。并且也不直观。
 	 */
-	static String stateForAudit = "1";
+	static final String stateForAudit = "2";
 	
 	CustomerInfo custInfo;
 	
@@ -57,7 +70,15 @@ public class CustomerInfoManagerAction extends BaseAction {
 	{
 		try
 		{
-			CustomerInfoMgr mgr = new CustomerInfoMgr();
+			logger.debug("begin doAuditAgree");
+			
+			if(!CustomerInfoUtil.checkKeyFields(custInfo))
+			{
+				logger.info("参数错误！");
+				setErrorReason("参数错误！");
+				return ERROR;
+			}
+			CustomerInfoMgr mgr = (CustomerInfoMgr)BeanLocator.getInstance().getBean(custInfoMgrName);
 			getCustInfoValue(mgr);
 			int ret = mgr.auditAgreeCustomerInfo(custInfo, getLoginStaff().getStaffId(), getLoginStaff().getStaffName(), auditDesc);
 			if(ret != 0)
@@ -77,12 +98,14 @@ public class CustomerInfoManagerAction extends BaseAction {
 				setErrorReason(s);
 				return ERROR;
 			}
+			logger.debug("end doAuditAgree");
 			return SUCCESS;
 		}
 		catch(Exception e)
 		{
-			this.setErrorReason(e.getMessage(), e);
-			return ERROR;
+			logger.error("catch Exception in doAuditAgree", e);
+			setErrorReason("内部错误");
+            return ERROR;
 		}
 	}
 	
@@ -98,7 +121,14 @@ public class CustomerInfoManagerAction extends BaseAction {
 	{
 		try
 		{
-			CustomerInfoMgr mgr = new CustomerInfoMgr();
+			logger.debug("begin doAuditDisAgree");
+			if(!CustomerInfoUtil.checkKeyFields(custInfo))
+			{
+				logger.info("参数错误！");
+				setErrorReason("参数错误！");
+				return ERROR;
+			}
+			CustomerInfoMgr mgr = (CustomerInfoMgr)BeanLocator.getInstance().getBean(custInfoMgrName);
 			getCustInfoValue(mgr);
 			int ret = mgr.auditDisAgreeCustomerInfo(custInfo, getLoginStaff().getStaffId(), getLoginStaff().getStaffName(), auditDesc);
 			if(ret != 0)
@@ -118,12 +148,14 @@ public class CustomerInfoManagerAction extends BaseAction {
 				setErrorReason(s);
 				return ERROR;
 			}
+			logger.debug("end doAuditDisAgree");
 			return SUCCESS;
 		}
 		catch(Exception e)
 		{
-			this.setErrorReason(e.getMessage(), e);
-			return ERROR;
+			logger.error("catch Exception in doAuditDisAgree", e);
+			setErrorReason("内部错误");
+            return ERROR;
 		}
 	}
 
@@ -137,17 +169,20 @@ public class CustomerInfoManagerAction extends BaseAction {
 	{
 		try
 		{
-			CustomerInfoMgr mgr = new CustomerInfoMgr();
+			logger.debug("begin doList");
+			CustomerInfoMgr mgr = (CustomerInfoMgr)BeanLocator.getInstance().getBean(custInfoMgrName);
 			setPagination(custInfo);
 			setResult("list", mgr.getCustomerInfoList(custInfo));
 			setTotalCount(mgr.getCustomerInfoCount(custInfo));
 			setResult("count", getTotalCount());
+			logger.debug("end doList");
 			return SUCCESS;
 		}
 		catch(Exception e)
 		{
-			setErrorReason(e.getMessage(), e);
-			return ERROR;
+			logger.error("catch Exception in doList", e);
+			setErrorReason("内部错误");
+            return ERROR;
 		}
 	}
 	
@@ -161,19 +196,22 @@ public class CustomerInfoManagerAction extends BaseAction {
 	{
 		try
 		{
-			CustomerInfoMgr mgr = new CustomerInfoMgr();
+			logger.debug("begin doListForAudit");
+			CustomerInfoMgr mgr = (CustomerInfoMgr)BeanLocator.getInstance().getBean(custInfoMgrName);
 			custInfo = new CustomerInfo();
 			custInfo.setState(stateForAudit);
 			setPagination(custInfo);
 			setResult("list", mgr.getCustomerInfoList(custInfo));
 			setTotalCount(mgr.getCustomerInfoCount(custInfo));
 			setResult("count", getTotalCount());
+			logger.debug("end doListForAudit");
 			return SUCCESS;
 		}
 		catch(Exception e)
 		{
-			setErrorReason(e.getMessage(), e);
-			return ERROR;
+			logger.error("catch Exception in doListForAudit", e);
+			setErrorReason("内部错误");
+            return ERROR;
 		}
 	}
 	
@@ -188,14 +226,23 @@ public class CustomerInfoManagerAction extends BaseAction {
 	{
 		try
 		{
-			CustomerInfoMgr mgr = new CustomerInfoMgr();
+			logger.debug("begin doGetInfo");
+			if(!CustomerInfoUtil.checkKeyFields(custInfo))
+			{
+				logger.info("参数错误！");
+				setErrorReason("参数错误！");
+				return ERROR;
+			}
+			CustomerInfoMgr mgr = (CustomerInfoMgr)BeanLocator.getInstance().getBean(custInfoMgrName);
 			getCustInfoValue(mgr);
 			this.setResult("custInfo", custInfo);
+			logger.debug("end doGetInfo");
 			return SUCCESS;
 		}
 		catch(Exception e)
 		{
-			setErrorReason(e.getMessage(), e);
+			logger.error("catch Exception in doGetInfo", e);
+			setErrorReason("内部错误");
             return ERROR;
 		}
 	}

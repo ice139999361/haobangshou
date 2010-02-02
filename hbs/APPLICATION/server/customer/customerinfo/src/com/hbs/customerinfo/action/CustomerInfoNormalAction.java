@@ -104,7 +104,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 			List<FieldErr> errs = CustomerInfoUtil.checkInputFields(custInfo);
 			if(!errs.isEmpty())
 			{
-				String s = CustomerInfoUtil.formFieldsErrString(errs);
+				String s = FieldErr.formFieldsErrString(errs);
 				logger.info(s);
 				setErrorReason(s);
 				return ERROR;
@@ -163,7 +163,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 			List<FieldErr> errs = CustomerInfoUtil.checkInputFields(custInfo);
 			if(!errs.isEmpty())
 			{
-				String s = CustomerInfoUtil.formFieldsErrString(errs);
+				String s = FieldErr.formFieldsErrString(errs);
 				logger.info(s);
 				setErrorReason(s);
 				return ERROR;
@@ -221,7 +221,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 	{
 		try
 		{
-			logger.debug("begin doSave");
+			logger.debug("begin doGetInfo");
 			if(!CustomerInfoUtil.checkKeyFields(custInfo))
 			{
 				logger.info("²ÎÊýÎª¿Õ£¡");
@@ -232,6 +232,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 			CustomerInfoMgr mgr = (CustomerInfoMgr)BeanLocator.getInstance().getBean(custInfoMgrName);
 			custInfo = mgr.getCustomerInfo(custInfo, true);
 			this.setResult("custInfo", custInfo);
+			logger.debug("end doGetInfo");
 			return SUCCESS;
 		}
 		catch(Exception e)
