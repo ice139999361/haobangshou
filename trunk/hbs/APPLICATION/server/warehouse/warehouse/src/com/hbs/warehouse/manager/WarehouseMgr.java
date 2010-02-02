@@ -14,6 +14,7 @@ import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.domain.warehouse.dao.WareHouseInfoDao;
 import com.hbs.domain.warehouse.pojo.WareHouseInfo;
 import com.hbs.warehouse.common.constants.WareHouseConstants;
+import com.hbs.warehouse.common.utils.WareHouseLogUtils;
 
 /**
  * @author Administrator
@@ -136,10 +137,13 @@ public class WarehouseMgr {
 	 * 保存前判断 库存总数  = 锁定数量 + 可用数量 ，不相等，则抛出异常
 	 * 同时判断 可用数量 >=0
 	 * @param wInfo
+	 * @param staffId 操作人ID
+	 * @param staffName 操作人姓名
+	 * @param content  操作说明
 	 * @return
 	 * @throws Exception
 	 */
-	public int saveLockWareHouseInfo(WareHouseInfo wInfo) throws Exception{
+	public int saveLockWareHouseInfo(WareHouseInfo wInfo , String staffId,String staffName ,String content) throws Exception{
 		int ret =0;
 		logger.debug("保存仓库锁定库存信息传入的参数为：" + wInfo.toString());		
 		
@@ -166,6 +170,10 @@ public class WarehouseMgr {
 			}
 			
 			whInfoDao.updateWareHouseInfo(existWInfo);
+			//记录操作日志
+			if(null != staffId){
+				WareHouseLogUtils.operLog(staffId, staffName, "锁定库存", "仓库信息", wInfo.getLogKey(), wInfo.toString(), content);
+			}
 		}else{//仓库中不存在库存信息
 			throw new Exception("仓库中不存在需要锁定的库存信息,无法做锁定操作！信息为：" + wInfo.toString());
 		}
@@ -191,6 +199,9 @@ public class WarehouseMgr {
 			existWInfo.setMinAmount(wInfo.getMinAmount());
 			whInfoDao.updateWareHouseInfo(existWInfo);
 			//记录操作日志
+			if(null != staffId){
+				WareHouseLogUtils.operLog(staffId, staffName, "阀值设置", "仓库信息", wInfo.getLogKey(), wInfo.toString(), content);
+			}
 		}else{//仓库中不存在库存信息
 			throw new Exception("仓库中不存在需要设置库存最大最小的库存信息,无法做设置操作！信息为：" + wInfo.toString());
 		}
