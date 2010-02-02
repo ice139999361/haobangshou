@@ -162,6 +162,8 @@ s	 */
 	 * 银行列表字符串对应字段名
 	 */
 	static final String[] bankListFields = {"accountName", "accountBank", "account"};
+	
+	private static final String spliter = "||;;";
 
 	static{
 		// 根据联系人字段名生成收货人字段名
@@ -171,7 +173,9 @@ s	 */
 		l.add(id, "conAddress");
 		l.add(id, "conZip");
 		
-		contractListFields2 = (String[])l.toArray();
+		//contractListFields2 = (String[])l.toArray();
+		contractListFields2 = new String[l.size()];
+		l.toArray(contractListFields2);
 	}
 	
 	/**
@@ -189,7 +193,7 @@ s	 */
 			List<ContactInfo> listAll = new ArrayList<ContactInfo>();
 			try
 			{
-				List<ContactInfo> list = splitIntoList(ContactInfo.class, request.getParameterValues(contactListName1), contractListFields1);
+				List<ContactInfo> list = splitIntoList(ContactInfo.class, request.getParameterValues(contactListName1), contractListFields1, spliter);
 				Iterator<ContactInfo> it = list.iterator();
 				while(it.hasNext())
 				{
@@ -206,7 +210,7 @@ s	 */
 			
 			try
 			{
-				List<ContactInfo> list = splitIntoList(ContactInfo.class, request.getParameterValues(contactListName2), contractListFields2);
+				List<ContactInfo> list = splitIntoList(ContactInfo.class, request.getParameterValues(contactListName2), contractListFields2, spliter);
 				Iterator<ContactInfo> it = list.iterator();
 				while(it.hasNext())
 				{
@@ -225,7 +229,7 @@ s	 */
 			
 			try
 			{
-				custInfo.setListBankInfo(splitIntoList(BankInfo.class, request.getParameterValues(bankListName), bankListFields));
+				custInfo.setListBankInfo(splitIntoList(BankInfo.class, request.getParameterValues(bankListName), bankListFields, spliter));
 			}
 			catch(Exception e)
 			{
@@ -264,6 +268,9 @@ s	 */
 		try
 		{
 			ArrayList list = new ArrayList();
+			if(values == null)
+				return list;
+			
 			for(int i = 0; i < values.length; i++)
 			{
 				try
