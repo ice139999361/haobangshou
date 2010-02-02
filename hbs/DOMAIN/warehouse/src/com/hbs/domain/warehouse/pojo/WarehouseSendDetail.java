@@ -117,7 +117,7 @@ public class WarehouseSendDetail {
     /**
      * 发货日期.
      */
-    private Date CREATE_TIME;
+    private Date createTime;
     
     /**
      * 收货单（入库单）状态.
@@ -140,8 +140,48 @@ public class WarehouseSendDetail {
     private String poNoType;
 
 
+    /**
+     * 操作人ID
+     */
+    private String staffId;
+    /**
+     * 操作人姓名
+     */
+    private String staffName;
     
-    public Integer getSendSeqId() {
+    
+    
+    
+
+	/**
+	 * @return the staffId
+	 */
+	public String getStaffId() {
+		return staffId;
+	}
+
+	/**
+	 * @param staffId the staffId to set
+	 */
+	public void setStaffId(String staffId) {
+		this.staffId = staffId;
+	}
+
+	/**
+	 * @return the staffName
+	 */
+	public String getStaffName() {
+		return staffName;
+	}
+
+	/**
+	 * @param staffName the staffName to set
+	 */
+	public void setStaffName(String staffName) {
+		this.staffName = staffName;
+	}
+
+	public Integer getSendSeqId() {
         return this.sendSeqId;
     }	
   
@@ -278,15 +318,23 @@ public class WarehouseSendDetail {
         this.period = period;
     }
     
-    public Date getCREATE_TIME() {
-        return this.CREATE_TIME;
-    }	
-  
-    public void setCREATE_TIME(Date CREATE_TIME) {
-        this.CREATE_TIME = CREATE_TIME;
-    }
+   
     
-    public String getState() {
+    /**
+	 * @return the createTime
+	 */
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	/**
+	 * @param createTime the createTime to set
+	 */
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public String getState() {
         return this.state;
     }	
   

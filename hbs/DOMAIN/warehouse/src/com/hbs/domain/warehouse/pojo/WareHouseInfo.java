@@ -207,6 +207,9 @@ public class WareHouseInfo extends BaseDomain{
         this.state = state;
     }
 
+    public String getLogKey(){
+    	return this.houseSeqId.toString();
+    }
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

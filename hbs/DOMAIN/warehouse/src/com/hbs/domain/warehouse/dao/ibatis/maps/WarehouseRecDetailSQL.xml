@@ -24,6 +24,9 @@
     <result property="period" column="PERIOD"/>
     <result property="financeState" column="FINANCE_STATE"/>
     <result property="poNoType" column="PO_NO_TYPE"/>
+    <result property="staffId" column="STAFF_ID"/>
+    <result property="staffName" column="STAFF_NAME"/>
+    <result property="operTime" column="OPER_TIME"/>
 </resultMap>
 
 <select id="WarehouseRecDetail_getNextId" resultClass="java.lang.String">
@@ -55,7 +58,10 @@
             AMOUNT, 
             PERIOD, 
             FINANCE_STATE, 
-            PO_NO_TYPE
+            PO_NO_TYPE,
+			STAFF_ID,
+			STAFF_NAME,
+			OPER_TIME
         )
     VALUES (
             #recDetailSeqId#,
@@ -76,7 +82,10 @@
             #amount#,
             #period#,
             #financeState#,
-            #poNoType#
+            #poNoType#,
+			#staffId#,
+			#staffName#,
+			#operTime#
     )
 ]]>
 </insert>
@@ -145,6 +154,9 @@
 	<isNotEmpty prepend="," property="poNoType">
             PO_NO_TYPE = #poNoType#
 	</isNotEmpty>
+	<isNotEmpty prepend="," property="operTime">
+            OPER_TIME = #operTime#
+	</isNotEmpty>
     WHERE REC_DETAIL_SEQID = #recDetailSeqId#
 </update> 
 
@@ -169,7 +181,10 @@
             AMOUNT, 
             PERIOD, 
             FINANCE_STATE, 
-            PO_NO_TYPE
+            PO_NO_TYPE,
+			STAFF_ID,
+			STAFF_NAME,
+			OPER_TIME
     FROM T_WAREHOUSE_RECEIVE_DETAIL WHERE REC_DETAIL_SEQID = #recDetailSeqId#
 ]]>
 </select>
@@ -195,7 +210,10 @@
             AMOUNT, 
             PERIOD, 
             FINANCE_STATE, 
-            PO_NO_TYPE
+            PO_NO_TYPE,
+			STAFF_ID,
+			STAFF_NAME,
+			OPER_TIME
     FROM T_WAREHOUSE_RECEIVE_DETAIL
 ]]>
 		<dynamic prepend="WHERE">
@@ -256,6 +274,17 @@
 			<isNotEmpty prepend="and" property = "poNoType">
 				PO_NO_TYPE = #poNoType#
 			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffId">
+				STAFF_ID = #staffId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffName">
+				STAFF_NAME = #staffName#
+			</isNotEmpty>
+			
+		<!--	这里处理时间段
+		    <isNotEmpty prepend="and" property = "poNoType">
+				PO_NO_TYPE = #poNoType#
+			</isNotEmpty> -->
 		</dynamic>
 </select>
 
@@ -324,6 +353,17 @@
 			<isNotEmpty prepend="and" property = "poNoType">
 				PO_NO_TYPE = #poNoType#
 			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffId">
+				STAFF_ID = #staffId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffName">
+				STAFF_NAME = #staffId#
+			</isNotEmpty>
+			
+		<!--	这里处理时间段
+		    <isNotEmpty prepend="and" property = "poNoType">
+				PO_NO_TYPE = #staffName#
+			</isNotEmpty> -->
 		</dynamic>
 </select>
 
