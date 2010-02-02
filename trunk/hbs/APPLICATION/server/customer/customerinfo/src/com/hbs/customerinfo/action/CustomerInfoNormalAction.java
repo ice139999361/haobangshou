@@ -28,7 +28,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 	/**
 	 * ManagerÃû
 	 */
-	static final String custInfoMgrName = "customerInfoMgr";
+	public static final String custInfoMgrName = "customerInfoMgr";
 		
     /**
      * logger.
