@@ -34,11 +34,11 @@ public class WarehouseRecInfoDaoTest extends AbstractTransactionalDataSourceSpri
         warehouseRecInfo.setHouseType("1");
         warehouseRecInfo.setOperId("1");
         warehouseRecInfo.setOperStaff("1");
-        warehouseRecInfo.setOperTime("1");
+       // warehouseRecInfo.setOperTime("1");
         warehouseRecInfo.setReceiveDesc("1");
         warehouseRecInfo.setPeriod("1");
-        warehouseRecInfo.setState(1);
-        warehouseRecInfo.setActiveState(1);
+       // warehouseRecInfo.setState(1);
+       // warehouseRecInfo.setActiveState(1);
         warehouseRecInfo.setFinanceState("1");
         warehouseRecInfo.setPoNoType("1");
 //        String id = warehouseRecInfoDao.insertWarehouseRecInfo(warehouseRecInfo);
@@ -75,11 +75,11 @@ public class WarehouseRecInfoDaoTest extends AbstractTransactionalDataSourceSpri
         warehouseRecInfo.setHouseType("1");
         warehouseRecInfo.setOperId("1");
         warehouseRecInfo.setOperStaff("1");
-        warehouseRecInfo.setOperTime("1");
+       // warehouseRecInfo.setOperTime("1");
         warehouseRecInfo.setReceiveDesc("1");
         warehouseRecInfo.setPeriod("1");
-        warehouseRecInfo.setState(2);
-        warehouseRecInfo.setActiveState(2);
+       // warehouseRecInfo.setState(2);
+       // warehouseRecInfo.setActiveState(2);
         warehouseRecInfo.setFinanceState("1");
         warehouseRecInfo.setPoNoType("1");
         warehouseRecInfoDao.updateWarehouseRecInfo(warehouseRecInfo);
@@ -93,24 +93,24 @@ public class WarehouseRecInfoDaoTest extends AbstractTransactionalDataSourceSpri
      */
     public void testFindWarehouseRecInfo() {
         WarehouseRecInfoDao warehouseRecInfoDao = (WarehouseRecInfoDao) this.getApplicationContext().getBean("warehouseRecInfoDao");
-        WarehouseRecInfo warehouseRecInfo = warehouseRecInfoDao.findWarehouseRecInfo("1");
-        
-        System.out.println("testFind result--------------------------------------");
-        System.out.println("recPoNo=" + warehouseRecInfo.getRecPoNo());
-        System.out.println("vendorCode=" + warehouseRecInfo.getVendorCode());
-        System.out.println("shortName=" + warehouseRecInfo.getShortName());
-        System.out.println("poNoDate=" + warehouseRecInfo.getPoNoDate());
-        System.out.println("applyDate=" + warehouseRecInfo.getApplyDate());
-        System.out.println("houseType=" + warehouseRecInfo.getHouseType());
-        System.out.println("operId=" + warehouseRecInfo.getOperId());
-        System.out.println("operStaff=" + warehouseRecInfo.getOperStaff());
-        System.out.println("operTime=" + warehouseRecInfo.getOperTime());
-        System.out.println("receiveDesc=" + warehouseRecInfo.getReceiveDesc());
-        System.out.println("period=" + warehouseRecInfo.getPeriod());
-        System.out.println("state=" + warehouseRecInfo.getState());
-        System.out.println("activeState=" + warehouseRecInfo.getActiveState());
-        System.out.println("financeState=" + warehouseRecInfo.getFinanceState());
-        System.out.println("poNoType=" + warehouseRecInfo.getPoNoType());
+//        WarehouseRecInfo warehouseRecInfo = warehouseRecInfoDao.findWarehouseRecInfo("1");
+//        
+//        System.out.println("testFind result--------------------------------------");
+//        System.out.println("recPoNo=" + warehouseRecInfo.getRecPoNo());
+//        System.out.println("vendorCode=" + warehouseRecInfo.getVendorCode());
+//        System.out.println("shortName=" + warehouseRecInfo.getShortName());
+//        System.out.println("poNoDate=" + warehouseRecInfo.getPoNoDate());
+//        System.out.println("applyDate=" + warehouseRecInfo.getApplyDate());
+//        System.out.println("houseType=" + warehouseRecInfo.getHouseType());
+//        System.out.println("operId=" + warehouseRecInfo.getOperId());
+//        System.out.println("operStaff=" + warehouseRecInfo.getOperStaff());
+//        System.out.println("operTime=" + warehouseRecInfo.getOperTime());
+//        System.out.println("receiveDesc=" + warehouseRecInfo.getReceiveDesc());
+//        System.out.println("period=" + warehouseRecInfo.getPeriod());
+//        System.out.println("state=" + warehouseRecInfo.getState());
+//        System.out.println("activeState=" + warehouseRecInfo.getActiveState());
+//        System.out.println("financeState=" + warehouseRecInfo.getFinanceState());
+//        System.out.println("poNoType=" + warehouseRecInfo.getPoNoType());
     }
 
     /**
@@ -127,11 +127,11 @@ public class WarehouseRecInfoDaoTest extends AbstractTransactionalDataSourceSpri
         warehouseRecInfo.setHouseType("1");
         warehouseRecInfo.setOperId("1");
         warehouseRecInfo.setOperStaff("1");
-        warehouseRecInfo.setOperTime("1");
+       // warehouseRecInfo.setOperTime("1");
         warehouseRecInfo.setReceiveDesc("1");
         warehouseRecInfo.setPeriod("1");
-        warehouseRecInfo.setState(2);
-        warehouseRecInfo.setActiveState(2);
+       // warehouseRecInfo.setState(2);
+       // warehouseRecInfo.setActiveState(2);
         warehouseRecInfo.setFinanceState("1");
         warehouseRecInfo.setPoNoType("1");
 
@@ -172,11 +172,11 @@ public class WarehouseRecInfoDaoTest extends AbstractTransactionalDataSourceSpri
         warehouseRecInfo.setHouseType("1");
         warehouseRecInfo.setOperId("1");
         warehouseRecInfo.setOperStaff("1");
-        warehouseRecInfo.setOperTime("1");
+       // warehouseRecInfo.setOperTime("1");
         warehouseRecInfo.setReceiveDesc("1");
         warehouseRecInfo.setPeriod("1");
-        warehouseRecInfo.setState(2);
-        warehouseRecInfo.setActiveState(2);
+      //  warehouseRecInfo.setState(2);
+      //  warehouseRecInfo.setActiveState(2);
         warehouseRecInfo.setFinanceState("1");
         warehouseRecInfo.setPoNoType("1");
 
