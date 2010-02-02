@@ -96,8 +96,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 			}
 
 			custInfo.setState("1");
-			CustomerInfoUtil.processListData(custInfo, this
-					.getHttpServletRequest());
+			CustomerInfoUtil.processListData(custInfo, this.getHttpServletRequest());
 			List<FieldErr> errs = CustomerInfoUtil.checkInputFields(custInfo);
 			if (!errs.isEmpty()) {
 				String s = FieldErr.formFieldsErrString(errs);
@@ -114,8 +113,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 			CustomerInfo info2 = mgr.getCustomerInfo(custInfo, false);
 			int ret;
 			if (info2 != null)
-				ret = mgr.updateCustomerInfo(custInfo, getLoginStaff()
-						.getStaffId(), getLoginStaff().getStaffName());
+				ret = mgr.updateCustomerInfo(custInfo, getLoginStaff().getStaffId(), getLoginStaff().getStaffName());
 			else
 				ret = mgr.saveTempCustomerInfo(custInfo);
 			if (ret != 0) {
