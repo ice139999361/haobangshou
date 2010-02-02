@@ -43,8 +43,6 @@ public final class FieldErr
 			FieldErr e = it.next();
 			if(sb.length()>0)
 				sb.append("<br />");
-			sb.append(e.getField());
-			sb.append(":");
 			sb.append(e.getMessage());
 		}
 		
