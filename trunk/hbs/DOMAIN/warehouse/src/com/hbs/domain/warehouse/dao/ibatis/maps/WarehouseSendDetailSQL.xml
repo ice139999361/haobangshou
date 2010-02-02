@@ -23,11 +23,13 @@
     <result property="vendorCode" column="VENDOR_CODE"/>
     <result property="vendorPoNo" column="VENDOR_PO_NO"/>
     <result property="period" column="PERIOD"/>
-    <result property="CREATE_TIME" column="CREATE_TIME"/>
+    <result property="createTime" column="CREATE_TIME"/>
     <result property="state" column="STATE"/>
     <result property="activeState" column="ACTIVE_STATE"/>
     <result property="financeState" column="FINANCE_STATE"/>
     <result property="poNoType" column="PO_NO_TYPE"/>
+    <result property="staffId" column="STAFF_ID"/>
+    <result property="staffName" column="STAFF_NAME"/>
 </resultMap>
 
 <select id="WarehouseSendDetail_getNextId" resultClass="java.lang.String">
@@ -63,7 +65,9 @@
             STATE, 
             ACTIVE_STATE, 
             FINANCE_STATE, 
-            PO_NO_TYPE
+            PO_NO_TYPE,
+			STAFF_ID,
+			STAFF_NAME
         )
     VALUES (
             #sendSeqId#,
@@ -84,11 +88,13 @@
             #vendorCode#,
             #vendorPoNo#,
             #period#,
-            #CREATE_TIME#,
+            #createTime#,
             #state#,
             #activeState#,
             #financeState#,
-            #poNoType#
+            #poNoType#,
+			#staffId#,
+			#staffName#
     )
 ]]>
 </insert>
@@ -154,8 +160,8 @@
 	<isNotEmpty prepend="," property="period">
             PERIOD = #period#
 	</isNotEmpty>
-	<isNotEmpty prepend="," property="CREATE_TIME">
-            CREATE_TIME = #CREATE_TIME#
+	<isNotEmpty prepend="," property="createTime">
+            CREATE_TIME = #createTime#
 	</isNotEmpty>
 	<isNotEmpty prepend="," property="state">
             STATE = #state#
@@ -197,7 +203,9 @@
             STATE, 
             ACTIVE_STATE, 
             FINANCE_STATE, 
-            PO_NO_TYPE
+            PO_NO_TYPE,
+			STAFF_ID,
+			STAFF_NAME
     FROM T_WAREHOUSE_SEND_DETAIL WHERE SEND_DETAIL_SEQID = #sendSeqId#
 ]]>
 </select>
@@ -227,7 +235,9 @@
             STATE, 
             ACTIVE_STATE, 
             FINANCE_STATE, 
-            PO_NO_TYPE
+            PO_NO_TYPE,
+			STAFF_ID,
+			STAFF_NAME
     FROM T_WAREHOUSE_SEND_DETAIL
 ]]>
 		<dynamic prepend="WHERE">
@@ -285,8 +295,8 @@
 			<isNotEmpty prepend="and" property = "period">
 				PERIOD = #period#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "CREATE_TIME">
-				CREATE_TIME = #CREATE_TIME#
+			<isNotEmpty prepend="and" property = "createTime">
+				CREATE_TIME = #createTime#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "state">
 				STATE = #state#
@@ -299,6 +309,12 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "poNoType">
 				PO_NO_TYPE = #poNoType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffId">
+				STAFF_ID = #staffId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffName">
+				STAFF_NAME = #staffName#
 			</isNotEmpty>
 		</dynamic>
 </select>
@@ -365,8 +381,8 @@
 			<isNotEmpty prepend="and" property = "period">
 				PERIOD = #period#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "CREATE_TIME">
-				CREATE_TIME = #CREATE_TIME#
+			<isNotEmpty prepend="and" property = "createTime">
+				CREATE_TIME = #createTime#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "state">
 				STATE = #state#
@@ -379,6 +395,12 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "poNoType">
 				PO_NO_TYPE = #poNoType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffId">
+				STAFF_ID = #staffId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffName">
+				STAFF_NAME = #staffName#
 			</isNotEmpty>
 		</dynamic>
 </select>

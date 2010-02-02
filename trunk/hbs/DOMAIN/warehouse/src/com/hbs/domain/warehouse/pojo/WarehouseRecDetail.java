@@ -105,9 +105,66 @@ public class WarehouseRecDetail {
      */
     private String poNoType;
 
+    /**
+     * 操作人ID
+     */
+    private String staffId;
+    /**
+     * 操作人姓名
+     */
+    private String staffName;
+    /**
+     * 操作时间
+     */
+    private Date operTime;
+    
 
     
-    public Integer getRecDetailSeqId() {
+   
+
+	/**
+	 * @return the staffId
+	 */
+	public String getStaffId() {
+		return staffId;
+	}
+
+	/**
+	 * @param staffId the staffId to set
+	 */
+	public void setStaffId(String staffId) {
+		this.staffId = staffId;
+	}
+
+	/**
+	 * @return the staffName
+	 */
+	public String getStaffName() {
+		return staffName;
+	}
+
+	/**
+	 * @param staffName the staffName to set
+	 */
+	public void setStaffName(String staffName) {
+		this.staffName = staffName;
+	}
+
+	/**
+	 * @return the operTime
+	 */
+	public Date getOperTime() {
+		return operTime;
+	}
+
+	/**
+	 * @param operTime the operTime to set
+	 */
+	public void setOperTime(Date operTime) {
+		this.operTime = operTime;
+	}
+
+	public Integer getRecDetailSeqId() {
         return this.recDetailSeqId;
     }	
   
