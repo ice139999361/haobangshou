@@ -40,6 +40,7 @@ public interface WarehouseRecDetailDao {
      * @throws DataAccessException DataAccessException
      */
     WarehouseRecDetail findWarehouseRecDetail(String id) throws DataAccessException ;
+    WarehouseRecDetail findWarehouseRecDetailByBizKey(WarehouseRecDetail warehouseRecDetail) throws DataAccessException ;
     
     /**
      * list.

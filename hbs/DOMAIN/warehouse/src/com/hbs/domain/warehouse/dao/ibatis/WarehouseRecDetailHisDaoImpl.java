@@ -118,5 +118,14 @@ public class WarehouseRecDetailHisDaoImpl extends SqlMapClientDaoSupport impleme
         	logger.debug("Àë¿ªlistWarehouseRecDetailCount(WarehouseRecDetail), ·µ»Ø[" + count + "]");
 		}
         return count;
-    }  
+    }
+
+	/* (non-Javadoc)
+	 * @see com.hbs.domain.warehouse.dao.WarehouseRecDetailDao#findWarehouseRecDetailByBizKey(com.hbs.domain.warehouse.pojo.WarehouseRecDetail)
+	 */
+	public WarehouseRecDetail findWarehouseRecDetailByBizKey(
+			WarehouseRecDetail warehouseRecDetail) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return null;
+	}  
 }

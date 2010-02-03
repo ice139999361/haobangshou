@@ -8,9 +8,10 @@ package com.hbs.warehouse.common.constants;
 
 public interface WareHouseConstants {
 
-	public static final String WAREHOUSE_INFO_DAO ="wareHouseInfoDao";
+	public static final String WAREHOUSE_INFO_DAO = "wareHouseInfoDao";
 	
-	public static final String WAREHOUSE_REC_INFO_DAO="warehouseRecInfoDao";
+	public static final String WAREHOUSE_REC_INFO_DAO = "warehouseRecInfoDao";
+	public static final String WAREHOUSE_REC_DETAIL_DAO = "warehouseRecDetailDao";
 	
 	
 	

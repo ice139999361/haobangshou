@@ -58,7 +58,10 @@ public class WareHouseRecMgr {
 			}
 		}
 		if(ret ==0){//处理入库单明细
-			
+//			List<WarehouseRecDetail> detailList = whrInfo.getDetailList();
+//			if(null != detailList){//入库单明细处理
+//				
+//			}
 		}
 		
 		return ret;
