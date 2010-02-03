@@ -76,17 +76,22 @@ public class WarehouseRecInfo extends BaseDomain{
     /**
      * 活动状态.
      */
-    private String activeState;
+    private String activeState="ACTIVE";
     
     /**
      * 财务结算状态0----未对账1---已对账.
      */
-    private String financeState;
+    private String financeState ="0";
     
     /**
      * 供应商订单类型0----入库单1---退货单.
      */
     private String poNoType;
+    
+    /**
+     * 结算方式
+     */
+    private String settlementType;
 
     /**
      * 供应商入库单明细
@@ -94,7 +99,21 @@ public class WarehouseRecInfo extends BaseDomain{
     private List<WarehouseRecDetail> detailList;
     
     
-    public List<WarehouseRecDetail> getDetailList() {
+    /**
+	 * @return the settlementType
+	 */
+	public String getSettlementType() {
+		return settlementType;
+	}
+
+	/**
+	 * @param settlementType the settlementType to set
+	 */
+	public void setSettlementType(String settlementType) {
+		this.settlementType = settlementType;
+	}
+
+	public List<WarehouseRecDetail> getDetailList() {
 		return detailList;
 	}
 
@@ -222,6 +241,12 @@ public class WarehouseRecInfo extends BaseDomain{
         this.poNoType = poNoType;
     }
 
+    public String getLogKey(){
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(this.recPoNo).append(";").append(this.vendorCode);
+    	return sb.toString();
+    }
+    
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
