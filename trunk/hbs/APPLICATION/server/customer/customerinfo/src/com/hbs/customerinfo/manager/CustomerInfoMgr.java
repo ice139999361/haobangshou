@@ -159,7 +159,7 @@ public class CustomerInfoMgr {
 	 * 修改前状态为3 ，对审批不通过的数据修改，直接提交领导审批
 		//其他状态不存在修改操作
 	 * @param custInfo
-	 * @return 0---成功   1--无此状态  2---状态不正确
+	 * @return 0---成功   -1--无此状态  -2---状态不正确
 	 * @throws Exception
 	 */
 	public int updateCustomerInfo(CustomerInfo custInfo, String staffId,String staffName) throws Exception{
@@ -203,7 +203,7 @@ public class CustomerInfoMgr {
 			break;
 			
 		default:
-			ret =2;
+			ret = -2;
 		}
 		
 		return ret;
@@ -569,7 +569,7 @@ public class CustomerInfoMgr {
 			customerInfoDao.updateCustomerInfoByState(cInfo);
 			strLogType = "解锁数据";
 		default:
-			ret =1;
+			ret =-1;
 			
 		}
 		operLog( staffId, staffName, strLogType, customerInfo.getBaseSeqId().toString(), otherInfo);
