@@ -1,6 +1,6 @@
 /**
  * system £ºhbs
- * desc:    
+ * desc:
  * version: 1.0
  * author : yangzj
  */
@@ -11,6 +11,10 @@ import java.util.Date;
 import com.hbs.common.utils.LogUtils;
 import com.hbs.domain.common.pojo.baseinfo.OperLog;
 
+/**
+ * @author Administrator
+ *
+ */
 public class WareHouseLogUtils {
 	private static final String WAREHOUSE_OPERLOG_DAO ="warehouseOperLogDao";
 	/**

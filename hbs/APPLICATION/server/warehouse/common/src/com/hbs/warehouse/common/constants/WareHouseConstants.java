@@ -22,4 +22,7 @@ public interface WareHouseConstants {
 	
 	public static final String WAREHOUSE_INFO_STATE_0 ="0"; //库存可用
 	public static final String WAREHOUSE_INFO_STATE_1 ="1"; //库存不可用
+	
+	
+	public static final String PRE_SPRING="warehouse";
 }
