@@ -47,7 +47,8 @@
             LOCK_AMOUNT, 
             ACTIVE_STATE, 
             FINANCE_STATE, 
-            PO_NO_TYPE
+            PO_NO_TYPE,
+			SETTLEMENT_TYPE
         )
     VALUES (
             #recPoNo#,
@@ -64,7 +65,8 @@
             #state#,
             #activeState#,
             #financeState#,
-            #poNoType#
+            #poNoType#,
+			#settlementType#
     )
 ]]>
 </insert>
@@ -121,6 +123,9 @@
 	<isNotEmpty prepend="," property="poNoType">
             PO_NO_TYPE = #poNoType#
 	</isNotEmpty>
+	<isNotEmpty prepend="," property="poNoType">
+            PO_NO_TYPE = #poNoType#
+	</isNotEmpty>
     WHERE REC_PO_NO = #recPoNo#
 </update> 
 
@@ -141,7 +146,8 @@
             LOCK_AMOUNT, 
             ACTIVE_STATE, 
             FINANCE_STATE, 
-            PO_NO_TYPE
+            PO_NO_TYPE,
+			SETTLEMENT_TYPE
     FROM T_WAREHOUSE_RECEIVE_HIS WHERE REC_PO_NO = #recPoNo#
 ]]>
 </select>
@@ -163,7 +169,8 @@
             LOCK_AMOUNT, 
             ACTIVE_STATE, 
             FINANCE_STATE, 
-            PO_NO_TYPE
+            PO_NO_TYPE,
+			SETTLEMENT_TYPE
     FROM T_WAREHOUSE_RECEIVE_HIS
 ]]>
 		<dynamic prepend="WHERE">
@@ -211,6 +218,9 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "poNoType">
 				PO_NO_TYPE = #poNoType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "settlementType">
+				SETTLEMENT_TYPE = #settlementType#
 			</isNotEmpty>
 		</dynamic>
 </select>
@@ -267,6 +277,9 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "poNoType">
 				PO_NO_TYPE = #poNoType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "settlementType">
+				SETTLEMENT_TYPE = #settlementType#
 			</isNotEmpty>
 		</dynamic>
 </select>
