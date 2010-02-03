@@ -15,7 +15,7 @@ import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
 /**
  * 普通角色客户信息Action
  * @author xyf
- * @actions doList doGetInfo doSaveTemp doSave
+ * @actions doList doGetInfo doSaveTemp doSave doDelete
  */
 @SuppressWarnings("serial")
 public class CustomerInfoNormalAction extends BaseAction {
@@ -82,6 +82,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 	/**
 	 * 临时保存用户信息
 	 * @action.input custInfo.*
+	 * @action.result	seqId	insert的id。如果没有insert操作，则没有这一项。
 	 * @return
 	 */
 	public String doSaveTemp() {
@@ -116,10 +117,15 @@ public class CustomerInfoNormalAction extends BaseAction {
 				ret = mgr.updateCustomerInfo(custInfo, getLoginStaff().getStaffId(), getLoginStaff().getStaffName());
 			else
 				ret = mgr.saveTempCustomerInfo(custInfo);
-			if (ret != 0) {
+			
+			if (ret < 0) {
 				logger.info("临时保存出错！");
 				setErrorReason("临时保存出错！");
 				return ERROR;
+			}
+			if(ret > 0) {
+				this.setResult("seqId", ret);
+				if (logger.isDebugEnabled()) logger.debug("seqId="+ret);
 			}
 			if (logger.isDebugEnabled())
 				logger.debug("end doSaveTemp");
@@ -134,6 +140,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 	/**
 	 * 保存用户信息，对于不同的状态，进行不同的操作
 	 * @action.input custInfo.*
+	 * @action.result	seqId	insert的id。如果没有insert操作，则没有这一项。
 	 * @return
 	 */
 	public String doSave() {
@@ -174,13 +181,13 @@ public class CustomerInfoNormalAction extends BaseAction {
 				ret = mgr.commitCustomerInfo(custInfo, getLoginStaff()
 						.getStaffId(), getLoginStaff().getStaffName());
 			}
-			if (ret != 0) {
+			if (ret < 0) {
 				String s;
 				switch (ret) {
-				case 1:
+				case -1:
 					s = "无此状态！";
 					break;
-				case 2:
+				case -2:
 					s = "状态不正确！";
 					break;
 				default:
@@ -189,6 +196,10 @@ public class CustomerInfoNormalAction extends BaseAction {
 				logger.info(s);
 				setErrorReason(s);
 				return ERROR;
+			}
+			if(ret > 0) {
+				this.setResult("seqId", ret);
+				if (logger.isDebugEnabled()) logger.debug("seqId="+ret);
 			}
 			if (logger.isDebugEnabled())
 				logger.debug("end doSave");
@@ -233,9 +244,68 @@ public class CustomerInfoNormalAction extends BaseAction {
 	}
 
 	/**
+	 * 删除审批不通过的数据
+	 * 
+	 * @action.input custInfo.baseSeqId 或 (custInfo.commCode + custInfo.state)
+	 * @return
+	 */
+	public String doDelete() {
+		try {
+			if (logger.isDebugEnabled())
+				logger.debug("begin doGetInfo");
+			if (!CustomerInfoUtil.checkKeyFields(custInfo)) {
+				logger.info("参数为空！");
+				setErrorReason("参数为空！");
+				return ERROR;
+			}
+			try {
+				if (3 != Integer.parseInt(custInfo.getState())) {
+					logger.info("状态不正确！");
+					setErrorReason("状态不正确！");
+					return ERROR;
+				}
+			} catch (Exception e) {
+				logger.info("状态不正确！");
+				setErrorReason("状态不正确！");
+				return ERROR;
+			}
+			setMyId(false);
+			CustomerInfoMgr mgr = (CustomerInfoMgr) BeanLocator.getInstance()
+					.getBean(custInfoMgrName);
+			custInfo = mgr.getCustomerInfo(custInfo, true);
+			if (custInfo == null) {
+				logger.info("参数错误！");
+				setErrorReason("参数错误！");
+				return ERROR;
+			}
+			int i = mgr.deleteCustomerInfo(custInfo, getLoginStaff().getStaffId(), 
+					getLoginStaff().getStaffName(), 
+					getHttpServletRequest().getParameter("delDesc"));
+			switch (i) {
+			case 0:
+				return SUCCESS;
+			case 2:
+				logger.info("状态不正确！");
+				setErrorReason("状态不正确！");
+				return ERROR;
+			default:
+				logger.info("删除出错！");
+				setErrorReason("删除出错！");
+				return ERROR;
+			}
+		} catch (Exception e) {
+			logger.error("catch Exception in doGetInfo", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+	}
+
+	/**
 	 * 设置STAFF信息为当前用户信息
-	 * @param setName 是否设置用户名。为true时设置staffName为当前用户的staffName；为false时设置staffName为null。
-	 * 在查询时，为false；在增、改时，为true。
+	 * 
+	 * @param setName 是否设置用户名。
+	 * 	为true时设置staffName为当前用户的staffName；为false时设置staffName为null。
+	 * 	在查询时，为false；在增、改时，为true。
 	 * @throws Exception
 	 */
 	protected void setMyId(boolean setName) throws Exception {
