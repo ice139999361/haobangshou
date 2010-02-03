@@ -120,20 +120,22 @@ CREATE TABLE `t_warehouse_receive` (
   `REC_PO_NO` varchar(32) NOT NULL COMMENT '供应商入库单号（供应商送货单号）',
   `C_CODE` varchar(32) NOT NULL COMMENT '供应商编码',
   `SHORT_NAME` varchar(64) NOT NULL COMMENT '供应商简称',
-  `PO_NO_DATE` date DEFAULT NULL COMMENT '供应商单据日期',
+  `PO_NO_DATE` date default NULL COMMENT '供应商单据日期',
   `ARRAY_DATE` date NOT NULL COMMENT '货物到达日期',
   `HOUSE_TYPE` varchar(32) NOT NULL COMMENT '仓库位置',
-  `OPER_ID` varchar(20) DEFAULT NULL COMMENT '操作人ID',
+  `OPER_ID` varchar(20) default NULL COMMENT '操作人ID',
   `OPER_STAFF` varchar(32) NOT NULL COMMENT '操作员',
-  `OPER_TIME` datetime DEFAULT NULL COMMENT '操作时间',
+  `OPER_TIME` datetime default NULL COMMENT '操作时间',
   `RECEIVE_DESC` varchar(256) NOT NULL COMMENT '收货单备注',
-  `PERIOD` varchar(8) DEFAULT NULL COMMENT '所属账期',
-  `STATE` varchar(8) DEFAULT NULL COMMENT '收货单（入库单）状态  01---仓管创建入库单（临时保存入库单，其他人无法查看）  02---仓管确认入库单（入库数据证实确认，其他人可以查看）  03---仓管取消入库单（需要在确认入库单之前操作，确认的入库单不能操作)  00---关闭入库单  31---财务确认付款',
-  `ACTIVE_STATE` varchar(8) DEFAULT NULL COMMENT '活动状态  PAUSE---仓管暂停入库单（暂停状态，入库单的业务状态停留在当前，除仓管外，不能激活入库单）  ACTIVE---仓管激活入库单（激活暂停的入库单，仓管操作）  ',
-  `FINANCE_STATE` varchar(2) DEFAULT NULL COMMENT '财务结算状态  0----未对账  1---已对账',
+  `PERIOD` varchar(8) default NULL COMMENT '所属账期',
+  `STATE` varchar(8) default NULL COMMENT '收货单（入库单）状态  01---仓管创建入库单（临时保存入库单，其他人无法查看）  02---仓管确认入库单（入库数据证实确认，其他人可以查看）  03---仓管取消入库单（需要在确认入库单之前操作，确认的入库单不能操作)  00---关闭入库单  31---财务确认付款',
+  `ACTIVE_STATE` varchar(8) default NULL COMMENT '活动状态  PAUSE---仓管暂停入库单（暂停状态，入库单的业务状态停留在当前，除仓管外，不能激活入库单）  ACTIVE---仓管激活入库单（激活暂停的入库单，仓管操作）  ',
+  `FINANCE_STATE` varchar(2) default NULL COMMENT '财务结算状态  0----未对账  1---已对账',
   `PO_NO_TYPE` varchar(2) NOT NULL COMMENT '供应商订单类型  0----入库单  1---退货单',
-  PRIMARY KEY (`REC_PO_NO`)
+  `SETTLEMENT_TYPE` varchar(8) default NULL COMMENT '结算方式',
+  PRIMARY KEY  (`REC_PO_NO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='入库单或收货单';
+
 
 #
 # Dumping data for table t_warehouse_receive
@@ -146,36 +148,37 @@ CREATE TABLE `t_warehouse_receive` (
 
 DROP TABLE IF EXISTS `t_warehouse_receive_detail`;
 CREATE TABLE `t_warehouse_receive_detail` (
-  `REC_DETAIL_SEQID` int(11) NOT NULL AUTO_INCREMENT COMMENT '入库明细SEQID,序列号',
+  `REC_DETAIL_SEQID` int(11) NOT NULL auto_increment COMMENT '入库明细SEQID,序列号',
   `REC_PO_NO` varchar(32) NOT NULL COMMENT '供应商送货单号',
   `C_CODE` varchar(32) NOT NULL COMMENT '供应商编码',
-  `SHORT_NAME` varchar(32) DEFAULT NULL COMMENT '供应商简称',
-  `PO_NO_DATE` date DEFAULT NULL COMMENT '供应商单据日期',
-  `ARRAY_DATE` date DEFAULT NULL COMMENT '货物到达日期',
-  `HOUSE_TYPE` varchar(32) DEFAULT NULL COMMENT '仓库位置',
+  `SHORT_NAME` varchar(32) default NULL COMMENT '供应商简称',
+  `PO_NO_DATE` date default NULL COMMENT '供应商单据日期',
+  `ARRAY_DATE` date default NULL COMMENT '货物到达日期',
+  `HOUSE_TYPE` varchar(32) default NULL COMMENT '仓库位置',
   `RLT_PO_NO` varchar(32) NOT NULL COMMENT '送货单对应的采购单号',
-  `SETTLEMENT_TYPE` varchar(32) NOT NULL COMMENT '结算方式',
+  `SETTLEMENT_TYPE` varchar(8) NOT NULL default '' COMMENT '结算方式',
   `PART_NO` varchar(32) NOT NULL COMMENT '公司的物料编号',
   `C_PART_NO` varchar(32) NOT NULL COMMENT '供应商的物料编号',
-  `PN_DESC` varchar(64) DEFAULT NULL COMMENT '物料描述',
-  `C_PRICE` float(8,4) DEFAULT '0.0000' COMMENT '采购的单价',
-  `IS_TAX` varchar(2) DEFAULT NULL COMMENT '是否含税  1--是  0--否  如果单价是含税的，则一定是1，否则可以选择是否含税交易',
-  `TAX_RATE` float(4,2) DEFAULT NULL COMMENT '税率',
+  `PN_DESC` varchar(64) default NULL COMMENT '物料描述',
+  `C_PRICE` float(8,4) default '0.0000' COMMENT '采购的单价',
+  `IS_TAX` varchar(2) default NULL COMMENT '是否含税  1--是  0--否  如果单价是含税的，则一定是1，否则可以选择是否含税交易',
+  `TAX_RATE` float(4,2) default NULL COMMENT '税率',
   `AMOUNT` int(11) NOT NULL COMMENT '本次送货数量',
-  `CUR_MONEY` float(8,2) DEFAULT '0.00' COMMENT '本次送货金额',
-  `PERIOD` varchar(8) DEFAULT NULL COMMENT '所属账期',
-  `FINANCE_STATE` varchar(2) DEFAULT NULL COMMENT '财务结算状态  0----未对账  1---已对账',
+  `CUR_MONEY` float(8,2) default '0.00' COMMENT '本次送货金额',
+  `PERIOD` varchar(8) default NULL COMMENT '所属账期',
+  `FINANCE_STATE` varchar(2) default NULL COMMENT '财务结算状态  0----未对账  1---已对账',
   `PO_NO_TYPE` varchar(2) NOT NULL COMMENT '供应商订单类型  0---入库单  1---退货单',
-  `STAFF_ID` varchar(20) DEFAULT NULL COMMENT '操作员ID',
-  `STAFF_NAME` varchar(32) DEFAULT NULL COMMENT '操作员姓名',
-  `OPER_TIME` datetime DEFAULT NULL COMMENT '操作时间',
-  `STATE` varchar(8) NOT NULL DEFAULT '01' COMMENT '收货单（入库单）状态01---仓管创建入库单（临时保存入库单，其他人无法查看）02---仓管确认入库单（入库数据证实确认，其他人可以查看）03---仓管取消入库单（需要在确认入库单之前操作，确认的入库单不能操作)00---关闭入库单31---财务确认付款',
-  `ACTIVE_STATE` varchar(8) NOT NULL DEFAULT 'ACTIVE' COMMENT '活动状态PAUSE---仓管暂停入库单（暂停状态，入库单的业务状态停留在当前，除仓管外，不能激活入库单）ACTIVE---仓管激活入库单（激活暂停的入库单，仓管操作）',
-  `FINANCE_PERIOD` varchar(8) DEFAULT NULL COMMENT '财务确认的账期或财务调整的账期',
-  PRIMARY KEY (`REC_DETAIL_SEQID`),
+  `STAFF_ID` varchar(20) default NULL COMMENT '操作员ID',
+  `STAFF_NAME` varchar(32) default NULL COMMENT '操作员姓名',
+  `OPER_TIME` datetime default NULL COMMENT '操作时间',
+  `STATE` varchar(8) NOT NULL default '01' COMMENT '收货单（入库单）状态01---仓管创建入库单（临时保存入库单，其他人无法查看）02---仓管确认入库单（入库数据证实确认，其他人可以查看）03---仓管取消入库单（需要在确认入库单之前操作，确认的入库单不能操作)00---关闭入库单31---财务确认付款',
+  `ACTIVE_STATE` varchar(8) NOT NULL default 'ACTIVE' COMMENT '活动状态PAUSE---仓管暂停入库单（暂停状态，入库单的业务状态停留在当前，除仓管外，不能激活入库单）ACTIVE---仓管激活入库单（激活暂停的入库单，仓管操作）',
+  `FINANCE_PERIOD` varchar(8) default NULL COMMENT '财务确认的账期或财务调整的账期',
+  PRIMARY KEY  (`REC_DETAIL_SEQID`),
   KEY `RLT_RECEIVE_DETAIL` (`REC_PO_NO`),
-  CONSTRAINT `RLT_RECEIVE_DETAIL` FOREIGN KEY (`REC_PO_NO`) REFERENCES `t_warehouse_receive` (`REC_PO_NO`)
+  CONSTRAINT `t_warehouse_receive_detail_ibfk_1` FOREIGN KEY (`REC_PO_NO`) REFERENCES `t_warehouse_receive` (`REC_PO_NO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='入库单明细表';
+
 
 
 
@@ -193,31 +196,29 @@ CREATE TABLE `t_warehouse_receive_detail_his` (
   `REC_DETAIL_SEQID` int(11) NOT NULL COMMENT '入库明细SEQID,序列号',
   `REC_PO_NO` varchar(32) NOT NULL COMMENT '供应商送货单号',
   `C_CODE` varchar(32) NOT NULL COMMENT '供应商编码',
-  `SHORT_NAME` varchar(32) DEFAULT NULL COMMENT '供应商简称',
-  `PO_NO_DATE` date DEFAULT NULL COMMENT '供应商单据日期',
-  `ARRAY_DATE` date DEFAULT NULL COMMENT '货物到达日期',
-  `HOUSE_TYPE` varchar(32) DEFAULT NULL COMMENT '仓库位置',
+  `SHORT_NAME` varchar(32) default NULL COMMENT '供应商简称',
+  `PO_NO_DATE` date default NULL COMMENT '供应商单据日期',
+  `ARRAY_DATE` date default NULL COMMENT '货物到达日期',
+  `HOUSE_TYPE` varchar(32) default NULL COMMENT '仓库位置',
   `RLT_PO_NO` varchar(32) NOT NULL COMMENT '送货单对应的采购单号',
-  `SETTLEMENT_TYPE` varchar(32) DEFAULT NULL COMMENT '结算方式',
+  `SETTLEMENT_TYPE` varchar(8) default NULL COMMENT '结算方式',
   `PART_NO` varchar(32) NOT NULL COMMENT '公司的物料编号',
   `C_PART_NO` varchar(32) NOT NULL COMMENT '供应商的物料编号',
-  `PN_DESC` varchar(64) DEFAULT NULL COMMENT '物料描述',
-  `C_PRICE` float(8,4) DEFAULT '0.0000' COMMENT '采购的单价',
-  `IS_TAX` varchar(2) DEFAULT NULL COMMENT '是否含税  1--是  0--否  如果单价是含税的，则一定是1，否则可以选择是否含税交易',
-  `TAX_RATE` float(4,2) DEFAULT NULL COMMENT '税率',
+  `PN_DESC` varchar(64) default NULL COMMENT '物料描述',
+  `C_PRICE` float(8,4) default '0.0000' COMMENT '采购的单价',
+  `IS_TAX` varchar(2) default NULL COMMENT '是否含税  1--是  0--否  如果单价是含税的，则一定是1，否则可以选择是否含税交易',
+  `TAX_RATE` float(4,2) default NULL COMMENT '税率',
   `AMOUNT` int(11) NOT NULL COMMENT '本次送货数量',
-  `CUR_MONEY` float(8,2) DEFAULT '0.00' COMMENT '本次送货金额',
-  `PERIOD` varchar(8) DEFAULT NULL COMMENT '所属账期',
-  `FINANCE_STATE` varchar(2) DEFAULT NULL COMMENT '财务结算状态  0----未对账  1---已对账',
+  `CUR_MONEY` float(8,2) default '0.00' COMMENT '本次送货金额',
+  `PERIOD` varchar(8) default NULL COMMENT '所属账期',
+  `FINANCE_STATE` varchar(2) default NULL COMMENT '财务结算状态  0----未对账  1---已对账',
   `PO_NO_TYPE` varchar(2) NOT NULL COMMENT '供应商订单类型  0----入库单  1---退货单',
-  `STAFF_ID` varchar(20) DEFAULT NULL COMMENT '操作员ID',
-  `STAFF_NAME` varchar(32) DEFAULT NULL COMMENT '操作员姓名',
-  `OPER_TIME` datetime DEFAULT NULL COMMENT '操作时间',
-  `STATE` varchar(8) NOT NULL DEFAULT '01' COMMENT '收货单（入库单）状态01---仓管创建入库单（临时保存入库单，其他人无法查看）02---仓管确认入库单（入库数据证实确认，其他人可以查看）03---仓管取消入库单（需要在确认入库单之前操作，确认的入库单不能操作)00---关闭入库单31---财务确认付款',
-  `ACTIVE_STATE` varchar(8) NOT NULL DEFAULT 'ACTIVE' COMMENT '活动状态PAUSE---仓管暂停入库单（暂停状态，入库单的业务状态停留在当前，除仓管外，不能激活入库单）ACTIVE---仓管激活入库单（激活暂停的入库单，仓管操作）',
-  `FINANCE_PERIOD` varchar(8) DEFAULT NULL COMMENT '财务确认的账期或财务调整的账期',
-  PRIMARY KEY (`REC_DETAIL_SEQID`)
+  `STATE` varchar(8) NOT NULL default '01' COMMENT '收货单（入库单）状态01---仓管创建入库单（临时保存入库单，其他人无法查看）02---仓管确认入库单（入库数据证实确认，其他人可以查看）03---仓管取消入库单（需要在确认入库单之前操作，确认的入库单不能操作)00---关闭入库单31---财务确认付款',
+  `ACTIVE_STATE` varchar(8) NOT NULL default 'ACTIVE' COMMENT '活动状态PAUSE---仓管暂停入库单（暂停状态，入库单的业务状态停留在当前，除仓管外，不能激活入库单）ACTIVE---仓管激活入库单（激活暂停的入库单，仓管操作）',
+  `FINANCE_PERIOD` varchar(8) default NULL COMMENT '财务确认的账期或财务调整的账期',
+  PRIMARY KEY  (`REC_DETAIL_SEQID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='入库单明细表历史';
+
 
 
 
@@ -235,20 +236,22 @@ CREATE TABLE `t_warehouse_receive_his` (
   `REC_PO_NO` varchar(32) NOT NULL COMMENT '供应商入库单号（供应商送货单号）',
   `C_CODE` varchar(32) NOT NULL COMMENT '供应商编码',
   `SHORT_NAME` varchar(64) NOT NULL COMMENT '供应商简称',
-  `PO_NO_DATE` date DEFAULT NULL COMMENT '供应商单据日期',
+  `PO_NO_DATE` date default NULL COMMENT '供应商单据日期',
   `ARRAY_DATE` date NOT NULL COMMENT '货物到达日期',
   `HOUSE_TYPE` varchar(32) NOT NULL COMMENT '仓库位置',
-  `OPER_ID` varchar(20) DEFAULT NULL COMMENT '操作人ID',
+  `OPER_ID` varchar(20) default NULL COMMENT '操作人ID',
   `OPER_STAFF` varchar(32) NOT NULL COMMENT '操作员',
-  `OPER_TIME` datetime DEFAULT NULL COMMENT '操作时间',
+  `OPER_TIME` datetime default NULL COMMENT '操作时间',
   `RECEIVE_DESC` varchar(256) NOT NULL COMMENT '收货单备注',
-  `PERIOD` varchar(8) DEFAULT NULL COMMENT '所属账期',
-  `STATE` varchar(8) DEFAULT NULL COMMENT '收货单（入库单）状态  01---仓管创建入库单（临时保存入库单，其他人无法查看）  02---仓管确认入库单（入库数据证实确认，其他人可以查看）  03---仓管取消入库单（需要在确认入库单之前操作，确认的入库单不能操作)  00---关闭入库单  31---财务确认付款',
-  `ACTIVE_STATE` varchar(8) DEFAULT NULL COMMENT '活动状态  PAUSE---仓管暂停入库单（暂停状态，入库单的业务状态停留在当前，除仓管外，不能激活入库单）  ACTIVE---仓管激活入库单（激活暂停的入库单，仓管操作）  ',
-  `FINALCE_STATE` varchar(2) DEFAULT NULL COMMENT '财务结算状态  0----未对账  1---已对账',
+  `PERIOD` varchar(8) default NULL COMMENT '所属账期',
+  `STATE` varchar(8) default NULL COMMENT '收货单（入库单）状态  01---仓管创建入库单（临时保存入库单，其他人无法查看）  02---仓管确认入库单（入库数据证实确认，其他人可以查看）  03---仓管取消入库单（需要在确认入库单之前操作，确认的入库单不能操作)  00---关闭入库单  31---财务确认付款',
+  `ACTIVE_STATE` varchar(8) default NULL COMMENT '活动状态  PAUSE---仓管暂停入库单（暂停状态，入库单的业务状态停留在当前，除仓管外，不能激活入库单）  ACTIVE---仓管激活入库单（激活暂停的入库单，仓管操作）  ',
+  `FINALCE_STATE` varchar(2) default NULL COMMENT '财务结算状态  0----未对账  1---已对账',
   `PO_NO_TYPE` varchar(2) NOT NULL COMMENT '供应商订单类型  0----入库单  1---退货单',
-  PRIMARY KEY (`REC_PO_NO`)
+  `SETTLEMENT_TYPE` varchar(8) default NULL COMMENT '结算方式',
+  PRIMARY KEY  (`REC_PO_NO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='入库单或收货单历史';
+
 
 #
 # Dumping data for table t_warehouse_receive_his
