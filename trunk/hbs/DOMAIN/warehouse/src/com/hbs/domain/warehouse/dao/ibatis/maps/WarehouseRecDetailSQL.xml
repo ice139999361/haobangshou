@@ -27,20 +27,16 @@
     <result property="staffId" column="STAFF_ID"/>
     <result property="staffName" column="STAFF_NAME"/>
     <result property="operTime" column="OPER_TIME"/>
+    <result property="state" column="STATE"/>
+    <result property="activeState" column="ACTIVE_STATE"/>
+    <result property="financePeriod" column="FINANCE_PERIOD"/>
 </resultMap>
 
-<select id="WarehouseRecDetail_getNextId" resultClass="java.lang.String">
-<![CDATA[
-    SELECT ltrim(to_char(Seq_T_WAREHOUSE_RECEIVE_DETAIL_Id.Nextval,'0000000000')) 
-           AS Id 
-    FROM dual
-]]>
-</select>
+
 
 <insert id="WarehouseRecDetail_insertWarehouseRecDetail" parameterClass="warehouseRecDetail" >
 <![CDATA[
-    INSERT INTO T_WAREHOUSE_RECEIVE_DETAIL (
-            REC_DETAIL_SEQID, 
+    INSERT INTO T_WAREHOUSE_RECEIVE_DETAIL (             
             REC_PO_NO, 
             C_CODE, 
             SHORT_NAME, 
@@ -61,10 +57,12 @@
             PO_NO_TYPE,
 			STAFF_ID,
 			STAFF_NAME,
-			OPER_TIME
+			OPER_TIME,
+			STATE,
+			ACTIVE_STATE,
+			FINANCE_PERIOD
         )
-    VALUES (
-            #recDetailSeqId#,
+    VALUES (            
             #recPoNo#,
             #vendorCode#,
             #shortName#,
@@ -85,7 +83,10 @@
             #poNoType#,
 			#staffId#,
 			#staffName#,
-			#operTime#
+			#operTime#,
+			#state#,
+			#activeState#,
+			#financePeriod#
     )
 ]]>
 </insert>
@@ -157,8 +158,72 @@
 	<isNotEmpty prepend="," property="operTime">
             OPER_TIME = #operTime#
 	</isNotEmpty>
+	<isNotEmpty prepend="," property="state">
+            STATE = #state#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="activeState">
+            ACTIVE_STATE = #activeState#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="financePeriod">
+            FINANCE_PERIOD = #financePeriod#
+	</isNotEmpty>
     WHERE REC_DETAIL_SEQID = #recDetailSeqId#
 </update> 
+
+<select id="WarehouseRecDetail_findWarehouseRecDetailByBizKey" resultMap="warehouseRecDetail_result" parameterClass="warehouseRecDetail">
+<![CDATA[
+    SELECT
+            REC_DETAIL_SEQID, 
+            REC_PO_NO, 
+            C_CODE, 
+            SHORT_NAME, 
+            PO_NO_DATE, 
+            ARRAY_DATE, 
+            HOUSE_TYPE, 
+            RLT_PO_NO, 
+            SETTLEMENT_TYPE, 
+            PART_NO, 
+            C_PART_NO, 
+            PN_DESC, 
+            C_PRICE, 
+            IS_TAX, 
+            TAX_RATE, 
+            AMOUNT, 
+            PERIOD, 
+            FINANCE_STATE, 
+            PO_NO_TYPE,
+			STAFF_ID,
+			STAFF_NAME,
+			OPER_TIME,
+			STATE,
+			ACTIVE_STATE,
+			FINANCE_PERIOD
+    FROM T_WAREHOUSE_RECEIVE_DETAIL
+]]>
+	<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "recDetailSeqId">
+				REC_DETAIL_SEQID = #recDetailSeqId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "recPoNo">
+				REC_PO_NO = #recPoNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "vendorCode">
+				C_CODE = #vendorCode#
+			</isNotEmpty>			
+			<isNotEmpty prepend="and" property = "settlementType">
+				SETTLEMENT_TYPE = #settlementType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "partNo">
+				PART_NO = #partNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "venPartNo">
+				C_PART_NO = #venPartNo#
+			</isNotEmpty>			
+			<isNotEmpty prepend="and" property = "poNoType">
+				PO_NO_TYPE = #poNoType#
+			</isNotEmpty>			
+		</dynamic>
+</select>
 
 <select id="WarehouseRecDetail_findWarehouseRecDetail" resultMap="warehouseRecDetail_result" parameterClass="string">
 <![CDATA[
@@ -184,7 +249,10 @@
             PO_NO_TYPE,
 			STAFF_ID,
 			STAFF_NAME,
-			OPER_TIME
+			OPER_TIME,
+			STATE,
+			ACTIVE_STATE,
+			FINANCE_PERIOD
     FROM T_WAREHOUSE_RECEIVE_DETAIL WHERE REC_DETAIL_SEQID = #recDetailSeqId#
 ]]>
 </select>
@@ -213,7 +281,10 @@
             PO_NO_TYPE,
 			STAFF_ID,
 			STAFF_NAME,
-			OPER_TIME
+			OPER_TIME,
+			STATE,
+			ACTIVE_STATE,
+			FINANCE_PERIOD
     FROM T_WAREHOUSE_RECEIVE_DETAIL
 ]]>
 		<dynamic prepend="WHERE">
@@ -279,6 +350,15 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "staffName">
 				STAFF_NAME = #staffName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="state">
+		            STATE = #state#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="activeState">
+		            ACTIVE_STATE = #activeState#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="financePeriod">
+		            FINANCE_PERIOD = #financePeriod#
 			</isNotEmpty>
 			
 		<!--	这里处理时间段
@@ -359,7 +439,15 @@
 			<isNotEmpty prepend="and" property = "staffName">
 				STAFF_NAME = #staffId#
 			</isNotEmpty>
-			
+			<isNotEmpty prepend="," property="state">
+		            STATE = #state#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="activeState">
+		            ACTIVE_STATE = #activeState#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="financePeriod">
+		            FINANCE_PERIOD = #financePeriod#
+			</isNotEmpty>
 		<!--	这里处理时间段
 		    <isNotEmpty prepend="and" property = "poNoType">
 				PO_NO_TYPE = #staffName#

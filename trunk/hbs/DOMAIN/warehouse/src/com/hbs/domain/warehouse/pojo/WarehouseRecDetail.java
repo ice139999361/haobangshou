@@ -3,12 +3,14 @@ package com.hbs.domain.warehouse.pojo;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.hbs.domain.common.pojo.base.BaseDomain;
+
 /**
  * WarehouseRecDetail对象.
  * @author hbs
  *
  */
-public class WarehouseRecDetail {
+public class WarehouseRecDetail extends BaseDomain{
     
     /**
      * 入库明细SEQID.
@@ -117,10 +119,44 @@ public class WarehouseRecDetail {
      * 操作时间
      */
     private Date operTime;
-    
-
+    /**
+     * 业务状态
+     */
+    private String state="01";
+    /**
+     * 活动状态
+     */
+    private String activeState="ACTIVE";
+    /**
+     * 财务调整的账期
+     */
+    private String financePeriod;
     
    
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getActiveState() {
+		return activeState;
+	}
+
+	public void setActiveState(String activeState) {
+		this.activeState = activeState;
+	}
+
+	public String getFinancePeriod() {
+		return financePeriod;
+	}
+
+	public void setFinancePeriod(String financePeriod) {
+		this.financePeriod = financePeriod;
+	}
 
 	/**
 	 * @return the staffId

@@ -86,6 +86,17 @@ public class WarehouseRecDetailDaoImpl extends SqlMapClientDaoSupport implements
         return warehouseRecDetail;
     }
     
+    public WarehouseRecDetail findWarehouseRecDetailByBizKey(WarehouseRecDetail detail) throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+        	logger.debug("进入findWarehouseRecDetail(WarehouseRecDetail), 输入参数[" + detail + "]");
+		}
+        WarehouseRecDetail warehouseRecDetail = (WarehouseRecDetail) getSqlMapClientTemplate().queryForObject("WarehouseRecDetail_findWarehouseRecDetailByBizKey", detail);
+		if (logger.isDebugEnabled()) {
+        	logger.debug("离开findWarehouseRecDetail(WarehouseRecDetail), 返回[" + warehouseRecDetail + "]");
+		}
+        return warehouseRecDetail;
+    }
+    
     /**
      * list.
      * @param warehouseRecDetail warehouseRecDetail
