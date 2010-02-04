@@ -37,25 +37,29 @@ public class WareHouseRecMgr {
 	 */
 	public int saveWareHouseRecInfo(WarehouseRecInfo whrInfo,String content) throws Exception{
 		int ret =0;
-		logger.debug("保存入库单信息，传入的参数为：" + whrInfo.toString());
+		String st = whrInfo.getState();
+		if(st.equals(WareHouseConstants.WAREHOUSE_REC_INFO_01)){
+			logger.debug("保存入库单信息，传入的参数为：" + whrInfo.toString());
+		}else{
+			logger.debug("确认入库单信息，传入的参数为：" + whrInfo.toString());
+		}
 		WarehouseRecInfoDao whrInfoDao =(WarehouseRecInfoDao)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_REC_INFO_DAO);
+		//设置账期，以物料到达时间为基准计算
+		WarehouseHelper helper =(WarehouseHelper)BeanLocator.getInstance().getBean(WareHouseConstants.PRE_SPRING + whrInfo.getPoNoType() + whrInfo.getSettlementType());
+		whrInfo.setPeriod(helper.getPeriod(whrInfo));
 		//根据传入的参数按照业务主键查询是否存在入库单
 		WarehouseRecInfo existInfo = whrInfoDao.findWarehouseRecInfo(whrInfo);
-		if(null == existInfo){//不存在，需要insert操作
-			//设置账期，以物料到达时间为基准计算
-			WarehouseHelper helper =(WarehouseHelper)BeanLocator.getInstance().getBean(WareHouseConstants.PRE_SPRING + whrInfo.getPoNoType() + whrInfo.getSettlementType());
-			whrInfo.setPeriod(helper.getPeriod(whrInfo));
-			whrInfo.setState(WareHouseConstants.WAREHOUSE_REC_INFO_01);
+		if(null == existInfo){//不存在，需要insert操作			
+			//whrInfo.setState(WareHouseConstants.WAREHOUSE_REC_INFO_01);
 			whrInfoDao.insertWarehouseRecInfo(whrInfo);
-			WareHouseLogUtils.operLog(whrInfo.getOperId(), whrInfo.getOperStaff(), "新增", "供应商物料入库", whrInfo.getLogKey(), null, content);
+			WareHouseLogUtils.operLog(whrInfo.getOperId(), whrInfo.getOperStaff(), (whrInfo.getState().equals(WareHouseConstants.WAREHOUSE_REC_INFO_03) ? "确认" : "新增"), "供应商物料入库", whrInfo.getLogKey(), null, content);
 
-			
 		}else{//存在,做修改操作
 			//判断入库单状态
 			String state = existInfo.getState();
 			if(state.equals(WareHouseConstants.WAREHOUSE_REC_INFO_01)){//可以修改
 				whrInfoDao.updateWarehouseRecInfo(whrInfo);
-				WareHouseLogUtils.operLog(whrInfo.getOperId(), whrInfo.getOperStaff(), "修改", "供应商物料入库", whrInfo.getLogKey(), null, content);
+				WareHouseLogUtils.operLog(whrInfo.getOperId(), whrInfo.getOperStaff(), (whrInfo.getState().equals(WareHouseConstants.WAREHOUSE_REC_INFO_03) ? "确认" : "修改"), "供应商物料入库", whrInfo.getLogKey(), null, content);
 			}else{//状态不正确，不能修改
 				ret = -1;
 			}
@@ -63,7 +67,14 @@ public class WareHouseRecMgr {
 		if(ret ==0){//处理入库单明细
 			List<WarehouseRecDetail> detailList = whrInfo.getDetailList();
 			if(null != detailList){//入库单明细处理
-				logger.debug("保存入库单信息，入库单下存在入库单明细，保存入库单明细，数量为：" + detailList.size());
+				if(st.equals(WareHouseConstants.WAREHOUSE_REC_INFO_01)){
+					logger.debug("保存入库单信息，入库单下存在入库单明细，保存入库单明细，数量为：" + detailList.size());
+				}else{
+					logger.debug("确认入库单信息，入库单下存在入库单明细，确认入库单明细，数量为：" + detailList.size());
+				}
+				for(WarehouseRecDetail detail : detailList){
+					detail.setState(whrInfo.getState());
+				}
 				WareHouseRecDetailMgr detailMgr = (WareHouseRecDetailMgr)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_REC_DETAILMGR);
 				detailMgr.saveWareHouseRecDetailList(detailList, true, content);
 			}
@@ -71,7 +82,16 @@ public class WareHouseRecMgr {
 		
 		return ret;
 	}
-	
+	/**
+	 * 取消入库单，同时取消该入库单下的所有入库单明细
+	 * 首先判断入库单是否存在，不存在，返回-2
+	 * 否则 判断状态是否为临时状态，不是临时状态，不允许取消
+	 * 是临时状态，取消入库单
+	 * @param whrInfo
+	 * @param content  取消意见
+	 * @return 0--成功  -1 --状态不正确 -2 --入库单不存在
+	 * @throws Exception
+	 */
 	public int cancelWareHouseRecInfo(WarehouseRecInfo whrInfo,String content) throws Exception{
 		int ret =0;
 		logger.debug("取消入库单信息，传入的参数为：" + whrInfo.toString());
@@ -88,7 +108,9 @@ public class WareHouseRecMgr {
 				//入库单明细
 				List<WarehouseRecDetail> detailList = whrInfo.getDetailList();
 				if(null != detailList){//入库单明细处理
-					
+					logger.debug("取消入库单信息，入库单下存在入库单明细，取消入库单明细，数量为：" + detailList.size());
+					WareHouseRecDetailMgr detailMgr = (WareHouseRecDetailMgr)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_REC_DETAILMGR);
+					detailMgr.cancelWareHouseRecDetailList(detailList, true, content);
 				}
 			}else{//状态不正确，不能取消
 				logger.debug("取消入库单信息,存在的入库单状态为：" + existInfo.getState() +"无法做取消操作");
@@ -103,4 +125,41 @@ public class WareHouseRecMgr {
 		return ret;
 	}
 	
+	/**
+	 * 确认供应商入库单，同时确认入库单明细
+	 * 对于确认来说，入库单明细不能独立操作，必须跟随入库单同时操作
+	 * @param whrInfo
+	 * @param content
+	 * @return
+	 * @throws Exception
+	 */
+	public int corfirmWareHouseRecInfo(WarehouseRecInfo whrInfo,String content) throws Exception{
+
+		//设置状态为确认
+		whrInfo.setState(WareHouseConstants.WAREHOUSE_REC_INFO_02);
+		
+		return saveWareHouseRecInfo(whrInfo,content);
+	}
+	
+	public int controlActiveState(WarehouseRecInfo whrInfo,String content) throws Exception{
+		int ret =0;
+		logger.debug("供应商入库单暂停/激活操作，传入的参数为：" + whrInfo.toString());
+		String activeState = whrInfo.getActiveState();
+		if(activeState.equals(WareHouseConstants.WAREHOUSE_REC_ACTIVE)){
+			whrInfo.setActiveState(WareHouseConstants.WAREHOUSE_REC_PAUSE);
+		}else{
+			whrInfo.setActiveState(WareHouseConstants.WAREHOUSE_REC_ACTIVE);
+		}
+		WarehouseRecInfoDao whrInfoDao =(WarehouseRecInfoDao)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_REC_INFO_DAO);
+		whrInfoDao.updateWarehouseRecInfoByActiveState(whrInfo);
+		WareHouseLogUtils.operLog(whrInfo.getOperId(), whrInfo.getOperStaff(), (activeState.equals(WareHouseConstants.WAREHOUSE_REC_ACTIVE) ? "激活" : "暂停"), "供应商物料入库", whrInfo.getLogKey(), null, content);
+		//入库单明细
+		List<WarehouseRecDetail> detailList = whrInfo.getDetailList();
+		if(null != detailList){//入库单明细处理
+			logger.debug("供应商入库单暂停/激活操作! 入库单明细数量为：" + detailList.size());
+			WareHouseRecDetailMgr detailMgr = (WareHouseRecDetailMgr)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_REC_DETAILMGR);
+			detailMgr.cancelWareHouseRecDetailList(detailList, true, content);
+		}
+		return ret;
+	}
 }
