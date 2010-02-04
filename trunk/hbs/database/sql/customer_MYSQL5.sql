@@ -87,7 +87,7 @@ CREATE TABLE `t_cust_account_period` (
 
 DROP TABLE IF EXISTS `t_cust_bank`;
 CREATE TABLE `t_cust_bank` (
-  `SEQID` int(11) NOT NULL,
+  `SEQID` int(11) NOT NULL AUTO_INCREMENT,
   `C_CODE` varchar(32) DEFAULT NULL,
   `STATE` varchar(2) DEFAULT NULL,
   `ACCOUNT_NAME` varchar(32) NOT NULL COMMENT '开户户名',
@@ -95,8 +95,10 @@ CREATE TABLE `t_cust_bank` (
   `ACCOUNT` varchar(32) DEFAULT NULL COMMENT '帐号',
   `BASE_SEQID` int(11) NOT NULL,
   PRIMARY KEY (`SEQID`),
-  KEY `BASE_SEQID` (`BASE_SEQID`)
+  KEY `BASE_SEQID` (`BASE_SEQID`),
+  CONSTRAINT `t_cust_bank_ibfk_1` FOREIGN KEY (`BASE_SEQID`) REFERENCES `t_customer_info` (`BASE_SEQID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='客户银行信息，，关联客户的银行信息';
+
 
 #
 # Dumping data for table t_cust_bank
