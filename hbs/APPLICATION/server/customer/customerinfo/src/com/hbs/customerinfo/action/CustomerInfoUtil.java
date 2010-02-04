@@ -405,7 +405,7 @@ s	 */
 				if(ce2 == null)
 					list.add(new FieldErr("SettlementType", "SettlementType的值不正确"));
 				else
-					custInfo.setSettlementType(ce2.getEncodeValue());
+					custInfo.setSettlementDesc(ce2.getEncodeValue());
 			}
 			
 			s = custInfo.getCurrency();
@@ -417,7 +417,7 @@ s	 */
 				if(ce2 == null)
 					list.add(new FieldErr("Currency", "Currency的值不正确"));
 				else
-					custInfo.setCurrency(ce2.getEncodeValue());
+					custInfo.setCurrencyDesc(ce2.getEncodeValue());
 			}
 			
 			int i;
