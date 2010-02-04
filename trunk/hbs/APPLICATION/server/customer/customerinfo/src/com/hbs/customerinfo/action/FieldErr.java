@@ -30,7 +30,17 @@ public final class FieldErr
 	 * @param err checkInputFields的出错信息
 	 * @return
 	 */
-	public static String formFieldsErrString(List<FieldErr> err)
+	public static String formFieldsErrString(List<FieldErr> err) {
+		return formFieldsErrString(err, "<br />");
+	}
+	
+	/**
+	 * 根据checkInputFields的出错信息生成出错字符串
+	 * @param err checkInputFields的出错信息
+	 * @param splitter	分隔符
+	 * @return
+	 */
+	public static String formFieldsErrString(List<FieldErr> err, String splitter)
 	{
 		if(err == null || err.size() == 0)
 			return "";
@@ -42,7 +52,7 @@ public final class FieldErr
 		{
 			FieldErr e = it.next();
 			if(sb.length()>0)
-				sb.append("<br />");
+				sb.append(splitter);
 			sb.append(e.getMessage());
 		}
 		
