@@ -1,4 +1,4 @@
-package com.hbs.customerinfo.action;
+package com.hbs.common.action;
 
 import java.util.Iterator;
 import java.util.List;

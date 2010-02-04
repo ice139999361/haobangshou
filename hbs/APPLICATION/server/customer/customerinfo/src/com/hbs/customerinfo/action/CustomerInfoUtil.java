@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
+import com.hbs.common.action.FieldErr;
 import com.hbs.common.manager.configencode.ConfigEncodeMgr;
 import com.hbs.domain.common.pojo.ConfigEncode;
 import com.hbs.domain.common.pojo.baseinfo.BankInfo;
