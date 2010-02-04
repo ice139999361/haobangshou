@@ -77,6 +77,48 @@
     DELETE  FROM  T_WAREHOUSE_RECEIVE WHERE REC_PO_NO = #recPoNo#
 ]]>
 </delete>    
+<update id="WarehouseRecInfo_updateWarehouseRecInfoByState" parameterClass="warehouseRecInfo">
+	UPDATE T_WAREHOUSE_RECEIVE 
+    SET
+    	STATE = #state#
+	
+	<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "recPoNo">
+				REC_PO_NO = #recPoNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "vendorCode">
+				C_CODE = #vendorCode#
+			</isNotEmpty>			
+		</dynamic>
+</update>
+
+<update id="WarehouseRecInfo_updateWarehouseRecInfoByActiveState" parameterClass="warehouseRecInfo">
+	UPDATE T_WAREHOUSE_RECEIVE 
+    SET
+    	ACTIVE_STATE = #activeState#
+	<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "recPoNo">
+				REC_PO_NO = #recPoNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "vendorCode">
+				C_CODE = #vendorCode#
+			</isNotEmpty>			
+		</dynamic>
+</update>
+
+<update id="WarehouseRecInfo_updateWarehouseRecInfoByFinanceState" parameterClass="warehouseRecInfo">
+	UPDATE T_WAREHOUSE_RECEIVE 
+    SET
+    	FINANCE_STATE = #financeState#
+	<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "recPoNo">
+				REC_PO_NO = #recPoNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "vendorCode">
+				C_CODE = #vendorCode#
+			</isNotEmpty>			
+		</dynamic>
+</update>
 
 <update id="WarehouseRecInfo_updateWarehouseRecInfo" parameterClass="warehouseRecInfo">
     UPDATE T_WAREHOUSE_RECEIVE 
@@ -127,7 +169,7 @@
 	<isNotEmpty prepend="," property="settlementType">
             SETTLEMENT_TYPE = #settlementType#
 	</isNotEmpty>
-    WHERE REC_PO_NO = #recPoNo#
+    WHERE REC_PO_NO = #recPoNo# AND C_CODE = #vendorCode#
 </update> 
 
 <select id="WarehouseRecInfo_findWarehouseRecInfo" resultMap="warehouseRecInfo_result" parameterClass="warehouseRecInfo">

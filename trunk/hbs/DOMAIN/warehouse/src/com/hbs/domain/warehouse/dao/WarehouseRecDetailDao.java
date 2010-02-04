@@ -17,7 +17,7 @@ public interface WarehouseRecDetailDao {
      * @return id
      * @throws DataAccessException DataAccessException
      */
-    void insertWarehouseRecDetail(WarehouseRecDetail warehouseRecDetail) throws DataAccessException ;
+    Integer insertWarehouseRecDetail(WarehouseRecDetail warehouseRecDetail) throws DataAccessException ;
 
     /**
      * delete.
@@ -32,6 +32,10 @@ public interface WarehouseRecDetailDao {
      * @throws DataAccessException DataAccessException
      */
     void updateWarehouseRecDetail(WarehouseRecDetail warehouseRecDetail) throws DataAccessException ;
+    void updateWarehouseRecDetailByState(WarehouseRecDetail warehouseRecDetail) throws DataAccessException ;
+    void updateWarehouseRecDetailByActiveState(WarehouseRecDetail warehouseRecDetail) throws DataAccessException ;
+    void updateWarehouseRecDetailByFinanceState(WarehouseRecDetail warehouseRecDetail) throws DataAccessException ;
+    void updateWarehouseRecDetailByFinancePeriod(WarehouseRecDetail warehouseRecDetail) throws DataAccessException ;
 
     /**
      * find.

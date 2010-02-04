@@ -3,6 +3,7 @@ package com.hbs.domain.warehouse.pojo;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.hbs.common.utils.DateUtils;
 import com.hbs.domain.common.pojo.base.BaseDomain;
 
 /**
@@ -93,6 +94,11 @@ public class WarehouseRecDetail extends BaseDomain{
     private Integer amount;
     
     /**
+     * 本次送货金额
+     */
+    private BigDecimal currMoney;
+    
+    /**
      * 所属账期.
      */
     private String period;
@@ -133,6 +139,20 @@ public class WarehouseRecDetail extends BaseDomain{
     private String financePeriod;
     
    
+
+	/**
+	 * @return the currMoney
+	 */
+	public BigDecimal getCurrMoney() {
+		return currMoney;
+	}
+
+	/**
+	 * @param currMoney the currMoney to set
+	 */
+	public void setCurrMoney(BigDecimal currMoney) {
+		this.currMoney = currMoney;
+	}
 
 	public String getState() {
 		return state;
@@ -352,4 +372,100 @@ public class WarehouseRecDetail extends BaseDomain{
         this.poNoType = poNoType;
     }
 
+    
+    public String getLogKey(){
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(this.recPoNo).append(";");
+    	sb.append(this.vendorCode).append(";");
+    	sb.append(this.recDetailSeqId);
+    	return sb.toString();
+    	
+    }
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		if(this.recDetailSeqId != null){
+			sb.append("recDetailSeqId=").append(this.recDetailSeqId).append(" ");
+		}
+		if(this.recPoNo != null){
+			sb.append("recPoNo=").append(this.recPoNo).append(" ");
+		}
+		if(this.vendorCode != null){
+			sb.append("vendorCode=").append(this.vendorCode).append(" ");
+		}
+		if(this.shortName != null){
+			sb.append("shortName=").append(this.shortName).append(" ");
+		}
+		if(this.poNoDate != null){
+			sb.append("poNoDate=").append(DateUtils.getFormatDate(this.poNoDate,null)).append(" ");
+		}
+		if(this.applyDate != null){
+			sb.append("applyDate=").append(DateUtils.getFormatDate(this.applyDate,null)).append(" ");
+		}
+		if(this.houseType != null){
+			sb.append("houseType=").append(this.houseType).append(" ");
+		}
+		if(this.rltPoNo != null){
+			sb.append("rltPoNo=").append(this.rltPoNo).append(" ");
+		}
+		if(this.settlementType != null){
+			sb.append("settlementType=").append(this.settlementType).append(" ");
+		}
+		if(this.partNo != null){
+			sb.append("partNo=").append(this.partNo).append(" ");
+		}
+		if(this.venPartNo != null){
+			sb.append("venPartNo=").append(this.venPartNo).append(" ");
+		}
+		if(this.pnDesc != null){
+			sb.append("pnDesc=").append(this.pnDesc).append(" ");
+		}
+		if(this.price != null){
+			sb.append("price=").append(this.price.floatValue()).append(" ");
+		}
+		if(this.isTax != null){
+			sb.append("isTax=").append(this.isTax).append(" ");
+		}
+		if(this.taxRate != null){
+			sb.append("taxRate=").append(this.taxRate.floatValue()).append(" ");
+		}
+		if(this.amount != null){
+			sb.append("amount=").append(this.amount).append(" ");
+		}
+		if(this.period != null){
+			sb.append("period=").append(this.period).append(" ");
+		}
+		if(this.financeState != null){
+			sb.append("financeState=").append(this.financeState).append(" ");
+		}
+		if(this.poNoType != null){
+			sb.append("poNoType=").append(this.poNoType).append(" ");
+		}
+		if(this.staffId != null){
+			sb.append("staffId=").append(this.staffId).append(" ");
+		}
+		if(this.staffName != null){
+			sb.append("staffName=").append(this.staffName).append(" ");
+		}
+		if(this.operTime != null){
+			sb.append("operTime=").append(DateUtils.getFormatDate(this.operTime,null)).append(" ");
+		}
+		if(this.state != null){
+			sb.append("state=").append(this.state).append(" ");
+		}
+		if(this.activeState != null){
+			sb.append("activeState=").append(this.activeState).append(" ");
+		}
+		if(this.financePeriod != null){
+			sb.append("financePeriod=").append(this.financePeriod).append(" ");
+		}		
+		
+		return sb.toString();
+	}
+
+    
+    
 }

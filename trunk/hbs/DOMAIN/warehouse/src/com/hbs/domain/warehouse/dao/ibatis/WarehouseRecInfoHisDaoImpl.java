@@ -127,5 +127,32 @@ public class WarehouseRecInfoHisDaoImpl extends SqlMapClientDaoSupport implement
 			WarehouseRecInfo warehouseRecInfo) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.hbs.domain.warehouse.dao.WarehouseRecInfoDao#updateWarehouseRecInfoByActiveState(com.hbs.domain.warehouse.pojo.WarehouseRecInfo)
+	 */
+	public void updateWarehouseRecInfoByActiveState(
+			WarehouseRecInfo warehouseRecInfo) throws DataAccessException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.hbs.domain.warehouse.dao.WarehouseRecInfoDao#updateWarehouseRecInfoByFinanceState(com.hbs.domain.warehouse.pojo.WarehouseRecInfo)
+	 */
+	public void updateWarehouseRecInfoByFinanceState(
+			WarehouseRecInfo warehouseRecInfo) throws DataAccessException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.hbs.domain.warehouse.dao.WarehouseRecInfoDao#updateWarehouseRecInfoByState(com.hbs.domain.warehouse.pojo.WarehouseRecInfo)
+	 */
+	public void updateWarehouseRecInfoByState(WarehouseRecInfo warehouseRecInfo)
+			throws DataAccessException {
+		// TODO Auto-generated method stub
+		
 	}  
 }

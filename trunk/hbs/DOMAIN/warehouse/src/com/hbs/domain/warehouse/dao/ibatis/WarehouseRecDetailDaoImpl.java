@@ -27,16 +27,16 @@ public class WarehouseRecDetailDaoImpl extends SqlMapClientDaoSupport implements
      * @return id
      * @throws DataAccessException DataAccessException
      */
-    public void insertWarehouseRecDetail(WarehouseRecDetail warehouseRecDetail) throws DataAccessException {
+    public Integer insertWarehouseRecDetail(WarehouseRecDetail warehouseRecDetail) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入insertWarehouseRecDetail(WarehouseRecDetail), 输入参数[" + warehouseRecDetail + "]");
     	}
         
-    	getSqlMapClientTemplate().insert("WarehouseRecDetail_insertWarehouseRecDetail", warehouseRecDetail);
+    	Integer retID = (Integer)getSqlMapClientTemplate().insert("WarehouseRecDetail_insertWarehouseRecDetail", warehouseRecDetail);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开insertWarehouseRecDetail(WarehouseRecDetail), 返回");
 		}
-    	
+    	return retID;
     }
 
     /**
@@ -64,6 +64,46 @@ public class WarehouseRecDetailDaoImpl extends SqlMapClientDaoSupport implements
     		logger.debug("进入updateWarehouseRecDetail(WarehouseRecDetail), 输入参数[" + warehouseRecDetail + "]");
 		}
     	getSqlMapClientTemplate().update("WarehouseRecDetail_updateWarehouseRecDetail", warehouseRecDetail);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开updateWarehouseRecDetail(WarehouseRecDetail)");
+		}
+    }
+    
+    public void updateWarehouseRecDetailByFinancePeriod(WarehouseRecDetail warehouseRecDetail) throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+    		logger.debug("进入updateWarehouseRecDetail(WarehouseRecDetail), 输入参数[" + warehouseRecDetail + "]");
+		}
+    	getSqlMapClientTemplate().update("WarehouseRecDetail_updateWarehouseRecDetailByFinancePeriod", warehouseRecDetail);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开updateWarehouseRecDetail(WarehouseRecDetail)");
+		}
+    }
+    
+    public void updateWarehouseRecDetailByState(WarehouseRecDetail warehouseRecDetail) throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+    		logger.debug("进入updateWarehouseRecDetail(WarehouseRecDetail), 输入参数[" + warehouseRecDetail + "]");
+		}
+    	getSqlMapClientTemplate().update("WarehouseRecDetail_updateWarehouseRecDetailByState", warehouseRecDetail);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开updateWarehouseRecDetail(WarehouseRecDetail)");
+		}
+    }
+    
+    public void updateWarehouseRecDetailByActiveState(WarehouseRecDetail warehouseRecDetail) throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+    		logger.debug("进入updateWarehouseRecDetail(WarehouseRecDetail), 输入参数[" + warehouseRecDetail + "]");
+		}
+    	getSqlMapClientTemplate().update("WarehouseRecDetail_updateWarehouseRecDetailByActiveState", warehouseRecDetail);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开updateWarehouseRecDetail(WarehouseRecDetail)");
+		}
+    }
+    
+    public void updateWarehouseRecDetailByFinanceState(WarehouseRecDetail warehouseRecDetail) throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+    		logger.debug("进入updateWarehouseRecDetail(WarehouseRecDetail), 输入参数[" + warehouseRecDetail + "]");
+		}
+    	getSqlMapClientTemplate().update("WarehouseRecDetail_updateWarehouseRecDetailByFinanceState", warehouseRecDetail);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开updateWarehouseRecDetail(WarehouseRecDetail)");
 		}
