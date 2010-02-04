@@ -17,7 +17,13 @@ public interface WareHouseConstants {
 	
 	public static final String WAREHOUSE_REC_DETAILMGR ="wareHouseRecDetailMgr";
 	
+	public static final String WAREHOUSE_REC_ACTIVE="ACTIVE";
+	public static final String WAREHOUSE_REC_PAUSE = "PAUSE";
 	
+	
+	public static final String WAREHOUSE_REC_FINANCE_STATE_0="0";  //未对账
+	public static final String WAREHOUSE_REC_FINANCE_STATE_1="1";  //已对账
+	public static final String WAREHOUSE_REC_FINANCE_STATE_2="2";  //部分对账
 	
 	
 	public static final String WAREHOUSE_REC_INFO_01 ="01";//临时保存入库单
