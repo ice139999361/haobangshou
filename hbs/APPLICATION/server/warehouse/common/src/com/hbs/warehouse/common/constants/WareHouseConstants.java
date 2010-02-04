@@ -15,6 +15,10 @@ public interface WareHouseConstants {
 	
 	
 	
+	public static final String WAREHOUSE_REC_DETAILMGR ="wareHouseRecDetailMgr";
+	
+	
+	
 	
 	public static final String WAREHOUSE_REC_INFO_01 ="01";//临时保存入库单
 	public static final String WAREHOUSE_REC_INFO_02 ="02";//确认入库单
