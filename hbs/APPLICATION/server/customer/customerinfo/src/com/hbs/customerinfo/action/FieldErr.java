@@ -10,7 +10,7 @@ import java.util.List;
  */
 public final class FieldErr
 {
-	String field, msg;
+	private String field, msg;
 	
 	public String getField() { return field; }
 	public void setField(String s) { field = s; }
