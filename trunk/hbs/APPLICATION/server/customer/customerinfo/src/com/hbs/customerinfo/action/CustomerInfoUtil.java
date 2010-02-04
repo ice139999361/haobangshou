@@ -1,7 +1,6 @@
 package com.hbs.customerinfo.action;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -9,11 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
+import com.hbs.common.manager.configencode.ConfigEncodeMgr;
 import com.hbs.domain.common.pojo.ConfigEncode;
 import com.hbs.domain.common.pojo.baseinfo.BankInfo;
 import com.hbs.domain.common.pojo.baseinfo.ContactInfo;
 import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
-import com.hbs.common.manager.configencode.ConfigEncodeMgr;
 
 /**
  * Action中对CustomerInfo的一些通用处理函数集
@@ -122,7 +121,7 @@ public class CustomerInfoUtil {
 	/**
 	 * 判断是否需要设置staffId
 	 * @param custInfo
-s	 */
+	 */
 	public static boolean checkSetStaffId(CustomerInfo custInfo)
 	{
 		int userid = 0;
@@ -141,30 +140,30 @@ s	 */
 	/**
 	 * 联系人列表字符串参数名
 	 */
-	static final String contactListName1 = "contactlist";
-	/**
-	 * 联系人列表字符串对应字段名
-	 */
-	static final String[] contractListFields1 = {"conName", "conDuty", "conTel", "conMobile", "conFax", "conEmail", "conQq", "conMsn", "conOther", "isPrimary"};
+	private static final String contactListName1 = "contactlist";
 	/**
 	 * 收货人列表字符串参数名
 	 */
-	static final String contactListName2 = "consigneelist";
-	/**
-	 * 收货人列表字符串对应字段名
-	 */
-	static String[] contractListFields2;
+	private static final String contactListName2 = "consigneelist";
 	/**
 	 * 银行列表字符串参数名
 	 */
-	static final String bankListName = "custbanklist";
+	private static final String bankListName = "custbanklist";
 	/**
-	 * 银行列表字符串对应字段名
+	 * 联系人列表字符串对应字段名
 	 */
-	static final String[] bankListFields = {"accountName", "accountBank", "account"};
 	
-	private static final String spliter = "\\|\\|;;";
-
+	private static final String splitter = "\\|\\|;;";
+	
+	private static final String contactListFields1 = "contactlistFields";
+	private static final String contactListFields2 = "consigneelistFields";
+	private static final String bankListFields = "custbanklistFields";
+	private static final String fieldNameSplitter = ",";
+	
+	/*
+	static final String[] contractListFields1 = {"conName", "conDuty", "conTel", "conMobile", "conFax", "conEmail", "conQq", "conMsn", "conOther", "isPrimary"};
+	static String[] contractListFields2;
+	static final String[] bankListFields = {"accountName", "accountBank", "account"};
 	static{
 		// 根据联系人字段名生成收货人字段名
 		ArrayList<String> l = new ArrayList<String>();
@@ -177,10 +176,12 @@ s	 */
 		contractListFields2 = new String[l.size()];
 		l.toArray(contractListFields2);
 	}
+	*/
 	
 	/**
 	 * 处理上传的List数据。将String数组转换为List
 	 */
+	@SuppressWarnings("unchecked")
 	public static void processListData(CustomerInfo custInfo, HttpServletRequest request) throws Exception
 	{
 		// Done: 处理上传的List数据
@@ -188,18 +189,27 @@ s	 */
 			return;
 		try
 		{
+			Integer id = custInfo.getBaseSeqId();
+			String baseSeqId = id == null ? null : id.toString();
 			String commCode = custInfo.getCommCode();
 			String state = custInfo.getState();
 			List<ContactInfo> listAll = new ArrayList<ContactInfo>();
 			try
 			{
-				List<ContactInfo> list = splitIntoList(ContactInfo.class, request.getParameterValues(contactListName1), contractListFields1, spliter);
+				List<ContactInfo> list = splitIntoList(ContactInfo.class, 
+						request.getParameterValues(contactListName1), 
+						request.getParameter(contactListFields1).split(fieldNameSplitter), 
+						splitter);
 				Iterator<ContactInfo> it = list.iterator();
 				while(it.hasNext())
 				{
-					it.next().setCommCode(commCode);
-					it.next().setState(state);
-					it.next().setConType("1");
+					ContactInfo info = it.next();
+					if(info == null)
+						continue;
+					info.setBaseSeqId(baseSeqId);
+					info.setCommCode(commCode);
+					info.setState(state);
+					info.setConType("1");
 				}
 				listAll.addAll(list);
 			}
@@ -210,13 +220,20 @@ s	 */
 			
 			try
 			{
-				List<ContactInfo> list = splitIntoList(ContactInfo.class, request.getParameterValues(contactListName2), contractListFields2, spliter);
+				List<ContactInfo> list = splitIntoList(ContactInfo.class, 
+						request.getParameterValues(contactListName2), 
+						request.getParameter(contactListFields2).split(fieldNameSplitter), 
+						splitter);
 				Iterator<ContactInfo> it = list.iterator();
 				while(it.hasNext())
 				{
-					it.next().setCommCode(commCode);
-					it.next().setState(state);
-					it.next().setConType("2");
+					ContactInfo info = it.next();
+					if(info == null)
+						continue;
+					info.setBaseSeqId(baseSeqId);
+					info.setCommCode(commCode);
+					info.setState(state);
+					info.setConType("2");
 				}
 				listAll.addAll(list);
 			}
@@ -229,7 +246,22 @@ s	 */
 			
 			try
 			{
-				custInfo.setListBankInfo(splitIntoList(BankInfo.class, request.getParameterValues(bankListName), bankListFields, spliter));
+				List<BankInfo> list = splitIntoList(BankInfo.class, 
+						request.getParameterValues(bankListName), 
+						request.getParameter(bankListFields).split(fieldNameSplitter), 
+						splitter);
+				Iterator<BankInfo> it = list.iterator();
+				while(it.hasNext())
+				{
+					BankInfo info = it.next();
+					if(info == null)
+						continue;
+					info.setBaseSeqId(baseSeqId);
+					info.setCommCode(commCode);
+					info.setState(state);
+				}
+				if(list.size() > 0)
+					custInfo.setListBankInfo(list);
 			}
 			catch(Exception e)
 			{
@@ -249,6 +281,7 @@ s	 */
 	 * @param fieldNames	每列数据对应的字段名
 	 * @return
 	 */
+	@SuppressWarnings({"unused", "unchecked"})
 	private static List splitIntoList(Class itemClass, String[] values, String[] fieldNames)
 	{
 		return splitIntoList(itemClass, values, fieldNames, ",");
@@ -262,6 +295,7 @@ s	 */
 	 * @param spliter	values的分隔符
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	private static List splitIntoList(Class itemClass, String[] values, String[] fieldNames, String spliter)
 	{
 		//DONE:完成splitIntoList
@@ -369,57 +403,70 @@ s	 */
 		try
 		{
 			String s;
-			ConfigEncode ce = new ConfigEncode();
-			ConfigEncode ce2;
-			
+			ConfigEncode ce;
 			s = custInfo.getImportantCode();
 			if(s != null && s.length() != 0)
 			{
-				ce.setEncodeType("IMPORTANT_CODE");
-				ce.setEncodeKey(s);
-				ce2 = ConfigEncodeMgr.getConfigEncode(ce);
-				if(ce2 == null)
+				ce = getEncode("IMPORTANT_CODE", s);
+				if(ce == null)
 					list.add(new FieldErr("importantCode", "importantCode的值不正确"));
 				else
-					custInfo.setImportantDesc(ce2.getEncodeValue());
+				{
+					custInfo.setImportantCode(ce.getEncodeKey());
+					custInfo.setImportantDesc(ce.getEncodeValue());
+				}
 			}
 				
 			s = custInfo.getCreditRate();
 			if(s != null && s.length() != 0)
 			{
-				ce.setEncodeType("CREDIT_RATE");
-				ce.setEncodeKey(s);
-				ce2 = ConfigEncodeMgr.getConfigEncode(ce);
-				if(ce2 == null)
+				ce = getEncode("CREDIT_RATE", s);
+				if(s == null)
 					list.add(new FieldErr("CreditRate", "CreditRate的值不正确"));
 				else
-					custInfo.setCreditDesc(ce2.getEncodeValue());
+				{
+					custInfo.setCreditRate(ce.getEncodeKey());
+					custInfo.setCreditDesc(ce.getEncodeValue());
+				}
 			}
 				
 			s = custInfo.getSettlementType();
 			if(s != null && s.length() != 0)
 			{
-				ce.setEncodeType("SETTLEMENT_TYPE");
-				ce.setEncodeKey(s);
-				ce2 = ConfigEncodeMgr.getConfigEncode(ce);
-				if(ce2 == null)
+				ce = getEncode("SETTLEMENT_TYPE", s);
+				if(s == null)
 					list.add(new FieldErr("SettlementType", "SettlementType的值不正确"));
-				else
-					custInfo.setSettlementDesc(ce2.getEncodeValue());
+				else{
+					custInfo.setSettlementType(ce.getEncodeKey());
+					custInfo.setSettlementDesc(ce.getEncodeValue());
+				}
 			}
 			
 			s = custInfo.getCurrency();
 			if(s != null && s.length() != 0)
 			{
-				ce.setEncodeType("CURRENCY");
-				ce.setEncodeKey(s);
-				ce2 = ConfigEncodeMgr.getConfigEncode(ce);
-				if(ce2 == null)
+				ce = getEncode("CURRENCY", s);
+				if(s == null)
 					list.add(new FieldErr("Currency", "Currency的值不正确"));
 				else
-					custInfo.setCurrencyDesc(ce2.getEncodeValue());
+				{
+					custInfo.setCurrency(ce.getEncodeKey());
+					custInfo.setCurrencyDesc(ce.getEncodeValue());
+				}
 			}
 			
+			s = custInfo.getIsShowPrice();
+			if(s != null && s.length() != 0)
+			{
+				ce = getEncode("IS_SHOW_PRICE", s);
+				if(s == null)
+					list.add(new FieldErr("IsShowPrice", "IsShowPrice的值不正确"));
+				else
+				{
+					custInfo.setIsShowPrice(ce.getEncodeKey());
+				}
+			}
+
 			int i;
 			s = custInfo.getStaffId();
 			if(s != null && s.length() != 0)
@@ -456,5 +503,30 @@ s	 */
 		}
 		
 		return list;
+	}
+	
+	/**
+	 * 获取编码。如果s可以解析为数值，则将s当作key，否则当作value
+	 * @param type
+	 * @param s
+	 * @return 编码对象，如果找不到，则返回null
+	 */
+	private static ConfigEncode getEncode(String type, String s)
+	{
+		ConfigEncode ce = new ConfigEncode();
+		List<ConfigEncode> ce2;
+		ce.setEncodeType(type);
+		try{
+			Integer.parseInt(s);
+			ce.setEncodeKey(s);
+		}catch(Exception e){
+			ce.setEncodeValue(s);
+		}
+		
+		ce2 = ConfigEncodeMgr.getListConfigEncode(ce);
+		if(ce2 == null || ce2.size() == 0)
+			return null;
+		else
+			return ce2.get(0);
 	}
 }
