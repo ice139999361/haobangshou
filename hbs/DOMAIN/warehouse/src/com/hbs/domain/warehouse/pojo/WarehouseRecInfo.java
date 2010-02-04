@@ -71,7 +71,7 @@ public class WarehouseRecInfo extends BaseDomain{
     /**
      * 收货单（入库单）状态.
      */
-    private String state;
+    private String state="01";
     
     /**
      * 活动状态.
