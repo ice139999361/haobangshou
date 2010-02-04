@@ -21,6 +21,7 @@
     <result property="isTax" column="IS_TAX"/>
     <result property="taxRate" column="TAX_RATE"/>
     <result property="amount" column="AMOUNT"/>
+    <result property="currMoney" column="CUR_MONEY"/>
     <result property="period" column="PERIOD"/>
     <result property="financeState" column="FINANCE_STATE"/>
     <result property="poNoType" column="PO_NO_TYPE"/>
@@ -51,7 +52,8 @@
             C_PRICE, 
             IS_TAX, 
             TAX_RATE, 
-            AMOUNT, 
+            AMOUNT,
+			CUR_MONEY, 
             PERIOD, 
             FINANCE_STATE, 
             PO_NO_TYPE,
@@ -78,6 +80,7 @@
             #isTax#,
             #taxRate#,
             #amount#,
+			#currMoney#,
             #period#,
             #financeState#,
             #poNoType#,
@@ -89,6 +92,9 @@
 			#financePeriod#
     )
 ]]>
+<selectKey resultClass="Integer" keyProperty="recDetailSeqId">
+            SELECT LAST_INSERT_ID()  
+  </selectKey>
 </insert>
 
 <delete id="WarehouseRecDetail_deleteWarehouseRecDetail" parameterClass="string">
@@ -96,6 +102,37 @@
     DELETE  FROM  T_WAREHOUSE_RECEIVE_DETAIL WHERE REC_DETAIL_SEQID = #recDetailSeqId#
 ]]>
 </delete>    
+<update id="WarehouseRecDetail_updateWarehouseRecDetailByState" parameterClass="warehouseRecDetail">
+	UPDATE T_WAREHOUSE_RECEIVE_DETAIL 
+    SET
+    	STATE = #state#
+    WHERE REC_DETAIL_SEQID = #recDetailSeqId#
+
+</update>
+
+<update id="WarehouseRecDetail_updateWarehouseRecDetailByActiveState" parameterClass="warehouseRecDetail">
+	UPDATE T_WAREHOUSE_RECEIVE_DETAIL 
+    SET
+    	ACTIVE_STATE = #activeState#
+    WHERE REC_DETAIL_SEQID = #recDetailSeqId#
+
+</update>
+
+<update id="WarehouseRecDetail_updateWarehouseRecDetailByFinanceState" parameterClass="warehouseRecDetail">
+	UPDATE T_WAREHOUSE_RECEIVE_DETAIL 
+    SET
+    	FINANCE_STATE = #financeState#
+    WHERE REC_DETAIL_SEQID = #recDetailSeqId#
+
+</update>
+
+<update id="WarehouseRecDetail_updateWarehouseRecDetailByFinancePeriod" parameterClass="warehouseRecDetail">
+	UPDATE T_WAREHOUSE_RECEIVE_DETAIL 
+    SET
+    	FINANCE_PERIOD = #financePeriod#
+    WHERE REC_DETAIL_SEQID = #recDetailSeqId#
+
+</update>
 
 <update id="WarehouseRecDetail_updateWarehouseRecDetail" parameterClass="warehouseRecDetail">
     UPDATE T_WAREHOUSE_RECEIVE_DETAIL 
@@ -146,6 +183,9 @@
 	<isNotEmpty prepend="," property="amount">
             AMOUNT = #amount#
 	</isNotEmpty>
+	<isNotEmpty prepend="," property="currMoney">
+            CUR_MONEY = #currMoney#
+	</isNotEmpty>
 	<isNotEmpty prepend="," property="period">
             PERIOD = #period#
 	</isNotEmpty>
@@ -188,7 +228,8 @@
             C_PRICE, 
             IS_TAX, 
             TAX_RATE, 
-            AMOUNT, 
+            AMOUNT,
+			CUR_MONEY, 
             PERIOD, 
             FINANCE_STATE, 
             PO_NO_TYPE,
@@ -243,7 +284,8 @@
             C_PRICE, 
             IS_TAX, 
             TAX_RATE, 
-            AMOUNT, 
+            AMOUNT,
+			CUR_MONEY, 
             PERIOD, 
             FINANCE_STATE, 
             PO_NO_TYPE,
@@ -275,7 +317,8 @@
             C_PRICE, 
             IS_TAX, 
             TAX_RATE, 
-            AMOUNT, 
+            AMOUNT,
+			CUR_MONEY, 
             PERIOD, 
             FINANCE_STATE, 
             PO_NO_TYPE,

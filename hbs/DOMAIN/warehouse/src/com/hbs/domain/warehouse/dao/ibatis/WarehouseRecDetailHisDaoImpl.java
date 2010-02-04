@@ -27,16 +27,16 @@ public class WarehouseRecDetailHisDaoImpl extends SqlMapClientDaoSupport impleme
      * @return id
      * @throws DataAccessException DataAccessException
      */
-    public void insertWarehouseRecDetail(WarehouseRecDetail warehouseRecDetail) throws DataAccessException {
+    public Integer insertWarehouseRecDetail(WarehouseRecDetail warehouseRecDetail) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入insertWarehouseRecDetail(WarehouseRecDetail), 输入参数[" + warehouseRecDetail + "]");
     	}
         
-    	getSqlMapClientTemplate().insert("WarehouseRecDetail_insertWarehouseRecDetail", warehouseRecDetail);
+		Integer retID =(Integer)getSqlMapClientTemplate().insert("WarehouseRecDetail_insertWarehouseRecDetail", warehouseRecDetail);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开insertWarehouseRecDetail(WarehouseRecDetail), 返回");
 		}
-    	
+    	return retID;
     }
 
     /**
@@ -127,5 +127,41 @@ public class WarehouseRecDetailHisDaoImpl extends SqlMapClientDaoSupport impleme
 			WarehouseRecDetail warehouseRecDetail) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.hbs.domain.warehouse.dao.WarehouseRecDetailDao#updateWarehouseRecDetailByActiveState(com.hbs.domain.warehouse.pojo.WarehouseRecDetail)
+	 */
+	public void updateWarehouseRecDetailByActiveState(
+			WarehouseRecDetail warehouseRecDetail) throws DataAccessException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.hbs.domain.warehouse.dao.WarehouseRecDetailDao#updateWarehouseRecDetailByFinancePeriod(com.hbs.domain.warehouse.pojo.WarehouseRecDetail)
+	 */
+	public void updateWarehouseRecDetailByFinancePeriod(
+			WarehouseRecDetail warehouseRecDetail) throws DataAccessException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.hbs.domain.warehouse.dao.WarehouseRecDetailDao#updateWarehouseRecDetailByFinanceState(com.hbs.domain.warehouse.pojo.WarehouseRecDetail)
+	 */
+	public void updateWarehouseRecDetailByFinanceState(
+			WarehouseRecDetail warehouseRecDetail) throws DataAccessException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.hbs.domain.warehouse.dao.WarehouseRecDetailDao#updateWarehouseRecDetailByState(com.hbs.domain.warehouse.pojo.WarehouseRecDetail)
+	 */
+	public void updateWarehouseRecDetailByState(
+			WarehouseRecDetail warehouseRecDetail) throws DataAccessException {
+		// TODO Auto-generated method stub
+		
 	}  
 }

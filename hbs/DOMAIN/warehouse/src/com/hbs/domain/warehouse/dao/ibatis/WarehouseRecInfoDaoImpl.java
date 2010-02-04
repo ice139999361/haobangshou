@@ -69,6 +69,36 @@ public class WarehouseRecInfoDaoImpl extends SqlMapClientDaoSupport implements W
 		}
     }
     
+    public void updateWarehouseRecInfoByState(WarehouseRecInfo warehouseRecInfo) throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+    		logger.debug("进入updateWarehouseRecInfo(WarehouseRecInfo), 输入参数[" + warehouseRecInfo + "]");
+		}
+    	getSqlMapClientTemplate().update("WarehouseRecInfo_updateWarehouseRecInfoByState", warehouseRecInfo);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开updateWarehouseRecInfo(WarehouseRecInfo)");
+		}
+    }
+    
+    public void updateWarehouseRecInfoByActiveState(WarehouseRecInfo warehouseRecInfo) throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+    		logger.debug("进入updateWarehouseRecInfo(WarehouseRecInfo), 输入参数[" + warehouseRecInfo + "]");
+		}
+    	getSqlMapClientTemplate().update("WarehouseRecInfo_updateWarehouseRecInfoByActiveState", warehouseRecInfo);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开updateWarehouseRecInfo(WarehouseRecInfo)");
+		}
+    }
+    
+    public void updateWarehouseRecInfoByFinanceState(WarehouseRecInfo warehouseRecInfo) throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+    		logger.debug("进入updateWarehouseRecInfo(WarehouseRecInfo), 输入参数[" + warehouseRecInfo + "]");
+		}
+    	getSqlMapClientTemplate().update("WarehouseRecInfo_updateWarehouseRecInfoByFinanceState", warehouseRecInfo);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开updateWarehouseRecInfo(WarehouseRecInfo)");
+		}
+    }
+    
     /**
      * find.
      * @param id id

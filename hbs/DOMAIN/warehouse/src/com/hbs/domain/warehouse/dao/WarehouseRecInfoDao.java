@@ -32,6 +32,9 @@ public interface WarehouseRecInfoDao {
      * @throws DataAccessException DataAccessException
      */
     void updateWarehouseRecInfo(WarehouseRecInfo warehouseRecInfo) throws DataAccessException ;
+    void updateWarehouseRecInfoByState(WarehouseRecInfo warehouseRecInfo) throws DataAccessException ;
+    void updateWarehouseRecInfoByActiveState(WarehouseRecInfo warehouseRecInfo) throws DataAccessException ;
+    void updateWarehouseRecInfoByFinanceState(WarehouseRecInfo warehouseRecInfo) throws DataAccessException ;
 
     /**
      * find.
