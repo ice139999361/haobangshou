@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.hbs.common.action.FieldErr;
 import com.hbs.domain.customer.customerinfo.pojo.CustPartNoInfo;
 
 /**
