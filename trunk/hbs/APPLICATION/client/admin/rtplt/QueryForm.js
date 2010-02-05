@@ -5,29 +5,49 @@ ExtUx.widget.QueryForm = function(config) {
 	// 处理 config 信息
 	ColumnPanelHelper.processConfig(config);
 	ExtUx.widget.QueryForm.superclass.constructor.call(this, config);
-	// 因为 IE 会出问题，所以需要此方法进行转换，属于 ext 的 bug
-	//this.on("afterrender", this.__setSyncSize__);
 };
 
 Ext.extend(ExtUx.widget.QueryForm, Ext.form.FormPanel, {
 	initComponent : function(){
 		ExtUx.widget.QueryForm.superclass.initComponent.call(this);
-		
-	},
-	__setSyncSize__: function() {
-		setTimeout("Ext.getCmp('" + this.id + "').syncSize()", 0);
-		this.un("afterrender", this.__setSyncSize__);
-	},
-	syncSize: function () {
-    var tw = this.getEl().dom.firstChild.offsetWidth;
-		delete this.lastSize;
-		this.setSize(this.autoWidth ? undefined : tw, this.autoHeight ? undefined : this.getResizeEl().getHeight());
-    //this.setSize(this.autoWidth ? undefined : this.getResizeEl().getWidth(), this.autoHeight ? undefined : this.getResizeEl().getHeight());
-    return this;
+		Ext.getCmp("query_btn").form = this;
+		Ext.getCmp("clean_btn").form = this;
 	},
 	buttons: [
-		 {id: "query_btn", text: "查询"}
-		,{id: "clean_btn", text: "清除"}
+		 {
+		 		 id: "query_btn"
+		 		,text: "查询"
+		 		,handler: function() {
+		 				// 获取关联表格的 id
+		 				var _gridId = this.form.gridId;
+		 				// 如果没有进行关联则跳出
+		 				if(!_gridId) return;
+		 				// 获取关联的表格
+		 				var _grid = Ext.getCmp(_gridId);
+		 				// 获取 grid 中的 store
+		 				var _store = _grid.store;
+		 				
+		 				// 用于存放查询的参数
+		 				var params = this.form.getForm().getValues();
+		 				// 组装分页信息参数
+		 				Ext.apply(params, _grid.getBottomToolbar().getPageParams());
+		 				// 设置查询的基本条件
+		 				_store.baseParams = params;
+		 				
+		 				// 加载数据
+		 				_store.load();
+		 				// 备份当前参数
+		 				this.currParams = params;
+		 		}
+		 }
+		,{
+				 id: "clean_btn"
+				,text: "清除"
+				,handler: function() {
+						// 获取关联表格的 id
+						this.form.getForm().reset();
+				 }
+		 }
 	],
 	title         : "查询",
 	style         : "margin:5px 0px 0px 5px",
