@@ -115,6 +115,12 @@ public class ProductClassMgr {
 		return pcDao.listProductClass(pClass);
 	}
 	
+	/**
+	 * 根据查询条件，查询符合条件的产品类别列表记录总数
+	 * @param pClass
+	 * @return
+	 * @throws Exception
+	 */
 	public Integer getProductClassListCount(ProductClass pClass) throws Exception{
 		logger.debug("查询公司产品类别列表数目：传入的参数为：" + pClass.toString());
 		ProductClassDao pcDao = (ProductClassDao)BeanLocator.getInstance().getBean(ProductConstants.PRODUCT_CLASS_DAO);
