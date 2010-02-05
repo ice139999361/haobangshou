@@ -13,7 +13,7 @@ var ExtConvertHelper = {
 			
 			app.onReady(function(){
 				if(initFun) initFun();
-				if(Ext.getCmp("query_btn")) Ext.getCmp("query_btn").fireEvent("click");
+				if(Ext.getCmp("query_btn")) Ext.getDom("query_btn").click();
 				if(readyFun) readyFun();
 			});
 	 }
