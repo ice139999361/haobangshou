@@ -1,19 +1,7 @@
-# MySQL-Front 3.2  (Build 6.11)
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES 'gb2312' */;
-
-# Host: localhost    Database: testdb
-# ------------------------------------------------------
-# Server version 5.1.36-community
-
-#
-# Table structure for table t_company_part_no
-#
-
 DROP TABLE IF EXISTS `t_company_part_no`;
+DROP TABLE IF EXISTS `t_product_catagory`;
+DROP TABLE IF EXISTS `t_product_class`;
+
 CREATE TABLE `t_company_part_no` (
   `PART_NO` varchar(32) NOT NULL COMMENT '物料编号',
   `PN_DESC` varchar(128) NOT NULL COMMENT '物料描述',
@@ -25,27 +13,6 @@ CREATE TABLE `t_company_part_no` (
   PRIMARY KEY  (`PART_NO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=gbk COMMENT='公司物料信息表';
 
-#
-# Dumping data for table t_company_part_no
-#
-
-
-#
-# Table structure for table t_product_catagory
-#
-
-DROP TABLE IF EXISTS `t_product_catagory`;
-
-#
-# Dumping data for table t_product_catagory
-#
-
-
-#
-# Table structure for table t_product_class
-#
-
-DROP TABLE IF EXISTS `t_product_class`;
 CREATE TABLE `t_product_class` (
   `P_CLS_CODE` int(11) NOT NULL auto_increment COMMENT '产品类别编码',
   `P_CLS_NAME` varchar(256) NOT NULL COMMENT '产品类别名称',
@@ -54,11 +21,5 @@ CREATE TABLE `t_product_class` (
   `P_CLS_LEVEL` varchar(2) NOT NULL COMMENT '产品分层级别，一级的所属父类为0  级别可为：1---一级 /2---二级/3---三级/4---四级  等需定义到字典表中',
   PRIMARY KEY  (`P_CLS_CODE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=gbk COMMENT='产品分类表';
-#
-# Dumping data for table t_product_class
-#
 
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
