@@ -17,7 +17,7 @@ public interface ProductClassDao {
      * @return id
      * @throws DataAccessException DataAccessException
      */
-    void insertProductClass(ProductClass productClass) throws DataAccessException ;
+    Integer insertProductClass(ProductClass productClass) throws DataAccessException ;
 
     /**
      * delete.

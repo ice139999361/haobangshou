@@ -27,17 +27,17 @@ public class ProductClassDaoImpl extends SqlMapClientDaoSupport implements Produ
      * @return id
      * @throws DataAccessException DataAccessException
      */
-    public void insertProductClass(ProductClass productClass) throws DataAccessException {
+    public Integer insertProductClass(ProductClass productClass) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入insertProductClass(ProductClass), 输入参数[" + productClass + "]");
     	}
         
        
-    	getSqlMapClientTemplate().insert("ProductClass_insertProductClass", productClass);
+    	Integer iRet =(Integer)getSqlMapClientTemplate().insert("ProductClass_insertProductClass", productClass);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开insertProductClass(ProductClass), 返回");
 		}
-    	
+    	return iRet;
     }
 
     /**

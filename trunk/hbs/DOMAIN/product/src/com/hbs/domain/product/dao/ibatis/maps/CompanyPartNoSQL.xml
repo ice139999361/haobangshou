@@ -104,12 +104,8 @@
 				PN_DESC like '%$pnDesc$%'
 			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "clsCode">
-				P_CLS_CODE like '%$clsCode$%'
+				P_CLS_CODE = #clsCode#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "catCode">
-				P_CAT_CODE like '%$catCode$%'
-			</isNotEmpty>
-			
 			<isNotEmpty prepend="order by" property="sort">
                    $sort$
             </isNotEmpty>            
@@ -134,10 +130,7 @@
 				PN_DESC like '%$pnDesc$%'
 			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "clsCode">
-				P_CLS_CODE like '%$clsCode$%'
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "catCode">
-				P_CAT_CODE like '%$catCode$%'
+				P_CLS_CODE = #clsCode#
 			</isNotEmpty>
 		</dynamic>
 </select>

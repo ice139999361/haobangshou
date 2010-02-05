@@ -38,13 +38,14 @@ public class CompanyPartNo extends BaseDomain{
     private Date createTime;
     
     /**
-     * 所属产品小类.
+     * 所属产品类别.
      */
     private String clsCode;
     
     /**
-     * 所属产品大类.
+     * 废弃.
      */
+    @Deprecated
     private String catCode;
 
 
@@ -96,13 +97,32 @@ public class CompanyPartNo extends BaseDomain{
     public void setClsCode(String clsCode) {
         this.clsCode = clsCode;
     }
-    
+    @Deprecated
     public String getCatCode() {
         return this.catCode;
     }	
-  
+    @Deprecated
     public void setCatCode(String catCode) {
         this.catCode = catCode;
     }
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		if(this.partNo != null){
+			sb.append("partNo=").append(this.partNo).append(" ");			
+		}
+		if(this.pnDesc != null){
+			sb.append("pnDesc=").append(this.pnDesc).append(" ");			
+		}
+		if(this.clsCode != null){
+			sb.append("clsCode=").append(this.clsCode).append(" ");			
+		}
+		
+		return sb.toString();
+	}
 
 }
