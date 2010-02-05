@@ -3,12 +3,15 @@ package com.hbs.domain.vendor.vendorinfo.pojo;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.hbs.domain.common.pojo.base.BaseDomain;
+
 /**
  * VendorPartNoInfo∂‘œÛ.
  * @author hbs
  *
  */
-public class VendorPartNoInfo {
+@SuppressWarnings("serial")
+public class VendorPartNoInfo extends BaseDomain {
     
 	private Integer seqId;
 	
