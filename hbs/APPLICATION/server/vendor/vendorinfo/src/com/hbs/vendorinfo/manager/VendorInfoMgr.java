@@ -351,7 +351,7 @@ public class VendorInfoMgr {
      * 查询单条供应商信息
      * @param vInfo 查询的字段为：baseSeqId 或 commCode,State组合 
      * @param isAll   是否包含所有信息，联系人信息，银行信息，账期信息
-     * @return CustomerInfo
+     * @return VendorInfo
      * @throws Exception
      */
 	public VendorInfo getVendorInfo(VendorInfo vInfo,boolean isAll)throws Exception{
