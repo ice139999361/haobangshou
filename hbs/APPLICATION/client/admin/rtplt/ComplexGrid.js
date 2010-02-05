@@ -297,7 +297,7 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 	},
 	// 表格验证方法，暂未实现
 	isValid: function() { return true },
-	style         : "margin:5px 0px 0px 5px",
+	style         : "margin:10px 0px 0px 5px",
 	height        : 250,
 	stripeRows    : true,
 	collapsible   : true,

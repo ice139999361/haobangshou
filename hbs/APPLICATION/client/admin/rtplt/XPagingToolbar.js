@@ -147,7 +147,52 @@ ExtUx.widget.XPagingToolbar = Ext.extend(Ext.Toolbar, {
         this.updateInfo();
         this.fireEvent('change', this, d);
     },
-
+    getPageNum : function(){
+	    	// 获取要访问的页数
+	    	var _p  = this.inputItem.getValue();
+	    	// 获取要访问的页
+	      var _pn = parseInt(_p, 10);
+	      // 如果输入非法或不存在，则返回当前页
+	      if (!_p || isNaN(_pn)) return this.getPageData().activePage;
+	      
+	      // 返回需要访问的页
+	      return _pn;
+    },
+    getPageSize : function(){    	    	
+	      var _ps  = this.inputPageSizeItem.getValue();
+	      var _psv = parseInt(_ps, 10);
+	      if (!_ps || isNaN(_psv)) {
+	      	this.inputPageSizeItem.setValue(this.pageSize);
+	        _psv = this.pageSize;
+	      }else{
+	      	var _mps = this.maxPageSize;        	
+	      	
+	      	if(_psv >= 1 && _psv <= _mps){
+	      		this.pageSize = _psv;
+	        } else if(_psv > _mps){
+	          Ext.Msg.alert("提示", "每页大小不能超过"+ _mps +"条！");
+	          his.inputPageSizeItem.setValue(this.pageSize);
+	          _psv = this.pageSize;
+	        } else {
+            this.inputPageSizeItem.setValue(this.pageSize);
+	          _psv = this.pageSize;
+	        }
+	      	
+	      }
+	      return _psv;
+    },
+		getPageParams : function(isCurrentStart){
+	    	var o = {}, pn = this.getParams();
+	    	var prePageNum = Math.min(Math.max(1, this.getPageNum()), this.getPageData().pages) - 1;
+	      var currentStart = prePageNum * this.getPageSize();
+	      if(isCurrentStart){ 
+	         o[pn.start] = currentStart;
+	      }else{
+	      	o[pn.start] = 0;
+	      }
+	      o[pn.limit] = this.getPageSize();
+	      return o;
+    },
     // private
     getPageData : function(){
         var total = this.store.getTotalCount();
