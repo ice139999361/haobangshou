@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 
-<beans> 	
-	<!-- 公司产品大类DAO实现类   -->
-	<bean id="productCatagoryDao" class="com.hbs.domain.product.dao.ibatis.ProductCatagoryDaoImpl">
-		<property name="sqlMapClient" ref="sqlMapClient"/>
-	</bean>	
-	
-	<!-- 公司产品小类DAO实现类   -->
+<beans> 
+	<!-- 公司产品类别DAO实现类   -->
 	<bean id="productClassDao" class="com.hbs.domain.product.dao.ibatis.ProductClassDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient"/>
 	</bean>
 	
-	<!-- 公司具体产品DAO实现类   -->
+	<!-- 公司具体物料产品DAO实现类   -->
 	<bean id="companyPartNoDao" class="com.hbs.domain.product.dao.ibatis.CompanyPartNoDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient"/>
 	</bean>

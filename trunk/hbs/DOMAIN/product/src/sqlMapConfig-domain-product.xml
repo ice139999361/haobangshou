@@ -4,6 +4,6 @@
 
 <sqlMapConfig>
 	<sqlMap resource="com/hbs/domain/product/dao/ibatis/maps/ProductClassSQL.xml"/>
-	<sqlMap resource="com/hbs/domain/product/dao/ibatis/maps/ProductCatagorySQL.xml"/>
+	
 	<sqlMap resource="com/hbs/domain/product/dao//ibatis/maps/CompanyPartNoSQL.xml"/>
 </sqlMapConfig>
