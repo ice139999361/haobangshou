@@ -162,4 +162,28 @@ public class WareHouseRecMgr {
 		}
 		return ret;
 	}
+	
+	public WarehouseRecInfo getWarehouseRecInfo(WarehouseRecInfo whrInfo , boolean isDetail) throws Exception{
+		WarehouseRecInfo retInfo = null;
+		logger.debug("查询单条入库单，输入的参数为：" + whrInfo.toString());
+		WarehouseRecInfoDao whrInfoDao =(WarehouseRecInfoDao)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_REC_INFO_DAO);
+		retInfo = whrInfoDao.findWarehouseRecInfo(whrInfo);
+		if(isDetail){
+			logger.debug("需要查询入库单明细！");
+			//WareHuseRecDetailMgr detailMgr = (WareHouseRecDetailMgr)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_REC_DETAILMGR);
+		}
+		return retInfo;
+	}
+	
+	public List<WarehouseRecInfo> listWarehouseRecInfo(WarehouseRecInfo whrInfo) throws Exception{
+		logger.debug("查询入库单列表，输入的参数为：" + whrInfo.toString());
+		WarehouseRecInfoDao whrInfoDao =(WarehouseRecInfoDao)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_REC_INFO_DAO);
+		return whrInfoDao.listWarehouseRecInfo(whrInfo);
+	}
+	
+	public Integer listWarehouseRecInfoCount(WarehouseRecInfo whrInfo) throws Exception{
+		logger.debug("查询入库单列表总数，输入的参数为：" + whrInfo.toString());
+		WarehouseRecInfoDao whrInfoDao =(WarehouseRecInfoDao)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_REC_INFO_DAO);
+		return whrInfoDao.listWarehouseRecInfoCount(whrInfo);
+	}
 }

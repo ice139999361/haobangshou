@@ -61,7 +61,7 @@ public class WareHouseRecDetailMgr {
 			Integer id = detailDao.insertWarehouseRecDetail(detail);
 			detail.setRecDetailSeqId(id);
 			ret = id;
-			WareHouseLogUtils.operLog(detail.getStaffId(), detail.getStaffName(), (detail.getState().equals(WareHouseConstants.WAREHOUSE_REC_INFO_03) ? "确认" : "新增"), "入库单物料明细", detail.getLogKey(), null, content);
+			WareHouseLogUtils.operLog(detail.getStaffId(), detail.getStaffName(), (detail.getState().equals(WareHouseConstants.WAREHOUSE_REC_INFO_02) ? "确认" : "新增"), "入库单物料明细", detail.getLogKey(), null, content);
 		}else{//做update操作
 			String state = existDetail.getState();
 			logger.debug("数据库中存在入库单明细，update操作！明细状态为：" + state);
@@ -69,7 +69,7 @@ public class WareHouseRecDetailMgr {
 				
 				detail.setRecDetailSeqId(existDetail.getRecDetailSeqId());
 				detailDao.updateWarehouseRecDetail(detail);
-				WareHouseLogUtils.operLog(detail.getStaffId(), detail.getStaffName(), (detail.getState().equals(WareHouseConstants.WAREHOUSE_REC_INFO_03) ? "确认" : "修改"), "入库单物料明细", detail.getLogKey(), null, content);
+				WareHouseLogUtils.operLog(detail.getStaffId(), detail.getStaffName(), (detail.getState().equals(WareHouseConstants.WAREHOUSE_REC_INFO_02) ? "确认" : "修改"), "入库单物料明细", detail.getLogKey(), null, content);
 			}else{//状态不正确，不允许修改
 				logger.debug("数据库中存在入库单明细，update操作！状态不正确，不允许修改！");
 				ret = -1;
@@ -87,7 +87,7 @@ public class WareHouseRecDetailMgr {
 		 * 则除需要更新仓库库存，更新供应商订单的到货数量外
 		 * 还需要更新到客户订单锁定的数量上去，执行自动锁定
 		*/
-		if(st.equals(WareHouseConstants.WAREHOUSE_REC_INFO_03)){
+		if(st.equals(WareHouseConstants.WAREHOUSE_REC_INFO_02)){
 			
 		}
 		return ret;
@@ -238,7 +238,8 @@ public class WareHouseRecDetailMgr {
 		return ret;
 	}
 	/**
-	 * 财务设置已对账
+	 * 财务设置已对账,针对入库单明细，
+	 * 财务已对账对入库单建议不设置
 	 * 
 	 * @param detail
 	 * @param staffId
@@ -260,25 +261,25 @@ public class WareHouseRecDetailMgr {
 			detailDao.updateWarehouseRecDetailByFinanceState(detail);
 			WareHouseLogUtils.operLog(staffId, staffName, "财务对账", "供应商物料入库", detail.getLogKey(), null, content);
 			//根据明细确定入库单的财务状态
-			WarehouseRecDetail rDetail = new WarehouseRecDetail();
-			rDetail.setRecPoNo(detail.getRecPoNo());
-			rDetail.setVendorCode(detail.getVendorCode());
-			rDetail.setState(WareHouseConstants.WAREHOUSE_REC_INFO_02);
-			List<WarehouseRecDetail> dList = detailDao.listWarehouseRecDetail(rDetail);
-			String infoFState = WareHouseConstants.WAREHOUSE_REC_FINANCE_STATE_1;
-			for(WarehouseRecDetail recDetail : dList){
-				String fstate = recDetail.getFinanceState();
-				if(fstate.equals(WareHouseConstants.WAREHOUSE_REC_FINANCE_STATE_0)){
-					infoFState = WareHouseConstants.WAREHOUSE_REC_FINANCE_STATE_0;
-					break;
-				}
-			}
-			WarehouseRecInfo recInfo = new WarehouseRecInfo();
-			recInfo.setRecPoNo(detail.getRecPoNo());
-			recInfo.setFinanceState(infoFState);
-			recInfo.setVendorCode(detail.getVendorCode());
-			WarehouseRecInfoDao whrInfoDao =(WarehouseRecInfoDao)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_REC_INFO_DAO);
-			whrInfoDao.updateWarehouseRecInfoByFinanceState(recInfo);
+//			WarehouseRecDetail rDetail = new WarehouseRecDetail();
+//			rDetail.setRecPoNo(detail.getRecPoNo());
+//			rDetail.setVendorCode(detail.getVendorCode());
+//			rDetail.setState(WareHouseConstants.WAREHOUSE_REC_INFO_02);
+//			List<WarehouseRecDetail> dList = detailDao.listWarehouseRecDetail(rDetail);
+//			String infoFState = WareHouseConstants.WAREHOUSE_REC_FINANCE_STATE_1;
+//			for(WarehouseRecDetail recDetail : dList){
+//				String fstate = recDetail.getFinanceState();
+//				if(fstate.equals(WareHouseConstants.WAREHOUSE_REC_FINANCE_STATE_0)){
+//					infoFState = WareHouseConstants.WAREHOUSE_REC_FINANCE_STATE_0;
+//					break;
+//				}
+//			}
+//			WarehouseRecInfo recInfo = new WarehouseRecInfo();
+//			recInfo.setRecPoNo(detail.getRecPoNo());
+//			recInfo.setFinanceState(infoFState);
+//			recInfo.setVendorCode(detail.getVendorCode());
+//			WarehouseRecInfoDao whrInfoDao =(WarehouseRecInfoDao)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_REC_INFO_DAO);
+//			whrInfoDao.updateWarehouseRecInfoByFinanceState(recInfo);
 		}
 		return ret;
 	}
