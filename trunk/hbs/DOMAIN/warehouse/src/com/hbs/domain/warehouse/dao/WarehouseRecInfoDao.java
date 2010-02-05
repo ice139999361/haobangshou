@@ -50,7 +50,7 @@ public interface WarehouseRecInfoDao {
      * @return warehouseRecInfo list
      * @throws DataAccessException DataAccessException
      */
-    List listWarehouseRecInfo(WarehouseRecInfo warehouseRecInfo) throws DataAccessException ;
+    List<WarehouseRecInfo> listWarehouseRecInfo(WarehouseRecInfo warehouseRecInfo) throws DataAccessException ;
     
     /**
      * listCount.

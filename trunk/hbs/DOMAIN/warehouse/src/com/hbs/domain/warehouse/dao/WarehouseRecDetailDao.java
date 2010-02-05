@@ -52,7 +52,7 @@ public interface WarehouseRecDetailDao {
      * @return warehouseRecDetail list
      * @throws DataAccessException DataAccessException
      */
-    List listWarehouseRecDetail(WarehouseRecDetail warehouseRecDetail) throws DataAccessException ;
+    List<WarehouseRecDetail> listWarehouseRecDetail(WarehouseRecDetail warehouseRecDetail) throws DataAccessException ;
     
     /**
      * listCount.
