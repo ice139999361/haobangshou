@@ -5,28 +5,32 @@
 <sqlMap namespace="ProductClass">
 <typeAlias alias="productClass" type="com.hbs.domain.product.pojo.ProductClass"/> 
 <resultMap id="productClass_result" class="productClass">
-    <result property="clsCode" column="P_CLS_CODE"/>
-    <result property="catCode" column="P_CAT_CODE"/>
+    <result property="clsCode" column="P_CLS_CODE"/>   
     <result property="clsName" column="P_CLS_NAME"/>
     <result property="clsDesc" column="P_CLS_DESC"/>
+    <result property="parentClsCode" column="PARENT_CLS_CODE"/>
+    <result property="clsLevel" column="P_CLASS_LEVEL"/>
 </resultMap>
 
 
 <insert id="ProductClass_insertProductClass" parameterClass="productClass" >
 <![CDATA[
-    INSERT INTO T_PRODUCT_CLASS (
-            P_CLS_CODE, 
-            P_CAT_CODE, 
+    INSERT INTO T_PRODUCT_CLASS (                      
             P_CLS_NAME, 
-            P_CLS_DESC
+            P_CLS_DESC,
+			PARENT_CLS_CODE,
+			P_CLASS_LEVEL
         )
-    VALUES (
-            #clsCode#,
-            #catCode#,
+    VALUES (			           
             #clsName#,
-            #clsDesc#
+            #clsDesc#,
+			#parentClsCode#,
+			#clsLevel#
     )
 ]]>
+<selectKey resultClass="Integer" keyProperty="clsCode">
+            SELECT LAST_INSERT_ID()  
+  </selectKey>
 </insert>
 
 <delete id="ProductClass_deleteProductClass" parameterClass="string">
@@ -38,15 +42,15 @@
 <update id="ProductClass_updateProductClass" parameterClass="productClass">
     UPDATE T_PRODUCT_CLASS 
     SET
-    	P_CLS_CODE = #clsCode#
-	<isNotEmpty prepend="," property="catCode">
-            P_CAT_CODE = #catCode#
-	</isNotEmpty>
-	<isNotEmpty prepend="," property="clsName">
-            P_CLS_NAME = #clsName#
-	</isNotEmpty>
+    	P_CLS_NAME = #clsName#
 	<isNotEmpty prepend="," property="clsDesc">
             P_CLS_DESC = #clsDesc#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="parentClsCode">
+            PARENT_CLS_CODE = #parentClsCode#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="clsLevel">
+            P_CLASS_LEVEL = #clsLevel#
 	</isNotEmpty>
     WHERE P_CLS_CODE = #clsCode#
 </update> 
@@ -55,9 +59,10 @@
 <![CDATA[
     SELECT
             P_CLS_CODE, 
-            P_CAT_CODE, 
             P_CLS_NAME, 
-            P_CLS_DESC
+            P_CLS_DESC,
+			PARENT_CLS_CODE,
+			P_CLASS_LEVEL
     FROM T_PRODUCT_CLASS WHERE P_CLS_CODE = #clsCode#
 ]]>
 </select>
@@ -66,21 +71,29 @@
 <![CDATA[
     SELECT
             P_CLS_CODE, 
-            P_CAT_CODE, 
             P_CLS_NAME, 
-            P_CLS_DESC
+            P_CLS_DESC,
+			PARENT_CLS_CODE,
+			P_CLASS_LEVEL
     FROM T_PRODUCT_CLASS
 ]]>
 		<dynamic prepend="WHERE">
 			<isNotEmpty prepend="and" property = "clsCode">
-				P_CLS_CODE like '%$clsCode$%'
+				P_CLS_CODE = #clsCode#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "catCode">
-				P_CAT_CODE like '%$catCode$%'
-			</isNotEmpty>
+			
 			<isNotEmpty prepend="and" property = "clsName">
 				P_CLS_NAME like '%$clsName$%'
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property = "parentClsCode">
+				PARENT_CLS_CODE = #parentClsCode#
 			</isNotEmpty>	
+			
+			<isNotEmpty prepend="and" property = "clsLevel">
+				P_CLASS_LEVEL = #clsLevel#
+			</isNotEmpty>
+			
 			<isNotEmpty prepend="order by" property="sort">
                    $sort$
             </isNotEmpty>		
@@ -94,19 +107,25 @@
 <select id="ProductClass_listProductClassCount" resultClass="java.lang.Integer" parameterClass="productClass">
 <![CDATA[
     SELECT
-		COUNT(*)
+		COUNT(1)
     FROM T_PRODUCT_CLASS
 ]]>
 		<dynamic prepend="WHERE">
 			<isNotEmpty prepend="and" property = "clsCode">
-				P_CLS_CODE like '%$clsCode$%'
+				P_CLS_CODE = #clsCode#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "catCode">
-				P_CAT_CODE like '%$catCode$%'
-			</isNotEmpty>
+			
 			<isNotEmpty prepend="and" property = "clsName">
 				P_CLS_NAME like '%$clsName$%'
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property = "parentClsCode">
+				PARENT_CLS_CODE = #parentClsCode#
 			</isNotEmpty>	
+			
+			<isNotEmpty prepend="and" property = "clsLevel">
+				P_CLASS_LEVEL = #clsLevel#
+			</isNotEmpty>
 		</dynamic>
 </select>
 
