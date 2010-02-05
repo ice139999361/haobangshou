@@ -143,11 +143,12 @@ public class WarehouseRecDetailDaoImpl extends SqlMapClientDaoSupport implements
      * @return warehouseRecDetail list
      * @throws DataAccessException DataAccessException
      */
-    public List listWarehouseRecDetail(WarehouseRecDetail warehouseRecDetail) throws DataAccessException {
+    @SuppressWarnings("unchecked")
+	public List<WarehouseRecDetail> listWarehouseRecDetail(WarehouseRecDetail warehouseRecDetail) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listWarehouseRecDetail(WarehouseRecDetail), 输入参数[" + warehouseRecDetail + "]");
 		}
-        List list = getSqlMapClientTemplate().queryForList("WarehouseRecDetail_listWarehouseRecDetail", warehouseRecDetail);
+        List<WarehouseRecDetail> list = getSqlMapClientTemplate().queryForList("WarehouseRecDetail_listWarehouseRecDetail", warehouseRecDetail);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listWarehouseRecDetail(WarehouseRecDetail), 返回[" + list + "]");
 		}

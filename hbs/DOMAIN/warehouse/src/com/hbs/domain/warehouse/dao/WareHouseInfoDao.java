@@ -5,6 +5,7 @@ import org.springframework.dao.DataAccessException;
 import com.hbs.domain.warehouse.pojo.WareHouseInfo;
 
 
+
 /**
  * WareHouseInfoDao½Ó¿Ú.
  * @author hbs

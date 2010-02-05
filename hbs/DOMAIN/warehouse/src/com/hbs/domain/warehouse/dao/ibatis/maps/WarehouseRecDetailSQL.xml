@@ -343,12 +343,7 @@
 			<isNotEmpty prepend="and" property = "shortName">
 				SHORT_NAME = #shortName#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "poNoDate">
-				PO_NO_DATE = #poNoDate#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "applyDate">
-				ARRAY_DATE = #applyDate#
-			</isNotEmpty>
+			
 			<isNotEmpty prepend="and" property = "houseType">
 				HOUSE_TYPE = #houseType#
 			</isNotEmpty>
@@ -363,21 +358,6 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "venPartNo">
 				C_PART_NO = #venPartNo#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "pnDesc">
-				PN_DESC = #pnDesc#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "price">
-				C_PRICE = #price#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "isTax">
-				IS_TAX = #isTax#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "taxRate">
-				TAX_RATE = #taxRate#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "amount">
-				AMOUNT = #amount#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "period">
 				PERIOD = #period#
@@ -404,18 +384,53 @@
 		            FINANCE_PERIOD = #financePeriod#
 			</isNotEmpty>
 			
-		<!--	这里处理时间段
-		    <isNotEmpty prepend="and" property = "poNoType">
-				PO_NO_TYPE = #poNoType#
-			</isNotEmpty> -->
+			<!-- 账期范围查询  需要extends BaseDomain 入库单供应商日期 -->	
+			<isNotEmpty prepend="and"
+				property="dynamicFields.lessPeriod">
+				<![CDATA[	
+					CAST(PERIOD AS SIGNED) <= #lessPeriod#
+				]]>
+			</isNotEmpty>
+		<!-- 时间段范围查询  需要extends BaseDomain 入库单供应商日期 -->
+			<isNotEmpty prepend="and"
+				property="dynamicFields.beginPoNoDate">
+				<![CDATA[	
+					ORDER_TIME >= STR_TO_DATE('$dynamicFields.beginPoNoDate$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.endPoNoDate">
+				<![CDATA[	
+					ORDER_TIME < STR_TO_DATE('$dynamicFields.dndPoNoDate$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.beginApplyDate">
+				<![CDATA[	
+					ORDER_TIME >= STR_TO_DATE('$dynamicFields.beginApplyDate$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.endApplyDate">
+				<![CDATA[	
+					ORDER_TIME < STR_TO_DATE('$dynamicFields.endApplyDate$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="order by" property="sort">
+                   $sort$
+            </isNotEmpty>
 		</dynamic>
+		<![CDATA[
+      		LIMIT #start# ,#end#
+		]]>
 </select>
 
 
 <select id="WarehouseRecDetail_listWarehouseRecDetailCount" resultClass="java.lang.Integer" parameterClass="warehouseRecDetail">
 <![CDATA[
     SELECT
-		COUNT(*)
+		COUNT(1)
     FROM T_WAREHOUSE_RECEIVE_DETAIL
 ]]>
 		<dynamic prepend="WHERE">
@@ -431,12 +446,7 @@
 			<isNotEmpty prepend="and" property = "shortName">
 				SHORT_NAME = #shortName#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "poNoDate">
-				PO_NO_DATE = #poNoDate#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "applyDate">
-				ARRAY_DATE = #applyDate#
-			</isNotEmpty>
+			
 			<isNotEmpty prepend="and" property = "houseType">
 				HOUSE_TYPE = #houseType#
 			</isNotEmpty>
@@ -452,21 +462,6 @@
 			<isNotEmpty prepend="and" property = "venPartNo">
 				C_PART_NO = #venPartNo#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "pnDesc">
-				PN_DESC = #pnDesc#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "price">
-				C_PRICE = #price#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "isTax">
-				IS_TAX = #isTax#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "taxRate">
-				TAX_RATE = #taxRate#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "amount">
-				AMOUNT = #amount#
-			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "period">
 				PERIOD = #period#
 			</isNotEmpty>
@@ -480,7 +475,7 @@
 				STAFF_ID = #staffId#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "staffName">
-				STAFF_NAME = #staffId#
+				STAFF_NAME = #staffName#
 			</isNotEmpty>
 			<isNotEmpty prepend="," property="state">
 		            STATE = #state#
@@ -491,10 +486,38 @@
 			<isNotEmpty prepend="," property="financePeriod">
 		            FINANCE_PERIOD = #financePeriod#
 			</isNotEmpty>
-		<!--	这里处理时间段
-		    <isNotEmpty prepend="and" property = "poNoType">
-				PO_NO_TYPE = #staffName#
-			</isNotEmpty> -->
+		<!-- 账期范围查询  需要extends BaseDomain 入库单供应商日期 -->	
+			<isNotEmpty prepend="and"
+				property="dynamicFields.lessPeriod">
+				<![CDATA[	
+					CAST(PERIOD AS SIGNED) <= #lessPeriod#
+				]]>
+			</isNotEmpty>
+		<!-- 时间段范围查询  需要extends BaseDomain 入库单供应商日期 -->
+			<isNotEmpty prepend="and"
+				property="dynamicFields.beginPoNoDate">
+				<![CDATA[	
+					ORDER_TIME >= STR_TO_DATE('$dynamicFields.beginPoNoDate$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.endPoNoDate">
+				<![CDATA[	
+					ORDER_TIME < STR_TO_DATE('$dynamicFields.dndPoNoDate$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.beginApplyDate">
+				<![CDATA[	
+					ORDER_TIME >= STR_TO_DATE('$dynamicFields.beginApplyDate$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.endApplyDate">
+				<![CDATA[	
+					ORDER_TIME < STR_TO_DATE('$dynamicFields.endApplyDate$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
 		</dynamic>
 </select>
 
