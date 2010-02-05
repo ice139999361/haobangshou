@@ -25,8 +25,8 @@ public class ProductClassDaoTest extends AbstractTransactionalDataSourceSpringCo
     public void testInsertProductClass() {
         ProductClassDao productClassDao = (ProductClassDao)this.getApplicationContext().getBean("productClassDao");
         ProductClass productClass = new ProductClass();
-        productClass.setClsCode("1");
-        productClass.setCatCode("1");
+//        productClass.setClsCode("1");
+//        productClass.setCatCode("1");
         productClass.setClsName("1");
         productClass.setClsDesc("1");
         productClassDao.insertProductClass(productClass);
@@ -55,8 +55,8 @@ public class ProductClassDaoTest extends AbstractTransactionalDataSourceSpringCo
     public void testUpdateProductClass() {
         ProductClassDao productClassDao = (ProductClassDao) this.getApplicationContext().getBean("productClassDao");
         ProductClass productClass = new ProductClass();
-        productClass.setClsCode("1");
-        productClass.setCatCode("1");
+//        productClass.setClsCode("1");
+//        productClass.setCatCode("1");
         productClass.setClsName("1");
         productClass.setClsDesc("1");
         productClassDao.updateProductClass(productClass);
@@ -74,7 +74,7 @@ public class ProductClassDaoTest extends AbstractTransactionalDataSourceSpringCo
         
         System.out.println("testFind result--------------------------------------");
         System.out.println("clsCode=" + productClass.getClsCode());
-        System.out.println("catCode=" + productClass.getCatCode());
+      //  System.out.println("catCode=" + productClass.getCatCode());
         System.out.println("clsName=" + productClass.getClsName());
         System.out.println("clsDesc=" + productClass.getClsDesc());
     }
@@ -85,9 +85,9 @@ public class ProductClassDaoTest extends AbstractTransactionalDataSourceSpringCo
     public void testListProductClass() {
         ProductClassDao productClassDao = (ProductClassDao) this.getApplicationContext().getBean("productClassDao");
         ProductClass productClass = new ProductClass();
-        productClass.setClsCode("1");
-        productClass.setCatCode("1");
-        productClass.setClsName("1");
+//        productClass.setClsCode("1");
+//        productClass.setCatCode("1");
+//        productClass.setClsName("1");
         productClass.setClsDesc("1");
 
         System.out.println("testList result--------------------------------------");
@@ -95,7 +95,7 @@ public class ProductClassDaoTest extends AbstractTransactionalDataSourceSpringCo
         for (int i = 0; i < list.size(); i++) {
             ProductClass tmpProductClass = (ProductClass) list.get(i);
             System.out.println(i + " clsCode=" + tmpProductClass.getClsCode());
-            System.out.println(i + " catCode=" + tmpProductClass.getCatCode());
+//            System.out.println(i + " catCode=" + tmpProductClass.getCatCode());
             System.out.println(i + " clsName=" + tmpProductClass.getClsName());
             System.out.println(i + " clsDesc=" + tmpProductClass.getClsDesc());
         }
@@ -108,8 +108,8 @@ public class ProductClassDaoTest extends AbstractTransactionalDataSourceSpringCo
     public void testListProductClassCount() {
         ProductClassDao productClassDao = (ProductClassDao) this.getApplicationContext().getBean("productClassDao");
         ProductClass productClass = new ProductClass();
-        productClass.setClsCode("1");
-        productClass.setCatCode("1");
+//        productClass.setClsCode("1");
+//        productClass.setCatCode("1");
         productClass.setClsName("1");
         productClass.setClsDesc("1");
 
