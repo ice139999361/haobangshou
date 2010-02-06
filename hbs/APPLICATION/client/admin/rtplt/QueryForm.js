@@ -37,7 +37,7 @@ Ext.extend(ExtUx.widget.QueryForm, Ext.form.FormPanel, {
 		 				// 加载数据
 		 				_store.load();
 		 				// 备份当前参数
-		 				this.currParams = params;
+		 				this.form.currParams = params;
 		 		}
 		 }
 		,{
