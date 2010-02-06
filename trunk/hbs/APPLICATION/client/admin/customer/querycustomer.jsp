@@ -58,7 +58,7 @@
 			    		
 			    		<panel buttonAlign="center">
 			    			<buttons>
-			    				<exportbutton text="导出" />
+			    				<exportbutton text="导出" url="/test2.action" />
 			    			</buttons>
 			    		</panel>
 			    	<!-- service ext ui.  end. -->
