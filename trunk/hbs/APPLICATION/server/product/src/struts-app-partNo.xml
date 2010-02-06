@@ -25,6 +25,14 @@
 		</action>
      	<action name="partNo!get" method="doGet" 
     			class="com.hbs.product.action.ProductAction">
-		</action>		
+		</action>	
+		
+     	<action name="pClass!list" method="doGetList" 
+    			class="com.hbs.product.action.ProductClassAction">
+		</action>
+     	<action name="pClass!info" method="doGetInfo" 
+    			class="com.hbs.product.action.ProductClassAction">
+		</action>	
+			
     </package>
 </struts>
