@@ -61,7 +61,7 @@ Ext.extend(ExtUx.widget.Application, Ext.util.Observable, {
     },
     switchContent:function(src,createNew,tabTip){
     	var pt = this.getPortal();
-      if(pt != undefined) pt.contMgr.switchContent(src,createNew,tabTip);
+      if(pt != undefined) pt.contentMgr.switchContent(src,createNew,tabTip);
     },
     navigate:function(result){
         var pt=this.getPortal();

@@ -3,47 +3,15 @@ var HBS = Ice;
 
 var ExtConvertHelper = { 
 	 /**
-	  * 功能JS的初始化方法
-	  * @param readyFun    onReady中要执行的方法
-	  * @param initFun     在进入ready中要第一个要执行的方法
-	  */
-	 init: function(readyFun, initFun, xmpid) {
-			app=new ExtUx.widget.Application({"xmpid": xmpid});
-			urlPs.openerTabId = this.getOpenerTabId();
-			
-			app.onReady(function(){
-				if(initFun) initFun();
-				if(Ext.getCmp("query_btn")) Ext.getDom("query_btn").click();
-				if(readyFun) readyFun();
-			});
-	 }
-	 /**
 	  * 获取 location.href 中所传递过来的参数
 	  * 例：xxx.jsp?id=5&name=aaa  |  var urlPs = DisnHelper.getUrlPs()  urlPs.id  urlPs.name
 	  */
-	,getUrlPs: function() {
+	 getUrlPs: function() {
 			if(!this.__urlPs) {
 				this.__urlPs = Ext.urlDecode((location.search || "?").slice(1));
 			}
 			
 			return this.__urlPs;
-	 }
-	 /**
-	  * 返回打开这个页面的 tabId 如果使用的是非 Portal 会返回一个应该回退的历史数
-	  */
-	,getOpenerTabId: function() {
-			// 获取主 Panel
-			var mainTab = this.getMainTab();
-			
-			// Portal 返回父页面的 tabId
-			return mainTab.tmpTabId;
-	 }
-	 /**
-	  * 说明：获取主标签的引用
-	  */	
-	,getMainTab: function() {
-			// 返回主的 Panel 模板
-			return app.getPortal().contentMgr.mainPanel;
 	 }
 	,submitForm: function(formId, url, params, success, failure) {
 
@@ -59,38 +27,6 @@ var ExtConvertHelper = {
 																			 Ext.Msg.alert("提示", message);
 																		 }
 			});
-	 }
-	 /**
-	  * 刷新父页面 
-	  * @param openerTabId 父页面的TabId
-	  * @param gridId 要刷新的gridId
-	  * @param flag 是否要关闭当前页面  true 关闭  false 不关闭
-	  */
-	,refurbishOpenerTab: function(openerTabId, gridId, flag) {
-			// 获取主 Panel
-			var mainTab = 	this.getMainTab();
-			
-			// Portal 获取父标签页
-			var openerTab = mainTab.getItem(openerTabId);
-			
-			// 如果标签页还未关闭则对其表格进行刷新
-			if(openerTab && gridId) openerTab.iframe.dom.contentWindow.ExtConvertHelper.refreshGrid(gridId);
-				
-			// 根据需要来关闭当前标签页
-			if(flag) this.closeActiveTab();
-	 }
-	 /**
-	  * 关闭当前活动标签的
-	  */
-	,closeActiveTab: function() {
-			// 如果 Portal 框架存在，则关闭当前活动标签
-			app.getPortal().contentMgr.closeActiveTab();
-	 }
-	 /**
-	  * 默认的关闭窗口方法
-	  */
-	,defaultCloseTab: function() {
-			ExtConvertHelper.refurbishOpenerTab(urlPs.openerTabId, "querygrid", true);
 	 }
 	 /**
  		* 对指定 form 进行 vtype 校验
@@ -187,6 +123,14 @@ var ExtConvertHelper = {
 	 // 获取需要的提示
 	,getMessageInfo: function(action, msg) {
 		 	return action.result && action.result.data ? action.result.data.msg : msg;
+	 }
+	,getATagString: function(text, url) {
+			var sb = new StringBuilder;
+			sb.append('<a style="color:blue;white-space:nowrap;text-overflow:ellipsis;word-break:keep-all;overflow:hidden;"')
+				.append(' href="').append(url).append('">')
+				.append(text).append("</a>");;
+				
+			return sb.toString();
 	 }
 	 // 格式化要提交的参数
 	,_processParams: function(params) {
