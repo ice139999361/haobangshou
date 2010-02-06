@@ -132,6 +132,29 @@ var ExtConvertHelper = {
 				
 			return sb.toString();
 	 }
+	 /**
+	 * 导出文件
+	 * 业务描述：分三种方法导出文件，1、通过 form。2、通过 url。 3、通过 fileId
+	 */
+	,exportFile: function() {
+			// 获取导出的 url
+			var _exportUrl = arguments[0];
+			
+			
+			// 获取用于导出的 form 对象
+			var exportForm = arguments[1];
+			// 获取参数
+			var params = arguments[2];
+			
+			// 导出文件
+			exportForm.getForm().exportData({
+				url     : SERVER_PATH + _exportUrl,
+				params  : this._processParams(params),
+				failure : function(form, action){
+					Ext.Msg.alert('提示', action.result.data.msg);   
+				}
+			});
+	 }
 	 // 格式化要提交的参数
 	,_processParams: function(params) {
 			// 获取当前毫秒数

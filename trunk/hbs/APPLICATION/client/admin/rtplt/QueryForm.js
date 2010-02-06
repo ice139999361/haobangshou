@@ -1,7 +1,6 @@
 Ext.namespace('ExtUx.widget');
 
 ExtUx.widget.QueryForm = function(config) {
-	//alert(Ext.util.JSON.encode(config.layoutpanel))
 	// 处理 config 信息
 	ColumnPanelHelper.processConfig(config);
 	ExtUx.widget.QueryForm.superclass.constructor.call(this, config);
@@ -10,6 +9,7 @@ ExtUx.widget.QueryForm = function(config) {
 Ext.extend(ExtUx.widget.QueryForm, Ext.form.FormPanel, {
 	initComponent : function(){
 		ExtUx.widget.QueryForm.superclass.initComponent.call(this);
+		urlPs.__exportFormId = this.id;
 		Ext.getCmp("query_btn").form = this;
 		Ext.getCmp("clean_btn").form = this;
 	},
