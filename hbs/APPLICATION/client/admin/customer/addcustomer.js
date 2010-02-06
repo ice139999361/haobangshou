@@ -1,4 +1,4 @@
-ExtConvertHelper.init(function() {
+HBSConvertHelper.init(function() {
 	// -------------------------------------- 获取需要持久用到的对象
 	
 	// 获取提交按钮

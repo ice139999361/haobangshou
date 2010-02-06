@@ -17,7 +17,7 @@
 			    	<items>
 			    	<!-- service ext ui.  begin. -->
 			    	
-			    		<queryform gridId="querygrid">
+			    		<queryform gridId="querygrid" exportId="exportBtn">
 			    			<layoutpanel columnNum="6:.3,.11,.05,.15,.05,.3">
 			    				<textfield fieldLabel="客户简称"               name="custInfo.shortName" />
 			    				<label     fieldLabel="客户录入时间"          />
@@ -46,24 +46,21 @@
 			    			</fields>
 			    			
 			    			<columns>
-			    				<column header="客户简称"       dataIndex="shortName"     />
+			    				<column header="客户简称"       dataIndex="shortName"     id="shortName" />
 			    				<column header="客户编码"       dataIndex="commCode"      />
 			    				<column header="公司中文名称"   dataIndex="allName"       />
 			    				<column header="客户公司地址"   dataIndex="address"       />
 			    				<column header="客户信用度"     dataIndex="creditRate"    />
 			    				<column header="客户的重要程度" dataIndex="importantCode" />
-			    				<column header="操作"           dataIndex="" />
+			    				<column header="操作"           dataIndex=""              id="operator" />
 			    			</columns>
 			    		</complexgrid>
-			  
+			    		
 			    		<panel buttonAlign="center">
 			    			<buttons>
-			    				<button text="提交" id="submitBtn" />
-			    				<button text="保存" id="saveBtn"   />
-			    				<button text="取消" id="backBtn"   />
+			    				<exportbutton text="导出" />
 			    			</buttons>
 			    		</panel>
-			    		
 			    	<!-- service ext ui.  end. -->
 			    	</items>
 			    </panel>
