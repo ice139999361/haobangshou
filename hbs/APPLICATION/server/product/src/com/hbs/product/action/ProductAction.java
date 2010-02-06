@@ -13,7 +13,7 @@ import com.hbs.domain.product.pojo.CompanyPartNo;
 import com.hbs.product.manager.CompanyPartNoMgr;
 
 /**
- * 本公司Action
+ * 本公司物料Action
  * @author xyf
  * @actions doList doGet
  */
