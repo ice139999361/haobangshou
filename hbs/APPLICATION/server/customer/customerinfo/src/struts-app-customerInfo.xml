@@ -57,7 +57,7 @@
     			class="com.hbs.customerinfo.action.CustPartNoInfoNormalAction">
 		</action>
 		
-		<!-- 普通用户客户物料信息 -->
+		<!-- 经理用户客户物料信息 -->
      	<action name="custPartNoInfoMgr!list" method="doList" 
     			class="com.hbs.customerinfo.action.CustPartNoInfoManagerAction">
 		</action>
