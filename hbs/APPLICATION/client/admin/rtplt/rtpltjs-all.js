@@ -6,6 +6,7 @@ document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt
 document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/common/Ice.js"><\/script>');
 document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/common/Namespace.js"><\/script>');
 document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/common/JSON.js"><\/script>');
+document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/common/ExtJsExt.js"><\/script>');
 
 // 
 document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/plug/TabCloseMenu.js"><\/script>');
@@ -24,5 +25,6 @@ document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt
 document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/QueryForm.js"><\/script>');
 document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/ListPanel.js"><\/script>');
 document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/ComplexGrid.js"><\/script>');
+document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/ExportButton.js"><\/script>');
 
 

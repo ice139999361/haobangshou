@@ -65,4 +65,14 @@ Ice.apply(Ice, {
    		
       return oNs;
    }
+  ,appendIFrame : function(id) {
+			var tmp = document.createElement("iframe");
+			tmp.id = id;
+			tmp.style.display = "none";
+			document.body.appendChild(tmp);
+			return tmp;
+	 }
+	,getIFrame : function(id) {
+			return Ext.getDom(id) || this.appendIFrame(id);
+	 }
 });
