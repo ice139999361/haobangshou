@@ -95,7 +95,7 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 	},
 	__setColumns__: function(config) {
 		// 常量及属性
-		var columnFields = ["id", "dataIndex", "header", "width", "editor", "align", "sortable"];
+		var columnFields = ["id", "dataIndex", "header", "width", "editor", "align", "sortable", "renderer"];
 		// 存储可编辑列对应的field Key
 		var sbEditStore = new StringBuilder;
 		// 要创建列的集合
@@ -147,7 +147,7 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 		// 设置扩展的渲染方法
 		this.__setExtRenderer__(column);
 		// 设置应用开发的渲染方法
-		column.__selfRenderer = column.renderer || null;
+		column.__selfRenderer = eval(column.renderer) || null;
 		// 控件的renderer方法
 		column.renderer = function(val, metadata, record, rowIndex, colIndex, store) {
 			// 获取表格控件
@@ -236,6 +236,16 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 		var _cm = this.getColumnModel();
 		// 返回需要的列对象
 		return _cm.getColumnById(_cm.getColumnId(index));
+	},
+	/**
+	 * 返回指定列的索引
+	 * @param id 列的id
+	 */
+	getColumnIndexById: function(id) {
+		// 获取表格列模型
+		var columnModel = this.getColumnModel();
+		// 返回列索引
+		return columnModel.getIndexById(id);
 	},
 	removeSelectRow: function() {
 		// 获取选种的Record集合

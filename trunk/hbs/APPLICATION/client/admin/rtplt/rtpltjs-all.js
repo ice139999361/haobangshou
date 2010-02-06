@@ -1,4 +1,5 @@
 // 基础控件
+document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/common/JavaScriptExt.js"><\/script>');
 document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/common/StringBuilder.js"><\/script>');
 document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/common/Node.js"><\/script>');
 document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/common/XMLDOMParser.js"><\/script>');
