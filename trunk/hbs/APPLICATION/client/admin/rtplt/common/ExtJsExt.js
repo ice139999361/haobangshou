@@ -21,18 +21,23 @@ Ext.data.Connection.prototype.doExportData = function(config) {
 				// 填充 response 对象
 				if(_doc && _doc.body) response.responseText = _doc.body.innerHTML;
         response.responseXML = (_doc && _doc.XMLDocument) ? _doc.XMLDocument : _doc;
-
+				
         Ext.EventManager.removeListener(iFrame, 'load', config.callback, this);
         this.fireEvent("requestcomplete", this, response, config);
-
+        
         Ext.callback(config.success,  config.scope, [response, config]);
-        Ext.callback(config.callback, config.scope, [config, true, response]);
+        //Ext.callback(config.callback, config.scope, [config, true, response]);
     }
 		
 		// 添加 load 事件
     Ext.EventManager.on(iFrame, 'load', config.callback, this);
+    // 将参数转为 string 串
+    config.params = typeof config.params != "string" ? Ext.urlEncode(config.params) : config.params;
+    
+    // 组装 url 地址
+    config.url += (config.url.indexOf("?") == -1 ? "?" : "&") + config.params;
     // 加载地址
-    iFrame.src = url;
+    iFrame.src = config.url;
 };
 
 
