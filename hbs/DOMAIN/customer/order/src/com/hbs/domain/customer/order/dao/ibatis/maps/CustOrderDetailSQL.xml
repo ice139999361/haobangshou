@@ -22,6 +22,7 @@
     <result property="amount" column="AMOUNT"/>
     <result property="money" column="MONEY"/>
     <result property="deliveryAmount" column="DELIVERY_AMOUNT"/>
+    <result property="deliveryHouseType" column="DELIVERY_HOUSE_TYPE"/>
     <result property="lockAmount" column="LOCK_AMOUNT"/>
     <result property="selfLockAmount" column="SELF_LOCK_AMOUNT"/>
     <result property="commLockAmount" column="COMM_LOCK_AMOUNT"/>
@@ -60,6 +61,7 @@
             AMOUNT, 
             MONEY, 
             DELIVERY_AMOUNT, 
+            DELIVERY_HOUSE_TYPE,
             LOCK_AMOUNT, 
             SELF_LOCK_AMOUNT, 
             COMM_LOCK_AMOUNT, 
@@ -95,6 +97,7 @@
             #amount#,
             #money#,
             #deliveryAmount#,
+            #deliveryHouseType#,
             #lockAmount#,
             #selfLockAmount#,
             #commLockAmount#,
@@ -285,6 +288,9 @@
 	<isNotEmpty prepend="," property="deliveryAmount">
             DELIVERY_AMOUNT = #deliveryAmount#
 	</isNotEmpty>
+	<isNotEmpty prepend="," property="deliveryHouseType">
+            DELIVERY_HOUSE_TYPE = #deliveryHouseType#
+	</isNotEmpty>
 	<isNotEmpty prepend="," property="lockAmount">
             LOCK_AMOUNT = #lockAmount#
 	</isNotEmpty>
@@ -355,7 +361,8 @@
             COMM_DESC, 
             AMOUNT, 
             MONEY, 
-            DELIVERY_AMOUNT, 
+            DELIVERY_AMOUNT,
+            DELIVERY_HOUSE_TYPE, 
             LOCK_AMOUNT, 
             SELF_LOCK_AMOUNT, 
             COMM_LOCK_AMOUNT, 
@@ -397,6 +404,7 @@
             AMOUNT, 
             MONEY, 
             DELIVERY_AMOUNT, 
+            DELIVERY_HOUSE_TYPE,
             LOCK_AMOUNT, 
             SELF_LOCK_AMOUNT, 
             COMM_LOCK_AMOUNT, 
@@ -506,6 +514,7 @@
             AMOUNT, 
             MONEY, 
             DELIVERY_AMOUNT, 
+            DELIVERY_HOUSE_TYPE,
             LOCK_AMOUNT, 
             SELF_LOCK_AMOUNT, 
             COMM_LOCK_AMOUNT, 
@@ -584,7 +593,7 @@
 <select id="CustOrderDetail_listCustOrderDetailCount" resultClass="java.lang.Integer" parameterClass="custOrderDetail">
 <![CDATA[
     SELECT
-		COUNT(*)
+		COUNT(1)
     FROM T_CUST_ORDER_DETAIL
 ]]>
 		<dynamic prepend="WHERE">

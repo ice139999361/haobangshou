@@ -3,6 +3,7 @@ package com.hbs.domain.customer.order.pojo;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.hbs.common.utils.DateUtils;
 import com.hbs.domain.common.pojo.base.BaseDomain;
 
 /**
@@ -101,6 +102,10 @@ public class CustOrderDetail extends BaseDomain{
      * 已经发货数量.
      */
     private Integer deliveryAmount=0;
+    /**
+     * 发货对应的仓库总库/其他库，缺省为公司总库1
+     */
+    private String deliveryHouseType ="1";
     
     /**
      * 仓库锁定数量.
@@ -464,6 +469,14 @@ public class CustOrderDetail extends BaseDomain{
 		this.sales = sales;
 	}
 
+	public String getDeliveryHouseType() {
+		return deliveryHouseType;
+	}
+
+	public void setDeliveryHouseType(String deliveryHouseType) {
+		this.deliveryHouseType = deliveryHouseType;
+	}
+
 	public String getBizKey(){
     	StringBuilder sb = new StringBuilder();
     	sb.append(this.commCode).append(";");
@@ -491,4 +504,49 @@ public class CustOrderDetail extends BaseDomain{
     	
     	return sb.toString();
     }
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("operSeqId=").append(this.operSeqId).append(" ");
+		sb.append("commCode=").append(this.commCode).append(" ");
+		sb.append("shortName=").append(this.shortName).append(" ");
+		sb.append("poNoType=").append(this.poNoType).append(" ");
+		sb.append("SettlementType=").append(this.SettlementType).append(" ");
+		sb.append("poNo=").append(this.poNo).append(" ");
+		sb.append("cpartNo=").append(this.cpartNo).append(" ");
+		sb.append("partNo=").append(this.partNo).append(" ");
+		sb.append("pnDesc=").append(this.pnDesc).append(" ");
+		
+		sb.append("cprice=").append(this.cprice != null ? this.cprice.floatValue() : " ").append(" ");
+		
+		sb.append("cpriceTax=").append(this.cpriceTax != null ? this.cpriceTax.floatValue() : " ").append(" ");
+		sb.append("isTax=").append(this.isTax).append(" ");
+		sb.append("taxRate=").append(this.taxRate != null ? this.taxRate.floatValue() : "  ").append(" ");
+		sb.append("specDesc=").append(this.specDesc).append(" ");
+		sb.append("commDesc=").append(this.commDesc).append(" ");
+		sb.append("amount=").append(this.amount).append(" ");
+		sb.append("money=").append(this.money != null ? this.money.floatValue() : "  ").append(" ");
+		sb.append("deliveryAmount=").append(this.deliveryAmount).append(" ");
+		sb.append("deliveryHouseType=").append(this.deliveryHouseType).append(" ");
+		sb.append("lockAmount=").append(this.lockAmount).append(" ");
+		sb.append("selfLockAmount=").append(this.selfLockAmount).append(" ");
+		sb.append("commLockAmount=").append(this.commLockAmount).append(" ");
+		sb.append("orgDeliveryDate=").append(this.orgDeliveryDate != null ? DateUtils.getFormatDate(this.orgDeliveryDate,null) : null).append(" ");
+		sb.append("preDeliveryDate=").append(this.preDeliveryDate != null ? DateUtils.getFormatDate(this.preDeliveryDate,null) : null).append(" ");
+		sb.append("verDeliveryDate=").append(this.verDeliveryDate != null ? DateUtils.getFormatDate(this.verDeliveryDate,null) : null).append(" ");
+		sb.append("period=").append(this.period).append(" ");
+		sb.append("rltOrderPoNo=").append(this.rltOrderPoNo).append(" ");
+		sb.append("vendorCode=").append(this.vendorCode).append(" ");
+		sb.append("state=").append(this.state).append(" ");
+		sb.append("staffId=").append(this.staffId).append(" ");
+		sb.append("staffName=").append(this.staffName).append(" ");
+		sb.append("salesId=").append(this.salesId).append(" ");
+		sb.append("sales=").append(this.sales).append(" ");
+		sb.append("activeState=").append(this.activeState).append(" ");
+		sb.append("rltSendPoNo=").append(this.rltSendPoNo).append(" ");
+
+		
+		return sb.toString();
+	}
 }
