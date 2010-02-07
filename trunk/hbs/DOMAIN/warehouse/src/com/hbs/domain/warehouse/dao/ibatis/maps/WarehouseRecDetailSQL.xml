@@ -31,6 +31,7 @@
     <result property="state" column="STATE"/>
     <result property="activeState" column="ACTIVE_STATE"/>
     <result property="financePeriod" column="FINANCE_PERIOD"/>
+    <result property="specDesc" column="SPEC_DESC"/>
 </resultMap>
 
 
@@ -62,7 +63,8 @@
 			OPER_TIME,
 			STATE,
 			ACTIVE_STATE,
-			FINANCE_PERIOD
+			FINANCE_PERIOD,
+			SPEC_DESC
         )
     VALUES (            
             #recPoNo#,
@@ -89,7 +91,8 @@
 			#operTime#,
 			#state#,
 			#activeState#,
-			#financePeriod#
+			#financePeriod#,
+			#specDesc#
     )
 ]]>
 <selectKey resultClass="Integer" keyProperty="recDetailSeqId">
@@ -207,6 +210,9 @@
 	<isNotEmpty prepend="," property="financePeriod">
             FINANCE_PERIOD = #financePeriod#
 	</isNotEmpty>
+	<isNotEmpty prepend="," property="specDesc">
+            SPEC_DESC = #specDesc#
+	</isNotEmpty>
     WHERE REC_DETAIL_SEQID = #recDetailSeqId#
 </update> 
 
@@ -238,7 +244,8 @@
 			OPER_TIME,
 			STATE,
 			ACTIVE_STATE,
-			FINANCE_PERIOD
+			FINANCE_PERIOD,
+			SPEC_DESC
     FROM T_WAREHOUSE_RECEIVE_DETAIL
 ]]>
 	<dynamic prepend="WHERE">
@@ -262,6 +269,9 @@
 			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "poNoType">
 				PO_NO_TYPE = #poNoType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "specDesc">
+				SPEC_DESC = #specDesc#
 			</isNotEmpty>			
 		</dynamic>
 </select>
@@ -294,7 +304,8 @@
 			OPER_TIME,
 			STATE,
 			ACTIVE_STATE,
-			FINANCE_PERIOD
+			FINANCE_PERIOD,
+			SPEC_DESC
     FROM T_WAREHOUSE_RECEIVE_DETAIL WHERE REC_DETAIL_SEQID = #recDetailSeqId#
 ]]>
 </select>
@@ -327,7 +338,8 @@
 			OPER_TIME,
 			STATE,
 			ACTIVE_STATE,
-			FINANCE_PERIOD
+			FINANCE_PERIOD,
+			SPEC_DESC
     FROM T_WAREHOUSE_RECEIVE_DETAIL
 ]]>
 		<dynamic prepend="WHERE">
@@ -382,6 +394,9 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="," property="financePeriod">
 		            FINANCE_PERIOD = #financePeriod#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "specDesc">
+				SPEC_DESC = #specDesc#
 			</isNotEmpty>
 			
 			<!-- 账期范围查询  需要extends BaseDomain 入库单供应商日期 -->	
@@ -485,6 +500,9 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="," property="financePeriod">
 		            FINANCE_PERIOD = #financePeriod#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "specDesc">
+				SPEC_DESC = #specDesc#
 			</isNotEmpty>
 		<!-- 账期范围查询  需要extends BaseDomain 入库单供应商日期 -->	
 			<isNotEmpty prepend="and"
