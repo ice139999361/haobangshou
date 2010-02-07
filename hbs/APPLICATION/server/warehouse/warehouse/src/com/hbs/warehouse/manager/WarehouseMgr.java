@@ -156,7 +156,7 @@ public class WarehouseMgr {
 		if(null != existWInfo){//仓库存在库存信息
 			int existTotalAmount = existWInfo.getTotalAmount().intValue();
 			int newLockAmount = existWInfo.getLockAmount().intValue() + wInfoLockAmount;
-			int newUseAmount = existWInfo.getUseAmount().intValue() - wInfoUseAmount;
+			int newUseAmount = existWInfo.getUseAmount().intValue() + wInfoUseAmount;
 			if(newUseAmount < 0 || 
 					(existTotalAmount != (newLockAmount + newUseAmount))){//更新的数据不正确，抛出异常
 				throw new Exception("库存存在的信息为：" + existWInfo.toString() + "数据变更后导致不正确！无法保存");
