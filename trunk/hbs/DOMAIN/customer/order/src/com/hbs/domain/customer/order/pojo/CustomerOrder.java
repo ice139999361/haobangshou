@@ -3,6 +3,7 @@ package com.hbs.domain.customer.order.pojo;
 import java.util.Date;
 import java.util.List;
 
+import com.hbs.common.utils.DateUtils;
 import com.hbs.domain.common.pojo.base.BaseDomain;
 
 /**
@@ -364,4 +365,36 @@ public class CustomerOrder extends BaseDomain{
     	sb.append(this.poNo);
     	return sb.toString();
     }
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("commCode=").append(this.commCode).append(" ");
+		sb.append("poNo=").append(this.poNo).append(" ");
+		sb.append("poNoType=").append(this.poNoType).append(" ");
+		sb.append("shortName=").append(this.shortName).append(" ");
+		sb.append("oderTime=").append(this.oderTime == null ? null : DateUtils.getFormatDate(this.oderTime,null)).append(" ");
+		sb.append("conName=").append(this.conName).append(" ");
+		sb.append("conTel=").append(this.conTel).append(" ");
+		sb.append("conFax=").append(this.conFax).append(" ");
+		sb.append("companyBranch=").append(this.companyBranch).append(" ");
+		sb.append("SettlementType=").append(this.SettlementType).append(" ");
+		sb.append("ReceiveName=").append(this.ReceiveName).append(" ");
+		sb.append("receiveAddress=").append(this.receiveAddress).append(" ");
+		sb.append("receiveZip=").append(this.receiveZip).append(" ");
+		sb.append("staffId=").append(this.staffId).append(" ");
+		sb.append("staffName=").append(this.staffName).append(" ");
+		sb.append("salesId=").append(this.salesId).append(" ");
+		sb.append("sales=").append(this.sales).append(" ");
+		sb.append("isShowPrice=").append(this.isShowPrice).append(" ");
+		sb.append("vendorCode=").append(this.vendorCode).append(" ");
+		sb.append("fristCreateTime=").append(this.fristCreateTime == null ? null : DateUtils.getFormatDate(this.fristCreateTime,null)).append(" ");
+		sb.append("createTime=").append(this.createTime == null ? null : DateUtils.getFormatDate(this.createTime,null)).append(" ");
+		sb.append("period=").append(this.period).append(" ");
+		sb.append("state=").append(this.state).append(" ");
+		sb.append("activeState=").append(this.activeState).append(" ");
+		sb.append("orderDetailList=").append(this.orderDetailList == null ? null : orderDetailList.size()).append(" ");
+		
+		return sb.toString();
+	}
 }

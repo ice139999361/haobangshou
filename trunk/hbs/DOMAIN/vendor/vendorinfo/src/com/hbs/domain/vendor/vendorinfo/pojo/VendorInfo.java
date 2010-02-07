@@ -497,4 +497,46 @@ public class VendorInfo extends BaseDomain{
 	public String getWaitTaskKey(){
 		return this.commCode;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("baseSeqId=").append(this.baseSeqId).append(" ");
+		sb.append("commCode=").append(this.commCode).append(" ");
+		sb.append("state=").append(this.state).append(" ");
+		sb.append("shortName=").append(this.shortName).append(" ");
+		sb.append("enShortName=").append(this.enShortName).append(" ");
+		sb.append("allName=").append(this.allName).append(" ");
+		sb.append("enName=").append(this.enName).append(" ");
+		sb.append("address=").append(this.address).append(" ");
+		sb.append("enAddress=").append(this.enAddress).append(" ");
+		sb.append("commType=").append(this.commType).append(" ");
+		sb.append("commScale=").append(this.commScale).append(" ");
+		sb.append("webSite=").append(this.webSite).append(" ");
+		sb.append("representative=").append(this.representative).append(" ");
+		sb.append("taxCode=").append(this.taxCode).append(" ");
+		sb.append("companyBranch=").append(this.companyBranch).append(" ");
+		sb.append("creditRate=").append(this.creditRate).append(" ");
+		sb.append("creditDesc=").append(this.creditDesc).append(" ");
+		sb.append("importantCode=").append(this.importantCode).append(" ");
+		sb.append("importantDesc=").append(this.importantDesc).append(" ");
+		sb.append("settlementType=").append(this.settlementType).append(" ");
+		sb.append("settlementDesc=").append(this.settlementDesc).append(" ");
+		sb.append("currency=").append(this.currency).append(" ");
+		sb.append("currencyDesc=").append(this.currencyDesc).append(" ");
+		sb.append("staffId=").append(this.staffId).append(" ");
+		sb.append("staffName=").append(this.staffName).append(" ");
+		sb.append("commDesc=").append(this.commDesc).append(" ");
+		sb.append("vendorCode=").append(this.vendorCode).append(" ");
+		sb.append("contactFee=").append(this.contactFee == null ? null : this.contactFee.floatValue()).append(" ");
+		sb.append("isShowPrice=").append(this.isShowPrice).append(" ");
+		sb.append("taxRate=").append(this.taxRate == null ? null : this.taxRate.floatValue()).append(" ");
+		sb.append("listContactInfo=").append(this.listContactInfo == null ? null : this.listContactInfo.size()).append(" ");
+		sb.append("listBankInfo=").append(this.listBankInfo == null ? null : this.listBankInfo.size()).append(" ");
+		sb.append("accountPreiod=").append(this.accountPreiod == null ? null : this.accountPreiod.toString()).append(" ");
+		sb.append("prePaidInfo=").append(this.prePaidInfo == null ? null : this.prePaidInfo.toString()).append(" ");
+		
+		return sb.toString();
+	}
+	
 }
