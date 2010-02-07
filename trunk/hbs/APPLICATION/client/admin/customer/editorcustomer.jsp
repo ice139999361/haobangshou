@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>新客户信息录入</title>
+	<title></title>
 	<script type="text/javascript" src="<%=contextPath %>/customer/common/CommonPro.js"></script>
 </head>
 
@@ -119,4 +119,4 @@
 	</xmp>
 </body>
 </html>
-<script type="text/javascript" src="<%=contextPath %>/customer/addcustomer.js"></script>
+<script type="text/javascript" src="<%=contextPath %>/customer/editorcustomer.js"></script>
