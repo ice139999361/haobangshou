@@ -230,6 +230,14 @@ var HBSConvertHelper = {
 				
 			return btns.length == 1 ? tmpPanel.items.get(0) : tmpPanel.items;
 	 }
+	 /**
+	  * 更改页签的标题
+	  * @param title (String) 标题
+	  */
+	,setDocumentTitle: function(title) {
+			document.title = title;
+			this.getMainTab().getActiveTab().setTitle(title);
+	 }
 	 // 属性定义
 	,__name: "HBSConvertHelper"
 };
