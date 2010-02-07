@@ -66,7 +66,7 @@ public class WarehouseRecDetail extends BaseDomain{
     /**
      * 供应商的物料编号.
      */
-    private String venPartNo;
+    private String cpartNo;
     
     /**
      * 物料描述.
@@ -138,7 +138,20 @@ public class WarehouseRecDetail extends BaseDomain{
      */
     private String financePeriod;
     
+    /**
+     * 特殊描述，针对客户订单中有批次的批次号
+     */
+    private String specDesc;
+    
    
+
+	public String getSpecDesc() {
+		return specDesc;
+	}
+
+	public void setSpecDesc(String specDesc) {
+		this.specDesc = specDesc;
+	}
 
 	/**
 	 * @return the currMoney
@@ -300,12 +313,12 @@ public class WarehouseRecDetail extends BaseDomain{
         this.partNo = partNo;
     }
     
-    public String getVenPartNo() {
-        return this.venPartNo;
+    public String getCpartNo() {
+        return this.cpartNo;
     }	
   
-    public void setVenPartNo(String venPartNo) {
-        this.venPartNo = venPartNo;
+    public void setCpartNo(String venPartNo) {
+        this.cpartNo = venPartNo;
     }
     
     public String getPnDesc() {
@@ -417,8 +430,8 @@ public class WarehouseRecDetail extends BaseDomain{
 		if(this.partNo != null){
 			sb.append("partNo=").append(this.partNo).append(" ");
 		}
-		if(this.venPartNo != null){
-			sb.append("venPartNo=").append(this.venPartNo).append(" ");
+		if(this.cpartNo != null){
+			sb.append("venPartNo=").append(this.cpartNo).append(" ");
 		}
 		if(this.pnDesc != null){
 			sb.append("pnDesc=").append(this.pnDesc).append(" ");
@@ -461,7 +474,10 @@ public class WarehouseRecDetail extends BaseDomain{
 		}
 		if(this.financePeriod != null){
 			sb.append("financePeriod=").append(this.financePeriod).append(" ");
-		}		
+		}	
+		if(this.specDesc != null){
+			sb.append("specDesc=").append(this.specDesc).append(" ");
+		}	
 		
 		return sb.toString();
 	}

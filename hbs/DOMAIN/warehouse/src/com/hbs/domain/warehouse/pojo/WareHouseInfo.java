@@ -85,7 +85,7 @@ public class WareHouseInfo extends BaseDomain{
      */
     private String state="0";
 
-
+    
     
     public Integer getHouseSeqId() {
         return this.houseSeqId;
