@@ -16,7 +16,6 @@ HBSConvertHelper.init(function() {
 			var shortName_cell = view.getCell(i, view.grid.getColumnIndexById("shortName"));
 			// 获取操作列
 			var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));
-			
 			// 将需要的链接渲染到此列
 			HBSConvertHelper.renderATag2Cell(shortName_cell.innerText, "abc.action", "open", shortName_cell);
 			// 创建按钮到操作列
