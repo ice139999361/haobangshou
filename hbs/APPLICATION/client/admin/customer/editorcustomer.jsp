@@ -35,7 +35,7 @@
 				    				<textfield fieldLabel="合同费"                 name="custInfo.contractFee"    labelStyle="width:150" />
 				    				<textfield fieldLabel="对应的业务部助理ID"     name="custInfo.assStaffId"     labelStyle="width:150" />
 				    					
-				    				<dictcombo fieldLabel="发货单是否显示单价"     hiddenName="custInfo.isShowPrice"    labelStyle="width:150" paramsValue="IS_SHOW_PRICE"   emptyText="请选择" id="isShowPrice" />
+				    				<dictcombo fieldLabel="发货单是否显示单价"     hiddenName="custInfo.isShowPrice"    labelStyle="width:150" paramsValue="IS_SHOW_PRICE"   emptyText="请选择" />
 				    				<textfield fieldLabel="英文简称"               name="custInfo.enShortName"    labelStyle="width:150" />
 				    				<textfield fieldLabel="公司英文名称"           name="custInfo.enName"         labelStyle="width:150" />
 				    				<textfield fieldLabel="公司英文地址"           name="custInfo.enAddress"      labelStyle="width:150" />
@@ -54,19 +54,19 @@
 				    		
 				    		<listpanel frame="true" title="客户结算信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<textfield fieldLabel="结算方式描述" 					 name="" labelStyle="width:150" />
-				    				<dictcombo fieldLabel="账期类型" 							 name="" labelStyle="width:150" paramsValue="abc" emptyText="请选择" />
-				    				<textfield fieldLabel="账期的起始日" 					 name="" labelStyle="width:150" />
-				    				<textfield fieldLabel="账期的结算日" 					 name="" labelStyle="width:150" />
-				    				<textfield fieldLabel="提醒设置" 							 name="" labelStyle="width:150" />
-				    				<textfield fieldLabel="提醒市场人员催款" 			 name="" labelStyle="width:150" />
+				    				<textfield fieldLabel="结算方式描述" 					 name=""       labelStyle="width:150" />
+				    				<dictcombo fieldLabel="账期类型" 							 hiddenName="" labelStyle="width:150" paramsValue="abc" emptyText="请选择" />
+				    				<textfield fieldLabel="账期的起始日" 					 name=""       labelStyle="width:150" />
+				    				<textfield fieldLabel="账期的结算日" 					 name=""       labelStyle="width:150" />
+				    				<textfield fieldLabel="提醒设置" 							 name=""       labelStyle="width:150" />
+				    				<textfield fieldLabel="提醒市场人员催款" 			 name=""       labelStyle="width:150" />
 				    				
 				    				
-				    				<textfield fieldLabel="结算币种描述" 					 name="" labelStyle="width:150" />
-				    				<textfield fieldLabel="客户的账期设置" 				 name="" labelStyle="width:150" />
-				    				<textfield fieldLabel="账期的对账日" 					 name="" labelStyle="width:150" />
-				    				<textfield fieldLabel="客户账期的最大交易金额" name="" labelStyle="width:150" />
-				    				<textfield fieldLabel="预付百分比" 						 name="" labelStyle="width:150" />
+				    				<textfield fieldLabel="结算币种描述" 					 name=""       labelStyle="width:150" />
+				    				<textfield fieldLabel="客户的账期设置" 				 name=""       labelStyle="width:150" />
+				    				<textfield fieldLabel="账期的对账日" 					 name=""       labelStyle="width:150" />
+				    				<textfield fieldLabel="客户账期的最大交易金额" name=""       labelStyle="width:150" />
+				    				<textfield fieldLabel="预付百分比" 						 name=""       labelStyle="width:150" />
 				    			</layoutpanel>
 				    		</listpanel>
 			    		</items></form>
