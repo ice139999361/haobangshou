@@ -114,9 +114,45 @@ Ext.extend(Ext.form.Action.Export, Ext.form.Action, {
 
 // 增加Export Action
 Ext.form.Action.ACTION_TYPES["export"] = Ext.form.Action.Export;
+// 备份 basicForm 的 setValues 方法
+Ext.form.BasicForm.prototype._setValues = Ext.form.BasicForm.prototype.setValues;
 
-//给BasicForm增加ExportData方法
-Ext.form.BasicForm.prototype.exportData = function(options){
-        this.doAction('export', options);
-        return this;
-};
+Ext.apply(Ext.form.BasicForm.prototype, {
+	 //给BasicForm增加ExportData方法
+	 exportData: function(options) {
+		 	this.doAction('export', options);
+		 	return this;
+	 }
+	,setValues: function(values) {
+			values = this.parseData(values);
+			this._setValues(values);
+	 }
+	,parseData: function(object, cacheobj, newobject) {
+			// 如果是 Array 对象则直接反回
+			if(object instanceof Array) return object;
+			// 创建新的容器对象
+			if(!newobject) newobject = {};
+			// 组装 cacheobj.key 对象
+			if(!cacheobj) cacheobj = {key: "", superkey: "", value: null};
+			if(cacheobj.key) cacheobj.key += ".";
+			// 缓存当前 key
+			var currkey = cacheobj.key;
+
+			for(var key in object) {
+				// 组装 cacheobj 对象
+				cacheobj.key += key;
+				cacheobj.value = object[key];
+				
+				// 如果对象是 object 继续
+				if(typeof object[key] == "object") this.parseData(object[key], cacheobj, newobject);
+				else {
+					// 将组装好的值加入容器中
+					newobject[cacheobj.key] = cacheobj.value;
+					// 将 cacheobj.key 还原
+					cacheobj.key = currkey;
+				}
+			}
+			
+			return newobject;
+	 }
+});

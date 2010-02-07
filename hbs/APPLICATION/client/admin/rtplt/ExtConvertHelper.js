@@ -28,6 +28,21 @@ var ExtConvertHelper = {
 																		 }
 			});
 	 }
+	,loadForm: function(formId, url, params, success, failure) {
+
+			Ext.getCmp(formId).getForm().load({
+				url: SERVER_PATH + url,
+				params: this._processParams(params),
+			  waitTitle: '提示',
+			  clientValidation: false,
+				waitMsg: '请等待：正在提交请求',
+				success: success ? success : function(){},
+				failure: failure ? failure : function(form, action){
+																			 var message = ExtConvertHelper.getMessageInfo(action, "请求失败：服务器异常");
+																			 Ext.Msg.alert("提示", message);
+																		 }
+			});
+	 }
 	 /**
  		* 对指定 form 进行 vtype 校验
  		* @param formId 要进行验证的 form 的 id 属性
@@ -153,6 +168,16 @@ var ExtConvertHelper = {
 				failure : function(form, action){
 					Ext.Msg.alert('提示', action.result.data.msg);   
 				}
+			});
+	 }
+	 /**
+	  * 隐藏不需要的页面元素
+	  */
+	,hideItems: function(items) {
+			Ext.each(items.split(","), function(item, index, itemsAll) {
+					var cmp = Ext.getCmp(item);
+					cmp.hide();
+					cmp.disable();
 			});
 	 }
 	 // 格式化要提交的参数
