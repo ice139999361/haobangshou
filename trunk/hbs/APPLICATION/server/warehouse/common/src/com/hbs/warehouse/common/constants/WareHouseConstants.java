@@ -17,6 +17,12 @@ public interface WareHouseConstants {
 	
 	public static final String WAREHOUSE_REC_DETAILMGR ="wareHouseRecDetailMgr";
 	
+	public static final String  VENDOR_ORDER_DETAILMGR="vendorOrderDetailMgr";
+	
+	public static final String  CUST_ORDER_DETAILMGR ="custOrderDetailMgr";
+	
+	public static final String WAREHOUSE_INFO_MGR ="WarehouseMgr";
+	
 	public static final String WAREHOUSE_REC_ACTIVE="ACTIVE";
 	public static final String WAREHOUSE_REC_PAUSE = "PAUSE";
 	
@@ -33,6 +39,10 @@ public interface WareHouseConstants {
 	
 	public static final String WAREHOUSE_INFO_STATE_0 ="0"; //库存可用
 	public static final String WAREHOUSE_INFO_STATE_1 ="1"; //库存不可用
+	
+	
+	public static final String WAREHOUSE_USE_TYPE_1 = "1"; //特定客户备货
+	public static final String WAREHOUSE_USE_TYPE_2 = "2"; //常规备货
 	
 	
 	public static final String PRE_SPRING="warehouse";
