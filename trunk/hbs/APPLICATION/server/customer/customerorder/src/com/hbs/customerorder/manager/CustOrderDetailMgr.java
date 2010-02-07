@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 
 
 import com.hbs.common.springhelper.BeanLocator;
@@ -26,13 +28,15 @@ import com.hbs.domain.customer.order.dao.CustomerOrderDao;
 import com.hbs.domain.customer.order.pojo.CustOrderDetail;
 import com.hbs.domain.customer.order.pojo.CustomerOrder;
 import com.hbs.domain.waittask.pojo.WaitTaskInfo;
+import com.hbs.domain.warehouse.pojo.WareHouseInfo;
+import com.hbs.warehouse.manager.WarehouseMgr;
 
 /**
  * @author Administrator
  *
  */
 public class CustOrderDetailMgr {
-
+	private static final Logger logger = Logger.getLogger(CustOrderDetailMgr.class);
 	/**
 	 * SPRING配置项的前缀
 	 */
@@ -243,22 +247,87 @@ public class CustOrderDetailMgr {
 	
 	/**
 	 * 锁定订单明细的库存，除在订单明细表中添加锁定数量外，
-	 * 还有一部分就是对仓库库存的锁定变更
+	 * 还有一部分就是对仓库库存的锁定变更，仓库库存的锁定在仓库部分调用DAO实现
 	 * 本操作可能是人工锁定操作，也可能是采购入库时，根据关联的客户订单，自动锁定到客户订单中
 	 * 根据锁定的数量和总数量比较，如果数量相同，则状态为70货备齐
 	 * 否则状态为71部分备货
-	 * 订单的状态如果有锁定数量，状态为21备货中
-	 * 这部分目前没有完全实现，等待仓库部分一起实现？？？？
+	 * 订单的状态如果有锁定数量，状态为21备货中	 
 	 * @param orderDetail
 	 * @param staffId
 	 * @param staffName
 	 * @param content
-	 * @return
+	 * @return 0  成功  -1 无法找到客户订单明细 -2 锁定数量大于订单明细订货数量
 	 * @throws Exception
 	 */
 	public int lockOrderDetailAmount(CustOrderDetail orderDetail,String staffId, String staffName, String content) throws Exception{
 		int ret =0;
-		ret = updateCustDetailAmount(orderDetail);
+		logger.debug("客户订单明细锁定物料锁定操作！ 传入的参数为：" + orderDetail.toString());
+		//根据业务主键查询客户订单明细
+		CustOrderDetail  existDetail = findCustOrderDetailByBizKey(orderDetail);
+		if(existDetail != null){//客户订单明细存在，执行库存锁定操作
+			int iAmount = existDetail.getAmount();  //订单数量
+			int iLockAmount = existDetail.getLockAmount(); //锁定总数量
+//			int iselLock = existDetail.getSelfLockAmount(); //客户备货锁定数量
+//			int icommLock = existDetail.getCommLockAmount();//常规备货锁定数量
+			int isavelockAmount = iLockAmount + orderDetail.getSelfLockAmount().intValue() + orderDetail.getCommLockAmount().intValue();
+			if(isavelockAmount > iAmount){//锁定的数量大于订单明细订货数量
+				logger.debug("输入的锁定数量+已存在的锁定数量大于订单明细订货数量，不能执行锁定操作！");
+				ret = -2;
+			}else{
+				logger.debug("执行锁定操作！");
+				if(isavelockAmount == iAmount){//货已备齐
+					orderDetail.setState(CustOrderConstants.ORDER_STATE_71);
+				}else{//部分备货
+					orderDetail.setState(CustOrderConstants.ORDER_STATE_71);
+				}
+				orderDetail.setOperSeqId(existDetail.getOperSeqId());
+				orderDetail.setLockAmount(orderDetail.getSelfLockAmount().intValue() + orderDetail.getCommLockAmount().intValue());
+				ret = updateCustDetailAmount(orderDetail);
+			}
+		}else{//客户订单明细不存在 ，返回-1
+			logger.debug("根据输入的参数无法找到对应的客户订单明细，无法执行锁定操作！");
+			ret = -1;
+		}
+		//处理仓库部分的锁定情况
+		if(staffId != null && ret == 0){
+			logger.debug("处理仓库锁定操作！由操作人员发起，发起人 " + staffId + staffName );
+			WarehouseMgr whMgr =(WarehouseMgr)BeanLocator.getInstance().getBean(CustOrderConstants.WAREHOUSE_INFO_MGR);
+			int detailSelock = orderDetail.getSelfLockAmount().intValue();
+			if( detailSelock != 0){
+				logger.debug("存在特定客户备货锁定，锁定数量为：" + detailSelock);
+				WareHouseInfo whrInfo = new WareHouseInfo();
+				//设置仓库类型
+				whrInfo.setHouseType(orderDetail.getDeliveryHouseType());
+				//设置备货类型
+				whrInfo.setHouseUse(CustOrderConstants.WAREHOUSE_INFO_HOUSE_USE_1);
+				//设置供应商编码
+				whrInfo.setVendorCode(orderDetail.getVendorCode());
+				//设置公司物料编码
+				whrInfo.setPartNo(orderDetail.getPartNo());
+				whrInfo.setCustCode(orderDetail.getCommCode());
+				//设置锁定数量
+				whrInfo.setLockAmount(detailSelock);
+				whrInfo.setUseAmount(-detailSelock);
+				whMgr.saveLockWareHouseInfo(whrInfo, null, null, null);
+			}
+			int commLock = orderDetail.getCommLockAmount().intValue();
+			if(commLock != 0){
+				logger.debug("存在常规备货锁定，锁定数量为：" + commLock);
+				WareHouseInfo whrInfo = new WareHouseInfo();
+				//设置仓库类型
+				whrInfo.setHouseType(orderDetail.getDeliveryHouseType());
+				//设置备货类型
+				whrInfo.setHouseUse(CustOrderConstants.WAREHOUSE_INFO_HOUSE_USE_2);
+				//设置供应商编码
+				whrInfo.setVendorCode(orderDetail.getVendorCode());
+				//设置公司物料编码
+				whrInfo.setPartNo(orderDetail.getPartNo());				
+				//设置锁定数量
+				whrInfo.setLockAmount(commLock);
+				whrInfo.setUseAmount(-commLock);
+				whMgr.saveLockWareHouseInfo(whrInfo, null, null, null);
+			}
+		}
 		//log
 		if(staffId != null){
 		CustLogUtils.operLog(orderDetail.getStaffId(), orderDetail.getStaffName(), "锁定库存", "客户订单明细", orderDetail.getLogBizKey(), null, content);
