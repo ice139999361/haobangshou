@@ -67,8 +67,9 @@ HBSConvertHelper.init(function() {
 		// 隐藏不需要的控件
 		ExtConvertHelper.hideItems("saveBtn");
 		
+		// 加载数据
 		ExtConvertHelper.loadForm("form", "/test3.action", null, function(form, action) {
-				//alert(action.result.data.custInfo)
+				Ext.getCmp("custbankgrid").addData(action.result.data.custInfo.listBankInfo);
 		});
 	}
 	
