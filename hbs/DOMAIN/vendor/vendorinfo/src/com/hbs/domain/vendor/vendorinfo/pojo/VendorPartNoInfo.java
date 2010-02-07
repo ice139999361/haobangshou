@@ -3,6 +3,7 @@ package com.hbs.domain.vendor.vendorinfo.pojo;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.hbs.common.utils.DateUtils;
 import com.hbs.domain.common.pojo.base.BaseDomain;
 
 /**
@@ -10,7 +11,7 @@ import com.hbs.domain.common.pojo.base.BaseDomain;
  * @author hbs
  *
  */
-@SuppressWarnings("serial")
+
 public class VendorPartNoInfo extends BaseDomain {
     
 	private Integer seqId;
@@ -78,12 +79,12 @@ public class VendorPartNoInfo extends BaseDomain {
     /**
      * 最小订单数量，缺省为0.
      */
-    private Integer minAmount;
+    private Integer minAmount=0;
     
     /**
      * 最小包装单位.
      */
-    private Integer minPackage;
+    private Integer minPackage =0;
     
     /**
      * 样品编号.
@@ -235,4 +236,29 @@ public class VendorPartNoInfo extends BaseDomain {
 		sb.append(commCode);		
 		return sb.toString();
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("seqId=").append(this.seqId).append(" ");
+		sb.append("custPartNo=").append(this.custPartNo).append(" ");
+		sb.append("commCode=").append(this.commCode).append(" ");
+		sb.append("state=").append(this.state).append(" ");
+		sb.append("pnDesc=").append(this.pnDesc).append(" ");
+		sb.append("price=").append(this.price == null ? null : this.price.floatValue()).append(" ");
+		sb.append("priceTax=").append(this.priceTax == null ? null : this.priceTax.floatValue()).append(" ");
+		sb.append("createDate=").append(this.createDate == null ? null : DateUtils.getFormatDate(this.createDate,null)).append(" ");
+		sb.append("staffId=").append(this.staffId).append(" ");
+		sb.append("staffName=").append(this.staffName).append(" ");
+		sb.append("partNo=").append(this.partNo).append(" ");
+		sb.append("catCode=").append(this.catCode).append(" ");
+		sb.append("clsName=").append(this.clsName).append(" ");
+		sb.append("minAmount=").append(this.minAmount).append(" ");
+		sb.append("minPackage=").append(this.minPackage).append(" ");
+		sb.append("sampleCode=").append(this.sampleCode).append(" ");
+		
+		return sb.toString();
+	}
+	
+	
 }

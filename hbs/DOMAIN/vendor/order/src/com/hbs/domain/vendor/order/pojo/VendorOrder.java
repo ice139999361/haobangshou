@@ -3,12 +3,15 @@ package com.hbs.domain.vendor.order.pojo;
 import java.util.Date;
 import java.util.List;
 
+import com.hbs.domain.common.pojo.base.BaseDomain;
+import com.hbs.common.utils.DateUtils;
+
 /**
  * VendorOrder对象.
  * @author hbs
  *
  */
-public class VendorOrder {
+public class VendorOrder extends BaseDomain{
     
     /**
      * 供应商编码.
@@ -319,4 +322,32 @@ public class VendorOrder {
     	sb.append(this.commCode).append(";").append(this.poNo);
     	return sb.toString();
     }
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("commCode=").append(this.commCode).append(" ");
+		sb.append("poNo=").append(this.poNo).append(" ");
+		sb.append("poNoType=").append(this.poNoType).append(" ");
+		sb.append("createTime=").append(this.createTime == null ? null : DateUtils.getFormatDate(this.createTime,null)).append(" ");
+		sb.append("conName=").append(this.conName).append(" ");
+		sb.append("conTel=").append(this.conTel).append(" ");
+		sb.append("conFax=").append(this.conFax).append(" ");
+		sb.append("companyBranch=").append(this.companyBranch).append(" ");
+		sb.append("SettlementType=").append(this.SettlementType).append(" ");
+		sb.append("ReceiveName=").append(this.ReceiveName).append(" ");
+		sb.append("receiveAddress=").append(this.receiveAddress).append(" ");
+		sb.append("receiveZip=").append(this.receiveZip).append(" ");
+		sb.append("staffId=").append(this.staffId).append(" ");
+		sb.append("staffName=").append(this.staffName).append(" ");
+		sb.append("sales=").append(this.sales).append(" ");
+		sb.append("isShowPrice=").append(this.isShowPrice).append(" ");
+		sb.append("orderTime=").append(this.orderTime == null ? null : DateUtils.getFormatDate(this.orderTime,null)).append(" ");
+		sb.append("period=").append(this.period).append(" ");
+		sb.append("state=").append(this.state).append(" ");
+		sb.append("activeState=").append(this.activeState).append(" ");
+		sb.append("custCcode=").append(this.custCcode).append(" ");
+		
+		return sb.toString();
+	}
 }
