@@ -57,14 +57,7 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 	     ,config	: config
 	     ,handler : function() {
 	     		var _grid 		 = Ext.getCmp(this.config.id);
-       		var _store 		 = _grid.getStore();
-          var _DataType  = _store.recordType;
-          var _dt 			 = new _DataType(_grid.__getDefData__());
-          var _editIndex = _store.getCount();
-          
-					_grid.stopEditing();
-          _store.add(_dt);
-          _grid.startEditing(_editIndex, 0);
+	     		_grid.addData(_grid.__getDefData__());
 	     	}
 	  },{
 	      text: "删除"
@@ -304,6 +297,22 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 		
 		// 返回生成的数据
 		return _datas.join("&");
+	},
+	// 添加数据到表格
+	addData: function(data) {
+		var _store 		= this.getStore();
+    var _DataType = _store.recordType;
+    
+    var _dts = [];
+    Ext.each(ExtConvertHelper.convertObj2Array(data), function(item, index, itemsAll) {
+    	var _dt = new _DataType(item);
+    	_dts.push(_dt);
+    });
+    
+    var _editIndex = _store.getCount();
+		this.stopEditing();
+    _store.add(_dts);
+    this.startEditing(_editIndex, 1);
 	},
 	// 表格验证方法，暂未实现
 	isValid: function() { return true },
