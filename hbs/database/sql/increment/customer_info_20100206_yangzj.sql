@@ -1,0 +1,2 @@
+ALTER TABLE `t_cust_order_detail_his`  ADD COLUMN `DELIVERY_HOUSE_TYPE` varchar(2) NOT NULL DEFAULT '1' COMMENT '发货对应的仓库总库/其他库，缺省为公司总库1';
+ALTER TABLE `t_cust_order_detail`  ADD COLUMN `DELIVERY_HOUSE_TYPE` varchar(2) NOT NULL DEFAULT '1' COMMENT '发货对应的仓库总库/其他库，缺省为公司总库1';
