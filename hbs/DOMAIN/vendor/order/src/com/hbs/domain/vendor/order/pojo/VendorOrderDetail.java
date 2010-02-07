@@ -3,6 +3,7 @@ package com.hbs.domain.vendor.order.pojo;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.hbs.common.utils.DateUtils;
 import com.hbs.domain.common.pojo.base.BaseDomain;
 
 /**
@@ -124,7 +125,7 @@ public class VendorOrderDetail extends BaseDomain{
     /**
      * 订单的活动状态.
      */
-    private String activeState="active";
+    private String activeState="ACTIVE";
     
     /**
      * 关联的入库单号，可能有多个，以.
@@ -393,4 +394,40 @@ public class VendorOrderDetail extends BaseDomain{
     	sb.append(this.commCode).append(";").append(this.poNo).append(this.operSeqId);
     	return sb.toString();
     }
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("operSeqId=").append(this.operSeqId).append(" ");
+		sb.append("commCode=").append(this.commCode).append(" ");
+		sb.append("shortName=").append(this.shortName).append(" ");
+		sb.append("poNoType=").append(this.poNoType).append(" ");
+		sb.append("poNo=").append(this.poNo).append(" ");
+		sb.append("cpartNo=").append(this.cpartNo).append(" ");
+		sb.append("partNo=").append(this.partNo).append(" ");
+		sb.append("pnDesc=").append(this.pnDesc).append(" ");
+		sb.append("cprice=").append(this.cprice.floatValue()).append(" ");
+		sb.append("isTax=").append(this.isTax).append(" ");
+		sb.append("taxRate=").append(this.taxRate.floatValue()).append(" ");
+		sb.append("specDesc=").append(this.specDesc).append(" ");
+		sb.append("commDesc=").append(this.commDesc).append(" ");
+		sb.append("amount=").append(this.amount).append(" ");
+		sb.append("money=").append(this.money.floatValue()).append(" ");
+		sb.append("deliveryAmount=").append(this.deliveryAmount).append(" ");
+		sb.append("orgDeliveryDate=").append(DateUtils.getFormatDate(this.orgDeliveryDate,null)).append(" ");
+		sb.append("verDeliveryDate=").append(DateUtils.getFormatDate(this.verDeliveryDate,null)).append(" ");
+		sb.append("period=").append(this.period).append(" ");
+		sb.append("rltOrderPoNo=").append(this.rltOrderPoNo).append(" ");
+		sb.append("state=").append(this.state).append(" ");
+		sb.append("activeState=").append(this.activeState).append(" ");
+		sb.append("rltRecPoNo=").append(this.rltRecPoNo).append(" ");
+		sb.append("staffId=").append(this.staffId).append(" ");
+		sb.append("staffName=").append(this.staffName).append(" ");
+		sb.append("SettlementType=").append(this.SettlementType).append(" ");
+		sb.append("custCcode=").append(this.custCcode).append(" ");
+		return sb.toString();
+	}
+    
+    
+    
 }
