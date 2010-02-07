@@ -36,7 +36,7 @@ public class WarehouseRecDetailDaoTest extends AbstractTransactionalDataSourceSp
         warehouseRecDetail.setRltPoNo("1");
         warehouseRecDetail.setSettlementType("1");
         warehouseRecDetail.setPartNo("1");
-        warehouseRecDetail.setVenPartNo("1");
+       // warehouseRecDetail.setVenPartNo("1");
         warehouseRecDetail.setPnDesc("1");
 //        warehouseRecDetail.setPrice("1");
 //        warehouseRecDetail.setIsTax("1");
@@ -81,7 +81,7 @@ public class WarehouseRecDetailDaoTest extends AbstractTransactionalDataSourceSp
         warehouseRecDetail.setRltPoNo("1");
         warehouseRecDetail.setSettlementType("1");
         warehouseRecDetail.setPartNo("1");
-        warehouseRecDetail.setVenPartNo("1");
+       // warehouseRecDetail.setVenPartNo("1");
 //        warehouseRecDetail.setPnDesc("1");
 //        warehouseRecDetail.setPrice("1");
 //        warehouseRecDetail.setIsTax("1");
@@ -114,7 +114,7 @@ public class WarehouseRecDetailDaoTest extends AbstractTransactionalDataSourceSp
         System.out.println("rltPoNo=" + warehouseRecDetail.getRltPoNo());
         System.out.println("settlementType=" + warehouseRecDetail.getSettlementType());
         System.out.println("partNo=" + warehouseRecDetail.getPartNo());
-        System.out.println("venPartNo=" + warehouseRecDetail.getVenPartNo());
+       // System.out.println("venPartNo=" + warehouseRecDetail.getVenPartNo());
         System.out.println("pnDesc=" + warehouseRecDetail.getPnDesc());
         System.out.println("price=" + warehouseRecDetail.getPrice());
         System.out.println("isTax=" + warehouseRecDetail.getIsTax());
@@ -165,7 +165,7 @@ public class WarehouseRecDetailDaoTest extends AbstractTransactionalDataSourceSp
             System.out.println(i + " rltPoNo=" + tmpWarehouseRecDetail.getRltPoNo());
             System.out.println(i + " settlementType=" + tmpWarehouseRecDetail.getSettlementType());
             System.out.println(i + " partNo=" + tmpWarehouseRecDetail.getPartNo());
-            System.out.println(i + " venPartNo=" + tmpWarehouseRecDetail.getVenPartNo());
+        //    System.out.println(i + " venPartNo=" + tmpWarehouseRecDetail.getVenPartNo());
             System.out.println(i + " pnDesc=" + tmpWarehouseRecDetail.getPnDesc());
             System.out.println(i + " price=" + tmpWarehouseRecDetail.getPrice());
             System.out.println(i + " isTax=" + tmpWarehouseRecDetail.getIsTax());
@@ -194,7 +194,7 @@ public class WarehouseRecDetailDaoTest extends AbstractTransactionalDataSourceSp
         warehouseRecDetail.setRltPoNo("1");
         warehouseRecDetail.setSettlementType("1");
         warehouseRecDetail.setPartNo("1");
-        warehouseRecDetail.setVenPartNo("1");
+      //  warehouseRecDetail.setVenPartNo("1");
         warehouseRecDetail.setPnDesc("1");
 //        warehouseRecDetail.setPrice("1");
 //        warehouseRecDetail.setIsTax("1");
