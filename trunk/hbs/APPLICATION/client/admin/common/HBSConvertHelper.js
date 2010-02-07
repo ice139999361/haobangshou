@@ -203,7 +203,8 @@ var HBSConvertHelper = {
 	,renderATag2Cell: function(text, url, type, cell) {
 			// 获取链接的字符串
 			var sA = this.getATagString(text, url, type);
-			Ext.DomQuery.select("div:nodeValue("+cell.innerText+")", cell)[0].innerHTML = sA;
+			//alert(Ext.DomQuery.select("div:nodeValue("+cell.innerText+")", cell)[0])
+			Ext.DomQuery.select("div:nodeValue(" + (cell.innerText) + ")", cell)[0].innerHTML = sA;
 	 }
 	 /**
 	  * 渲染按钮到单元格上
