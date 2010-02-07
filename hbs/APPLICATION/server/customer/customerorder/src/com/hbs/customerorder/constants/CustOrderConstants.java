@@ -35,6 +35,9 @@ public final class CustOrderConstants {
 	
 	public static final String ORDER_STATE_61 = "61";//全部出货
 	
+	public static final String ORDER_STATE_70 = "70";//订单明细部分备货
+	public static final String ORDER_STATE_71 = "71";//订单明细全部备货
+	
 	
 	
 	
@@ -42,4 +45,14 @@ public final class CustOrderConstants {
 	public static final String ORDER_PAUSE_STATE ="PAUSE";
 	
 	public static final String CUST_ORDERDETAIL_DAO ="custOrderDetailDao";
+	
+	public static final String WAREHOUSE_INFO_MGR="warehouseMgr";
+	/**
+	 * 特定客户备货
+	 */
+	public static final String WAREHOUSE_INFO_HOUSE_USE_1="1";//特定客户备货
+	/**
+	 * 常规备货
+	 */
+	public static final String WAREHOUSE_INFO_HOUSE_USE_2="2";//常规备货
 }
