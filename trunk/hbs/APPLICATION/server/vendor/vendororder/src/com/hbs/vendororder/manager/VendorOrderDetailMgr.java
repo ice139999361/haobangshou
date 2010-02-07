@@ -8,6 +8,8 @@ package com.hbs.vendororder.manager;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.common.utils.OrderCalUtils;
 import com.hbs.customerorder.constants.CustOrderConstants;
@@ -23,27 +25,35 @@ import com.hbs.vendororder.constants.VendorOrderConstants;
 import com.hbs.vendororder.manager.helper.VendorOrderState;
 
 public class VendorOrderDetailMgr {
-
+	
+	private static final Logger logger = Logger.getLogger(VendorOrderDetailMgr.class);
+	
 	/**
 	 * 保存新增的订单明细，有采购操作
 	 * @param detail  订单明细
 	 * @param isflowOrder 是否是跟随主订单一起
-	 * @return
+	 * @return >0 成功
 	 * @throws Exception
 	 */
 	public int saveTempOrderDetail(VendorOrderDetail detail,boolean isflowOrder) throws Exception{
 		int ret =0;
+		logger.debug("保存订单明细：输入的参数为：" + detail.toString());
 		Integer operSeqId = detail.getOperSeqId();
 		detail.setMoney(OrderCalUtils.calOrderMoney(detail.getCprice(), detail.getIsTax(), detail.getTaxRate(), detail.getAmount()));
 		VendorOrderDetailDao vDetailDao =(VendorOrderDetailDao)BeanLocator.getInstance().getBean(VendorOrderConstants.VENDOR_ORDER_DETAIL_DAO);
 		if(null == operSeqId){//不存在序列号，表示是新增
 			detail.setState(VendorOrderConstants.VENDOR_ORDER_STATE_01);
 			operSeqId = vDetailDao.insertVendorOrderDetail(detail);
+			detail.setOperSeqId(operSeqId);
+			ret = operSeqId;
+			logger.debug("保存订单明细：不存在operSeqId，做新增操作！新增的operSeqId=" + ret);
 			if(!isflowOrder){//不是更随主订单提交，记录操作日志
 				VendorLogUtils.operLog(detail.getStaffId(), detail.getStaffName(), "新增" , "供应商订单明细", detail.getLogKey(), null, null);
 			}
 		}else{//存在序列号，需要做修改处理
+			logger.debug("保存订单明细：存在operSeqId , 修改操作!");
 			updateTempOrderDetail(detail,isflowOrder,null);
+			ret = detail.getOperSeqId();
 		}
 		return ret;
 	}
@@ -57,6 +67,7 @@ public class VendorOrderDetailMgr {
 	 */
 	public int saveTempOrderDetailList(List<VendorOrderDetail> detailList , boolean isflowOrder) throws Exception{
 		int ret =0;
+		logger.debug("保存订单明细列表：列表的数量为：" + detailList.size());
 		for(VendorOrderDetail vDetail : detailList){
 			saveTempOrderDetail(vDetail,isflowOrder);
 		}
@@ -72,6 +83,7 @@ public class VendorOrderDetailMgr {
 	 */
 	public int updateTempOrderDetail(VendorOrderDetail detail,boolean isflowOrder , String content) throws Exception{
 		int ret =0;
+		logger.debug("修改临时订单明细，输入的参数为：" + detail.toString());
 		detail.setMoney(OrderCalUtils.calOrderMoney(detail.getCprice(), detail.getIsTax(), detail.getTaxRate(), detail.getAmount()));
 		VendorOrderDetailDao vDetailDao =(VendorOrderDetailDao)BeanLocator.getInstance().getBean(VendorOrderConstants.VENDOR_ORDER_DETAIL_DAO);
 		vDetailDao.updateVendorOrderDetail(detail);
@@ -90,6 +102,7 @@ public class VendorOrderDetailMgr {
 	 */
 	public int updateTempOrderDetailList(List<VendorOrderDetail> detailList , boolean isflowOrder,String content) throws Exception{
 		int ret =0;
+		logger.debug("批量修改订单明细列表：列表的数量为：" + detailList.size());
 		for(VendorOrderDetail vDetail : detailList){
 			updateTempOrderDetail(vDetail,isflowOrder,content);
 		}
@@ -107,6 +120,7 @@ public class VendorOrderDetailMgr {
 	 */
 	public int cancelOrderDetail(VendorOrderDetail detail,boolean isflowOrder , String content) throws Exception{
 		int ret =0;
+		logger.debug("取消订单明细，输入的参数为：" + detail.toString());
 			if(!isflowOrder){//如果不是随主订单，则需要处理状态为03
 				detail.setState(VendorOrderConstants.VENDOR_ORDER_STATE_03);
 			}
@@ -126,7 +140,9 @@ public class VendorOrderDetailMgr {
 	 * @throws Exception
 	 */
 	public int cancelOrderDetailList(List<VendorOrderDetail> detailList , boolean isflowOrder,String content) throws Exception{
+		logger.debug("批量取消订单明细列表：列表的数量为：" + (detailList == null ? 0 : detailList.size()));
 		if(null != detailList && detailList.size() >0){
+			
 			for(VendorOrderDetail detail : detailList){
 				cancelOrderDetail(detail,isflowOrder,content);
 			}
@@ -147,6 +163,7 @@ public class VendorOrderDetailMgr {
 	 */
 	public int commitOrderDetail(VendorOrderDetail detail,boolean isflowOrder , String content) throws Exception{
 		int ret =0;
+		logger.debug("提交订单明细，输入的参数为：" + detail.toString());
 		if(!isflowOrder){//如果不是随主订单，则需要处理状态为02
 			//detail.setState(VendorOrderConstants.VENDOR_ORDER_STATE_02);
 			VendorOrderState orderState =(VendorOrderState)BeanLocator.getInstance().getBean(VendorOrderConstants.PRE_SPRING + detail.getPoNoType() + detail.getSettlementType());
@@ -155,8 +172,9 @@ public class VendorOrderDetailMgr {
 		}
 		ret = updateOrderDetailByState(detail);
 		//处理客户订单关联的采购单号
+		logger.debug("提交订单明细，处理客户订单关联的采购单号！");
 		String poNoType = detail.getPoNoType();
-		if(null != poNoType && poNoType.equals(VendorOrderConstants.VENDOR_PO_NO_TYPE_0)){//采购单管理客户订单
+		if(null != poNoType && poNoType.equals(VendorOrderConstants.VENDOR_PO_NO_TYPE_0)){//采购单关联客户订单
 			CustOrderDetailDao cDetailDao = (CustOrderDetailDao)BeanLocator.getInstance().getBean(VendorOrderConstants.CUST_ORDER_DETAIL_DAO);
 			String[] strPoNo = detail.getRltOrderPoNo().split(",");
 			if(null != strPoNo && strPoNo.length >0){
@@ -190,10 +208,11 @@ public class VendorOrderDetailMgr {
 	 * 采购明细更新到货数量和状态（部分入库60和全部入库61）
 	 * 同时判断采购单的状态（部分入库60和全部入库61） 
 	 * @param detail
-	 * @return 0--成功  2--更新的数目不正确
+	 * @return 0--成功  2--更新的数目不正确  1 无此采购单明细
 	 * @throws Exception
 	 */
 	public int updateOrderDetailByAmount(VendorOrderDetail detail) throws Exception{
+		logger.debug("提交订单明细，采购的物料入库，更新相关状态，输入的参数为：" + detail.toString());
 		int ret =0;
 		int delmount = detail.getDeliveryAmount();
 		VendorOrderDetailDao vDetailDao =(VendorOrderDetailDao)BeanLocator.getInstance().getBean(VendorOrderConstants.VENDOR_ORDER_DETAIL_DAO);
@@ -203,9 +222,12 @@ public class VendorOrderDetailMgr {
 			int iMount = tempDetail.getAmount();
 			int iDelivMount = tempDetail.getDeliveryAmount().intValue();
 			int updateAmount = delmount + iDelivMount;
+			logger.debug("提交订单明细,订单总数量为：" + iMount +"已经入库数量为：" + iDelivMount + "本次入库数量为：" + detail.getDeliveryAmount().intValue());
 			if(updateAmount > iMount){//更新的数目不对
 				ret =2;
+				logger.debug("提交订单明细,更新的数码不正确，订单总数量 < 已经入库数量 + 本次入库数量");
 			}else if(updateAmount < iMount){//部分入库
+				logger.debug("提交订单明细,更新的数码，订单总数量 < 已经入库数量 + 本次入库数量 ,部分入库！");
 				tempDetail.setState(VendorOrderConstants.VENDOR_ORDER_STATE_60);
 				tempDetail.setDeliveryAmount(updateAmount);
 				vDetailDao.updateVendorOrderDetailAmount(tempDetail);
@@ -216,11 +238,12 @@ public class VendorOrderDetailMgr {
 				vOrder.setState(VendorOrderConstants.VENDOR_ORDER_STATE_60);
 				vDao.updateVendorOrderByState(vOrder);
 			}else{//全部入库，除更新采购单明细外，还需要更新采购单
+				logger.debug("提交订单明细,更新的数码，订单总数量 = 已经入库数量 + 本次入库数量，全部入库！");
 				tempDetail.setState(VendorOrderConstants.VENDOR_ORDER_STATE_61);
 				tempDetail.setDeliveryAmount(updateAmount);
 				vDetailDao.updateVendorOrderDetailAmount(tempDetail);
 				
-				
+				logger.debug("提交订单明细,更新订单状态");
 				List<VendorOrderDetail> detailList = vDetailDao.listVendorOrderDetail(detail);
 				boolean isAll = true;
 				if(null != detailList && detailList.size()>0){
@@ -239,6 +262,7 @@ public class VendorOrderDetailMgr {
 				}
 			}
 		}else{//无此采购订单明细信息
+			logger.debug("提交订单明细,库中无此订单明细信息，不能更新！");
 			ret =1;
 		}
 		
