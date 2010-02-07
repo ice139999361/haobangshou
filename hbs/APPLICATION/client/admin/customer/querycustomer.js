@@ -20,7 +20,14 @@ HBSConvertHelper.init(function() {
 			// 将需要的链接渲染到此列
 			HBSConvertHelper.renderATag2Cell(shortName_cell.innerText, "abc.action", "open", shortName_cell);
 			// 创建按钮到操作列
-			HBSConvertHelper.renderButton2Cell(["修改"], operator_cell, null);
+			var updateBtn = HBSConvertHelper.renderButton2Cell(["修改"], operator_cell, null);
+			// 按钮的单击事件
+			updateBtn.on("click", function() {
+				// 要访问的 url 地址
+				var url = "/customer/editorcustomer.jsp?editorType=update";
+				// 打开指定页面
+				HBSConvertHelper.openNewWin(url);
+			});
 		}
 	})
 });

@@ -1,51 +1,77 @@
 HBSConvertHelper.init(function() {
-	// -------------------------------------- »ñÈ¡ĞèÒª³Ö¾ÃÓÃµ½µÄ¶ÔÏó
+	// -------------------------------------- è·å–éœ€è¦æŒä¹…ç”¨åˆ°çš„å¯¹è±¡
 	
-	// »ñÈ¡Ìá½»°´Å¥
+	// è·å–æäº¤æŒ‰é’®
 	var submitBtn 	= Ext.getCmp("submitBtn");
-	// »ñÈ¡±£´æ°´Å¥
+	// è·å–ä¿å­˜æŒ‰é’®
 	var saveBtn 		= Ext.getCmp("saveBtn");
-	// »ñÈ¡·µ»Ø°´Å¥
+	// è·å–è¿”å›æŒ‰é’®
 	var backBtn 		= Ext.getCmp("backBtn");
 	
 	
 	
-	// -------------------------------------- Ó¦ÓÃÂß¼­´¦Àí
+	// -------------------------------------- åº”ç”¨é€»è¾‘å¤„ç†
 	
 	/**
-	 * Ìá½»Êı¾İ
-	 * @param url  (String) Ìá½»µÄurl
+	 * æäº¤æ•°æ®
+	 * @param url  (String) æäº¤çš„url
 	 */
 	function submitData(url) {
-		// ÑéÖ¤ form ÄÚÈİÊÇ·ûÂú×ãÒªÇó
+		// éªŒè¯ form å†…å®¹æ˜¯ç¬¦æ»¡è¶³è¦æ±‚
 		//if(!ExtConvertHelper.isFormValid("form")) return;
 		
-		// »ñÈ¡£¨¿Í»§ÁªÏµÈËĞÅÏ¢¡¢¿Í»§ÊÕ»õÈËĞÅÏ¢¡¢¿Í»§ÒøĞĞĞÅÏ¢£©±í¸ñÖĞµÄÌá½»Êı¾İ
+		// è·å–ï¼ˆå®¢æˆ·è”ç³»äººä¿¡æ¯ã€å®¢æˆ·æ”¶è´§äººä¿¡æ¯ã€å®¢æˆ·é“¶è¡Œä¿¡æ¯ï¼‰è¡¨æ ¼ä¸­çš„æäº¤æ•°æ®
 		var girdData = HBSConvertHelper.getGridSubmitData("contactgrid,consigneegrid,custbankgrid", "contactlist,consigneelist,custbanklist");
 		
-		// Ìá½»Êı¾İ
+		// æäº¤æ•°æ®
 		ExtConvertHelper.submitForm("form", url, girdData, function(form, action) {
-			// »ñÈ¡³É¹¦ºóµÄÌáÊ¾ĞÅÏ¢
-			var msg = ExtConvertHelper.getMessageInfo(action, "²Ù×÷³É¹¦£¡");
+			// è·å–æˆåŠŸåçš„æç¤ºä¿¡æ¯
+			var msg = ExtConvertHelper.getMessageInfo(action, "æ“ä½œæˆåŠŸï¼");
 			
-			// µ¯³öÌáÊ¾¿ò¸øÓÃ»§
-			Ext.Msg.alert("ÌáÊ¾", msg, function() {
-				// ÓÃ»§µ¥»÷ºóÖØÔØ´ËÒ³Ãæ
+			// å¼¹å‡ºæç¤ºæ¡†ç»™ç”¨æˆ·
+			Ext.Msg.alert("æç¤º", msg, function() {
+				// ç”¨æˆ·å•å‡»åé‡è½½æ­¤é¡µé¢
 				location.reload();
 			});
 		});
 	}
 	
-	// µ±Ìá½»°´Å¥±»µ¥»÷Ê±
+	// å½“æäº¤æŒ‰é’®è¢«å•å‡»æ—¶
 	submitBtn.on("click", function() {
 		submitData("/customerInfo/customerInfo!save.action");
 	});
 	
-	// µ±±£´æ°´Å¥±»µ¥»÷Ê±
+	// å½“ä¿å­˜æŒ‰é’®è¢«å•å‡»æ—¶
 	saveBtn.on("click", function() {
 		submitData("/customerInfo/customerInfo!saveTemp.action");
 	});
 	
-	// µ±µ¥»úÈ¡Ïû°´Å¥Ê±£¬µ÷ÓÃÄ¬ÈÏµÄ¹Ø±Õ´°¿Ú·½·¨
+	// å½“å•æœºå–æ¶ˆæŒ‰é’®æ—¶ï¼Œè°ƒç”¨é»˜è®¤çš„å…³é—­çª—å£æ–¹æ³•
 	backBtn.on("click", ExtConvertHelper.defaultCloseTab);
+	
+	
+	// -------------------------------------- é¡µé¢æ“ä½œé€»è¾‘å¤„ç†
+	
+	
+	
+	// æ–°å¢é¡µé¢çš„å¤„ç†é€»è¾‘
+	function addInitFun() {
+		// æ›´æ”¹é¡µç­¾æ ‡é¢˜
+		HBSConvertHelper.setDocumentTitle("æ–°å®¢æˆ·ä¿¡æ¯å½•å…¥");
+	}
+	
+	// ä¿®æ”¹é¡µé¢çš„å¤„ç†é€»è¾‘
+	function updateInitFun() {
+		// æ›´æ”¹é¡µç­¾æ ‡é¢˜
+		HBSConvertHelper.setDocumentTitle("ä¿®æ”¹å®¢æˆ·ä¿¡æ¯");
+		// éšè—ä¸éœ€è¦çš„æ§ä»¶
+		ExtConvertHelper.hideItems("saveBtn");
+		
+		ExtConvertHelper.loadForm("form", "/test3.action", null, function(form, action) {
+				//alert(action.result.data.custInfo)
+		});
+	}
+	
+	// æ ¹æ®ä¸åŒçš„æ“ä½œç±»å‹ï¼Œåšå‡ºä¸åŒçš„å¤„ç†
+	eval(urlPs.editorType + "InitFun")();
 });
