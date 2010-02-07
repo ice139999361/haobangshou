@@ -203,8 +203,10 @@ var HBSConvertHelper = {
 	,renderATag2Cell: function(text, url, type, cell) {
 			// 获取链接的字符串
 			var sA = this.getATagString(text, url, type);
-			//alert(Ext.DomQuery.select("div:nodeValue("+cell.innerText+")", cell)[0])
-			Ext.DomQuery.select("div:nodeValue(" + (cell.innerText) + ")", cell)[0].innerHTML = sA;
+			
+			// 填充
+			cell.firstChild.innerHTML = sA;
+			//Ext.DomQuery.select("div:nodeValue(" + (cell.innerText) + ")", cell)[0].innerHTML = sA; // 谷歌居然不支持
 	 }
 	 /**
 	  * 渲染按钮到单元格上
