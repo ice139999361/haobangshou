@@ -68,9 +68,12 @@ public class CustomerInfoUtil {
 	 */
 	public static List<FieldErr> checkInputFields(CustomerInfo custInfo)
 	{
-		ArrayList<FieldErr> list = new ArrayList<FieldErr>();
 		if(custInfo == null)
-			return list;
+			return new ArrayList<FieldErr>();
+		
+		List<FieldErr> list = checkSelectFields(custInfo);
+		if(list == null)
+			list = new ArrayList<FieldErr>();
 		
 		String s;
 		// DONE:完成checkInputFields，对输入的客户信息进行校验
@@ -111,10 +114,6 @@ public class CustomerInfoUtil {
 			if(i == 0)
 			list.add(new FieldErr("AssStaff","AssStaff没有填写"));
 		}
-		
-		List<FieldErr> list2 = checkSelectFields(custInfo);
-		if(list2 != null && list2.size() > 0)
-			list.addAll(list2);
 		
 		return list;
 	}
@@ -288,7 +287,7 @@ public class CustomerInfoUtil {
 			if(s != null && s.length() != 0)
 			{
 				ce = getEncode("CREDIT_RATE", s);
-				if(s == null)
+				if(ce == null)
 					list.add(new FieldErr("CreditRate", "CreditRate的值不正确"));
 				else
 				{
@@ -301,7 +300,7 @@ public class CustomerInfoUtil {
 			if(s != null && s.length() != 0)
 			{
 				ce = getEncode("SETTLEMENT_TYPE", s);
-				if(s == null)
+				if(ce == null)
 					list.add(new FieldErr("SettlementType", "SettlementType的值不正确"));
 				else{
 					custInfo.setSettlementType(ce.getEncodeKey());
@@ -313,7 +312,7 @@ public class CustomerInfoUtil {
 			if(s != null && s.length() != 0)
 			{
 				ce = getEncode("CURRENCY", s);
-				if(s == null)
+				if(ce == null)
 					list.add(new FieldErr("Currency", "Currency的值不正确"));
 				else
 				{
@@ -326,7 +325,7 @@ public class CustomerInfoUtil {
 			if(s != null && s.length() != 0)
 			{
 				ce = getEncode("IS_SHOW_PRICE", s);
-				if(s == null)
+				if(ce == null)
 					list.add(new FieldErr("IsShowPrice", "IsShowPrice的值不正确"));
 				else
 				{
@@ -383,6 +382,10 @@ public class CustomerInfoUtil {
 		ConfigEncode ce = new ConfigEncode();
 		List<ConfigEncode> ce2;
 		ce.setEncodeType(type);
+		if(s.equals("请选择"))
+		{
+			return ce;
+		}
 		try{
 			Integer.parseInt(s);
 			ce.setEncodeKey(s);
