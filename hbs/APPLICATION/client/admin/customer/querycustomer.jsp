@@ -35,7 +35,7 @@
 				    		
 				    	
 			
-				    	<complexgrid id="querygrid" title="客户信息列表" frame="true" page="true" root="data.list" url="/querycustomer.action">
+				    	<complexgrid id="querygrid" title="客户信息列表" frame="true" page="true" root="data.list" url="/customerInfo/customerInfo!list.action">
 			    			<fields>
 			    				<field name="shortName"     />
 			    				<field name="commCode"      />
