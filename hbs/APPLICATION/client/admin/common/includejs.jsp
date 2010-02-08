@@ -7,8 +7,8 @@
 	String css  = "blue";
 	
 	// 服务器路径
-	final String  SERVER_PATH = contextPath + "/test";
-	//final String  SERVER_PATH = "/server";
+	// final String  SERVER_PATH = contextPath + "/test";
+	final String  SERVER_PATH = "/server";
 	// 菜单的地址
 	final String  MENU_PATH = contextPath + "/config/menu/admin.json";
 	// 系统首页
