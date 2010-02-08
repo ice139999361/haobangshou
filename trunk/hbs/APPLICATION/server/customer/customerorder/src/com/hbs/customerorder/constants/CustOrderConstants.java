@@ -82,6 +82,11 @@ public final class CustOrderConstants {
 	 * 客户订单明细dao
 	 */
 	public static final String CUST_ORDERDETAIL_DAO ="custOrderDetailDao";
+	
+	/**
+	 * 调货DAO
+	 */
+	public static final String ADJUST_INFO_DAO ="adjustInfoDao";
 	/**
 	 * 仓库明细管理类
 	 */
