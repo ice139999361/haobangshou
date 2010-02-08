@@ -254,6 +254,6 @@ public class VendorInfoManagerAction extends BaseAction {
 	 */
 	protected void getCustInfoValue(VendorInfoMgr mgr) throws Exception
 	{
-		vendorInfo = mgr.getVendorInfo(vendorInfo, true);
+		vendorInfo = VendorInfoUtil.getVendorInfo(mgr, vendorInfo);
 	}
 }

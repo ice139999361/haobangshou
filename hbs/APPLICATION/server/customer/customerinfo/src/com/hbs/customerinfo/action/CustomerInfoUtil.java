@@ -401,6 +401,12 @@ public class CustomerInfoUtil {
 			return ce2.get(0);
 	}
 	
+	/**
+	 * 获取客户信息详情，将联系人与收货人分开。
+	 * @param mgr
+	 * @param custInfo
+	 * @return
+	 */
 	public static CustomerInfo getCustomerInfo(CustomerInfoMgr mgr, CustomerInfo custInfo) {
 		try {
 			custInfo = mgr.getCustomerInfo(custInfo, true);
