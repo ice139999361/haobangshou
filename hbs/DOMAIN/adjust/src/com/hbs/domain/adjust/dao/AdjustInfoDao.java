@@ -17,7 +17,7 @@ public interface AdjustInfoDao {
      * @return id
      * @throws DataAccessException DataAccessException
      */
-    void insertAdjustInfo(AdjustInfo adjustInfo) throws DataAccessException ;
+    int insertAdjustInfo(AdjustInfo adjustInfo) throws DataAccessException ;
 
     /**
      * delete.
@@ -47,7 +47,7 @@ public interface AdjustInfoDao {
      * @return adjustInfo list
      * @throws DataAccessException DataAccessException
      */
-    List listAdjustInfo(AdjustInfo adjustInfo) throws DataAccessException ;
+    List<AdjustInfo> listAdjustInfo(AdjustInfo adjustInfo) throws DataAccessException ;
     
     /**
      * listCount.

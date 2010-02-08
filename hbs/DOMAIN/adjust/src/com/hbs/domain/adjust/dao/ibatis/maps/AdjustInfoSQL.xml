@@ -28,18 +28,11 @@
     <result property="auditContent" column="AUDIT_CONTENT"/>
 </resultMap>
 
-<select id="AdjustInfo_getNextId" resultClass="java.lang.String">
-<![CDATA[
-    SELECT ltrim(to_char(Seq_T_ADJUST_INFO_Id.Nextval,'0000000000')) 
-           AS Id 
-    FROM dual
-]]>
-</select>
+
 
 <insert id="AdjustInfo_insertAdjustInfo" parameterClass="adjustInfo" >
 <![CDATA[
-    INSERT INTO T_ADJUST_INFO (
-            APPLY_SEQID, 
+    INSERT INTO T_ADJUST_INFO (             
             STAFF_ID, 
             STAFF_NAME, 
             APPLY_DATE, 
@@ -61,8 +54,7 @@
             AUDIT_AGREE, 
             AUDIT_CONTENT
         )
-    VALUES (
-            #applySeqId#,
+    VALUES (            
             #staffId#,
             #staffName#,
             #applyDate#,
@@ -85,6 +77,9 @@
             #auditContent#
     )
 ]]>
+<selectKey resultClass="Integer" keyProperty="applySeqId">
+            SELECT LAST_INSERT_ID()  
+  </selectKey>
 </insert>
 
 <delete id="AdjustInfo_deleteAdjustInfo" parameterClass="string">
@@ -224,12 +219,7 @@
 			<isNotEmpty prepend="and" property = "staffName">
 				STAFF_NAME = #staffName#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "applyDate">
-				APPLY_DATE = #applyDate#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "poNo">
-				PO_NO = #poNo#
-			</isNotEmpty>
+			
 			<isNotEmpty prepend="and" property = "partNo">
 				PART_NO = #partNo#
 			</isNotEmpty>
@@ -238,54 +228,53 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "houseType">
 				HOUSE_TYPE = #houseType#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "applyAmount">
-				APPLY_AMOUNT = #applyAmount#
-			</isNotEmpty>
+			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "vendorCode">
 				VENDOR_CODE = #vendorCode#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "shortName">
 				SHORT_NAME = #shortName#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "applyContent">
-				APPLY_CONTENT = #applyContent#
-			</isNotEmpty>
+			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "fromCustCode">
 				FROM_CUST_CODE = #fromCustCode#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "fromCustName">
-				FROM_C_NAME = #fromCustName#
-			</isNotEmpty>
+			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "toCustCode">
 				TO_CUST_CODE = #toCustCode#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "toCustName">
-				TO_C_NAME = #toCustName#
-			</isNotEmpty>
+			
 			<isNotEmpty prepend="and" property = "auditStaffId">
 				AUDIT_STAFF_ID = #auditStaffId#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "auditStaffName">
 				AUDIT_STAFF_NAME = #auditStaffName#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "auditDate">
-				AUDIT_DATE = #auditDate#
+			<!-- 按申请时间段查询-->
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeBegainTime">
+				<![CDATA[	
+					APPLY_DATE >= STR_TO_DATE('$dynamicFields.likeBegainTime$','%Y-%m-%d')
+				]]>
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "auditAgree">
-				AUDIT_AGREE = #auditAgree#
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeEndTime">
+				<![CDATA[	
+					APPLY_DATE < STR_TO_DATE('$dynamicFields.likeEndTime$','%Y-%m-%d')
+				]]>
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "auditContent">
-				AUDIT_CONTENT = #auditContent#
-			</isNotEmpty>
+			<isNotEmpty prepend="order by" property="sort">
+                   $sort$
+            </isNotEmpty>
 		</dynamic>
+		<![CDATA[
+      		LIMIT #start# ,#end#
+		]]>
 </select>
 
 
 <select id="AdjustInfo_listAdjustInfoCount" resultClass="java.lang.Integer" parameterClass="adjustInfo">
 <![CDATA[
     SELECT
-		COUNT(*)
+		COUNT(1)
     FROM T_ADJUST_INFO
 ]]>
 		<dynamic prepend="WHERE">
@@ -298,12 +287,7 @@
 			<isNotEmpty prepend="and" property = "staffName">
 				STAFF_NAME = #staffName#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "applyDate">
-				APPLY_DATE = #applyDate#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "poNo">
-				PO_NO = #poNo#
-			</isNotEmpty>
+			
 			<isNotEmpty prepend="and" property = "partNo">
 				PART_NO = #partNo#
 			</isNotEmpty>
@@ -312,45 +296,38 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "houseType">
 				HOUSE_TYPE = #houseType#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "applyAmount">
-				APPLY_AMOUNT = #applyAmount#
-			</isNotEmpty>
+			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "vendorCode">
 				VENDOR_CODE = #vendorCode#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "shortName">
 				SHORT_NAME = #shortName#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "applyContent">
-				APPLY_CONTENT = #applyContent#
-			</isNotEmpty>
+			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "fromCustCode">
 				FROM_CUST_CODE = #fromCustCode#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "fromCustName">
-				FROM_C_NAME = #fromCustName#
-			</isNotEmpty>
+			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "toCustCode">
 				TO_CUST_CODE = #toCustCode#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "toCustName">
-				TO_C_NAME = #toCustName#
-			</isNotEmpty>
+			
 			<isNotEmpty prepend="and" property = "auditStaffId">
 				AUDIT_STAFF_ID = #auditStaffId#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "auditStaffName">
 				AUDIT_STAFF_NAME = #auditStaffName#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "auditDate">
-				AUDIT_DATE = #auditDate#
+			<!-- 按申请时间段查询-->
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeBegainTime">
+				<![CDATA[	
+					APPLY_DATE >= STR_TO_DATE('$dynamicFields.likeBegainTime$','%Y-%m-%d')
+				]]>
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "auditAgree">
-				AUDIT_AGREE = #auditAgree#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "auditContent">
-				AUDIT_CONTENT = #auditContent#
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeEndTime">
+				<![CDATA[	
+					APPLY_DATE < STR_TO_DATE('$dynamicFields.likeEndTime$','%Y-%m-%d')
+				]]>
 			</isNotEmpty>
 		</dynamic>
 </select>

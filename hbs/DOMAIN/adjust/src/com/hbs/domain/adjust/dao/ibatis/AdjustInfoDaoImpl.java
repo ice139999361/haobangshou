@@ -27,17 +27,17 @@ public class AdjustInfoDaoImpl extends SqlMapClientDaoSupport implements AdjustI
      * @return id
      * @throws DataAccessException DataAccessException
      */
-    public void insertAdjustInfo(AdjustInfo adjustInfo) throws DataAccessException {
+    public int insertAdjustInfo(AdjustInfo adjustInfo) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入insertAdjustInfo(AdjustInfo), 输入参数[" + adjustInfo + "]");
     	}
         
         
-    	getSqlMapClientTemplate().insert("AdjustInfo_insertAdjustInfo", adjustInfo);
+    	int ret = (Integer)getSqlMapClientTemplate().insert("AdjustInfo_insertAdjustInfo", adjustInfo);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开insertAdjustInfo(AdjustInfo), 返回");
 		}
-    	
+    	return ret;
     }
 
     /**
@@ -93,11 +93,12 @@ public class AdjustInfoDaoImpl extends SqlMapClientDaoSupport implements AdjustI
      * @return adjustInfo list
      * @throws DataAccessException DataAccessException
      */
-    public List listAdjustInfo(AdjustInfo adjustInfo) throws DataAccessException {
+    @SuppressWarnings("unchecked")
+	public List<AdjustInfo> listAdjustInfo(AdjustInfo adjustInfo) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listAdjustInfo(AdjustInfo), 输入参数[" + adjustInfo + "]");
 		}
-        List list = getSqlMapClientTemplate().queryForList("AdjustInfo_listAdjustInfo", adjustInfo);
+        List<AdjustInfo> list = getSqlMapClientTemplate().queryForList("AdjustInfo_listAdjustInfo", adjustInfo);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listAdjustInfo(AdjustInfo), 返回[" + list + "]");
 		}
