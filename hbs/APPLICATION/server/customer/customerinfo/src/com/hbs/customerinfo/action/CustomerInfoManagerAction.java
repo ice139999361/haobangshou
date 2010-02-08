@@ -254,6 +254,6 @@ public class CustomerInfoManagerAction extends BaseAction {
 	 */
 	protected void getCustInfoValue(CustomerInfoMgr mgr) throws Exception
 	{
-		custInfo = mgr.getCustomerInfo(custInfo, true);
+		custInfo = CustomerInfoUtil.getCustomerInfo(mgr, custInfo);
 	}
 }

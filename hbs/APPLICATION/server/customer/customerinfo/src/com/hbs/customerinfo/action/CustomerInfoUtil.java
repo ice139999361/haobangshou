@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import com.hbs.common.action.FieldErr;
 import com.hbs.common.manager.configencode.ConfigEncodeMgr;
+import com.hbs.customerinfo.manager.CustomerInfoMgr;
 import com.hbs.domain.common.pojo.ConfigEncode;
 import com.hbs.domain.common.pojo.baseinfo.BankInfo;
 import com.hbs.domain.common.pojo.baseinfo.ContactInfo;
@@ -398,5 +399,30 @@ public class CustomerInfoUtil {
 			return null;
 		else
 			return ce2.get(0);
+	}
+	
+	public static CustomerInfo getCustomerInfo(CustomerInfoMgr mgr, CustomerInfo custInfo) {
+		try {
+			custInfo = mgr.getCustomerInfo(custInfo, true);
+			if(custInfo == null || custInfo.getListContactInfo() == null)
+				return custInfo;
+			Iterator<ContactInfo> it = custInfo.getListContactInfo().iterator();
+			List<ContactInfo> l1 = new ArrayList<ContactInfo>();
+			List<ContactInfo> l2 = new ArrayList<ContactInfo>();
+			while(it.hasNext()) {
+				ContactInfo info = it.next();
+				if(info == null)
+					continue;
+				if(info.getConType().equals("1")) {
+					l1.add(info);
+				} else {
+					l2.add(info);
+				}
+			}
+			custInfo.setField(contactListName1, l1);
+			custInfo.setField(contactListName2, l2);
+		} catch (Exception e) {
+		}
+		return custInfo;
 	}
 }

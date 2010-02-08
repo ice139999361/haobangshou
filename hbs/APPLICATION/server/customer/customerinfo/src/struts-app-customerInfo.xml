@@ -41,6 +41,9 @@
     	<action name="customerInfoMgr!getInfo" method="doGetInfo" 
     			class="com.hbs.customerinfo.action.CustomerInfoManagerAction">
 		</action>
+    	<action name="customerInfoMgr!getInfoForAudit" method="doGetInfoForAudit" 
+    			class="com.hbs.customerinfo.action.CustomerInfoManagerAction">
+		</action>
      	<action name="customerInfoMgr!auditAgree" method="doAuditAgree" 
     			class="com.hbs.customerinfo.action.CustomerInfoManagerAction">
 		</action>
