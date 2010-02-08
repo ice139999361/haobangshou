@@ -2,12 +2,15 @@ package com.hbs.domain.adjust.pojo;
 
 import java.util.Date;
 
+import com.hbs.common.utils.DateUtils;
+import com.hbs.domain.common.pojo.base.BaseDomain;
+
 /**
  * AdjustInfo对象.
  * @author hbs
  *
  */
-public class AdjustInfo {
+public class AdjustInfo extends BaseDomain{
     
     /**
      * 申请序列号.
@@ -32,6 +35,7 @@ public class AdjustInfo {
     /**
      * 物料的订单号（供应商的采购单）.
      */
+    @Deprecated
     private String poNo;
     
     /**
@@ -147,11 +151,11 @@ public class AdjustInfo {
     public void setApplyDate(Date applyDate) {
         this.applyDate = applyDate;
     }
-    
+    @Deprecated
     public String getPoNo() {
         return this.poNo;
     }	
-  
+    @Deprecated
     public void setPoNo(String poNo) {
         this.poNo = poNo;
     }
@@ -283,5 +287,40 @@ public class AdjustInfo {
     public void setAuditContent(String auditContent) {
         this.auditContent = auditContent;
     }
+
+    
+    public String getLogBizKey(){
+    	return this.applySeqId.toString() +";adjustment";
+    }
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("applySeqId=").append(this.applySeqId == null ? null : this.applySeqId.intValue()).append(" ");
+		sb.append("staffId=").append(this.staffId).append(" ");
+		sb.append("staffName=").append(this.staffName).append(" ");
+		sb.append("applyDate=").append(this.applyDate == null ? null : DateUtils.getFormatDate(this.applyDate,null)).append(" ");
+		sb.append("poNo=").append(this.poNo).append(" ");
+		sb.append("partNo=").append(this.partNo).append(" ");
+		sb.append("pnDesc=").append(this.pnDesc).append(" ");
+		sb.append("houseType=").append(this.houseType).append(" ");
+		sb.append("applyAmount=").append(this.applyAmount).append(" ");
+		sb.append("vendorCode=").append(this.vendorCode).append(" ");
+		sb.append("shortName=").append(this.shortName).append(" ");
+		sb.append("applyContent=").append(this.applyContent).append(" ");
+		sb.append("fromCustCode=").append(this.fromCustCode).append(" ");
+		sb.append("fromCustName=").append(this.fromCustName).append(" ");
+		sb.append("toCustCode=").append(this.toCustCode).append(" ");
+		sb.append("toCustName=").append(this.toCustName).append(" ");
+		sb.append("auditStaffId=").append(this.auditStaffId).append(" ");
+		sb.append("auditStaffName=").append(this.auditStaffName).append(" ");
+		sb.append("auditDate=").append(this.auditDate == null ? null : DateUtils.getFormatDate(this.auditDate,null) ).append(" ");
+		sb.append("auditAgree=").append(this.auditAgree).append(" ");
+		sb.append("auditContent=").append(this.auditContent).append(" ");
+		
+		return sb.toString();
+	}
 
 }
