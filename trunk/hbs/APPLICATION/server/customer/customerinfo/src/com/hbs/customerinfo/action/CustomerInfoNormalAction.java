@@ -232,7 +232,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 			setMyId(false);
 			CustomerInfoMgr mgr = (CustomerInfoMgr) BeanLocator.getInstance()
 					.getBean(custInfoMgrName);
-			custInfo = mgr.getCustomerInfo(custInfo, true);
+			custInfo = CustomerInfoUtil.getCustomerInfo(mgr, custInfo);
 			this.setResult("custInfo", custInfo);
 			if (logger.isDebugEnabled())
 				logger.debug("end doGetInfo");
