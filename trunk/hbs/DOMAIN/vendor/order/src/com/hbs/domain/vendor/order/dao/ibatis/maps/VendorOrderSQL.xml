@@ -401,7 +401,7 @@
 			<isNotEmpty prepend="and"
 				property="dynamicFields.likeBegainTime">
 				<![CDATA[	
-					ORDER_TIME >= STR_TO_DATE('$dynamicFields.startDate$','%Y-%m-%d')
+					ORDER_TIME >= STR_TO_DATE('$dynamicFields.likeBegainTime$','%Y-%m-%d')
 				]]>
 			</isNotEmpty>
 			<isNotEmpty prepend="and"
