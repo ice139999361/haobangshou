@@ -1,0 +1,1 @@
+ALTER TABLE `t_customer_info`  ADD COLUMN `CREATE_TIME` datetime NULL DEFAULT NULL COMMENT 'Â¼ÈëÊ±¼ä';
