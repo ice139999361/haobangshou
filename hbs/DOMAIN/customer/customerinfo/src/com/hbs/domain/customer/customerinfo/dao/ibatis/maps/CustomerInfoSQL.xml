@@ -38,6 +38,7 @@
 		<result property="taxRate" column="TAX_RATE" />
 		<result property="assStaffId" column="ASS_STAFF_ID" />
 		<result property="assStaffName" column="ASS_STAFF_NAME" />
+		<result property="createTime" column="CREATE_TIME" />
 	</resultMap>
 
 	<insert id="CustomerInfo_insertCustomerInfo" parameterClass="customerInfo">
@@ -73,7 +74,8 @@
             IS_SHOW_PRICE, 
             TAX_RATE, 
             ASS_STAFF_ID, 
-            ASS_STAFF_NAME
+            ASS_STAFF_NAME,
+			CREATE_TIME
         )
     VALUES (
             #commCode#,
@@ -106,7 +108,8 @@
             #isShowPrice#,
             #taxRate#,
             #assStaffId#,
-            #assStaffName#
+            #assStaffName#,
+			#createTime#
     )
 ]]>
   <selectKey resultClass="Integer" keyProperty="baseSeqId">
@@ -283,7 +286,8 @@
             IS_SHOW_PRICE, 
             TAX_RATE, 
             ASS_STAFF_ID, 
-            ASS_STAFF_NAME
+            ASS_STAFF_NAME,
+			CREATE_TIME
     FROM T_CUSTOMER_INFO WHERE C_CODE = #commCode# AND STATE = #state#
 ]]>
 </select>
@@ -324,7 +328,8 @@
             IS_SHOW_PRICE, 
             TAX_RATE, 
             ASS_STAFF_ID, 
-            ASS_STAFF_NAME
+            ASS_STAFF_NAME,
+			CREATE_TIME
     FROM T_CUSTOMER_INFO WHERE BASE_SEQID = #baseSeqId#
 ]]>
 
@@ -365,7 +370,8 @@
             IS_SHOW_PRICE, 
             TAX_RATE, 
             ASS_STAFF_ID, 
-            ASS_STAFF_NAME
+            ASS_STAFF_NAME,
+			CREATE_TIME
     FROM T_CUSTOMER_INFO
 ]]>
 		<dynamic prepend="WHERE">
@@ -415,9 +421,22 @@
 			<isNotEmpty prepend="and" property="assStaffName">
 				ASS_STAFF_NAME = #assStaffName#
 			</isNotEmpty>
+			<!-- 时间段查询 -->
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeBegainTime">
+				<![CDATA[	
+					CREATE_TIME >= STR_TO_DATE('$dynamicFields.likeBegainTime$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeEndTime">
+				<![CDATA[	
+					CREATE_TIME < STR_TO_DATE('$dynamicFields.likeEndTime$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
 			<isNotEmpty prepend="order by" property="sort">
                    $sort$
-            </isNotEmpty>
+            </isNotEmpty> 
 		</dynamic>
 		<![CDATA[
       		LIMIT #start# ,#end#
@@ -478,6 +497,18 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="assStaffName">
 				ASS_STAFF_NAME = #assStaffName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeBegainTime">
+				<![CDATA[	
+					CREATE_TIME >= STR_TO_DATE('$dynamicFields.likeBegainTime$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeEndTime">
+				<![CDATA[	
+					CREATE_TIME < STR_TO_DATE('$dynamicFields.likeEndTime$','%Y-%m-%d')
+				]]>
 			</isNotEmpty>
 		</dynamic>
 	</select>
