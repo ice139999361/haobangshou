@@ -307,11 +307,14 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
     var _DataType = _store.recordType;
     
     var _dts = [];
+
     Ext.each(ExtConvertHelper.convertObj2Array(data), function(item, index, itemsAll) {
     	var _dt = new _DataType(item);
     	_dts.push(_dt);
     });
     
+    // 如果没有要添加的数据
+    if(!_dts.length) return;
     var _editIndex = _store.getCount();
 		this.stopEditing();
     _store.add(_dts);
