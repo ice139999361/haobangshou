@@ -71,7 +71,9 @@ HBSConvertHelper.init(function() {
 		var params = ["custInfo.baseSeqId=", urlPs.baseSeqId].join("");
 		
 		// 加载数据
-		ExtConvertHelper.loadForm("form", "/test3.action", params, function(form, action) {
+		ExtConvertHelper.loadForm("form", "/customerInfo/customerInfo!getInfo.action", params, function(form, action) {
+				Ext.getCmp("contactgrid").addData(action.result.data.custInfo.dynamicFields.contactlist);
+				Ext.getCmp("consigneegrid").addData(action.result.data.custInfo.dynamicFields.consigneelist);
 				Ext.getCmp("custbankgrid").addData(action.result.data.custInfo.listBankInfo);
 		});
 	}
