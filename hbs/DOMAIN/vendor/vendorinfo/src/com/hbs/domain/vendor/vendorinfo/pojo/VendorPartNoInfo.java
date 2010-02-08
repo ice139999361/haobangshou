@@ -225,11 +225,21 @@ public class VendorPartNoInfo extends BaseDomain {
     public String getLogBizKey(){
 		StringBuilder sb = new StringBuilder();		
 		sb.append(partNo).append(";");
-		sb.append(commCode).append(";");
-		sb.append(state);
+		sb.append(custPartNo).append(";");
+		sb.append(commCode);
 		return sb.toString();
 	}
 	
+    public String getLogContent(){
+		StringBuilder sb = new StringBuilder();
+		sb.append("公司物料编码:").append(partNo).append("  ");
+		sb.append("供应商物料编码:").append(custPartNo).append("  ");
+		sb.append("供应商编码:").append(commCode).append("  ");
+		sb.append("单价:").append(price.floatValue()).append("  ");
+		sb.append("含税单价:").append(priceTax.floatValue()).append("  ");
+		return sb.toString();
+	}
+    
 	public String getWaitTaskBizKey(){
 		StringBuilder sb = new StringBuilder();		
 		sb.append(partNo).append(";").append(this.custPartNo).append(";");

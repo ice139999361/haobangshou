@@ -19,8 +19,7 @@
 
 <insert id="Vendor_OperLog_insertOperLog" parameterClass="operLog" >
 <![CDATA[
-    INSERT INTO T_VENDOR_OPER_LOG (
-            SEQID, 
+    INSERT INTO T_VENDOR_OPER_LOG (            
             OPER_TIME, 
             STAFF_ID, 
             STAFF_NAME, 
@@ -30,8 +29,7 @@
             OPER_CONTENT, 
             MEMO
         )
-    VALUES (
-            #seqId#,
+    VALUES (            
             #operTime#,
             #staffId#,
             #staffName#,
@@ -73,9 +71,36 @@
             OPER_KEY, 
             OPER_CONTENT, 
             MEMO
-    FROM T_VENDOR_OPER_LOG WHERE OPER_KEY=#operKey#
+    FROM T_VENDOR_OPER_LOG
 ]]>
+<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property="operKey">
+				OPER_KEY = #operKey#
+			</isNotEmpty>			
+			<isNotEmpty prepend="order by" property="sort">
+                   $sort$
+            </isNotEmpty>
+            <isEmpty prepend="order by" property="sort">
+                   <![CDATA[
+                   	ORDER BY OPER_TIME DESC
+                   ]]>
+            </isEmpty>
+            
+		</dynamic>
+		<![CDATA[
+      		LIMIT #start# ,#end#
+		]]>
 		
 </select>
-
+<select id="OperLog_listOperLogCount" resultMap="java.lang.Integer" parameterClass="String">
+<![CDATA[
+    SELECT COUNT(1)
+    FROM T_VENDOR_OPER_LOG
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property="operKey">
+				OPER_KEY = #operKey#
+			</isNotEmpty>			
+		</dynamic>
+</select>
 </sqlMap>
