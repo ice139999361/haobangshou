@@ -7,6 +7,7 @@
 package com.hbs.customer.common.utils;
 
 import java.util.Date;
+import java.util.List;
 
 
 import com.hbs.common.utils.LogUtils;
@@ -48,5 +49,14 @@ public class CustLogUtils {
 		log.setMemo(memo);
 		log.setOperContent(operContent);		
 		LogUtils.operLog(CUST_OPERLOG_DAO, log);
+	}
+	
+	/**
+	 * 获取业务关键字的日志
+	 * @param logBizKey
+	 * @return
+	 */
+	public static List<OperLog> getLogList(String logBizKey){
+		return LogUtils.getlogList(CUST_OPERLOG_DAO, logBizKey);
 	}
 }

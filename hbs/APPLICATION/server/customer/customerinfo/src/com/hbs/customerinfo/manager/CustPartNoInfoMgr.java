@@ -17,6 +17,7 @@ import com.hbs.common.manager.waittask.WaitTaskMgr;
 import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.customer.common.constants.StateConstants;
 import com.hbs.customer.common.utils.CustLogUtils;
+import com.hbs.domain.common.pojo.baseinfo.OperLog;
 import com.hbs.domain.customer.customerinfo.dao.CustPartNoInfoDao;
 import com.hbs.domain.customer.customerinfo.pojo.CustPartNoInfo;
 import com.hbs.domain.waittask.pojo.WaitTaskInfo;
@@ -253,7 +254,16 @@ public class CustPartNoInfoMgr {
 		}
 		return ret;
 	}
-	
+	/**
+	 * 获取物料的历史价格变动，变通做法，获取操作历史记录
+	 * @param custPartNoInfo （ partNo custPartNo commCode 这三个字段是日志关键字，必传） 
+	 * @return
+	 * @throws Exception
+	 */
+	public List<OperLog> getPartNoChange(CustPartNoInfo custPartNoInfo) throws Exception{
+		
+		return CustLogUtils.getLogList(custPartNoInfo.getLogBizKey());
+	}
 	
 	/**
 	 * 新增物料关系，判断是否存在相同业务关键字的数据存在，如果存在，则提示数据重复
