@@ -36,6 +36,7 @@ Ext.extend(ExtUx.widget.DictCombo, Ext.form.ComboBox, {
 			}
 			
 			ExtUx.widget.DictCombo.superclass.initComponent.call(this);
+			this.store.load();
 		}
 });
 
