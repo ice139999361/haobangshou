@@ -300,6 +300,9 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 	},
 	// 添加数据到表格
 	addData: function(data) {
+		// 如果 data 不存在
+		if(!data) return;
+		
 		var _store 		= this.getStore();
     var _DataType = _store.recordType;
     
