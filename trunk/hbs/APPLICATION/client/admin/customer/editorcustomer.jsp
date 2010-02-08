@@ -18,6 +18,12 @@
 			    	<!-- service ext ui.  begin. -->
 			    	
 			    		<form id="form"><items>
+			    			<listpanel hidden="true">
+				    			<layoutpanel columnNum="1">
+				    				<hidden name="custInfo.baseSeqId" />
+				    			</layoutpanel>
+				    		</listpanel>
+				    		
 				    		<listpanel frame="true" title="客户基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
 				    				<textfield fieldLabel="客户编码"               name="custInfo.commCode"       labelStyle="width:150" allowBlank="false"/>

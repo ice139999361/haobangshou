@@ -125,7 +125,6 @@ Ext.apply(Ext.form.BasicForm.prototype, {
 	 }
 	,setValues: function(values) {
 			values = this.parseData(values);
-			alert(Ext.util.JSON.encode(values));
 			this._setValues(values);
 	 }
 	,parseData: function(object, cacheobj, newobject) {
