@@ -72,7 +72,35 @@
             OPER_KEY, 
             OPER_CONTENT, 
             MEMO
+    FROM T_CUSTOMER_OPER_LOG 
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property="operKey">
+				OPER_KEY = #operKey#
+			</isNotEmpty>			
+			<isNotEmpty prepend="order by" property="sort">
+                   $sort$
+            </isNotEmpty>
+            <isEmpty prepend="order by" property="sort">
+                   <![CDATA[
+                   	ORDER BY OPER_TIME DESC
+                   ]]>
+            </isEmpty>
+            
+		</dynamic>
+		<![CDATA[
+      		LIMIT #start# ,#end#
+		]]>
+</select>
+<select id="OperLog_listOperLogCount" resultMap="java.lang.Integer" parameterClass="String">
+<![CDATA[
+    SELECT COUNT(1)
     FROM T_CUSTOMER_OPER_LOG WHERE OPER_KEY=#operKey#
 ]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property="operKey">
+				OPER_KEY = #operKey#
+			</isNotEmpty>			
+		</dynamic>
 </select>
 </sqlMap>

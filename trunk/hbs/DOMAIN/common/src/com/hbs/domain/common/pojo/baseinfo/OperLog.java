@@ -2,12 +2,14 @@ package com.hbs.domain.common.pojo.baseinfo;
 
 import java.util.Date;
 
+import com.hbs.domain.common.pojo.base.BaseDomain;
+
 /**
  * OperLog∂‘œÛ.
  * @author hbs
  *
  */
-public class OperLog {
+public class OperLog extends BaseDomain{
     
     /**
      * –Ú¡–∫≈.
