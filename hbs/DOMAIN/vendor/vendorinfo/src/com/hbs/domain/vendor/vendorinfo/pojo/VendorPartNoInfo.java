@@ -90,6 +90,11 @@ public class VendorPartNoInfo extends BaseDomain {
      * 样品编号.
      */
     private String sampleCode;
+    
+    /**
+     * 价格是否变动过  0--没有  1--是
+     */
+    private String isPriceChange ="0";
 
 
     
@@ -222,7 +227,15 @@ public class VendorPartNoInfo extends BaseDomain {
     }
 
     
-    public String getLogBizKey(){
+    public String getIsPriceChange() {
+		return isPriceChange;
+	}
+
+	public void setIsPriceChange(String isPriceChange) {
+		this.isPriceChange = isPriceChange;
+	}
+
+	public String getLogBizKey(){
 		StringBuilder sb = new StringBuilder();		
 		sb.append(partNo).append(";");
 		sb.append(custPartNo).append(";");

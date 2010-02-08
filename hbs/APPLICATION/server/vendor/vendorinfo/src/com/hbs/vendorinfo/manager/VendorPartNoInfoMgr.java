@@ -7,6 +7,7 @@
 package com.hbs.vendorinfo.manager;
 
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,11 +61,17 @@ public class VendorPartNoInfoMgr {
 	 */
 	public int commitVendorPartNoInfo(VendorPartNoInfo vPartNoInfo) throws Exception{
 		int ret =0;
-		//获取提交数据打状态
-		int iState = Integer.parseInt(vPartNoInfo.getState());
-		if(iState == StateConstants.STATE_1 || iState == StateConstants.STATE_3){
+		VendorPartNoInfo existInfo = this.getVendorPartNoInfoByBizKey(vPartNoInfo);
+		if(existInfo != null){
+			//获取提交数据打状态
+			int iState = Integer.parseInt(vPartNoInfo.getState());
+			if(iState == StateConstants.STATE_1 || iState == StateConstants.STATE_3){
+				vPartNoInfo.setState(new Integer(StateConstants.STATE_2).toString());
+				ret = this.innerUpdateVendorPartNoInfo(vPartNoInfo, vPartNoInfo.getStaffId(), vPartNoInfo.getStaffName(), null);
+			}
+		}else{
 			vPartNoInfo.setState(new Integer(StateConstants.STATE_2).toString());
-			ret = this.innerUpdateVendorPartNoInfo(vPartNoInfo, vPartNoInfo.getStaffId(), vPartNoInfo.getStaffName(), null);
+			this.insertVendorPartNoInfo(vPartNoInfo);
 		}
 		//待办处理
 		
@@ -237,12 +244,12 @@ public class VendorPartNoInfoMgr {
 	 */
 	public List<OperLog> getPartNoChange(VendorPartNoInfo vPartNoInfo) throws Exception{
 		
-		return VendorLogUtils.getLogList(vPartNoInfo.getLogBizKey());
+		return VendorLogUtils.getLogList(vPartNoInfo.getLogBizKey()+"审批数据");
 	}
 	/**
-	 * 新增物料关系，判断是否存在相同业务关键字的数据存在，如果存在，则提示数据重复
+	 * 新增物料关系，判断是否存在相同业务关键字的数据存在，如果存在，做update操作
 	 * @param vPartNoInfo	
-	 * @return 0--成功  1--存在重复数据
+	 * @return 0--成功  
 	 * @throws Exception
 	 */
 	private int insertVendorPartNoInfo(VendorPartNoInfo vPartNoInfo) throws Exception{
@@ -260,11 +267,28 @@ public class VendorPartNoInfoMgr {
 		if(null == tempInfo){//不存在
 			vPartNoInfoDao.insertVendorPartNoInfo(vPartNoInfo);
 		}else{
-			ret = 1;
+			this.innerUpdateVendorPartNoInfo(vPartNoInfo, vPartNoInfo.getStaffId(), vPartNoInfo.getStaffName(), null);
 		}
 		//记录日志			
 		VendorLogUtils.operLog(vPartNoInfo.getStaffId(), vPartNoInfo.getStaffName(), "新增", "物料对照关系信息", vPartNoInfo.getLogBizKey(), vPartNoInfo.getLogContent(), null);
 		
+		return ret;
+	}
+	
+	private String getIsPriceChange(VendorPartNoInfoDao vPartNoInfoDao,VendorPartNoInfo vPartNoInfo)throws Exception{
+		String ret = "0";
+		if(vPartNoInfo.getIsPriceChange().equals("1")){
+			ret ="1";
+		}else{
+			VendorPartNoInfo existInfo = vPartNoInfoDao.findVendorPartNoInfoByBizKey(vPartNoInfo);
+			if(existInfo != null){
+				BigDecimal existPrice = existInfo.getPrice();
+				BigDecimal vPrice = vPartNoInfo.getPrice();
+				if(existPrice.compareTo(vPrice) != 0){
+					ret ="1";
+				}
+			}
+		}
 		return ret;
 	}
 	
@@ -284,6 +308,7 @@ public class VendorPartNoInfoMgr {
 		String strLogType = null;
 		switch (state){
 		case 0:  //审批通过,先删除后插入,同时删除待审批数据,待办未做
+			vPartNoInfo.setIsPriceChange(getIsPriceChange(vPartNoInfoDao,vPartNoInfo));
 			vPartNoInfoDao.deleteVendorPartNoInfoByBizKey(vPartNoInfo);
 			vPartNoInfoDao.insertVendorPartNoInfo(vPartNoInfo);			
 			vPartNoInfoDao.deleteVendorPartNoInfoByID(vPartNoInfo.getSeqId().toString());
@@ -313,7 +338,7 @@ public class VendorPartNoInfoMgr {
 			ret =1;
 		}
 		if(null != staffName){			
-			VendorLogUtils.operLog(staffId, staffName, strLogType, "供应商物料信息", vPartNoInfo.getLogBizKey(), vPartNoInfo.getLogContent(), otherInfo);
+			VendorLogUtils.operLog(staffId, staffName, strLogType, "供应商物料信息",(state ==0 ? vPartNoInfo.getLogBizKey()+strLogType : vPartNoInfo.getLogBizKey()), vPartNoInfo.getLogContent(), otherInfo);
 		}
 		return ret;
 	}

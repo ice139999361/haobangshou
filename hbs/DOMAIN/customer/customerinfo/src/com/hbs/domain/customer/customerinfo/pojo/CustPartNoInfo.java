@@ -89,7 +89,10 @@ public class CustPartNoInfo extends BaseDomain{
      */
     private String vendorCode;
 
-
+    /**
+     * 价格是否变动过  0--没有  1--是
+     */
+    private String isPriceChange ="0";
     
     /**
 	 * @return the seqId
@@ -224,6 +227,14 @@ public class CustPartNoInfo extends BaseDomain{
     public void setVendorCode(String vendorCode) {
         this.vendorCode = vendorCode;
     }
+
+	public String getIsPriceChange() {
+		return isPriceChange;
+	}
+
+	public void setIsPriceChange(String isPriceChange) {
+		this.isPriceChange = isPriceChange;
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
