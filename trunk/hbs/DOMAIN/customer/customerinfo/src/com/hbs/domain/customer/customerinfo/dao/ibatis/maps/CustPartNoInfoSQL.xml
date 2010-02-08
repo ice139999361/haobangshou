@@ -21,6 +21,7 @@
     <result property="minAmount" column="MIN_AMOUNT"/>
     <result property="sampleCode" column="SAMPLE_CODE"/>
     <result property="vendorCode" column="VENDOR_CODE"/>
+    <result property="isPriceChange" column="IS_PRICECHANGE"/>
 </resultMap>
 
 
@@ -41,7 +42,8 @@
             P_CLS_CODE, 
             MIN_AMOUNT, 
             SAMPLE_CODE, 
-            VENDOR_CODE
+            VENDOR_CODE,
+            IS_PRICECHANGE
         )
     VALUES (    		
             #custPartNo#,
@@ -58,7 +60,8 @@
             #clsName#,
             #minAmount#,
             #sampleCode#,
-            #vendorCode#
+            #vendorCode#,
+            #isPriceChange#
     )
 ]]>
 
@@ -147,6 +150,9 @@
 	<isNotEmpty prepend="," property="vendorCode">
             VENDOR_CODE = #vendorCode#
 	</isNotEmpty>
+	<isNotEmpty prepend="," property="isPriceChange">
+            IS_PRICECHANGE = #isPriceChange#
+	</isNotEmpty>
     WHERE SEQID = #seqId#
 </update> 
 
@@ -168,7 +174,8 @@
             P_CLS_CODE, 
             MIN_AMOUNT, 
             SAMPLE_CODE, 
-            VENDOR_CODE
+            VENDOR_CODE,
+            IS_PRICECHANGE
     FROM T_CUST_PART_NO_INFO WHERE SEQID = #seqId#
 ]]>
 </select>
@@ -191,7 +198,8 @@
             P_CLS_CODE, 
             MIN_AMOUNT, 
             SAMPLE_CODE, 
-            VENDOR_CODE
+            VENDOR_CODE,
+            IS_PRICECHANGE
     FROM T_CUST_PART_NO_INFO 
 ]]>
 		<dynamic prepend="WHERE">
@@ -228,7 +236,8 @@
             P_CLS_CODE, 
             MIN_AMOUNT, 
             SAMPLE_CODE, 
-            VENDOR_CODE
+            VENDOR_CODE,
+            IS_PRICECHANGE
     FROM T_CUST_PART_NO_INFO
 ]]>
 		<dynamic prepend="WHERE">

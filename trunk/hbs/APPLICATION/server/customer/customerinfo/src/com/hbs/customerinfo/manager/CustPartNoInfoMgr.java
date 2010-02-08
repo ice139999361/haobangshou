@@ -7,6 +7,7 @@
 package com.hbs.customerinfo.manager;
 
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ import com.hbs.customer.common.utils.CustLogUtils;
 import com.hbs.domain.common.pojo.baseinfo.OperLog;
 import com.hbs.domain.customer.customerinfo.dao.CustPartNoInfoDao;
 import com.hbs.domain.customer.customerinfo.pojo.CustPartNoInfo;
+
 import com.hbs.domain.waittask.pojo.WaitTaskInfo;
 
 
@@ -64,11 +66,18 @@ public class CustPartNoInfoMgr {
 	public int commitCustPartNoInfo(CustPartNoInfo custPartNoInfo) throws Exception{
 		int ret =0;
 		logger.debug("提交客户临时物料关系信息列表，输入为：" + custPartNoInfo.toString());
-		//获取提交数据打状态
-		int iState = Integer.parseInt(custPartNoInfo.getState());
-		if(iState == StateConstants.STATE_1 || iState == StateConstants.STATE_3){
+		CustPartNoInfo existInfo = this.getCustPartNoInfoByBizKey(custPartNoInfo);
+		if(existInfo != null){//存在数据
+			//获取提交数据打状态
+			int iState = Integer.parseInt(custPartNoInfo.getState());
+			
+			if(iState == StateConstants.STATE_1 || iState == StateConstants.STATE_3){
+				custPartNoInfo.setState(new Integer(StateConstants.STATE_2).toString());
+				ret = this.innerUpdateCustPartNoInfo(custPartNoInfo, custPartNoInfo.getStaffId(), custPartNoInfo.getStaffName(), null);
+			}
+		}else{//不存在数据
 			custPartNoInfo.setState(new Integer(StateConstants.STATE_2).toString());
-			ret = this.innerUpdateCustPartNoInfo(custPartNoInfo, custPartNoInfo.getStaffId(), custPartNoInfo.getStaffName(), null);
+			ret = this.insertCustPartNoInfo(custPartNoInfo);
 		}
 		//待办处理
 		
@@ -262,13 +271,13 @@ public class CustPartNoInfoMgr {
 	 */
 	public List<OperLog> getPartNoChange(CustPartNoInfo custPartNoInfo) throws Exception{
 		
-		return CustLogUtils.getLogList(custPartNoInfo.getLogBizKey());
+		return CustLogUtils.getLogList(custPartNoInfo.getLogBizKey()+"审批数据");
 	}
 	
 	/**
-	 * 新增物料关系，判断是否存在相同业务关键字的数据存在，如果存在，则提示数据重复
+	 * 新增物料关系，判断是否存在相同业务关键字的数据存在，如果存在，则update操作
 	 * @param custPartNoInfo	
-	 * @return 0--成功  1--存在重复数据
+	 * @return 0--成功 
 	 * @throws Exception
 	 */
 	private int insertCustPartNoInfo(CustPartNoInfo custPartNoInfo) throws Exception{
@@ -286,14 +295,30 @@ public class CustPartNoInfoMgr {
 		if(null == tempInfo){//不存在
 			custPartNoInfoDao.insertCustPartNoInfo(custPartNoInfo);
 		}else{
-			ret = 1;
+			this.innerUpdateCustPartNoInfo(custPartNoInfo, custPartNoInfo.getStaffId(), custPartNoInfo.getStaffName(), null);
 		}
 		//记录日志			
-		CustLogUtils.operLog(custPartNoInfo.getStaffId(), custPartNoInfo.getStaffName(), "新增", "物料对照关系信息", custPartNoInfo.getLogBizKey(), custPartNoInfo.getLogContent(), null);
+		CustLogUtils.operLog(custPartNoInfo.getStaffId(), custPartNoInfo.getStaffName(), (null == tempInfo ?"新增" : "修改"), "物料对照关系信息", custPartNoInfo.getLogBizKey(), custPartNoInfo.getLogContent(), null);
 		
 		return ret;
 	}
 	
+	private String getIsPriceChange(CustPartNoInfoDao custPartNoInfoDao,CustPartNoInfo custPartNoInfo) throws Exception{
+		String ret = "0";
+		if(custPartNoInfo.getIsPriceChange().equals("1")){
+			ret ="1";
+		}else{
+			CustPartNoInfo existInfo = custPartNoInfoDao.findCustPartNoInfoByBizKey(custPartNoInfo);
+			if(existInfo != null){
+				BigDecimal existPrice = existInfo.getPrice();
+				BigDecimal vPrice = custPartNoInfo.getPrice();
+				if(existPrice.compareTo(vPrice) != 0){
+					ret ="1";
+				}
+			}
+		}
+		return ret;
+	}
 	/**
 	 * 更新信息
 	 * @param custPartNoInfo
@@ -310,6 +335,7 @@ public class CustPartNoInfoMgr {
 		String strLogType = null;
 		switch (state){
 		case 0:  //审批通过,先删除后插入,同时删除待审批数据,待办未做
+			custPartNoInfo.setIsPriceChange(getIsPriceChange(custPartNoInfoDao,custPartNoInfo));
 			custPartNoInfoDao.deleteCustPartNoInfoByBizKey(custPartNoInfo);
 			custPartNoInfoDao.insertCustPartNoInfo(custPartNoInfo);			
 			custPartNoInfoDao.deleteCustPartNoInfoByID(custPartNoInfo.getSeqId().toString());
@@ -339,7 +365,7 @@ public class CustPartNoInfoMgr {
 			ret =1;
 		}
 		if(null != staffName){			
-			CustLogUtils.operLog(staffId, staffName, strLogType, "客户物料信息", custPartNoInfo.getLogBizKey(), custPartNoInfo.getLogContent(), otherInfo);
+			CustLogUtils.operLog(staffId, staffName, strLogType, "客户物料信息", (state == 0 ? custPartNoInfo.getLogBizKey()+ strLogType: custPartNoInfo.getLogBizKey()), custPartNoInfo.getLogContent(), otherInfo);
 		}
 		return ret;
 	}
