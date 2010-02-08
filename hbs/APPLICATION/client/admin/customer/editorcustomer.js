@@ -67,8 +67,11 @@ HBSConvertHelper.init(function() {
 		// 隐藏不需要的控件
 		ExtConvertHelper.hideItems("saveBtn");
 		
+		// 组装需要的参数
+		var params = ["custInfo.baseSeqId=", urlPs.baseSeqId].join("");
+		
 		// 加载数据
-		ExtConvertHelper.loadForm("form", "/test3.action", null, function(form, action) {
+		ExtConvertHelper.loadForm("form", "/test3.action", params, function(form, action) {
 				Ext.getCmp("custbankgrid").addData(action.result.data.custInfo.listBankInfo);
 		});
 	}
