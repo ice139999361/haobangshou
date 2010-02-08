@@ -95,7 +95,7 @@
 <select id="OperLog_listOperLogCount" resultMap="java.lang.Integer" parameterClass="String">
 <![CDATA[
     SELECT COUNT(1)
-    FROM T_CUSTOMER_OPER_LOG WHERE OPER_KEY=#operKey#
+    FROM T_CUSTOMER_OPER_LOG
 ]]>
 		<dynamic prepend="WHERE">
 			<isNotEmpty prepend="and" property="operKey">

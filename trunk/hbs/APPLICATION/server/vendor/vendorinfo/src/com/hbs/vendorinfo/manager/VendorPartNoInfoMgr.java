@@ -13,8 +13,7 @@ import java.util.Map;
 
 
 import com.hbs.common.springhelper.BeanLocator;
-
-
+import com.hbs.domain.common.pojo.baseinfo.OperLog;
 
 import com.hbs.domain.vendor.vendorinfo.dao.VendorPartNoInfoDao;
 import com.hbs.domain.vendor.vendorinfo.pojo.VendorPartNoInfo;
@@ -230,7 +229,16 @@ public class VendorPartNoInfoMgr {
 		return ret;
 	}
 	
-	
+	/**
+	 * 获取物料的历史价格变动，变通做法，获取操作历史记录
+	 * @param vPartNoInfo （ partNo custPartNo commCode 这三个字段是日志关键字，必传） 
+	 * @return
+	 * @throws Exception
+	 */
+	public List<OperLog> getPartNoChange(VendorPartNoInfo vPartNoInfo) throws Exception{
+		
+		return VendorLogUtils.getLogList(vPartNoInfo.getLogBizKey());
+	}
 	/**
 	 * 新增物料关系，判断是否存在相同业务关键字的数据存在，如果存在，则提示数据重复
 	 * @param vPartNoInfo	
@@ -255,7 +263,7 @@ public class VendorPartNoInfoMgr {
 			ret = 1;
 		}
 		//记录日志			
-		VendorLogUtils.operLog(vPartNoInfo.getStaffId(), vPartNoInfo.getStaffName(), "新增", "物料对照关系信息", vPartNoInfo.getLogBizKey(), null, null);
+		VendorLogUtils.operLog(vPartNoInfo.getStaffId(), vPartNoInfo.getStaffName(), "新增", "物料对照关系信息", vPartNoInfo.getLogBizKey(), vPartNoInfo.getLogContent(), null);
 		
 		return ret;
 	}
@@ -305,7 +313,7 @@ public class VendorPartNoInfoMgr {
 			ret =1;
 		}
 		if(null != staffName){			
-			VendorLogUtils.operLog(staffId, staffName, strLogType, "供应商物料信息", vPartNoInfo.getLogBizKey(), null, otherInfo);
+			VendorLogUtils.operLog(staffId, staffName, strLogType, "供应商物料信息", vPartNoInfo.getLogBizKey(), vPartNoInfo.getLogContent(), otherInfo);
 		}
 		return ret;
 	}
