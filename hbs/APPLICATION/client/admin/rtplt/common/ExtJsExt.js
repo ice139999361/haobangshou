@@ -125,6 +125,7 @@ Ext.apply(Ext.form.BasicForm.prototype, {
 	 }
 	,setValues: function(values) {
 			values = this.parseData(values);
+			alert(Ext.util.JSON.encode(values));
 			this._setValues(values);
 	 }
 	,parseData: function(object, cacheobj, newobject) {
@@ -145,12 +146,18 @@ Ext.apply(Ext.form.BasicForm.prototype, {
 				
 				// 如果对象是 object 继续
 				if(typeof object[key] == "object") this.parseData(object[key], cacheobj, newobject);
-				else {
-					// 将组装好的值加入容器中
-					newobject[cacheobj.key] = cacheobj.value;
-					// 将 cacheobj.key 还原
+				
+				// 如果值为默认值则进入下一次
+				if(cacheobj.value == "-9)^5-123xq!") {
 					cacheobj.key = currkey;
+					continue;
 				}
+				// 将组装好的值加入容器中
+				newobject[cacheobj.key] = cacheobj.value;
+				// 将 cacheobj.key 还原
+				cacheobj.key = currkey;
+				// 设置 cacheobj.value
+				cacheobj.value = "-9)^5-123xq!";
 			}
 			
 			return newobject;
