@@ -1,6 +1,7 @@
 package com.hbs.domain.customer.customerinfo.pojo;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import com.hbs.domain.common.pojo.base.BaseDomain;
@@ -196,6 +197,11 @@ public class CustomerInfo extends BaseDomain{
      * 物料对照关系信息
      */
     private List<CustPartNoInfo> partNoInfoList;
+    
+    /**
+     * 录入时间
+     */
+    private Date createTime = new Date();
     
     
     public List<CustPartNoInfo> getPartNoInfoList() {
@@ -493,6 +499,22 @@ public class CustomerInfo extends BaseDomain{
     public void setAssStaffName(String assStaffName) {
         this.assStaffName = assStaffName;
     }
+    
+    
+
+	/**
+	 * @return the createTime
+	 */
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	/**
+	 * @param createTime the createTime to set
+	 */
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -531,7 +553,8 @@ public class CustomerInfo extends BaseDomain{
 		sb.append(isShowPrice).append(";");
 		sb.append(taxRate).append(";");
 		sb.append(assStaffId).append(";");
-		sb.append(assStaffName);
+		sb.append(assStaffName).append(";");
+		sb.append(createTime);
 		
 		return sb.toString();
 	}
