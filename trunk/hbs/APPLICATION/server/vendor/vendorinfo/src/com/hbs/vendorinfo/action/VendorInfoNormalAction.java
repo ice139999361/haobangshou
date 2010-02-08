@@ -230,7 +230,7 @@ public class VendorInfoNormalAction extends BaseAction {
 			setMyId(false);
 			VendorInfoMgr mgr = (VendorInfoMgr) BeanLocator.getInstance()
 					.getBean(vendorInfoMgrName);
-			vendorInfo = mgr.getVendorInfo(vendorInfo, true);
+			vendorInfo = VendorInfoUtil.getVendorInfo(mgr, vendorInfo);
 			this.setResult("vendorInfo", vendorInfo);
 			if (logger.isDebugEnabled())
 				logger.debug("end doGetInfo");

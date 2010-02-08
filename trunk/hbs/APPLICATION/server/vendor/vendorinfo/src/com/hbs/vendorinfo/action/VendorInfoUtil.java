@@ -11,10 +11,13 @@ import org.apache.log4j.Logger;
 import com.hbs.common.action.FieldErr;
 import com.hbs.common.manager.configencode.ConfigEncodeMgr;
 import com.hbs.common.utils.ListDataUtil;
+import com.hbs.customerinfo.manager.CustomerInfoMgr;
 import com.hbs.domain.common.pojo.ConfigEncode;
 import com.hbs.domain.common.pojo.baseinfo.BankInfo;
 import com.hbs.domain.common.pojo.baseinfo.ContactInfo;
+import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
 import com.hbs.domain.vendor.vendorinfo.pojo.VendorInfo;
+import com.hbs.vendorinfo.manager.VendorInfoMgr;
 
 /**
  * Action中对CustomerInfo的一些通用处理函数集
@@ -401,5 +404,36 @@ public class VendorInfoUtil {
 			return null;
 		else
 			return ce2.get(0);
+	}
+	
+	/**
+	 * 获取供应商信息详情，将联系人与收货人分开。
+	 * @param mgr
+	 * @param vendorInfo
+	 * @return
+	 */
+	public static VendorInfo getVendorInfo(VendorInfoMgr mgr, VendorInfo vendorInfo) {
+		try {
+			vendorInfo = mgr.getVendorInfo(vendorInfo, true);
+			if(vendorInfo == null || vendorInfo.getListContactInfo() == null)
+				return vendorInfo;
+			Iterator<ContactInfo> it = vendorInfo.getListContactInfo().iterator();
+			List<ContactInfo> l1 = new ArrayList<ContactInfo>();
+			List<ContactInfo> l2 = new ArrayList<ContactInfo>();
+			while(it.hasNext()) {
+				ContactInfo info = it.next();
+				if(info == null)
+					continue;
+				if(info.getConType().equals("1")) {
+					l1.add(info);
+				} else {
+					l2.add(info);
+				}
+			}
+			vendorInfo.setField(contactListName1, l1);
+			vendorInfo.setField(contactListName2, l2);
+		} catch (Exception e) {
+		}
+		return vendorInfo;
 	}
 }
