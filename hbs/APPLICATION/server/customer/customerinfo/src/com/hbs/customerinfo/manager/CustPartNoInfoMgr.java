@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.hbs.common.manager.waittask.WaitTaskMgr;
 import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.customer.common.constants.StateConstants;
@@ -23,7 +25,7 @@ import com.hbs.domain.waittask.pojo.WaitTaskInfo;
 public class CustPartNoInfoMgr {
 
 	private static final String CUSTOMERPARTNOINFODAO ="customerPartNoInfoDao";
-	
+	private static final Logger logger = Logger.getLogger(CustPartNoInfoMgr.class);
 	/**
 	 * 保存客户临时物料关系信息，状态为1
 	 * @param custPartNoInfo
@@ -31,6 +33,7 @@ public class CustPartNoInfoMgr {
 	 * @throws Exception
 	 */
 	public int saveTempCustPartNoInfo(CustPartNoInfo custPartNoInfo)throws Exception{
+		logger.debug("保存客户临时物料关系信息，传入的参数为：" + custPartNoInfo.toString());
 		custPartNoInfo.setState(new Integer(StateConstants.STATE_1).toString());
 		return insertCustPartNoInfo(custPartNoInfo);
 	}
@@ -42,8 +45,10 @@ public class CustPartNoInfoMgr {
 	 */
 	public int saveTempCustPartNoInfoList(List<CustPartNoInfo> custPartNoInfoList)throws Exception{
 		int ret =0;
+		logger.debug("保存客户临时物料关系信息列表，列表数量为：" + custPartNoInfoList.size());
 		for(CustPartNoInfo custPartNoInfo : custPartNoInfoList){
 			custPartNoInfo.setState(new Integer(StateConstants.STATE_1).toString());
+			logger.debug("保存客户临时物料关系信息，传入的参数为：" + custPartNoInfo.toString());
 			insertCustPartNoInfo( custPartNoInfo);
 		}
 		return ret;		
@@ -57,6 +62,7 @@ public class CustPartNoInfoMgr {
 	 */
 	public int commitCustPartNoInfo(CustPartNoInfo custPartNoInfo) throws Exception{
 		int ret =0;
+		logger.debug("提交客户临时物料关系信息列表，输入为：" + custPartNoInfo.toString());
 		//获取提交数据打状态
 		int iState = Integer.parseInt(custPartNoInfo.getState());
 		if(iState == StateConstants.STATE_1 || iState == StateConstants.STATE_3){
@@ -79,7 +85,22 @@ public class CustPartNoInfoMgr {
 		return ret;
 	}
 	
-	
+	/**
+	 * 批量提交客户物料关系
+	 * @param custPartNoInfoList
+	 * @return
+	 * @throws Exception
+	 */
+	public int commitCustPartNoInfoList(List<CustPartNoInfo> custPartNoInfoList) throws Exception{
+		int ret =0;
+		logger.debug("提交客户临时物料关系信息列表，列表数量为：" + custPartNoInfoList.size());
+		for(CustPartNoInfo custPartNoInfo : custPartNoInfoList){
+			
+			logger.debug("提交客户临时物料关系信息，传入的参数为：" + custPartNoInfo.toString());
+			commitCustPartNoInfo( custPartNoInfo);
+		}
+		return ret;		
+	}
 	/**
 	 * 审批同意客户物料资料
 	 * @param custPartNoInfo
@@ -91,6 +112,7 @@ public class CustPartNoInfoMgr {
 	 */
 	public int auditAgreeCustPartNoInfo(CustPartNoInfo custPartNoInfo, String auditId, String auditName,String auditDesc) throws Exception{
 		int ret =0;
+		logger.debug("审批同意客户临时物料关系信息列表，输入为：" + custPartNoInfo.toString());
 		int iState = Integer.parseInt(custPartNoInfo.getState());
 		if(iState == StateConstants.STATE_2 ){
 			custPartNoInfo.setState(new Integer(StateConstants.STATE_0).toString());
@@ -108,6 +130,7 @@ public class CustPartNoInfoMgr {
 				WaitTaskMgr.createWaitTask("CUST_PARTNO_002", waitTaskInfo);
 			}
 		}else{
+			logger.debug("审批同意客户临时物料关系信息列表，状态不正确!");
 			ret =2;//表示数据提交的状态不正确
 		}
 		
@@ -125,6 +148,7 @@ public class CustPartNoInfoMgr {
 	 */
 	public int auditDisAgreeCustPartNoInfo(CustPartNoInfo custPartNoInfo ,String auditId, String auditName,String auditDesc) throws Exception{
 		int ret =0;
+		logger.debug("审批不同意客户临时物料关系信息列表，输入为：" + custPartNoInfo.toString());
 		int iState = Integer.parseInt(custPartNoInfo.getState());
 		if(iState == StateConstants.STATE_2 ){
 			custPartNoInfo.setState(new Integer(StateConstants.STATE_3).toString());
@@ -143,6 +167,7 @@ public class CustPartNoInfoMgr {
 				WaitTaskMgr.createWaitTask("CUST_PARTNO_003", waitTaskInfo);
 			}
 		}else{
+			logger.debug("审批同意客户临时物料关系信息列表，状态不正确!");
 			ret =2;//表示数据提交的状态不正确
 		}
 		
@@ -161,6 +186,7 @@ public class CustPartNoInfoMgr {
 	 */
 	public int updateCustPartNoInfo(CustPartNoInfo custPartNoInfo) throws Exception{
 		int ret =0;
+		logger.debug("修改客户物料关系信息列表，输入为：" + custPartNoInfo.toString());
 		int iState = Integer.parseInt(custPartNoInfo.getState());
 		//状态为1 ，对临时数据做修改
 		//状态为0 ，对正式数据做修改，直接提交领导审批
@@ -253,7 +279,7 @@ public class CustPartNoInfoMgr {
 			ret = 1;
 		}
 		//记录日志			
-		CustLogUtils.operLog(custPartNoInfo.getStaffId(), custPartNoInfo.getStaffName(), "新增", "物料对照关系信息", custPartNoInfo.getLogBizKey(), null, null);
+		CustLogUtils.operLog(custPartNoInfo.getStaffId(), custPartNoInfo.getStaffName(), "新增", "物料对照关系信息", custPartNoInfo.getLogBizKey(), custPartNoInfo.getLogContent(), null);
 		
 		return ret;
 	}
@@ -303,7 +329,7 @@ public class CustPartNoInfoMgr {
 			ret =1;
 		}
 		if(null != staffName){			
-			CustLogUtils.operLog(staffId, staffName, strLogType, "客户物料信息", custPartNoInfo.getLogBizKey(), null, otherInfo);
+			CustLogUtils.operLog(staffId, staffName, strLogType, "客户物料信息", custPartNoInfo.getLogBizKey(), custPartNoInfo.getLogContent(), otherInfo);
 		}
 		return ret;
 	}
