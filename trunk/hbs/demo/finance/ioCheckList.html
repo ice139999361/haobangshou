@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>出入库结算</title>
+</head>
+
+<body>
+<h2 align="center">出入库结算</h2>
+<div align="center">
+  <table width="90%" border="1">
+    <caption>过滤规则</caption>
+    <tr>
+      <th scope="row">&nbsp;</th>
+      <th scope="row">起始日期</th>
+      <td><input type="text" name="textfield" id="textfield" /></td>
+      <td>结束日期</td>
+      <td><input type="text" name="textfield2" id="textfield2" /></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th scope="row">&nbsp;</th>
+      <th scope="row">查询</th>
+      <td><p>
+        <label></label>
+        <input name="checkbox" type="checkbox" id="checkbox" value="in" checked="checked" />
+        <label for="checkbox">入库单</label>
+        <input name="checkbox" type="checkbox" id="checkbox" value="out" checked="checked" />
+        <label for="checkbox">出库单</label>
+      </p></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th scope="row">&nbsp;</th>
+      <th scope="row">入库单</th>
+      <td><input type="text" name="textfield3" id="textfield3" /></td>
+      <th scope="row">出库单</th>
+      <td><input type="text" name="textfield4" id="textfield4" /></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th colspan="7" scope="row"><input type="submit" name="button" id="button" value="查询" /></th>
+    </tr>
+  </table>
+</div>
+<p align="center">&nbsp;</p>
+<div align="center">
+  <table width="90%" border="1">
+    <caption>
+    待结算信息
+    </caption>
+    <tr>
+      <th scope="col">类型</th>
+      <th scope="col">单号</th>
+      <th scope="col">币种</th>
+      <th scope="col">总金额</th>
+      <th scope="col">待结算金额</th>
+      <th scope="col">银行</th>
+      <th scope="col">账号</th>
+      <th scope="col">&nbsp;</th>
+    </tr>
+    <tr>
+      <td>出库</td>
+      <td>xxxxxx</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td><a href="#">已收款</a></td>
+    </tr>
+    <tr>
+      <td>入库</td>
+      <td><a href="stockInPay.html">xxxxxx</a></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td><a href="#">已付款</a></td>
+    </tr>
+  </table>
+</div>
+<p align="center">&nbsp;</p>
+</body>
+</html>

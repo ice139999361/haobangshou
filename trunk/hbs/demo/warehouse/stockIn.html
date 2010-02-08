@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>入库</title>
+
+<link href="../css/css.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.STYLE1 {color: #FF0000}
+-->
+</style>
+</head>
+
+<body>
+<div align="center">
+  <h2>入库</h2>
+  <table width="90%" border="1">
+    <caption>入库单信息</caption>
+    <tr>
+      <th>填单日期</th>
+      <td>2010年1月1日</td>
+      <th>入库单号</th>
+      <td><input type="text" name="textfield4" id="textfield4" /></td>
+      <th nowrap="nowrap" scope="row">供应商</th>
+      <td nowrap="nowrap"><select name="select2" id="select2">
+          <option value="" selected="selected"></option>
+          <option value="A0001">供应商一</option>
+          <option value="A0002">供应商二</option>
+                    </select></td>
+      <th>仓库</th>
+      <td><select name="select" id="select">
+        <option value="公司总仓" selected="selected">公司总仓</option>
+      </select>      </td>
+    </tr>
+    <tr>
+      <th scope="row">操作人</th>
+      <td>xxx</td>
+      <th>供应商单据日期</th>
+      <td><input type="text" name="textfield5" id="textfield5" /></td>
+      <th>备注</th>
+      <td colspan="3"><input type="text" name="textfield6" id="textfield6" /></td>
+    </tr>
+    <tr>
+      <th scope="row">&nbsp;</th>
+      <td>&nbsp;</td>
+      <th>&nbsp;</th>
+      <td>&nbsp;</td>
+      <th>&nbsp;</th>
+      <td>&nbsp;</td>
+      <th>&nbsp;</th>
+      <td>&nbsp;</td>
+    </tr>
+  </table>
+  <table width="90%" border="1">
+    <caption>入库单详情</caption>
+    <tr>
+      <th scope="col">采购单号</th>
+      <th scope="col">GLE编码</th>
+      <th scope="col">供应商编码</th>
+      <th>描述</th>
+      <th>订单数量</th>
+      <th scope="col">入库数量</th>
+      <th scope="col">剩余数量</th>
+      <th scope="col">备注</th>
+      <th scope="col">&nbsp;</th>
+    </tr>
+    <tr>
+      <td><input name="textfield" type="text" id="textfield" value="P091212001" /></td>
+      <td><input name="textfield6" type="text" id="textfield14" value="GLE00001" /></td>
+      <td><input name="textfield6" type="text" id="textfield14" value="xxxx" /></td>
+      <td>&nbsp;</td>
+      <td><select name="select3" id="select3">
+        <option value="1">80</option>
+        <option value="2">20</option>
+        <option value="0" selected="selected">合计100</option>
+      </select>      </td>
+      <td><input name="textfield6" type="text" id="textfield15" size="10" /></td>
+      <td>&nbsp;</td>
+      <td><input type="text" name="textfield6" id="textfield13" /></td>
+      <td><a href="#">删除</a></td>
+    </tr>
+    <tr>
+      <td><input type="text" name="textfield6" id="textfield10" /></td>
+      <td><input type="text" name="textfield6" id="textfield11" /></td>
+      <td><input type="text" name="textfield6" id="textfield11" /></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td><input name="textfield6" type="text" id="textfield12" size="10" /></td>
+      <td>&nbsp;</td>
+      <td><input type="text" name="textfield6" id="textfield10" /></td>
+      <td><a href="#">删除</a></td>
+    </tr>
+  </table>
+</div>
+<p align="center">
+  <input type="button" name="button" id="button" value="增加" />
+  &nbsp;&nbsp; <input type="submit" name="button2" id="button2" value="提交" />
+</p>
+<hr />
+<p>特殊说明：</p>
+<ol>
+  <li>“入库单号”填写供应商的送货单号，“供应商单据日期”填写供应商的送货单的日期</li>
+  <li> GLE编码 供应商编码 只需要填写其中一项。描述、订单数量系统自动填充，其中订单数量为该订单的该物料的数量总计。</li>
+  <li><span class="STYLE1">订单数量：</span>
+    <ul>
+    <li class="STYLE1">
+    由于一个采购单中同一物料可能出现多次，这里增加一个选择单笔物料或合计的方式。该下拉框中有各笔的数量和一个合计数量供选择。如果选择可某一笔，可以显示交货日期，合计的就不显示交货日期了。</li>
+    
+    <li class="STYLE1">用户如果知道具体是哪笔（根据数量），可以选择其一；否则可以选择合计，填写总的入库数量。如果有多行选择了合计，却输入单笔的入库数量，会导致剩余数量显示错误，但是系统内会按照优先级（交货日期）来分配这几笔的库存。</li>
+    <li class="STYLE1">
+  供应商提供的送货单中不知道有没有写明对应的采购单中第几笔？如果有的话，可以在下拉列表中加上第几笔，以方便选择。就像这样：
+    <select name="select4" id="select4">
+      <option value="1" selected="selected">1   80</option>
+      <option value="2">2   20</option>
+      <option value="0">合计100</option>
+    </select>
+    </li>
+    <li><span class="STYLE1">另外一个解决办法是在输入了采购单号后，将该采购单所有详情都加入到入库单详情中（但是这样不能解决供应商送货单中合并成一笔的问题）。就像这样：</span>
+      <div style="border:thin">
+      <table width="90%" border="1" align="center">
+          <caption>
+            入库单详情
+          </caption>
+          <tr>
+            <th scope="col">采购单号</th>
+            <th scope="col">GLE编码</th>
+            <th scope="col">供应商编码</th>
+            <th>描述</th>
+            <th>订单数量</th>
+            <th scope="col">交货日期</th>
+            <th scope="col">入库数量</th>
+            <th scope="col">剩余数量</th>
+            <th scope="col">备注</th>
+            <th scope="col">&nbsp;</th>
+          </tr>
+          <tr>
+            <td>P091212001</td>
+            <td>GLE00001</td>
+            <td>xxx</td>
+            <td>xx</td>
+            <td>80</td>
+            <td>xxx</td>
+            <td><input name="textfield2" type="text" id="textfield7" size="10" /></td>
+            <td>&nbsp;</td>
+            <td><input type="text" name="textfield2" id="textfield8" /></td>
+            <td><a href="#">删除</a></td>
+          </tr>
+          <tr>
+            <td>P091212001</td>
+            <td>GLE00001</td>
+            <td>xxx</td>
+            <td>xx</td>
+            <td>20</td>
+            <td>xxx</td>
+            <td><input name="textfield2" type="text" id="textfield17" size="10" /></td>
+            <td>&nbsp;</td>
+            <td><input type="text" name="textfield2" id="textfield9" /></td>
+            <td><a href="#">删除</a></td>
+          </tr>
+        </table>
+      <p align="center">
+        <input name="textfield3" type="text" id="textfield18" value="P091212001" />
+        <input type="submit" name="button4" id="button4" value="插入详情" />
+&nbsp;&nbsp;
+        <input type="button" name="button5" id="button5" value="增加" />
+  &nbsp;&nbsp;
+  <input type="submit" name="button5" id="button6" value="提交" />
+      </p></div>如果没有填写入库数量，则系统自动忽略该记录。<br />
+    </li>
+    </ul>
+  </li>
+  <li>
+    <input type="button" name="button3" id="button3" value="增加" />
+  增加一行空白详情记录。</li>
+  <li>这个demo中第1行的采购单号、物料号都是用户输入的（为了演示订单数量问题）。每一行的缺省状态都是象第2行的样子。</li>
+</ol>
+</body>
+</html>

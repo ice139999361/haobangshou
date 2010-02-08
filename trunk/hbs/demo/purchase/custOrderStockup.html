@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>客户订单处理 - 备货</title>
+<link href="../css/css.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.STYLE1 {color: #FF0000}
+-->
+</style>
+</head>
+<body>
+<h2 align="center">客户订单处理</h2>
+<table width="90%" border="1" align="center">
+  <caption>
+    订单信息
+  </caption>
+  <tr>
+    <th>客户订单号</th>
+    <td>xxxxxxxxx</td>
+    <th>开单日期</th>
+    <td> 2010年1月1日</td>
+    <th>客户简称</th>
+    <td>xx</td>
+    <th>对应分公司</th>
+    <td>格莱尔</td>
+  </tr>
+  <tr>
+    <th>联系人</th>
+    <td>&nbsp;</td>
+    <th>电话</th>
+    <td>&nbsp;</td>
+    <th>传真</th>
+    <td>&nbsp;</td>
+    <th>月结方式</th>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="8"><table width="100%" border="1">
+      <caption>
+        订单详情
+        </caption>
+      <tr>
+        <th nowrap="nowrap" scope="col">&nbsp;</th>
+        <th nowrap="nowrap" scope="col">货品名称</th>
+        <th scope="col">客户型号</th>
+        <th scope="col">GLE型号</th>
+        <th scope="col">供应商型号</th>
+        <th scope="col">描述</th>
+        <th scope="col">单价</th>
+        <th scope="col">数量</th>
+        <th scope="col">本客户备货</th>
+        <th scope="col">通用备货</th>
+        <th scope="col">需备货数量</th>
+        <th scope="col"> 交货日期</th>
+        <th scope="col">特殊备注</th>
+        <th scope="col"> 备注</th>
+        <th scope="col">状态</th>
+        <th scope="col">&nbsp;</th>
+      </tr>
+      <tr>
+        <td><input name="checkbox" type="checkbox" id="checkbox" checked="checked" /></td>
+        <td> 三极管</td>
+        <td> TCL00001</td>
+        <td> GLE00001</td>
+        <td>xx</td>
+        <td>xx</td>
+        <td> 含税 5.90</td>
+        <td>80</td>
+        <td>20</td>
+        <td>20</td>
+        <td>80</td>
+        <td>2010年1月10日</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>待采购处理</td>
+        <td><p title="本客户备货20 通用备货20"><input type="text" value="40" size="5" />
+          <input type="submit" name="button6" value="锁定库存" /></p>
+          <p><input type="button" name="button4" id="button4" value="查询可替代货品" />
+       
+        <input type="button" name="button2" id="button2" value="查询调货" /></p></td>
+      </tr>
+      <tr>
+        <td><input name="checkbox3" type="checkbox" id="checkbox3" checked="checked" /></td>
+        <td> 三极管</td>
+        <td> TCL00001</td>
+        <td> GLE00001</td>
+        <td>xx</td>
+        <td>xx</td>
+        <td> 含税 5.90</td>
+        <td>80</td>
+        <td>0</td>
+        <td>0</td>
+        <td>40</td>
+        <td>2010年1月10日</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>待采购处理</td>
+        <td><p>锁定40
+          <input type="submit" name="button7" value="解锁" /></p>
+            <p><input type="button" name="button7" id="button6" value="查询可替代货品" />
+            <input type="button" name="button7" id="button7" value="查询调货" /></p></td>
+      </tr>
+      <tr>
+        <td><input name="checkbox4" type="checkbox" id="checkbox4" checked="checked" /></td>
+        <td> 三极管</td>
+        <td> TCL00001</td>
+        <td> GLE00001</td>
+        <td>xx</td>
+        <td>xx</td>
+        <td> 含税 5.90</td>
+        <td>80</td>
+        <td>0</td>
+        <td>0</td>
+        <td>40</td>
+        <td>2010年1月10日</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>待采购处理</td>
+        <td><p>锁定40
+          <input type="submit" name="button8" value="解锁" /></p>
+            <p>下单100，<a href="#">采购单号xxxxx</a>，采购确认采购订单</p>
+            <p><input type="button" name="button8" id="button8" value="查询可替代货品" />
+            <input type="button" name="button8" id="button9" value="查询调货" /></p></td>
+      </tr>
+      <tr>
+        <td><input name="checkbox5" type="checkbox" id="checkbox5" checked="checked" /></td>
+        <td> 三极管</td>
+        <td> TCL00001</td>
+        <td> GLE00001</td>
+        <td>xx</td>
+        <td>xx</td>
+        <td> 含税 5.90</td>
+        <td>80</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>2010年1月10日</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>待发货</td>
+        <td><p>锁定80
+            <input type="submit" name="button9" value="解锁" />
+        </p>
+            <p>下单100，<a href="#">采购单号xxxxx</a>，全部入库</p>
+            <p>
+            <input type="button" name="button9" id="button10" value="查询可替代货品" />
+              <input type="button" name="button9" id="button11" value="查询调货" />
+          </p></td>
+      </tr>
+      <tr>
+        <td><input name="checkbox6" type="checkbox" id="checkbox6" checked="checked" /></td>
+        <td> 三极管</td>
+        <td> TCL00001</td>
+        <td> GLE00001</td>
+        <td>xx</td>
+        <td>xx</td>
+        <td> 含税 5.90</td>
+        <td>80</td>
+        <td>0</td>
+        <td>0</td>
+        <td>40</td>
+        <td>2010年1月10日</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>待采购处理</td>
+        <td><p>锁定40
+            <input type="submit" name="button10" value="解锁" />
+          </p>
+            <p>下单100，<a href="#">采购单号xxxxx</a>，采购取消采购订单</p>
+            <p>调货40，<a href="#">调货单号xxxx</a>，待审批</p>
+            <p>
+              <input type="button" name="button10" id="button12" value="查询可替代货品" />
+              <input type="button" name="button10" id="button13" value="查询调货" />
+          </p></td>
+      </tr>
+      <tr>
+        <td><input name="checkbox7" type="checkbox" id="checkbox7" checked="checked" /></td>
+        <td> 三极管</td>
+        <td> TCL00001</td>
+        <td> GLE00001</td>
+        <td>xx</td>
+        <td>xx</td>
+        <td> 含税 5.90</td>
+        <td>80</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>2010年1月10日</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>待发货</td>
+        <td><p>锁定80
+            <input type="submit" name="button11" value="解锁" />
+          </p>
+            <p>下单100，<a href="#">采购单号xxxxx</a>，采购取消采购订单</p>
+          <p>调货40，<a href="#">调货单号xxxx</a>，审批通过</p>
+          <p>
+              <input type="button" name="button11" id="button14" value="查询可替代货品" />
+              <input type="button" name="button11" id="button15" value="查询调货" />
+          </p></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td><input name="checkbox2" type="checkbox" id="checkbox2" checked="checked" /></td>
+        <td>三极管</td>
+        <td>TCL00001</td>
+        <td>GLE00001</td>
+        <td>xx</td>
+        <td>xx</td>
+        <td>含税 5.90</td>
+        <td>20</td>
+        <td>0</td>
+        <td>0</td>
+        <td>20</td>
+        <td>2010年1月15日</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>待采购处理</td>
+        <td><p>
+          <input type="button" name="button5" id="button5" value="查询可替代货品" />
+          <input type="button" name="button3" id="button3" value="查询调货" />
+        </p>        </td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td colspan="8" align="center">
+      <input type="submit" value="锁定库存" />
+      <input name="提交" type="submit" value="解锁库存" />
+      <input type="submit" name="button" id="button" value="下单" />
+      <input type="submit" value="打回" />
+      <input type="submit" name="button" value="取消" />    </td>
+  </tr>
+</table>
+<hr />
+<p>特殊说明：</p>
+<ol>
+  <li>“本客户备货” “通用备货” 两栏可以不显示在列表中，而是显示在“
+    <input type="text" value="40" size="5" />
+    <input type="submit" name="button7" value="锁定库存" />
+    ”
+  的tooltip中（鼠标放在上面几秒后出现的一个小框）。<span class="STYLE1">是否不显示这两列？</span></li>
+  <li>
+    <input type="text" value="40" size="5" />
+    <input type="submit" name="button13" value="锁定库存" />
+    中的数值不能大于两个备货的和，也不能大于需备货数量。</li>
+  <li>解锁：把当前物料锁定的库存解锁，变成本客户备料。<span class="STYLE1">是否需要解锁？</span></li>
+  <li>列表中，第1行到第6行是同一个物料的模拟处理过程。第1行为未处理的状态；第2行为锁定了40的库存后的情况；第3行为下单后情况，注意，下单数量可以不同于需要数量；第4行为到货后情况，锁定了全部数量；第5行为订单取消后调货情况；第6行为调货成功。</li>
+  <li>如果没有可用库存，或者无需再备货，则不显示“
+    <input type="text" value="0" size="5" />
+    <input type="submit" name="button12" value="锁定库存" />
+”</li>
+  <li>锁定、解锁库存、调货后，需要自动刷新整个页面，以免同一个物料出现多次时出现显示错误。</li>
+  <li>下单：根据“需备货数量”下采购订单。由于采购订单针对单独的供应商，每次按下“下单”，会找出第一个选中的，需备货数量&gt;0，不是正在下单（包括未下单和下单处理完毕（成功或失败）），不是正在调货（包括未调货和下单调货完毕（成功或失败））的记录，查找关联供应商，针对该供应商下单。所有选中的，需备货数量&gt;0，不是正在下单，不是正在调货，同一供应商的记录一起下单。如果选中的，需备货数量&gt;0，不是正在下单，不是正在调货的记录有多个供应商，可以多次下单。</li>
+  <li>对于正在下单或正在调货的物料，采购员需要额外关注。待完成处理（无论成功或失败）后检查需备货数量。</li>
+  <li>查询可替代货品：查询其他客户特定备料，提交替代申请后该物料转到其他人员处理，最后需要修改客户订单（成功）或转回来重新备货（失败）</li>
+</ol>
+</body>
+</html>
