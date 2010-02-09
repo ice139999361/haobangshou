@@ -128,6 +128,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 				this.setResult("seqId", ret);
 				if (logger.isDebugEnabled()) logger.debug("seqId="+ret);
 			}
+			setResult("state", "1");
 			if (logger.isDebugEnabled())
 				logger.debug("end doSaveTemp");
 			return SUCCESS;
@@ -178,6 +179,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 				ret = mgr.updateCustomerInfo(custInfo, getLoginStaff()
 						.getStaffId(), getLoginStaff().getStaffName());
 			else {
+				custInfo.setCreditRate("3");
 				custInfo.setState("1");
 				ret = mgr.commitCustomerInfo(custInfo, getLoginStaff()
 						.getStaffId(), getLoginStaff().getStaffName());
@@ -202,6 +204,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 				this.setResult("seqId", ret);
 				if (logger.isDebugEnabled()) logger.debug("seqId="+ret);
 			}
+			setResult("state", "2");
 			if (logger.isDebugEnabled())
 				logger.debug("end doSave");
 			return SUCCESS;
