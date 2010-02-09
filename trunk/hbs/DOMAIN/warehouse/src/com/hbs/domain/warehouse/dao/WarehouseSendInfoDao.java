@@ -39,7 +39,7 @@ public interface WarehouseSendInfoDao {
      * @return warehouseSendInfo
      * @throws DataAccessException DataAccessException
      */
-    WarehouseSendInfo findWarehouseSendInfo(String id) throws DataAccessException ;
+    WarehouseSendInfo findWarehouseSendInfo(WarehouseSendInfo warehouseSendInfo) throws DataAccessException ;
     
     /**
      * list.

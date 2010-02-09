@@ -3,12 +3,15 @@ package com.hbs.domain.warehouse.pojo;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.hbs.common.utils.DateUtils;
+import com.hbs.domain.common.pojo.base.BaseDomain;
+
 /**
  * WarehouseSendDetail对象.
  * @author hbs
  *
  */
-public class WarehouseSendDetail {
+public class WarehouseSendDetail extends BaseDomain{
     
     /**
      * 出库明细SEQID.
@@ -19,6 +22,16 @@ public class WarehouseSendDetail {
      * 出库单号.
      */
     private String sendPoNo;
+    
+    /**
+     * 客户编码.
+     */
+    private String custCode;
+    
+    /**
+     * 客户简称.
+     */
+    private String shortName;
     
     /**
      * 公司物料编号.
@@ -75,7 +88,37 @@ public class WarehouseSendDetail {
      */
     private String commDesc;
     
+    
+    
     /**
+	 * @return the custCode
+	 */
+	public String getCustCode() {
+		return custCode;
+	}
+
+	/**
+	 * @param custCode the custCode to set
+	 */
+	public void setCustCode(String custCode) {
+		this.custCode = custCode;
+	}
+
+	/**
+	 * @return the shortName
+	 */
+	public String getShortName() {
+		return shortName;
+	}
+
+	/**
+	 * @param shortName the shortName to set
+	 */
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
+	}
+
+	/**
 	 * @return the commDesc
 	 */
 	public String getCommDesc() {
@@ -92,7 +135,7 @@ public class WarehouseSendDetail {
 	/**
      * 出货数量.
      */
-    private Integer amount;
+    private Integer amount=0;
     
     /**
      * 本次出货金额.
@@ -107,6 +150,7 @@ public class WarehouseSendDetail {
     /**
      * 供应商的采购单号，可以多个，以.
      */
+    @Deprecated
     private String vendorPoNo;
     
     /**
@@ -257,7 +301,7 @@ public class WarehouseSendDetail {
     public String getRltPoNo() {
         return this.rltPoNo;
     }	
-  
+    
     public void setRltPoNo(String rltPoNo) {
         this.rltPoNo = rltPoNo;
     }
@@ -301,11 +345,11 @@ public class WarehouseSendDetail {
     public void setVendorCode(String vendorCode) {
         this.vendorCode = vendorCode;
     }
-    
+    @Deprecated
     public String getVendorPoNo() {
         return this.vendorPoNo;
     }	
-  
+    @Deprecated
     public void setVendorPoNo(String vendorPoNo) {
         this.vendorPoNo = vendorPoNo;
     }
@@ -366,4 +410,42 @@ public class WarehouseSendDetail {
         this.poNoType = poNoType;
     }
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("sendSeqId=").append(this.sendSeqId == null ? "  " : this.sendSeqId.intValue()).append(" ");
+		sb.append("sendPoNo=").append(this.sendPoNo).append(" ");
+		sb.append("custCode=").append(this.custCode).append(" ");
+		sb.append("shortName=").append(this.shortName).append(" ");
+		sb.append("partNo=").append(this.partNo).append(" ");
+		sb.append("custPartNo=").append(this.custPartNo).append(" ");
+		sb.append("pnDesc=").append(this.pnDesc).append(" ");
+		sb.append("specDesc=").append(this.specDesc).append(" ");
+		sb.append("isTax=").append(this.isTax).append(" ");
+		sb.append("price=").append(this.price == null ? " " : this.price.floatValue()).append(" ");
+		sb.append("taxRate=").append(this.taxRate == null ? " " : this.taxRate.floatValue()).append(" ");
+		sb.append("isShowPrice=").append(this.isShowPrice).append(" ");
+		sb.append("rltPoNo=").append(this.rltPoNo).append(" ");
+		sb.append("settlementType=").append(this.settlementType).append(" ");
+		sb.append("commDesc=").append(this.commDesc).append(" ");
+		sb.append("amount=").append(this.amount.intValue()).append(" ");
+		sb.append("curMoney=").append(this.curMoney == null ? " " : this.curMoney.floatValue()).append(" ");
+		sb.append("vendorCode=").append(this.vendorCode).append(" ");
+		sb.append("vendorPoNo=").append(this.vendorPoNo).append(" ");
+		sb.append("period=").append(this.period).append(" ");
+		sb.append("createTime=").append(this.createTime == null ? " " : DateUtils.getFormatDate(this.createTime,null)).append(" ");
+		sb.append("state=").append(this.state).append(" ");
+		sb.append("activeState=").append(this.activeState).append(" ");
+		sb.append("financeState=").append(this.financeState).append(" ");
+		sb.append("poNoType=").append(this.poNoType).append(" ");
+		sb.append("staffId=").append(this.staffId).append(" ");
+		sb.append("staffName=").append(this.staffName).append(" ");
+		
+		return sb.toString();
+	}
+
+    
 }
