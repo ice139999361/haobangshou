@@ -92,7 +92,7 @@
       		LIMIT #start# ,#end#
 		]]>
 </select>
-<select id="OperLog_listOperLogCount" resultMap="java.lang.Integer" parameterClass="String">
+<select id="OperLog_listOperLogCount" resultClass="java.lang.Integer" parameterClass="String">
 <![CDATA[
     SELECT COUNT(1)
     FROM T_CUSTOMER_OPER_LOG
