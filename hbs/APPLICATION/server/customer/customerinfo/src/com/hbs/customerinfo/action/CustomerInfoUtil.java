@@ -3,17 +3,20 @@ package com.hbs.customerinfo.action;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import com.hbs.common.utils.ListDataUtil;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
 import com.hbs.common.action.FieldErr;
 import com.hbs.common.manager.configencode.ConfigEncodeMgr;
+import com.hbs.common.utils.ListDataUtil;
 import com.hbs.customerinfo.manager.CustomerInfoMgr;
 import com.hbs.domain.common.pojo.ConfigEncode;
+import com.hbs.domain.common.pojo.baseinfo.AccountPreiod;
 import com.hbs.domain.common.pojo.baseinfo.BankInfo;
 import com.hbs.domain.common.pojo.baseinfo.ContactInfo;
+import com.hbs.domain.common.pojo.baseinfo.PrePaidInfo;
 import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
 
 /**
@@ -115,6 +118,14 @@ public class CustomerInfoUtil {
 			if(i == 0)
 			list.add(new FieldErr("AssStaff","AssStaff√ª”–ÃÓ–¥"));
 		}
+		
+		AccountPreiod accountPreiod = custInfo.getAccountPreiod();
+		if(accountPreiod != null) {
+			accountPreiod.setCommCode(custInfo.getCommCode());
+		}
+		PrePaidInfo prePaidInfo = custInfo.getPrePaidInfo();
+		if(prePaidInfo != null)
+			prePaidInfo.setCommCode(custInfo.getCommCode());
 		
 		return list;
 	}
