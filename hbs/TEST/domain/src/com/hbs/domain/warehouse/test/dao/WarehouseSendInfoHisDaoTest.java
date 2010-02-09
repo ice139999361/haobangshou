@@ -103,29 +103,29 @@ public class WarehouseSendInfoHisDaoTest extends AbstractTransactionalDataSource
      */
     public void testFindWarehouseSendInfo() {
         WarehouseSendInfoDao warehouseSendInfoDao = (WarehouseSendInfoDao) this.getApplicationContext().getBean("warehouseSendInfoDao");
-        WarehouseSendInfo warehouseSendInfo = warehouseSendInfoDao.findWarehouseSendInfo("1");
-        
-        System.out.println("testFind result--------------------------------------");
-        System.out.println("sendPoNo=" + warehouseSendInfo.getSendPoNo());
-        System.out.println("custCode=" + warehouseSendInfo.getCustCode());
-        System.out.println("shortName=" + warehouseSendInfo.getShortName());
-        System.out.println("receiveName=" + warehouseSendInfo.getReceiveName());
-        System.out.println("receiveAddress=" + warehouseSendInfo.getReceiveAddress());
-        System.out.println("receiveZip=" + warehouseSendInfo.getReceiveZip());
-        System.out.println("conTel=" + warehouseSendInfo.getConTel());
-        System.out.println("conFax=" + warehouseSendInfo.getConFax());
-        System.out.println("companyBranch=" + warehouseSendInfo.getCompanyBranch());
-        System.out.println("houseType=" + warehouseSendInfo.getHouseType());
-        System.out.println("settlement_type=" + warehouseSendInfo.getSettlement_type());
-        System.out.println("createDate=" + warehouseSendInfo.getCreateDate());
-        System.out.println("operId=" + warehouseSendInfo.getOperId());
-        System.out.println("operStaff=" + warehouseSendInfo.getOperStaff());
-        System.out.println("sendDesc=" + warehouseSendInfo.getSendDesc());
-        System.out.println("period=" + warehouseSendInfo.getPeriod());
-        System.out.println("state=" + warehouseSendInfo.getState());
-        System.out.println("activeState=" + warehouseSendInfo.getActiveState());
-        System.out.println("financeState=" + warehouseSendInfo.getFinanceState());
-        System.out.println("poNoType=" + warehouseSendInfo.getPoNoType());
+//        WarehouseSendInfo warehouseSendInfo = warehouseSendInfoDao.findWarehouseSendInfo("1");
+//        
+//        System.out.println("testFind result--------------------------------------");
+//        System.out.println("sendPoNo=" + warehouseSendInfo.getSendPoNo());
+//        System.out.println("custCode=" + warehouseSendInfo.getCustCode());
+//        System.out.println("shortName=" + warehouseSendInfo.getShortName());
+//        System.out.println("receiveName=" + warehouseSendInfo.getReceiveName());
+//        System.out.println("receiveAddress=" + warehouseSendInfo.getReceiveAddress());
+//        System.out.println("receiveZip=" + warehouseSendInfo.getReceiveZip());
+//        System.out.println("conTel=" + warehouseSendInfo.getConTel());
+//        System.out.println("conFax=" + warehouseSendInfo.getConFax());
+//        System.out.println("companyBranch=" + warehouseSendInfo.getCompanyBranch());
+//        System.out.println("houseType=" + warehouseSendInfo.getHouseType());
+//        System.out.println("settlement_type=" + warehouseSendInfo.getSettlement_type());
+//        System.out.println("createDate=" + warehouseSendInfo.getCreateDate());
+//        System.out.println("operId=" + warehouseSendInfo.getOperId());
+//        System.out.println("operStaff=" + warehouseSendInfo.getOperStaff());
+//        System.out.println("sendDesc=" + warehouseSendInfo.getSendDesc());
+//        System.out.println("period=" + warehouseSendInfo.getPeriod());
+//        System.out.println("state=" + warehouseSendInfo.getState());
+//        System.out.println("activeState=" + warehouseSendInfo.getActiveState());
+//        System.out.println("financeState=" + warehouseSendInfo.getFinanceState());
+//        System.out.println("poNoType=" + warehouseSendInfo.getPoNoType());
     }
 
     /**
