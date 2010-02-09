@@ -122,20 +122,33 @@ var HBSConvertHelper = {
 			return app.getPortal().contentMgr.mainPanel;
 	 }
 	 /**
+	  * 说明：刷新指定表格
+	  * @params gridId (String) 要刷新的表格 id
+	  */
+	,refreshGrid: function(gridId) {
+			if(!Ext.getCmp(gridId).bbar) {
+				Ext.getCmp(gridId).store.reload();
+				return;
+			}
+			
+			var tmpBtns = Ext.getCmp(gridId).bbar.dom.getElementsByTagName("button");
+			tmpBtns[tmpBtns.length-1].click();
+	 }
+	 /**
 	  * 刷新父页面 
-	  * @param openerTabId 父页面的TabId
 	  * @param gridId 要刷新的gridId
 	  * @param flag 是否要关闭当前页面  true 关闭  false 不关闭
+	  * @param openerTabId 父页面的TabId
 	  */
-	,refurbishOpenerTab: function(openerTabId, gridId, flag) {
+	,refurbishOpenerTab: function(gridId, flag, openerTabId) {
 			// 获取主 Panel
 			var mainTab = 	this.getMainTab();
 			
 			// Portal 获取父标签页
-			var openerTab = mainTab.getItem(openerTabId);
-			
+			var openerTab = mainTab.getItem(openerTabId || urlPs.openerTabId);
+	
 			// 如果标签页还未关闭则对其表格进行刷新
-			if(openerTab && gridId) openerTab.iframe.dom.contentWindow.ExtConvertHelper.refreshGrid(gridId);
+			if(openerTab && gridId) openerTab.iframe.dom.contentWindow[this.__name].refreshGrid(gridId);
 				
 			// 根据需要来关闭当前标签页
 			if(flag) this.closeActiveTab();
