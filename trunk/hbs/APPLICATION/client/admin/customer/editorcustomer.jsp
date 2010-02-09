@@ -62,7 +62,7 @@
 				    				<textfield fieldLabel="提醒设置" 							 name="custInfo.accountPreiod.reminderDay"       labelStyle="width:150" />
 				    				<textfield fieldLabel="提醒市场人员催款" 			 name="custInfo.prePaidInfo.reminderDay"       labelStyle="width:150" />
 				    				
-				    				<dictcombo fieldLabel="客户结算币种"           hiddenName="custInfo.currency"       labelStyle="width:150" paramsValue="CURRENCY"        emptyText="请选择" />				    				
+				    				<dictcombo fieldLabel="客户结算币种"           hiddenName="custInfo.currency"       labelStyle="width:150" paramsValue="CURRENCY"        emptyText="请选择" />
 				    				<textfield fieldLabel="客户的账期设置" 				 name="custInfo.accountPreiod.accountPeriod"       labelStyle="width:150" />
 				    				<textfield fieldLabel="账期的对账日" 					 name="custInfo.accountPreiod.accounDay"       labelStyle="width:150" />
 				    				<textfield fieldLabel="客户账期的最大交易金额" name="custInfo.accountPreiod.maxMoney"       labelStyle="width:150" />
