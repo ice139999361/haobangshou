@@ -101,6 +101,7 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 				setErrorReason("保存出错！");
 				return ERROR;
 			}
+			this.setAlertMsg("提交成功！");
 			if (logger.isDebugEnabled())    logger.debug("end doSave");
     		return SUCCESS;
     	}

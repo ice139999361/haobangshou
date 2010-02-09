@@ -129,6 +129,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 				if (logger.isDebugEnabled()) logger.debug("seqId="+ret);
 			}
 			setResult("state", "1");
+			this.setAlertMsg("临时保存成功！");
 			if (logger.isDebugEnabled())
 				logger.debug("end doSaveTemp");
 			return SUCCESS;
@@ -205,6 +206,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 				if (logger.isDebugEnabled()) logger.debug("seqId="+ret);
 			}
 			setResult("state", "2");
+			this.setAlertMsg("提交成功！");
 			if (logger.isDebugEnabled())
 				logger.debug("end doSave");
 			return SUCCESS;
@@ -287,6 +289,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 					getHttpServletRequest().getParameter("delDesc"));
 			switch (i) {
 			case 0:
+				this.setAlertMsg("删除成功！");
 				return SUCCESS;
 			case 2:
 				logger.info("状态不正确！");
