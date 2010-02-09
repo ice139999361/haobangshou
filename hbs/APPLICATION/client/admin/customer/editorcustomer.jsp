@@ -20,7 +20,8 @@
 			    		<form id="form"><items>
 			    			<listpanel hidden="true">
 				    			<layoutpanel columnNum="1">
-				    				<hidden name="custInfo.baseSeqId" id="baseSeqId" />
+				    				<hidden name="custInfo.baseSeqId" />
+				    				<hidden name="custInfo.state" />
 				    			</layoutpanel>
 				    		</listpanel>
 				    		
