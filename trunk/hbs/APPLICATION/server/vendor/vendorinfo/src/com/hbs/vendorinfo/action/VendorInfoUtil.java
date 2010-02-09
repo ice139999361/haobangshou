@@ -11,11 +11,11 @@ import org.apache.log4j.Logger;
 import com.hbs.common.action.FieldErr;
 import com.hbs.common.manager.configencode.ConfigEncodeMgr;
 import com.hbs.common.utils.ListDataUtil;
-import com.hbs.customerinfo.manager.CustomerInfoMgr;
 import com.hbs.domain.common.pojo.ConfigEncode;
+import com.hbs.domain.common.pojo.baseinfo.AccountPreiod;
 import com.hbs.domain.common.pojo.baseinfo.BankInfo;
 import com.hbs.domain.common.pojo.baseinfo.ContactInfo;
-import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
+import com.hbs.domain.common.pojo.baseinfo.PrePaidInfo;
 import com.hbs.domain.vendor.vendorinfo.pojo.VendorInfo;
 import com.hbs.vendorinfo.manager.VendorInfoMgr;
 
@@ -72,9 +72,12 @@ public class VendorInfoUtil {
 	 */
 	public static List<FieldErr> checkInputFields(VendorInfo vendorInfo)
 	{
-		ArrayList<FieldErr> list = new ArrayList<FieldErr>();
 		if(vendorInfo == null)
-			return list;
+			return new ArrayList<FieldErr>();
+		
+		List<FieldErr> list = checkSelectFields(vendorInfo);
+		if(list == null)
+			list = new ArrayList<FieldErr>();
 		
 		String s;
 		// DONE:完成checkInputFields，对输入的客户信息进行校验
@@ -104,24 +107,13 @@ public class VendorInfoUtil {
 			list.add(new FieldErr("IsShowPrice","IsShowPrice没有填写"));
 		}
 		
-		/*
-		s = vendorInfo.get.getAssStaffId();
-		if(s == null || s.length() == 0)
-		{
-			int i;
-			try{
-				i = Integer.parseInt(s);
-			}catch(Exception e){
-				i=0;
-			}
-			if(i == 0)
-			list.add(new FieldErr("AssStaff","AssStaff没有填写"));
+		AccountPreiod accountPreiod = vendorInfo.getAccountPreiod();
+		if(accountPreiod != null) {
+			accountPreiod.setCommCode(vendorInfo.getCommCode());
 		}
-		*/
-		
-		List<FieldErr> list2 = checkSelectFields(vendorInfo);
-		if(list2 != null && list2.size() > 0)
-			list.addAll(list2);
+		PrePaidInfo prePaidInfo = vendorInfo.getPrePaidInfo();
+		if(prePaidInfo != null)
+			prePaidInfo.setCommCode(vendorInfo.getCommCode());
 		
 		return list;
 	}
@@ -392,6 +384,10 @@ public class VendorInfoUtil {
 		ConfigEncode ce = new ConfigEncode();
 		List<ConfigEncode> ce2;
 		ce.setEncodeType(type);
+		if(s.equals("请选择"))
+		{
+			return ce;
+		}
 		try{
 			Integer.parseInt(s);
 			ce.setEncodeKey(s);
