@@ -13,7 +13,8 @@ public interface WareHouseConstants {
 	public static final String WAREHOUSE_REC_INFO_DAO = "warehouseRecInfoDao";
 	public static final String WAREHOUSE_REC_DETAIL_DAO = "warehouseRecDetailDao";
 	
-	
+	public static final String WAREHOUSE_SEND_INFO_DAO = "warehouseSendInfoDao";
+	public static final String WAREHOUSE_SEND_DETAIL_DAO = "warehouseSendDetailDao";
 	
 	public static final String WAREHOUSE_REC_DETAILMGR ="wareHouseRecDetailMgr";
 	
@@ -35,6 +36,10 @@ public interface WareHouseConstants {
 	public static final String WAREHOUSE_REC_INFO_01 ="01";//临时保存入库单
 	public static final String WAREHOUSE_REC_INFO_02 ="02";//确认入库单
 	public static final String WAREHOUSE_REC_INFO_03 ="03";//入库单被取消
+	
+	public static final String WAREHOUSE_SEND_INFO_01 ="01";//临时保存出库单
+	public static final String WAREHOUSE_SEND_INFO_02 ="02";//确认出库单
+	public static final String WAREHOUSE_SEND_INFO_03 ="03";//出库单被取消
 	
 	
 	public static final String WAREHOUSE_INFO_STATE_0 ="0"; //库存可用
