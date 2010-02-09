@@ -118,5 +118,14 @@ public class WarehouseSendInfoHisDaoImpl extends SqlMapClientDaoSupport implemen
         	logger.debug("Àë¿ªlistWarehouseSendInfoCount(WarehouseSendInfo), ·µ»Ø[" + count + "]");
 		}
         return count;
-    }  
+    }
+
+	/* (non-Javadoc)
+	 * @see com.hbs.domain.warehouse.dao.WarehouseSendInfoDao#findWarehouseSendInfo(com.hbs.domain.warehouse.pojo.WarehouseSendInfo)
+	 */
+	public WarehouseSendInfo findWarehouseSendInfo(
+			WarehouseSendInfo warehouseSendInfo) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return null;
+	}  
 }
