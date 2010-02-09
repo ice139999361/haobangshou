@@ -47,7 +47,7 @@ HBSConvertHelper.init(function() {
 	});
 	
 	// 当单机取消按钮时，调用默认的关闭窗口方法
-	backBtn.on("click", ExtConvertHelper.defaultCloseTab);
+	backBtn.on("click", HBSConvertHelper.defaultCloseTab);
 	
 	
 	// -------------------------------------- 页面操作逻辑处理
@@ -85,8 +85,8 @@ HBSConvertHelper.init(function() {
 		
 		// 提交完成后的操作
 		submitSuccessPro = function() {
-			// 用户单击后重载此页面
-			HBSConvertHelper.refurbishOpenerTab("querygrid", true);
+			// 用户单击后关闭此页面
+			HBSConvertHelper.defaultCloseTab();
 		}
 	}
 	
