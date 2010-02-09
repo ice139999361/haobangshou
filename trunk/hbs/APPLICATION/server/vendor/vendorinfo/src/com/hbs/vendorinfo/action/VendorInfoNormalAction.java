@@ -128,6 +128,7 @@ public class VendorInfoNormalAction extends BaseAction {
 				this.setResult("seqId", ret);
 				if (logger.isDebugEnabled()) logger.debug("seqId="+ret);
 			}
+			setResult("state", "1");
 			if (logger.isDebugEnabled())
 				logger.debug("end doSaveTemp");
 			return SUCCESS;
@@ -178,6 +179,7 @@ public class VendorInfoNormalAction extends BaseAction {
 				ret = mgr.updateCustomerInfo(vendorInfo);
 			else {
 				vendorInfo.setState("1");
+				vendorInfo.setCreditRate("3");
 				ret = mgr.commitVendorInfo(vendorInfo);
 			}
 			if (ret < 0) {
@@ -200,6 +202,7 @@ public class VendorInfoNormalAction extends BaseAction {
 				this.setResult("seqId", ret);
 				if (logger.isDebugEnabled()) logger.debug("seqId="+ret);
 			}
+			setResult("state", "2");
 			if (logger.isDebugEnabled())
 				logger.debug("end doSave");
 			return SUCCESS;
