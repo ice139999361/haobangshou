@@ -75,11 +75,11 @@ public class WarehouseSendInfoDaoImpl extends SqlMapClientDaoSupport implements 
      * @return warehouseSendInfo
      * @throws DataAccessException DataAccessException
      */
-    public WarehouseSendInfo findWarehouseSendInfo(String pk) throws DataAccessException {
+    public WarehouseSendInfo findWarehouseSendInfo(WarehouseSendInfo whSendInfo) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
-        	logger.debug("进入findWarehouseSendInfo(WarehouseSendInfo), 输入参数[" + pk + "]");
+        	logger.debug("进入findWarehouseSendInfo(WarehouseSendInfo), 输入参数[" + whSendInfo + "]");
 		}
-        WarehouseSendInfo warehouseSendInfo = (WarehouseSendInfo) getSqlMapClientTemplate().queryForObject("WarehouseSendInfo_findWarehouseSendInfo", pk);
+        WarehouseSendInfo warehouseSendInfo = (WarehouseSendInfo) getSqlMapClientTemplate().queryForObject("WarehouseSendInfo_findWarehouseSendInfo", whSendInfo);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开findWarehouseSendInfo(WarehouseSendInfo), 返回[" + warehouseSendInfo + "]");
 		}

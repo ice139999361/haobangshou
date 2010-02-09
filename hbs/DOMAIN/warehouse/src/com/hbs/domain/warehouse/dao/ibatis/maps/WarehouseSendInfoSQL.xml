@@ -27,13 +27,7 @@
     <result property="poNoType" column="PO_NO_TYPE"/>
 </resultMap>
 
-<select id="WarehouseSendInfo_getNextId" resultClass="java.lang.String">
-<![CDATA[
-    SELECT ltrim(to_char(Seq_T_WAREHOUSE_SEND_Id.Nextval,'0000000000')) 
-           AS Id 
-    FROM dual
-]]>
-</select>
+
 
 <insert id="WarehouseSendInfo_insertWarehouseSendInfo" parameterClass="warehouseSendInfo" >
 <![CDATA[
@@ -86,7 +80,7 @@
 
 <delete id="WarehouseSendInfo_deleteWarehouseSendInfo" parameterClass="string">
 <![CDATA[
-    DELETE  FROM  T_WAREHOUSE_SEND WHERE SEND_PO_NO = #sendPoNo#
+    DELETE  FROM  T_WAREHOUSE_SEND WHERE SEND_PO_NO = #sendPoNo# AND C_CODE=#custCode#
 ]]>
 </delete>    
 
@@ -151,7 +145,7 @@
 	<isNotEmpty prepend="," property="poNoType">
             PO_NO_TYPE = #poNoType#
 	</isNotEmpty>
-    WHERE SEND_PO_NO = #sendPoNo#
+    WHERE SEND_PO_NO = #sendPoNo# AND C_CODE=#custCode#
 </update> 
 
 <select id="WarehouseSendInfo_findWarehouseSendInfo" resultMap="warehouseSendInfo_result" parameterClass="string">
@@ -177,7 +171,7 @@
             ACTIVE_STATE, 
             FINANCE_STATE, 
             PO_NO_TYPE
-    FROM T_WAREHOUSE_SEND WHERE SEND_PO_NO = #sendPoNo#
+    FROM T_WAREHOUSE_SEND WHERE SEND_PO_NO = #sendPoNo# AND C_CODE=#custCode#
 ]]>
 </select>
 

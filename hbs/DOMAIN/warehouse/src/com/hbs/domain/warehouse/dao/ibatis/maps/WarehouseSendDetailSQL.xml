@@ -7,6 +7,9 @@
 <resultMap id="warehouseSendDetail_result" class="warehouseSendDetail">
     <result property="sendSeqId" column="SEND_DETAIL_SEQID"/>
     <result property="sendPoNo" column="SEND_PO_NO"/>
+    <result property="custCode" column="C_CODE"/>
+    <result property="shortName" column="SHORT_NAME"/>
+    <result property="sendPoNo" column="SEND_PO_NO"/>
     <result property="partNo" column="PART_NO"/>
     <result property="custPartNo" column="C_PART_NO"/>
     <result property="pnDesc" column="PN_DESC"/>
@@ -32,19 +35,14 @@
     <result property="staffName" column="STAFF_NAME"/>
 </resultMap>
 
-<select id="WarehouseSendDetail_getNextId" resultClass="java.lang.String">
-<![CDATA[
-    SELECT ltrim(to_char(Seq_T_WAREHOUSE_SEND_DETAIL_Id.Nextval,'0000000000')) 
-           AS Id 
-    FROM dual
-]]>
-</select>
+
 
 <insert id="WarehouseSendDetail_insertWarehouseSendDetail" parameterClass="warehouseSendDetail" >
 <![CDATA[
-    INSERT INTO T_WAREHOUSE_SEND_DETAIL (
-            SEND_DETAIL_SEQID, 
+    INSERT INTO T_WAREHOUSE_SEND_DETAIL (            
             SEND_PO_NO, 
+			C_CODE,
+			SHORT_NAME,
             PART_NO, 
             C_PART_NO, 
             PN_DESC, 
@@ -69,9 +67,10 @@
 			STAFF_ID,
 			STAFF_NAME
         )
-    VALUES (
-            #sendSeqId#,
+    VALUES (            
             #sendPoNo#,
+			#custCode#,
+			#shortName#,
             #partNo#,
             #custPartNo#,
             #pnDesc#,
@@ -97,6 +96,9 @@
 			#staffName#
     )
 ]]>
+<selectKey resultClass="Integer" keyProperty="sendSeqId">
+            SELECT LAST_INSERT_ID()  
+  </selectKey>
 </insert>
 
 <delete id="WarehouseSendDetail_deleteWarehouseSendDetail" parameterClass="string">
@@ -112,6 +114,13 @@
 	<isNotEmpty prepend="," property="sendPoNo">
             SEND_PO_NO = #sendPoNo#
 	</isNotEmpty>
+	<isNotEmpty prepend="," property="custCode">
+            C_CODE = #custCode#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="shortName">
+            SHORT_NAME = #shortName#
+	</isNotEmpty>
+	
 	<isNotEmpty prepend="," property="partNo">
             PART_NO = #partNo#
 	</isNotEmpty>
@@ -183,6 +192,8 @@
     SELECT
             SEND_DETAIL_SEQID, 
             SEND_PO_NO, 
+			C_CODE,
+			SHORT_NAME,
             PART_NO, 
             C_PART_NO, 
             PN_DESC, 
@@ -215,6 +226,8 @@
     SELECT
             SEND_DETAIL_SEQID, 
             SEND_PO_NO, 
+			C_CODE,
+			SHORT_NAME,
             PART_NO, 
             C_PART_NO, 
             PN_DESC, 
@@ -246,6 +259,12 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "sendPoNo">
 				SEND_PO_NO = #sendPoNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="custCode">
+		            C_CODE = #custCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="shortName">
+		            SHORT_NAME = #shortName#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "partNo">
 				PART_NO = #partNo#
@@ -332,6 +351,12 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "sendPoNo">
 				SEND_PO_NO = #sendPoNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="custCode">
+		            C_CODE = #custCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="shortName">
+		            SHORT_NAME = #shortName#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "partNo">
 				PART_NO = #partNo#

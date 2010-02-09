@@ -1,13 +1,17 @@
 package com.hbs.domain.warehouse.pojo;
 
 import java.util.Date;
+import java.util.List;
+
+import com.hbs.common.utils.DateUtils;
+import com.hbs.domain.common.pojo.base.BaseDomain;
 
 /**
  * WarehouseSendInfo对象.
  * @author hbs
  *
  */
-public class WarehouseSendInfo {
+public class WarehouseSendInfo extends BaseDomain{
     
     /**
      * 发货单号，系统自动产生，规则：GSYYYYMMDDXXX.
@@ -108,10 +112,26 @@ public class WarehouseSendInfo {
      * 客户订单类型0----出库单1---退货单.
      */
     private String poNoType;
-
-
+    /**
+     * 出库单明细列表
+     */
+    private List<WarehouseSendDetail> detailList;
     
-    public String getSendPoNo() {
+    /**
+	 * @return the detailList
+	 */
+	public List<WarehouseSendDetail> getDetailList() {
+		return detailList;
+	}
+
+	/**
+	 * @param detailList the detailList to set
+	 */
+	public void setDetailList(List<WarehouseSendDetail> detailList) {
+		this.detailList = detailList;
+	}
+
+	public String getSendPoNo() {
         return this.sendPoNo;
     }	
   
@@ -270,5 +290,37 @@ public class WarehouseSendInfo {
     public void setPoNoType(String poNoType) {
         this.poNoType = poNoType;
     }
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("sendPoNo=").append(this.sendPoNo).append(" ");
+		sb.append("custCode=").append(this.custCode).append(" ");
+		sb.append("shortName=").append(this.shortName).append(" ");
+		sb.append("receiveName=").append(this.receiveName).append(" ");
+		sb.append("receiveAddress=").append(this.receiveAddress).append(" ");
+		sb.append("receiveZip=").append(this.receiveZip).append(" ");
+		sb.append("conTel=").append(this.conTel).append(" ");
+		sb.append("conFax=").append(this.conFax).append(" ");
+		sb.append("companyBranch=").append(this.companyBranch).append(" ");
+		sb.append("houseType=").append(this.houseType).append(" ");
+		sb.append("settlement_type=").append(this.settlement_type).append(" ");
+		sb.append("createDate=").append(this.createDate == null ? " " :DateUtils.getFormatDate(this.createDate,null)).append(" ");
+		sb.append("operId=").append(this.operId).append(" ");
+		sb.append("operStaff=").append(this.operStaff).append(" ");
+		sb.append("sendDesc=").append(this.sendDesc).append(" ");
+		sb.append("period=").append(this.period).append(" ");
+		sb.append("state=").append(this.state).append(" ");
+		sb.append("activeState=").append(this.activeState).append(" ");
+		sb.append("financeState=").append(this.financeState).append(" ");
+		
+		sb.append("poNoType=").append(this.poNoType).append(" ");
+		sb.append("detailList.size()=").append(this.detailList == null ? 0 : this.detailList.size()).append(" ");
+		
+		return sb.toString();
+	}
 
 }
