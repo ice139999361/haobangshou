@@ -18,7 +18,7 @@
 			    	<!-- service ext ui.  begin. -->
 			    	
 			    		<form id="form"><items>
-			    			<listpanel hidden="true">
+			    			<listpanel>
 				    			<layoutpanel columnNum="1">
 				    				<hidden name="custInfo.baseSeqId" />
 				    				<hidden name="custInfo.state" />
