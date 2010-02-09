@@ -164,7 +164,7 @@ var HBSConvertHelper = {
 	  * 默认的关闭窗口方法
 	  */
 	,defaultCloseTab: function() {
-			ExtConvertHelper.refurbishOpenerTab(urlPs.openerTabId, "querygrid", true);
+			HBSConvertHelper.refurbishOpenerTab("querygrid", true, urlPs.openerTabId);
 	 }
 	 /**
 	  * 获取当前的活动页签
