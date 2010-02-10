@@ -4,6 +4,13 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
+import com.hbs.common.manager.configencode.ConfigEncodeMgr;
+import com.hbs.common.springhelper.BeanLocator;
+import com.hbs.customerinfo.action.CustomerInfoNormalAction;
+import com.hbs.customerinfo.manager.CustomerInfoMgr;
+import com.hbs.domain.common.pojo.ConfigEncode;
 import com.hbs.domain.common.pojo.base.BaseDomain;
 import com.hbs.domain.common.pojo.baseinfo.AccountPreiod;
 import com.hbs.domain.common.pojo.baseinfo.BankInfo;
@@ -516,6 +523,28 @@ public class CustomerInfo extends BaseDomain{
 		this.createTime = createTime;
 	}
 
+	/**
+	 * 根据state返回其中文说明
+	 * @return
+	 */
+	public String getStateDesc() {
+		try {
+			
+			ConfigEncode ce = new ConfigEncode();
+			ce.setEncodeType("CUSTOMER_INFO_STATE");
+			ce.setEncodeKey(getState());
+			ce = ConfigEncodeMgr.getConfigEncode(ce);
+			if(ce == null)
+				return null;
+			else
+				return ce.getEncodeValue();
+		} catch (Exception e) {
+			Logger logger = Logger.getLogger(CustomerInfo.class);
+			logger.error("catch Exception in getStateDesc state=" + getState(), e);
+			return null;
+		}
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
