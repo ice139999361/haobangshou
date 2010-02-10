@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>客户P/N对照</title>
+	<title>客户P/N对照录入</title>
 	<script type="text/javascript" src="<%=contextPath %>/customer/common/CommonPro.js"></script>
 </head>
 
@@ -31,23 +31,23 @@
 				    		
 				    		<listpanel frame="true" title="P/N对照信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<textfield fieldLabel="客户"               name=""                        labelStyle="width:150" allowBlank="false"/>
-				    				<textfield fieldLabel="本公司"             name=""                        labelStyle="width:150" allowBlank="false"/>
+				    				<textfield fieldLabel="客户"               name="custPartNo"              labelStyle="width:150" allowBlank="false"/>
+				    				<textfield fieldLabel="本公司"             name="partNo"                  labelStyle="width:150" allowBlank="false"/>
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">
-				    				<label fieldLabel="描述"                   name=""                        labelStyle="width:150" allowBlank="false"/>
+				    				<label fieldLabel="描述"                   name="pnDesc"                  labelStyle="width:150" allowBlank="false"/>
 				    			</layoutpanel>
 				    		</listpanel>
 				    		
 				    		<listpanel frame="true" title="关联信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<textfield fieldLabel="单价"               name=""                        labelStyle="width:150" />
+				    				<textfield fieldLabel="单价"               name="price"                   labelStyle="width:150" />
 				    				<textfield fieldLabel="最小包装" 			     name=""                        labelStyle="width:150" value="1" />
-				    				<textfield fieldLabel="样品编码" 					 name=""                        labelStyle="width:150" />
+				    				<textfield fieldLabel="样品编码" 					 name="sampleCode"              labelStyle="width:150" />
 				    				
-				    				<textfield fieldLabel="税率"               name=""                        labelStyle="width:150" />				    				
-				    				<textfield fieldLabel="最小订单量" 				 name=""                        labelStyle="width:150" value="0" />
+				    				<textfield fieldLabel="税率"               name="priceTax"                labelStyle="width:150" />				    				
+				    				<textfield fieldLabel="最小订单量" 				 name="minAmount"               labelStyle="width:150" value="0" />
 				    			</layoutpanel>
 				    		</listpanel>
 			    		</items></form>
