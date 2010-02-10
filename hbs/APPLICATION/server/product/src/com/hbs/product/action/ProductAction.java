@@ -42,7 +42,7 @@ public class ProductAction extends BaseAction {
 	
 	/**
 	 * 查询
-	 * @action.input companyPartNo.查询条件
+	 * @action.input partNo.查询条件
 	 * @action.result list：列表 count：总数
 	 * @return
 	 */

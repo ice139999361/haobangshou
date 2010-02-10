@@ -20,16 +20,48 @@
 			</result>
         </global-results>
 
+		<!-- 
+	/**
+	 * 查询物料
+	 * @action.input partNo.查询条件
+	 * @action.result list：列表 count：总数
+	 * @return
+	 */
+		 -->
      	<action name="partNo!list" method="doList" 
     			class="com.hbs.product.action.ProductAction">
 		</action>
+		<!-- 
+	/**
+	 * 获取物料详细信息
+	 * @action.input partNo.partNo
+	 * @action.result partNo.*
+	 * @return
+	 */
+		 -->
      	<action name="partNo!get" method="doGet" 
     			class="com.hbs.product.action.ProductAction">
 		</action>	
 		
+		<!--
+	/**
+	 * 列出物料类别指定id的子类，第一级传入id=0
+	 * @action.input id
+	 * @action.result list：列表 count：总数
+	 * @return
+	 */		 
+		 -->
      	<action name="pClass!list" method="doGetList" 
     			class="com.hbs.product.action.ProductClassAction">
 		</action>
+		<!-- 
+	/**
+	 * 获取指定id的物料类别详细信息
+	 * @action.input id
+	 * @action.result pClass.*
+	 * @return
+	 */
+		 -->
      	<action name="pClass!info" method="doGetInfo" 
     			class="com.hbs.product.action.ProductClassAction">
 		</action>	

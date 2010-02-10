@@ -62,8 +62,7 @@ public class CustomerInfoManagerAction extends BaseAction {
 	 * 审批同意
 	 * @action.input 
 	 *	custInfo.baseSeqId 或 (custInfo.commCode + custInfo.state)
-	 * @action.input
-	 *	auditDesc
+	 * @action.input	auditDesc 审批意见
 	 * @return
 	 */
 	public String doAuditAgree()
