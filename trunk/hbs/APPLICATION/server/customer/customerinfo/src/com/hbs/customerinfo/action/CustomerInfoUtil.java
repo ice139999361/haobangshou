@@ -118,6 +118,11 @@ public class CustomerInfoUtil {
 			if(i == 0)
 			list.add(new FieldErr("AssStaff","AssStaff没有填写"));
 		}
+		s = custInfo.getSettlementType();
+		if(s == null || s.length() == 0)
+		{
+			list.add(new FieldErr("SettlementType","SettlementType没有填写"));
+		}
 		
 		String baseSeqId = null;
 		try {
@@ -135,6 +140,13 @@ public class CustomerInfoUtil {
 			prePaidInfo.setCommCode(custInfo.getCommCode());
 			prePaidInfo.setState(custInfo.getState());
 			prePaidInfo.setBaseSeqId(baseSeqId);
+			
+			// 处理prepaid的reminderday
+			if(custInfo.getSettlementType().equals("2")) {
+				s = prePaidInfo.getReminderDay();
+				if(s == null || s.length() == 0)
+					list.add(new FieldErr("ReminderDay", "ReminderDay没有填写"));
+			}
 		}
 		return list;
 	}
