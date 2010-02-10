@@ -4,7 +4,6 @@
         "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-
 	<package name="app-customerInfo" namespace="/customerInfo" extends="json-default">
 		
 		<global-results>
@@ -27,9 +26,25 @@
     	<action name="customerInfo!getInfo" method="doGetInfo" 
     			class="com.hbs.customerinfo.action.CustomerInfoNormalAction">
 		</action>
+		<!-- 
+	/**
+	 * 临时保存用户信息
+	 * @action.input custInfo.*
+	 * @action.result	seqId	insert的id。如果没有insert操作，则没有这一项。
+	 * @return
+	 */
+		 -->
     	<action name="customerInfo!saveTemp" method="doSaveTemp" 
     			class="com.hbs.customerinfo.action.CustomerInfoNormalAction">
 		</action>
+		<!-- 
+	/**
+	 * 保存用户信息，对于不同的状态，进行不同的操作
+	 * @action.input custInfo.*
+	 * @action.result	seqId	insert的id。如果没有insert操作，则没有这一项。
+	 * @return
+	 */
+		 -->
      	<action name="customerInfo!save" method="doSave" 
     			class="com.hbs.customerinfo.action.CustomerInfoNormalAction">
 		</action>
@@ -41,32 +56,91 @@
     	<action name="customerInfoMgr!getInfo" method="doGetInfo" 
     			class="com.hbs.customerinfo.action.CustomerInfoManagerAction">
 		</action>
+		<!-- 
+	/**
+	 * 查询待审批数据
+	 * @action.input 无
+	 * @action.result list：列表 count：总数
+	 * @return
+	 */
+		 -->
     	<action name="customerInfoMgr!getInfoForAudit" method="doGetInfoForAudit" 
     			class="com.hbs.customerinfo.action.CustomerInfoManagerAction">
 		</action>
+		<!-- 
+	/**
+	 * 审批同意
+	 * @action.input 
+	 *	custInfo.baseSeqId 或 (custInfo.commCode + custInfo.state)
+	 * @action.input	auditDesc 审批意见
+	 * @return
+	 */
+		 -->
      	<action name="customerInfoMgr!auditAgree" method="doAuditAgree" 
     			class="com.hbs.customerinfo.action.CustomerInfoManagerAction">
 		</action>
+		<!-- 
+	/**
+	 * 审批不同意
+	 * @action.input 
+	 *	custInfo.baseSeqId 或 (custInfo.commCode + custInfo.state)
+	 * @action.input
+	 *	auditDesc
+	 * @return
+	 */
+		 -->
      	<action name="customerInfoMgr!auditDisAgree" method="doAuditDisAgree" 
     			class="com.hbs.customerinfo.action.CustomerInfoManagerAction">
 		</action>
-		
+
 		
 		<!-- 普通用户客户物料信息 -->
+ 		<!-- list已经返回了物料关系的所有信息，所以不另外做doGet了 -->
+		<!-- 
+    /**
+     * 查询客户物料关系，判断了用户是否可以查看。
+ 	 * @action.input custPartNoInfo.commCode + custPartNoInfo.查询条件
+	 * @action.result list：列表 count：总数
+     * @return
+     */
+		 -->
      	<action name="custPartNoInfo!list" method="doList" 
     			class="com.hbs.customerinfo.action.CustPartNoInfoNormalAction">
 		</action>
+ 		<!-- 
+    /**
+     * 保存客户物料关系
+     * @action.input	custPartNoInfo.*
+     * @return
+     */
+		 -->
       	<action name="custPartNoInfo!save" method="doSave" 
     			class="com.hbs.customerinfo.action.CustPartNoInfoNormalAction">
 		</action>
-		
+
 		<!-- 经理用户客户物料信息 -->
      	<action name="custPartNoInfoMgr!list" method="doList" 
     			class="com.hbs.customerinfo.action.CustPartNoInfoManagerAction">
 		</action>
+		<!-- 
+    /**
+     * 审批同意
+     * @action.input 	custPartNoInfo.*
+	 * @action.input	auditDesc	审批意见
+     * @return
+     */
+		 -->
       	<action name="custPartNoInfoMgr!auditAgree" method="doAuditAgree" 
     			class="com.hbs.customerinfo.action.CustPartNoInfoManagerAction">
 		</action>
+		<!-- 
+    /**
+     * 审批不同意
+     * @action.input 	custPartNoInfo.*
+	 * @action.input	auditDesc	审批意见
+     * @return
+     */
+		 -->
       	<action name="custPartNoInfoMgr!auditDisAgree" method="doAuditDisAgree" 
     			class="com.hbs.customerinfo.action.CustPartNoInfoManagerAction">
 		</action>
