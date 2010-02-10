@@ -119,14 +119,23 @@ public class CustomerInfoUtil {
 			list.add(new FieldErr("AssStaff","AssStaff√ª”–ÃÓ–¥"));
 		}
 		
+		String baseSeqId = null;
+		try {
+			baseSeqId = custInfo.getBaseSeqId().toString();
+		} catch (Exception e) {
+		}
 		AccountPreiod accountPreiod = custInfo.getAccountPreiod();
 		if(accountPreiod != null) {
 			accountPreiod.setCommCode(custInfo.getCommCode());
+			accountPreiod.setState(custInfo.getState());
+			accountPreiod.setBaseSeqId(baseSeqId);
 		}
 		PrePaidInfo prePaidInfo = custInfo.getPrePaidInfo();
-		if(prePaidInfo != null)
+		if(prePaidInfo != null) {
 			prePaidInfo.setCommCode(custInfo.getCommCode());
-		
+			prePaidInfo.setState(custInfo.getState());
+			prePaidInfo.setBaseSeqId(baseSeqId);
+		}
 		return list;
 	}
 		
