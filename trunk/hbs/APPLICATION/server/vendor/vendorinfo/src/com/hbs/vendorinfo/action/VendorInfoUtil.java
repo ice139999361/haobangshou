@@ -107,13 +107,22 @@ public class VendorInfoUtil {
 			list.add(new FieldErr("IsShowPrice","IsShowPrice√ª”–ÃÓ–¥"));
 		}
 		
+		String baseSeqId = null;
+		try {
+			baseSeqId = vendorInfo.getBaseSeqId().toString();
+		} catch (Exception e) {
+		}
 		AccountPreiod accountPreiod = vendorInfo.getAccountPreiod();
 		if(accountPreiod != null) {
 			accountPreiod.setCommCode(vendorInfo.getCommCode());
+			accountPreiod.setState(vendorInfo.getState());
+			accountPreiod.setBaseSeqId(baseSeqId);
 		}
 		PrePaidInfo prePaidInfo = vendorInfo.getPrePaidInfo();
 		if(prePaidInfo != null)
 			prePaidInfo.setCommCode(vendorInfo.getCommCode());
+			prePaidInfo.setState(vendorInfo.getState());
+			prePaidInfo.setBaseSeqId(baseSeqId);
 		
 		return list;
 	}
