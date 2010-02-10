@@ -46,7 +46,7 @@ var custbankFun = function() {
 	cgh.appendColumn({header: "开户行" 	 , dataIndex: "accountBank"	, xtype: "textfield", width: 200});
 	cgh.appendColumn({header: "帐号" 		 , dataIndex: "account"	    , xtype: "textfield"});
 	
-	cgh.setSubmitFields("accountName,accountBank,account");
+	cgh.setSubmitFields("seqId,accountName,accountBank,account");
 	
 	return cgh;
 }

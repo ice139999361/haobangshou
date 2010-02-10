@@ -18,13 +18,6 @@
 			    	<!-- service ext ui.  begin. -->
 			    	
 			    		<form id="form"><items>
-			    			<listpanel>
-				    			<layoutpanel columnNum="1">
-				    				<hidden name="custInfo.baseSeqId" />
-				    				<hidden name="custInfo.state" />
-				    			</layoutpanel>
-				    		</listpanel>
-				    		
 				    		<listpanel frame="true" title="客户基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
 				    				<textfield fieldLabel="客户编码"               name="custInfo.commCode"       labelStyle="width:150" allowBlank="false"/>
@@ -51,6 +44,11 @@
 				    				<textfield fieldLabel="供应商编码"             name="custInfo.vendorCode"     labelStyle="width:150" />
 				    				<textfield fieldLabel="对应的业务部助理姓名"   name="custInfo.assStaffName"   labelStyle="width:150" />
 				    			</layoutpanel>
+				    			
+				    			<layoutpanel columnNum="1">
+				    				<hidden name="custInfo.baseSeqId" />
+				    				<hidden name="custInfo.state" />
+				    			</layoutpanel>
 				    		</listpanel>
 				    		
 				    		<listpanel frame="true" title="客户结算信息" collapsible="true" titleCollapse="true">
@@ -70,6 +68,11 @@
 				    				<textfield fieldLabel="合同费"                 name="custInfo.contactFee"    labelStyle="width:150" />
 				    				<textfield fieldLabel="交易税率"               name="custInfo.taxRate"        labelStyle="width:150" />
 				    			</layoutpanel>
+				    			
+				    			<layoutpanel columnNum="1">
+				    				<hidden name="custInfo.accountPreiod.seqId" />
+				    				<hidden name="custInfo.prePaidInfo.seqId" />
+				    			</layoutpanel>
 				    		</listpanel>
 			    		</items></form>
 			    		
@@ -82,7 +85,7 @@
 			    				<column header="是否是主联系人" dataIndex="isPrimary" xtype="dictcombo" paramsValue="IS_PRIMARY" />
 			    			</columns>
 			    			
-			    			<submitFields value="conName,conDuty,conTel,conMobile,conFax,conMail,conQq,conMsn,conOther,isPrimary" />
+			    			<submitFields value="seqId,conName,conDuty,conTel,conMobile,conFax,conMail,conQq,conMsn,conOther,isPrimary" />
 			    		</complexgrid>
 			    		
 			    		<complexgrid id="consigneegrid" title="客户收货人信息" itemsFun="contactFun" itemsAlign="after" frame="true" height="200" deftbar="true" url="1">
@@ -98,7 +101,7 @@
 			    				<column header="是否是主收货人" dataIndex="isPrimary"  xtype="dictcombo" paramsValue="IS_PRIMARY" />
 			    			</columns>
 			    			
-			    			<submitFields value="conName,conDuty,conTel,conMobile,conFax,conMail,conQq,conMsn,conOther,conAddress,conZip,isPrimary" />
+			    			<submitFields value="seqId,conName,conDuty,conTel,conMobile,conFax,conMail,conQq,conMsn,conOther,conAddress,conZip,isPrimary" />
 			    		</complexgrid>
 			    		
 			    		<complexgrid id="custbankgrid" title="客户银行信息" itemsFun="custbankFun" frame="true" height="200" deftbar="true" url="1" />
