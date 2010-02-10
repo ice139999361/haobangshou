@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>客户信息查询</title>
+	<title>客户P/N对照查询</title>
 	<script type="text/javascript" src="<%=contextPath %>/customer/common/CommonPro.js"></script>
 </head>
 
@@ -16,26 +16,16 @@
 			    <panel frame="true" autoScroll="true">
 			    	<items>
 			    	<!-- service ext ui.  begin. -->
-			    	
 			    		<queryform gridId="querygrid" exportId="exportBtn">
-			    			<layoutpanel columnNum="6:.3,.11,.05,.15,.05,.3">
-			    				<textfield fieldLabel="客户简称"               name="custInfo.shortName" />
-			    				<label     fieldLabel="客户录入时间"          />
-			    				<label     fieldLabel="从"  labelSeparator="" />
-			    				<datefield hideLabel="true" format="Y-m-d"    width="120" />
-			    				<label     fieldLabel="到"  labelSeparator="" />
-			    				<datefield hideLabel="true" format="Y-m-d"    width="120" />
-			    			</layoutpanel>
-			    			<layoutpanel columnNum="2:.3,.3">
-			    				<checkbox  labelSeparator=""                   name=""  boxLabel="精确查找" />
-			    				<textfield fieldLabel="客户编码"               name="custInfo.commCode"  />
+			    			<layoutpanel columnNum="3">
+			    				<textfield fieldLabel="客户编码"           name="custInfo.commCode"  />
+			    				<textfield fieldLabel="状态"               name=""  />
+			    				<textfield fieldLabel="客户P/N"            name=""  />
+			    				<textfield fieldLabel="本公司P/N"          name=""  />
 			    			</layoutpanel>
 			    		</queryform>
 				    		
-				    		
-				    	
-			
-				    	<complexgrid id="querygrid" title="客户信息列表" frame="true" page="true" root="data.list" url="/customerInfo/customerInfo!list.action">
+				    	<complexgrid id="querygrid" title="客户P/N对照列表" frame="true" page="true" root="data.list" url="/customerInfo/customerInfo!list.action">
 			    			<fields>
 			    				<field name="shortName"     />
 			    				<field name="commCode"      />
@@ -50,20 +40,27 @@
 			    			</fields>
 			    			
 			    			<columns>
-			    				<column header="客户简称"       dataIndex="shortName"     id="shortName" />
+			    				<column isCheck="true"          dataIndex="seqId"         />
 			    				<column header="客户编码"       dataIndex="commCode"      />
-			    				<column header="公司中文名称"   dataIndex="allName"       />
-			    				<column header="客户公司地址"   dataIndex="address"       />
-			    				<column header="客户信用度"     dataIndex="creditDesc"    />
-			    				<column header="客户的重要程度" dataIndex="importantDesc" />
+			    				<column header="客户简称"       dataIndex="shortName"     id="shortName" />
+			    				<column header="客户结算币种"   dataIndex="allName"       />
+			    				<column header="客户P/N"        dataIndex="address"       />
+			    				<column header="本公司P/N"      dataIndex="creditDesc"    />
+			    				<column header="描述"           dataIndex="importantDesc" />
+			    				<column header="单价"           dataIndex="stateDesc"     />
+			    				<column header="税率"           dataIndex=""              />
+			    				<column header="最小包装"       dataIndex=""              />
+			    				<column header="最小订单量"     dataIndex=""              />
+			    				<column header="样品编码"       dataIndex=""              />
 			    				<column header="状态"           dataIndex="stateDesc"     />
-			    				<column header="操作"           dataIndex=""              id="operator" />
+			    				<column header="操作"           dataIndex=""              id="operator" width="250" />
 			    			</columns>
 			    		</complexgrid>
 			    		
 			    		<panel buttonAlign="center">
 			    			<buttons>
-			    				<exportbutton text="导出" url="/test2.action" />
+			    				<button text="删除" id="deleteBtn" />
+			    				<button text="恢复" id="reBtn"   />
 			    			</buttons>
 			    		</panel>
 			    	<!-- service ext ui.  end. -->
@@ -75,4 +72,4 @@
 	</xmp>
 </body>
 </html>
-<script type="text/javascript" src="<%=contextPath %>/customer/querycustomer.js"></script>
+<script type="text/javascript" src="<%=contextPath %>/customer/pnquery.js"></script>
