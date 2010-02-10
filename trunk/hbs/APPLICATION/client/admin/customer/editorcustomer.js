@@ -71,7 +71,7 @@ HBSConvertHelper.init(function() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("修改客户信息");
 		// 隐藏不需要的控件
-		ExtConvertHelper.hideItems("saveBtn");
+		if(urlPs.state != 1) ExtConvertHelper.hideItems("saveBtn");
 		
 		// 组装需要的参数
 		var params = ["custInfo.baseSeqId=", urlPs.baseSeqId].join("");

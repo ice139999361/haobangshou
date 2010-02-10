@@ -37,13 +37,16 @@
 			
 				    	<complexgrid id="querygrid" title="客户信息列表" frame="true" page="true" root="data.list" url="/customerInfo/customerInfo!list.action">
 			    			<fields>
-			    				<field name="baseSeqId"     />
 			    				<field name="shortName"     />
 			    				<field name="commCode"      />
 			    				<field name="allName"       />
 			    				<field name="address"       />
 			    				<field name="creditDesc"    />
-			    				<field name="importantDesc" />
+			    				<field name="importantDesc" />
+			    				<field name="stateDesc"     />
+			    				
+			    				<field name="baseSeqId"     />
+			    				<field name="state"         />
 			    			</fields>
 			    			
 			    			<columns>
@@ -53,6 +56,7 @@
 			    				<column header="客户公司地址"   dataIndex="address"       />
 			    				<column header="客户信用度"     dataIndex="creditDesc"    />
 			    				<column header="客户的重要程度" dataIndex="importantDesc" />
+			    				<column header="状态"           dataIndex="stateDesc"     />
 			    				<column header="操作"           dataIndex=""              id="operator" />
 			    			</columns>
 			    		</complexgrid>
