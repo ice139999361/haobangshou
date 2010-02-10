@@ -26,10 +26,17 @@
                 },
                 {
                 		"id": "pnrelation",
-                    "text": "客户P/N对照",
+                    "text": "客户P/N对照录入",
                     "menuOrder": "30000",
                     "leaf": "true",
                     "url": "/customer/pnrelation.jsp"
+                },
+                {
+                		"id": "pnquery",
+                    "text": "客户P/N对照查询",
+                    "menuOrder": "40000",
+                    "leaf": "true",
+                    "url": "/customer/pnquery.jsp"
                 }
             ]
         },
