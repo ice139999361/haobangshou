@@ -9,6 +9,8 @@ package com.hbs.common.manager.baseinfo;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.customer.common.constants.StateConstants;
 
@@ -36,15 +38,23 @@ public abstract class PrePaidMgr {
 	 * @return
 	 */
 	public abstract String getLogDao();
+	
+	/**
+	 * 抽象方法，获取子类的日志输出
+	 * @return
+	 */
+	public abstract Logger getLogger();
+	
 	/**
 	 * 插入预付费信息,预付费信息的插入
 	 * 如果是跟客户信息同时提交，则跟随客户信息的状态
 	 * @param accountPreiod
 	 * @throws Exception
-	 * @return 0--成功 1---数据库已经存在重复数据
+	 * @return 0--成功 
 	 */
 	public int insertPrePaidInfo(PrePaidInfo prePaidInfo) throws Exception{
 		int ret = 0;
+		getLogger().debug("新增预付费信息，输入的参数为：" + prePaidInfo.toString());
 		PrePaidInfoDao aPrepaidDao = (PrePaidInfoDao) BeanLocator
 				.getInstance().getBean(
 						getPrePaidDao());
@@ -52,7 +62,7 @@ public abstract class PrePaidMgr {
 		if (null == tempPrePaid) {
 			aPrepaidDao.insertPrePaidInfo(prePaidInfo);
 		} else {
-			ret = 1;
+			throw new Exception("新增预付费信息,新增的信息已存在，不能新增！");
 		}
 		return ret;
 	}
@@ -64,6 +74,7 @@ public abstract class PrePaidMgr {
 	 * @throws Exception
 	 */
 	public void deletePrePaidInfo(PrePaidInfo prePaidInfo,boolean isDelCurrent)throws Exception{
+		getLogger().debug("删除预付费信息，输入的参数为：" + prePaidInfo.toString());
 		PrePaidInfoDao aPrepaidDao = (PrePaidInfoDao)BeanLocator.getInstance().getBean(getPrePaidDao());
 		aPrepaidDao.deletePrePaidInfo(prePaidInfo);
 		if(isDelCurrent){
@@ -81,7 +92,9 @@ public abstract class PrePaidMgr {
 	 */
 	public int updatePrePaidInfo(PrePaidInfo prePaidInfo)throws Exception{
 		int ret =0;
+		getLogger().debug("更新预付费信息，输入的参数为：" + prePaidInfo.toString());
 		int state = Integer.parseInt(prePaidInfo.getState());
+		getLogger().debug("更新预付费信息,账期的状态为：" + state);
 		PrePaidInfoDao aPrepaidDao = (PrePaidInfoDao)BeanLocator.getInstance().getBean(getPrePaidDao());
 		//String strLogType = null;
 		switch (state){
@@ -121,7 +134,7 @@ public abstract class PrePaidMgr {
 			aPrepaidDao.updatePrePaidInfoByState(prePaidInfo);
 			//strLogType = "解锁数据";
 		default:
-			ret =1;
+			throw new Exception("更新预付费信息 ,无此类型的状态，无法进行更新！");
 		}
 		
 //		if(null != staffId){//不是随主记录操作，需要记录操作日志
@@ -148,6 +161,7 @@ public abstract class PrePaidMgr {
 	 * @throws Exception
 	 */
 	public PrePaidInfo getPrePaidInfo(PrePaidInfo prePaidInfo)throws Exception{
+		getLogger().debug("查询单个预付费信息，输入的参数为：" + prePaidInfo.toString());
 		PrePaidInfoDao aPrepaidDao = (PrePaidInfoDao) BeanLocator
 		.getInstance().getBean(
 				getPrePaidDao());
@@ -161,6 +175,7 @@ public abstract class PrePaidMgr {
 	 * @throws Exception
 	 */
 	public List<PrePaidInfo> listPrePaidInfo(PrePaidInfo prePaidInfo)throws Exception{
+		getLogger().debug("查询预付费信息，输入的参数为：" + prePaidInfo.toString());
 		PrePaidInfoDao aPrepaidDao = (PrePaidInfoDao) BeanLocator
 		.getInstance().getBean(
 				getPrePaidDao());

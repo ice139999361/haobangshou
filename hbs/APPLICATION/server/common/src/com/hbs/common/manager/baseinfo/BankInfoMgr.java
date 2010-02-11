@@ -9,6 +9,8 @@ package com.hbs.common.manager.baseinfo;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.customer.common.constants.StateConstants;
 
@@ -35,21 +37,29 @@ public abstract class BankInfoMgr {
 	 * @return
 	 */
 	public abstract String getLogDao();
+	
+	/**
+	 * 抽象方法，获取子类的日志输出
+	 * @return
+	 */
+	public abstract Logger getLogger();
 	/**
 	 * 插入银行信息,银行信息的插入，
 	 * 客户信息同时提交，则跟随客户信息的状态	 
 	 * @param bankInfo	 
-	 * @return  0--成功 1---数据库已经存在重复数据
+	 * @return  0--成功 
 	 * @throws Exception
 	 */
 	public int insertBankInfo(BankInfo bankInfo) throws Exception{
 		int ret =0;
+		getLogger().debug("新增银行信息，输入的参数为：" + bankInfo.toString());
 		BankInfoDao bankInfoDao =(BankInfoDao)BeanLocator.getInstance().getBean(getBankInfoDao());
 		BankInfo bInfo = bankInfoDao.findBankInfo(bankInfo);
 		if(null == bInfo){
 			bankInfoDao.insertBankInfo(bankInfo);
 		}else{
-			ret = 1;
+			//ret = 1;
+			throw new Exception("新增银行信息,新增的信息已存在，不能新增！");
 		}
 		return ret;
 	}
@@ -63,6 +73,7 @@ public abstract class BankInfoMgr {
 	 */
 	public int insertBankInfoList(List<BankInfo> bankInfoList) throws Exception{
 		int ret =0;
+		getLogger().debug("批量新增银行信息，批量数量为：" + bankInfoList.size());
 		for(BankInfo bankInfo : bankInfoList){
 			insertBankInfo(bankInfo);
 		}
@@ -75,6 +86,7 @@ public abstract class BankInfoMgr {
 	 * @throws Exception
 	 */
 	public void deleteBankInfo(BankInfo bankInfo,boolean isDelCurrent)throws Exception{
+		getLogger().debug("删除银行信息,输入的参数为：" + bankInfo.toString());
 		BankInfoDao bankInfoDao = (BankInfoDao)BeanLocator.getInstance().getBean(getBankInfoDao());
 		bankInfoDao.deleteBankInfo(bankInfo);
 		if(isDelCurrent){
@@ -91,7 +103,9 @@ public abstract class BankInfoMgr {
 	 */
 	public int updateBankInfo(BankInfo bankInfo)throws Exception{
 		int ret =0;
+		getLogger().debug("更新银行信息,输入的参数为：" + bankInfo.toString());
 		int state = Integer.parseInt(bankInfo.getState());
+		getLogger().debug("更新银行信息,状态为：" + state);
 		BankInfoDao bankInfoDao = (BankInfoDao)BeanLocator.getInstance().getBean(getBankInfoDao());
 		//String strLogType = null;
 		switch (state){
@@ -132,7 +146,7 @@ public abstract class BankInfoMgr {
 			bankInfoDao.updateBankInfoByState(bankInfo);
 			//strLogType = "解锁数据";
 		default:
-			ret =1;
+			throw new Exception("更新银行信息 ,无此类型的状态，无法进行更新！");
 		}
 //		if(null != staffName){
 //			operLog( staffId, staffName, strLogType, bankInfo.getBaseSeqId(), otherInfo);
@@ -151,6 +165,7 @@ public abstract class BankInfoMgr {
 	 */
 	public int updateBankInfoList(List<BankInfo> bankInfoList ) throws Exception{
 		int ret =0;
+		getLogger().debug("批量更新银行信息，批量数量为：" + bankInfoList.size());
 		for(BankInfo bankInfo : bankInfoList){
 			updateBankInfo( bankInfo);
 		}
@@ -187,11 +202,13 @@ public abstract class BankInfoMgr {
 	 * @throws Exception
 	 */
 	public BankInfo getBankInfo(BankInfo bankInfo) throws Exception{
+		getLogger().debug("查询单条银行信息,输入的参数为：" + bankInfo.toString());
 		BankInfoDao bankInfoDao = (BankInfoDao)BeanLocator.getInstance().getBean(getBankInfoDao());
 		return bankInfoDao.findBankInfo(bankInfo);
 	}
 	
 	public BankInfo getBankInfoById(String seqId) throws Exception{
+		getLogger().debug("根据主键查询单条银行信息,输入的参数为：" + seqId);
 		BankInfoDao bankInfoDao = (BankInfoDao)BeanLocator.getInstance().getBean(getBankInfoDao());
 		return bankInfoDao.findBankInfoById(seqId);
 	}
@@ -202,6 +219,7 @@ public abstract class BankInfoMgr {
 	 * @throws Exception
 	 */
 	public List<BankInfo> listBankInfo(BankInfo bankInfo) throws Exception{
+		getLogger().debug("查询银行信息,输入的参数为：" + bankInfo.toString());
 		BankInfoDao bankInfoDao = (BankInfoDao)BeanLocator.getInstance().getBean(getBankInfoDao());
 		return bankInfoDao.listBankInfo(bankInfo);
 	}

@@ -7,6 +7,8 @@
 package com.hbs.customerinfo.manager;
 
 
+import org.apache.log4j.Logger;
+
 import com.hbs.common.manager.baseinfo.AccountPreiodMgr;
 import com.hbs.customerinfo.constants.CustInfoConstants;
 
@@ -17,6 +19,7 @@ import com.hbs.customerinfo.constants.CustInfoConstants;
  */
 public class CustAccountPreiodMgr extends AccountPreiodMgr {
 
+	private static final Logger logger = Logger.getLogger(CustAccountPreiodMgr.class);
 	/* (non-Javadoc)
 	 * @see com.hbs.customer.common.manager.AccountPreiodMgr#getAccountPreiodDao()
 	 */
@@ -33,6 +36,15 @@ public class CustAccountPreiodMgr extends AccountPreiodMgr {
 	public String getLogDao() {
 		// TODO Auto-generated method stub
 		return CustInfoConstants.CUSTOMEROPERLOGDAO;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.hbs.common.manager.baseinfo.AccountPreiodMgr#getLogger()
+	 */
+	@Override
+	public Logger getLogger() {
+		// TODO Auto-generated method stub
+		return logger;
 	}
 
 

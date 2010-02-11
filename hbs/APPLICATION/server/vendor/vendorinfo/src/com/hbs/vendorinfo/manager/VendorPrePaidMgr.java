@@ -6,6 +6,8 @@
  */
 package com.hbs.vendorinfo.manager;
 
+import org.apache.log4j.Logger;
+
 import com.hbs.common.manager.baseinfo.PrePaidMgr;
 import com.hbs.vendorinfo.constants.VendorInfoConstants;
 
@@ -15,6 +17,7 @@ import com.hbs.vendorinfo.constants.VendorInfoConstants;
  */
 public class VendorPrePaidMgr extends PrePaidMgr {
 
+	private static final Logger logger = Logger.getLogger(VendorPrePaidMgr.class);
 	/* (non-Javadoc)
 	 * @see com.hbs.common.manager.baseinfo.PrePaidMgr#getLogDao()
 	 */
@@ -31,6 +34,15 @@ public class VendorPrePaidMgr extends PrePaidMgr {
 	public String getPrePaidDao() {
 		// TODO Auto-generated method stub
 		return VendorInfoConstants.VENDOR_OPERLOGDAO;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.hbs.common.manager.baseinfo.PrePaidMgr#getLogger()
+	 */
+	@Override
+	public Logger getLogger() {
+		// TODO Auto-generated method stub
+		return logger;
 	}
 
 }

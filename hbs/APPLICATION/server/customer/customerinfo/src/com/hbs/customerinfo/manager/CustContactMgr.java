@@ -6,11 +6,14 @@
  */
 package com.hbs.customerinfo.manager;
 
+import org.apache.log4j.Logger;
+
 import com.hbs.common.manager.baseinfo.ContactMgr;
 import com.hbs.customerinfo.constants.CustInfoConstants;
 
 public class CustContactMgr extends ContactMgr {
 
+	private static final Logger logger = Logger.getLogger(CustContactMgr.class);
 	/* (non-Javadoc)
 	 * @see com.hbs.common.manager.baseinfo.ContactMgr#getContactInfoDao()
 	 */
@@ -27,6 +30,15 @@ public class CustContactMgr extends ContactMgr {
 	public String getLogDao() {
 		// TODO Auto-generated method stub
 		return CustInfoConstants.CUSTOMEROPERLOGDAO;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.hbs.common.manager.baseinfo.ContactMgr#getLogger()
+	 */
+	@Override
+	public Logger getLogger() {
+		// TODO Auto-generated method stub
+		return logger;
 	}
 
 }
