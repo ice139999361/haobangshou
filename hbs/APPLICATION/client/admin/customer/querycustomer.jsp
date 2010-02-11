@@ -22,9 +22,9 @@
 			    				<textfield fieldLabel="客户简称"               name="custInfo.shortName" />
 			    				<label     fieldLabel="客户录入时间"          />
 			    				<label     fieldLabel="从"  labelSeparator="" />
-			    				<datefield hideLabel="true" format="Y-m-d"    width="120" />
+			    				<datefield hideLabel="true" format="Y-m-d" name="custInfo.dynamicFields.likeBegainTime"   width="120" />
 			    				<label     fieldLabel="到"  labelSeparator="" />
-			    				<datefield hideLabel="true" format="Y-m-d"    width="120" />
+			    				<datefield hideLabel="true" format="Y-m-d" name="custInfo.dynamicFields.likeEndTime"   width="120" />
 			    			</layoutpanel>
 			    			<layoutpanel columnNum="2:.3,.3">
 			    				<checkbox  labelSeparator=""                   name=""  boxLabel="精确查找" />

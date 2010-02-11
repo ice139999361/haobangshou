@@ -157,8 +157,6 @@ public class CustomerInfoNormalAction extends BaseAction {
 				return ERROR;
 			}
 
-			if (custInfo.getState() == null || custInfo.getState() == "")
-				custInfo.setState("2");
 			if (CustomerInfoUtil.checkSetStaffId(custInfo))
 				setMyId(true);
 			CustomerInfoUtil.processListData(custInfo, this
@@ -174,6 +172,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 			CustomerInfoMgr mgr = (CustomerInfoMgr) BeanLocator.getInstance()
 					.getBean(custInfoMgrName);
 
+			/*
 			CustomerInfo info2 = mgr.getCustomerInfo(custInfo, false);
 			int ret;
 			if (info2 != null)
@@ -185,6 +184,8 @@ public class CustomerInfoNormalAction extends BaseAction {
 				ret = mgr.commitCustomerInfo(custInfo, getLoginStaff()
 						.getStaffId(), getLoginStaff().getStaffName());
 			}
+			*/
+			int ret = mgr.commitCustomerInfo(custInfo, getLoginStaff().getStaffId(), getLoginStaff().getStaffName());
 			if (ret < 0) {
 				String s;
 				switch (ret) {
