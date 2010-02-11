@@ -39,7 +39,7 @@ public class VendorOrderDetailMgr {
 		int ret =0;
 		logger.debug("保存订单明细：输入的参数为：" + detail.toString());
 		Integer operSeqId = detail.getOperSeqId();
-		detail.setMoney(OrderCalUtils.calOrderMoney(detail.getCprice(), detail.getIsTax(), detail.getTaxRate(), detail.getAmount()));
+		detail.setMoney(OrderCalUtils.calOrderMoney(detail.getCprice(), detail.getIsTax(), detail.getTaxRate(), detail.getCpriceTax(),null,detail.getAmount()));
 		VendorOrderDetailDao vDetailDao =(VendorOrderDetailDao)BeanLocator.getInstance().getBean(VendorOrderConstants.VENDOR_ORDER_DETAIL_DAO);
 		if(null == operSeqId){//不存在序列号，表示是新增
 			detail.setState(VendorOrderConstants.VENDOR_ORDER_STATE_01);
@@ -84,7 +84,7 @@ public class VendorOrderDetailMgr {
 	public int updateTempOrderDetail(VendorOrderDetail detail,boolean isflowOrder , String content) throws Exception{
 		int ret =0;
 		logger.debug("修改临时订单明细，输入的参数为：" + detail.toString());
-		detail.setMoney(OrderCalUtils.calOrderMoney(detail.getCprice(), detail.getIsTax(), detail.getTaxRate(), detail.getAmount()));
+		detail.setMoney(OrderCalUtils.calOrderMoney(detail.getCprice(), detail.getIsTax(), detail.getTaxRate(),detail.getCprice(),null, detail.getAmount()));
 		VendorOrderDetailDao vDetailDao =(VendorOrderDetailDao)BeanLocator.getInstance().getBean(VendorOrderConstants.VENDOR_ORDER_DETAIL_DAO);
 		vDetailDao.updateVendorOrderDetail(detail);
 		if(!isflowOrder){//不是更随主订单提交，记录操作日志
