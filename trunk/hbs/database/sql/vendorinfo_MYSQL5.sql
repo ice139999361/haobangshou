@@ -252,10 +252,12 @@ CREATE TABLE `t_vendor_order_detail` (
   `STAFF_NAME` varchar(32) NOT NULL DEFAULT '' COMMENT '操作人姓名',
   `SETTLEMENT_TYPE` varchar(32) NOT NULL DEFAULT '' COMMENT '结算方式',
   `CUST_C_CODE` varchar(32) DEFAULT NULL COMMENT '针对0----客户采购单，3-- 特定客户备货有效',
+  `C_PRICE_TAX` float(6,4) DEFAULT NULL COMMENT '单价税率，和单价的关系，税率为0，单价为不含税，税率不为0，单价为含税',
   PRIMARY KEY (`ORDER_SEQID`),
   KEY `RLT_VENDOR_ORDER_PART_NO` (`C_CODE`,`PO_NO`),
   CONSTRAINT `RLT_VENDOR_ORDER_PART_NO` FOREIGN KEY (`C_CODE`, `PO_NO`) REFERENCES `t_vendor_order` (`C_CODE`, `PO_NO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='供应商采购订单物料明细表，关联订单表';
+
 
 
 #
@@ -292,11 +294,13 @@ CREATE TABLE `t_vendor_order_detail_his` (
   `STATE` varchar(8) DEFAULT '0' COMMENT '业务状态：  01---采购创建订单明细（采购临时保存订单明细，其他人无法查看）  02---采购确认采购订单明细（可以正式走流程，其他人可以查看）  03---采购取消采购订单（当前订单明细取消)  04---待收货入库  00---关闭采购订单  60----部分入库  61----全部入库',
   `ACTIVE_STATE` varchar(8) DEFAULT NULL COMMENT '订单明细的活动状态：  PAUSE---采购暂停订单（暂停状态，订单的业务状态停留在当前，除业务外，不能激活订单）  ACTIVE---采购激活订单（激活暂停的订单，采购操作）  ',
   `RLT_REC_PO_NO` varchar(128) DEFAULT NULL COMMENT '关联的入库单号，可能有多个，以,号分隔',
-  `STAFF_ID` varchar(20) NOT NULL default '' COMMENT '操作人员ID',
-  `STAFF_NAME` varchar(32) NOT NULL default '' COMMENT '操作人姓名',
-  `SETTLEMENT_TYPE` varchar(32) NOT NULL default '' COMMENT '结算方式',
+  `STAFF_ID` varchar(20) NOT NULL DEFAULT '' COMMENT '操作人员ID',
+  `STAFF_NAME` varchar(32) NOT NULL DEFAULT '' COMMENT '操作人姓名',
+  `SETTLEMENT_TYPE` varchar(32) NOT NULL DEFAULT '' COMMENT '结算方式',
+  `C_PRICE_TAX` float(6,4) DEFAULT NULL COMMENT '单价税率，和单价的关系，税率为0，单价为不含税，税率不为0，单价为含税',
   PRIMARY KEY (`ORDER_SEQID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='供应商采购订单物料明细历史表，关联订单表';
+
 
 #
 # Dumping data for table t_vendor_order_detail_his

@@ -167,6 +167,8 @@ CREATE TABLE `t_cust_order_detail` (
   `AMOUNT` int(11) NOT NULL DEFAULT '0' COMMENT '订货数量',
   `MONEY` float(9,2) DEFAULT NULL COMMENT '总金额',
   `DELIVERY_AMOUNT` int(11) DEFAULT '0' COMMENT '已经发货数量',
+  `COMM_DELIVERY_AMOUNT` int(11) NOT NULL DEFAULT '0' COMMENT '常规库存出货数目',
+  `SELF_DELIVERY_AMOUNT` int(11) NOT NULL DEFAULT '0' COMMENT '本客户备货发送数目',
   `LOCK_AMOUNT` int(11) DEFAULT '0' COMMENT '仓库锁定数量',
   `SELF_LOCK_AMOUNT` int(11) DEFAULT '0' COMMENT ' 本客户锁定数量',
   `COMM_LOCK_AMOUNT` int(11) DEFAULT '0' COMMENT '通用库存锁定数量',
@@ -185,9 +187,13 @@ CREATE TABLE `t_cust_order_detail` (
   `STAFF_NAME` varchar(32) DEFAULT NULL COMMENT '操作员姓名（业务助理）',
   `SALES_ID` varchar(20) NOT NULL DEFAULT '' COMMENT '销售人员ID(业务员)',
   `SALES` varchar(32) DEFAULT NULL COMMENT '销售人员姓名（业务员）',
+  `CONTACT_FEE` float(6,4) DEFAULT NULL COMMENT '合同费',
+  `C_PRICE_TAX` float(6,4) DEFAULT NULL COMMENT '单价税率，和单价的关系，税率为0，单价为不含税，税率不为0，单价为含税',  
   PRIMARY KEY (`ORDER_SEQID`),
   KEY `C_CODE` (`C_CODE`,`PO_NO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='客户订单物料明细表，关联订单表';
+
+
 
 
 #
@@ -217,6 +223,8 @@ CREATE TABLE `t_cust_order_detail_his` (
   `AMOUNT` int(11) NOT NULL COMMENT '订货数量',
   `MONEY` float(9,2) DEFAULT NULL COMMENT '总金额',
   `DELIVERY_AMOUNT` int(11) DEFAULT '0' COMMENT '已经发货数量',
+  `COMM_DELIVERY_AMOUNT` int(11) NOT NULL DEFAULT '0' COMMENT '常规库存出货数目',
+  `SELF_DELIVERY_AMOUNT` int(11) NOT NULL DEFAULT '0' COMMENT '本客户备货发送数目',
   `LOCK_AMOUNT` int(11) DEFAULT '0' COMMENT '仓库锁定数量',
   `SELF_LOCK_AMOUNT` int(11) DEFAULT NULL,
   `COMM_LOCK_AMOUNT` int(11) DEFAULT NULL,
@@ -234,8 +242,12 @@ CREATE TABLE `t_cust_order_detail_his` (
   `STAFF_ID` varchar(20) NOT NULL DEFAULT '' COMMENT '操作员ID(业务助理)',
   `STAFF_NAME` varchar(32) DEFAULT NULL COMMENT '操作员姓名（业务助理）',
   `SALES_ID` varchar(20) NOT NULL DEFAULT '' COMMENT '销售人员ID(业务员)',
-  `SALES` varchar(32) DEFAULT NULL COMMENT '销售人员姓名（业务员）'
+  `SALES` varchar(32) DEFAULT NULL COMMENT '销售人员姓名（业务员）',
+  `CONTACT_FEE` float(6,4) DEFAULT NULL COMMENT '合同费',
+  `C_PRICE_TAX` float(6,4) DEFAULT NULL COMMENT '单价税率，和单价的关系，税率为0，单价为不含税，税率不为0，单价为含税'
 ) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='客户订单物料明细历史表，关联订单表';
+
+
 
 
 #
