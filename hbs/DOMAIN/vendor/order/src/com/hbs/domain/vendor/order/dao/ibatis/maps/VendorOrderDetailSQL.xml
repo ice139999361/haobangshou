@@ -14,6 +14,7 @@
     <result property="partNo" column="PART_NO"/>
     <result property="pnDesc" column="PN_DESC"/>
     <result property="cprice" column="C_PRICE"/>
+    <result property="cpriceTax" column="C_PRICE_TAX"/>
     <result property="isTax" column="IS_TAX"/>
     <result property="taxRate" column="TAX_RATE"/>
     <result property="specDesc" column="SPEC_DESC"/>
@@ -45,7 +46,8 @@
             C_PART_NO, 
             PART_NO, 
             PN_DESC, 
-            C_PRICE, 
+            C_PRICE,
+            C_PRICE_TAX, 
             IS_TAX, 
             TAX_RATE, 
             SPEC_DESC, 
@@ -74,6 +76,7 @@
             #partNo#,
             #pnDesc#,
             #cprice#,
+            #cpriceTax#,
             #isTax#,
             #taxRate#,
             #specDesc#,
@@ -233,6 +236,9 @@
 	<isNotEmpty prepend="," property="cprice">
             C_PRICE = #cprice#
 	</isNotEmpty>
+	<isNotEmpty prepend="," property="cpriceTax">
+            C_PRICE_TAX = #cpriceTax#
+	</isNotEmpty>
 	<isNotEmpty prepend="," property="isTax">
             IS_TAX = #isTax#
 	</isNotEmpty>
@@ -302,6 +308,7 @@
             PART_NO, 
             PN_DESC, 
             C_PRICE, 
+            C_PRICE_TAX,
             IS_TAX, 
             TAX_RATE, 
             SPEC_DESC, 
@@ -336,6 +343,7 @@
             PART_NO, 
             PN_DESC, 
             C_PRICE, 
+            C_PRICE_TAX,
             IS_TAX, 
             TAX_RATE, 
             SPEC_DESC, 
@@ -394,7 +402,8 @@
             C_PART_NO, 
             PART_NO, 
             PN_DESC, 
-            C_PRICE, 
+            C_PRICE,
+            C_PRICE_TAX, 
             IS_TAX, 
             TAX_RATE, 
             SPEC_DESC, 

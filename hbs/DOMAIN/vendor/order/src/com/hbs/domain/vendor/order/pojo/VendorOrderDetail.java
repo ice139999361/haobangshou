@@ -63,6 +63,11 @@ public class VendorOrderDetail extends BaseDomain{
     private BigDecimal cprice;
     
     /**
+     * 单价税率，和单价的关系，税率为0，单价为不含税，税率不为0，单价为含税
+     */
+    private BigDecimal cpriceTax;
+    
+    /**
      * 是否含税交易1--是0--否如果单价是含税的，则一定是1，否则可以选择是否含税交易.
      */
     private String isTax;
@@ -389,7 +394,15 @@ public class VendorOrderDetail extends BaseDomain{
     }
 
     
-    public String getLogKey(){
+    public BigDecimal getCpriceTax() {
+		return cpriceTax;
+	}
+
+	public void setCpriceTax(BigDecimal cpriceTax) {
+		this.cpriceTax = cpriceTax;
+	}
+
+	public String getLogKey(){
     	StringBuilder sb = new StringBuilder();
     	sb.append(this.commCode).append(";").append(this.poNo).append(this.operSeqId);
     	return sb.toString();
@@ -407,6 +420,7 @@ public class VendorOrderDetail extends BaseDomain{
 		sb.append("partNo=").append(this.partNo).append(" ");
 		sb.append("pnDesc=").append(this.pnDesc).append(" ");
 		sb.append("cprice=").append(this.cprice.floatValue()).append(" ");
+		sb.append("cpriceTax=").append(this.cpriceTax != null ? this.cpriceTax.floatValue() : " ").append(" ");
 		sb.append("isTax=").append(this.isTax).append(" ");
 		sb.append("taxRate=").append(this.taxRate.floatValue()).append(" ");
 		sb.append("specDesc=").append(this.specDesc).append(" ");
