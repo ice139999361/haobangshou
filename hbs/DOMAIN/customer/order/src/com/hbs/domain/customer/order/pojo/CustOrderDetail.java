@@ -101,7 +101,16 @@ public class CustOrderDetail extends BaseDomain{
     /**
      * 已经发货数量.
      */
-    private Integer deliveryAmount=0;
+    private Integer deliveryAmount;
+    
+    /**
+     * 本客户库存发货数量
+     */
+    private Integer selfDeliveryAmount;
+    /**
+     * 通用库存发货数量
+     */
+    private Integer commDeliveryAmount;
     /**
      * 发货对应的仓库总库/其他库，缺省为公司总库1
      */
@@ -110,17 +119,17 @@ public class CustOrderDetail extends BaseDomain{
     /**
      * 仓库锁定数量.
      */
-    private Integer lockAmount=0;
+    private Integer lockAmount;
     
     /**
      * 本客户锁定数量.
      */
-    private Integer selfLockAmount=0;
+    private Integer selfLockAmount;
     
     /**
      * 通用库存锁定数量.
      */
-    private Integer commLockAmount=0;
+    private Integer commLockAmount;
     
     /**
      * 订单原始交货日期.
@@ -188,7 +197,10 @@ public class CustOrderDetail extends BaseDomain{
      */
     private String rltSendPoNo;
 
-
+    /**
+     * 合同费
+     */
+    private BigDecimal contactFee;
     
     public String getOperSeqId() {
         return this.operSeqId;
@@ -332,7 +344,23 @@ public class CustOrderDetail extends BaseDomain{
         this.deliveryAmount = deliveryAmount;
     }
     
-    public Integer getLockAmount() {
+    public Integer getSelfDeliveryAmount() {
+		return selfDeliveryAmount;
+	}
+
+	public void setSelfDeliveryAmount(Integer selfDeliveryAmount) {
+		this.selfDeliveryAmount = selfDeliveryAmount;
+	}
+
+	public Integer getCommDeliveryAmount() {
+		return commDeliveryAmount;
+	}
+
+	public void setCommDeliveryAmount(Integer commDeliveryAmount) {
+		this.commDeliveryAmount = commDeliveryAmount;
+	}
+
+	public Integer getLockAmount() {
         return this.lockAmount;
     }	
   
@@ -477,6 +505,14 @@ public class CustOrderDetail extends BaseDomain{
 		this.deliveryHouseType = deliveryHouseType;
 	}
 
+	public BigDecimal getContactFee() {
+		return contactFee;
+	}
+
+	public void setContactFee(BigDecimal contactFee) {
+		this.contactFee = contactFee;
+	}
+
 	public String getBizKey(){
     	StringBuilder sb = new StringBuilder();
     	sb.append(this.commCode).append(";");
@@ -527,6 +563,8 @@ public class CustOrderDetail extends BaseDomain{
 		sb.append("commDesc=").append(this.commDesc).append(" ");
 		sb.append("amount=").append(this.amount).append(" ");
 		sb.append("money=").append(this.money != null ? this.money.floatValue() : "  ").append(" ");
+		sb.append("selfDeliveryAmount=").append(this.selfDeliveryAmount).append(" ");
+		sb.append("commDeliveryAmount=").append(this.commDeliveryAmount).append(" ");
 		sb.append("deliveryAmount=").append(this.deliveryAmount).append(" ");
 		sb.append("deliveryHouseType=").append(this.deliveryHouseType).append(" ");
 		sb.append("lockAmount=").append(this.lockAmount).append(" ");
@@ -545,7 +583,7 @@ public class CustOrderDetail extends BaseDomain{
 		sb.append("sales=").append(this.sales).append(" ");
 		sb.append("activeState=").append(this.activeState).append(" ");
 		sb.append("rltSendPoNo=").append(this.rltSendPoNo).append(" ");
-
+		sb.append("contactFee=").append(this.contactFee != null ? this.contactFee.floatValue() : "  ").append(" ");
 		
 		return sb.toString();
 	}
