@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans >
+	<!-- 仓库出库单 -->
+	<bean id="wareHouseSendMgr" class="com.hbs.warehousesend.manager.WareHouseSendMgr">		
+	</bean>
+	
+	<!-- 仓库出库单明细   -->
+	<bean id="wareHouseSendDetailMgr" class="com.hbs.warehousesend.manager.WareHouseSendDetailMgr">		
+	</bean>
+	
+	<!-- 状态接口类 -->
+	<bean id="warehouseSendHelper"
+		class="com.hbs.warehousesend.manager.helper.WarehouseSendHelper"
+		abstract="true">		
+	</bean>
+	
+	<!-- 账期状态实现类  parent ="warehouseHelper" warehouserec 订单类型（出库单类型）  结算方式（账期结算） -->
+	<bean id="warehouseSend01" class="com.hbs.warehousesend.manager.helper.SendPeriodHelper">		
+	</bean>
+	<bean id="warehouseSend11" class="com.hbs.warehousesend.manager.helper.SendPeriodHelper">		
+	</bean>
+	
+	
+	<!-- 预付费状态实现类parent ="warehouseHelper" warehouserec 订单类型（出库单类型）  结算方式（预付X%,剩余货到付款） -->
+	<bean id="warehouseSend02" class="com.hbs.warehousesend.manager.helper.SendPrePaidHelper">		
+	</bean>
+	<bean id="warehouseSend12" class="com.hbs.warehousesend.manager.helper.SendPrePaidHelper">		
+	</bean>
+	
+	
+	<!-- 预付费状态实现类 parent ="warehouseHelper" warehouserec 订单类型（出库单类型）  结算方式（预付X%剩余款到发货）-->
+	<bean id="warehouseSend03" class="com.hbs.warehousesend.manager.helper.SendPrePaidHelper">		
+	</bean>
+	<bean id="warehouseSend13" class="com.hbs.warehousesend.manager.helper.SendPrePaidHelper">		
+	</bean>
+	
+</beans>
