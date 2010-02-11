@@ -19,7 +19,7 @@
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="物料信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<textfield fieldLabel="物料编码"   name="partNo.pnCode"             labelStyle="width:150" />
+				    				<textfield fieldLabel="物料编码"   name="partNo.partNo"             labelStyle="width:150" />
 				    				<textfield fieldLabel="含税价格"   name="partNo.taxPrice"             labelStyle="width:150" />
 				    					
 				    				<dictcombo fieldLabel="所属类别"   hiddenName="partNo.clsCode"       labelStyle="width:150" paramsValue="SETTLEMENT_TYPE" emptyText="请选择" />

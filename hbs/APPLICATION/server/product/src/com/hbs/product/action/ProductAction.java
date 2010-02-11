@@ -103,10 +103,10 @@ public class ProductAction extends BaseAction {
 	public String doSave() {
     	try
     	{
-			if (logger.isDebugEnabled())    logger.debug("begin doSave");
+			if (logger.isDebugEnabled())    logger.debug("begin doSave " + partNo);
 
 			List<FieldErr> errs = CompanyPartNoUtil.checkInputFields(partNo);
-			if(errs.isEmpty())
+			if(!errs.isEmpty())
 			{
 				String s = FieldErr.formFieldsErrString(errs);
 				logger.info(s);
@@ -115,7 +115,12 @@ public class ProductAction extends BaseAction {
 			}
 
 			CompanyPartNoMgr mgr = (CompanyPartNoMgr)BeanLocator.getInstance().getBean(companyPartNoMgrName);
-			int i = mgr.saveCompanyPartNo(partNo);
+			CompanyPartNo partNo2 = mgr.getCompanyPartNo(partNo.getPartNo());
+			int i;
+			if(partNo2 == null)
+				i = mgr.saveCompanyPartNo(partNo);
+			else
+				i = mgr.updateCompanyPartNo(partNo);
 			if(i != 0)
 			{
 				logger.info("±£´æ³ö´í£¡");
