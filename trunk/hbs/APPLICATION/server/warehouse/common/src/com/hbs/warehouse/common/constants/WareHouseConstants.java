@@ -18,6 +18,8 @@ public interface WareHouseConstants {
 	
 	public static final String WAREHOUSE_REC_DETAILMGR ="wareHouseRecDetailMgr";
 	
+	public static final String WAREHOUSE_SEND_DETAILMGR ="wareHouseSendDetailMgr";
+	
 	public static final String  VENDOR_ORDER_DETAILMGR="vendorOrderDetailMgr";
 	
 	public static final String  CUST_ORDER_DETAILMGR ="custOrderDetailMgr";
@@ -27,10 +29,16 @@ public interface WareHouseConstants {
 	public static final String WAREHOUSE_REC_ACTIVE="ACTIVE";
 	public static final String WAREHOUSE_REC_PAUSE = "PAUSE";
 	
+	public static final String WAREHOUSE_SEND_ACTIVE="ACTIVE";
+	public static final String WAREHOUSE_SEND_PAUSE = "PAUSE";
 	
 	public static final String WAREHOUSE_REC_FINANCE_STATE_0="0";  //未对账
 	public static final String WAREHOUSE_REC_FINANCE_STATE_1="1";  //已对账
 	public static final String WAREHOUSE_REC_FINANCE_STATE_2="2";  //部分对账
+	
+	public static final String WAREHOUSE_SEND_FINANCE_STATE_0="0";  //未对账
+	public static final String WAREHOUSE_SEND_FINANCE_STATE_1="1";  //已对账
+	public static final String WAREHOUSE_SEND_FINANCE_STATE_2="2";  //部分对账
 	
 	
 	public static final String WAREHOUSE_REC_INFO_01 ="01";//临时保存入库单
@@ -50,5 +58,8 @@ public interface WareHouseConstants {
 	public static final String WAREHOUSE_USE_TYPE_2 = "2"; //常规备货
 	
 	
-	public static final String PRE_SPRING="warehouse";
+	public static final String PRE_SPRING="warehouseRec";
+	public static final String PRE_SPRING_SEND="warehouseSend";
+	
+	public static final String CUST_SEND_PONO = "C_SEND_PONO";
 }
