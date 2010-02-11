@@ -127,5 +127,32 @@ public class WarehouseSendInfoHisDaoImpl extends SqlMapClientDaoSupport implemen
 			WarehouseSendInfo warehouseSendInfo) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.hbs.domain.warehouse.dao.WarehouseSendInfoDao#updateWarehouseSendInfoByActiveState(com.hbs.domain.warehouse.pojo.WarehouseSendInfo)
+	 */
+	public void updateWarehouseSendInfoByActiveState(
+			WarehouseSendInfo warehouseSendInfo) throws DataAccessException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.hbs.domain.warehouse.dao.WarehouseSendInfoDao#updateWarehouseSendInfoByFinanceState(com.hbs.domain.warehouse.pojo.WarehouseSendInfo)
+	 */
+	public void updateWarehouseSendInfoByFinanceState(
+			WarehouseSendInfo warehouseSendInfo) throws DataAccessException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.hbs.domain.warehouse.dao.WarehouseSendInfoDao#updateWarehouseSendInfoByState(com.hbs.domain.warehouse.pojo.WarehouseSendInfo)
+	 */
+	public void updateWarehouseSendInfoByState(
+			WarehouseSendInfo warehouseSendInfo) throws DataAccessException {
+		// TODO Auto-generated method stub
+		
 	}  
 }

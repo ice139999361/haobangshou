@@ -64,6 +64,11 @@ public class WarehouseSendDetail extends BaseDomain{
     private BigDecimal price;
     
     /**
+     * 单价税率，和单价的关系，税率为0，单价为不含税，税率不为0，单价为含税
+     */
+    private BigDecimal priceTax;
+    
+    /**
      * 税率.
      */
     private BigDecimal taxRate;
@@ -136,6 +141,14 @@ public class WarehouseSendDetail extends BaseDomain{
      * 出货数量.
      */
     private Integer amount=0;
+    /**
+     * 本客户库存出货数量，同客户订单对应
+     */
+    private Integer selfAmount =0;
+    /**
+     * 通用库存出货数量，同客户订单对应
+     */
+    private Integer commAmount =0;
     
     /**
      * 本次出货金额.
@@ -193,9 +206,68 @@ public class WarehouseSendDetail extends BaseDomain{
      */
     private String staffName;
     
+    /**
+     * 合同费
+     */
+    private BigDecimal contactFee;
     
+    /**
+     *  财务确认的账期或财务调整的账期
+     */
+    private String financePeriod;
     
-    
+    /**
+     * 本次出货仓库类型，同客户订单对应
+     */
+    private String houseType;
+
+	public String getFinancePeriod() {
+		return financePeriod;
+	}
+
+	public Integer getSelfAmount() {
+		return selfAmount;
+	}
+
+	public void setSelfAmount(Integer selfAmount) {
+		this.selfAmount = selfAmount;
+	}
+
+	public Integer getCommAmount() {
+		return commAmount;
+	}
+
+	public void setCommAmount(Integer commAmount) {
+		this.commAmount = commAmount;
+	}
+
+	public String getHouseType() {
+		return houseType;
+	}
+
+	public void setHouseType(String houseType) {
+		this.houseType = houseType;
+	}
+
+	public void setFinancePeriod(String financePeriod) {
+		this.financePeriod = financePeriod;
+	}
+
+	public BigDecimal getPriceTax() {
+		return priceTax;
+	}
+
+	public void setPriceTax(BigDecimal priceTax) {
+		this.priceTax = priceTax;
+	}
+
+	public BigDecimal getContactFee() {
+		return contactFee;
+	}
+
+	public void setContactFee(BigDecimal contactFee) {
+		this.contactFee = contactFee;
+	}
 
 	/**
 	 * @return the staffId
@@ -410,6 +482,15 @@ public class WarehouseSendDetail extends BaseDomain{
         this.poNoType = poNoType;
     }
 
+    
+    public String getLogKey(){
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(this.sendPoNo).append(";");
+    	sb.append(this.custCode).append(";");
+    	sb.append(this.sendSeqId);
+    	return sb.toString();
+    	
+    }
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -426,12 +507,15 @@ public class WarehouseSendDetail extends BaseDomain{
 		sb.append("specDesc=").append(this.specDesc).append(" ");
 		sb.append("isTax=").append(this.isTax).append(" ");
 		sb.append("price=").append(this.price == null ? " " : this.price.floatValue()).append(" ");
+		sb.append("priceTax=").append(this.priceTax == null ? " " : this.priceTax.floatValue()).append(" ");
 		sb.append("taxRate=").append(this.taxRate == null ? " " : this.taxRate.floatValue()).append(" ");
 		sb.append("isShowPrice=").append(this.isShowPrice).append(" ");
 		sb.append("rltPoNo=").append(this.rltPoNo).append(" ");
 		sb.append("settlementType=").append(this.settlementType).append(" ");
 		sb.append("commDesc=").append(this.commDesc).append(" ");
 		sb.append("amount=").append(this.amount.intValue()).append(" ");
+		sb.append("selfAmount=").append(this.selfAmount.intValue()).append(" ");
+		sb.append("commAmount=").append(this.commAmount.intValue()).append(" ");
 		sb.append("curMoney=").append(this.curMoney == null ? " " : this.curMoney.floatValue()).append(" ");
 		sb.append("vendorCode=").append(this.vendorCode).append(" ");
 		sb.append("vendorPoNo=").append(this.vendorPoNo).append(" ");
@@ -440,10 +524,12 @@ public class WarehouseSendDetail extends BaseDomain{
 		sb.append("state=").append(this.state).append(" ");
 		sb.append("activeState=").append(this.activeState).append(" ");
 		sb.append("financeState=").append(this.financeState).append(" ");
+		sb.append("financePeriod=").append(this.financePeriod).append(" ");
 		sb.append("poNoType=").append(this.poNoType).append(" ");
 		sb.append("staffId=").append(this.staffId).append(" ");
 		sb.append("staffName=").append(this.staffName).append(" ");
-		
+		sb.append("houseType=").append(this.houseType).append(" ");
+		sb.append("contactFee=").append(this.contactFee == null ? " " : this.contactFee.floatValue()).append(" ");
 		return sb.toString();
 	}
 

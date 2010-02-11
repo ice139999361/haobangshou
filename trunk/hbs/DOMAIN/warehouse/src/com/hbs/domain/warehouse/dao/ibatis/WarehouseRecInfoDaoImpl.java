@@ -122,11 +122,12 @@ public class WarehouseRecInfoDaoImpl extends SqlMapClientDaoSupport implements W
      * @return warehouseRecInfo list
      * @throws DataAccessException DataAccessException
      */
-    public List listWarehouseRecInfo(WarehouseRecInfo warehouseRecInfo) throws DataAccessException {
+    @SuppressWarnings("unchecked")
+	public List<WarehouseRecInfo> listWarehouseRecInfo(WarehouseRecInfo warehouseRecInfo) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listWarehouseRecInfo(WarehouseRecInfo), 输入参数[" + warehouseRecInfo + "]");
 		}
-        List list = getSqlMapClientTemplate().queryForList("WarehouseRecInfo_listWarehouseRecInfo", warehouseRecInfo);
+        List<WarehouseRecInfo> list = getSqlMapClientTemplate().queryForList("WarehouseRecInfo_listWarehouseRecInfo", warehouseRecInfo);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listWarehouseRecInfo(WarehouseRecInfo), 返回[" + list + "]");
 		}

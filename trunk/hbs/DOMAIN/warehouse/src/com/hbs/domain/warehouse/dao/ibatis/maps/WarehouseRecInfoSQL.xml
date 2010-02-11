@@ -270,7 +270,7 @@
 			<isNotEmpty prepend="and"
 				property="dynamicFields.endPoNoDate">
 				<![CDATA[	
-					ORDER_TIME < STR_TO_DATE('$dynamicFields.dndPoNoDate$','%Y-%m-%d')
+					ORDER_TIME < STR_TO_DATE('$dynamicFields.endPoNoDate$','%Y-%m-%d')
 				]]>
 			</isNotEmpty>
 			<isNotEmpty prepend="and"
@@ -363,7 +363,7 @@
 			<isNotEmpty prepend="and"
 				property="dynamicFields.endPoNoDate">
 				<![CDATA[	
-					ORDER_TIME < STR_TO_DATE('$dynamicFields.dndPoNoDate$','%Y-%m-%d')
+					ORDER_TIME < STR_TO_DATE('$dynamicFields.endPoNoDate$','%Y-%m-%d')
 				]]>
 			</isNotEmpty>
 			<isNotEmpty prepend="and"

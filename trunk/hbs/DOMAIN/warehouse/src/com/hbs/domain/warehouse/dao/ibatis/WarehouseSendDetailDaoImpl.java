@@ -27,16 +27,16 @@ public class WarehouseSendDetailDaoImpl extends SqlMapClientDaoSupport implement
      * @return id
      * @throws DataAccessException DataAccessException
      */
-    public void insertWarehouseSendDetail(WarehouseSendDetail warehouseSendDetail) throws DataAccessException {
+    public Integer insertWarehouseSendDetail(WarehouseSendDetail warehouseSendDetail) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入insertWarehouseSendDetail(WarehouseSendDetail), 输入参数[" + warehouseSendDetail + "]");
     	}
       
-    	getSqlMapClientTemplate().insert("WarehouseSendDetail_insertWarehouseSendDetail", warehouseSendDetail);
+    	Integer iRet =(Integer)getSqlMapClientTemplate().insert("WarehouseSendDetail_insertWarehouseSendDetail", warehouseSendDetail);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开insertWarehouseSendDetail(WarehouseSendDetail), 返回]");
 		}
-    	
+    	return iRet;
     }
 
     /**
@@ -69,6 +69,47 @@ public class WarehouseSendDetailDaoImpl extends SqlMapClientDaoSupport implement
 		}
     }
     
+    public void updateWarehouseSendDetailByState(WarehouseSendDetail warehouseSendDetail) throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+    		logger.debug("进入updateWarehouseSendDetail(WarehouseSendDetail), 输入参数[" + warehouseSendDetail + "]");
+		}
+    	getSqlMapClientTemplate().update("WarehouseSendDetail_updateWarehouseSendDetailByState", warehouseSendDetail);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开updateWarehouseSendDetail(WarehouseSendDetail)");
+		}
+    }
+    
+    public void updateWarehouseSendDetailByActiveState(WarehouseSendDetail warehouseSendDetail) throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+    		logger.debug("进入updateWarehouseSendDetail(WarehouseSendDetail), 输入参数[" + warehouseSendDetail + "]");
+		}
+    	getSqlMapClientTemplate().update("WarehouseSendDetail_updateWarehouseSendDetailByActiveState", warehouseSendDetail);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开updateWarehouseSendDetail(WarehouseSendDetail)");
+		}
+    }
+    
+    public void updateWarehouseSendDetailByFinanceState(WarehouseSendDetail warehouseSendDetail) throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+    		logger.debug("进入updateWarehouseSendDetail(WarehouseSendDetail), 输入参数[" + warehouseSendDetail + "]");
+		}
+    	getSqlMapClientTemplate().update("WarehouseSendDetail_updateWarehouseSendDetailByFinanceState", warehouseSendDetail);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开updateWarehouseSendDetail(WarehouseSendDetail)");
+		}
+    }
+    
+    public void updateWarehouseSendDetailByFinancePeriod(WarehouseSendDetail warehouseSendDetail) throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+    		logger.debug("进入updateWarehouseSendDetail(WarehouseSendDetail), 输入参数[" + warehouseSendDetail + "]");
+		}
+    	getSqlMapClientTemplate().update("WarehouseSendDetail_updateWarehouseSendDetailByFinancePeriod", warehouseSendDetail);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开updateWarehouseSendDetail(WarehouseSendDetail)");
+		}
+    }
+    
+    
     /**
      * find.
      * @param id id
@@ -85,18 +126,28 @@ public class WarehouseSendDetailDaoImpl extends SqlMapClientDaoSupport implement
 		}
         return warehouseSendDetail;
     }
-    
+    public WarehouseSendDetail findWarehouseSendDetailByBizKey(WarehouseSendDetail warehouseSendDetail) throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+        	logger.debug("进入findWarehouseSendDetail(WarehouseSendDetail), 输入参数[" + warehouseSendDetail + "]");
+		}
+        WarehouseSendDetail detail = (WarehouseSendDetail) getSqlMapClientTemplate().queryForObject("WarehouseSendDetail_findWarehouseSendDetailByBizKey", warehouseSendDetail);
+		if (logger.isDebugEnabled()) {
+        	logger.debug("离开findWarehouseSendDetail(WarehouseSendDetail), 返回[" + warehouseSendDetail + "]");
+		}
+        return detail;
+    }
     /**
      * list.
      * @param warehouseSendDetail warehouseSendDetail
      * @return warehouseSendDetail list
      * @throws DataAccessException DataAccessException
      */
-    public List listWarehouseSendDetail(WarehouseSendDetail warehouseSendDetail) throws DataAccessException {
+    @SuppressWarnings("unchecked")
+	public List<WarehouseSendDetail> listWarehouseSendDetail(WarehouseSendDetail warehouseSendDetail) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listWarehouseSendDetail(WarehouseSendDetail), 输入参数[" + warehouseSendDetail + "]");
 		}
-        List list = getSqlMapClientTemplate().queryForList("WarehouseSendDetail_listWarehouseSendDetail", warehouseSendDetail);
+        List<WarehouseSendDetail> list = getSqlMapClientTemplate().queryForList("WarehouseSendDetail_listWarehouseSendDetail", warehouseSendDetail);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listWarehouseSendDetail(WarehouseSendDetail), 返回[" + list + "]");
 		}

@@ -27,16 +27,16 @@ public class WarehouseSendDetailHisDaoImpl extends SqlMapClientDaoSupport implem
      * @return id
      * @throws DataAccessException DataAccessException
      */
-    public void insertWarehouseSendDetail(WarehouseSendDetail warehouseSendDetail) throws DataAccessException {
+    public Integer insertWarehouseSendDetail(WarehouseSendDetail warehouseSendDetail) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入insertWarehouseSendDetail(WarehouseSendDetail), 输入参数[" + warehouseSendDetail + "]");
     	}
        
-    	getSqlMapClientTemplate().insert("WarehouseSendDetail_insertWarehouseSendDetail", warehouseSendDetail);
+    	Integer iRet =(Integer)getSqlMapClientTemplate().insert("WarehouseSendDetail_insertWarehouseSendDetail", warehouseSendDetail);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开insertWarehouseSendDetail(WarehouseSendDetail), 返回");
 		}
-    	
+    	return iRet;
     }
 
     /**
@@ -118,5 +118,50 @@ public class WarehouseSendDetailHisDaoImpl extends SqlMapClientDaoSupport implem
         	logger.debug("离开listWarehouseSendDetailCount(WarehouseSendDetail), 返回[" + count + "]");
 		}
         return count;
-    }  
+    }
+
+	/* (non-Javadoc)
+	 * @see com.hbs.domain.warehouse.dao.WarehouseSendDetailDao#findWarehouseSendDetailByBizKey(com.hbs.domain.warehouse.pojo.WarehouseSendDetail)
+	 */
+	public WarehouseSendDetail findWarehouseSendDetailByBizKey(
+			WarehouseSendDetail warehouseSendDetail) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.hbs.domain.warehouse.dao.WarehouseSendDetailDao#updateWarehouseSendDetailByActiveState(com.hbs.domain.warehouse.pojo.WarehouseSendDetail)
+	 */
+	public void updateWarehouseSendDetailByActiveState(
+			WarehouseSendDetail warehouseSendDetail) throws DataAccessException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.hbs.domain.warehouse.dao.WarehouseSendDetailDao#updateWarehouseSendDetailByFinancePeriod(com.hbs.domain.warehouse.pojo.WarehouseSendDetail)
+	 */
+	public void updateWarehouseSendDetailByFinancePeriod(
+			WarehouseSendDetail warehouseSendDetail) throws DataAccessException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.hbs.domain.warehouse.dao.WarehouseSendDetailDao#updateWarehouseSendDetailByFinanceState(com.hbs.domain.warehouse.pojo.WarehouseSendDetail)
+	 */
+	public void updateWarehouseSendDetailByFinanceState(
+			WarehouseSendDetail warehouseSendDetail) throws DataAccessException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.hbs.domain.warehouse.dao.WarehouseSendDetailDao#updateWarehouseSendDetailByState(com.hbs.domain.warehouse.pojo.WarehouseSendDetail)
+	 */
+	public void updateWarehouseSendDetailByState(
+			WarehouseSendDetail warehouseSendDetail) throws DataAccessException {
+		// TODO Auto-generated method stub
+		
+	}  
 }

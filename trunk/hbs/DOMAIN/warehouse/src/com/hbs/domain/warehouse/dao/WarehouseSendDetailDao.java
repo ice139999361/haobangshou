@@ -17,7 +17,7 @@ public interface WarehouseSendDetailDao {
      * @return id
      * @throws DataAccessException DataAccessException
      */
-    void insertWarehouseSendDetail(WarehouseSendDetail warehouseSendDetail) throws DataAccessException ;
+    Integer insertWarehouseSendDetail(WarehouseSendDetail warehouseSendDetail) throws DataAccessException ;
 
     /**
      * delete.
@@ -32,7 +32,10 @@ public interface WarehouseSendDetailDao {
      * @throws DataAccessException DataAccessException
      */
     void updateWarehouseSendDetail(WarehouseSendDetail warehouseSendDetail) throws DataAccessException ;
-
+    void updateWarehouseSendDetailByState(WarehouseSendDetail warehouseSendDetail) throws DataAccessException ;
+    void updateWarehouseSendDetailByActiveState(WarehouseSendDetail warehouseSendDetail) throws DataAccessException ;
+    void updateWarehouseSendDetailByFinanceState(WarehouseSendDetail warehouseSendDetail) throws DataAccessException ;
+    void updateWarehouseSendDetailByFinancePeriod(WarehouseSendDetail warehouseSendDetail) throws DataAccessException ;
     /**
      * find.
      * @param id id
@@ -40,6 +43,7 @@ public interface WarehouseSendDetailDao {
      * @throws DataAccessException DataAccessException
      */
     WarehouseSendDetail findWarehouseSendDetail(String id) throws DataAccessException ;
+    WarehouseSendDetail findWarehouseSendDetailByBizKey(WarehouseSendDetail warehouseSendDetail) throws DataAccessException ;
     
     /**
      * list.
@@ -47,7 +51,7 @@ public interface WarehouseSendDetailDao {
      * @return warehouseSendDetail list
      * @throws DataAccessException DataAccessException
      */
-    List listWarehouseSendDetail(WarehouseSendDetail warehouseSendDetail) throws DataAccessException ;
+    List<WarehouseSendDetail> listWarehouseSendDetail(WarehouseSendDetail warehouseSendDetail) throws DataAccessException ;
     
     /**
      * listCount.
