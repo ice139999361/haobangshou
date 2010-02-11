@@ -9,7 +9,7 @@
     <result property="clsName" column="P_CLS_NAME"/>
     <result property="clsDesc" column="P_CLS_DESC"/>
     <result property="parentClsCode" column="PARENT_CLS_CODE"/>
-    <result property="clsLevel" column="P_CLASS_LEVEL"/>
+    <result property="clsLevel" column="P_CLS_LEVEL"/>
 </resultMap>
 
 
@@ -19,7 +19,7 @@
             P_CLS_NAME, 
             P_CLS_DESC,
 			PARENT_CLS_CODE,
-			P_CLASS_LEVEL
+			P_CLS_LEVEL
         )
     VALUES (			           
             #clsName#,
@@ -50,7 +50,7 @@
             PARENT_CLS_CODE = #parentClsCode#
 	</isNotEmpty>
 	<isNotEmpty prepend="," property="clsLevel">
-            P_CLASS_LEVEL = #clsLevel#
+            P_CLS_LEVEL = #clsLevel#
 	</isNotEmpty>
     WHERE P_CLS_CODE = #clsCode#
 </update> 
@@ -62,7 +62,7 @@
             P_CLS_NAME, 
             P_CLS_DESC,
 			PARENT_CLS_CODE,
-			P_CLASS_LEVEL
+			P_CLS_LEVEL
     FROM T_PRODUCT_CLASS WHERE P_CLS_CODE = #clsCode#
 ]]>
 </select>
@@ -74,7 +74,7 @@
             P_CLS_NAME, 
             P_CLS_DESC,
 			PARENT_CLS_CODE,
-			P_CLASS_LEVEL
+			P_CLS_LEVEL
     FROM T_PRODUCT_CLASS
 ]]>
 		<dynamic prepend="WHERE">
@@ -91,7 +91,7 @@
 			</isNotEmpty>	
 			
 			<isNotEmpty prepend="and" property = "clsLevel">
-				P_CLASS_LEVEL = #clsLevel#
+				P_CLS_LEVEL = #clsLevel#
 			</isNotEmpty>
 			
 			<isNotEmpty prepend="order by" property="sort">
@@ -124,7 +124,7 @@
 			</isNotEmpty>	
 			
 			<isNotEmpty prepend="and" property = "clsLevel">
-				P_CLASS_LEVEL = #clsLevel#
+				P_CLS_LEVEL = #clsLevel#
 			</isNotEmpty>
 		</dynamic>
 </select>
