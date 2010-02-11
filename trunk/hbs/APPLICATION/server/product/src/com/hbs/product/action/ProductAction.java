@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.hbs.common.action.FieldErr;
 import com.hbs.common.action.base.BaseAction;
 import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.domain.product.pojo.CompanyPartNo;
@@ -92,5 +93,45 @@ public class ProductAction extends BaseAction {
 			setErrorReason("内部错误");
 			return ERROR;	
 		}
+	}
+	
+    /**
+     * 保存物料信息
+     * @action.input	partNo.*
+     * @return
+     */
+	public String doSave() {
+    	try
+    	{
+			if (logger.isDebugEnabled())    logger.debug("begin doSave");
+
+			List<FieldErr> errs = CompanyPartNoUtil.checkInputFields(partNo);
+			if(errs.isEmpty())
+			{
+				String s = FieldErr.formFieldsErrString(errs);
+				logger.info(s);
+				setErrorReason(s);
+				return ERROR;
+			}
+
+			CompanyPartNoMgr mgr = (CompanyPartNoMgr)BeanLocator.getInstance().getBean(companyPartNoMgrName);
+			int i = mgr.saveCompanyPartNo(partNo);
+			if(i != 0)
+			{
+				logger.info("保存出错！");
+				setErrorReason("保存出错！");
+				return ERROR;
+			}
+			this.setAlertMsg("提交成功！");
+			if (logger.isDebugEnabled())    logger.debug("end doSave");
+    		return SUCCESS;
+    	}
+    	catch(Exception e)
+    	{
+    		logger.error("catch Exception in doSave.", e);
+			setErrorReason("内部错误");
+			return ERROR;
+    	}
+
 	}
 }

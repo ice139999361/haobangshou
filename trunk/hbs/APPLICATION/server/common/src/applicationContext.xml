@@ -55,7 +55,8 @@
 		<property name="configLocation" 
 		          value="sqlMapConfig-domain-system.xml,
 		          sqlMapConfig-domain-waittask.xml,
-		          sqlMapConfig-domain-customerinfo.xml" />                   
+		          sqlMapConfig-domain-customerinfo.xml,
+		          sqlMapConfig-domain-product.xml" />                   
 		<property name="dataSource" ref="dataSource" />
 		
 		
@@ -87,11 +88,12 @@
 <!--	<import resource="classpath:applicationContext-domain-vendororder.xml" /> -->
 <!--	<import resource="classpath:applicationContext-domain-warehouse.xml" /> -->
 	<import resource="classpath:applicationContext-domain-waittask.xml" /> 
-	
+	<import resource="classpath:application-domain-product.xml" />
 	
 	<!-- app -->
     <import resource="classpath:applicationContext-app-common.xml" />
     <import resource="classpath:applicationContext-app-customerinfo.xml" />
 	<import resource="classpath:applicationContext-app-customerorder.xml" />
 	<import resource="classpath:applicationContext-app-vendorinfo.xml" />
+	<import resource="classpath:applicationContext-app-product.xml" />
 </beans>

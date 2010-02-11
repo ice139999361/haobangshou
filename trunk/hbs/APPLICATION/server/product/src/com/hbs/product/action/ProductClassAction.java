@@ -74,6 +74,7 @@ public class ProductClassAction extends BaseAction {
 			if(pClass == null)
 				pClass = new ProductClass();
 			setPagination(pClass);
+			logger.debug("doList " + pClass);
 			ProductClassMgr mgr = (ProductClassMgr) BeanLocator.getInstance().getBean(productClassMgrName);
 			List<ProductClass> list = mgr.getProductClassList(pClass);
 			setResult("list", list);
@@ -81,7 +82,7 @@ public class ProductClassAction extends BaseAction {
 			setResult("count", getTotalCount());
 			return SUCCESS;
 		} catch (Exception e) {
-			logger.error("catch Exception in doGet.", e);
+			logger.error("catch Exception in doList.", e);
 			setErrorReason("ÄÚ²¿´íÎó");
 			return ERROR;	
 		}
