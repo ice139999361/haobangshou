@@ -22,6 +22,8 @@
     <result property="amount" column="AMOUNT"/>
     <result property="money" column="MONEY"/>
     <result property="deliveryAmount" column="DELIVERY_AMOUNT"/>
+    <result property="selfDeliveryAmount" column="SELF_DELIVERY_AMOUNT"/>
+    <result property="commDeliveryAmount" column="COMM_DELIVERY_AMOUNT"/>
     <result property="deliveryHouseType" column="DELIVERY_HOUSE_TYPE"/>
     <result property="lockAmount" column="LOCK_AMOUNT"/>
     <result property="selfLockAmount" column="SELF_LOCK_AMOUNT"/>
@@ -40,6 +42,7 @@
     <result property="staffName" column="STAFF_NAME"/>
     <result property="salesId" column="SALES_ID"/>
     <result property="sales" column="SALES"/>
+    <result property="contactFee" column="CONTACT_FEE"/>
 </resultMap>
 
 <insert id="CustOrderDetail_insertCustOrderDetail" parameterClass="custOrderDetail" >
@@ -60,7 +63,9 @@
             COMM_DESC, 
             AMOUNT, 
             MONEY, 
-            DELIVERY_AMOUNT, 
+            DELIVERY_AMOUNT,
+            SELF_DELIVERY_AMOUNT, 
+            COMM_DELIVERY_AMOUNT,  
             DELIVERY_HOUSE_TYPE,
             LOCK_AMOUNT, 
             SELF_LOCK_AMOUNT, 
@@ -78,7 +83,8 @@
             STAFF_ID,
             STAFF_NAME,
             SALES_ID,
-            SALES
+            SALES,
+            CONTACT_FEE
         )
     VALUES (           
             #commCode#,
@@ -97,6 +103,8 @@
             #amount#,
             #money#,
             #deliveryAmount#,
+            #selfDeliveryAmount#,
+            #commDeliveryAmount#,
             #deliveryHouseType#,
             #lockAmount#,
             #selfLockAmount#,
@@ -114,7 +122,8 @@
             #staffId#,
             #staffName#,
             #salesId#,
-            #sales#
+            #sales#,
+            #contactFee#
     )
 ]]>
 </insert>
@@ -206,16 +215,27 @@
             STATE = #state#
 	</isNotEmpty>
 	 <isNotEmpty prepend="," property="deliveryAmount">
-            DELIVERY_AMOUNT = DELIVERY_AMOUNT +  #deliveryAmount#
+            DELIVERY_AMOUNT = #deliveryAmount#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="selfDeliveryAmount">
+            SELF_DELIVERY_AMOUNT = #selfDeliveryAmount#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="commDeliveryAmount">
+            SELF_DELIVERY_AMOUNT = #commDeliveryAmount#
 	</isNotEmpty>
 	<isNotEmpty prepend="," property="lockAmount">
-            LOCK_AMOUNT = LOCK_AMOUNT + #lockAmount#
+            LOCK_AMOUNT =  #lockAmount#
 	</isNotEmpty>
 	<isNotEmpty prepend="," property="selfLockAmount">
-            SELF_LOCK_AMOUNT = SELF_LOCK_AMOUNT + #selfLockAmount#
+            SELF_LOCK_AMOUNT = #selfLockAmount#
 	</isNotEmpty>
 	<isNotEmpty prepend="," property="commLockAmount">
-            COMM_LOCK_AMOUNT =  COMM_LOCK_AMOUNT + #commLockAmount#
+            COMM_LOCK_AMOUNT =   #commLockAmount#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="rltSendPoNo">            
+         <![CDATA[ 
+         	RLT_SEND_PO_NO = CONCAT_WS(',',RLT_SEND_PO_NO,#rltSendPoNo#)
+         ]]>
 	</isNotEmpty>
 	
 	<dynamic prepend="WHERE">
@@ -339,6 +359,9 @@
 	<isNotEmpty prepend="," property="sales">
             SALES = #sales#
 	</isNotEmpty>
+	<isNotEmpty prepend="," property="contactFee">
+            CONTACT_FEE = #contactFee#
+	</isNotEmpty>
     WHERE ORDER_SEQID = #operSeqId#
 </update> 
 
@@ -379,7 +402,8 @@
             STAFF_ID,
             STAFF_NAME,
             SALES_ID,
-            SALES
+            SALES,
+            CONTACT_FEE
     FROM T_CUST_ORDER_DETAIL  WHERE ORDER_SEQID = #operSeqId#
 ]]>	
 </select>
@@ -421,7 +445,8 @@
             STAFF_ID,
             STAFF_NAME,
             SALES_ID,
-            SALES
+            SALES,
+            CONTACT_FEE
     FROM T_CUST_ORDER_DETAIL 
 ]]>
 	<dynamic prepend="WHERE">
@@ -531,7 +556,8 @@
             STAFF_ID,
             STAFF_NAME,
             SALES_ID,
-            SALES
+            SALES,
+            CONTACT_FEE
     FROM T_CUST_ORDER_DETAIL
 ]]>
 		<dynamic prepend="WHERE">
