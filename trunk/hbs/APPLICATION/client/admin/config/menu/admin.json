@@ -37,6 +37,30 @@
                     "menuOrder": "40000",
                     "leaf": "true",
                     "url": "/customer/pnquery.jsp"
+                },
+                {
+                		"id": "editororder",
+                    "text": "客户订单录入",
+                    "menuOrder": "40000",
+                    "leaf": "true",
+                    "url": "/customer/editororder.jsp"
+                }
+            ]
+        },
+        {
+            "id": "systemadmin",
+            "text": "系统管理员",
+            "menuOrder": "20000",
+            "iconCls": "nav",
+            "leaf": false,
+            "icon": "/portal/images/title_icon02.gif",
+            "children": [
+                {
+                		"id": "materiel_add",
+                    "text": "本公司物料录入",
+                    "menuOrder": "10000",
+                    "leaf": "true",
+                    "url": "/materiel/editormateriel.jsp"
                 }
             ]
         },

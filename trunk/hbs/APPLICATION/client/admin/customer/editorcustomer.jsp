@@ -54,7 +54,7 @@
 				    		<listpanel frame="true" title="客户结算信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
 				    				<dictcombo fieldLabel="客户结算类型"           hiddenName="custInfo.settlementType" labelStyle="width:150" paramsValue="SETTLEMENT_TYPE" emptyText="请选择" />
-				    				<dictcombo fieldLabel="账期类型" 			   hiddenName="custInfo.accountPreiod.accountType" labelStyle="width:150" paramsValue="ACCOUNT_TYPE" emptyText="请选择" />
+				    				<dictcombo fieldLabel="账期类型" 			         hiddenName="custInfo.accountPreiod.accountType" labelStyle="width:150" paramsValue="ACCOUNT_TYPE" emptyText="请选择" />
 				    				<textfield fieldLabel="账期的起始日" 					 name="custInfo.accountPreiod.periodStart"       labelStyle="width:150" />
 				    				<textfield fieldLabel="账期的结算日" 					 name="custInfo.accountPreiod.settlementDay"       labelStyle="width:150" />
 				    				<textfield fieldLabel="提醒设置" 							 name="custInfo.accountPreiod.reminderDay"       labelStyle="width:150" />
