@@ -173,6 +173,7 @@ public class AccountPreiod {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
+		sb.append(seqId).append(";");
 		sb.append(baseSeqId).append(";");
 		sb.append(commCode).append(";");
 		sb.append(state).append(";");

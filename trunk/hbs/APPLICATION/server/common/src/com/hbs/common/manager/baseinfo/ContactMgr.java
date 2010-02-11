@@ -9,6 +9,8 @@ package com.hbs.common.manager.baseinfo;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.customer.common.constants.StateConstants;
 import com.hbs.domain.common.dao.baseinfo.ContactInfoDao;
@@ -34,6 +36,12 @@ public abstract class ContactMgr {
 	 * @return
 	 */
 	public abstract String getLogDao();
+	
+	/**
+	 * 抽象方法，获取子类的日志输出
+	 * @return
+	 */
+	public abstract Logger getLogger();
 	/**
 	 * 插入联系人信息,银行信息的插入，如果是单独插入，则状态为待审批，直接提交审批，
 	 * 如果是跟客户信息同时提交，则跟随客户信息的状态	 
@@ -45,12 +53,13 @@ public abstract class ContactMgr {
 	 */
 	public int insertContactInfo(ContactInfo contactInfo) throws Exception{
 		int ret =0;
+		getLogger().debug("新增联系人信息，输入的参数为：" + contactInfo.toString());
 		ContactInfoDao contactInfoDao =(ContactInfoDao)BeanLocator.getInstance().getBean(getContactInfoDao());
 		ContactInfo cInfo = contactInfoDao.findContactInfo(contactInfo);
 		if(null == cInfo){
 		contactInfoDao.insertContactInfo(contactInfo);
 		}else{
-			ret =1;
+			throw new Exception("新增联系人信息,新增的信息已存在，不能新增！");
 		}
 		
 		return ret;
@@ -67,6 +76,7 @@ public abstract class ContactMgr {
 	 */
 	public int insertContactInfoList(List<ContactInfo> contactInfoList) throws Exception{
 		int ret =0;
+		getLogger().debug("批量新增联系人信息，批量数量为：" + contactInfoList.size());
 		for(ContactInfo contactInfo : contactInfoList){
 			insertContactInfo( contactInfo);
 		}
@@ -79,6 +89,7 @@ public abstract class ContactMgr {
 	 * @throws Exception
 	 */
 	public void deleteContactInfo(ContactInfo contactInfo,boolean isDelCurrent)throws Exception{
+		getLogger().debug("删除联系人信息,输入的参数为：" + contactInfo.toString());
 		ContactInfoDao contactInfoDao =(ContactInfoDao)BeanLocator.getInstance().getBean(getContactInfoDao());
 		contactInfoDao.deleteContactInfo(contactInfo);
 		if(isDelCurrent){
@@ -96,7 +107,9 @@ public abstract class ContactMgr {
 	 */
 	public int updateContactInfo(ContactInfo contactInfo)throws Exception{
 		int ret =0;
+		getLogger().debug("更新联系人信息,输入的参数为：" + contactInfo.toString());
 		int state = Integer.parseInt(contactInfo.getState());
+		getLogger().debug("更新银行信息,状态为：" + state);
 		ContactInfoDao contactInfoDao =(ContactInfoDao)BeanLocator.getInstance().getBean(getContactInfoDao());
 		//String strLogType = null;
 		switch (state){
@@ -137,7 +150,7 @@ public abstract class ContactMgr {
 			contactInfoDao.updateContactInfoByState(contactInfo);
 			//strLogType = "解锁数据";
 		default:
-			ret =1;
+			throw new Exception("更新联系人信息 ,无此类型的状态，无法进行更新！");
 		}
 		
 		return ret;
@@ -153,6 +166,7 @@ public abstract class ContactMgr {
 	 */
 	public int updateContactInfoList(List<ContactInfo> contactInfoList, String staffId,String staffName,String otherInfo)throws Exception{
 		int ret =0 ;
+		getLogger().debug("批量更新联系人信息，批量数量为：" + contactInfoList.size());
 		for(ContactInfo contactInfo : contactInfoList){
 			updateContactInfo( contactInfo);
 		}
@@ -188,11 +202,13 @@ public abstract class ContactMgr {
 	 * @throws Exception
 	 */
 	public ContactInfo getContactInfo(ContactInfo contactInfo) throws Exception{
+		getLogger().debug("根据业务主键查询联系人信息,输入的参数为：" + contactInfo.toString());
 		ContactInfoDao contactInfoDao =(ContactInfoDao)BeanLocator.getInstance().getBean(getContactInfoDao());
 		return contactInfoDao.findContactInfo(contactInfo);
 	}
 	
 	public ContactInfo getContactInfo(String id) throws Exception{
+		getLogger().debug("根据主键ID查询联系人信息,输入的参数为：" + id);
 		ContactInfoDao contactInfoDao =(ContactInfoDao)BeanLocator.getInstance().getBean(getContactInfoDao());
 		return contactInfoDao.findContactInfoById(id);
 	}
@@ -203,6 +219,7 @@ public abstract class ContactMgr {
 	 * @throws Exception
 	 */
 	public List<ContactInfo> listContactInfo(ContactInfo contactInfo) throws Exception{
+		getLogger().debug("查询联系人信息列表,输入的参数为：" + contactInfo.toString());
 		ContactInfoDao contactInfoDao =(ContactInfoDao)BeanLocator.getInstance().getBean(getContactInfoDao());
 		return contactInfoDao.listContactInfo(contactInfo);
 	}

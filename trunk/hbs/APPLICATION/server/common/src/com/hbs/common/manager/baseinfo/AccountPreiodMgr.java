@@ -9,6 +9,8 @@ package com.hbs.common.manager.baseinfo;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.customer.common.constants.StateConstants;
 
@@ -36,25 +38,34 @@ public abstract class AccountPreiodMgr {
 	 */
 	public abstract String getLogDao();
 	/**
+	 * 抽象方法，获取子类的日志输出
+	 * @return
+	 */
+	public abstract Logger getLogger();
+	
+	/**
 	 * 插入账期信息,账期信息的插入 如果是跟客户信息同时提交，则跟随客户信息的状态
 	 * 
 	 * @param accountPreiod
 	 * @throws Exception
-	 * @return 0--成功 1---数据库已经存在重复数据
+	 * @return 0--成功 
 	 */
 
 	public int insertAccountPreiod(AccountPreiod accountPreiod)
 			throws Exception {
-
 		int ret = 0;
+		getLogger().debug("新增账期信息，输入的参数为：" + accountPreiod.toString());
 		AccountPreiodDao aPreiodDao = (AccountPreiodDao) BeanLocator
 				.getInstance().getBean(
 						getAccountPreiodDao());
+		getLogger().debug("根据commCode=" + accountPreiod.getCommCode() +" state=" + accountPreiod.getState() +"查询账期信息！");
 		AccountPreiod tempPreiod = aPreiodDao.findAccountPreiod(accountPreiod);
 		if (null == tempPreiod) {
 			aPreiodDao.insertAccountPreiod(accountPreiod);
 		} else {
-			ret = 1;
+			//ret = 1;//
+			throw new Exception("新增账期信息,新增的信息已存在，不能新增！");
+			
 		}
 		return ret;
 	}
@@ -65,6 +76,7 @@ public abstract class AccountPreiodMgr {
  * @throws Exception
  */
 	public void deleteAccountPreiod(AccountPreiod accountPreiod,boolean isDelCurrent) throws Exception{
+		getLogger().debug("删除账期信息,输入的参数为：" + accountPreiod.toString());
 		AccountPreiodDao aPreiodDao = (AccountPreiodDao)BeanLocator.getInstance().getBean(getAccountPreiodDao());
 		aPreiodDao.deleteAccountPreiod(accountPreiod);
 		if(isDelCurrent){
@@ -81,7 +93,9 @@ public abstract class AccountPreiodMgr {
 	 */
 	public int updateAccountPreiod(AccountPreiod accountPreiod) throws Exception {
 		int ret =0;
+		getLogger().debug("更新账期信息,输入的参数为：" + accountPreiod.toString());
 		int state = Integer.parseInt(accountPreiod.getState());
+		getLogger().debug("更新账期信息,账期的状态为：" + state);
 		AccountPreiodDao aPreiodDao = (AccountPreiodDao)BeanLocator.getInstance().getBean(getAccountPreiodDao());
 		//String strLogType = null;
 		switch (state){
@@ -121,7 +135,8 @@ public abstract class AccountPreiodMgr {
 			aPreiodDao.updateAccountPreiodByState(accountPreiod);
 			//strLogType = "解锁数据";
 		default:
-			ret =1;
+			//ret =1;
+			throw new Exception("更新账期信息 ,无此类型的状态，无法进行更新！");
 		}
 		
 //		if(null != staffId){//不是随主记录操作，需要记录操作日志
@@ -147,6 +162,7 @@ public abstract class AccountPreiodMgr {
 	 * @throws Exception
 	 */
 	public AccountPreiod getAccountPreiod(AccountPreiod accountPreiod)throws Exception{
+		getLogger().debug("查询单条账期信息,输入的参数为：" + accountPreiod.toString());
 		AccountPreiodDao aPreiodDao = (AccountPreiodDao)BeanLocator.getInstance().getBean(getAccountPreiodDao());
 		return aPreiodDao.findAccountPreiod(accountPreiod);
 	}
@@ -158,6 +174,7 @@ public abstract class AccountPreiodMgr {
 	 * @throws Exception
 	 */
 	public List<AccountPreiod> listAccountPreiod(AccountPreiod accountPreiod) throws Exception{
+		getLogger().debug("查询账期信息,输入的参数为：" + accountPreiod.toString());
 		AccountPreiodDao aPreiodDao = (AccountPreiodDao)BeanLocator.getInstance().getBean(getAccountPreiodDao());
 		return aPreiodDao.listAccountPreiod(accountPreiod);
 	}

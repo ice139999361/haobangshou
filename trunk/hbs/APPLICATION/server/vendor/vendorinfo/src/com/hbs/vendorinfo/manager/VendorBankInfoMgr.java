@@ -6,6 +6,8 @@
  */
 package com.hbs.vendorinfo.manager;
 
+import org.apache.log4j.Logger;
+
 import com.hbs.common.manager.baseinfo.BankInfoMgr;
 import com.hbs.vendorinfo.constants.VendorInfoConstants;
 
@@ -15,6 +17,7 @@ import com.hbs.vendorinfo.constants.VendorInfoConstants;
  */
 public class VendorBankInfoMgr extends BankInfoMgr {
 
+	private static final Logger logger = Logger.getLogger(VendorBankInfoMgr.class);
 	/* (non-Javadoc)
 	 * @see com.hbs.common.manager.baseinfo.BankInfoMgr#getBankInfoDao()
 	 */
@@ -31,6 +34,15 @@ public class VendorBankInfoMgr extends BankInfoMgr {
 	public String getLogDao() {
 		// TODO Auto-generated method stub
 		return VendorInfoConstants.VENDOR_OPERLOGDAO;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.hbs.common.manager.baseinfo.BankInfoMgr#getLogger()
+	 */
+	@Override
+	public Logger getLogger() {
+		// TODO Auto-generated method stub
+		return logger;
 	}
 
 }
