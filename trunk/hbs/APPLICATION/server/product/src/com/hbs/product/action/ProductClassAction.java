@@ -3,7 +3,10 @@
  */
 package com.hbs.product.action;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -11,6 +14,7 @@ import com.hbs.common.action.base.BaseAction;
 import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.domain.product.pojo.ProductClass;
 import com.hbs.product.manager.ProductClassMgr;
+import java.util.Iterator;
 
 /**
  * 本公司物料类别Action
@@ -149,4 +153,48 @@ public class ProductClassAction extends BaseAction {
 		pClass.setClsCode(id);
 		return doGet();
 	}
+	
+	/**
+	 *  一次获取所有数据。包括id、text、children
+	 * @return
+	 */
+	public String doGetAll() {
+		try {
+			pClass = new ProductClass();
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			ProductClassMgr mgr = (ProductClassMgr) BeanLocator.getInstance().getBean(productClassMgrName);
+			pClass.setParentClsCode(0);
+			List<ProductClass> list = mgr.getProductClassList(pClass);
+			
+			List<Map<String, Object>> list2 = changePClassListToMapList(list);
+			
+			setResult("list", list2);
+			return SUCCESS;
+		} catch (Exception e) {
+			logger.error("catch Exception in doGetAll.", e);
+			setErrorReason("内部错误");
+			return ERROR;	
+		}
+	}
+
+	/**
+	 * @param list
+	 * @return
+	 */
+	private List<Map<String, Object>> changePClassListToMapList(List<ProductClass> list) {
+		List<Map<String, Object>> list2 = new ArrayList<Map<String, Object>>();
+		if(list != null && list.size() != 0) {
+			Iterator<ProductClass> it = list.iterator();
+			while(it.hasNext()) {
+				ProductClass c = it.next();
+				if(c == null)
+					continue;
+				// TODO:changePClassListToMapList
+			}
+		}
+		return list2;
+	}
+	
+	
 }
