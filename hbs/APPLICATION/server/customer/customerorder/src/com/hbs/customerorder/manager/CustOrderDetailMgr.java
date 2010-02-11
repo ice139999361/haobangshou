@@ -60,7 +60,7 @@ public class CustOrderDetailMgr {
 			orderDetail.setPeriod(orderState.getDetailPeriod(orderDetail));
 		}
 		//
-		orderDetail.setMoney(OrderCalUtils.calOrderMoney(orderDetail.getCprice(), orderDetail.getIsTax(), orderDetail.getCpriceTax(), orderDetail.getAmount()));
+		orderDetail.setMoney(OrderCalUtils.calOrderMoney(orderDetail.getCprice(), orderDetail.getIsTax(),orderDetail.getTaxRate(), orderDetail.getCpriceTax(),orderDetail.getContactFee(),orderDetail.getAmount()));
 		orderDetail.setState(CustOrderConstants.ORDER_STATE_01);
 		CustOrderDetailDao cDetailDao = (CustOrderDetailDao)BeanLocator.getInstance().getBean(CustOrderConstants.CUST_ORDERDETAIL_DAO);
 		cDetailDao.insertCustOrderDetail(orderDetail);
@@ -252,7 +252,7 @@ public class CustOrderDetailMgr {
 	 * 根据锁定的数量和总数量比较，如果数量相同，则状态为70货备齐
 	 * 否则状态为71部分备货
 	 * 订单的状态如果有锁定数量，状态为21备货中	 
-	 * @param orderDetail
+	 * @param orderDetail  锁定的数量不需要前台计算，由后台计算处理
 	 * @param staffId
 	 * @param staffName
 	 * @param content
@@ -265,14 +265,23 @@ public class CustOrderDetailMgr {
 		//根据业务主键查询客户订单明细
 		CustOrderDetail  existDetail = findCustOrderDetailByBizKey(orderDetail);
 		if(existDetail != null){//客户订单明细存在，执行库存锁定操作
+			logger.debug("客户订单明细锁定物料锁定操作,查询客户订单明细为：" + existDetail.toString());
 			int iAmount = existDetail.getAmount();  //订单数量
 			int iLockAmount = existDetail.getLockAmount(); //锁定总数量
-//			int iselLock = existDetail.getSelfLockAmount(); //客户备货锁定数量
-//			int icommLock = existDetail.getCommLockAmount();//常规备货锁定数量
-			int isavelockAmount = iLockAmount + orderDetail.getSelfLockAmount().intValue() + orderDetail.getCommLockAmount().intValue();
-			if(isavelockAmount > iAmount){//锁定的数量大于订单明细订货数量
-				logger.debug("输入的锁定数量+已存在的锁定数量大于订单明细订货数量，不能执行锁定操作！");
+			int iselLock = existDetail.getSelfLockAmount(); //客户备货锁定数量
+			int icommLock = existDetail.getCommLockAmount();//常规备货锁定数量
+			int idelivery = existDetail.getDeliveryAmount();//已经发货的数量
+			//本次本客户库存锁定数量
+			int oselfLock = (orderDetail.getSelfLockAmount() == null ? 0 : orderDetail.getSelfLockAmount().intValue());
+			//本次通用库存锁定数量
+			int ocommLock = (orderDetail.getCommLockAmount()== null ? 0 :orderDetail.getCommLockAmount().intValue());
+			
+			int isavelockAmount = iLockAmount + oselfLock + ocommLock;
+			if(isavelockAmount + idelivery > iAmount){//锁定的数量  + 已发货数量大于订单明细订货数量
+				logger.debug("输入的锁定数量+已存在的锁定数量 + 已发货数量 ，大于订单明细订货数量，不能执行锁定操作！");
 				ret = -2;
+				throw new Exception("输入的锁定数量+已存在的锁定数量 + 已发货数量 ，大于订单明细订货数量，不能执行锁定操作！");
+				
 			}else{
 				logger.debug("执行锁定操作！");
 				if(isavelockAmount == iAmount){//货已备齐
@@ -281,7 +290,9 @@ public class CustOrderDetailMgr {
 					orderDetail.setState(CustOrderConstants.ORDER_STATE_71);
 				}
 				orderDetail.setOperSeqId(existDetail.getOperSeqId());
-				orderDetail.setLockAmount(orderDetail.getSelfLockAmount().intValue() + orderDetail.getCommLockAmount().intValue());
+				orderDetail.setLockAmount(isavelockAmount);
+				orderDetail.setSelfLockAmount(iselLock + oselfLock);
+				orderDetail.setCommLockAmount(ocommLock + icommLock);
 				ret = updateCustDetailAmount(orderDetail);
 			}
 		}else{//客户订单明细不存在 ，返回-1
@@ -292,7 +303,7 @@ public class CustOrderDetailMgr {
 		if(staffId != null && ret == 0){
 			logger.debug("处理仓库锁定操作！由操作人员发起，发起人 " + staffId + staffName );
 			WarehouseMgr whMgr =(WarehouseMgr)BeanLocator.getInstance().getBean(CustOrderConstants.WAREHOUSE_INFO_MGR);
-			int detailSelock = orderDetail.getSelfLockAmount().intValue();
+			int detailSelock = (orderDetail.getSelfLockAmount() == null ? 0 :orderDetail.getSelfLockAmount().intValue());
 			if( detailSelock != 0){
 				logger.debug("存在特定客户备货锁定，锁定数量为：" + detailSelock);
 				WareHouseInfo whrInfo = new WareHouseInfo();
@@ -310,7 +321,7 @@ public class CustOrderDetailMgr {
 				whrInfo.setUseAmount(-detailSelock);
 				whMgr.saveLockWareHouseInfo(whrInfo, null, null, null);
 			}
-			int commLock = orderDetail.getCommLockAmount().intValue();
+			int commLock = ( orderDetail.getCommLockAmount() == null ? 0 : orderDetail.getCommLockAmount().intValue());
 			if(commLock != 0){
 				logger.debug("存在常规备货锁定，锁定数量为：" + commLock);
 				WareHouseInfo whrInfo = new WareHouseInfo();
@@ -335,11 +346,12 @@ public class CustOrderDetailMgr {
 		return ret;
 	}
 	/**
-	 * 修改订单明细的已发货数量，
+	 * 修改订单明细的已发货数量，对于已发货的数量，同时把锁定数量减少
+	 
 	 * 如果发货数量与总数量相同，则订单明细为61全部发货，否则为60部分发货
 	 * 订单的状态为部分发货和全部发货
-	 * 目前订单状态没有实现？？？
-	 * @param orderDetail
+	 
+	 * @param orderDetail  发货数量的计算由后台处理
 	 * @param staffId
 	 * @param staffName
 	 * @param content
@@ -348,14 +360,53 @@ public class CustOrderDetailMgr {
 	 */
 	public int deliveryOrderDetailAmount(CustOrderDetail orderDetail,String staffId, String staffName, String content) throws Exception{
 		int ret =0;
-		CustOrderDetail  tempDetail = findCustOrderDetailByBizKey(orderDetail);
-		int  tempAmount = tempDetail.getDeliveryAmount().intValue() + orderDetail.getDeliveryAmount().intValue();
-		if(tempAmount == tempDetail.getAmount()){
-			orderDetail.setState(CustOrderConstants.ORDER_STATE_61);
-		}else{
-			orderDetail.setState(CustOrderConstants.ORDER_STATE_60);
+		logger.debug("修改订单明细的已发货数量操作 ,输入的参数为：" + orderDetail.toString());
+		//本次客户库存发货数量
+		int iselfdeliveryAmount = (orderDetail.getSelfDeliveryAmount() == null ? 0 : orderDetail.getSelfDeliveryAmount().intValue());
+		//本次通用库存发货数量
+		int icommdeliveryAmount =(orderDetail.getCommDeliveryAmount() == null ? 0 : orderDetail.getCommDeliveryAmount().intValue());
+		//本次总发货数量
+		int ideliveryAmount = iselfdeliveryAmount + icommdeliveryAmount;
+		
+		//判断发货数量 == 本客户发货数量+ 通用库存发货数量
+		CustOrderDetail  existDetail = findCustOrderDetailByBizKey(orderDetail);
+		if(null != existDetail){//订单明细存在
+			logger.debug("修改订单明细的已发货数量操作,查询客户订单明细为：" + existDetail.toString());
+			orderDetail.setOperSeqId(existDetail.getOperSeqId());
+			int ieAmount =(existDetail.getDeliveryAmount() == null ? 0 : existDetail.getDeliveryAmount().intValue());
+			int ieselfAmount = (existDetail.getSelfDeliveryAmount() == null ? 0 : existDetail.getSelfDeliveryAmount().intValue());
+			int iecommAmount =(existDetail.getCommDeliveryAmount() == null ? 0 : existDetail.getCommDeliveryAmount().intValue());
+			int ieLockAmount = (existDetail.getLockAmount() == null ? 0 : existDetail.getLockAmount().intValue());
+			int ieselfLock =(existDetail.getSelfLockAmount() == null ? 0 : existDetail.getSelfLockAmount().intValue());
+			int iecommLock =(existDetail.getCommLockAmount() == null ? 0 : existDetail.getCommLockAmount().intValue());
+			if( iselfdeliveryAmount > ieselfLock){//客户本客户库存发货数  > 本客户锁定数量
+				throw new Exception("客户本客户库存发货数  > 本客户锁定数量,无法执行操作！");
+			}
+			if(icommdeliveryAmount > iecommLock){//通用库存发货数  > 锁定的通用库存数
+				throw new Exception("通用库存发货数  > 锁定的通用库存数,无法执行操作！");
+			}
+			int  tempAmount = ieAmount + ideliveryAmount;
+			if(tempAmount <=  existDetail.getAmount()){
+				if(tempAmount == existDetail.getAmount()){
+					orderDetail.setState(CustOrderConstants.ORDER_STATE_61);
+				}else{
+					orderDetail.setState(CustOrderConstants.ORDER_STATE_60);
+				}
+				//处理数量
+				orderDetail.setDeliveryAmount(tempAmount);
+				orderDetail.setSelfDeliveryAmount(iselfdeliveryAmount + ieselfAmount);
+				orderDetail.setCommDeliveryAmount(icommdeliveryAmount + iecommAmount);
+				//锁定数量减去发货数
+				orderDetail.setLockAmount(ieLockAmount - ideliveryAmount);
+				orderDetail.setSelfLockAmount(ieselfLock - iselfdeliveryAmount);
+				orderDetail.setCommLockAmount(iecommLock - icommdeliveryAmount);
+				ret = updateCustDetailAmount(orderDetail);
+			}else{//发货数量大于订货数量
+				throw new Exception("修改订单明细的已发货数量操作，所操作的订单明细发货数量大于订货数量，无法执行！");
+			}
+		}else{//订单明细不存在
+			throw new Exception("修改订单明细的已发货数量操作，所操作的订单明细不存在！");
 		}
-		ret = updateCustDetailAmount(orderDetail);
 		//log
 		//operLog(staffId,staffName, "订单发货数量", orderDetail.getBizKey(),content);
 		return ret;
@@ -370,7 +421,7 @@ public class CustOrderDetailMgr {
 	 */
 	public int updateTempOrderDetail(CustOrderDetail orderDetail, String content) throws Exception{
 		int ret =0;
-		orderDetail.setMoney(OrderCalUtils.calOrderMoney(orderDetail.getCprice(), orderDetail.getIsTax(), orderDetail.getCpriceTax(), orderDetail.getAmount()));
+		orderDetail.setMoney(OrderCalUtils.calOrderMoney(orderDetail.getCprice(), orderDetail.getIsTax(),orderDetail.getTaxRate(), orderDetail.getCpriceTax(),orderDetail.getContactFee(), orderDetail.getAmount()));
 		orderDetail.setState(CustOrderConstants.ORDER_STATE_01);
 		CustOrderDetailDao cDetailDao = (CustOrderDetailDao)BeanLocator.getInstance().getBean(CustOrderConstants.CUST_ORDERDETAIL_DAO);
 		cDetailDao.updateCustOrderDetail(orderDetail);
