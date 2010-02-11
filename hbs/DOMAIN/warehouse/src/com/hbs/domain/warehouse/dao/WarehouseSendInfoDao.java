@@ -2,6 +2,8 @@ package com.hbs.domain.warehouse.dao;
 
 import java.util.List;
 import org.springframework.dao.DataAccessException;
+
+
 import com.hbs.domain.warehouse.pojo.WarehouseSendInfo;
 
 
@@ -32,7 +34,9 @@ public interface WarehouseSendInfoDao {
      * @throws DataAccessException DataAccessException
      */
     void updateWarehouseSendInfo(WarehouseSendInfo warehouseSendInfo) throws DataAccessException ;
-
+    void updateWarehouseSendInfoByState(WarehouseSendInfo warehouseSendInfo) throws DataAccessException ;
+    void updateWarehouseSendInfoByActiveState(WarehouseSendInfo warehouseSendInfo) throws DataAccessException ;
+    void updateWarehouseSendInfoByFinanceState(WarehouseSendInfo warehouseSendInfo) throws DataAccessException ;
     /**
      * find.
      * @param id id
@@ -47,7 +51,7 @@ public interface WarehouseSendInfoDao {
      * @return warehouseSendInfo list
      * @throws DataAccessException DataAccessException
      */
-    List listWarehouseSendInfo(WarehouseSendInfo warehouseSendInfo) throws DataAccessException ;
+    List<WarehouseSendInfo> listWarehouseSendInfo(WarehouseSendInfo warehouseSendInfo) throws DataAccessException ;
     
     /**
      * listCount.

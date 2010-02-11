@@ -18,6 +18,7 @@
     <result property="venPartNo" column="C_PART_NO"/>
     <result property="pnDesc" column="PN_DESC"/>
     <result property="price" column="C_PRICE"/>
+    <result property="priceTax" column="C_PRICE_TAX"/>
     <result property="isTax" column="IS_TAX"/>
     <result property="taxRate" column="TAX_RATE"/>
     <result property="amount" column="AMOUNT"/>
@@ -51,6 +52,7 @@
             C_PART_NO, 
             PN_DESC, 
             C_PRICE, 
+            C_PRICE_TAX,
             IS_TAX, 
             TAX_RATE, 
             AMOUNT,
@@ -79,6 +81,7 @@
             #venPartNo#,
             #pnDesc#,
             #price#,
+            #priceTax#,
             #isTax#,
             #taxRate#,
             #amount#,
@@ -177,6 +180,9 @@
 	<isNotEmpty prepend="," property="price">
             C_PRICE = #price#
 	</isNotEmpty>
+	<isNotEmpty prepend="," property="priceTax">
+            C_PRICE_TAX = #priceTax#
+	</isNotEmpty>
 	<isNotEmpty prepend="," property="isTax">
             IS_TAX = #isTax#
 	</isNotEmpty>
@@ -232,6 +238,7 @@
             C_PART_NO, 
             PN_DESC, 
             C_PRICE, 
+            C_PRICE_TAX,
             IS_TAX, 
             TAX_RATE, 
             AMOUNT,
@@ -291,7 +298,8 @@
             PART_NO, 
             C_PART_NO, 
             PN_DESC, 
-            C_PRICE, 
+            C_PRICE,
+            C_PRICE_TAX, 
             IS_TAX, 
             TAX_RATE, 
             AMOUNT,
@@ -326,6 +334,7 @@
             C_PART_NO, 
             PN_DESC, 
             C_PRICE, 
+            C_PRICE_TAX,
             IS_TAX, 
             TAX_RATE, 
             AMOUNT,
@@ -416,7 +425,7 @@
 			<isNotEmpty prepend="and"
 				property="dynamicFields.endPoNoDate">
 				<![CDATA[	
-					ORDER_TIME < STR_TO_DATE('$dynamicFields.dndPoNoDate$','%Y-%m-%d')
+					ORDER_TIME < STR_TO_DATE('$dynamicFields.endPoNoDate$','%Y-%m-%d')
 				]]>
 			</isNotEmpty>
 			<isNotEmpty prepend="and"
@@ -521,7 +530,7 @@
 			<isNotEmpty prepend="and"
 				property="dynamicFields.endPoNoDate">
 				<![CDATA[	
-					ORDER_TIME < STR_TO_DATE('$dynamicFields.dndPoNoDate$','%Y-%m-%d')
+					ORDER_TIME < STR_TO_DATE('$dynamicFields.endPoNoDate$','%Y-%m-%d')
 				]]>
 			</isNotEmpty>
 			<isNotEmpty prepend="and"

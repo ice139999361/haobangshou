@@ -79,6 +79,11 @@ public class WarehouseRecDetail extends BaseDomain{
     private BigDecimal price;
     
     /**
+     * 单价税率，和单价的关系，税率为0，单价为不含税，税率不为0，单价为含税
+     */
+    private BigDecimal priceTax;
+    
+    /**
      * 是否含税1--是0--否 如果单价是含税的，则一定是1，否则可以选择是否含税交易.
      */
     private String isTax;
@@ -386,7 +391,15 @@ public class WarehouseRecDetail extends BaseDomain{
     }
 
     
-    public String getLogKey(){
+    public BigDecimal getPriceTax() {
+		return priceTax;
+	}
+
+	public void setPriceTax(BigDecimal priceTax) {
+		this.priceTax = priceTax;
+	}
+
+	public String getLogKey(){
     	StringBuilder sb = new StringBuilder();
     	sb.append(this.recPoNo).append(";");
     	sb.append(this.vendorCode).append(";");
@@ -438,6 +451,9 @@ public class WarehouseRecDetail extends BaseDomain{
 		}
 		if(this.price != null){
 			sb.append("price=").append(this.price.floatValue()).append(" ");
+		}
+		if(this.priceTax != null){
+			sb.append("priceTax=").append(this.priceTax.floatValue()).append(" ");
 		}
 		if(this.isTax != null){
 			sb.append("isTax=").append(this.isTax).append(" ");

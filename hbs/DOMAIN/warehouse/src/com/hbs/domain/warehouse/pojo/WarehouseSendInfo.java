@@ -291,6 +291,11 @@ public class WarehouseSendInfo extends BaseDomain{
         this.poNoType = poNoType;
     }
 
+    public String getLogKey(){
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(this.sendPoNo).append(";").append(this.custCode);
+    	return sb.toString();
+    }
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

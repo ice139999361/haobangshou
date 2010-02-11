@@ -84,6 +84,33 @@
 ]]>
 </delete>    
 
+<update id="WarehouseSendInfo_updateWarehouseSendInfoByState" parameterClass="warehouseSendInfo">
+<![CDATA[
+	UPDATE T_WAREHOUSE_SEND 
+    SET
+    	STATE = #state#
+    WHERE SEND_PO_NO = #sendPoNo# AND C_CODE = #custCode#
+]]>    
+</update>
+
+<update id="WarehouseSendInfo_updateWarehouseSendInfoByActiveState" parameterClass="warehouseSendInfo">
+<![CDATA[
+	UPDATE T_WAREHOUSE_SEND 
+    SET
+    	ACTIVE_STATE = #activeState#
+    WHERE SEND_PO_NO = #sendPoNo# AND C_CODE = #custCode#
+]]>    
+</update>
+
+<update id="WarehouseSendInfo_updateWarehouseSendInfoByFinanceState" parameterClass="warehouseSendInfo">
+<![CDATA[
+	UPDATE T_WAREHOUSE_SEND 
+    SET
+    	FINANCE_STATE = #financeState#
+    WHERE SEND_PO_NO = #sendPoNo# AND C_CODE = #custCode#
+]]>    
+</update>
+
 <update id="WarehouseSendInfo_updateWarehouseSendInfo" parameterClass="warehouseSendInfo">
     UPDATE T_WAREHOUSE_SEND 
     SET
@@ -210,21 +237,6 @@
 			<isNotEmpty prepend="and" property = "shortName">
 				SHORT_NAME = #shortName#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "receiveName">
-				RECEIVE_NAME = #receiveName#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "receiveAddress">
-				RECEIVE_ADDRESS = #receiveAddress#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "receiveZip">
-				RECEIVE_ZIP = #receiveZip#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conTel">
-				CON_TEL = #conTel#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conFax">
-				CON_FAX = #conFax#
-			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "companyBranch">
 				COMPANY_BRANCH = #companyBranch#
 			</isNotEmpty>
@@ -234,18 +246,16 @@
 			<isNotEmpty prepend="and" property = "settlement_type">
 				SETTLEMENT_TYPE = #settlement_type#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "createDate">
+		<!-- 	<isNotEmpty prepend="and" property = "createDate">
 				CREATE_DATE = #createDate#
-			</isNotEmpty>
+			</isNotEmpty> -->
 			<isNotEmpty prepend="and" property = "operId">
 				OPER_ID = #operId#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "operStaff">
 				OPER_STAFF = #operStaff#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "sendDesc">
-				SEND_DESC = #sendDesc#
-			</isNotEmpty>
+			
 			<isNotEmpty prepend="and" property = "period">
 				PERIOD = #period#
 			</isNotEmpty>
@@ -255,20 +265,46 @@
 			<isNotEmpty prepend="and" property = "activeState">
 				ACTIVE_STATE = #activeState#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "financeState">
+			<!--  <isNotEmpty prepend="and" property = "financeState">
 				FINANCE_STATE = #financeState#
-			</isNotEmpty>
+			</isNotEmpty> -->
 			<isNotEmpty prepend="and" property = "poNoType">
 				PO_NO_TYPE = #poNoType#
 			</isNotEmpty>
+			<!-- 账期范围查询  需要extends BaseDomain 出库单日期 -->	
+			<isNotEmpty prepend="and"
+				property="dynamicFields.lessPeriod">
+				<![CDATA[	
+					CAST(PERIOD AS SIGNED) <= #lessPeriod#
+				]]>
+			</isNotEmpty>
+			<!-- 时间段范围查询  需要extends BaseDomain 入库单供应商日期 -->
+			<isNotEmpty prepend="and"
+				property="dynamicFields.beginPoNoDate">
+				<![CDATA[	
+					CREATE_DATE >= STR_TO_DATE('$dynamicFields.beginPoNoDate$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.endPoNoDate">
+				<![CDATA[	
+					CREATE_DATE < STR_TO_DATE('$dynamicFields.dndPoNoDate$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="order by" property="sort">
+                   $sort$
+            </isNotEmpty>
 		</dynamic>
+		<![CDATA[
+      		LIMIT #start# ,#end#
+		]]>
 </select>
 
 
 <select id="WarehouseSendInfo_listWarehouseSendInfoCount" resultClass="java.lang.Integer" parameterClass="warehouseSendInfo">
 <![CDATA[
     SELECT
-		COUNT(*)
+		COUNT(1)
     FROM T_WAREHOUSE_SEND
 ]]>
 		<dynamic prepend="WHERE">
@@ -281,21 +317,6 @@
 			<isNotEmpty prepend="and" property = "shortName">
 				SHORT_NAME = #shortName#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "receiveName">
-				RECEIVE_NAME = #receiveName#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "receiveAddress">
-				RECEIVE_ADDRESS = #receiveAddress#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "receiveZip">
-				RECEIVE_ZIP = #receiveZip#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conTel">
-				CON_TEL = #conTel#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conFax">
-				CON_FAX = #conFax#
-			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "companyBranch">
 				COMPANY_BRANCH = #companyBranch#
 			</isNotEmpty>
@@ -305,18 +326,16 @@
 			<isNotEmpty prepend="and" property = "settlement_type">
 				SETTLEMENT_TYPE = #settlement_type#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "createDate">
+		<!-- 	<isNotEmpty prepend="and" property = "createDate">
 				CREATE_DATE = #createDate#
-			</isNotEmpty>
+			</isNotEmpty> -->
 			<isNotEmpty prepend="and" property = "operId">
 				OPER_ID = #operId#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "operStaff">
 				OPER_STAFF = #operStaff#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "sendDesc">
-				SEND_DESC = #sendDesc#
-			</isNotEmpty>
+			
 			<isNotEmpty prepend="and" property = "period">
 				PERIOD = #period#
 			</isNotEmpty>
@@ -326,11 +345,31 @@
 			<isNotEmpty prepend="and" property = "activeState">
 				ACTIVE_STATE = #activeState#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "financeState">
+			<!--  <isNotEmpty prepend="and" property = "financeState">
 				FINANCE_STATE = #financeState#
-			</isNotEmpty>
+			</isNotEmpty> -->
 			<isNotEmpty prepend="and" property = "poNoType">
 				PO_NO_TYPE = #poNoType#
+			</isNotEmpty>
+			<!-- 账期范围查询  需要extends BaseDomain 出库单日期 -->	
+			<isNotEmpty prepend="and"
+				property="dynamicFields.lessPeriod">
+				<![CDATA[	
+					CAST(PERIOD AS SIGNED) <= #lessPeriod#
+				]]>
+			</isNotEmpty>
+			<!-- 时间段范围查询  需要extends BaseDomain 入库单供应商日期 -->
+			<isNotEmpty prepend="and"
+				property="dynamicFields.beginPoNoDate">
+				<![CDATA[	
+					CREATE_DATE >= STR_TO_DATE('$dynamicFields.beginPoNoDate$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.endPoNoDate">
+				<![CDATA[	
+					CREATE_DATE < STR_TO_DATE('$dynamicFields.endPoNoDate$','%Y-%m-%d')
+				]]>
 			</isNotEmpty>
 		</dynamic>
 </select>
