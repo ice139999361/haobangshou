@@ -23,6 +23,7 @@ HBSConvertHelper.init(function() {
 			switch(view.ds.getAt(i).get("state")) {
 				case "1":
 				case "0":
+				case "3":
 				  // 创建按钮到操作列
 					var updateBtn = HBSConvertHelper.renderButton2Cell(["修改"], operator_cell, view.ds.getAt(i));
 					// 按钮的单击事件
