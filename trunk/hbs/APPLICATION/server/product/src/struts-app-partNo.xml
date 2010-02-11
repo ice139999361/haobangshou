@@ -42,6 +42,17 @@
      	<action name="partNo!get" method="doGet" 
     			class="com.hbs.product.action.ProductAction">
 		</action>	
+		<!-- 
+    /**
+     * 保存物料信息
+     * @action.input	partNo.*
+     * @return
+     */
+		 -->
+		<action name="partNo!save" method="doSave" 
+    			class="com.hbs.product.action.ProductAction">
+		</action>
+		
 		
 		<!--
 	/**
