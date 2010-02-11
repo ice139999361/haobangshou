@@ -52,14 +52,14 @@ public class WareHouseRecMgr {
 		if(null == existInfo){//不存在，需要insert操作			
 			//whrInfo.setState(WareHouseConstants.WAREHOUSE_REC_INFO_01);
 			whrInfoDao.insertWarehouseRecInfo(whrInfo);
-			WareHouseLogUtils.operLog(whrInfo.getOperId(), whrInfo.getOperStaff(), (whrInfo.getState().equals(WareHouseConstants.WAREHOUSE_REC_INFO_03) ? "确认" : "新增"), "供应商物料入库", whrInfo.getLogKey(), null, content);
+			WareHouseLogUtils.operLog(whrInfo.getOperId(), whrInfo.getOperStaff(), (whrInfo.getState().equals(WareHouseConstants.WAREHOUSE_REC_INFO_02) ? "确认" : "新增"), "供应商物料入库", whrInfo.getLogKey(), null, content);
 
 		}else{//存在,做修改操作
 			//判断入库单状态
 			String state = existInfo.getState();
 			if(state.equals(WareHouseConstants.WAREHOUSE_REC_INFO_01)){//可以修改
 				whrInfoDao.updateWarehouseRecInfo(whrInfo);
-				WareHouseLogUtils.operLog(whrInfo.getOperId(), whrInfo.getOperStaff(), (whrInfo.getState().equals(WareHouseConstants.WAREHOUSE_REC_INFO_03) ? "确认" : "修改"), "供应商物料入库", whrInfo.getLogKey(), null, content);
+				WareHouseLogUtils.operLog(whrInfo.getOperId(), whrInfo.getOperStaff(), (whrInfo.getState().equals(WareHouseConstants.WAREHOUSE_REC_INFO_02) ? "确认" : "修改"), "供应商物料入库", whrInfo.getLogKey(), null, content);
 			}else{//状态不正确，不能修改
 				ret = -1;
 			}
@@ -107,7 +107,7 @@ public class WareHouseRecMgr {
 				
 				//入库单明细
 				List<WarehouseRecDetail> detailList = whrInfo.getDetailList();
-				if(null != detailList){//入库单明细处理
+				if(null != detailList && detailList.size() >0){//入库单明细处理
 					logger.debug("取消入库单信息，入库单下存在入库单明细，取消入库单明细，数量为：" + detailList.size());
 					WareHouseRecDetailMgr detailMgr = (WareHouseRecDetailMgr)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_REC_DETAILMGR);
 					detailMgr.cancelWareHouseRecDetailList(detailList, true, content);
@@ -162,7 +162,7 @@ public class WareHouseRecMgr {
 		WareHouseLogUtils.operLog(whrInfo.getOperId(), whrInfo.getOperStaff(), (activeState.equals(WareHouseConstants.WAREHOUSE_REC_ACTIVE) ? "激活" : "暂停"), "供应商物料入库", whrInfo.getLogKey(), null, content);
 		//入库单明细
 		List<WarehouseRecDetail> detailList = whrInfo.getDetailList();
-		if(null != detailList){//入库单明细处理
+		if(null != detailList && detailList.size() >0){//入库单明细处理
 			logger.debug("供应商入库单暂停/激活操作! 入库单明细数量为：" + detailList.size());
 			WareHouseRecDetailMgr detailMgr = (WareHouseRecDetailMgr)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_REC_DETAILMGR);
 			detailMgr.cancelWareHouseRecDetailList(detailList, true, content);

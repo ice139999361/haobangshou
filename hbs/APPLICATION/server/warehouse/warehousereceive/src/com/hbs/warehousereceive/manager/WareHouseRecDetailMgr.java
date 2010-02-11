@@ -62,7 +62,7 @@ public class WareHouseRecDetailMgr {
 		}
 		WarehouseRecDetailDao detailDao = (WarehouseRecDetailDao)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_REC_DETAIL_DAO);
 		//计算金额
-		detail.setCurrMoney(OrderCalUtils.calOrderMoney(detail.getPrice(), detail.getIsTax(), detail.getTaxRate(), detail.getAmount()));
+		detail.setCurrMoney(OrderCalUtils.calOrderMoney(detail.getPrice(), detail.getIsTax(), detail.getTaxRate(),detail.getPriceTax(),null, detail.getAmount()));
 		//设置账期
 		String period = detail.getPeriod();
 		if(period == null){
@@ -85,12 +85,13 @@ public class WareHouseRecDetailMgr {
 				
 				detail.setRecDetailSeqId(existDetail.getRecDetailSeqId());
 				detailDao.updateWarehouseRecDetail(detail);
+				ret = detail.getRecDetailSeqId();
 				WareHouseLogUtils.operLog(detail.getStaffId(), detail.getStaffName(), (detail.getState().equals(WareHouseConstants.WAREHOUSE_REC_INFO_02) ? "确认" : "修改"), "入库单物料明细", detail.getLogKey(), null, content);
 			}else{//状态不正确，不允许修改
 				logger.debug("数据库中存在入库单明细，update操作！状态不正确，不允许修改！");
 				ret = -1;
 			}
-			ret = detail.getRecDetailSeqId();
+			
 		}
 		/**
 		 * 如果是确认操作，则还需要执行如下操作
@@ -355,7 +356,7 @@ public class WareHouseRecDetailMgr {
 		}
 		WarehouseRecDetailDao detailDao = (WarehouseRecDetailDao)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_REC_DETAIL_DAO);
 		detailDao.updateWarehouseRecDetailByActiveState(detail);
-		WareHouseLogUtils.operLog(detail.getStaffId(), detail.getStaffName(), (activeState.equals(WareHouseConstants.WAREHOUSE_REC_ACTIVE) ? "激活" : "暂停"), "供应商物料入库", detail.getLogKey(), null, content);
+		WareHouseLogUtils.operLog(detail.getStaffId(), detail.getStaffName(), (activeState.equals(WareHouseConstants.WAREHOUSE_REC_ACTIVE) ? "激活" : "暂停"), "供应商入库单", detail.getLogKey(), null, content);
 		return ret;
 	}
 	/**
@@ -391,7 +392,7 @@ public class WareHouseRecDetailMgr {
 		logger.debug("财务调整供应商入库单明细账期，传入的参数为：" + detail.toString());
 		WarehouseRecDetailDao detailDao = (WarehouseRecDetailDao)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_REC_DETAIL_DAO);
 		detailDao.updateWarehouseRecDetailByFinancePeriod(detail);
-		WareHouseLogUtils.operLog(staffId, staffName, "调整账期", "供应商物料入库", detail.getLogKey(), null, content);
+		WareHouseLogUtils.operLog(staffId, staffName, "调整账期", "供应商入库单明细", detail.getLogKey(), null, content);
 		return ret;
 	}
 	/**
@@ -436,7 +437,7 @@ public class WareHouseRecDetailMgr {
 			WarehouseRecDetailDao detailDao = (WarehouseRecDetailDao)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_REC_DETAIL_DAO);
 			detail.setFinanceState(WareHouseConstants.WAREHOUSE_REC_FINANCE_STATE_1);
 			detailDao.updateWarehouseRecDetailByFinanceState(detail);
-			WareHouseLogUtils.operLog(staffId, staffName, "财务对账", "供应商物料入库", detail.getLogKey(), null, content);
+			WareHouseLogUtils.operLog(staffId, staffName, "财务对账", "供应商入库单明细", detail.getLogKey(), null, content);
 			//根据明细确定入库单的财务状态
 //			WarehouseRecDetail rDetail = new WarehouseRecDetail();
 //			rDetail.setRecPoNo(detail.getRecPoNo());
@@ -506,7 +507,7 @@ public class WareHouseRecDetailMgr {
 	 * @throws Exception
 	 */
 	public Integer getWarehouseRecDetailCount(WarehouseRecDetail detail) throws Exception{
-		Integer retCount = null;
+		Integer retCount = 0;
 		logger.debug("查询入库单明细列表数量，输入的参数为：" +detail.toString());
 		WarehouseRecDetailDao detailDao = (WarehouseRecDetailDao)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_REC_DETAIL_DAO);
 		retCount = detailDao.listWarehouseRecDetailCount(detail);
