@@ -76,6 +76,14 @@
      	<action name="pClass!info" method="doGetInfo" 
     			class="com.hbs.product.action.ProductClassAction">
 		</action>	
-			
+		<!-- 
+	/**
+	 *  一次获取所有数据。包括id、text、children
+	 * @return
+	 */
+		 -->
+     	<action name="pClass!all" method="doGetAll" 
+    			class="com.hbs.product.action.ProductClassAction">
+		</action>	
     </package>
 </struts>
