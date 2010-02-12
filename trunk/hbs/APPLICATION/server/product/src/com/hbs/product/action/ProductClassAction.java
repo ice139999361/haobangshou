@@ -191,6 +191,23 @@ public class ProductClassAction extends BaseAction {
 				if(c == null)
 					continue;
 				// TODO:changePClassListToMapList
+				Map<String, Object> map = new HashMap<String, Object>();
+				Integer code = c.getClsCode();
+				map.put("id", c.getClsCode());
+				map.put("text", c.getClsDesc());
+				ProductClassMgr mgr = (ProductClassMgr) BeanLocator.getInstance().getBean(productClassMgrName);
+				c = new ProductClass();
+				c.setParentClsCode(code);
+				List<ProductClass> sublist = null;
+				try {
+					sublist = mgr.getProductClassList(c);
+				} catch (Exception e) {
+				}
+				if(sublist == null || sublist.size() == 0)
+					map.put("children", null);
+				else
+					map.put("children", changePClassListToMapList(sublist));
+				list2.add(map);
 			}
 		}
 		return list2;
