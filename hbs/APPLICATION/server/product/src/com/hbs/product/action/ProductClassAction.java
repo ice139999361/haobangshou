@@ -161,15 +161,10 @@ public class ProductClassAction extends BaseAction {
 	public String doGetAll() {
 		try {
 			pClass = new ProductClass();
-			Map<String, Object> map = new HashMap<String, Object>();
-			
 			ProductClassMgr mgr = (ProductClassMgr) BeanLocator.getInstance().getBean(productClassMgrName);
 			pClass.setParentClsCode(0);
-			List<ProductClass> list = mgr.getProductClassList(pClass);
-			
-			List<Map<String, Object>> list2 = changePClassListToMapList(list);
-			
-			setResult("list", list2);
+			List<ProductClass> list = mgr.getProductClassList(pClass);				
+			setResult("list", changePClassListToMapList(list));
 			return SUCCESS;
 		} catch (Exception e) {
 			logger.error("catch Exception in doGetAll.", e);
@@ -183,34 +178,39 @@ public class ProductClassAction extends BaseAction {
 	 * @return
 	 */
 	private List<Map<String, Object>> changePClassListToMapList(List<ProductClass> list) {
-		List<Map<String, Object>> list2 = new ArrayList<Map<String, Object>>();
-		if(list != null && list.size() != 0) {
-			Iterator<ProductClass> it = list.iterator();
-			while(it.hasNext()) {
-				ProductClass c = it.next();
-				if(c == null)
-					continue;
-				// TODO:changePClassListToMapList
-				Map<String, Object> map = new HashMap<String, Object>();
-				Integer code = c.getClsCode();
-				map.put("id", c.getClsCode());
-				map.put("text", c.getClsDesc());
-				ProductClassMgr mgr = (ProductClassMgr) BeanLocator.getInstance().getBean(productClassMgrName);
-				c = new ProductClass();
-				c.setParentClsCode(code);
-				List<ProductClass> sublist = null;
-				try {
-					sublist = mgr.getProductClassList(c);
-				} catch (Exception e) {
+		try {
+			List<Map<String, Object>> list2 = new ArrayList<Map<String, Object>>();
+			if(list != null && list.size() != 0) {
+				Iterator<ProductClass> it = list.iterator();
+				while(it.hasNext()) {
+					ProductClass c = it.next();
+					if(c == null)
+						continue;
+					// TODO:changePClassListToMapList
+					Map<String, Object> map = new HashMap<String, Object>();
+					Integer code = c.getClsCode();
+					map.put("id", c.getClsCode());
+					map.put("text", c.getClsDesc());
+					ProductClassMgr mgr = (ProductClassMgr) BeanLocator.getInstance().getBean(productClassMgrName);
+					c = new ProductClass();
+					c.setParentClsCode(code);
+					List<ProductClass> sublist = null;
+					try {
+						sublist = mgr.getProductClassList(c);
+					} catch (Exception e) {
+					}
+					if(sublist == null || sublist.size() == 0)
+						map.put("children", null);
+					else
+						map.put("children", changePClassListToMapList(sublist));
+					list2.add(map);
 				}
-				if(sublist == null || sublist.size() == 0)
-					map.put("children", null);
-				else
-					map.put("children", changePClassListToMapList(sublist));
-				list2.add(map);
 			}
+			return list2;
+		} catch (Exception e) {
+			logger.error("catch Exception in changePClassListToMapList.", e);
+			return null;
 		}
-		return list2;
 	}
 	
 	
