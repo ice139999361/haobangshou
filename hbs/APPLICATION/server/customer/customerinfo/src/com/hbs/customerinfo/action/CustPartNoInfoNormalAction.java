@@ -49,6 +49,9 @@ public class CustPartNoInfoNormalAction extends BaseAction {
     	{
 			if (logger.isDebugEnabled())    logger.debug("begin doList");
 
+			if(custPartNoInfo == null)
+				custPartNoInfo = new CustPartNoInfo();
+			
 			if(!checkCommonFields())
 				return ERROR;
 			
@@ -149,6 +152,8 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 			//DONE£ºÏÞÖÆ·¶Î§
 			CustomerInfoMgr custmgr = (CustomerInfoMgr)BeanLocator.getInstance().getBean(CustomerInfoNormalAction.custInfoMgrName);
 			CustomerInfo custInfo = new CustomerInfo();
+			custInfo.setCommCode(commCode);
+			custInfo.setState("0");
 			custInfo = custmgr.getCustomerInfo(custInfo, false);
 			String id = getLoginStaff().getStaffId();
 			if(custInfo == null || (custInfo.getStaffId() != id && custInfo.getAssStaffId() != id))

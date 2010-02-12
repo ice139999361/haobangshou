@@ -18,14 +18,14 @@
 			    	<!-- service ext ui.  begin. -->
 			    		<queryform gridId="querygrid" exportId="exportBtn">
 			    			<layoutpanel columnNum="3">
-			    				<textfield fieldLabel="客户编码"           name="custInfo.commCode"  />
-			    				<textfield fieldLabel="状态"               name=""  />
-			    				<textfield fieldLabel="客户P/N"            name=""  />
-			    				<textfield fieldLabel="本公司P/N"          name=""  />
+			    				<textfield fieldLabel="客户编码"           name="custPartNoInfo.commCode"  />
+			    				<textfield fieldLabel="状态"               name="custPartNoInfo.state"  />
+			    				<textfield fieldLabel="客户P/N"            name="custPartNoInfo.custPartNo"  />
+			    				<textfield fieldLabel="本公司P/N"          name="custPartNoInfo.partNO"  />
 			    			</layoutpanel>
 			    		</queryform>
 				    		
-				    	<complexgrid id="querygrid" title="客户P/N对照列表" frame="true" page="true" root="data.list" url="/customerInfo/customerInfo!list.action">
+				    	<complexgrid id="querygrid" title="客户P/N对照列表" frame="true" page="true" root="data.list" url="/customerInfo/custPartNoInfo!list.action">
 			    			<fields>
 			    				<field name="shortName"     />
 			    				<field name="commCode"      />
@@ -40,19 +40,19 @@
 			    			</fields>
 			    			
 			    			<columns>
-			    				<column isCheck="true"          dataIndex="seqId"         />
-			    				<column header="客户编码"       dataIndex="commCode"      />
+			    				<column isCheck="true"          name="custPartNoInfo.seqId"	dataIndex="seqId"         />
+			    				<column header="客户编码"       name="custPartNoInfo.commCode"	dataIndex="commCode"      />
 			    				<column header="客户简称"       dataIndex="shortName"     id="shortName" />
 			    				<column header="客户结算币种"   dataIndex="allName"       />
-			    				<column header="客户P/N"        dataIndex="address"       />
-			    				<column header="本公司P/N"      dataIndex="creditDesc"    />
-			    				<column header="描述"           dataIndex="importantDesc" />
-			    				<column header="单价"           dataIndex="stateDesc"     />
-			    				<column header="税率"           dataIndex=""              />
-			    				<column header="最小包装"       dataIndex=""              />
+			    				<column header="客户P/N"        name="custPartNoInfo.custPartNo"	dataIndex="address"       />
+			    				<column header="本公司P/N"      name="custPartNoInfo.partNo"	dataIndex="creditDesc"    />
+			    				<column header="描述"           name="custPartNoInfo.pnDesc"	dataIndex="importantDesc" />
+			    				<column header="单价"           name="custPartNoInfo.price"	dataIndex="stateDesc"     />
+			    				<column header="税率"           name="custPartNoInfo.priceTax"	dataIndex=""              />
+			    				<column header="最小包装"       name="custPartNoInfo.minAmmount"	dataIndex=""              />
 			    				<column header="最小订单量"     dataIndex=""              />
-			    				<column header="样品编码"       dataIndex=""              />
-			    				<column header="状态"           dataIndex="stateDesc"     />
+			    				<column header="样品编码"       name="custPartNoInfo.sampleCode"	dataIndex=""              />
+			    				<column header="状态"           name="custPartNoInfo.state"	dataIndex="stateDesc"     />
 			    				<column header="操作"           dataIndex=""              id="operator" width="250" />
 			    			</columns>
 			    		</complexgrid>
