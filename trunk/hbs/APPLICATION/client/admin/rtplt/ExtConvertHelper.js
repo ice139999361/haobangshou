@@ -180,6 +180,14 @@ var ExtConvertHelper = {
 					cmp.disable();
 			});
 	 }
+	 // 从对象中获取指定 key 的值
+	,getDataForObject: function(key, obj) {
+			Ext.each(key.split("."), function(item, index, itemsAll) {
+					if(!obj) return;
+					obj = obj[item];
+			})
+			return obj;
+	 }
 	 // 格式化要提交的参数
 	,_processParams: function(params) {
 			// 获取当前毫秒数

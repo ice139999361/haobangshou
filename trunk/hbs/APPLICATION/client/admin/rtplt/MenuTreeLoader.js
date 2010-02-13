@@ -15,8 +15,9 @@ Ext.extend(ExtUx.widget.MenuTreeLoader, Ext.tree.TreeLoader, {
 	displayIcon : false,
 	// 处理返回的json数据，并完全加载第一个子节点的数据
 	processResponse : function(response, node, callback) {
+		if(typeof this.root == "undefined") this.root = "data";
 		// 获取服务器返回的菜单数据
-		var data = Ext.util.JSON.decode(response.responseText).data;
+		var data = ExtConvertHelper.getDataForObject(this.root, Ext.util.JSON.decode(response.responseText));
 		// 装载创建的 TreeNode 节点
 		var nodes = [];
 		Ext.each(data, function(item, index, itemsAll) {
@@ -28,7 +29,7 @@ Ext.extend(ExtUx.widget.MenuTreeLoader, Ext.tree.TreeLoader, {
 		node.appendChild(nodes);
 		node.endUpdate();
 		// 调用回调函数
-		if(callback)callback(this, node); 
+		if(callback) callback(this, node); 
 		//for(var i = 0, len = o.length; i < len; i++) nodes.push(this.createNode(o[i]));
 	},
 	
