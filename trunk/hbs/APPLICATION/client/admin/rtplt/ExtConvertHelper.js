@@ -188,6 +188,10 @@ var ExtConvertHelper = {
 			})
 			return obj;
 	 }
+	 // 拷贝第一个 Array 中的子对象到第二个 Array
+	,copyArrayToArray: function(ar1, ar2) {
+			Ext.each(ar1, function(item, index, itemsAll) { ar2.push(item) });
+	 }
 	 // 格式化要提交的参数
 	,_processParams: function(params) {
 			// 获取当前毫秒数

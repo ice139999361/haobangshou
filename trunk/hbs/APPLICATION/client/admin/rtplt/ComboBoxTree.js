@@ -10,7 +10,7 @@ Ext.extend(ExtUx.widget.ComboBoxTree, Ext.form.ComboBox, {
 
 passName : 'id', 
 
-allowUnLeafClick : true, 
+allowUnLeafClick : false, 
 
 // tpl: '<div id="treeTpl"></div>', //html代码 
 
@@ -54,16 +54,19 @@ emptyText : '请选择...',
 
 
 clearValue : function() { 
-	if (this.passField) this.passField.value = ''; 
+	if (this.passField) this.passField.value = '';
 	this.setRawValue(''); 
 }, 
 
 
 setPassValue: function(passvalue){ 
-	if (this.passField) this.passField.value = passvalue; 
-}, 
-
-getValue: function() {
+	if (this.passField) this.passField.value = passvalue;
+	var node = this.tree.getNodeById(passvalue);
+	this.setValue(node.text);
+	// 选中树节点后的触发事件 
+	this.fireEvent('treeselected', node); 
+},
+getPassValue: function() {
 	return this.passField.value;
 },
 
@@ -78,7 +81,7 @@ treeClk : function(node, e) {
 		return; 
 	} 
 	
-	this.setValue(node.text);// 设置option值 
+	this.setValue(node.text);// 设置option值
 	this.collapse();// 隐藏option列表 
 	
 	if (this.passField) this.passField.value = node.id;// 以树的节点ID传递 
@@ -90,6 +93,14 @@ treeClk : function(node, e) {
 
 initComponent : function() { 
 	ExtUx.widget.ComboBoxTree.superclass.initComponent.call(this); 
+	/*
+	this.tree.on('load', function(node, checked) {
+		node.expand(); 
+		node.eachChild(function(child) {
+			child.expand(); 
+		}); 
+	});
+	*/
 	this.tree.autoScroll = true; 
 	this.tree.height = this.treeHeight; 
 	this.tree.containerScroll = false; 
