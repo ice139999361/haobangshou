@@ -22,7 +22,7 @@
                     "text": "客户信息查询",
                     "menuOrder": "20000",
                     "leaf": "true",
-                    "url": "/customer/querycustomer.jsp"
+                    "url": "/customer/querycustomer.jsp?roleType=sccustomers"
                 },
                 {
                 		"id": "pnrelation",
@@ -63,11 +63,11 @@
             "icon": "/portal/images/title_icon02.gif",
             "children": [
                 {
-                		"id": "materiel_add",
-                    "text": "本公司物料录入",
+                		"id": "scmcustomers_query",
+                    "text": "客户信息查询",
                     "menuOrder": "10000",
                     "leaf": "true",
-                    "url": "/materiel/editormateriel.jsp"
+                    "url": "/customer/querycustomer.jsp?roleType=scmanager"
                 }
             ]
         },
