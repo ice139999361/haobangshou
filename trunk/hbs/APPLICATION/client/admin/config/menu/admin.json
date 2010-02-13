@@ -68,6 +68,20 @@
                     "menuOrder": "10000",
                     "leaf": "true",
                     "url": "/customer/querycustomer.jsp?roleType=scmanager"
+                },
+                {
+                		"id": "auditcustomers",
+                    "text": "客户信息审批",
+                    "menuOrder": "20000",
+                    "leaf": "true",
+                    "url": "/customer/auditcustomer.jsp"
+                },
+                {
+                		"id": "scmqueryorder",
+                    "text": "客户订单查询",
+                    "menuOrder": "50000",
+                    "leaf": "true",
+                    "url": "/customer/queryorder.jsp"
                 }
             ]
         },
