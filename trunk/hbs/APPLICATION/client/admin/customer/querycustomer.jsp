@@ -6,6 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>客户信息查询</title>
 	<script type="text/javascript" src="<%=contextPath %>/customer/common/CommonPro.js"></script>
+	<script type="text/javascript" src="<%=contextPath %>/customer/component/querycustomer.js"></script>
 </head>
 
 <body>
@@ -16,50 +17,10 @@
 			    <panel frame="true" autoScroll="true">
 			    	<items>
 			    	<!-- service ext ui.  begin. -->
-			    	
-			    		<queryform gridId="querygrid" exportId="exportBtn">
-			    			<layoutpanel columnNum="6:.3,.11,.05,.15,.05,.3">
-			    				<textfield fieldLabel="客户简称"               name="custInfo.shortName" />
-			    				<label     fieldLabel="客户录入时间"          />
-			    				<label     fieldLabel="从"  labelSeparator="" />
-			    				<datefield hideLabel="true" format="Y-m-d" name="custInfo.dynamicFields.likeBegainTime"   width="120" />
-			    				<label     fieldLabel="到"  labelSeparator="" />
-			    				<datefield hideLabel="true" format="Y-m-d" name="custInfo.dynamicFields.likeEndTime"   width="120" />
-			    			</layoutpanel>
-			    			<layoutpanel columnNum="2:.3,.3">
-			    				<checkbox  labelSeparator=""                   name=""  boxLabel="精确查找" />
-			    				<textfield fieldLabel="客户编码"               name="custInfo.commCode"  />
-			    			</layoutpanel>
-			    		</queryform>
-				    		
-				    		
-				    	
+			    		
+			    		<queryform gridId="querygrid" exportId="exportBtn" itemsFun="queryformFun" />
 			
-				    	<complexgrid id="querygrid" title="客户信息列表" frame="true" page="true" root="data.list" url="/customerInfo/customerInfo!list.action">
-			    			<fields>
-			    				<field name="shortName"     />
-			    				<field name="commCode"      />
-			    				<field name="allName"       />
-			    				<field name="address"       />
-			    				<field name="creditDesc"    />
-			    				<field name="importantDesc" />
-			    				<field name="stateDesc"     />
-			    				
-			    				<field name="baseSeqId"     />
-			    				<field name="state"         />
-			    			</fields>
-			    			
-			    			<columns>
-			    				<column header="客户简称"       dataIndex="shortName"     id="shortName" />
-			    				<column header="客户编码"       dataIndex="commCode"      />
-			    				<column header="公司中文名称"   dataIndex="allName"       />
-			    				<column header="客户公司地址"   dataIndex="address"       />
-			    				<column header="客户信用度"     dataIndex="creditDesc"    />
-			    				<column header="客户的重要程度" dataIndex="importantDesc" />
-			    				<column header="状态"           dataIndex="stateDesc"     />
-			    				<column header="操作"           dataIndex=""              id="operator" />
-			    			</columns>
-			    		</complexgrid>
+				    	<complexgrid id="querygrid" title="客户信息列表" frame="true" page="true" root="data.list" itemsFun="complexgridFun" />
 			    		
 			    		<panel buttonAlign="center">
 			    			<buttons>

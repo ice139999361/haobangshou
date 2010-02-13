@@ -1,15 +1,16 @@
 var queryformFun = function() {
 	// 存放控件对象集合
 	var cmpobj = {};
+			    				
 	// 客户简称
 	cmpobj["khjc"] = {xtype: "textfield", fieldLabel: "客户简称"     , name: "custInfo.shortName"};
 	// 客户录入时间
 	cmpobj["khlrsj"] = [
 		 {xtype: "label"    , fieldLabel: "客户录入时间"}
 		,{xtype: "label"    , fieldLabel: "从"           , labelSeparator: ""}
-		,{xtype: "datefield", hideLabel: true            , name: ""                   , format: "Y-m-d", width: 120}
+		,{xtype: "datefield", hideLabel: true            , name: "custInfo.dynamicFields.likeBegainTime", format: "Y-m-d", width: 120}
 		,{xtype: "label"    , fieldLabel: "到"           , labelSeparator: ""}
-		,{xtype: "datefield", hideLabel: true            , name: ""                   , format: "Y-m-d", width: 120}
+		,{xtype: "datefield", hideLabel: true            , name: "custInfo.dynamicFields.likeEndTime"   , format: "Y-m-d", width: 120}
 	];
 	// 精确查找
 	cmpobj["jqcz"] = {xtype: "checkbox" , labelSeparator: ""         , name: "", boxLabel: "精确查找"};
@@ -37,7 +38,7 @@ var sccustomersLayout = function(cmpobj) {
 };
 
 // 市场经理
-var scmanagerLayout = function(cmpobj) {
+var scmanagerLayout = function(cmpobj) {	
 	var cph = new ColumnPanelHelper;
 		
 	var p1 = cph.createLayoutPanel(3);
@@ -57,9 +58,10 @@ var scmanagerLayout = function(cmpobj) {
 };
 
 
+var querygridUrl;
 var complexgridFun = function() {
-			    		
-			    		
+	// 查询数据的地址
+	querygridUrl = "/customerInfo/customerInfo!list.action";
 			    		
 	var cgh = new ComplexGridHelper;
 	
