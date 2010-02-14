@@ -86,7 +86,7 @@
             ]
         },
         {
-            "id": "sfe",
+            "id": "cgbuyer",
             "text": "采购部采购员",
             "menuOrder": "30000",
             "iconCls": "nav",
@@ -94,11 +94,11 @@
             "icon": "/portal/images/title_icon02.gif",
             "children": [
                 {
-                		"id": "a13",
+                		"id": "cgbuyer_add",
                     "text": "供应商信息录入",
                     "menuOrder": "10000",
                     "leaf": "true",
-                    "url": "/customer/querycustomer.jsp?roleType=scmanager"
+                    "url": "/vendor/editorvendor.jsp?editorType=add"
                 },
                 {
                 		"id": "a14",
