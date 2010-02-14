@@ -20,32 +20,32 @@
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="客户基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<textfield fieldLabel="客户编码"               name="custInfo.commCode"       labelStyle="width:150" allowBlank="false"/>
-				    				<textfield fieldLabel="公司中文名称"           name="custInfo.allName"        labelStyle="width:150" />
-				    				<textfield fieldLabel="客户简称"               name="custInfo.shortName"      labelStyle="width:150" allowBlank="false"/>
-				    				<textfield fieldLabel="客户公司地址"           name="custInfo.address"        labelStyle="width:150" />
+				    				<textfield fieldLabel="客户编码"               name="custInfo.commCode"             labelStyle="width:150" allowBlank="false"/>
+				    				<textfield fieldLabel="公司中文名称"           name="custInfo.allName"              labelStyle="width:150" />
+				    				<textfield fieldLabel="客户简称"               name="custInfo.shortName"            labelStyle="width:150" allowBlank="false"/>
+				    				<textfield fieldLabel="客户公司地址"           name="custInfo.address"              labelStyle="width:150" />
 				    				<dictcombo fieldLabel="客户信用度"             hiddenName="custInfo.creditRate"     labelStyle="width:150" paramsValue="CREDIT_RATE"     emptyText="请选择" />	
-				    				<textfield fieldLabel="客户纳税人识别号"       name="custInfo.taxCode"        labelStyle="width:150" />
-				    				<textfield fieldLabel="性质"                   name="custInfo.commType"       labelStyle="width:150" />
-				    				<textfield fieldLabel="销售人员ID"             name="custInfo.staffId"        labelStyle="width:150" />
-				    				<textfield fieldLabel="对应的业务部助理ID"     name="custInfo.assStaffId"     labelStyle="width:150" />
-				    				<textfield fieldLabel="供应商编码"             name="custInfo.vendorCode"     labelStyle="width:150" />
+				    				<textfield fieldLabel="客户纳税人识别号"       name="custInfo.taxCode"              labelStyle="width:150" />
+				    				<textfield fieldLabel="性质"                   name="custInfo.commType"             labelStyle="width:150" />
+				    				<textfield fieldLabel="销售人员ID"             name="custInfo.staffId"              labelStyle="width:150" />
+				    				<textfield fieldLabel="对应的业务部助理ID"     name="custInfo.assStaffId"           labelStyle="width:150" />
+				    				<textfield fieldLabel="供应商编码"             name="custInfo.vendorCode"           labelStyle="width:150" />
 				    				<dictcombo fieldLabel="对应的分公司或分支机构" hiddenName="custInfo.companyBranch"  labelStyle="width:150" paramsValue="COMPANY_BRANCH"  emptyText="请选择" />			
 				    				
-				    				<textfield fieldLabel="客户法人代表"           name="custInfo.representative" labelStyle="width:150" />
-				    				<textfield fieldLabel="公司英文名称"           name="custInfo.enName"         labelStyle="width:150" />
-				    				<textfield fieldLabel="公司英文地址"           name="custInfo.enAddress"      labelStyle="width:150" />	
-				    				<textfield fieldLabel="英文简称"               name="custInfo.enShortName"    labelStyle="width:150" />
+				    				<textfield fieldLabel="客户法人代表"           name="custInfo.representative"       labelStyle="width:150" />
+				    				<textfield fieldLabel="公司英文名称"           name="custInfo.enName"               labelStyle="width:150" />
+				    				<textfield fieldLabel="公司英文地址"           name="custInfo.enAddress"            labelStyle="width:150" />	
+				    				<textfield fieldLabel="英文简称"               name="custInfo.enShortName"          labelStyle="width:150" />
 				    				<dictcombo fieldLabel="客户的重要程度"         hiddenName="custInfo.importantCode"  labelStyle="width:150" paramsValue="IMPORTANT_CODE"  emptyText="请选择" />
-				    				<textfield fieldLabel="客户公司网址"           name="custInfo.webSite"        labelStyle="width:150" />
-				    				<textfield fieldLabel="规模"                   name="custInfo.commScale"      labelStyle="width:150" />
-				    				<textfield fieldLabel="销售人员名字"           name="custInfo.staffName"      labelStyle="width:150" />
-				    				<textfield fieldLabel="对应的业务部助理姓名"   name="custInfo.assStaffName"   labelStyle="width:150" />
+				    				<textfield fieldLabel="客户公司网址"           name="custInfo.webSite"              labelStyle="width:150" />
+				    				<textfield fieldLabel="规模"                   name="custInfo.commScale"            labelStyle="width:150" />
+				    				<textfield fieldLabel="销售人员名字"           name="custInfo.staffName"            labelStyle="width:150" />
+				    				<textfield fieldLabel="对应的业务部助理姓名"   name="custInfo.assStaffName"         labelStyle="width:150" />
 				    				<dictcombo fieldLabel="发货单是否显示单价"     hiddenName="custInfo.isShowPrice"    labelStyle="width:150" paramsValue="IS_SHOW_PRICE"   emptyText="请选择" />
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">
-				    				<textarea fieldLabel="客户备注"               name="custInfo.commDesc"       labelStyle="width:150" width="600" height="80" />
+				    				<textarea fieldLabel="客户备注"               name="custInfo.commDesc"              labelStyle="width:150" width="600" height="80" />
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">
@@ -56,20 +56,20 @@
 				    		
 				    		<listpanel frame="true" title="客户结算信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<dictcombo fieldLabel="客户结算类型"           hiddenName="custInfo.settlementType" labelStyle="width:150" paramsValue="SETTLEMENT_TYPE" emptyText="请选择" />
+				    				<dictcombo fieldLabel="客户结算类型"           hiddenName="custInfo.settlementType"            labelStyle="width:150" paramsValue="SETTLEMENT_TYPE" emptyText="请选择" />
 				    				<dictcombo fieldLabel="账期类型" 			         hiddenName="custInfo.accountPreiod.accountType" labelStyle="width:150" paramsValue="ACCOUNT_TYPE" emptyText="请选择" />
 				    				<textfield fieldLabel="账期的起始日" 					 name="custInfo.accountPreiod.periodStart"       labelStyle="width:150" />
-				    				<textfield fieldLabel="账期的结算日" 					 name="custInfo.accountPreiod.settlementDay"       labelStyle="width:150" />
+				    				<textfield fieldLabel="账期的结算日" 					 name="custInfo.accountPreiod.settlementDay"     labelStyle="width:150" />
 				    				<textfield fieldLabel="提醒设置" 							 name="custInfo.accountPreiod.reminderDay"       labelStyle="width:150" />
-				    				<textfield fieldLabel="提醒市场人员催款" 			 name="custInfo.prePaidInfo.reminderDay"       labelStyle="width:150" />
+				    				<textfield fieldLabel="提醒市场人员催款" 			 name="custInfo.prePaidInfo.reminderDay"         labelStyle="width:150" />
 				    				
-				    				<dictcombo fieldLabel="客户结算币种"           hiddenName="custInfo.currency"       labelStyle="width:150" paramsValue="CURRENCY"        emptyText="请选择" />
-				    				<textfield fieldLabel="客户的账期设置" 				 name="custInfo.accountPreiod.accountPeriod"       labelStyle="width:150" />
-				    				<textfield fieldLabel="账期的对账日" 					 name="custInfo.accountPreiod.accounDay"       labelStyle="width:150" />
-				    				<textfield fieldLabel="客户账期的最大交易金额" name="custInfo.accountPreiod.maxMoney"       labelStyle="width:150" />
-				    				<textfield fieldLabel="预付百分比" 						 name="custInfo.prePaidInfo.prePaid"       labelStyle="width:150" />
-				    				<textfield fieldLabel="合同费"                 name="custInfo.contactFee"    labelStyle="width:150" />
-				    				<textfield fieldLabel="交易税率"               name="custInfo.taxRate"        labelStyle="width:150" />
+				    				<dictcombo fieldLabel="客户结算币种"           hiddenName="custInfo.currency"                  labelStyle="width:150" paramsValue="CURRENCY"        emptyText="请选择" />
+				    				<textfield fieldLabel="客户的账期设置" 				 name="custInfo.accountPreiod.accountPeriod"     labelStyle="width:150" />
+				    				<textfield fieldLabel="账期的对账日" 					 name="custInfo.accountPreiod.accounDay"         labelStyle="width:150" />
+				    				<textfield fieldLabel="客户账期的最大交易金额" name="custInfo.accountPreiod.maxMoney"          labelStyle="width:150" />
+				    				<textfield fieldLabel="预付百分比" 						 name="custInfo.prePaidInfo.prePaid"             labelStyle="width:150" />
+				    				<textfield fieldLabel="合同费"                 name="custInfo.contactFee"                      labelStyle="width:150" />
+				    				<textfield fieldLabel="交易税率"               name="custInfo.taxRate"                         labelStyle="width:150" />
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">
