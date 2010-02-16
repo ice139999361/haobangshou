@@ -31,7 +31,7 @@ public class VendorRecInvoiceHisDaoTest extends AbstractTransactionalDataSourceS
         invoiceInfo.setStaffName("1");
         invoiceInfo.setCreateTime(new Date());
         invoiceInfo.setPoNo("1");
-        invoiceInfo.setPO_NO_DATE("1");
+       // invoiceInfo.setPO_NO_DATE("1");
         invoiceInfo.setCcode(new Date());
         invoiceInfo.setShortName(new Date());
         invoiceInfo.setPartNo("1");
@@ -73,7 +73,7 @@ public class VendorRecInvoiceHisDaoTest extends AbstractTransactionalDataSourceS
         invoiceInfo.setStaffName("1");
         invoiceInfo.setCreateTime(new Date());
         invoiceInfo.setPoNo("1");
-        invoiceInfo.setPO_NO_DATE("1");
+       // invoiceInfo.setPO_NO_DATE("1");
         invoiceInfo.setCcode(new Date());
         invoiceInfo.setShortName(new Date());
         invoiceInfo.setPartNo("1");
@@ -103,7 +103,7 @@ public class VendorRecInvoiceHisDaoTest extends AbstractTransactionalDataSourceS
         System.out.println("staffName=" + invoiceInfo.getStaffName());
         System.out.println("createTime=" + invoiceInfo.getCreateTime());
         System.out.println("poNo=" + invoiceInfo.getPoNo());
-        System.out.println("PO_NO_DATE=" + invoiceInfo.getPO_NO_DATE());
+       // System.out.println("PO_NO_DATE=" + invoiceInfo.getPO_NO_DATE());
         System.out.println("ccode=" + invoiceInfo.getCcode());
         System.out.println("shortName=" + invoiceInfo.getShortName());
         System.out.println("partNo=" + invoiceInfo.getPartNo());
@@ -127,7 +127,7 @@ public class VendorRecInvoiceHisDaoTest extends AbstractTransactionalDataSourceS
         invoiceInfo.setStaffName("1");
         invoiceInfo.setCreateTime(null);
         invoiceInfo.setPoNo("1");
-        invoiceInfo.setPO_NO_DATE("1");
+       // invoiceInfo.setPO_NO_DATE("1");
         invoiceInfo.setCcode(null);
         invoiceInfo.setShortName(null);
         invoiceInfo.setPartNo("1");
@@ -148,7 +148,7 @@ public class VendorRecInvoiceHisDaoTest extends AbstractTransactionalDataSourceS
             System.out.println(i + " staffName=" + tmpInvoiceInfo.getStaffName());
             System.out.println(i + " createTime=" + tmpInvoiceInfo.getCreateTime());
             System.out.println(i + " poNo=" + tmpInvoiceInfo.getPoNo());
-            System.out.println(i + " PO_NO_DATE=" + tmpInvoiceInfo.getPO_NO_DATE());
+          //  System.out.println(i + " PO_NO_DATE=" + tmpInvoiceInfo.getPO_NO_DATE());
             System.out.println(i + " ccode=" + tmpInvoiceInfo.getCcode());
             System.out.println(i + " shortName=" + tmpInvoiceInfo.getShortName());
             System.out.println(i + " partNo=" + tmpInvoiceInfo.getPartNo());
@@ -174,7 +174,7 @@ public class VendorRecInvoiceHisDaoTest extends AbstractTransactionalDataSourceS
         invoiceInfo.setStaffName("1");
         invoiceInfo.setCreateTime(null);
         invoiceInfo.setPoNo("1");
-        invoiceInfo.setPO_NO_DATE("1");
+      //  invoiceInfo.setPO_NO_DATE("1");
         invoiceInfo.setCcode(null);
         invoiceInfo.setShortName(null);
         invoiceInfo.setPartNo("1");
