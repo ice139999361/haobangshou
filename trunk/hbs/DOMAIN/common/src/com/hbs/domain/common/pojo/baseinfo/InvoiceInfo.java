@@ -3,6 +3,7 @@ package com.hbs.domain.common.pojo.baseinfo;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.hbs.common.utils.DateUtils;
 import com.hbs.domain.common.pojo.base.BaseDomain;
 
 /**
@@ -40,7 +41,7 @@ public class InvoiceInfo extends BaseDomain{
     /**
      * 送货日期.
      */
-    private String PO_NO_DATE;
+    private String poNoDate;
     
     /**
      * 客户编码.
@@ -134,12 +135,12 @@ public class InvoiceInfo extends BaseDomain{
         this.poNo = poNo;
     }
     
-    public String getPO_NO_DATE() {
-        return this.PO_NO_DATE;
+    public String getPoNoDate() {
+        return this.poNoDate;
     }	
   
-    public void setPO_NO_DATE(String PO_NO_DATE) {
-        this.PO_NO_DATE = PO_NO_DATE;
+    public void setPoNoDate(String poNoDate) {
+        this.poNoDate = poNoDate;
     }
     
     public Date getCcode() {
@@ -222,27 +223,34 @@ public class InvoiceInfo extends BaseDomain{
         this.invoiceDesc = invoiceDesc;
     }
 
+    
+    public String getLogKey(){
+    	StringBuilder sb = new StringBuilder("custInvoice");
+    	sb.append(";").append(this.poNo).append(";");
+    	sb.append(this.partNo);
+    	return sb.toString();
+    }
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(staffId).append(";");
-		sb.append(staffName).append(";");
-		sb.append(createTime).append(";");
-		sb.append(poNo).append(";");
-		sb.append(PO_NO_DATE).append(";");
-		sb.append(ccode).append(";");
-		sb.append(shortName).append(";");
-		sb.append(partNo).append(";");
-		sb.append(cpartNo).append(";");
-		sb.append(pnDesc).append(";");
-		sb.append(amount).append(";");
-		sb.append(allMoney).append(";");
-		sb.append(curMoney).append(";");
-		sb.append(leftMoney).append(";");
-		sb.append(invoiceDesc);
+		sb.append("staffId=").append(this.staffId).append(" ");
+		sb.append("staffName=").append(this.staffName).append(" ");
+		sb.append("createTime=").append(this.createTime == null ? " " : DateUtils.getFormatDate(this.createTime,null)).append(" ");
+		sb.append("poNo=").append(this.poNo).append(" ");
+		sb.append("poNoDate=").append(this.poNoDate).append(" ");
+		sb.append("ccode=").append(this.ccode).append(" ");
+		sb.append("shortName=").append(this.shortName).append(" ");
+		sb.append("partNo=").append(this.partNo).append(" ");
+		sb.append("cpartNo=").append(this.cpartNo).append(" ");
+		sb.append("pnDesc=").append(this.pnDesc).append(" ");
+		sb.append("amount=").append(this.amount == null ? "0" :this.allMoney.intValue() ).append(" ");
+		sb.append("allMoney=").append(this.allMoney == null ? "0" :this.allMoney.intValue() ).append(" ");		
+		sb.append("curMoney=").append(this.curMoney == null ? "0" : this.curMoney.intValue()).append(" ");
+		sb.append("leftMoney=").append(this.leftMoney== null ? "0" : this.leftMoney.intValue()).append(" ");
+		sb.append("invoiceDesc=").append(this.invoiceDesc);
 		return sb.toString();
 	}
 
