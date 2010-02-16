@@ -27,17 +27,17 @@ public class VendorRecInvoiceHisDaoImpl extends SqlMapClientDaoSupport implement
      * @return id
      * @throws DataAccessException DataAccessException
      */
-    public void insertInvoiceInfo(InvoiceInfo invoiceInfo) throws DataAccessException {
+    public Integer insertInvoiceInfo(InvoiceInfo invoiceInfo) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入insertInvoiceInfo(InvoiceInfo), 输入参数[" + invoiceInfo + "]");
     	}
         
         
-    	getSqlMapClientTemplate().insert("InvoiceInfo_insertInvoiceInfo", invoiceInfo);
+    	Integer i = (Integer)getSqlMapClientTemplate().insert("InvoiceInfo_insertInvoiceInfo", invoiceInfo);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开insertInvoiceInfo(InvoiceInfo), 返回");
 		}
-    	
+    	return i;
     }
 
     /**
