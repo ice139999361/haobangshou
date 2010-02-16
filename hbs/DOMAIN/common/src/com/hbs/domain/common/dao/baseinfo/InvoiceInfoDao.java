@@ -17,7 +17,7 @@ public interface InvoiceInfoDao {
      * @return id
      * @throws DataAccessException DataAccessException
      */
-    void insertInvoiceInfo(InvoiceInfo invoiceInfo) throws DataAccessException ;
+    Integer insertInvoiceInfo(InvoiceInfo invoiceInfo) throws DataAccessException ;
 
     /**
      * delete.
@@ -47,7 +47,7 @@ public interface InvoiceInfoDao {
      * @return invoiceInfo list
      * @throws DataAccessException DataAccessException
      */
-    List listInvoiceInfo(InvoiceInfo invoiceInfo) throws DataAccessException ;
+    List<InvoiceInfo> listInvoiceInfo(InvoiceInfo invoiceInfo) throws DataAccessException ;
     
     /**
      * listCount.
