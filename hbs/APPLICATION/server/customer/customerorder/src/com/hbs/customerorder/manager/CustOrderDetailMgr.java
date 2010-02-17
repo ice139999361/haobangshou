@@ -27,6 +27,8 @@ import com.hbs.domain.customer.order.dao.CustOrderDetailDao;
 import com.hbs.domain.customer.order.dao.CustomerOrderDao;
 import com.hbs.domain.customer.order.pojo.CustOrderDetail;
 import com.hbs.domain.customer.order.pojo.CustomerOrder;
+import com.hbs.domain.vendor.vendorinfo.dao.VendorInfoDao;
+import com.hbs.domain.vendor.vendorinfo.pojo.VendorInfo;
 import com.hbs.domain.waittask.pojo.WaitTaskInfo;
 import com.hbs.domain.warehouse.pojo.WareHouseInfo;
 import com.hbs.warehouse.manager.WarehouseMgr;
@@ -37,13 +39,14 @@ import com.hbs.warehouse.manager.WarehouseMgr;
  */
 public class CustOrderDetailMgr {
 	private static final Logger logger = Logger.getLogger(CustOrderDetailMgr.class);
+	private static final String VENDORINFO_DAO ="vendorInfoDao";
 	/**
 	 * SPRING配置项的前缀
 	 */
 	public static final String PRE_SPRING ="custOrder";
 	/**
 	 * 操作者为业务助理
-	 * 保存客户订单的临时数据，数据的状态为
+	 * 保存客户订单明细的临时数据，数据的状态为
 	 * 01---包括订单明细临时数据
 	 * 本方法如果是客户订单调用，则操作日志，否则记录操作日志
 	 * @param orderDetail
@@ -54,6 +57,7 @@ public class CustOrderDetailMgr {
 	 */
 	public int saveTempOrderDetail(CustOrderDetail orderDetail,String staffId, String staffName) throws Exception{
 		int ret =0;
+		logger.debug("保存客户订单明细的临时数据，输入的参数为：" + orderDetail.toString());
 		String period = orderDetail.getPeriod();
 		if(null == period){
 			CustOrderState orderState =(CustOrderState)BeanLocator.getInstance().getBean(PRE_SPRING + orderDetail.getPoNoType() + orderDetail.getSettlementType());
@@ -72,7 +76,7 @@ public class CustOrderDetailMgr {
 	}
 	
 	/**
-	 * 批量保存客户订单的临时数据
+	 * 批量保存客户订单明细的临时数据
 	 * @param orderDetailList
 	 * @param staffId
 	 * @param staffName
@@ -81,6 +85,7 @@ public class CustOrderDetailMgr {
 	 */
 	public int saveTempOrderDetailList(List<CustOrderDetail> orderDetailList,String staffId, String staffName) throws Exception{
 		int ret = 0;
+		logger.debug("批量保存客户订单明细的临时数据，数量为：" + orderDetailList.size());
 		for(CustOrderDetail orderDetail : orderDetailList){
 			saveTempOrderDetail(orderDetail,staffId, staffName);
 		}
@@ -97,6 +102,7 @@ public class CustOrderDetailMgr {
 	 */
 	public int cancelOrderDetail(CustOrderDetail orderDetail, String cancelContent) throws Exception{
 		int ret =0;
+		logger.debug("取消该订单明细，输入的参数为：" + orderDetail.toString());
 		orderDetail.setState(CustOrderConstants.ORDER_STATE_03);
 		Map<String,Object> hm = new HashMap<String,Object>();
 		hm.put("state", CustOrderConstants.ORDER_STATE_03);
@@ -125,6 +131,7 @@ public class CustOrderDetailMgr {
 	 */
 	public int purchaseConfirmDetailDelivery(CustOrderDetail orderDetail,String confirmId,String confirmName, String content) throws Exception{
 		int ret =0;
+		logger.debug("采购确认订单明细的交期，输入的参数为：" + orderDetail.toString());
 		Date deliveryDate = orderDetail.getVerDeliveryDate();
 		if(null == deliveryDate){
 			orderDetail.setVerDeliveryDate(orderDetail.getPreDeliveryDate());
@@ -178,6 +185,7 @@ public class CustOrderDetailMgr {
 	 */
 	public int purchaseRefuseDetailDelivery(CustOrderDetail orderDetail,String confirmId, String confirmName, String content) throws Exception{
 		int ret =0;
+		logger.debug("采购不同意订单明细交期，输入的参数为：" + orderDetail.toString());
 		orderDetail.setState(CustOrderConstants.ORDER_STATE_04);
 		Map<String,Object> hm = new HashMap<String,Object>();
 		hm.put("state", CustOrderConstants.ORDER_STATE_03);
@@ -218,6 +226,7 @@ public class CustOrderDetailMgr {
 	 */
 	public int salesConfirmDetailDelivery(CustOrderDetail orderDetail, String content) throws Exception{
 		int ret =0;
+		logger.debug("业务提交变更后的交期，输入的参数为：" + orderDetail.toString());
 		orderDetail.setState(CustOrderConstants.ORDER_STATE_20);
 		Map<String,Object> hm = new HashMap<String,Object>();
 		hm.put("state", CustOrderConstants.ORDER_STATE_03);
@@ -236,7 +245,7 @@ public class CustOrderDetailMgr {
 			
 		//waittask
 		WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
-		waitTaskInfo.setStaffId("yangzj");//这里需要查找采购人员ID
+		waitTaskInfo.setStaffId(getVendorStaffId(orderDetail.getCommCode()));//这里需要查找采购人员ID
 		Map<String , String> hmParam = new HashMap<String,String>();
 		hmParam.put("$staffName", orderDetail.getStaffName());
 		hmParam.put("$businessKey", orderDetail.getWaitTaskBizKey());
@@ -244,7 +253,26 @@ public class CustOrderDetailMgr {
 		CustOrderUtils.processCreateWaitTask("CUST_ORDER_006",null, waitTaskInfo);			
 		return ret;
 	}
-	
+	/**
+	 * 根据客户信息中的供应商编码，查询供应商对应的本公司的采购员
+	 * @param vendorCode
+	 * @return
+	 * @throws Exception
+	 */
+	private String getVendorStaffId(String vendorCode) throws Exception{
+		String retStr = null;
+		VendorInfoDao vInfoDao = (VendorInfoDao)BeanLocator.getInstance().getBean(VENDORINFO_DAO);
+		VendorInfo vInfo = new VendorInfo();
+		vInfo.setCommCode(vendorCode);
+		vInfo.setState("0");
+		VendorInfo retInfo = vInfoDao.findVendorInfoByBase(vInfo);
+		if(null != retInfo){
+			retStr = retInfo.getStaffId();
+		}else{
+			throw new Exception("无法查询到供应商编码为：" + vendorCode +"信息！");
+		}
+		return retStr;
+	}
 	/**
 	 * 锁定订单明细的库存，除在订单明细表中添加锁定数量外，
 	 * 还有一部分就是对仓库库存的锁定变更，仓库库存的锁定在仓库部分调用DAO实现
@@ -279,7 +307,7 @@ public class CustOrderDetailMgr {
 			int isavelockAmount = iLockAmount + oselfLock + ocommLock;
 			if(isavelockAmount + idelivery > iAmount){//锁定的数量  + 已发货数量大于订单明细订货数量
 				logger.debug("输入的锁定数量+已存在的锁定数量 + 已发货数量 ，大于订单明细订货数量，不能执行锁定操作！");
-				ret = -2;
+				//ret = -2;
 				throw new Exception("输入的锁定数量+已存在的锁定数量 + 已发货数量 ，大于订单明细订货数量，不能执行锁定操作！");
 				
 			}else{
@@ -297,7 +325,8 @@ public class CustOrderDetailMgr {
 			}
 		}else{//客户订单明细不存在 ，返回-1
 			logger.debug("根据输入的参数无法找到对应的客户订单明细，无法执行锁定操作！");
-			ret = -1;
+			//ret = -1;
+			throw new Exception("根据输入的参数无法找到对应的客户订单明细，无法执行锁定操作！");
 		}
 		//处理仓库部分的锁定情况
 		if(staffId != null && ret == 0){
@@ -421,6 +450,7 @@ public class CustOrderDetailMgr {
 	 */
 	public int updateTempOrderDetail(CustOrderDetail orderDetail, String content) throws Exception{
 		int ret =0;
+		logger.debug("修改临时状态的订单明细 ,输入的参数为：" + orderDetail.toString());
 		orderDetail.setMoney(OrderCalUtils.calOrderMoney(orderDetail.getCprice(), orderDetail.getIsTax(),orderDetail.getTaxRate(), orderDetail.getCpriceTax(),orderDetail.getContactFee(), orderDetail.getAmount()));
 		orderDetail.setState(CustOrderConstants.ORDER_STATE_01);
 		CustOrderDetailDao cDetailDao = (CustOrderDetailDao)BeanLocator.getInstance().getBean(CustOrderConstants.CUST_ORDERDETAIL_DAO);
@@ -440,6 +470,7 @@ public class CustOrderDetailMgr {
 	 */
 	public int updateTempOrderDetailList(List<CustOrderDetail> orderDetailList,String content) throws Exception{
 		int ret = 0;
+		logger.debug(" 批量修改订单明细 ,数量为：" + orderDetailList.size());
 		for(CustOrderDetail orderDetail : orderDetailList){
 			updateTempOrderDetail(orderDetail, content);
 		}
@@ -473,6 +504,7 @@ public class CustOrderDetailMgr {
 	
 	public int updateCustDetailByState(CustOrderDetail orderDetail) throws Exception{
 		int ret =0;
+		logger.debug("修改订单明细 ,输入的参数为：" + orderDetail.toString());
 		CustOrderDetailDao cDetailDao = (CustOrderDetailDao)BeanLocator.getInstance().getBean(CustOrderConstants.CUST_ORDERDETAIL_DAO);
 		cDetailDao.updateCustOrderDetailByState(orderDetail);
 		return ret;
@@ -480,23 +512,27 @@ public class CustOrderDetailMgr {
 	
 	public int updateCustDetailAmount(CustOrderDetail orderDetail) throws Exception{
 		int ret =0;
+		logger.debug("修改订单明细订单数量 ,输入的参数为：" + orderDetail.toString());
 		CustOrderDetailDao cDetailDao = (CustOrderDetailDao)BeanLocator.getInstance().getBean(CustOrderConstants.CUST_ORDERDETAIL_DAO);
 		cDetailDao.updateCustOrderDetailAmount(orderDetail);
 		return ret;
 	}
 	
 	public CustOrderDetail findCustOrderDetailById(String id) throws Exception{
+		logger.debug("根据主键查询订单明细 ,输入的参数为：" + id);
 		CustOrderDetailDao cDetailDao = (CustOrderDetailDao)BeanLocator.getInstance().getBean(CustOrderConstants.CUST_ORDERDETAIL_DAO);
 		return cDetailDao.findCustOrderDetailById(id);
 	}
 	
 	public CustOrderDetail findCustOrderDetailByBizKey(CustOrderDetail orderDetail) throws Exception{
+		logger.debug("根据业务主键查询订单明细 ,输入的参数为：" + orderDetail.toString());
 		CustOrderDetailDao cDetailDao = (CustOrderDetailDao)BeanLocator.getInstance().getBean(CustOrderConstants.CUST_ORDERDETAIL_DAO);
 		return cDetailDao.findCustOrderDetailByBizKey(orderDetail);
 	}
 	
 	public int controlActiveState(CustOrderDetail orderDetail,String content) throws Exception{
 		int ret =0;
+		logger.debug("订单明细活动状态 ,输入的参数为：" + orderDetail.toString());
 		CustOrderDetailDao cDetailDao = (CustOrderDetailDao)BeanLocator.getInstance().getBean(CustOrderConstants.CUST_ORDERDETAIL_DAO);
 		cDetailDao.updateCustOrderDetailByActiveState(orderDetail);
 					
@@ -507,6 +543,7 @@ public class CustOrderDetailMgr {
 	
 	public int controlActiveStateList(List<CustOrderDetail> orderDetailList,String content) throws Exception{
 		int ret =0;
+		logger.debug("订单明细活动状态 ,输入的参数为：" + orderDetailList.size());
 		for(CustOrderDetail orderDetail : orderDetailList){
 			controlActiveState(orderDetail,content);
 		}
@@ -515,6 +552,7 @@ public class CustOrderDetailMgr {
 	
 	public List<CustOrderDetail> listCustOrderDetail(CustOrderDetail orderDetail) throws Exception{
 		List<CustOrderDetail> retList = null;
+		logger.debug("根据条件订单明细 ,输入的参数为：" + orderDetail.toString());
 		CustOrderDetailDao cDetailDao = (CustOrderDetailDao)BeanLocator.getInstance().getBean(CustOrderConstants.CUST_ORDERDETAIL_DAO);
 		retList = cDetailDao.listCustOrderDetail(orderDetail);
 		return retList;
