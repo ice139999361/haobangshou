@@ -29,7 +29,8 @@
 			<tx:method name="update*" propagation="REQUIRED" rollback-for="Exception" />
 			<tx:method name="lock*" propagation="REQUIRED" rollback-for="Exception" />
 			<tx:method name="unlock*" propagation="REQUIRED" rollback-for="Exception" />
-			<tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception" />			
+			<tx:method name="delete*" propagation="NESTED" rollback-for="Exception" />			
+			<tx:method name="cancel*" propagation="NESTED" rollback-for="Exception" />
 			<tx:method name="insert*" propagation="NESTED" rollback-for="Exception" />
 			<tx:method name="innerUpdate*" propagation="NESTED" rollback-for="Exception" />
 			<tx:method name="*" propagation="SUPPORTS" read-only="true"/>
