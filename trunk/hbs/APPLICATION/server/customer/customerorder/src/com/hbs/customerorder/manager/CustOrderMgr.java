@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 
 import com.hbs.common.springhelper.BeanLocator;
 
@@ -24,6 +26,8 @@ import com.hbs.customerorder.utils.CustOrderUtils;
 import com.hbs.domain.customer.order.dao.CustomerOrderDao;
 import com.hbs.domain.customer.order.pojo.CustOrderDetail;
 import com.hbs.domain.customer.order.pojo.CustomerOrder;
+import com.hbs.domain.vendor.vendorinfo.dao.VendorInfoDao;
+import com.hbs.domain.vendor.vendorinfo.pojo.VendorInfo;
 import com.hbs.domain.waittask.pojo.WaitTaskInfo;
 
 /**
@@ -31,6 +35,8 @@ import com.hbs.domain.waittask.pojo.WaitTaskInfo;
  *
  */
 public class CustOrderMgr {
+	private static final Logger logger = Logger.getLogger(CustOrderMgr.class);
+	private static final String VENDORINFO_DAO ="vendorInfoDao";
 	/**
 	 * SPRING配置项的前缀
 	 */
@@ -52,6 +58,7 @@ public class CustOrderMgr {
 	 * @throws Exception
 	 */
 	public int saveTempCustomerOrder(CustomerOrder cOrder) throws Exception{
+		logger.debug("保存客户订单的临时数据,输入的参数为：" + cOrder.toString());
 		String period = cOrder.getPeriod();
 		if(null == period){
 			CustOrderState orderState =(CustOrderState)BeanLocator.getInstance().getBean(PRE_SPRING + cOrder.getPoNoType() + cOrder.getSettlementType());
@@ -88,6 +95,7 @@ public class CustOrderMgr {
 	 * @throws Exception
 	 */
 	public int updateTempCustomerOrder(CustomerOrder cOrder) throws Exception{
+		logger.debug("修改客户订单,输入的参数为：" + cOrder.toString());
 		CustomerOrderDao cOrderDao =(CustomerOrderDao)BeanLocator.getInstance().getBean("customerOrderDao");
 		cOrderDao.updateCustomerOrder(cOrder);
 		List<CustOrderDetail> orderDetailList = cOrder.getOrderDetailList();
@@ -124,6 +132,7 @@ public class CustOrderMgr {
 	 */
 	public int commitCustomerOrder(CustomerOrder cOrder) throws Exception{
 		int ret =0;
+		logger.debug("提交客户订单,输入的参数为：" + cOrder.toString());
 		CustOrderState orderState =(CustOrderState)BeanLocator.getInstance().getBean(PRE_SPRING + cOrder.getPoNoType() + cOrder.getSettlementType());
 		String state = orderState.commitCustomerOrder(cOrder);
 		cOrder.setState(state);
@@ -131,7 +140,7 @@ public class CustOrderMgr {
 		//waittask
 		WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
 		if(state.equals(CustOrderConstants.ORDER_STATE_20)){
-			waitTaskInfo.setStaffId("yangzj");//这里需要根据供应商查找对应的采购员
+			waitTaskInfo.setStaffId(getVendorStaffId(cOrder.getVendorCode()));//这里需要根据供应商查找对应的采购员
 		}
 		Map<String , String> hmParam = new HashMap<String,String>();
 		hmParam.put("$staffName", cOrder.getStaffName());
@@ -155,6 +164,7 @@ public class CustOrderMgr {
 	 */
 	public int cancelCustOrder(CustomerOrder cOrder , String cancelContent) throws Exception{
 		int ret =0;
+		logger.debug("取消客户订单,输入的参数为：" + cOrder.toString());
 		cOrder.setState(CustOrderConstants.ORDER_STATE_03);
 		ret = updateCustCustomerState(cOrder, true);
 		//waittask
@@ -178,13 +188,14 @@ public class CustOrderMgr {
 	 */
 	public int auditAgreeCustOrder(CustomerOrder cOrder,String auditId, String auditName,String auditContents) throws Exception{
 		int ret =0;
+		logger.debug("经理审批通过超过账期最大金额的客户订单,输入的参数为：" + cOrder.toString());
 		if(cOrder.getState().equals(CustOrderConstants.ORDER_STATE_50)){
 			cOrder.setState(CustOrderConstants.ORDER_STATE_20);
 			ret = updateCustCustomerState(cOrder, true);
 			//waittask			
 			WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
 			if(cOrder.getState().equals(CustOrderConstants.ORDER_STATE_20)){
-				waitTaskInfo.setStaffId("yangzj");//这里需要根据供应商查找对应的采购员
+				waitTaskInfo.setStaffId(getVendorStaffId(cOrder.getVendorCode()));//这里需要根据供应商查找对应的采购员
 			}
 			Map<String , String> hmParam = new HashMap<String,String>();
 			hmParam.put("$staffName", auditName);
@@ -195,7 +206,8 @@ public class CustOrderMgr {
 			CustLogUtils.operLog(auditId,auditName, "审批通过","客户订单", cOrder.getLogBizKey(),null,auditContents);
 			
 		}else{
-			ret =2;
+			//ret =2;
+			throw new Exception("输入的订单状态为非待审批，无法执行操作！");
 		}
 		return ret;
 	}
@@ -212,13 +224,14 @@ public class CustOrderMgr {
 	 */
 	public int financeAgreeCustOrder(CustomerOrder cOrder,String auditId, String auditName,String auditContents) throws Exception{
 		int ret =0;
+		logger.debug("财务确认了客户订单的预付款,输入的参数为：" + cOrder.toString());
 		if(cOrder.getState().equals(CustOrderConstants.ORDER_STATE_30)){
 			cOrder.setState(CustOrderConstants.ORDER_STATE_20);
 			ret = updateCustCustomerState(cOrder, true);
 			//waittask			
 			WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
 			if(cOrder.getState().equals(CustOrderConstants.ORDER_STATE_20)){
-				waitTaskInfo.setStaffId("yangzj");//这里需要根据供应商查找对应的采购员
+				waitTaskInfo.setStaffId(getVendorStaffId(cOrder.getVendorCode()));//这里需要根据供应商查找对应的采购员
 			}
 			Map<String , String> hmParam = new HashMap<String,String>();
 			hmParam.put("$staffName", auditName);
@@ -229,11 +242,31 @@ public class CustOrderMgr {
 			CustLogUtils.operLog(auditId,auditName, "确认预付款","客户订单", cOrder.getLogBizKey(),null,auditContents);
 			
 		}else{
-			ret =2;
+			//ret =2;
+			throw new Exception("输入的订单状态为非待财务确认，无法执行操作！");
 		}
 		return ret;
 	}
-	
+	/**
+	 * 根据客户信息中的供应商编码，查询供应商对应的本公司的采购员
+	 * @param vendorCode
+	 * @return
+	 * @throws Exception
+	 */
+	private String getVendorStaffId(String vendorCode) throws Exception{
+		String retStr = null;
+		VendorInfoDao vInfoDao = (VendorInfoDao)BeanLocator.getInstance().getBean(VENDORINFO_DAO);
+		VendorInfo vInfo = new VendorInfo();
+		vInfo.setCommCode(vendorCode);
+		vInfo.setState("0");
+		VendorInfo retInfo = vInfoDao.findVendorInfoByBase(vInfo);
+		if(null != retInfo){
+			retStr = retInfo.getStaffId();
+		}else{
+			throw new Exception("无法查询到供应商编码为：" + vendorCode +"信息！");
+		}
+		return retStr;
+	}
 	/**
 	 * 财务退回待财务预付款确认客户订单，待业务助理处理
 	 * 状态有30（待财务确认）变为 39（财务退单）
@@ -248,6 +281,7 @@ public class CustOrderMgr {
 	 */
 	public int financeDisAgreeCustOrder(CustomerOrder cOrder,String auditId, String auditName,String auditContents) throws Exception{
 		int ret =0;
+		logger.debug("财务退回待财务预付款确认客户订单,输入的参数为：" + cOrder.toString());
 		if(cOrder.getState().equals(CustOrderConstants.ORDER_STATE_30)){
 			cOrder.setState(CustOrderConstants.ORDER_STATE_39);
 			ret = updateCustCustomerState(cOrder, true);
@@ -263,7 +297,8 @@ public class CustOrderMgr {
 			CustLogUtils.operLog(auditId,auditName, "财务退单","客户订单", cOrder.getLogBizKey(),null,auditContents);
 			
 		}else{
-			ret =2;
+			//ret =2;
+			throw new Exception("输入的订单状态为非待财务确认，无法执行操作！");
 		}
 		return ret;
 	}
@@ -281,6 +316,7 @@ public class CustOrderMgr {
 	 */
 	public int auditDisAgreeCustOrder(CustomerOrder cOrder,String auditId, String auditName,String auditContents) throws Exception{
 		int ret =0;
+		logger.debug("经理审批不通过超过账期最大金额的客户订单,输入的参数为：" + cOrder.toString());
 		if(cOrder.getState().equals(CustOrderConstants.ORDER_STATE_50)){
 			cOrder.setState(CustOrderConstants.ORDER_STATE_52);
 			ret = updateCustCustomerState(cOrder, true);
@@ -298,7 +334,8 @@ public class CustOrderMgr {
 			CustLogUtils.operLog(auditId,auditName, "审批不通过","客户订单", cOrder.getLogBizKey(),null,auditContents);
 			
 		}else{
-			ret =2;
+			//ret =2;
+			throw new Exception("输入的订单状态为非待经理审批，无法执行操作！");
 		}
 		return ret;
 	}
@@ -315,6 +352,7 @@ public class CustOrderMgr {
 	 */
 	public int controlActiveState(CustomerOrder cOrder,String operContents) throws Exception{
 		int ret =0;
+		logger.debug("订单的活动状态控制,输入的参数为：" + cOrder.toString());
 		String activeState = cOrder.getActiveState();
 		if((CustOrderConstants.ORDER_ACTIVE_STATE).equals(activeState)){
 			cOrder.setActiveState(CustOrderConstants.ORDER_PAUSE_STATE);
@@ -350,6 +388,7 @@ public class CustOrderMgr {
 	 */
 	public CustomerOrder findCustomerOrderByBizKey(CustomerOrder cOrder, boolean isDetail)throws Exception{
 		CustomerOrder retOrder = null;
+		logger.debug("根据业务主键查询客户订单,输入的参数为：" + cOrder.toString());
 		CustomerOrderDao cOrderDao =(CustomerOrderDao)BeanLocator.getInstance().getBean("customerOrderDao");
 		retOrder = cOrderDao.findCustomerOrder(cOrder);
 		if(isDetail){
@@ -369,6 +408,7 @@ public class CustOrderMgr {
 	 */
 	public List<CustomerOrder> listCustomerOrder(CustomerOrder cOrder) throws Exception{
 		List<CustomerOrder> retList = null;
+		logger.debug("根据查询条件，查询订单列表,输入的参数为：" + cOrder.toString());
 		CustomerOrderDao cOrderDao =(CustomerOrderDao)BeanLocator.getInstance().getBean("customerOrderDao");
 		retList = cOrderDao.listCustomerOrder(cOrder);
 		return retList;
@@ -382,6 +422,7 @@ public class CustOrderMgr {
 	 */
 	public Integer listCustomerOrderCount(CustomerOrder cOrder) throws Exception{
 		Integer retI = null;
+		logger.debug("根据查询条件，查询符合条件的订单数量,输入的参数为：" + cOrder.toString());
 		CustomerOrderDao cOrderDao =(CustomerOrderDao)BeanLocator.getInstance().getBean("customerOrderDao");
 		retI = cOrderDao.listCustomerOrderCount(cOrder);
 		return retI;

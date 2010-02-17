@@ -13,10 +13,10 @@
     <aop:config proxy-target-class="true">
 		<aop:advisor
 			pointcut="execution(* com.hbs.vendorinfo.manager.*.*(..))"
-			advice-ref="txDispatchAdvice" />
+			advice-ref="vendorDispatchAdvice" />
 		<aop:advisor
 			pointcut="execution(* com.hbs.common.manager.baseinfo.*.*(..))"
-			advice-ref="txDispatchAdvice" />		
+			advice-ref="vendorDispatchAdvice" />		
 	</aop:config>
 	
 

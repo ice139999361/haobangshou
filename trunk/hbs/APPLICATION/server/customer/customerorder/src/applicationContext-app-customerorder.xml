@@ -1,7 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<!-- <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd"> -->
 
-<beans >
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd 
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd" >
+       
+    <aop:config proxy-target-class="true">
+		<aop:advisor
+			pointcut="execution(* com.hbs.customerorder.manager.*.*(..))"
+			advice-ref="txCustOrderAdvice" />			
+	</aop:config>
+	
+
+	<tx:advice id="txCustOrderAdvice"
+		transaction-manager="transactionManager">
+		<tx:attributes>			
+			<tx:method name="saveTempCustomerOrder" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="updateTempCustomerOrder" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="commitCustomerOrder" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="cancelCustOrder" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="auditAgreeCustOrder" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="financeAgreeCustOrder" propagation="REQUIRED" rollback-for="Exception" />
+			
+			<tx:method name="financeDisAgreeCustOrder" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="auditDisAgreeCustOrder" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="controlActiveState" propagation="REQUIRED" rollback-for="Exception" />
+						
+			<tx:method name="updateCustCustomerState" propagation="NESTED" rollback-for="Exception" />
+			
+			<tx:method name="saveTempOrderDetailList" propagation="NESTED" rollback-for="Exception" />			
+			<tx:method name="saveTempOrderDetail" propagation="NESTED" rollback-for="Exception" />
+			<tx:method name="cancelOrderDetail" propagation="NESTED" rollback-for="Exception" />
+			<tx:method name="purchaseConfirmDetailDelivery" propagation="NESTED" rollback-for="Exception" />
+			
+			<tx:method name="purchaseRefuseDetailDelivery" propagation="NESTED" rollback-for="Exception" />			
+			<tx:method name="salesConfirmDetailDelivery" propagation="NESTED" rollback-for="Exception" />
+			<tx:method name="lockOrderDetailAmount" propagation="NESTED" rollback-for="Exception" />
+			<tx:method name="deliveryOrderDetailAmount" propagation="NESTED" rollback-for="Exception" />
+			
+			<tx:method name="updateTempOrderDetail" propagation="NESTED" rollback-for="Exception" />			
+			<tx:method name="updateTempOrderDetailList" propagation="NESTED" rollback-for="Exception" />
+			<tx:method name="updateCustDetailByState" propagation="NESTED" rollback-for="Exception" />
+			<tx:method name="updateCustDetailAmount" propagation="NESTED" rollback-for="Exception" />
+			
+			<tx:method name="controlActiveState" propagation="NESTED" rollback-for="Exception" />			
+			<tx:method name="controlActiveStateList" propagation="NESTED" rollback-for="Exception" />
+			
+			
+			<tx:method name="*" propagation="SUPPORTS" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
 	<!-- 客户订单 -->
 	<bean id="custOrderMgr" class="com.hbs.customerorder.manager.CustOrderMgr">		
 	</bean>
