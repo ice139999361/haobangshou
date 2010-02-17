@@ -31,7 +31,7 @@ public class SendInvoiceMgr {
 		InvoiceInfoDao dao = (InvoiceInfoDao)BeanLocator.getInstance().getBean(InvoiceConstants.CUST_SEND_INVOICE_DAO);
 		ret = dao.insertInvoiceInfo(invoiceInfo);
 		//操作日志
-		WareHouseLogUtils.operLog(invoiceInfo.getStaffId(), invoiceInfo.getStaffName(), "新增", "客户发票", invoiceInfo.getLogKey(), null, null);
+		WareHouseLogUtils.operLog(invoiceInfo.getStaffId(), invoiceInfo.getStaffName(), "新增", "客户发票", invoiceInfo.getLogKey("SendInvoice"), null, null);
 		return ret;
 	}
 	/**
@@ -46,7 +46,7 @@ public class SendInvoiceMgr {
 		InvoiceInfoDao dao = (InvoiceInfoDao)BeanLocator.getInstance().getBean(InvoiceConstants.CUST_SEND_INVOICE_DAO);
 		dao.updateInvoiceInfo(invoiceInfo);
 		//操作日志
-		WareHouseLogUtils.operLog(invoiceInfo.getStaffId(), invoiceInfo.getStaffName(), "修改", "客户发票", invoiceInfo.getLogKey(), null, null);
+		WareHouseLogUtils.operLog(invoiceInfo.getStaffId(), invoiceInfo.getStaffName(), "修改", "客户发票", invoiceInfo.getLogKey("SendInvoice"), null, null);
 		return ret;
 	}
 	/**
@@ -63,7 +63,7 @@ public class SendInvoiceMgr {
 		if(existInfo != null){
 			dao.deleteInvoiceInfo(seqId);
 			//操作日志
-			WareHouseLogUtils.operLog(existInfo.getStaffId(), existInfo.getStaffName(), "删除", "客户发票", existInfo.getLogKey(), existInfo.toString(), null);
+			WareHouseLogUtils.operLog(existInfo.getStaffId(), existInfo.getStaffName(), "删除", "客户发票", existInfo.getLogKey("SendInvoice"), existInfo.toString(), null);
 		}else{
 			throw new Exception("需要删除的客户发票信息不存在！输入的参数为：" + seqId);
 		}
