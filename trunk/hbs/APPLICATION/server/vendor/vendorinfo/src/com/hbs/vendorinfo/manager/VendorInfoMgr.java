@@ -460,7 +460,7 @@ public class VendorInfoMgr {
 	 * @param isDelCurrent  是否删除本次操作的数据
 	 * @throws Exception
 	 */
-	private void deleteVendorInfo(VendorInfo vInfo,boolean isDelCurrent) throws Exception{
+	private void cancelVendorInfo(VendorInfo vInfo,boolean isDelCurrent) throws Exception{
 		/** 联系人信息 */
 		List<ContactInfo> contactInfoList = vInfo.getListContactInfo();
 		if(null != contactInfoList && contactInfoList.size() >0){//存在联系人信息	
@@ -522,7 +522,7 @@ public class VendorInfoMgr {
 		String strLogType = null;
 		switch(state){
 		case 0:  //成为正式数据，审批通过,先删除老状态为0的数据，再插入新的状态为0的数据,同时删除待审批数据
-			deleteVendorInfo(vInfo,true);
+			cancelVendorInfo(vInfo,true);
 			int baseSeqId = vInfoDao.insertVendorInfo(vInfo);
 			vInfo.setBaseSeqId(baseSeqId);
 			strLogType = "审批数据";
@@ -540,7 +540,7 @@ public class VendorInfoMgr {
 			strLogType = "审批不通过数据";
 			break;
 		case 4://废弃数据只修改状态，同时清除以前可能存在的废除数据			
-			deleteVendorInfo(vInfo,false);
+			cancelVendorInfo(vInfo,false);
 			vInfoDao.updateVendorInfoByState(vInfo);
 			strLogType = "废弃数据";
 			break;
