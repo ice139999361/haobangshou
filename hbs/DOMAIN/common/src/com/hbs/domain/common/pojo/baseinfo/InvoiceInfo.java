@@ -224,8 +224,8 @@ public class InvoiceInfo extends BaseDomain{
     }
 
     
-    public String getLogKey(){
-    	StringBuilder sb = new StringBuilder("custInvoice");
+    public String getLogKey(String type){
+    	StringBuilder sb = new StringBuilder(type);
     	sb.append(";").append(this.poNo).append(";");
     	sb.append(this.partNo);
     	return sb.toString();
