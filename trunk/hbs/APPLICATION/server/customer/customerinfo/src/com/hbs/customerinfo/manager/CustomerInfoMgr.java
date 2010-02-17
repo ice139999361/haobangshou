@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.hbs.common.manager.baseinfo.AccountPreiodMgr;
 import com.hbs.common.manager.baseinfo.BankInfoMgr;
 import com.hbs.common.manager.baseinfo.ContactMgr;
@@ -37,15 +39,17 @@ import com.hbs.domain.waittask.pojo.WaitTaskInfo;
 public class CustomerInfoMgr {
 	
 	private static final String CUSTOMERINFODAO = "customerInfoDao";
-	
+	private static final Logger logger = Logger.getLogger(CustomerInfoMgr.class);
 	/**
 	 * 保存客户信息的临时数据,数据状态为临时状态,
 	 * @param custInfo
-	 * @return  >0---成功   -1---失败
+	 * @return  >0---成功   
 	 * @throws Exception
 	 */
 	public int saveTempCustomerInfo(CustomerInfo custInfo) throws Exception{
+		logger.debug("保存客户信息的临时数据,输入的参数为：" + custInfo.toString());
 		custInfo.setState(new Integer(StateConstants.STATE_1).toString());
+		logger.debug("设置的状态为：" + StateConstants.STATE_1);
 		return insertCustomerInfo(custInfo);
 	}
 	/**
@@ -60,14 +64,18 @@ public class CustomerInfoMgr {
 	 */
 	public int commitCustomerInfo(CustomerInfo custInfo,String staffId,String staffName) throws Exception{
 		int ret =0;
+		logger.debug("提交客户信息数据审批,输入的参数为：" + custInfo.toString());
 		//获取提交数据的baseSeqId ，如果不存在，表示没有保存过，需要先保存
 		Integer ibaseSeqId = custInfo.getBaseSeqId();
 		if(null == ibaseSeqId){
+			logger.debug("提交客户信息数据的主键为null,做插入操作！");
 			custInfo.setState(new Integer(StateConstants.STATE_2).toString());
+			logger.debug("设置的状态为：" + StateConstants.STATE_2);
 			ret = this.insertCustomerInfo(custInfo);
 		}else{
 			//获取提交数据打状态
 			int iState = Integer.parseInt(custInfo.getState());
+			logger.debug("存在提交的客户信息数据，状态为：" + iState);
 			if(iState == StateConstants.STATE_1 || iState == StateConstants.STATE_3){
 				custInfo.setState(new Integer(StateConstants.STATE_2).toString());
 					ret = innerUpdateCustomerInfo(custInfo,staffId,staffName,null);	
@@ -83,7 +91,9 @@ public class CustomerInfoMgr {
 						WaitTaskMgr.createWaitTask("CUSTOMER001", waitTaskInfo);
 					}
 			}else{
-				ret =-2;//表示数据提交的状态不正确
+				//ret =-2;//表示数据提交的状态不正确
+				logger.debug("存在提交的客户信息数据，数据提交的状态不正确,不能做提交操作！");
+				throw new Exception("数据提交的状态不正确!");
 			}
 		}
 		return ret;
@@ -98,7 +108,9 @@ public class CustomerInfoMgr {
 	 */
 	public int auditAgreeCustomerInfo(CustomerInfo custInfo , String auditId, String auditName,String auditDesc) throws Exception{
 		int ret =0;
+		logger.debug("审批同意客户信息数据,输入的参数为：" + custInfo.toString());
 		int iState = Integer.parseInt(custInfo.getState());
+		logger.debug("状态为：" + iState);
 		if(iState == StateConstants.STATE_2 ){
 			custInfo.setState(new Integer(StateConstants.STATE_0).toString());
 			ret = innerUpdateCustomerInfo(custInfo,auditId,auditName,auditDesc);
@@ -114,7 +126,9 @@ public class CustomerInfoMgr {
 				WaitTaskMgr.createWaitTask("CUSTOMER002", waitTaskInfo);
 			}
 		}else{
-			ret =2;//表示数据提交的状态不正确
+			//ret =2;//表示数据提交的状态不正确
+			logger.debug("数据提交的状态不正确,不能做审批同意操作！");
+			throw new Exception("数据提交的状态不正确!");
 		}
 		
 		return 0;
@@ -130,7 +144,9 @@ public class CustomerInfoMgr {
 	 */
 	public int auditDisAgreeCustomerInfo(CustomerInfo custInfo ,String auditId, String auditName,String auditDesc) throws Exception{
 		int ret =0;
+		logger.debug("审批不同意客户信息数据,输入的参数为：" + custInfo.toString());
 		int iState = Integer.parseInt(custInfo.getState());
+		logger.debug("状态为：" + iState);
 		if(iState == StateConstants.STATE_2 ){
 			custInfo.setState(new Integer(StateConstants.STATE_3).toString());
 			ret = innerUpdateCustomerInfo(custInfo,auditId,auditName,auditDesc);
@@ -147,7 +163,9 @@ public class CustomerInfoMgr {
 				WaitTaskMgr.createWaitTask("CUSTOMER003", waitTaskInfo);
 			}
 		}else{
-			ret =2;//表示数据提交的状态不正确
+			//ret =2;//表示数据提交的状态不正确
+			logger.debug("数据提交的状态不正确,不能做审批不同意操作！");
+			throw new Exception("数据提交的状态不正确!");
 		}
 		
 		return 0;
@@ -164,7 +182,9 @@ public class CustomerInfoMgr {
 	 */
 	public int updateCustomerInfo(CustomerInfo custInfo, String staffId,String staffName) throws Exception{
 		int ret =0;
+		logger.debug("修改客户信息数据,输入的参数为：" + custInfo.toString());
 		int iState = Integer.parseInt(custInfo.getState());
+		logger.debug("状态为：" + iState);
 		//状态为1 ，对临时数据做修改
 		//状态为0 ，对正式数据做修改，直接提交领导审批
 		//状态为3 ，对审批不通过的数据修改，直接提交领导审批
@@ -203,7 +223,10 @@ public class CustomerInfoMgr {
 			break;
 			
 		default:
-			ret = -2;
+			//ret = -2;
+			//ret =2;//表示数据提交的状态不正确
+			logger.debug("数据提交的状态不正确,不能做修改操作！");
+			throw new Exception("数据提交的状态不正确!");
 		}
 		
 		return ret;
@@ -219,14 +242,18 @@ public class CustomerInfoMgr {
 	 */
 	public int lockCustomerInfo(CustomerInfo custInfo , String staffId,String staffName,String lockDesc) throws Exception{
 		int ret =0;
+		logger.debug("锁定客户资料,输入的参数为：" + custInfo.toString());
 		int iState = Integer.parseInt(custInfo.getState());
+		logger.debug("状态为：" + iState);
 		switch(iState){
 		case 0:
 			custInfo.setState(new Integer(StateConstants.STATE_5).toString());
 			ret = innerUpdateCustomerInfo(custInfo,staffId,staffName,lockDesc);
 			break;
 		default:
-			ret =2;
+			//ret =2;
+			logger.debug("数据提交的状态不正确,不能做锁定操作！");
+			throw new Exception("数据提交的状态不正确!");
 		}
 		return ret;
 		
@@ -242,14 +269,18 @@ public class CustomerInfoMgr {
 	 */
 	public int unlockCustomerInfo(CustomerInfo custInfo , String staffId,String staffName,String lockDesc) throws Exception{
 		int ret =0;
+		logger.debug("解锁客户资料,输入的参数为：" + custInfo.toString());
 		int iState = Integer.parseInt(custInfo.getState());
+		logger.debug("状态为：" + iState);
 		switch(iState){
 		case 5:
 			custInfo.setState(new Integer(StateConstants.STATE_6).toString());
 			ret = innerUpdateCustomerInfo(custInfo,staffId,staffName,lockDesc);
 			break;
 		default:
-			ret =2;
+			//ret =2;
+			logger.debug("数据提交的状态不正确,不能做解锁操作！");
+			throw new Exception("数据提交的状态不正确!");
 		}
 		return ret;
 	}
@@ -264,14 +295,18 @@ public class CustomerInfoMgr {
 	 */
 	public int deleteCustomerInfo(CustomerInfo custInfo,String staffId,String staffName,String delDesc) throws Exception{
 		int ret =0;
+		logger.debug("废除客户数据,输入的参数为：" + custInfo.toString());
 		int iState = Integer.parseInt(custInfo.getState());
+		logger.debug("状态为：" + iState);
 		switch(iState){
 		case 3:
 			custInfo.setState(new Integer(StateConstants.STATE_4).toString());
 			ret = innerUpdateCustomerInfo(custInfo,staffId,staffName,delDesc);
 			break;
 		default:
-			ret =2;
+			//ret =2;
+			logger.debug("数据提交的状态不正确,不能做废除操作！");
+			throw new Exception("数据提交的状态不正确!");
 		}
 		return ret;
 	}
@@ -388,7 +423,7 @@ public class CustomerInfoMgr {
 	 * @return baseSeqId--成功  -1--存在重复数据
 	 * @throws Exception
 	 */
-	private int insertCustomerInfo(CustomerInfo customerInfo) throws Exception{
+	public int insertCustomerInfo(CustomerInfo customerInfo) throws Exception{
 		int ret =0;		
 		CustomerInfoDao customerInfoDao = (CustomerInfoDao)BeanLocator.getInstance().getBean(CUSTOMERINFODAO);
 		CustomerInfo tempInfo = customerInfoDao.findCustomerInfoByBase(customerInfo);
@@ -445,7 +480,8 @@ public class CustomerInfoMgr {
 			int iState = Integer.parseInt(customerInfo.getState());
 			operLog( customerInfo.getStaffId(), customerInfo.getStaffName(), (iState ==2 ? "提交审批数据" : "新增客户信息"), baseSeqId.toString(), null);
 		}else{
-			ret = -1;
+			//ret = -1;
+			throw new Exception("插入的信息已经存在，不能重复操作！");
 		}
 		
 		return ret;
@@ -568,8 +604,10 @@ public class CustomerInfoMgr {
 			
 			customerInfoDao.updateCustomerInfoByState(cInfo);
 			strLogType = "解锁数据";
+			break;
 		default:
-			ret =-1;
+			//ret =-1;
+			throw new Exception("数据状态不存在，无法操作！");
 			
 		}
 		operLog( staffId, staffName, strLogType, customerInfo.getBaseSeqId().toString(), otherInfo);

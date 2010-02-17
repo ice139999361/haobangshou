@@ -1,7 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<!-- <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">  -->
 
-<beans>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd 
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd" >
+       
+    <aop:config proxy-target-class="true">
+		<aop:advisor
+			pointcut="execution(* com.hbs.customerinfo.manager.*.*(..))"
+			advice-ref="txDispatchAdvice" />
+		<aop:advisor
+			pointcut="execution(* com.hbs.common.manager.baseinfo.*.*(..))"
+			advice-ref="txDispatchAdvice" />		
+	</aop:config>
+	
+
+	<tx:advice id="txDispatchAdvice"
+		transaction-manager="transactionManager">
+		<tx:attributes>			
+			<tx:method name="save*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="commit*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="audit*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="update*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="lock*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="unlock*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception" />			
+			<tx:method name="insert*" propagation="NESTED" rollback-for="Exception" />
+			<tx:method name="innerUpdate*" propagation="NESTED" rollback-for="Exception" />
+			<tx:method name="*" propagation="SUPPORTS" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+    
 	<!-- 客户账期信息实现类   parent="accountPreiodMgr" -->
 	<bean id="custAccountPreiodMgr"  class="com.hbs.customerinfo.manager.CustAccountPreiodMgr">		
 	</bean>
