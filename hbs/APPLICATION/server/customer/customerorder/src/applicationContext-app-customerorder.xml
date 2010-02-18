@@ -13,6 +13,9 @@
     <aop:config proxy-target-class="true">
 		<aop:advisor
 			pointcut="execution(* com.hbs.customerorder.manager.*.*(..))"
+			advice-ref="txCustOrderAdvice" />
+		<aop:advisor
+			pointcut="execution(* com.hbs.warehouse.manager.*.*(..))"
 			advice-ref="txCustOrderAdvice" />			
 	</aop:config>
 	
@@ -50,6 +53,15 @@
 			
 			<tx:method name="controlActiveState" propagation="NESTED" rollback-for="Exception" />			
 			<tx:method name="controlActiveStateList" propagation="NESTED" rollback-for="Exception" />
+			
+			<tx:method name="saveLockWareHouseInfo" propagation="NESTED" rollback-for="Exception" />			
+			<tx:method name="saveInWareHouseInfo" propagation="NESTED" rollback-for="Exception" />
+			<tx:method name="saveOutWareHouseInfo" propagation="NESTED" rollback-for="Exception" />			
+			
+			<tx:method name="saveAdjustInfo" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="agreeAdjustInfo" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="disAgreeAdjustInfo" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="lockWareHouseInfo" propagation="NESTED" rollback-for="Exception" />
 			
 			
 			<tx:method name="*" propagation="SUPPORTS" read-only="true"/>
