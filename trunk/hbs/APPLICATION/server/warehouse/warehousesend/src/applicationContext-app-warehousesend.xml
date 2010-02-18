@@ -1,7 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<!-- <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd"> -->
 
-<beans >
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd 
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd" >
+       
+    <aop:config proxy-target-class="true">
+		<aop:advisor
+			pointcut="execution(* com.hbs.warehousesend.manager.*.*(..))"
+			advice-ref="txWarehouseSendAdvice" />
+		<aop:advisor
+			pointcut="execution(* com.hbs.warehouse.manager.*.*(..))"
+			advice-ref="txWarehouseSendAdvice" />			
+	</aop:config>
+	
+
+	<tx:advice id="txWarehouseSendAdvice"
+		transaction-manager="transactionManager">
+		<tx:attributes>			
+			<tx:method name="saveWareHouseSendInfo" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="cancelWarehouseSendInfo" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="corfirmWarehouseSendInfo" propagation="REQUIRED" rollback-for="Exception" />
+									
+			<tx:method name="saveWareHouseSendDetail" propagation="NESTED" rollback-for="Exception" />
+			
+			<tx:method name="processCustOrderDetail" propagation="NESTED" rollback-for="Exception" />			
+			<tx:method name="processWarehouseInfo" propagation="NESTED" rollback-for="Exception" />
+			<tx:method name="saveWareHouseSendDetailList" propagation="NESTED" rollback-for="Exception" />
+			<tx:method name="cancelWareHouseSendDetail" propagation="NESTED" rollback-for="Exception" />
+			
+			<tx:method name="cancelWareHouseSendDetailList" propagation="NESTED" rollback-for="Exception" />			
+			<tx:method name="controlActiveState" propagation="NESTED" rollback-for="Exception" />
+			<tx:method name="controlActiveStateList" propagation="NESTED" rollback-for="Exception" />
+			<tx:method name="adjustFinancePeriod" propagation="NESTED" rollback-for="Exception" />
+			
+			<tx:method name="adjustFinancePeriodList" propagation="NESTED" rollback-for="Exception" />			
+			<tx:method name="setFinanceState" propagation="NESTED" rollback-for="Exception" />
+			
+			<tx:method name="saveLockWareHouseInfo" propagation="NESTED" rollback-for="Exception" />			
+			<tx:method name="saveInWareHouseInfo" propagation="NESTED" rollback-for="Exception" />
+			<tx:method name="saveOutWareHouseInfo" propagation="NESTED" rollback-for="Exception" />			
+			
+			<tx:method name="*" propagation="SUPPORTS" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
 	<!-- 仓库出库单 -->
 	<bean id="wareHouseSendMgr" class="com.hbs.warehousesend.manager.WareHouseSendMgr">		
 	</bean>

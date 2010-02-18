@@ -1,7 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<!-- <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd"> -->
 
-<beans>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd 
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd" >
+       
+    <aop:config proxy-target-class="true">		
+		<aop:advisor
+			pointcut="execution(* com.hbs.warehouse.manager.*.*(..))"
+			advice-ref="txCustOrderAdvice" />			
+	</aop:config>
+	
+
+	<tx:advice id="txWarehouseAdvice"
+		transaction-manager="transactionManager">
+		<tx:attributes>			
+			<tx:method name="saveLockWareHouseInfo" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="saveLockWareHouseInfo" propagation="NESTED" rollback-for="Exception" />			
+			<tx:method name="saveInWareHouseInfo" propagation="NESTED" rollback-for="Exception" />
+			<tx:method name="saveOutWareHouseInfo" propagation="NESTED" rollback-for="Exception" />			
+			
+			<tx:method name="*" propagation="SUPPORTS" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
 	<!-- 客户信息实现类   -->
 	<bean id="warehouseMgr"  class="com.hbs.warehouse.manager.WarehouseMgr">		
 	</bean>

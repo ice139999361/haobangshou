@@ -13,7 +13,7 @@
     <aop:config proxy-target-class="true">
 		<aop:advisor
 			pointcut="execution(* com.hbs.vendororder.manager.*.*(..))"
-			advice-ref="txVendorOrderAdvice" />			
+			advice-ref="txVendorOrderAdvice" />					
 	</aop:config>
 	
 
@@ -42,7 +42,7 @@
 			
 			<tx:method name="confirmOrderDetailDelivery" propagation="NESTED" rollback-for="Exception" />			
 			<tx:method name="updateOrderDetailByState" propagation="NESTED" rollback-for="Exception" />
-						
+				
 			
 			<tx:method name="*" propagation="SUPPORTS" read-only="true"/>
 		</tx:attributes>
