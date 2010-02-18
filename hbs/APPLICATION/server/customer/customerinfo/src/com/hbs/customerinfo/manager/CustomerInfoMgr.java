@@ -59,7 +59,7 @@ public class CustomerInfoMgr {
 	 * 数据状态修改的同时，需要发待办通知
 	 * 
 	 * @param custInfo
-	 * @return > 0---成功    -1---存在重复数据  -2---状态不正确
+	 * @return > 0---成功   
 	 * @throws Exception
 	 */
 	public int commitCustomerInfo(CustomerInfo custInfo,String staffId,String staffName) throws Exception{
@@ -103,7 +103,7 @@ public class CustomerInfoMgr {
 	 * @param custInfo
 	 * @param auditName  审批人
 	 * @param auditDesc  审批意见
-	 * @return 0---成功   1--无此状态  2---状态不正确
+	 * @return 0---成功   
 	 * @throws Exception
 	 */
 	public int auditAgreeCustomerInfo(CustomerInfo custInfo , String auditId, String auditName,String auditDesc) throws Exception{
@@ -131,7 +131,7 @@ public class CustomerInfoMgr {
 			throw new Exception("数据提交的状态不正确!");
 		}
 		
-		return 0;
+		return ret;
 	}
 	
 	/**
@@ -139,7 +139,7 @@ public class CustomerInfoMgr {
 	 * @param custInfo
 	 * @param auditName  审批人
 	 * @param auditDesc  审批意见
-	 * @return 0---成功   1--无此状态  2---状态不正确
+	 * @return 0---成功   
 	 * @throws Exception
 	 */
 	public int auditDisAgreeCustomerInfo(CustomerInfo custInfo ,String auditId, String auditName,String auditDesc) throws Exception{
@@ -177,7 +177,7 @@ public class CustomerInfoMgr {
 	 * 修改前状态为3 ，对审批不通过的数据修改，直接提交领导审批
 		//其他状态不存在修改操作
 	 * @param custInfo
-	 * @return 0---成功   -1--无此状态  -2---状态不正确
+	 * @return 0---成功   
 	 * @throws Exception
 	 */
 	public int updateCustomerInfo(CustomerInfo custInfo, String staffId,String staffName) throws Exception{
@@ -237,7 +237,7 @@ public class CustomerInfoMgr {
 	 * @param staffId  操作人ID
 	 * @param staffName 操作人姓名
 	 * @param lockDesc  锁定说明
-	 * @return 0---成功   1--无此状态  2---状态不正确
+	 * @return 0---成功   
 	 * @throws Exception
 	 */
 	public int lockCustomerInfo(CustomerInfo custInfo , String staffId,String staffName,String lockDesc) throws Exception{
@@ -264,7 +264,7 @@ public class CustomerInfoMgr {
 	 * @param staffId  操作人ID
 	 * @param staffName 操作人姓名
 	 * @param lockDesc  解锁说明
-	 * @return 0---成功   1--无此状态  2---状态不正确
+	 * @return 0---成功   
 	 * @throws Exception
 	 */
 	public int unlockCustomerInfo(CustomerInfo custInfo , String staffId,String staffName,String lockDesc) throws Exception{

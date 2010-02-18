@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 import com.hbs.common.manager.syssequence.SysSequenceMgr;
 import com.hbs.common.springhelper.BeanLocator;
@@ -26,7 +27,7 @@ import com.hbs.vendororder.manager.helper.VendorOrderState;
 
 public class VendorOrderMgr {
 
-	
+	private static final Logger logger = Logger.getLogger(VendorOrderMgr.class);
 	
 	/**
 	 * 保存新增临时供应商订单 状态为01
@@ -40,6 +41,7 @@ public class VendorOrderMgr {
 	 */
 	public int saveTempVendorOrder(VendorOrder vOrder ,String content) throws Exception{
 		int ret =0;
+		logger.debug("保存新增临时供应商订单 ,输入的参数为：" + vOrder.toString());
 		String poNo = vOrder.getPoNo();
 		VendorOrderDao vOrderDao =(VendorOrderDao)BeanLocator.getInstance().getBean(VendorOrderConstants.VENDOR_ORDER_DAO);
 		if(StringUtils.isEmpty(poNo)){//新的供应商订单，insert操作
@@ -86,7 +88,7 @@ public class VendorOrderMgr {
 	 * @throws Exception
 	 */
 	public int updateTempVendorOrder(VendorOrder vOrder,String content) throws Exception{
-		
+		logger.debug("修改供应商临时订单 ,输入的参数为：" + vOrder.toString());
 		return saveTempVendorOrder(vOrder,content);
 	}
 	
@@ -99,6 +101,7 @@ public class VendorOrderMgr {
 	 * @throws Exception
 	 */
 	public int cancelVendorOrder(VendorOrder vOrder ,String content) throws Exception{
+		logger.debug("取消供应商临时订单 ,输入的参数为：" + vOrder.toString());
 		vOrder.setState(VendorOrderConstants.VENDOR_ORDER_STATE_03);
 		updateVendorOrderByState(vOrder);
 		//处理订单明细
@@ -125,6 +128,7 @@ public class VendorOrderMgr {
 	 */
 	public int commitVendorOrder(VendorOrder vOrder ,String content) throws Exception{
 		int ret =0;
+		logger.debug("提交供应商临时订单 ,输入的参数为：" + vOrder.toString());
 		VendorOrderState orderState =(VendorOrderState)BeanLocator.getInstance().getBean(VendorOrderConstants.PRE_SPRING + vOrder.getPoNoType() + vOrder.getSettlementType());
 		String state = orderState.getCommitState(/*vOrder*/);
 		vOrder.setState(state);		
@@ -157,11 +161,12 @@ public class VendorOrderMgr {
 	 *确认账期订单的交期，只对账期订单有效
 	 *账期订单的状态由04（待交期确认）变为 02确认订单，待入库
 	 * @param vOrder
-	 * @return   0  成功   1  状态不正确
+	 * @return   0  成功  
 	 * @throws Exception
 	 */
 	public int confirmOrderDelivery(VendorOrder vOrder,String content) throws Exception{
 		int ret =0;
+		logger.debug("确认账期订单的交期 ,输入的参数为：" + vOrder.toString());
 		String state = vOrder.getState();
 		if(VendorOrderConstants.VENDOR_ORDER_STATE_04.equals(state)){
 			vOrder.setState(VendorOrderConstants.VENDOR_ORDER_STATE_02);
@@ -181,7 +186,8 @@ public class VendorOrderMgr {
 			}
 			VendorLogUtils.operLog(vOrder.getStaffId(), vOrder.getStaffName(), "交期确认" , "供应商订单", vOrder.getLogKey(), null, content);
 		}else{
-			ret =1;
+			//ret =1;
+			throw new Exception("确认账期订单的交期,状态不正确，无法确认交期！");
 		}
 		return ret;
 	}
@@ -196,6 +202,7 @@ public class VendorOrderMgr {
 	 */
 	public int controlActiveState(VendorOrder vOrder ,String content)throws Exception{
 		int ret =0;
+		logger.debug("订单的活动状态控制 ,输入的参数为：" + vOrder.toString());
 		String activeState = vOrder.getActiveState();
 		if(VendorOrderConstants.VENDOR_ORDER_ACTIVE_STATE.equals(activeState)){
 			vOrder.setActiveState(VendorOrderConstants.VENDOR_ORDER_PAUSE_STATE);
@@ -225,6 +232,7 @@ public class VendorOrderMgr {
 	 * @throws Exception
 	 */
 	public VendorOrder getVendorOrder(String commCode,String poNo,boolean isDetail) throws Exception{
+		logger.debug("根据主键查询供应商订单 ,输入的参数为：" + commCode +" ;" + poNo);
 		VendorOrder vOrder = new VendorOrder();
 		VendorOrderDao vOrderDao =(VendorOrderDao)BeanLocator.getInstance().getBean(VendorOrderConstants.VENDOR_ORDER_DAO);
 		vOrder.setCommCode(commCode);
@@ -247,6 +255,7 @@ public class VendorOrderMgr {
 	 * @throws Exception
 	 */
 	public List<VendorOrder> getVendorOrderList(VendorOrder vOrder) throws Exception{
+		logger.debug("根据查询条件，查询供应商订单列表 ,输入的参数为：" + vOrder.toString());
 		VendorOrderDao vOrderDao =(VendorOrderDao)BeanLocator.getInstance().getBean(VendorOrderConstants.VENDOR_ORDER_DAO);
 		return vOrderDao.listVendorOrder(vOrder);
 	}
@@ -257,6 +266,7 @@ public class VendorOrderMgr {
 	 * @throws Exception
 	 */
 	public Integer getVendorOrderCount(VendorOrder vOrder) throws Exception{
+		logger.debug("根据查询条件，查询供应商订单数目 ,输入的参数为：" + vOrder.toString());
 		VendorOrderDao vOrderDao =(VendorOrderDao)BeanLocator.getInstance().getBean(VendorOrderConstants.VENDOR_ORDER_DAO);
 		return vOrderDao.listVendorOrderCount(vOrder);
 	}
