@@ -224,8 +224,9 @@ public class VendorOrderDetailMgr {
 			int updateAmount = delmount + iDelivMount;
 			logger.debug("提交订单明细,订单总数量为：" + iMount +"已经入库数量为：" + iDelivMount + "本次入库数量为：" + detail.getDeliveryAmount().intValue());
 			if(updateAmount > iMount){//更新的数目不对
-				ret =2;
+				//ret =2;
 				logger.debug("提交订单明细,更新的数码不正确，订单总数量 < 已经入库数量 + 本次入库数量");
+				throw new Exception("提交订单明细,更新的数码不正确，订单总数量 < 已经入库数量 + 本次入库数量");
 			}else if(updateAmount < iMount){//部分入库
 				logger.debug("提交订单明细,更新的数码，订单总数量 < 已经入库数量 + 本次入库数量 ,部分入库！");
 				tempDetail.setState(VendorOrderConstants.VENDOR_ORDER_STATE_60);
@@ -263,7 +264,8 @@ public class VendorOrderDetailMgr {
 			}
 		}else{//无此采购订单明细信息
 			logger.debug("提交订单明细,库中无此订单明细信息，不能更新！");
-			ret =1;
+			//ret =1;
+			throw new Exception("提交订单明细,库中无此订单明细信息，不能更新！");
 		}
 		
 		
@@ -282,6 +284,7 @@ public class VendorOrderDetailMgr {
 	public int confirmOrderDetailDelivery(VendorOrderDetail vDetail,
 			boolean isflowOrder, String content) throws Exception {
 		int ret = 0;
+		logger.debug("确认账期订单明细的交期,输入的参数为：" + vDetail.toString());
 		String state = vDetail.getState();
 		if (VendorOrderConstants.VENDOR_ORDER_STATE_04.equals(state)) {
 			vDetail.setState(VendorOrderConstants.VENDOR_ORDER_STATE_02);
@@ -291,7 +294,8 @@ public class VendorOrderDetailMgr {
 			}
 			updateOrderDetailByState(vDetail);
 		}else{
-			ret =1;
+			//ret =1;
+			throw new Exception("确认账期订单明细的交期,状态不正确！");
 		}
 		//处理操作日志
 		if(!isflowOrder){//不随主订单，则需要记录操作日志
@@ -310,6 +314,7 @@ public class VendorOrderDetailMgr {
 	 */
 	public int controlActiveState(VendorOrderDetail detail,boolean isflowOrder,String content) throws Exception{
 		int ret =0;
+		logger.debug("订单的活动状态控制,输入的参数为：" + detail.toString());
 		if(!isflowOrder){
 			String activeState = detail.getActiveState();
 			if(VendorOrderConstants.VENDOR_ORDER_ACTIVE_STATE.equals(activeState)){
@@ -334,6 +339,7 @@ public class VendorOrderDetailMgr {
 	 * @throws Exception
 	 */
 	public VendorOrderDetail getVendorOrderDetailById(String operSeqId) throws Exception{
+		logger.debug("根据订单明细主键查询订单明细,输入的参数为：" + operSeqId);
 		VendorOrderDetailDao vDetailDao =(VendorOrderDetailDao)BeanLocator.getInstance().getBean(VendorOrderConstants.VENDOR_ORDER_DETAIL_DAO);
 		return vDetailDao.findVendorOrderDetailById(operSeqId);
 	}
@@ -346,6 +352,7 @@ public class VendorOrderDetailMgr {
 	 * @throws Exception
 	 */
 	public VendorOrderDetail getVendorOrderDetailByBizKey(VendorOrderDetail vendorOrderDetail) throws Exception{
+		logger.debug("根据业务主键查询订单明细,输入的参数为：" + vendorOrderDetail.toString());
 		VendorOrderDetailDao vDetailDao =(VendorOrderDetailDao)BeanLocator.getInstance().getBean(VendorOrderConstants.VENDOR_ORDER_DETAIL_DAO);
 		return vDetailDao.findVendorOrderDetailByBizKey(vendorOrderDetail);
 	}
@@ -357,6 +364,7 @@ public class VendorOrderDetailMgr {
 	 * @throws Exception
 	 */
 	public List<VendorOrderDetail> getVendorOrderDetailList(VendorOrderDetail vendorOrderDetail) throws Exception{
+		logger.debug("根据查询条件，查询出所有符合条件的订单明细列表,输入的参数为：" + vendorOrderDetail.toString());
 		VendorOrderDetailDao vDetailDao =(VendorOrderDetailDao)BeanLocator.getInstance().getBean(VendorOrderConstants.VENDOR_ORDER_DETAIL_DAO);
 		return vDetailDao.listVendorOrderDetail(vendorOrderDetail);
 	}
@@ -368,6 +376,7 @@ public class VendorOrderDetailMgr {
 	 * @throws Exception
 	 */
 	public Integer getVendorOrderDetailCount(VendorOrderDetail vendorOrderDetail) throws Exception{
+		logger.debug("根据查询条件，查询出所有符合条件的订单明细条数,输入的参数为：" + vendorOrderDetail.toString());
 		VendorOrderDetailDao vDetailDao =(VendorOrderDetailDao)BeanLocator.getInstance().getBean(VendorOrderConstants.VENDOR_ORDER_DETAIL_DAO);
 		return vDetailDao.listVendorOrderDetailCount(vendorOrderDetail);
 	}

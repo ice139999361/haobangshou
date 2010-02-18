@@ -1,7 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<!-- <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd"> -->
 
-<beans >
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd 
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd" >
+       
+    <aop:config proxy-target-class="true">
+		<aop:advisor
+			pointcut="execution(* com.hbs.vendororder.manager.*.*(..))"
+			advice-ref="txVendorOrderAdvice" />			
+	</aop:config>
+	
+
+	<tx:advice id="txVendorOrderAdvice"
+		transaction-manager="transactionManager">
+		<tx:attributes>			
+			<tx:method name="saveTempVendorOrder" propagation="NESTED" rollback-for="Exception" />
+			<tx:method name="updateTempVendorOrder" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="cancelVendorOrder" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="commitVendorOrder" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="confirmOrderDelivery" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="controlActiveState" propagation="NESTED" rollback-for="Exception" />
+			
+			<tx:method name="updateVendorOrderByState" propagation="NESTED" rollback-for="Exception" />
+			
+			
+			<tx:method name="saveTempOrderDetail" propagation="NESTED" rollback-for="Exception" />			
+			<tx:method name="saveTempOrderDetailList" propagation="NESTED" rollback-for="Exception" />
+			<tx:method name="updateTempOrderDetail" propagation="NESTED" rollback-for="Exception" />
+			<tx:method name="updateTempOrderDetailList" propagation="NESTED" rollback-for="Exception" />
+			
+			<tx:method name="cancelOrderDetail" propagation="NESTED" rollback-for="Exception" />			
+			<tx:method name="cancelOrderDetailList" propagation="NESTED" rollback-for="Exception" />
+			<tx:method name="commitOrderDetail" propagation="NESTED" rollback-for="Exception" />
+			<tx:method name="updateOrderDetailByAmount" propagation="NESTED" rollback-for="Exception" />
+			
+			<tx:method name="confirmOrderDetailDelivery" propagation="NESTED" rollback-for="Exception" />			
+			<tx:method name="updateOrderDetailByState" propagation="NESTED" rollback-for="Exception" />
+						
+			
+			<tx:method name="*" propagation="SUPPORTS" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
 	<!-- 供应商采购单 -->
 	<bean id="vendorOrderMgr" class="com.hbs.vendororder.manager.VendorOrderMgr">		
 	</bean>
