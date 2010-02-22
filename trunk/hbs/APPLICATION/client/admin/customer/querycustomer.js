@@ -11,13 +11,13 @@ HBSConvertHelper.init(function() {
 		for(var i = 0 ; i < view.ds.getCount() ; i++) {
 			// 获取客户简称所在的列
 			var shortName_cell = view.getCell(i, view.grid.getColumnIndexById("shortName"));
+			// 将需要的链接渲染到此列
+			HBSConvertHelper.renderATag2Cell(shortName_cell.innerText, "abc.action", "open", shortName_cell);
 			
 			// 操作列如果存在
 			if(view.grid.getColumnIndexById("operator") != -1) {
 				// 获取操作列
 				var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));
-				// 将需要的链接渲染到此列
-				HBSConvertHelper.renderATag2Cell(shortName_cell.innerText, "abc.action", "open", shortName_cell);
 				
 				// 操作列显示逻辑
 				switch(view.ds.getAt(i).get("state")) {
