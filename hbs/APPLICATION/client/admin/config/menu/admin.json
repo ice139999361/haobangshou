@@ -105,7 +105,7 @@
                     "text": "供应商查询",
                     "menuOrder": "20000",
                     "leaf": "true",
-                    "url": "/vendor/queryvendor.jsp"
+                    "url": "/vendor/queryvendor.jsp?roleType=cgy"
                 },
                 {
                 		"id": "a15",
@@ -125,18 +125,11 @@
             "icon": "/portal/images/title_icon02.gif",
             "children": [
                 {
-                		"id": "cgmgbuyer_add",
-                    "text": "供应商信息录入",
-                    "menuOrder": "10000",
-                    "leaf": "true",
-                    "url": "/vendor/editorvendor.jsp?editorType=add"
-                },
-                {
                 		"id": "a114",
                     "text": "供应商查询",
                     "menuOrder": "20000",
                     "leaf": "true",
-                    "url": "/customer/auditcustomer.jsp"
+                    "url": "/vendor/queryvendor.jsp?roleType=cgm"
                 },
                 {
                 		"id": "a115",
