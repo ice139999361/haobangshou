@@ -24,7 +24,21 @@ HBSConvertHelper.init(function() {
 				case "1":
 				case "0":
 				  // 创建按钮到操作列
-					HBSConvertHelper.renderButton2Cell(["删除", "恢复", "修改"], operator_cell, view.ds.getAt(i));
+					var btns = HBSConvertHelper.renderButton2Cell(["删除", "恢复", "修改"], operator_cell, view.ds.getAt(i));
+
+					// 删除按钮事件
+					btns.get(0).on("click", function() { alert(1) });
+					
+					// 恢复按钮事件
+					btns.get(1).on("click", function() { alert(2) });
+					
+					// 修改按钮事件
+					btns.get(2).on("click", function() {
+						// 要访问的 url 地址
+						var url = ["/customer/pnrelation.jsp?editorType=update&seqId=", this.config.get("seqId"), "&state=", this.config.get("state")].join("");
+						// 打开指定页面
+						HBSConvertHelper.openNewWin(url);
+					});
 					break;
 			}
 			
