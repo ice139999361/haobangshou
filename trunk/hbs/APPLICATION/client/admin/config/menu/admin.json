@@ -105,7 +105,7 @@
                     "text": "供应商查询",
                     "menuOrder": "20000",
                     "leaf": "true",
-                    "url": "/customer/auditcustomer.jsp"
+                    "url": "/vendor/queryvendor.jsp"
                 },
                 {
                 		"id": "a15",
