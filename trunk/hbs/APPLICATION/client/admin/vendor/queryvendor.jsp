@@ -5,6 +5,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>供应商查询</title>
+	<script type="text/javascript" src="<%=contextPath %>/vendor/component/queryvendor.js"></script>
 </head>
 
 <body>
@@ -15,36 +16,9 @@
 			    <panel frame="true" autoScroll="true">
 			    	<items>
 			    	<!-- service ext ui.  begin. -->
-			    		<queryform gridId="querygrid" exportId="exportBtn">
-			    			<layoutpanel columnNum="3">
-			    				<textfield fieldLabel="客户编码"           name="custInfo.commCode"  />
-			    				<textfield fieldLabel="客户订单号"         name=""  />
-			    				<datefield fieldLabel="创建年月"           name="" format=""/>
-			    			</layoutpanel>
-			    		</queryform>
+			    		<queryform gridId="querygrid" exportId="exportBtn" itemsFun="queryformFun" />
 				    		
-				    	<complexgrid id="querygrid" title="客户P/N对照列表" frame="true" page="true" root="data.list" url="/customerInfo/customerInfo!list.action">
-			    			<fields>
-			    				<field name="shortName"     />
-			    				<field name="commCode"      />
-			    				<field name="allName"       />
-			    				<field name="address"       />
-			    				<field name="creditDesc"    />
-			    				<field name="importantDesc" />
-			    				<field name="stateDesc"     />
-			    				
-			    				<field name="baseSeqId"     />
-			    				<field name="state"         />
-			    			</fields>
-			    			
-			    			<columns>
-			    				<column header="客户订单号"     dataIndex="commCode"      id="shortName" />
-			    				<column header="客户编码"       dataIndex="shortName"     />
-			    				<column header="客户简称"       dataIndex="allName"       />
-			    				<column header="状态"           dataIndex="stateDesc"     />
-			    				<column header="操作"           dataIndex=""              id="operator" width="180" />
-			    			</columns>
-			    		</complexgrid>
+				    	<complexgrid id="querygrid" title="供应商信息列表" frame="true" page="true" root="data.list" url="/customerInfo/customerInfo!list.action" itemsFun="complexgridFun" />
 			    	<!-- service ext ui.  end. -->
 			    	</items>
 			    </panel>

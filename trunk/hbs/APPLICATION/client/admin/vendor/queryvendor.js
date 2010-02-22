@@ -14,20 +14,32 @@ HBSConvertHelper.init(function() {
 		for(var i = 0 ; i < view.ds.getCount() ; i++) {
 			// 获取客户简称所在的列
 			var shortName_cell = view.getCell(i, view.grid.getColumnIndexById("shortName"));
-			// 获取操作列
-			var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));
 			// 将需要的链接渲染到此列
 			HBSConvertHelper.renderATag2Cell(shortName_cell.innerText, "abc.action", "open", shortName_cell);
 			
-			// 操作列显示逻辑
-			switch(view.ds.getAt(i).get("state")) {
-				case "1":
-				case "0":
-				  // 创建按钮到操作列
-					HBSConvertHelper.renderButton2Cell(["修改", "处理"], operator_cell, view.ds.getAt(i));
-					break;
+			// 操作列如果存在
+			if(view.grid.getColumnIndexById("operator") != -1) {
+				
+				// 获取操作列
+				var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));
+				
+				// 操作列显示逻辑
+				switch(view.ds.getAt(i).get("state")) {
+					case "3":
+					case "1":
+					case "0":
+					  // 创建按钮到操作列
+						var updateBtn = HBSConvertHelper.renderButton2Cell(["修改"], operator_cell, view.ds.getAt(i));
+						// 按钮的单击事件
+						updateBtn.on("click", function() {
+							// 要访问的 url 地址
+							var url = ["/vendor/editorvendor.jsp?editorType=update&baseSeqId=", this.config.get("baseSeqId"), "&state=", this.config.get("state")].join("");
+							// 打开指定页面
+							HBSConvertHelper.openNewWin(url);
+						});
+						break;
+				}
 			}
-			
 		}
 	})
 });
