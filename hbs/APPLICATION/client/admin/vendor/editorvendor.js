@@ -69,7 +69,7 @@ HBSConvertHelper.init(function() {
 	// 修改页面的处理逻辑
 	function updateInitFun() {
 		// 更改页签标题
-		HBSConvertHelper.setDocumentTitle("修改客户信息");
+		HBSConvertHelper.setDocumentTitle("修改供应商信息");
 		// 隐藏不需要的控件
 		if(urlPs.state != 1) ExtConvertHelper.hideItems("saveBtn");
 		
