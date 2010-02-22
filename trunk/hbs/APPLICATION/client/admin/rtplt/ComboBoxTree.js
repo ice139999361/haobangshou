@@ -62,7 +62,7 @@ clearValue : function() {
 setPassValue: function(passvalue){ 
 	if (this.passField) this.passField.value = passvalue;
 	var node = this.tree.getNodeById(passvalue);
-	this.setValue(node.text);
+	if(node) this.setValue(node.text);
 	// 选中树节点后的触发事件 
 	this.fireEvent('treeselected', node); 
 },
