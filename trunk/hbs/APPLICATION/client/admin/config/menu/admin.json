@@ -29,7 +29,7 @@
                     "text": "客户P/N对照录入",
                     "menuOrder": "30000",
                     "leaf": "true",
-                    "url": "/customer/pnrelation.jsp"
+                    "url": "/customer/pnrelation.jsp?editorType=add"
                 },
                 {
                 		"id": "pnquery",
