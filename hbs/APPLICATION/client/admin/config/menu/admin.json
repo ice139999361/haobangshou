@@ -43,7 +43,7 @@
                     "text": "客户订单录入",
                     "menuOrder": "40000",
                     "leaf": "true",
-                    "url": "/customer/editororder.jsp"
+                    "url": "/customer/editororder.jsp?editorType=add"
                 },
                 {
                 		"id": "queryorder",
