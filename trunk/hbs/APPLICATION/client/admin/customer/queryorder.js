@@ -24,7 +24,22 @@ HBSConvertHelper.init(function() {
 				case "1":
 				case "0":
 				  // 创建按钮到操作列
-					HBSConvertHelper.renderButton2Cell(["修改", "处理"], operator_cell, view.ds.getAt(i));
+					var btns = HBSConvertHelper.renderButton2Cell(["修改", "处理", "查看操作历史"], operator_cell, view.ds.getAt(i));
+					
+					// 修改按钮事件
+					btns.get(0).on("click", function() {
+						// 要访问的 url 地址
+						var url = ["/customer/editororder.jsp?editorType=update&seqId=", this.config.get("seqId"), "&state=", this.config.get("state")].join("");
+						// 打开指定页面
+						HBSConvertHelper.openNewWin(url);
+					});
+					
+					// 处理按钮事件
+					btns.get(1).on("click", function() { alert(2) });
+					
+					// 查看操作历史按钮事件
+					btns.get(2).on("click", function() { alert(3) });
+					
 					break;
 			}
 			

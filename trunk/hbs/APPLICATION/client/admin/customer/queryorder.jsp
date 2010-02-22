@@ -20,7 +20,7 @@
 			    			<layoutpanel columnNum="3">
 			    				<textfield fieldLabel="客户编码"           name="custInfo.commCode"  />
 			    				<textfield fieldLabel="客户订单号"         name=""  />
-			    				<datefield fieldLabel="创建年月"           name="" format=""/>
+			    				<datefield fieldLabel="创建年月"           name="" format="Y-m"/>
 			    			</layoutpanel>
 			    		</queryform>
 				    		
@@ -43,7 +43,7 @@
 			    				<column header="客户编码"       dataIndex="shortName"     />
 			    				<column header="客户简称"       dataIndex="allName"       />
 			    				<column header="状态"           dataIndex="stateDesc"     />
-			    				<column header="操作"           dataIndex=""              id="operator" width="180" />
+			    				<column header="操作"           dataIndex=""              id="operator" width="250" />
 			    			</columns>
 			    		</complexgrid>
 			    	<!-- service ext ui.  end. -->
