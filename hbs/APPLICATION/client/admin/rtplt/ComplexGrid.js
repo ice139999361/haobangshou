@@ -216,7 +216,7 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 		// 删除没用的属性
 		delete config.itemsFun;
 		// 调用扩展方法，获取 ComplexGridHelper 对象
-		var cgh = itemsFun.call(this);
+		var cgh = itemsFun.call(config);
 		
 		// 处理 config 对象，加入扩展属性
 		cgh.processConfig(config);
