@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>客户P/N对照录入</title>
+	<title></title>
 	<script type="text/javascript" src="<%=contextPath %>/customer/common/CommonPro.js"></script>
 </head>
 
