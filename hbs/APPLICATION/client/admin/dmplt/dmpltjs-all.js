@@ -1,1 +1,1 @@
-//document.writeln('<script type="text/javascript" src="' + CONTEXTPATH + '/dmplt/ExtConvertHelper.js"><\/script>');
+document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/dmplt/AuditPanel.js"><\/script>');
