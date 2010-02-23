@@ -16,7 +16,8 @@ var contactFun = function() {
 	cgh.appendField("conMsn");
 	cgh.appendField("conOther");
 	
-	cgh.appendColumn({dataIndex: "seqId"	    , isCheck: true});
+	
+	if(this.deftbar) cgh.appendColumn({dataIndex: "seqId"	    , isCheck: true});
 	cgh.appendColumn({header: "姓名"					, dataIndex: "conName"	 , xtype: "textfield"});
 	cgh.appendColumn({header: "职务"					, dataIndex: "conDuty"	 , xtype: "textfield"});
 	cgh.appendColumn({header: "固定电话"			, dataIndex: "conTel"	   , xtype: "textfield"});
@@ -41,7 +42,7 @@ var custbankFun = function() {
 	cgh.appendField("accountBank");
 	cgh.appendField("account");
 	
-	cgh.appendColumn({dataIndex: "seqId"	, isCheck: true});
+	if(this.deftbar) cgh.appendColumn({dataIndex: "seqId" , isCheck: true});
 	cgh.appendColumn({header: "开户户名" , dataIndex: "accountName"	, xtype: "textfield", width: 150});
 	cgh.appendColumn({header: "开户行" 	 , dataIndex: "accountBank"	, xtype: "textfield", width: 200});
 	cgh.appendColumn({header: "帐号" 		 , dataIndex: "account"	    , xtype: "textfield"});
