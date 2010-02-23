@@ -20,28 +20,28 @@
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="客户基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<label fieldLabel="客户编码"               name="custInfo.commCode"       labelStyle="width:150" id="abcde"/>
-				    				<label fieldLabel="公司中文名称"           name="custInfo.allName"        labelStyle="width:150" />
-				    				<label fieldLabel="客户简称"               name="custInfo.shortName"      labelStyle="width:150" />
-				    				<label fieldLabel="客户公司地址"           name="custInfo.address"        labelStyle="width:150" />
-				    				<label fieldLabel="客户信用度"             name="custInfo.creditRate"     labelStyle="width:150" paramsValue="CREDIT_RATE"     emptyText="请选择" />	
-				    				<label fieldLabel="客户纳税人识别号"       name="custInfo.taxCode"        labelStyle="width:150" />
-				    				<label fieldLabel="性质"                   name="custInfo.commType"       labelStyle="width:150" />
-				    				<label fieldLabel="销售人员ID"             name="custInfo.staffId"        labelStyle="width:150" />
-				    				<label fieldLabel="对应的业务部助理ID"     name="custInfo.assStaffId"     labelStyle="width:150" />
-				    				<label fieldLabel="供应商编码"             name="custInfo.vendorCode"     labelStyle="width:150" />
-				    				<label fieldLabel="对应的分公司或分支机构" name="custInfo.companyBranch"  labelStyle="width:150" paramsValue="COMPANY_BRANCH"  emptyText="请选择" />			
+				    				<label fieldLabel="客户编码"               name="custInfo.commCode"           labelStyle="width:150" id="abcde"/>
+				    				<label fieldLabel="公司中文名称"           name="custInfo.allName"            labelStyle="width:150" />
+				    				<label fieldLabel="客户简称"               name="custInfo.shortName"          labelStyle="width:150" />
+				    				<label fieldLabel="客户公司地址"           name="custInfo.address"            labelStyle="width:150" />
+				    				<label fieldLabel="客户信用度"             name="custInfo.creditDesc"         labelStyle="width:150" />	
+				    				<label fieldLabel="客户纳税人识别号"       name="custInfo.taxCode"            labelStyle="width:150" />
+				    				<label fieldLabel="性质"                   name="custInfo.commType"           labelStyle="width:150" />
+				    				<label fieldLabel="销售人员ID"             name="custInfo.staffId"            labelStyle="width:150" />
+				    				<label fieldLabel="对应的业务部助理ID"     name="custInfo.assStaffId"         labelStyle="width:150" />
+				    				<label fieldLabel="供应商编码"             name="custInfo.vendorCode"         labelStyle="width:150" />
+				    				<label fieldLabel="对应的分公司或分支机构" name="custInfo.companyBranchDesc"  labelStyle="width:150" />			
 				    				
-				    				<label fieldLabel="客户法人代表"           name="custInfo.representative" labelStyle="width:150" />
-				    				<label fieldLabel="公司英文名称"           name="custInfo.enName"         labelStyle="width:150" />
-				    				<label fieldLabel="公司英文地址"           name="custInfo.enAddress"      labelStyle="width:150" />	
-				    				<label fieldLabel="英文简称"               name="custInfo.enShortName"    labelStyle="width:150" />
-				    				<label fieldLabel="客户的重要程度"         name="custInfo.importantCode"  labelStyle="width:150" paramsValue="IMPORTANT_CODE"  emptyText="请选择" />
-				    				<label fieldLabel="客户公司网址"           name="custInfo.webSite"        labelStyle="width:150" />
-				    				<label fieldLabel="规模"                   name="custInfo.commScale"      labelStyle="width:150" />
-				    				<label fieldLabel="销售人员名字"           name="custInfo.staffName"      labelStyle="width:150" />
-				    				<label fieldLabel="对应的业务部助理姓名"   name="custInfo.assStaffName"   labelStyle="width:150" />
-				    				<label fieldLabel="发货单是否显示单价"     name="custInfo.isShowPrice"    labelStyle="width:150" paramsValue="IS_SHOW_PRICE"   emptyText="请选择" />
+				    				<label fieldLabel="客户法人代表"           name="custInfo.representative"     labelStyle="width:150" />
+				    				<label fieldLabel="公司英文名称"           name="custInfo.enName"             labelStyle="width:150" />
+				    				<label fieldLabel="公司英文地址"           name="custInfo.enAddress"          labelStyle="width:150" />	
+				    				<label fieldLabel="英文简称"               name="custInfo.enShortName"        labelStyle="width:150" />
+				    				<label fieldLabel="客户的重要程度"         name="custInfo.importantDesc"      labelStyle="width:150" />
+				    				<label fieldLabel="客户公司网址"           name="custInfo.webSite"            labelStyle="width:150" />
+				    				<label fieldLabel="规模"                   name="custInfo.commScale"          labelStyle="width:150" />
+				    				<label fieldLabel="销售人员名字"           name="custInfo.staffName"          labelStyle="width:150" />
+				    				<label fieldLabel="对应的业务部助理姓名"   name="custInfo.assStaffName"       labelStyle="width:150" />
+				    				<label fieldLabel="发货单是否显示单价"     name="custInfo.isShowPriceDesc"    labelStyle="width:150" />
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">
@@ -63,7 +63,7 @@
 				    				<label fieldLabel="提醒设置" 							 name="custInfo.accountPreiod.reminderDay"   labelStyle="width:150" />
 				    				<label fieldLabel="提醒市场人员催款" 			 name="custInfo.prePaidInfo.reminderDay"     labelStyle="width:150" />
 				    				
-				    				<label fieldLabel="客户结算币种"           name="custInfo.currency"                    labelStyle="width:150" paramsValue="CURRENCY"        emptyText="请选择" />
+				    				<label fieldLabel="客户结算币种"           name="custInfo.currencyDesc"                labelStyle="width:150" />
 				    				<label fieldLabel="客户的账期设置" 				 name="custInfo.accountPreiod.accountPeriod" labelStyle="width:150" />
 				    				<label fieldLabel="账期的对账日" 					 name="custInfo.accountPreiod.accounDay"     labelStyle="width:150" />
 				    				<label fieldLabel="客户账期的最大交易金额" name="custInfo.accountPreiod.maxMoney"      labelStyle="width:150" />
