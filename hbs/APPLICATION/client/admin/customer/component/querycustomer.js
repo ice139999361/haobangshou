@@ -57,6 +57,9 @@ var scmanagerLayout = function(cmpobj) {
 	return cph;
 };
 
+// 审批页面
+var auditLayout = sccustomersLayout;
+
 
 var querygridUrl;
 var complexgridFun = function() {
@@ -76,7 +79,7 @@ var complexgridFun = function() {
 	cgh.appendField("baseSeqId");
 	cgh.appendField("state");
 	
-	
+	if(urlPs.roleType == "audit") cgh.appendColumn({dataIndex: "baseSeqId"	    , isCheck: true});
 	cgh.appendColumn({header: "客户简称"				, dataIndex: "shortName"     , id: "shortName"});
 	cgh.appendColumn({header: "客户编码"				, dataIndex: "commCode"});
 	cgh.appendColumn({header: "公司中文名称"		, dataIndex: "allName"});
@@ -84,7 +87,15 @@ var complexgridFun = function() {
 	cgh.appendColumn({header: "客户信用度"			, dataIndex: "creditDesc"});
 	cgh.appendColumn({header: "客户的重要程度"	, dataIndex: "importantDesc"});
 	cgh.appendColumn({header: "状态"						, dataIndex: "stateDesc"});
-	if(urlPs.roleType == "sccustomers") cgh.appendColumn({header: "操作"						, dataIndex: ""              , id: "operator"});
+	
+	switch(urlPs.roleType) {
+		case "scmanager":
+			break;
+		default:
+			cgh.appendColumn({header: "操作"						, dataIndex: ""              , id: "operator"});
+			break;
+	}
+
 
 	return cgh;
 };
