@@ -3,6 +3,7 @@
  */
 package com.hbs.customerinfo.action;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -82,6 +83,8 @@ public class CustPartNoInfoNormalAction extends BaseAction {
     	{
 			if (logger.isDebugEnabled())    logger.debug("begin doSave");
 
+			fixCommCode();
+
 			if(!checkCommonFields())
 				return ERROR;
 
@@ -95,6 +98,7 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 			}
 			if(CustPartNoInfoUtil.checkSetStaffId(custPartNoInfo))
 				setMyId(true);
+			//custPartNoInfo.setCreateDate(new Date());
 			
 			CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)BeanLocator.getInstance().getBean(custPartNoInfoMgrName);
 			int i = mgr.commitCustPartNoInfo(custPartNoInfo);
@@ -156,7 +160,7 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 			custInfo.setState("0");
 			custInfo = custmgr.getCustomerInfo(custInfo, false);
 			String id = getLoginStaff().getStaffId();
-			if(custInfo == null || (custInfo.getStaffId() != id && custInfo.getAssStaffId() != id))
+			if(custInfo == null || (!id.equals(custInfo.getStaffId()) && id.equals(custInfo.getAssStaffId())))
 			{
 				logger.info("您没有权限访问！");
 				setErrorReason("您没有权限访问！");
@@ -167,6 +171,21 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 			logger.error("catch Exception in checkCommonFields", e);
 			setErrorReason("内部错误");
 			return false;
+		}
+	}
+	
+	protected void fixCommCode()
+	{
+		if(custPartNoInfo == null)
+			return;
+		String s = custPartNoInfo.getCommCode();
+		if(s == null || s.length() == 0)
+		{
+			s = this.getHttpServletRequest().getParameter("custInfo.commCode");
+			if(s != null && s.length() > 0)
+			{
+				custPartNoInfo.setCommCode(s);
+			}
 		}
 	}
 }

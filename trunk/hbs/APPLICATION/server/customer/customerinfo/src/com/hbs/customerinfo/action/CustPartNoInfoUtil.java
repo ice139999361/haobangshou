@@ -10,7 +10,10 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.action.FieldErr;
+import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.domain.customer.customerinfo.pojo.CustPartNoInfo;
+import com.hbs.domain.product.pojo.CompanyPartNo;
+import com.hbs.product.manager.CompanyPartNoMgr;
 
 /**
  * Action中对CustPartNoInfo的一些通用处理函数集
@@ -65,7 +68,10 @@ public class CustPartNoInfoUtil {
 	{
 		ArrayList<FieldErr> list = new ArrayList<FieldErr>();
 		if(custPartNoInfo == null)
+		{
+			list.add(new FieldErr("", "参数错误"));
 			return list;
+		}
 		
 		String s;
 		// DONE:完成checkInputFields，对输入的客户信息进行校验
@@ -84,11 +90,6 @@ public class CustPartNoInfoUtil {
 		{
 			list.add(new FieldErr("CustPartNo","CustPartNo没有填写"));
 		}
-		s = custPartNoInfo.getPnDesc();
-		if(s == null || s.length() == 0)
-		{
-			list.add(new FieldErr("PnDesc","PnDesc没有填写"));
-		}
 		BigDecimal num = custPartNoInfo.getPrice();
 		if(num.abs().movePointRight(3).compareTo(BigDecimal.ONE) <= 0)
 		{
@@ -98,6 +99,30 @@ public class CustPartNoInfoUtil {
 		if(s == null || s.length() == 0)
 		{
 			list.add(new FieldErr("PartNo","PartNo没有填写"));
+		}
+		else
+		{
+			try {
+				CompanyPartNoMgr mgr = (CompanyPartNoMgr)BeanLocator.getInstance().getBean("companyPartNoMgr");
+				CompanyPartNo pnInfo = mgr.getCompanyPartNo(s);
+				if(pnInfo == null)
+				{
+					list.add(new FieldErr("PartNo", "PartNo错误"));
+				}
+				else
+				{
+					custPartNoInfo.setPnDesc(pnInfo.getPnDesc());
+					custPartNoInfo.setClsName(pnInfo.getClsCode());
+				}
+			} catch (Exception e) {
+				logger.error("检查PartNo出错", e);
+				list.add(new FieldErr("PartNo", "PartNo错误"));
+			}
+		}
+		s = custPartNoInfo.getPnDesc();
+		if(s == null || s.length() == 0)
+		{
+			list.add(new FieldErr("PnDesc","PnDesc没有填写"));
 		}
 		
 		List<FieldErr> list2 = checkSelectFields(custPartNoInfo);

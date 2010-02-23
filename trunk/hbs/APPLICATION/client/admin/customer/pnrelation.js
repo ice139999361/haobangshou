@@ -37,7 +37,7 @@ HBSConvertHelper.init(function() {
 		HBSConvertHelper.setDocumentTitle("客户P/N对照录入");
 		
 		// 设置关联按钮的 url
-		submitBtn.url = "/success.action";
+		submitBtn.url = "/customerInfo/custPartNoInfo!save.action";
 	}
 	
 	// 修改页面的处理逻辑
@@ -46,7 +46,7 @@ HBSConvertHelper.init(function() {
 		HBSConvertHelper.setDocumentTitle("客户P/N对照修改");
 		
 		// 设置关联按钮的 url
-		submitBtn.url = "/success.action";
+		submitBtn.url = "/customerInfo/custPartNoInfo!save.action";
 		
 		// 组装需要的参数
 		var params = ["custInfo.seqId=", urlPs.seqId].join("");
