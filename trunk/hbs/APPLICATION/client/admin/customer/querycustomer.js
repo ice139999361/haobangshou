@@ -12,7 +12,7 @@ HBSConvertHelper.init(function() {
 			// 获取客户简称所在的列
 			var shortName_cell = view.getCell(i, view.grid.getColumnIndexById("shortName"));
 			// 将需要的链接渲染到此列
-			HBSConvertHelper.renderATag2Cell(shortName_cell.innerText, "abc.action", "open", shortName_cell);
+			HBSConvertHelper.renderATag2Cell(shortName_cell.innerText, "/customer/detailcustomer.jsp?pageType=query", "open", shortName_cell);
 			
 			// 操作列如果存在
 			if(view.grid.getColumnIndexById("operator") != -1) {
