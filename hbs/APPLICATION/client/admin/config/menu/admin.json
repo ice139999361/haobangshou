@@ -88,7 +88,7 @@
                     "text": "客户P/N对照查询",
                     "menuOrder": "40000",
                     "leaf": "true",
-                    "url": "/customer/auditcustomer1.jsp"
+                    "url": "/customer/pnquery.jsp"
                 },
                 {
                 		"id": "scmqueryorder",
