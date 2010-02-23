@@ -112,16 +112,51 @@ Ext.extend(Ext.form.Action.Export, Ext.form.Action, {
     }
 });
 
+// 扩展 label 的 setValue 方法
+Ext.form.Label.prototype.setValue = Ext.form.Label.prototype.setText;
+
+// 备份 formPanel 的 initComponent 方法
+Ext.form.FormPanel.prototype._initComponent = Ext.form.FormPanel.prototype.initComponent;
+// 重写 formPanel 的 initComponent 方法
+Ext.form.FormPanel.prototype.initComponent = function() {
+	this._initComponent();
+	this.getForm().formPanel = this;
+};
+
 // 增加Export Action
 Ext.form.Action.ACTION_TYPES["export"] = Ext.form.Action.Export;
 // 备份 basicForm 的 setValues 方法
 Ext.form.BasicForm.prototype._setValues = Ext.form.BasicForm.prototype.setValues;
-
+//alert(Ext.form.BasicForm.prototype.findField)
 Ext.apply(Ext.form.BasicForm.prototype, {
 	 //给BasicForm增加ExportData方法
 	 exportData: function(options) {
 		 	this.doAction('export', options);
 		 	return this;
+	 }
+	,findField: function(id) {
+			var field = this.items.get(id);
+			if(!Ext.isObject(field)) {
+				this.items.each(function(f) {
+					if(f.isFormField && (f.dataIndex == id || f.id == id || f.getName() == id)) {
+						field = f;
+						return false;
+					}
+				})
+			}
+			
+			// 扩展代码部分
+			if(!Ext.isObject(field)) {
+				var formPanel = this.formPanel;
+				Ext.each(formPanel.findByType("label"), function(f) {
+					if(f.dataIndex == id || f.id == id || f.name == id) {
+						field = f;
+						return false;
+					}
+				});
+			}
+
+			return field || null;
 	 }
 	,setValues: function(values) {
 			values = this.parseData(values);
