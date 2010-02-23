@@ -1,4 +1,4 @@
-{
+	{
     "domain": "js",
     "subsystem": "js_admin",
     "data": [
@@ -75,6 +75,20 @@
                     "menuOrder": "20000",
                     "leaf": "true",
                     "url": "/customer/auditcustomer.jsp"
+                },
+                {
+                		"id": "scmpnaudit",
+                    "text": "客户P/N对照审批",
+                    "menuOrder": "30000",
+                    "leaf": "true",
+                    "url": "/customer/auditcustomer1.jsp"
+                },
+                {
+                		"id": "scmpnquery",
+                    "text": "客户P/N对照查询",
+                    "menuOrder": "40000",
+                    "leaf": "true",
+                    "url": "/customer/auditcustomer1.jsp"
                 },
                 {
                 		"id": "scmqueryorder",
