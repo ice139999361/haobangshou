@@ -12,22 +12,53 @@ HBSConvertHelper.init(function() {
 	
 	// -------------------------------------- 应用逻辑处理
 	
-	var submitFun = function() {
-		var params = "baseSeqId=" + querygrid.getCheckFields();
-		// 提交数据
-		ExtConvertHelper.submitForm(null, "/success.action", params, function(form, action) {
-			// 获取成功后的提示信息
-			var msg = ExtConvertHelper.getMessageInfo(action, "操作成功！");
-			
-			// 弹出提示框给用户
-			Ext.Msg.alert("提示", msg, function() {
-				HBSConvertHelper.refreshGrid("querygrid");
+	var submitFun = function(operator) {
+		// 提交的方法
+		var _submitFun = function(params) {
+			// 提交数据
+			ExtConvertHelper.submitForm(null, "/success.action", params, function(form, action) {
+				// 获取成功后的提示信息
+				var msg = ExtConvertHelper.getMessageInfo(action, "操作成功！");
+				
+				// 弹出提示框给用户
+				Ext.Msg.alert("提示", msg, function() {
+					HBSConvertHelper.refreshGrid("querygrid");
+				});
 			});
-		});
+		};
+		
+		// 提交的参数
+		var params = {
+			"baseSeqId" : querygrid.getCheckFields()
+		};
+		
+		switch(operator) {
+			case "pass":
+				_submitFun(params);
+				break;
+			case "reject":
+				Ext.Msg.prompt("提示", "请输入拒绝原因：", function(btn, text) {
+					if(btn == "cancel") return;
+					if(!text.trim()) {
+						Ext.Msg.alert("提示", "必须输入拒绝原因。");
+						return;
+					}
+					params。jqyy = text;
+					_submitFun(params);
+				}, null, true);
+				break;
+		}
 	};
 	
-	passBtn.on("click", submitFun);
-	rejectBtn.on("click", submitFun);
+	// 点击批量通过按钮
+	passBtn.on("click", function() {
+		submitFun("pass");
+	});
+	
+	// 点击批拒绝过按钮
+	rejectBtn.on("click", function() {
+		submitFun("reject");
+	});
 	
 	querygrid.getView().on("refresh", function(view) {
 		//alert(this.ds.getCount())
