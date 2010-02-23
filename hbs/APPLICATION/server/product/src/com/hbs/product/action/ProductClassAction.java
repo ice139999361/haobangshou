@@ -66,6 +66,9 @@ public class ProductClassAction extends BaseAction {
 		this.id = id;
 	}
 	
+	/*public Integer getNode() { return id; }
+	public void setNode(Integer node) { id = node; }*/
+	
 	/**
 	 * 查询
 	 * @action.input pClass.查询条件
@@ -155,7 +158,7 @@ public class ProductClassAction extends BaseAction {
 	}
 	
 	/**
-	 *  一次获取所有数据。包括id、text、children
+	 *  一次获取所有数据。包括id、text、children、leaf
 	 * @return
 	 */
 	public String doGetAll() {
@@ -200,9 +203,15 @@ public class ProductClassAction extends BaseAction {
 					} catch (Exception e) {
 					}
 					if(sublist == null || sublist.size() == 0)
-						map.put("children", null);
+					{
+						map.put("leaf", true);
+						map.put("children", new ArrayList<ProductClass>());
+					}
 					else
+					{
+						map.put("leaf", false);
 						map.put("children", changePClassListToMapList(sublist));
+					}
 					list2.add(map);
 				}
 			}
