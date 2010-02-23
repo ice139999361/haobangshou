@@ -14,7 +14,7 @@ var ExtConvertHelper = {
 			return this.__urlPs;
 	 }
 	,submitForm: function(formId, url, params, success, failure) {
-
+		  formId = formId || this.getHiddenForm().id;
 			Ext.getCmp(formId).getForm().submit({
 				url: SERVER_PATH + url,
 				params: this._processParams(params),
@@ -191,6 +191,18 @@ var ExtConvertHelper = {
 	 // 拷贝第一个 Array 中的子对象到第二个 Array
 	,copyArrayToArray: function(ar1, ar2) {
 			Ext.each(ar1, function(item, index, itemsAll) { ar2.push(item) });
+	 }
+   // 获取一个隐藏的FormPanel
+	,getHiddenForm: function() {
+			if(!this.__hiddenForm) {
+				this.__hiddenForm = new Ext.form.FormPanel({
+					 renderTo : document.body
+					,hidden  : true
+					,items	 : {xtype: 'label'}
+				})
+			}
+		
+			return this.__hiddenForm;
 	 }
 	 // 格式化要提交的参数
 	,_processParams: function(params) {

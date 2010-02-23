@@ -106,6 +106,7 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 			if(!column.align) column.align = "center";
 			
 			if(item.isCheck) {
+				config.checkId = column.id;
 				column.width = 27;
 				column = new Ext.grid.CheckboxSelectionModel(column);
 			} else {
@@ -268,6 +269,18 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 			}
 			if(flag) _store.remove(record);
 		}
+	},
+	getCheckFields: function() {
+		var selections = this.getSelectionModel().getSelections();
+		// 获取下拉框列所引用的 field
+		var chbxField = this.getColumnModel().getColumnById(this.checkId).dataIndex;
+		// 创建存放选择引用行的 id
+		var arField = new Array;
+		// 获取 field 集合
+		for(var i = 0, _count = selections.length ; i < _count ; i++) arField.push(selections[i].get(chbxField));
+		
+		// 返回
+		return arField.join();
 	},
 	// 获取需要提交给后台的字段集
 	getSubmitFields: function() {
