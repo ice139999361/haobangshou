@@ -29,12 +29,12 @@
 			    			<fields>
 			    				<field name="shortName"     />
 			    				<field name="commCode"      />
-			    				<field name="allName"       />
 			    				<field name="custPartNo"    />
 			    				<field name="partNo"        />
 			    				<field name="pnDesc"        />
 			    				<field name="price"         />
-			    				<field name="minAmmount"    />
+			    				<field name="priceTax"		/>
+			    				<field name="minAmount"    />
 			    				<field name="sampleCode"    />
 			    				<field name="stateDesc"     />
 			    				
@@ -46,14 +46,12 @@
 			    				<column isCheck="true"          dataIndex="seqId"         />
 			    				<column header="客户编码"       dataIndex="commCode"      />
 			    				<column header="客户简称"       dataIndex="shortName"     id="shortName" />
-			    				<column header="客户结算币种"   dataIndex="allName"       />
-			    				<column header="客户P/N"        dataIndex="address"       />
+			    				<column header="客户P/N"        dataIndex="custPartNo"       />
 			    				<column header="本公司P/N"      dataIndex="partNo"        />
 			    				<column header="描述"           dataIndex="pnDesc"        />
 			    				<column header="单价"           dataIndex="price"         />
 			    				<column header="税率"           dataIndex="priceTax"      />
-			    				<column header="最小包装"       dataIndex="minAmmount"    />
-			    				<column header="最小订单量"     dataIndex=""              />
+			    				<column header="最小包装"       dataIndex="minAmount"    />
 			    				<column header="样品编码"       dataIndex="sampleCode"    />
 			    				<column header="状态"           dataIndex="stateDesc"     />
 			    				<column header="操作"           dataIndex=""              id="operator" width="250" />
