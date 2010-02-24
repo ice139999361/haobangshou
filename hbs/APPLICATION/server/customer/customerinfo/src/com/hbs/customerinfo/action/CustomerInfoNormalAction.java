@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.action.FieldErr;
+import com.hbs.common.action.JianQuanUtil;
 import com.hbs.common.action.base.BaseAction;
 import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.customerinfo.manager.CustomerInfoMgr;
@@ -70,6 +71,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 			setResult("list", mgr.getCustomerInfoList(custInfo));
 			setTotalCount(mgr.getCustomerInfoCount(custInfo));
 			setResult("count", getTotalCount());
+			setResult("jq", JianQuanUtil.getJQ(JianQuanUtil.TypeCustState, "scnormal"));
 			if (logger.isDebugEnabled())
 				logger.debug("end doList");
 			return SUCCESS;
