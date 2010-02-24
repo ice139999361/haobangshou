@@ -112,8 +112,10 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 			} else {
 				// 处理渲染方法
 				this.__processRenderer__(column);
+				
+				
 				// 处理可编辑对象
-				this.__processEditorColumn__(column, item, sbEditStore, columnFields);
+				if(config.editorFlag != false) this.__processEditorColumn__(column, item, sbEditStore, columnFields);
 			}
 			
 			// 添加列到集合
