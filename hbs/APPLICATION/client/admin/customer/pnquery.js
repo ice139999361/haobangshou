@@ -1,3 +1,17 @@
+var querygridUrl;
+
+// 初始方法
+(function() {
+	switch(urlPs.roleType) {
+		case "sccustomers":
+			querygridUrl = "/customerInfo/custPartNoInfo!list.action";
+			break;
+		case "scmanager":
+			querygridUrl = "/customerInfo/custPartNoInfo!list.action";
+			break; 
+	}
+}())
+
 HBSConvertHelper.init(function() {
 	// -------------------------------------- 获取需要持久用到的对象
 	

@@ -37,6 +37,8 @@ HBSConvertHelper.init(function() {
 				Ext.getCmp("contactgrid").addData(action.result.data.custInfo.dynamicFields.contactlist);
 				Ext.getCmp("consigneegrid").addData(action.result.data.custInfo.dynamicFields.consigneelist);
 				Ext.getCmp("custbankgrid").addData(action.result.data.custInfo.listBankInfo);
+				Ext.getCmp("productdirgrid").addData(action.result.data.custInfo.dynamicFields.consigneelist);
+				Ext.getCmp("purchasegrid").addData(action.result.data.custInfo.listBankInfo);
 		});
 	}())
 	
