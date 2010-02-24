@@ -1,4 +1,6 @@
 urlPs.roleType = "audit";
+// 查询数据的地址
+var querygridUrl = "/customerInfo/customerInfoMgr!list.action";
 
 HBSConvertHelper.init(function() {
 	// -------------------------------------- 获取需要持久用到的对象

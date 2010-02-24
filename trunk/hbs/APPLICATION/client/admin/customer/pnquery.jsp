@@ -25,7 +25,7 @@
 			    			</layoutpanel>
 			    		</queryform>
 				    		
-				    	<complexgrid id="querygrid" title="客户P/N对照列表" frame="true" page="true" root="data.list" url="/customerInfo/custPartNoInfo!list.action">
+				    	<complexgrid id="querygrid" title="客户P/N对照列表" frame="true" page="true" root="data.list">
 			    			<fields>
 			    				<field name="shortName"     />
 			    				<field name="commCode"      />
