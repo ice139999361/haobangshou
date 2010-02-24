@@ -78,7 +78,7 @@
 				    			</layoutpanel>
 				    		</listpanel>
 				    		
-				    		<complexgrid id="contactgrid" title="客户联系人信息" itemsFun="contactFun" itemsAlign="after" frame="true" height="200" url="1">
+				    		<complexgrid id="contactgrid" title="客户联系人信息" itemsFun="contactFun" itemsAlign="after" frame="true" height="200" url="1" editorFlag="false">
 				    			<fields>
 				    				<field name="isPrimary" />
 				    			</fields>
@@ -90,7 +90,7 @@
 				    			<submitFields value="seqId,conName,conDuty,conTel,conMobile,conFax,conMail,conQq,conMsn,conOther,isPrimary" />
 				    		</complexgrid>
 				    		
-				    		<complexgrid id="consigneegrid" title="客户收货人信息" itemsFun="contactFun" itemsAlign="after" frame="true" height="200" url="1">
+				    		<complexgrid id="consigneegrid" title="客户收货人信息" itemsFun="contactFun" itemsAlign="after" frame="true" height="200" url="1" editorFlag="false">
 				    			<fields>
 				    				<field name="conAddress" />
 				    				<field name="conZip" />
@@ -106,7 +106,13 @@
 				    			<submitFields value="seqId,conName,conDuty,conTel,conMobile,conFax,conMail,conQq,conMsn,conOther,conAddress,conZip,isPrimary" />
 				    		</complexgrid>
 				    		
-				    		<complexgrid id="custbankgrid" title="客户银行信息" itemsFun="custbankFun" frame="true" height="200" url="1" />
+				    		<complexgrid id="custbankgrid"   title="客户银行信息" itemsFun="custbankFun"   frame="true" height="200" url="1" editorFlag="false"/>
+				    			
+				    		<complexgrid id="productdirgrid" title="产品目录信息" itemsFun="productdirFun" frame="true" height="200" url="1" editorFlag="false"/>
+				    			
+				    		<complexgrid id="purchasegrid"   title="采购单信息"   itemsFun="purchaseFun"   frame="true" height="200" url="1" editorFlag="false"/>
+				    			
+				    		<listpanel frame="true" title="结算信息" collapsible="true" titleCollapse="true" itemsFun="balanceFun" />
 				    			
 				    		<auditpanel id="auditPanel" />
 			    			
