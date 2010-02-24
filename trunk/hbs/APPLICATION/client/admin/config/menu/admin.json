@@ -81,7 +81,7 @@
                     "text": "客户P/N对照审批",
                     "menuOrder": "30000",
                     "leaf": "true",
-                    "url": "/customer/auditcustomer1.jsp"
+                    "url": "/customer/auditpnrelation.jsp"
                 },
                 {
                 		"id": "scmpnquery",
