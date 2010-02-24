@@ -45,7 +45,7 @@ HBSConvertHelper.init(function() {
 						Ext.Msg.alert("提示", "必须输入拒绝原因。");
 						return;
 					}
-					params。jqyy = text;
+					params.jqyy = text;
 					_submitFun(params);
 				}, null, true);
 				break;
