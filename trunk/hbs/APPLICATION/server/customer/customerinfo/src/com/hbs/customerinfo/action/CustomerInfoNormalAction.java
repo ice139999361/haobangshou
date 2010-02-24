@@ -241,10 +241,19 @@ public class CustomerInfoNormalAction extends BaseAction {
 			CustomerInfoMgr mgr = (CustomerInfoMgr) BeanLocator.getInstance()
 					.getBean(custInfoMgrName);
 			custInfo = CustomerInfoUtil.getCustomerInfo(mgr, custInfo);
-			this.setResult("custInfo", custInfo);
-			if (logger.isDebugEnabled())
-				logger.debug("end doGetInfo");
-			return SUCCESS;
+			String id = getLoginStaff().getStaffId();
+			if(
+					(id != null && id.length() > 0) &&
+					(id.equals(custInfo.getStaffId()) || id.equals(custInfo.getAssStaffId()))
+				)
+			{
+				this.setResult("custInfo", custInfo);
+				if (logger.isDebugEnabled())
+					logger.debug("end doGetInfo");
+				return SUCCESS;
+			}
+			this.setErrorReason("权限错误");
+			return ERROR;
 		} catch (Exception e) {
 			logger.error("catch Exception in doGetInfo", e);
 			setErrorReason("内部错误");
