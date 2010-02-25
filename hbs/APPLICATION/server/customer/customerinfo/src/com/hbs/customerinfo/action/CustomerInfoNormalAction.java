@@ -5,6 +5,7 @@ package com.hbs.customerinfo.action;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.action.FieldErr;
@@ -201,6 +202,8 @@ public class CustomerInfoNormalAction extends BaseAction {
 					break;
 				default:
 					s = "±£´æ³ö´í£¡";
+					logger.info(s + " ret=" + ret);
+					break;
 				}
 				logger.info(s);
 				setErrorReason(s);
@@ -245,7 +248,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 			custInfo = CustomerInfoUtil.getCustomerInfo(mgr, custInfo);
 			String id = getLoginStaff().getStaffId();
 			if(
-					(id != null && id.length() > 0) &&
+					StringUtils.isNotEmpty(id) &&
 					(id.equals(custInfo.getStaffId()) || id.equals(custInfo.getAssStaffId()))
 				)
 			{
@@ -310,7 +313,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 				setErrorReason("×´Ì¬²»ÕýÈ·£¡");
 				return ERROR;
 			default:
-				logger.info("É¾³ý³ö´í£¡");
+				logger.info("É¾³ý³ö´í£¡" + " ret=" + i);
 				setErrorReason("É¾³ý³ö´í£¡");
 				return ERROR;
 			}

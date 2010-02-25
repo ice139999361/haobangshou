@@ -3,9 +3,9 @@
  */
 package com.hbs.customerinfo.action;
 
-import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.action.FieldErr;
@@ -146,7 +146,7 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 			}
 			
 			String commCode = custPartNoInfo.getCommCode();
-			if(commCode == null || commCode.length() == 0)
+			if(StringUtils.isEmpty(commCode))
 			{
 				logger.info("客户编码没有填写！");
 				setErrorReason("客户编码没有填写！");
@@ -176,16 +176,19 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 	
 	protected void fixCommCode()
 	{
-		if(custPartNoInfo == null)
-			return;
-		String s = custPartNoInfo.getCommCode();
-		if(s == null || s.length() == 0)
-		{
-			s = this.getHttpServletRequest().getParameter("custInfo.commCode");
-			if(s != null && s.length() > 0)
+		try {
+			if(custPartNoInfo == null)
+				return;
+			if(StringUtils.isEmpty(custPartNoInfo.getCommCode()))
 			{
-				custPartNoInfo.setCommCode(s);
+				String s = this.getHttpServletRequest().getParameter("custInfo.commCode");
+				if(StringUtils.isNotEmpty(s))
+				{
+					custPartNoInfo.setCommCode(s);
+				}
 			}
+		} catch (Exception e) {
+			logger.error("catch Exception in fixCommCode", e);
 		}
 	}
 }

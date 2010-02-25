@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.action.FieldErr;
@@ -45,7 +46,7 @@ public class CustomerInfoUtil {
 			if(custInfo.getBaseSeqId() != 0)
 				return true;
 			String s = custInfo.getCommCode();
-			if(s == null || s.length() == 0)
+			if(StringUtils.isEmpty(s))
 				return false;
 			s = custInfo.getState();
 			try
@@ -82,32 +83,32 @@ public class CustomerInfoUtil {
 		String s;
 		// DONE:完成checkInputFields，对输入的客户信息进行校验
 		s = custInfo.getVendorCode();
-		if(s == null || s.length() == 0)
+		if(StringUtils.isEmpty(s))
 		{
 			list.add(new FieldErr("venderCode","venderCode没有填写"));
 		}
 		s = custInfo.getCommCode();
-		if(s == null || s.length() == 0)
+		if(StringUtils.isEmpty(s))
 		{
 			list.add(new FieldErr("CommCode","CommCode没有填写"));
 		}
 		s = custInfo.getShortName();
-		if(s == null || s.length() == 0)
+		if(StringUtils.isEmpty(s))
 		{
 			list.add(new FieldErr("ShortName","ShortName没有填写"));
 		}
 		s = custInfo.getAllName();
-		if(s == null || s.length() == 0)
+		if(StringUtils.isEmpty(s))
 		{
 			list.add(new FieldErr("AllName","AllName没有填写"));
 		}
 		s = custInfo.getIsShowPrice();
-		if(s == null || s.length() == 0)
+		if(StringUtils.isEmpty(s))
 		{
 			list.add(new FieldErr("IsShowPrice","IsShowPrice没有填写"));
 		}
 		s = custInfo.getAssStaffId();
-		if(s == null || s.length() == 0)
+		if(StringUtils.isEmpty(s))
 		{
 			int i;
 			try{
@@ -119,7 +120,7 @@ public class CustomerInfoUtil {
 			list.add(new FieldErr("AssStaff","AssStaff没有填写"));
 		}
 		s = custInfo.getSettlementType();
-		if(s == null || s.length() == 0)
+		if(StringUtils.isEmpty(s))
 		{
 			list.add(new FieldErr("SettlementType","SettlementType没有填写"));
 		}
@@ -144,7 +145,7 @@ public class CustomerInfoUtil {
 			// 处理prepaid的reminderday
 			if(custInfo.getSettlementType().equals("2")) {
 				s = prePaidInfo.getReminderDay();
-				if(s == null || s.length() == 0)
+				if(StringUtils.isEmpty(s))
 					list.add(new FieldErr("ReminderDay", "ReminderDay没有填写"));
 			}
 		}
@@ -304,7 +305,7 @@ public class CustomerInfoUtil {
 			String s;
 			ConfigEncode ce;
 			s = custInfo.getImportantCode();
-			if(s != null && s.length() != 0)
+			if(StringUtils.isNotEmpty(s))
 			{
 				ce = getEncode("IMPORTANT_CODE", s);
 				if(ce == null)
@@ -317,7 +318,7 @@ public class CustomerInfoUtil {
 			}
 				
 			s = custInfo.getCreditRate();
-			if(s != null && s.length() != 0)
+			if(StringUtils.isNotEmpty(s))
 			{
 				ce = getEncode("CREDIT_RATE", s);
 				if(ce == null)
@@ -330,7 +331,7 @@ public class CustomerInfoUtil {
 			}
 				
 			s = custInfo.getSettlementType();
-			if(s != null && s.length() != 0)
+			if(StringUtils.isNotEmpty(s))
 			{
 				ce = getEncode("SETTLEMENT_TYPE", s);
 				if(ce == null)
@@ -342,7 +343,7 @@ public class CustomerInfoUtil {
 			}
 			
 			s = custInfo.getCurrency();
-			if(s != null && s.length() != 0)
+			if(StringUtils.isNotEmpty(s))
 			{
 				ce = getEncode("CURRENCY", s);
 				if(ce == null)
@@ -355,7 +356,7 @@ public class CustomerInfoUtil {
 			}
 			
 			s = custInfo.getIsShowPrice();
-			if(s != null && s.length() != 0)
+			if(StringUtils.isNotEmpty(s))
 			{
 				ce = getEncode("IS_SHOW_PRICE", s);
 				if(ce == null)
@@ -368,7 +369,7 @@ public class CustomerInfoUtil {
 
 			int i;
 			s = custInfo.getStaffId();
-			if(s != null && s.length() != 0)
+			if(StringUtils.isNotEmpty(s))
 			{
 				try{
 					i = Integer.parseInt(s);
@@ -382,7 +383,7 @@ public class CustomerInfoUtil {
 				}
 			}
 			s = custInfo.getAssStaffId();
-			if(s != null && s.length() != 0)
+			if(StringUtils.isNotEmpty(s))
 			{
 				try{
 					i = Integer.parseInt(s);

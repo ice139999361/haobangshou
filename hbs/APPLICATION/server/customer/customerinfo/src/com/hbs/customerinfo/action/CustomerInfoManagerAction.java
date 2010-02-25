@@ -93,6 +93,8 @@ public class CustomerInfoManagerAction extends BaseAction {
 					break;
 				default:
 					s = "保存出错！";
+					logger.info(s + " ret=" + ret);
+					break;
 				}
 				setErrorReason(s);
 				return ERROR;
@@ -143,6 +145,8 @@ public class CustomerInfoManagerAction extends BaseAction {
 					break;
 				default:
 					s = "保存出错！";
+					logger.info(s + " ret=" + ret);
+					break;
 				}
 				setErrorReason(s);
 				return ERROR;
