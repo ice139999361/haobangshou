@@ -77,7 +77,7 @@
 	 * @return
 	 */
 		 -->
-    	<action name="customerInfoMgr!getInfoForAudit" method="doGetInfoForAudit" 
+    	<action name="customerInfoMgr!listForAudit" method="doListForAudit" 
     			class="com.hbs.customerinfo.action.CustomerInfoManagerAction">
 		</action>
 		<!-- 

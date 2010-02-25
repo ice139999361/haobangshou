@@ -149,6 +149,7 @@ public class CustomerInfoUtil {
 					list.add(new FieldErr("ReminderDay", "ReminderDay没有填写"));
 			}
 		}
+
 		return list;
 	}
 		
@@ -187,6 +188,9 @@ public class CustomerInfoUtil {
 	 * 联系人列表字符串对应字段名
 	 */
 	
+	/**
+	 * 前台传来的列表数据的分隔符：||;;
+	 */
 	private static final String splitter = "\\|\\|;;";
 	
 	private static final String contactListFields1 = "contactlistFields";
@@ -318,7 +322,10 @@ public class CustomerInfoUtil {
 			}
 				
 			s = custInfo.getCreditRate();
-			if(StringUtils.isNotEmpty(s))
+			// 没有填写CreditRate，缺省为一般（3）
+			if(StringUtils.isEmpty(s))
+				s = "3";
+			//if(StringUtils.isNotEmpty(s))
 			{
 				ce = getEncode("CREDIT_RATE", s);
 				if(ce == null)
@@ -329,7 +336,7 @@ public class CustomerInfoUtil {
 					custInfo.setCreditDesc(ce.getEncodeValue());
 				}
 			}
-				
+			
 			s = custInfo.getSettlementType();
 			if(StringUtils.isNotEmpty(s))
 			{
