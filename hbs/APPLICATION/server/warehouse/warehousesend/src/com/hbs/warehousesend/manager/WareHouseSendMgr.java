@@ -53,7 +53,7 @@ public class WareHouseSendMgr {
 		}
 		WarehouseSendInfoDao whInfoDao = (WarehouseSendInfoDao)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_SEND_INFO_DAO);
 		//设置账期，以物料出货时间为基准计算
-		WarehouseSendHelper helper =(WarehouseSendHelper)BeanLocator.getInstance().getBean(WareHouseConstants.PRE_SPRING_SEND + sendInfo.getPoNoType() + sendInfo.getSettlement_type());
+		WarehouseSendHelper helper =(WarehouseSendHelper)BeanLocator.getInstance().getBean(WareHouseConstants.PRE_SPRING_SEND + sendInfo.getPoNoType() + sendInfo.getSettlementType());
 		sendInfo.setPeriod(helper.getPeriod(sendInfo));
 		if(StringUtils.isEmpty(sendPoNo) ){//不存在出货单的单号,保存新增出货单
 			//设置系统产生的出货单号
@@ -204,7 +204,7 @@ public class WareHouseSendMgr {
 			WarehouseSendDetail detail = new WarehouseSendDetail();
 			detail.setSendPoNo(sendInfo.getSendPoNo());
 			detail.setCustCode(sendInfo.getCustCode());
-			detail.setSettlementType(sendInfo.getSettlement_type());
+			detail.setSettlementType(sendInfo.getSettlementType());
 			detail.setPoNoType(sendInfo.getPoNoType());
 			retInfo.setDetailList(detailMgr.listWarehouseSendDetail(detail));
 		}
