@@ -116,7 +116,7 @@
                 },
                 {
                 		"id": "cgbuyer_query",
-                    "text": "供应商查询",
+                    "text": "供应商信息查询",
                     "menuOrder": "20000",
                     "leaf": "true",
                     "url": "/vendor/queryvendor.jsp?roleType=cgy"
@@ -147,14 +147,14 @@
             "children": [
                 {
                 		"id": "a114",
-                    "text": "供应商查询",
+                    "text": "供应商信息查询",
                     "menuOrder": "20000",
                     "leaf": "true",
                     "url": "/vendor/queryvendor.jsp?roleType=cgm"
                 },
                 {
                 		"id": "a115",
-                    "text": "供应商P/N对照录入",
+                    "text": "供应商信息审批",
                     "menuOrder": "50000",
                     "leaf": "true",
                     "url": "/customer/queryorder.jsp"
