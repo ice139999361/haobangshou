@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.action.FieldErr;
@@ -76,17 +77,17 @@ public class CustPartNoInfoUtil {
 		String s;
 		// DONE:完成checkInputFields，对输入的客户信息进行校验
 		s = custPartNoInfo.getVendorCode();
-		if(s == null || s.length() == 0)
+		if(StringUtils.isEmpty(s))
 		{
 			list.add(new FieldErr("venderCode","venderCode没有填写"));
 		}
 		s = custPartNoInfo.getCommCode();
-		if(s == null || s.length() == 0)
+		if(StringUtils.isEmpty(s))
 		{
 			list.add(new FieldErr("CommCode","CommCode没有填写"));
 		}
 		s = custPartNoInfo.getCustPartNo();
-		if(s == null || s.length() == 0)
+		if(StringUtils.isEmpty(s))
 		{
 			list.add(new FieldErr("CustPartNo","CustPartNo没有填写"));
 		}
@@ -96,7 +97,7 @@ public class CustPartNoInfoUtil {
 			list.add(new FieldErr("Price","Price没有填写"));
 		}
 		s = custPartNoInfo.getPartNo();
-		if(s == null || s.length() == 0)
+		if(StringUtils.isEmpty(s))
 		{
 			list.add(new FieldErr("PartNo","PartNo没有填写"));
 		}
@@ -148,7 +149,7 @@ public class CustPartNoInfoUtil {
 			
 			int i;
 			s = custPartNoInfo.getStaffId();
-			if(s != null && s.length() != 0)
+			if(StringUtils.isNotEmpty(s))
 			{
 				try{
 					i = Integer.parseInt(s);
