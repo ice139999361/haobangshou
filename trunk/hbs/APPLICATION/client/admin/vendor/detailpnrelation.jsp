@@ -4,8 +4,8 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title></title>
-	<script type="text/javascript" src="<%=contextPath %>/customer/common/CommonPro.js"></script>
+	<title>客户P/N对照查看</title>
+	<script type="text/javascript" src="<%=contextPath %>/vendor/common/CommonPro.js"></script>
 </head>
 
 <body>
@@ -20,7 +20,7 @@
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="供应商基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="1">
-				    				<autocomplete fieldLabel="供应商编码" url="/customerInfo/customerInfo!list.action"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"     name="custInfo.commCode"       labelStyle="width:150" allowBlank="false"/>
+				    				<label fieldLabel="供应商编码"           name="custInfo.commCode"       labelStyle="width:150" allowBlank="false"/>
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="2">
@@ -31,8 +31,8 @@
 				    		
 				    		<listpanel frame="true" title="P/N对照信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<autocomplete fieldLabel="供应商"               name="custPartNoInfo.custPartNo"              labelStyle="width:150" allowBlank="false"/>
-				    				<autocomplete fieldLabel="本公司"             name="custPartNoInfo.partNo"                  labelStyle="width:150" allowBlank="false"/>
+				    				<label fieldLabel="供应商"               name="custPartNoInfo.custPartNo"              labelStyle="width:150" allowBlank="false"/>
+				    				<label fieldLabel="本公司"             name="custPartNoInfo.partNo"                  labelStyle="width:150" allowBlank="false"/>
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">
@@ -42,19 +42,22 @@
 				    		
 				    		<listpanel frame="true" title="关联信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<textfield fieldLabel="单价"               name="custPartNoInfo.price"                   labelStyle="width:150" />
-				    				<textfield fieldLabel="最小包装" 			     name=""                        labelStyle="width:150" value="1" />
-				    				<textfield fieldLabel="样品编码" 					 name="custPartNoInfo.sampleCode"              labelStyle="width:150" />
+				    				<label fieldLabel="单价"               name="custPartNoInfo.price"                   labelStyle="width:150" />
+				    				<label fieldLabel="最小包装" 			     name=""                        labelStyle="width:150" value="1" />
+				    				<label fieldLabel="样品编码" 					 name="custPartNoInfo.sampleCode"              labelStyle="width:150" />
 				    				
-				    				<textfield fieldLabel="税率"               name="custPartNoInfo.priceTax"                labelStyle="width:150" />				    				
-				    				<textfield fieldLabel="最小订单量" 				 name="custPartNoInfo.minAmount"               labelStyle="width:150" value="0" />
+				    				<label fieldLabel="税率"               name="custPartNoInfo.priceTax"                labelStyle="width:150" />				    				
+				    				<label fieldLabel="最小订单量" 				 name="custPartNoInfo.minAmount"               labelStyle="width:150" value="0" />
 				    			</layoutpanel>
 				    		</listpanel>
+				    		
+				    		<auditpanel id="auditPanel" />
+				    			
 			    		</items></form>
 			    		
 			    		<panel buttonAlign="center">
 			    			<buttons>
-			    				<button text="关联" id="submitBtn" />
+			    				<button text="提交" id="submitBtn" />
 			    				<button text="取消" id="backBtn"   />
 			    			</buttons>
 			    		</panel>
@@ -68,4 +71,4 @@
 	</xmp>
 </body>
 </html>
-<script type="text/javascript" src="<%=contextPath %>/vendor/pnrelation.js"></script>
+<script type="text/javascript" src="<%=contextPath %>/vendor/detailpnrelation.js"></script>
