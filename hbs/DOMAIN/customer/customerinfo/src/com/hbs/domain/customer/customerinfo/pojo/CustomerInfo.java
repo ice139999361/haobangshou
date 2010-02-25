@@ -7,9 +7,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.manager.configencode.ConfigEncodeMgr;
-import com.hbs.common.springhelper.BeanLocator;
-import com.hbs.customerinfo.action.CustomerInfoNormalAction;
-import com.hbs.customerinfo.manager.CustomerInfoMgr;
 import com.hbs.domain.common.pojo.ConfigEncode;
 import com.hbs.domain.common.pojo.base.BaseDomain;
 import com.hbs.domain.common.pojo.baseinfo.AccountPreiod;
@@ -362,7 +359,21 @@ public class CustomerInfo extends BaseDomain{
     public void setTaxCode(String taxCode) {
         this.taxCode = taxCode;
     }
-    
+    /**
+     * 获取公司或分支机构描述
+     * @return
+     */
+    public String getCompanyBranchDesc(){
+    	String retStr ="未定义";
+    	ConfigEncode ceParam = new ConfigEncode();
+    	ceParam.setEncodeKey(getCompanyBranch());
+    	ceParam.setEncodeType("COMPANY_BRANCH");
+    	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
+    	if(null != cEncode){
+    		retStr = cEncode.getEncodeDesc();
+    	}
+    	return retStr;
+    }
     public String getCompanyBranch() {
         return this.companyBranch;
     }	
