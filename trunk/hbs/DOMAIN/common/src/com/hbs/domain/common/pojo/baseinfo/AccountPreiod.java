@@ -2,6 +2,9 @@ package com.hbs.domain.common.pojo.baseinfo;
 
 import java.math.BigDecimal;
 
+import com.hbs.common.manager.configencode.ConfigEncodeMgr;
+import com.hbs.domain.common.pojo.ConfigEncode;
+
 
 /**
  * AccountPreiod对象.
@@ -111,6 +114,21 @@ public class AccountPreiod {
         this.state = state;
     }
     
+    /**
+     * 获取账期结算的账期类型
+     * @return
+     */
+    public String getAccountTypeDesc(){
+    	String retStr ="未定义";
+    	ConfigEncode ceParam = new ConfigEncode();
+    	ceParam.setEncodeKey(getAccountType());
+    	ceParam.setEncodeType("ACCOUNT_TYPE");
+    	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
+    	if(null != cEncode){
+    		retStr = cEncode.getEncodeDesc();
+    	}
+    	return retStr;
+    }
     public String getAccountType() {
         return this.accountType;
     }	
