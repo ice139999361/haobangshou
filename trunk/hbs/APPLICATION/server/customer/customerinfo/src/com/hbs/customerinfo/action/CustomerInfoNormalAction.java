@@ -36,6 +36,8 @@ public class CustomerInfoNormalAction extends BaseAction {
 	private static final Logger logger = Logger
 			.getLogger(CustomerInfoNormalAction.class);
 
+	public static final String roleName = "scnormal";
+	
 	CustomerInfo custInfo;
 
 	/**
@@ -74,7 +76,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 			setResult("list", mgr.getCustomerInfoList(custInfo));
 			setTotalCount(mgr.getCustomerInfoCount(custInfo));
 			setResult("count", getTotalCount());
-			setResult("jq", JianQuanUtil.getJQ(JianQuanUtil.TypeCustState, "scnormal"));
+			setResult("jq", JianQuanUtil.getJQ(JianQuanUtil.TypeCustState, roleName));
 			if (logger.isDebugEnabled())
 				logger.debug("end doList");
 			return SUCCESS;

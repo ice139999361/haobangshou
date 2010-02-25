@@ -2,6 +2,7 @@ package com.hbs.customerinfo.action;
 
 import org.apache.log4j.Logger;
 
+import com.hbs.common.action.JianQuanUtil;
 import com.hbs.common.action.base.BaseAction;
 import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.customerinfo.manager.CustomerInfoMgr;
@@ -29,6 +30,8 @@ public class CustomerInfoManagerAction extends BaseAction {
 	 * 待审批状态。state需要字符串，而Constants的类型不匹配。并且也不直观。
 	 */
 	static final String stateForAudit = "2";
+	
+	public static final String roleName = "scmanager";
 	
 	CustomerInfo custInfo;
 	
@@ -178,6 +181,7 @@ public class CustomerInfoManagerAction extends BaseAction {
 			}
 			CustomerInfoMgr mgr = (CustomerInfoMgr)BeanLocator.getInstance().getBean(custInfoMgrName);
 			setPagination(custInfo);
+			setResult("jq", JianQuanUtil.getJQ(JianQuanUtil.TypeCustState, roleName));
 			setResult("list", mgr.getCustomerInfoList(custInfo));
 			setTotalCount(mgr.getCustomerInfoCount(custInfo));
 			setResult("count", getTotalCount());
@@ -207,6 +211,7 @@ public class CustomerInfoManagerAction extends BaseAction {
 			custInfo = new CustomerInfo();
 			custInfo.setState(stateForAudit);
 			setPagination(custInfo);
+			setResult("jq", JianQuanUtil.getJQ(JianQuanUtil.TypeCustState, roleName));
 			setResult("list", mgr.getCustomerInfoList(custInfo));
 			setTotalCount(mgr.getCustomerInfoCount(custInfo));
 			setResult("count", getTotalCount());

@@ -189,7 +189,7 @@ public class ProductClassAction extends BaseAction {
 					ProductClass c = it.next();
 					if(c == null)
 						continue;
-					// TODO:changePClassListToMapList
+					// DONE:changePClassListToMapList
 					Map<String, Object> map = new HashMap<String, Object>();
 					Integer code = c.getClsCode();
 					map.put("id", c.getClsCode());

@@ -68,14 +68,14 @@ public class VendorPartNoInfoUtil {
 			return list;
 		
 		String s;
-		// TODO:完成checkInputFields，对输入的供应商信息进行校验
-		/*
-		s = vendorPartNoInfo.getVendorCode();
+		// DONE:完成checkInputFields，对输入的供应商信息进行校验
+		
+		s = vendorPartNoInfo.getSampleCode();
 		if(s == null || s.length() == 0)
 		{
-			list.add(new FieldErr("venderCode","venderCode没有填写"));
+			list.add(new FieldErr("SampleCode","SampleCode没有填写"));
 		}
-		*/
+		
 		s = vendorPartNoInfo.getCommCode();
 		if(s == null || s.length() == 0)
 		{

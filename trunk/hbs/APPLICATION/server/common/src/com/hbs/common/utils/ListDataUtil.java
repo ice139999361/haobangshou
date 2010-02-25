@@ -3,7 +3,9 @@
  */
 package com.hbs.common.utils;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -124,6 +126,11 @@ public class ListDataUtil {
 							o.getClass().getDeclaredMethod(setName, Integer.class).invoke(o, Integer.parseInt(ar[i]));
 						}catch(Exception e2){
 							if(logger.isDebugEnabled())	logger.debug("splitIntoFields处理"+setName+"(Integer)出错", e2);
+							try {
+								o.getClass().getDeclaredMethod(setName, Date.class).invoke(o, DateFormat.getDateInstance().parse(ar[i]));
+							} catch (Exception e3) {
+								if(logger.isDebugEnabled())	logger.debug("splitIntoFields处理"+setName+"(Date)出错", e3);
+							}
 						}
 					}
 				}
