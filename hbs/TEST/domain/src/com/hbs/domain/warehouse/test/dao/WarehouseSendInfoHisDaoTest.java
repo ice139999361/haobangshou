@@ -169,7 +169,7 @@ public class WarehouseSendInfoHisDaoTest extends AbstractTransactionalDataSource
             System.out.println(i + " conFax=" + tmpWarehouseSendInfo.getConFax());
             System.out.println(i + " companyBranch=" + tmpWarehouseSendInfo.getCompanyBranch());
             System.out.println(i + " houseType=" + tmpWarehouseSendInfo.getHouseType());
-            System.out.println(i + " settlement_type=" + tmpWarehouseSendInfo.getSettlement_type());
+            //System.out.println(i + " settlement_type=" + tmpWarehouseSendInfo.getSettlement_type());
             System.out.println(i + " createDate=" + tmpWarehouseSendInfo.getCreateDate());
             System.out.println(i + " operId=" + tmpWarehouseSendInfo.getOperId());
             System.out.println(i + " operStaff=" + tmpWarehouseSendInfo.getOperStaff());
