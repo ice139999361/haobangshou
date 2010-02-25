@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>客户订单录入</title>
+<link href="../css/css.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.STYLE1 {color: #FF0000}
+-->
+</style>
+</head>
+<body>
+<h2 align="center">客户订单录入</h2>
+<table width="90%" border="1" align="center">
+  <caption>
+    订单信息
+  </caption>
+  <tr>
+    <th>客户订单号</th>
+    <td><input type="text" name="textfield" id="textfield" value="xxxxxxxxx" /></td>
+    <th>客户订单日期</th>
+    <td><input type="text" name="textfield2" id="textfield2" value="xxxxxxxxx" /></td>
+    <th>客户编码</th>
+    <td><input type="text" name="textfield2" id="textfield2" value="xxxxxxxxx" /></td>
+    <th>客户简称</th>
+    <td><input type="text" name="textfield3" id="textfield3" value="xxxxxxxxx" /></td>
+    <th>对应分公司</th>
+    <td>&nbsp;</td>
+    <th>结算类型</th>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <th>选择联系人</th>
+    <td><select name="select" id="select">
+    </select>    </td>
+    <th>电话</th>
+    <td>&nbsp;</td>
+    <th>传真</th>
+    <td>&nbsp;</td>
+    <th>&nbsp;</th>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <th>选择收货人</th>
+    <td><select name="select2" id="select2">
+    </select></td>
+    <th>收货地址</th>
+    <td>&nbsp;</td>
+    <th>邮编</th>
+    <td>&nbsp;</td>
+    <th>&nbsp;</th>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="12"><table width="100%" border="1">
+      <caption>
+        订单详情
+        </caption>
+      <tr>
+        <th nowrap="nowrap" scope="col">货品名称</th>
+        <th scope="col">客户型号</th>
+        <th scope="col">GLE型号</th>
+        <th scope="col">描述</th>
+        <th scope="col">单价</th>
+        <th scope="col">税率</th>
+        <th scope="col">是否含税交易</th>
+        <th scope="col">数量</th>
+        <th scope="col">金额</th>
+        <th scope="col"> 交货日期</th>
+        <th scope="col">特殊备注</th>
+        <th scope="col"> 备注</th>
+        </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><input type="text" name="textfield7" size="8" id="textfield13" value="xxxx" /></td>
+        <td><input type="text" name="textfield7" size="8" id="textfield14" value="xxxx" /></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><select name="select5" id="select7">
+          </select>        </td>
+        <td><input type="text" name="textfield7" size="8" id="textfield15" value="xxxx" /></td>
+        <td>&nbsp;</td>
+        <td><select name="select5" id="select8">
+        </select></td>
+        <td><input type="text" name="textfield7" size="8" id="textfield16" value="xxxx" /></td>
+        <td><input type="text" name="textfield7" size="8" id="textfield17" value="xxxx" /></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><input type="text" name="textfield7" size="8" id="textfield8" value="xxxx" /></td>
+        <td><input type="text" name="textfield7" size="8" id="textfield9" value="xxxx" /></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><select name="select5" id="select5">
+          </select>        </td>
+        <td><input type="text" name="textfield7" size="8" id="textfield10" value="xxxx" /></td>
+        <td>&nbsp;</td>
+        <td><select name="select5" id="select6">
+        </select></td>
+        <td><input type="text" name="textfield7" size="8" id="textfield11" value="xxxx" /></td>
+        <td><input type="text" name="textfield7" size="8" id="textfield12" value="xxxx" /></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td colspan="12" align="center"><input type="submit" value="提交" />
+      <input type="submit" value="保存" />
+      <input type="submit" name="button" value="取消" />    </td>
+  </tr>
+</table>
+<hr />
+<p>特殊说明：</p>
+<ol>
+  <li>订单信息的一行是一个panel</li>
+  <li>输入客户编码或客户简称时，自动填写对应分公司、结算类型，自动获取联系人、收货人信息。</li>
+  <li>输入客户P/N或本公司P/N时，自动填写名称、描述、单价、税率。根据税率设置是否含税交易：税率为0时，可选；否则设为是，并不可修改。</li>
+  <li>输入数量时，自动填写金额。</li>
+</ol>
+</body>
+</html>
