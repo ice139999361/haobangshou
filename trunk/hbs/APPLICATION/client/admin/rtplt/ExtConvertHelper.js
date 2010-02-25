@@ -252,6 +252,7 @@ var ExtConvertHelper = {
 		 ,"textarea"			: Ext.form.TextArea
 		 ,"numberfield"		: Ext.form.NumberField
 		 ,"dictcombo"     : "ExtUx.widget.DictCombo"
+		 ,"autocomplete"  : "ExtUx.widget.AutoComplete"
 	 }
 };
 //alert(ExtConvertHelper.convertDOMJSON)
