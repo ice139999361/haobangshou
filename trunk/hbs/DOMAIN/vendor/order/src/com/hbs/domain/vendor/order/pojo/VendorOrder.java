@@ -239,6 +239,22 @@ public class VendorOrder extends BaseDomain{
         this.companyBranch = companyBranch;
     }
     
+    /**
+     * 获取结算方式描述
+     * @return
+     */
+    public String getSettlementTypeDesc(){
+    	String retStr ="未定义";
+    	ConfigEncode ceParam = new ConfigEncode();
+    	ceParam.setEncodeKey(getSettlementType());
+    	ceParam.setEncodeType("SETTLEMENT_TYPE");
+    	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
+    	if(null != cEncode){
+    		retStr = cEncode.getEncodeDesc();
+    	}
+    	return retStr;
+    }
+    
     public String getSettlementType() {
         return this.SettlementType;
     }	

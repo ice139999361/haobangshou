@@ -68,7 +68,7 @@ public class WarehouseSendInfo extends BaseDomain{
     /**
      * 结算方式.
      */
-    private String settlement_type;
+    private String settlementType;
     
     /**
      * 开单日期.
@@ -229,12 +229,28 @@ public class WarehouseSendInfo extends BaseDomain{
         this.houseType = houseType;
     }
     
-    public String getSettlement_type() {
-        return this.settlement_type;
+    /**
+     * 获取结算方式描述
+     * @return
+     */
+    public String getSettlementTypeDesc(){
+    	String retStr ="未定义";
+    	ConfigEncode ceParam = new ConfigEncode();
+    	ceParam.setEncodeKey(getSettlementType());
+    	ceParam.setEncodeType("SETTLEMENT_TYPE");
+    	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
+    	if(null != cEncode){
+    		retStr = cEncode.getEncodeDesc();
+    	}
+    	return retStr;
+    }
+    
+    public String getSettlementType() {
+        return this.settlementType;
     }	
   
     public void setSettlement_type(String settlement_type) {
-        this.settlement_type = settlement_type;
+        this.settlementType = settlement_type;
     }
     
     public Date getCreateDate() {
@@ -330,7 +346,7 @@ public class WarehouseSendInfo extends BaseDomain{
 		sb.append("conFax=").append(this.conFax).append(" ");
 		sb.append("companyBranch=").append(this.companyBranch).append(" ");
 		sb.append("houseType=").append(this.houseType).append(" ");
-		sb.append("settlement_type=").append(this.settlement_type).append(" ");
+		sb.append("settlement_type=").append(this.settlementType).append(" ");
 		sb.append("createDate=").append(this.createDate == null ? " " :DateUtils.getFormatDate(this.createDate,null)).append(" ");
 		sb.append("operId=").append(this.operId).append(" ");
 		sb.append("operStaff=").append(this.operStaff).append(" ");
