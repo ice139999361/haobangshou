@@ -20,7 +20,7 @@
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="客户基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="1">
-				    				<autocomplete fieldLabel="客户编码"           name="custInfo.commCode"       labelStyle="width:150" allowBlank="false"/>
+				    				<autocomplete fieldLabel="客户编码" url="/customerInfo/customerInfo!list.action"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"     name="custInfo.commCode"       labelStyle="width:150" allowBlank="false"/>
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="2">
