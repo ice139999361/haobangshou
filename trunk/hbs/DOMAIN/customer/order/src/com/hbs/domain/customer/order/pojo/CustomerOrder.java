@@ -3,7 +3,9 @@ package com.hbs.domain.customer.order.pojo;
 import java.util.Date;
 import java.util.List;
 
+import com.hbs.common.manager.configencode.ConfigEncodeMgr;
 import com.hbs.common.utils.DateUtils;
+import com.hbs.domain.common.pojo.ConfigEncode;
 import com.hbs.domain.common.pojo.base.BaseDomain;
 
 /**
@@ -215,6 +217,22 @@ public class CustomerOrder extends BaseDomain{
   
     public void setConFax(String conFax) {
         this.conFax = conFax;
+    }
+    
+    /**
+     * 获取公司或分支机构描述
+     * @return
+     */
+    public String getCompanyBranchDesc(){
+    	String retStr ="未定义";
+    	ConfigEncode ceParam = new ConfigEncode();
+    	ceParam.setEncodeKey(getCompanyBranch());
+    	ceParam.setEncodeType("COMPANY_BRANCH");
+    	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
+    	if(null != cEncode){
+    		retStr = cEncode.getEncodeDesc();
+    	}
+    	return retStr;
     }
     
     public String getCompanyBranch() {

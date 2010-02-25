@@ -3,6 +3,8 @@ package com.hbs.domain.vendor.vendorinfo.pojo;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.hbs.common.manager.configencode.ConfigEncodeMgr;
+import com.hbs.domain.common.pojo.ConfigEncode;
 import com.hbs.domain.common.pojo.base.BaseDomain;
 import com.hbs.domain.common.pojo.baseinfo.AccountPreiod;
 import com.hbs.domain.common.pojo.baseinfo.BankInfo;
@@ -303,6 +305,22 @@ public class VendorInfo extends BaseDomain{
   
     public void setTaxCode(String taxCode) {
         this.taxCode = taxCode;
+    }
+    
+    /**
+     * 获取公司或分支机构描述
+     * @return
+     */
+    public String getCompanyBranchDesc(){
+    	String retStr ="未定义";
+    	ConfigEncode ceParam = new ConfigEncode();
+    	ceParam.setEncodeKey(getCompanyBranch());
+    	ceParam.setEncodeType("COMPANY_BRANCH");
+    	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
+    	if(null != cEncode){
+    		retStr = cEncode.getEncodeDesc();
+    	}
+    	return retStr;
     }
     
     public String getCompanyBranch() {
