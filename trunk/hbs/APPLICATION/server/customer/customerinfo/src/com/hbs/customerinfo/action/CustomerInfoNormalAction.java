@@ -11,7 +11,9 @@ import com.hbs.common.action.FieldErr;
 import com.hbs.common.action.JianQuanUtil;
 import com.hbs.common.action.base.BaseAction;
 import com.hbs.common.springhelper.BeanLocator;
+import com.hbs.customerinfo.manager.CustContactMgr;
 import com.hbs.customerinfo.manager.CustomerInfoMgr;
+import com.hbs.domain.common.pojo.baseinfo.ContactInfo;
 import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
 
 /**
@@ -319,6 +321,79 @@ public class CustomerInfoNormalAction extends BaseAction {
 		}
 	}
 
+	/**
+	 * 获取正式数据中的收货人信息
+	 * @action.input	custInfo.baseSeqId 或 (custInfo.commCode + custInfo.state)
+	 * @action.result list：列表 count：总数
+	 * @return
+	 */
+	public String doGetConsigneeList()
+	{
+		try
+		{
+			if (logger.isDebugEnabled())
+				logger.debug("begin doGetConsigneeList");
+			setResult("list", getPersonList("2"));
+			logger.debug("end doGetConsigneeList");
+			return SUCCESS;
+		}
+		catch(Exception e)
+		{
+			logger.error("catch Exception in doGetConsigneeList", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+	}
+	
+	/**
+	 * 获取正式数据中的联系人信息
+	 * @action.input	custInfo.baseSeqId 或 (custInfo.commCode + custInfo.state)
+	 * @action.result list：列表 count：总数
+	 * @return
+	 */
+	public String doGetContactList()
+	{
+		try
+		{
+			if (logger.isDebugEnabled())
+				logger.debug("begin doGetContactList");
+			setResult("list", getPersonList("1"));
+			logger.debug("end doGetContactList");
+			return SUCCESS;
+		}
+		catch(Exception e)
+		{
+			logger.error("catch Exception in doGetContactList", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+	}
+	
+	/**
+	 * 获取正式数据中的联系人信息，doGetConsigneeList、doGetContactList的具体操作函数
+	 * @param type 联系人类别。1：联系人；2：收货人
+	 * @return
+	 */
+	protected List<ContactInfo> getPersonList(String type) throws Exception
+	{
+		if (!CustomerInfoUtil.checkKeyFields(custInfo)) {
+			logger.info("参数为空！");
+			setErrorReason("参数为空！");
+			return null;
+		}
+		CustContactMgr mgr = (CustContactMgr)BeanLocator.getInstance().getBean("contactMgr");
+		ContactInfo contactInfo = new ContactInfo();
+		contactInfo.setState("0");
+		contactInfo.setConType(type);
+		Integer id = custInfo.getBaseSeqId();
+		if(id != null)
+			contactInfo.setBaseSeqId(id.toString());
+		else
+			contactInfo.setCommCode(custInfo.getCommCode());
+		
+		return mgr.listContactInfo(contactInfo);
+	}
+	
 	/**
 	 * 设置STAFF信息为当前用户信息
 	 * 
