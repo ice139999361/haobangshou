@@ -115,18 +115,25 @@
                     "url": "/vendor/editorvendor.jsp?editorType=add"
                 },
                 {
-                		"id": "a14",
+                		"id": "cgbuyer_query",
                     "text": "供应商查询",
                     "menuOrder": "20000",
                     "leaf": "true",
                     "url": "/vendor/queryvendor.jsp?roleType=cgy"
                 },
                 {
-                		"id": "a15",
+                		"id": "cgbupn_add",
                     "text": "供应商P/N对照录入",
-                    "menuOrder": "50000",
+                    "menuOrder": "30000",
                     "leaf": "true",
-                    "url": "/customer/queryorder.jsp"
+                    "url": "/vendor/pnrelation.jsp?editorType=add"
+                },
+                {
+                		"id": "cgbupn_add",
+                    "text": "供应商P/N对照查询",
+                    "menuOrder": "40000",
+                    "leaf": "true",
+                    "url": "/vendor/pnquery.jsp?roleType=cgy"
                 }
             ]
         },
