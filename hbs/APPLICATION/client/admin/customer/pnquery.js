@@ -31,7 +31,7 @@ HBSConvertHelper.init(function() {
 			// 获取操作列
 			var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));
 			// 将需要的链接渲染到此列
-			HBSConvertHelper.renderATag2Cell(shortName_cell.innerText, "abc.action", "open", shortName_cell);
+			HBSConvertHelper.renderATag2Cell(shortName_cell.innerText, "/customer/detailpnrelation.jsp?pageType=query&baseSeqId="+view.ds.getAt(i).get("baseSeqId"), "open", shortName_cell);
 			
 			// 操作列显示逻辑
 			switch(view.ds.getAt(i).get("state")) {
