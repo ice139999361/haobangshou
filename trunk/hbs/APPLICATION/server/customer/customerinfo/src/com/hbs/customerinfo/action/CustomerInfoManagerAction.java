@@ -169,6 +169,9 @@ public class CustomerInfoManagerAction extends BaseAction {
 		try
 		{
 			if (logger.isDebugEnabled())    logger.debug("begin doList");
+			if (custInfo == null) {
+				custInfo = new CustomerInfo();
+			}
 			CustomerInfoMgr mgr = (CustomerInfoMgr)BeanLocator.getInstance().getBean(custInfoMgrName);
 			setPagination(custInfo);
 			setResult("list", mgr.getCustomerInfoList(custInfo));
