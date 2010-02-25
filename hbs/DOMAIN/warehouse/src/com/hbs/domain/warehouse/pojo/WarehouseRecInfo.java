@@ -3,7 +3,9 @@ package com.hbs.domain.warehouse.pojo;
 import java.util.Date;
 import java.util.List;
 
+import com.hbs.common.manager.configencode.ConfigEncodeMgr;
 import com.hbs.common.utils.DateUtils;
+import com.hbs.domain.common.pojo.ConfigEncode;
 import com.hbs.domain.common.pojo.base.BaseDomain;
 
 /**
@@ -98,6 +100,22 @@ public class WarehouseRecInfo extends BaseDomain{
      */
     private List<WarehouseRecDetail> detailList;
     
+    
+    /**
+     * 获取结算方式描述
+     * @return
+     */
+    public String getSettlementTypeDesc(){
+    	String retStr ="未定义";
+    	ConfigEncode ceParam = new ConfigEncode();
+    	ceParam.setEncodeKey(getSettlementType());
+    	ceParam.setEncodeType("SETTLEMENT_TYPE");
+    	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
+    	if(null != cEncode){
+    		retStr = cEncode.getEncodeDesc();
+    	}
+    	return retStr;
+    }
     
     /**
 	 * @return the settlementType

@@ -3,7 +3,9 @@ package com.hbs.domain.customer.order.pojo;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.hbs.common.manager.configencode.ConfigEncodeMgr;
 import com.hbs.common.utils.DateUtils;
+import com.hbs.domain.common.pojo.ConfigEncode;
 import com.hbs.domain.common.pojo.base.BaseDomain;
 
 /**
@@ -456,6 +458,21 @@ public class CustOrderDetail extends BaseDomain{
         this.rltSendPoNo = rltSendPoNo;
     }
     
+    /**
+     * 获取结算方式描述
+     * @return
+     */
+    public String getSettlementTypeDesc(){
+    	String retStr ="未定义";
+    	ConfigEncode ceParam = new ConfigEncode();
+    	ceParam.setEncodeKey(getSettlementType());
+    	ceParam.setEncodeType("SETTLEMENT_TYPE");
+    	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
+    	if(null != cEncode){
+    		retStr = cEncode.getEncodeDesc();
+    	}
+    	return retStr;
+    }
     
     public String getSettlementType() {
 		return SettlementType;

@@ -15,7 +15,7 @@
     <result property="conFax" column="CON_FAX"/>
     <result property="companyBranch" column="COMPANY_BRANCH"/>
     <result property="houseType" column="HOUSE_TYPE"/>
-    <result property="settlement_type" column="SETTLEMENT_TYPE"/>
+    <result property="settlementType" column="SETTLEMENT_TYPE"/>
     <result property="createDate" column="CREATE_DATE"/>
     <result property="operId" column="OPER_ID"/>
     <result property="operStaff" column="OPER_STAFF"/>
@@ -64,7 +64,7 @@
             #conFax#,
             #companyBranch#,
             #houseType#,
-            #settlement_type#,
+            #settlementType#,
             #createDate#,
             #operId#,
             #operStaff#,
@@ -142,8 +142,8 @@
 	<isNotEmpty prepend="," property="houseType">
             HOUSE_TYPE = #houseType#
 	</isNotEmpty>
-	<isNotEmpty prepend="," property="settlement_type">
-            SETTLEMENT_TYPE = #settlement_type#
+	<isNotEmpty prepend="," property="settlementType">
+            SETTLEMENT_TYPE = #settlementType#
 	</isNotEmpty>
 	<isNotEmpty prepend="," property="createDate">
             CREATE_DATE = #createDate#
@@ -243,8 +243,8 @@
 			<isNotEmpty prepend="and" property = "houseType">
 				HOUSE_TYPE = #houseType#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "settlement_type">
-				SETTLEMENT_TYPE = #settlement_type#
+			<isNotEmpty prepend="and" property = "settlementType">
+				SETTLEMENT_TYPE = #settlementType#
 			</isNotEmpty>
 		<!-- 	<isNotEmpty prepend="and" property = "createDate">
 				CREATE_DATE = #createDate#
@@ -323,8 +323,8 @@
 			<isNotEmpty prepend="and" property = "houseType">
 				HOUSE_TYPE = #houseType#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "settlement_type">
-				SETTLEMENT_TYPE = #settlement_type#
+			<isNotEmpty prepend="and" property = "settlementType">
+				SETTLEMENT_TYPE = #settlementType#
 			</isNotEmpty>
 		<!-- 	<isNotEmpty prepend="and" property = "createDate">
 				CREATE_DATE = #createDate#
