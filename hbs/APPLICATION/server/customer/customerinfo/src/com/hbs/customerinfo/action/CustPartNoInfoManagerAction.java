@@ -51,6 +51,9 @@ public class CustPartNoInfoManagerAction extends BaseAction {
     	{
 			if (logger.isDebugEnabled())    logger.debug("begin doList");
 
+			if(custPartNoInfo == null)
+				custPartNoInfo = new CustPartNoInfo();
+			
 			if(!checkCommonFields())
 				return ERROR;
 			
@@ -177,6 +180,21 @@ public class CustPartNoInfoManagerAction extends BaseAction {
 			logger.error("catch Exception in checkCommonFields", e);
 			setErrorReason("ÄÚ²¿´íÎó");
 			return false;
+		}
+	}
+
+	protected void fixCommCode()
+	{
+		if(custPartNoInfo == null)
+			return;
+		String s = custPartNoInfo.getCommCode();
+		if(s == null || s.length() == 0)
+		{
+			s = this.getHttpServletRequest().getParameter("custInfo.commCode");
+			if(s != null && s.length() > 0)
+			{
+				custPartNoInfo.setCommCode(s);
+			}
 		}
 	}
 }
