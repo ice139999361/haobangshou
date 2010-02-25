@@ -486,6 +486,22 @@ public class CustomerInfo extends BaseDomain{
         this.contactFee = contactFee;
     }
     
+    /**
+     * 获取是否显示单价描述
+     * @return
+     */
+    public String getIsShowPriceDesc(){
+    	String retStr ="未定义";
+    	ConfigEncode ceParam = new ConfigEncode();
+    	ceParam.setEncodeKey(getIsShowPrice());
+    	ceParam.setEncodeType("IS_SHOW_PRICE");
+    	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
+    	if(null != cEncode){
+    		retStr = cEncode.getEncodeDesc();
+    	}
+    	return retStr;
+    }
+    
     public String getIsShowPrice() {
         return this.isShowPrice;
     }	

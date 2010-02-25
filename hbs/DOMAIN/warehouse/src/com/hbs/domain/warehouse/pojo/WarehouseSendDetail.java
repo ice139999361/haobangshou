@@ -3,7 +3,9 @@ package com.hbs.domain.warehouse.pojo;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.hbs.common.manager.configencode.ConfigEncodeMgr;
 import com.hbs.common.utils.DateUtils;
+import com.hbs.domain.common.pojo.ConfigEncode;
 import com.hbs.domain.common.pojo.base.BaseDomain;
 
 /**
@@ -360,6 +362,22 @@ public class WarehouseSendDetail extends BaseDomain{
   
     public void setTaxRate(BigDecimal taxRate) {
         this.taxRate = taxRate;
+    }
+    
+    /**
+     * 获取是否显示单价描述
+     * @return
+     */
+    public String getIsShowPriceDesc(){
+    	String retStr ="未定义";
+    	ConfigEncode ceParam = new ConfigEncode();
+    	ceParam.setEncodeKey(getIsShowPrice());
+    	ceParam.setEncodeType("IS_SHOW_PRICE");
+    	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
+    	if(null != cEncode){
+    		retStr = cEncode.getEncodeDesc();
+    	}
+    	return retStr;
     }
     
     public String getIsShowPrice() {
