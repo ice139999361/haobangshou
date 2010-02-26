@@ -150,12 +150,15 @@ public class CustOrderUtil {
 		if(null == custOrder.getOderTime())
 			list.add(new FieldErr("OrderTime","OrderTime没有填写"));
 		
+		/*
+		//TODO:选择联系人
 		if(StringUtils.isEmpty(custOrder.getConName()))
 			list.add(new FieldErr("ConName", "ConName没有填写"));
 		
 		if(StringUtils.isEmpty(custOrder.getReceiveName()))
 			list.add(new FieldErr("ReceiveName", "ReceiveName没有填写"));
-
+		 */
+		
 		List<CustOrderDetail> details = custOrder.getOrderDetailList();
 		if(null != details && details.size() > 0) {
 			for(CustOrderDetail info : details) {
