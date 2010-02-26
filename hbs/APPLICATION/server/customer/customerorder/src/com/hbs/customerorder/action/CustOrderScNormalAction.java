@@ -3,6 +3,7 @@
  */
 package com.hbs.customerorder.action;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -55,23 +56,26 @@ public class CustOrderScNormalAction extends BaseAction {
 				setErrorReason("²ÎÊý´íÎó£¡");
 				return ERROR;
 			}
+			
 			if(StringUtils.isEmpty(custOrder.getPoNoType()))
 				custOrder.setPoNoType("0");
+			
 			custOrder.setState("1");
-			// TODO:listdata¡¢¼ì²é
+			if(custOrder.getFristCreateTime() == null)
+				custOrder.setFristCreateTime(new Date());
+			if(StringUtils.isEmpty(custOrder.getStaffId()))
+			{
+				custOrder.setStaffId(getLoginStaff().getStaffId());
+				custOrder.setStaffName(getLoginStaff().getStaffName());
+			}
+			
+			// DONE:listdata¡¢¼ì²é
 			if(!CustOrderUtil.checkCommCode(custOrder)) {
 				logger.info("¿Í»§±àÂë´íÎó£¡");
 				setErrorReason("¿Í»§±àÂë´íÎó£¡");
 				return ERROR;
 			}
 			CustOrderUtil.processListData(custOrder, this.getHttpServletRequest());
-			CustOrderMgr mgr = (CustOrderMgr) BeanLocator.getInstance().getBean(CustOrderConstants.CUSTORDERMGR);
-			CustomerOrder custOrder2 = null;
-			try {
-				custOrder2 = mgr.findCustomerOrderByBizKey(custOrder, false);
-			} catch(Exception e) {
-				
-			}
 			List<FieldErr> errs = CustOrderUtil.checkInputFields(custOrder);
 			if (!errs.isEmpty()) {
 				String s = FieldErr.formFieldsErrString(errs);
@@ -79,11 +83,20 @@ public class CustOrderScNormalAction extends BaseAction {
 				setErrorReason(s);
 				return ERROR;
 			}
-
+			
+			CustOrderMgr mgr = (CustOrderMgr) BeanLocator.getInstance().getBean(CustOrderConstants.CUSTORDERMGR);
+			CustomerOrder custOrder2 = null;
+			try {
+				custOrder2 = mgr.findCustomerOrderByBizKey(custOrder, false);
+			} catch(Exception e) {
+				
+			}
 			int ret = -1;
 			try {
 				if(custOrder2 == null)
+				{
 					ret = mgr.saveTempCustomerOrder(custOrder);
+				}
 				else
 					ret = mgr.commitCustomerOrder(custOrder);
 			} catch (Exception e) {

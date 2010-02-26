@@ -63,12 +63,12 @@ public class CustomerOrder extends BaseDomain{
     /**
      * 结算方式，对应客户信息中的结算方式.
      */
-    private String SettlementType;
+    private String settlementType;
     
     /**
      * 收货人，对应客户信息的收货人.
      */
-    private String ReceiveName;
+    private String receiveName;
     
     /**
      * 收货地址，对应客户信息的收货地址.
@@ -259,19 +259,19 @@ public class CustomerOrder extends BaseDomain{
     }
     
     public String getSettlementType() {
-        return this.SettlementType;
+        return this.settlementType;
     }	
   
     public void setSettlementType(String SettlementType) {
-        this.SettlementType = SettlementType;
+        this.settlementType = SettlementType;
     }
     
     public String getReceiveName() {
-        return this.ReceiveName;
+        return this.receiveName;
     }	
   
     public void setReceiveName(String ReceiveName) {
-        this.ReceiveName = ReceiveName;
+        this.receiveName = ReceiveName;
     }
     
     public String getReceiveAddress() {
@@ -427,8 +427,8 @@ public class CustomerOrder extends BaseDomain{
 		sb.append("conTel=").append(this.conTel).append(" ");
 		sb.append("conFax=").append(this.conFax).append(" ");
 		sb.append("companyBranch=").append(this.companyBranch).append(" ");
-		sb.append("SettlementType=").append(this.SettlementType).append(" ");
-		sb.append("ReceiveName=").append(this.ReceiveName).append(" ");
+		sb.append("settlementType=").append(this.settlementType).append(" ");
+		sb.append("receiveName=").append(this.receiveName).append(" ");
 		sb.append("receiveAddress=").append(this.receiveAddress).append(" ");
 		sb.append("receiveZip=").append(this.receiveZip).append(" ");
 		sb.append("staffId=").append(this.staffId).append(" ");

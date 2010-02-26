@@ -37,7 +37,7 @@
     <result property="state" column="STATE"/>
     <result property="activeState" column="ACTIVE_STATE"/>
     <result property="rltSendPoNo" column="RLT_SEND_PO_NO"/>
-    <result property="SettlementType" column="SETTLEMENT_TYPE"/>
+    <result property="settlementType" column="SETTLEMENT_TYPE"/>
     <result property="staffId" column="STAFF_ID"/>
     <result property="staffName" column="STAFF_NAME"/>
     <result property="salesId" column="SALES_ID"/>
@@ -344,8 +344,8 @@
 	<isNotEmpty prepend="," property="rltSendPoNo">
             RLT_SEND_PO_NO = #rltSendPoNo#
 	</isNotEmpty>
-	<isNotEmpty prepend="," property="SettlementType">
-            SETTLEMENT_TYPE = #SettlementType#
+	<isNotEmpty prepend="," property="settlementType">
+            SETTLEMENT_TYPE = #settlementType#
 	</isNotEmpty>
 	<isNotEmpty prepend="," property="staffId">
             STAFF_ID = #staffId#
