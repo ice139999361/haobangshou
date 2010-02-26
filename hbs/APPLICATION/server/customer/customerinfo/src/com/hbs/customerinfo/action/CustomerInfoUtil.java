@@ -191,12 +191,12 @@ public class CustomerInfoUtil {
 	/**
 	 * 前台传来的列表数据的分隔符：||;;
 	 */
-	private static final String splitter = "\\|\\|;;";
+	public static final String splitter = "\\|\\|;;";
 	
+	public static final String fieldNameSplitter = ",";
 	private static final String contactListFields1 = "contactlistFields";
 	private static final String contactListFields2 = "consigneelistFields";
 	private static final String bankListFields = "custbanklistFields";
-	private static final String fieldNameSplitter = ",";
 	
 	/**
 	 * 处理上传的List数据。将String数组转换为List
@@ -205,8 +205,6 @@ public class CustomerInfoUtil {
 	public static void processListData(CustomerInfo custInfo, HttpServletRequest request) throws Exception
 	{
 		// Done: 处理上传的List数据
-		if(false)
-			return;
 		try
 		{
 			Integer id = custInfo.getBaseSeqId();
@@ -418,7 +416,7 @@ public class CustomerInfoUtil {
 	 * @param s
 	 * @return 编码对象，如果找不到，则返回null
 	 */
-	private static ConfigEncode getEncode(String type, String s)
+	public static ConfigEncode getEncode(String type, String s)
 	{
 		ConfigEncode ce = new ConfigEncode();
 		List<ConfigEncode> ce2;

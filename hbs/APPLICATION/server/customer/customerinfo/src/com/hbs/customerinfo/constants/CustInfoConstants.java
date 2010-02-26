@@ -32,4 +32,6 @@ public final class CustInfoConstants {
 	public static final String CUSTPREPAIDMGR ="custPrePaidMgr";
 	
 	public static final String CUSTPARTNOINFOMGR="custPartNoInfoMgr";
+	
+	public static final String CUSTINFOMGR="customerInfoMgr";
 }

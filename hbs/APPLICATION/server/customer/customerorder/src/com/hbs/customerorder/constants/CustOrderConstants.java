@@ -99,4 +99,6 @@ public final class CustOrderConstants {
 	 * 常规备货
 	 */
 	public static final String WAREHOUSE_INFO_HOUSE_USE_2="2";//常规备货
+	
+	public static final String CUSTORDERMGR="custOrderMgr";
 }

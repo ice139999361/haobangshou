@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
@@ -108,7 +109,7 @@ public class ListDataUtil {
 			// 将数据接入对应字段
 			for(int i = 0; i < fieldNames.length; i++)
 			{
-				if(fieldNames[i] == null || fieldNames[i].length() == 0)
+				if(StringUtils.isEmpty(fieldNames[i]))
 					continue;
 				try
 				{
