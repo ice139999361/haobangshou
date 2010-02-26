@@ -70,17 +70,32 @@ public class CustOrderUtil {
 	}
 
 	/**
-	 * 判断commCode是否存在
-	 * @param commCode
+	 * 判断commCode是否存在，并且复制一些数据。
+	 * @param custOrder
 	 * @return
 	 */
-	public static boolean checkCommCode(String commCode) {
+	public static boolean checkCommCode(CustomerOrder custOrder) {
 		try {
+			if(custOrder == null)
+				return false;
+			
+			String s = custOrder.getCommCode();
+			if(StringUtils.isEmpty(s))
+				return false;
+			
 			CustomerInfo custInfo = new CustomerInfo();
-			custInfo.setCommCode(commCode);
+			custInfo.setCommCode(s);
 			custInfo.setState("0");
 			CustomerInfoMgr mgr = (CustomerInfoMgr)BeanLocator.getInstance().getBean(CustInfoConstants.CUSTINFOMGR);
-			return null != mgr.getCustomerInfo(custInfo, false);
+			custInfo = mgr.getCustomerInfo(custInfo, false);
+			if(custInfo != null) {
+				custOrder.setSettlementType(custInfo.getSettlementType());
+				custOrder.setShortName(custInfo.getShortName());
+				return true;
+			}else{
+				return false;
+			}
+		
 		} catch (Exception e) {
 			logger.error("catch Exception in checkCommCode", e);
 			return false;

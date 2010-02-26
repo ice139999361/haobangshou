@@ -5,14 +5,12 @@ package com.hbs.customerorder.action;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.action.FieldErr;
 import com.hbs.common.action.base.BaseAction;
 import com.hbs.common.springhelper.BeanLocator;
-import com.hbs.customerinfo.action.CustomerInfoUtil;
-import com.hbs.customerinfo.constants.CustInfoConstants;
-import com.hbs.customerinfo.manager.CustomerInfoMgr;
 import com.hbs.customerorder.constants.CustOrderConstants;
 import com.hbs.customerorder.manager.CustOrderMgr;
 import com.hbs.domain.customer.order.pojo.CustomerOrder;
@@ -57,10 +55,11 @@ public class CustOrderScNormalAction extends BaseAction {
 				setErrorReason("²ÎÊý´íÎó£¡");
 				return ERROR;
 			}
-			
+			if(StringUtils.isEmpty(custOrder.getPoNoType()))
+				custOrder.setPoNoType("0");
 			custOrder.setState("1");
 			// TODO:listdata¡¢¼ì²é
-			if(!CustOrderUtil.checkCommCode(custOrder.getCommCode())) {
+			if(!CustOrderUtil.checkCommCode(custOrder)) {
 				logger.info("¿Í»§±àÂë´íÎó£¡");
 				setErrorReason("¿Í»§±àÂë´íÎó£¡");
 				return ERROR;

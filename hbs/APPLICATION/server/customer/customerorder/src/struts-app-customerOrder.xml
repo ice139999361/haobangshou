@@ -30,6 +30,16 @@
 		 -->
     	<action name="custOrder!saveTemp" method="doSaveTemp" 
     			class="com.hbs.customerorder.action.CustOrderScNormalAction">
+			<result name="error" type="json">
+			    <param name="includeProperties">
+                 	success,errorReason.*
+                </param>
+            </result>
+ 			<result name="success" type="json">
+				<param name="includeProperties">
+                	success, result.*
+                </param>
+			</result>
 		</action>
 
 	</package>
