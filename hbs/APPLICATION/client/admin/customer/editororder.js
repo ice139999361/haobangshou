@@ -37,12 +37,12 @@ HBSConvertHelper.init(function() {
 	
 	// 当提交按钮被单击时
 	submitBtn.on("click", function() {
-		submitData("/customerInfo/customerInfo!save.action");
+		submitData("/custOrder/custOrder!save.action");
 	});
 	
 	// 当保存按钮被单击时
 	saveBtn.on("click", function() {
-		submitData("/customerInfo/customerInfo!saveTemp.action");
+		submitData("/custOrder/custOrder!saveTemp.action");
 	});
 	
 	// 当单机取消按钮时，调用默认的关闭窗口方法

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="app-customerOrder" namespace="/custOrder" extends="json-default">
+		
+		<global-results>
+			<result name="error" type="json">
+			    <param name="includeProperties">
+                 	success,errorReason.*
+                </param>
+            </result>
+ 			<result name="success" type="json">
+				<param name="includeProperties">
+                	success, result.*
+                </param>
+			</result>
+        </global-results>
+
+		<!-- 普通用户 -->
+		<!-- 
+	/**
+	 * 临时保存
+	 * @action.input custOrder.*
+	 * @action.result	seqId	insert的id。如果没有insert操作，则没有这一项。
+	 * @return
+	 */
+		 -->
+    	<action name="custOrder!saveTemp" method="doSaveTemp" 
+    			class="com.hbs.customerorder.action.CustOrderScNormalAction">
+		</action>
+
+	</package>
+</struts>
