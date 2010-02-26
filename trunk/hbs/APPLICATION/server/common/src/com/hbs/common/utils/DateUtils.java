@@ -35,6 +35,49 @@ public class DateUtils {
 	 * @return  返回账期,格式为yyyymm
 	 */
 	public static String getDatePeriod(Date curDate , String startDate , String internal){
+		DateTime dtStart = getStartPeriodDateTime(curDate,startDate,internal);
+		return dtStart.toString(MONTHFORMAT);
+	}
+	
+	/**
+	 * 根据当前账期获取前一个账期
+	 * @param curPeriod 当前账期
+	 * @param internal  账期间隔
+	 * @return
+	 */
+	public static String getPrePeriod(String curPeriod , String internal){
+		DateTimeFormatter fmt = DateTimeFormat.forPattern(MONTHFORMAT);				
+		DateTime dtStart = new DateTime(fmt.parseDateTime(curPeriod));	
+		int iInternal = Integer.parseInt(internal);
+		dtStart.plusMonths(-iInternal);
+		return dtStart.toString(MONTHFORMAT);
+	}
+	
+	/**
+	 * 根据入参获取账期起始日,
+	 * @param curDate  传入需要计算账期的日期
+	 * @param startDate 账期起始日,格式yyyymmdd
+	 * @param internal  账期的跨度,1 表示一个月,2 表示2个月,依次类推
+	 * @return
+	 */
+	public static Date getStartPeriod(Date curDate ,String startDate , String internal){
+				
+		DateTime dtStart = getStartPeriodDateTime(curDate,startDate,internal);		
+		
+		return dtStart.toDate();
+	}
+	
+	
+	//public static String getEndPeriod()
+	
+	/**
+	 * 根据入参获取账期起始日,私有静态函数
+	 * @param curDate  传入需要计算账期的日期
+	 * @param startDate 账期起始日,格式yyyymmdd
+	 * @param internal  账期的跨度,1 表示一个月,2 表示2个月,依次类推
+	 * @return
+	 */
+	private static DateTime getStartPeriodDateTime(Date curDate ,String startDate , String internal){
 		DateTimeFormatter fmt = DateTimeFormat.forPattern(DATEFORMAT);
 		DateTime curTime = new DateTime(curDate);		
 		DateTime dtStart = new DateTime(fmt.parseDateTime(startDate));		
@@ -54,9 +97,8 @@ public class DateUtils {
 				}
 			}
 		}
-		return dtStart.toString(MONTHFORMAT);
+		return dtStart;
 	}
-	
 	/**
 	 * 根据传入的日期格式，返回当前时间的格式化字符串
 	 * @param format
