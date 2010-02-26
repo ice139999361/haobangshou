@@ -50,8 +50,7 @@ public class CustOrderScNormalAction extends BaseAction {
 	public String doSaveTemp()
 	{
 		try {
-			if (logger.isDebugEnabled())
-				logger.debug("begin doSaveTemp");
+			logger.info("begin doSaveTemp " + custOrder);
 
 			if (custOrder == null) {
 				logger.info("²ÎÊý´íÎó£¡");
