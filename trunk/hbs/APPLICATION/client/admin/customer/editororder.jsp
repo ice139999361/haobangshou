@@ -21,26 +21,26 @@
 				    			<layoutpanel columnNum="2">
 				    				<autocomplete fieldLabel="客户编码"           name="custOrder.commCode"       labelStyle="width:150"/>
 				    				<textfield    fieldLabel="客户订单号"         name="custOrder.poNo"                        labelStyle="width:150"/>
-				    				<label        fieldLabel="对应分公司"         name=""                        labelStyle="width:150"/>
+				    				<label        fieldLabel="对应分公司"         name="custOrder.companyBranch"                        labelStyle="width:150"/>
 				    					
 				    				
 				    				<autocomplete fieldLabel="客户简称"           name="custOrder.shortName"                        labelStyle="width:150"/>
 				    				<datefield    fieldLabel="客户订单日期"       name="custOrder.oderTime" 	format="Y-m-d"                       labelStyle="width:150"/>
-				    				<label        fieldLabel="结算类型"           name=""                        labelStyle="width:150"/>
+				    				<label        fieldLabel="结算类型"           name="custOrder.settlementType"                        labelStyle="width:150"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
-				    				<dictcombo    fieldLabel="选择联系人"         name="custOrder.conId"                        labelStyle="width:150"/>
+				    				<dictcombo    fieldLabel="选择联系人"         name="custOrder.conName"                        labelStyle="width:150"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="2">
-				    				<label        fieldLabel="电话"               name=""                        labelStyle="width:150"/>
-				    				<label        fieldLabel="传真"               name=""                        labelStyle="width:150"/>
+				    				<label        fieldLabel="电话"               name="custOrder.conTel"                        labelStyle="width:150"/>
+				    				<label        fieldLabel="传真"               name="custOrder.conFax"                        labelStyle="width:150"/>
 				    			</layoutpanel>	
 				    			<layoutpanel columnNum="1">
-				    				<dictcombo    fieldLabel="选择收货人"         name="custOrder.receiveId"                        labelStyle="width:150"/>
+				    				<dictcombo    fieldLabel="选择收货人"         name="custOrder.receiveName"                        labelStyle="width:150"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="2">
-				    				<label        fieldLabel="收货地址"           name=""                        labelStyle="width:150"/>
-				    				<label        fieldLabel="邮编"               name=""                        labelStyle="width:150"/>
+				    				<label        fieldLabel="收货地址"           name="custOrder.receiveAddress"                        labelStyle="width:150"/>
+				    				<label        fieldLabel="邮编"               name="custOrder.receiveZip"                        labelStyle="width:150"/>
 				    			</layoutpanel>	
 				    		</listpanel>
 			    		</items></form>
@@ -71,7 +71,7 @@
 			    				<column dataIndex="commDesc"   xtype="textfield"         header="备注&lt;font color=red&gt;*&lt;/font&gt;"        />
 			    			</columns>
 			    			
-			    			<submitFields value="seqId,,cpartNo,partNo,,,,isTax,amount,,orgDeliveryDate,specDesc,commDesc" />
+			    			<submitFields value="seqId,pnName,cpartNo,partNo,pnDesc,cprice,cpriceTax,isTax,amount,money,orgDeliveryDate,specDesc,commDesc" />
 			    		</complexgrid>
 			    		
 			    		<panel buttonAlign="center">
