@@ -25,7 +25,7 @@
 				    					
 				    				
 				    				<autocomplete fieldLabel="客户简称"           name="custOrder.shortName"                        labelStyle="width:150"/>
-				    				<datefield    fieldLabel="客户订单日期"       name="custOrder.oderTime"                        labelStyle="width:150"/>
+				    				<datefield    fieldLabel="客户订单日期"       name="custOrder.oderTime" 	format="Y-m-d"                       labelStyle="width:150"/>
 				    				<label        fieldLabel="结算类型"           name=""                        labelStyle="width:150"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
@@ -66,7 +66,7 @@
 			    				<column dataIndex="isTax"   xtype="dictcombo"         header="是否含税交易&lt;font color=red&gt;*&lt;/font&gt;"/>
 			    				<column dataIndex="amount"   xtype="textfield"         header="数量&lt;font color=red&gt;*&lt;/font&gt;"        />
 			    				<column header="金额"           dataIndex="money"  />
-			    				<column dataIndex="orgDeliveryDate"   xtype="datefield"         header="交货日期&lt;font color=red&gt;*&lt;/font&gt;"    />
+			    				<column dataIndex="orgDeliveryDate"   xtype="datefield" 	format="Y-m-d"        header="交货日期&lt;font color=red&gt;*&lt;/font&gt;"    />
 			    				<column dataIndex="specDesc"   xtype="textfield"         header="特殊备注&lt;font color=red&gt;*&lt;/font&gt;"    />
 			    				<column dataIndex="commDesc"   xtype="textfield"         header="备注&lt;font color=red&gt;*&lt;/font&gt;"        />
 			    			</columns>
