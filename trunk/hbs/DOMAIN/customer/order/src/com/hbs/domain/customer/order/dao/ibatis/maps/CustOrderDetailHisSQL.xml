@@ -43,7 +43,7 @@
 ]]>
 </select>
 
-<insert id="CustOrderDetail_insertCustOrderDetail" parameterClass="custOrderDetail" >
+<insert id="CustOrderDetailHis_insertCustOrderDetail" parameterClass="custOrderDetail" >
 <![CDATA[
     INSERT INTO T_CUST_ORDER_DETAIL_HIS (
             ORDER_SEQID, 
@@ -108,13 +108,13 @@
 ]]>
 </insert>
 
-<delete id="CustOrderDetail_deleteCustOrderDetail" parameterClass="string">
+<delete id="CustOrderDetailHis_deleteCustOrderDetail" parameterClass="string">
 <![CDATA[
     DELETE  FROM  T_CUST_ORDER_DETAIL_HIS WHERE ORDER_SEQID = #operSeqId#
 ]]>
 </delete>    
 
-<update id="CustOrderDetail_updateCustOrderDetail" parameterClass="custOrderDetail">
+<update id="CustOrderDetailHis_updateCustOrderDetail" parameterClass="custOrderDetail">
     UPDATE T_CUST_ORDER_DETAIL_HIS 
     SET
     	ORDER_SEQID = #operSeqId#
@@ -202,7 +202,7 @@
     WHERE ORDER_SEQID = #operSeqId#
 </update> 
 
-<select id="CustOrderDetail_findCustOrderDetail" resultMap="custOrderDetail_result" parameterClass="string">
+<select id="CustOrderDetailHis_findCustOrderDetail" resultMap="custOrderDetail_result" parameterClass="string">
 <![CDATA[
     SELECT
             ORDER_SEQID, 
@@ -237,7 +237,7 @@
 ]]>
 </select>
 
-<select id="CustOrderDetail_listCustOrderDetail" resultMap="custOrderDetail_result" parameterClass="custOrderDetail">
+<select id="CustOrderDetailHis_listCustOrderDetail" resultMap="custOrderDetail_result" parameterClass="custOrderDetail">
 <![CDATA[
     SELECT
             ORDER_SEQID, 
@@ -359,7 +359,7 @@
 </select>
 
 
-<select id="CustOrderDetail_listCustOrderDetailCount" resultClass="java.lang.Integer" parameterClass="custOrderDetail">
+<select id="CustOrderDetailHis_listCustOrderDetailCount" resultClass="java.lang.Integer" parameterClass="custOrderDetail">
 <![CDATA[
     SELECT
 		COUNT(*)

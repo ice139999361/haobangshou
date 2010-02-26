@@ -38,7 +38,7 @@ public class CustOrderDetail extends BaseDomain{
     /**
      * 结算方式，对应客户信息中的结算方式.
      */
-    private String SettlementType;
+    private String settlementType;
     
     /**
      * 客户订单编号.
@@ -48,7 +48,7 @@ public class CustOrderDetail extends BaseDomain{
     /**
      * 客户物料编号.
      */
-    private Date cpartNo;
+    private String cpartNo;
     
     /**
      * 公司物料编号.
@@ -244,11 +244,11 @@ public class CustOrderDetail extends BaseDomain{
         this.poNo = poNo;
     }
     
-    public Date getCpartNo() {
+    public String getCpartNo() {
         return this.cpartNo;
     }	
   
-    public void setCpartNo(Date cpartNo) {
+    public void setCpartNo(String cpartNo) {
         this.cpartNo = cpartNo;
     }
     
@@ -475,11 +475,11 @@ public class CustOrderDetail extends BaseDomain{
     }
     
     public String getSettlementType() {
-		return SettlementType;
+		return settlementType;
 	}
 
 	public void setSettlementType(String settlementType) {
-		SettlementType = settlementType;
+		this.settlementType = settlementType;
 	}
 
 	public String getStaffId() {
@@ -565,7 +565,7 @@ public class CustOrderDetail extends BaseDomain{
 		sb.append("commCode=").append(this.commCode).append(" ");
 		sb.append("shortName=").append(this.shortName).append(" ");
 		sb.append("poNoType=").append(this.poNoType).append(" ");
-		sb.append("SettlementType=").append(this.SettlementType).append(" ");
+		sb.append("settlementType=").append(this.settlementType).append(" ");
 		sb.append("poNo=").append(this.poNo).append(" ");
 		sb.append("cpartNo=").append(this.cpartNo).append(" ");
 		sb.append("partNo=").append(this.partNo).append(" ");
