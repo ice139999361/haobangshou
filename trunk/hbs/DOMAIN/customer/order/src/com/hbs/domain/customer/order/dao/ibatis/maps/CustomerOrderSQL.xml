@@ -14,8 +14,8 @@
     <result property="conTel" column="CON_TEL"/>
     <result property="conFax" column="CON_FAX"/>
     <result property="companyBranch" column="COMPANY_BRANCH"/>
-    <result property="settlementType" column="SETTLEMENT_TYPE"/>
-    <result property="receiveName" column="RECEIVE_NAME"/>
+    <result property="SettlementType" column="SETTLEMENT_TYPE"/>
+    <result property="ReceiveName" column="RECEIVE_NAME"/>
     <result property="receiveAddress" column="RECEIVE_ADDRESS"/>
     <result property="receiveZip" column="RECEIVE_ZIP"/>
     <result property="staffId" column="STAFF_ID"/>
@@ -71,8 +71,8 @@
             #conTel#,
             #conFax#,
             #companyBranch#,
-            #settlementType#,
-            #receiveName#,
+            #SettlementType#,
+            #ReceiveName#,
             #receiveAddress#,
             #receiveZip#,
             #staffId#,
@@ -152,11 +152,11 @@
 	<isNotEmpty prepend="," property="companyBranch">
             COMPANY_BRANCH = #companyBranch#
 	</isNotEmpty>
-	<isNotEmpty prepend="," property="settlementType">
-            SETTLEMENT_TYPE = #settlementType#
+	<isNotEmpty prepend="," property="SettlementType">
+            SETTLEMENT_TYPE = #SettlementType#
 	</isNotEmpty>
-	<isNotEmpty prepend="," property="receiveName">
-            RECEIVE_NAME = #receiveName#
+	<isNotEmpty prepend="," property="ReceiveName">
+            RECEIVE_NAME = #ReceiveName#
 	</isNotEmpty>
 	<isNotEmpty prepend="," property="receiveAddress">
             RECEIVE_ADDRESS = #receiveAddress#
@@ -280,8 +280,8 @@
 			<isNotEmpty prepend="and" property = "companyBranch">
 				COMPANY_BRANCH = #companyBranch#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "settlementType">
-				SETTLEMENT_TYPE = #settlementType#
+			<isNotEmpty prepend="and" property = "SettlementType">
+				SETTLEMENT_TYPE = #SettlementType#
 			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "staffId">
 				STAFF_ID = #staffId#
@@ -355,8 +355,8 @@
 			<isNotEmpty prepend="and" property = "companyBranch">
 				COMPANY_BRANCH = #companyBranch#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "settlementType">
-				SETTLEMENT_TYPE = #settlementType#
+			<isNotEmpty prepend="and" property = "SettlementType">
+				SETTLEMENT_TYPE = #SettlementType#
 			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "staffId">
 				STAFF_ID = #staffId#
