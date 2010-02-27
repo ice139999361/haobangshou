@@ -19,11 +19,12 @@ import com.hbs.common.utils.ListDataUtil;
 import com.hbs.customerinfo.action.CustomerInfoUtil;
 import com.hbs.customerinfo.constants.CustInfoConstants;
 import com.hbs.customerinfo.manager.CustomerInfoMgr;
-import com.hbs.domain.common.pojo.ConfigEncode;
-import com.hbs.domain.common.pojo.baseinfo.ContactInfo;
 import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
 import com.hbs.domain.customer.order.pojo.CustOrderDetail;
 import com.hbs.domain.customer.order.pojo.CustomerOrder;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author xyf
@@ -39,13 +40,13 @@ public class CustOrderUtil {
 	private static final String detailListFields = "orderlistFields";
 
 	/**
-	 * 
+	 * 处理录入上传的列表数据
 	 * @param custOrder
 	 * @param request
 	 * @throws Exception
 	 */
 	@SuppressWarnings({ "unchecked" })
-	public static void processListData(CustomerOrder custOrder, HttpServletRequest request) throws Exception
+	public static void processListData(CustomerOrder custOrder, HttpServletRequest request, Map otherData) throws Exception
 	{
 		try {
 			List<CustOrderDetail> list = ListDataUtil.splitIntoList(CustOrderDetail.class, 
@@ -72,8 +73,9 @@ public class CustOrderUtil {
 				if(info == null)
 					continue;
 				
-				//TODO:ContractFee如何获取
-				info.setContactFee(new BigDecimal(0));
+				//Done:ContactFee如何获取
+				if(otherData != null)
+					info.setContactFee((BigDecimal)otherData.get("contactFee"));
 				
 				info.setCommCode(commCode);
 				info.setState(state);
@@ -98,7 +100,8 @@ public class CustOrderUtil {
 	 * @param custOrder
 	 * @return
 	 */
-	public static boolean checkCommCode(CustomerOrder custOrder) {
+	@SuppressWarnings("unchecked")
+	public static boolean checkCommCode(CustomerOrder custOrder, Map otherData) {
 		try {
 			if(custOrder == null)
 				return false;
@@ -114,6 +117,12 @@ public class CustOrderUtil {
 			custInfo = mgr.getCustomerInfo(custInfo, false);
 			if(custInfo != null)
 			{
+				if(otherData != null) {
+					otherData.put("contactFee", custInfo.getContactFee());
+					otherData.put("custInfo", custInfo);
+				} else
+					logger.info("checkCommCode : otherData is null");
+				
 				if(StringUtils.isEmpty(custOrder.getSettlementType())) {
 					custOrder.setSettlementType(custInfo.getSettlementType());
 					custOrder.setShortName(custInfo.getShortName());
@@ -134,7 +143,8 @@ public class CustOrderUtil {
 		}
 	}
 
-	public static List<FieldErr> checkInputFields(CustomerOrder custOrder) {
+	@SuppressWarnings("unchecked")
+	public static List<FieldErr> checkInputFields(CustomerOrder custOrder, Map otherData) {
 		if(custOrder == null)
 			return new ArrayList<FieldErr>();
 		

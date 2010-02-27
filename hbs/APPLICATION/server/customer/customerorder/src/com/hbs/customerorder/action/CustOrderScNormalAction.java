@@ -4,7 +4,9 @@
 package com.hbs.customerorder.action;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -46,6 +48,7 @@ public class CustOrderScNormalAction extends BaseAction {
 		this.custOrder = custOrder;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public String doSaveTemp()
 	{
 		try {
@@ -70,13 +73,14 @@ public class CustOrderScNormalAction extends BaseAction {
 			}
 			
 			// DONE:listdata¡¢¼ì²é
-			if(!CustOrderUtil.checkCommCode(custOrder)) {
+			Map otherData = new HashMap();
+			if(!CustOrderUtil.checkCommCode(custOrder, otherData)) {
 				logger.info("¿Í»§±àÂë´íÎó£¡");
 				setErrorReason("¿Í»§±àÂë´íÎó£¡");
 				return ERROR;
 			}
-			CustOrderUtil.processListData(custOrder, this.getHttpServletRequest());
-			List<FieldErr> errs = CustOrderUtil.checkInputFields(custOrder);
+			CustOrderUtil.processListData(custOrder, this.getHttpServletRequest(), otherData);
+			List<FieldErr> errs = CustOrderUtil.checkInputFields(custOrder, otherData);
 			if (!errs.isEmpty()) {
 				String s = FieldErr.formFieldsErrString(errs);
 				logger.info(s);

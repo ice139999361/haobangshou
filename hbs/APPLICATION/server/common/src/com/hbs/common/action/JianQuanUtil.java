@@ -14,6 +14,11 @@ import com.hbs.domain.common.pojo.ConfigEncode;
 public class JianQuanUtil {
 
 	public static final String TypeCustState = "cust_state";
+	public static final String TypeCustPartNoState = "cust_state";
+	public static final String TypeCustOrderState = "custOrder_state";
+	public static final String TypeCustOrderDetailState = "custOrderDetail_state";
+	
+	public static final String TypeVendorOrderState = "vendorOrder_state";
 	
 	/**
 	 * 获取鉴权列表

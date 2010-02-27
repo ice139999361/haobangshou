@@ -10,8 +10,10 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.action.FieldErr;
+import com.hbs.common.action.base.Staff;
 import com.hbs.common.manager.configencode.ConfigEncodeMgr;
 import com.hbs.common.utils.ListDataUtil;
+import com.hbs.common.utils.StaffUtil;
 import com.hbs.customerinfo.manager.CustomerInfoMgr;
 import com.hbs.domain.common.pojo.ConfigEncode;
 import com.hbs.domain.common.pojo.baseinfo.AccountPreiod;
@@ -372,34 +374,25 @@ public class CustomerInfoUtil {
 				}
 			}
 
-			int i;
 			s = custInfo.getStaffId();
 			if(StringUtils.isNotEmpty(s))
 			{
-				try{
-					i = Integer.parseInt(s);
-				}catch(Exception e){
-					i = 0;
-				}
-				if(i != 0)
-				{
-					//TODO：用户信息需要处理					
-					//custInfo.setStaffName(s);
-				}
+				//DONE：用户信息需要处理
+				Staff u = StaffUtil.getStaffById(s);
+				if(u == null)
+					list.add(new FieldErr("StaffId", "StaffId错误"));
+				else
+					custInfo.setStaffName(u.getStaffName());
 			}
 			s = custInfo.getAssStaffId();
 			if(StringUtils.isNotEmpty(s))
 			{
-				try{
-					i = Integer.parseInt(s);
-				}catch(Exception e){
-					i = 0;
-				}
-				if(i != 0)
-				{
-					//TODO：用户信息需要处理					
-					//custInfo.setAssStaffName(s);
-				}
+				//DONE：用户信息需要处理
+				Staff u = StaffUtil.getStaffById(s);
+				if(u == null)
+					list.add(new FieldErr("AssStaffId", "AssStaffId错误"));
+				else
+					custInfo.setAssStaffName(u.getStaffName());
 			}
 		}
 		catch(Exception e)
