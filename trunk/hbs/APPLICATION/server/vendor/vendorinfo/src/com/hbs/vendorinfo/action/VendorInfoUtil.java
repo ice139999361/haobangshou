@@ -6,11 +6,14 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.action.FieldErr;
+import com.hbs.common.action.base.Staff;
 import com.hbs.common.manager.configencode.ConfigEncodeMgr;
 import com.hbs.common.utils.ListDataUtil;
+import com.hbs.common.utils.StaffUtil;
 import com.hbs.domain.common.pojo.ConfigEncode;
 import com.hbs.domain.common.pojo.baseinfo.AccountPreiod;
 import com.hbs.domain.common.pojo.baseinfo.BankInfo;
@@ -342,37 +345,15 @@ public class VendorInfoUtil {
 				}
 			}
 
-			int i;
 			s = vendorInfo.getStaffId();
-			if(s != null && s.length() != 0)
+			if(StringUtils.isNotEmpty(s))
 			{
-				try{
-					i = Integer.parseInt(s);
-				}catch(Exception e){
-					i = 0;
-				}
-				if(i != 0)
-				{
-					//TODO：用户信息需要处理					
-					//vendorInfo.setStaffName(s);
-				}
+				Staff u = StaffUtil.getStaffById(s);
+				if(u == null)
+					list.add(new FieldErr("StaffId", "StaffId错误"));
+				else
+					vendorInfo.setStaffName(u.getStaffName());
 			}
-			/*
-			s = vendorInfo.getAssStaffId();
-			if(s != null && s.length() != 0)
-			{
-				try{
-					i = Integer.parseInt(s);
-				}catch(Exception e){
-					i = 0;
-				}
-				if(i != 0)
-				{
-					//TODO：用户信息需要处理					
-					//vendorInfo.setAssStaffName(s);
-				}
-			}
-			*/
 		}
 		catch(Exception e)
 		{
