@@ -63,7 +63,7 @@
 			    				<column header="描述"           dataIndex="pnDesc"  />
 			    				<column header="单价"           dataIndex="cprice"  />
 			    				<column header="税率"           dataIndex="cpriceTax"  />
-			    				<column dataIndex="isTax"   xtype="dictcombo"         header="是否含税交易&lt;font color=red&gt;*&lt;/font&gt;"/>
+			    				<column dataIndex="isTax"   xtype="dictcombo"  paramsValue="IS_TAX"       header="是否含税交易&lt;font color=red&gt;*&lt;/font&gt;"/>
 			    				<column dataIndex="amount"   xtype="textfield"         header="数量&lt;font color=red&gt;*&lt;/font&gt;"        />
 			    				<column header="金额"           dataIndex="money"  />
 			    				<column dataIndex="orgDeliveryDate"   xtype="datefield" 	format="Y-m-d"        header="交货日期&lt;font color=red&gt;*&lt;/font&gt;"    />

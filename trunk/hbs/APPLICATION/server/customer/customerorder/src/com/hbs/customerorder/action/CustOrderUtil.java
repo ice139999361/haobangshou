@@ -87,6 +87,7 @@ public class CustOrderUtil {
 				info.setSettlementType(settlementType);
 				info.setVendorCode(vendorCode);
 			}
+			custOrder.setOrderDetailList(list);
 		} catch (Exception e) {
 			logger.info("processListData´¦ÀídetailList³ö´í", e);
 		}
@@ -175,6 +176,7 @@ public class CustOrderUtil {
 					try {
 						info.setMoney(info.getCprice().multiply(new BigDecimal(money.intValue())));
 					} catch (Exception e) {
+						info.setMoney(new BigDecimal(money.intValue()));
 					}
 			}
 		}
