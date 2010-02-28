@@ -19,7 +19,7 @@
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="订单基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<autocomplete fieldLabel="客户编码"           name="custOrder.commCode"       labelStyle="width:150"/>
+				    				<autocomplete fieldLabel="客户编码"           name="custOrder.commCode"       labelStyle="width:150" id="acCommCode" />
 				    				<textfield    fieldLabel="客户订单号"         name="custOrder.poNo"                        labelStyle="width:150"/>
 				    				<label        fieldLabel="对应分公司"         name="custOrder.companyBranch"                        labelStyle="width:150"/>
 				    					
