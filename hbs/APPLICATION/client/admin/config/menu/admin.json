@@ -134,6 +134,13 @@
                     "menuOrder": "40000",
                     "leaf": "true",
                     "url": "/vendor/pnquery.jsp?roleType=cgy"
+                },
+                {
+                		"id": "cgyqueryorder",
+                    "text": "客户订单查询",
+                    "menuOrder": "50000",
+                    "leaf": "true",
+                    "url": "/customer/queryorder.jsp?roleType=cgy"
                 }
             ]
         },
