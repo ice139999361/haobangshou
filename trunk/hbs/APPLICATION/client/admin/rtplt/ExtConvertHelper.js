@@ -43,6 +43,20 @@ var ExtConvertHelper = {
 																		 }
 			});
 	 }
+	,request: function(url, params, success, failure, scope) {
+			Ext.Ajax.request({
+				url: SERVER_PATH + url,
+				params: this._processParams(params),
+			  waitTitle: '提示',
+				waitMsg: '请等待：正在提交请求',
+				scope: scope,
+				success: success ? success : function(){},
+				failure: failure ? failure : function(form, action){
+																			 var message = ExtConvertHelper.getMessageInfo(action, "请求失败：服务器异常");
+																			 Ext.Msg.alert("提示", message);
+																		 }
+			});
+	 }
 	 /**
  		* 对指定 form 进行 vtype 校验
  		* @param formId 要进行验证的 form 的 id 属性
