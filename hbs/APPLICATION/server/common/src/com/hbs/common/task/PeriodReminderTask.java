@@ -54,6 +54,13 @@ public abstract class PeriodReminderTask {
 	
 	private void processSingleReminder(AccountPreiod preiod){
 		getLogger().info("获取的账期信息为：" + preiod.toString());
+		//获取当前账期的前一个账期的对账日和结算日
+		
+		//判断当前日期是否等于对账日和结算日
+		
+		//等于对账日，发对账提醒，查询前一个账期是否存在订单
+		
+		//等于结算日，发结算提醒，查询前一个账期是否存在订单
 		
 	}
 }
