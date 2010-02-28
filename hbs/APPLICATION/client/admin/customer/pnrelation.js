@@ -27,6 +27,10 @@ HBSConvertHelper.init(function() {
 	// 当单机取消按钮时，调用默认的关闭窗口方法
 	backBtn.on("click", HBSConvertHelper.defaultCloseTab);
 	
+	Ext.getCmp("acCommCode").setProcessConfig("/success.action", "aaa", null, function(){});
+	Ext.getCmp("acCustPartNo").setProcessConfig("/success.action", "aaa", null, function(){});
+	Ext.getCmp("acPartNo").setProcessConfig("/success.action", "aaa", null, function(){});
+	
 	// -------------------------------------- 页面操作逻辑处理
 	
 	
