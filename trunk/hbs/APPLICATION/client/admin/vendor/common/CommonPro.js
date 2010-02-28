@@ -26,7 +26,7 @@ var contactFun = function() {
 	cgh.appendColumn({header: "QQ"						, dataIndex: "conQq"	   , xtype: "textfield"});
 	cgh.appendColumn({header: "MSN"						, dataIndex: "conMsn"	   , xtype: "textfield"});
 	cgh.appendColumn({header: "其他信息"			, dataIndex: "conOther"	 , xtype: "textfield"});
-	
+
 	return cgh;
 }
 
@@ -47,6 +47,6 @@ var custbankFun = function() {
 	cgh.appendColumn({header: "帐号" 		 , dataIndex: "account"	    , xtype: "textfield"});
 	
 	cgh.setSubmitFields("seqId,accountName,accountBank,account");
-	
+
 	return cgh;
 }
