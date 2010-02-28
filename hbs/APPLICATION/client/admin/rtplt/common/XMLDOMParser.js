@@ -63,9 +63,11 @@ if(document.implementation && document.implementation.createDocument) {
 	
 	// 更新状态及触发异步方法
 	Document.prototype.__changeReadyState__ = function(iReadyState) {
-		this.readyState = iReadyState;
-		
-		if(this.onreadystatechange) this.onreadystatechange();
+		try{
+			this.readyState = iReadyState;
+			
+			if(this.onreadystatechange) this.onreadystatechange();
+		} catch(e) {}
 	}
 	
 	/**
