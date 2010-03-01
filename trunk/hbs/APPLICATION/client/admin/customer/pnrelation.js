@@ -27,12 +27,36 @@ HBSConvertHelper.init(function() {
 	// 当单机取消按钮时，调用默认的关闭窗口方法
 	backBtn.on("click", HBSConvertHelper.defaultCloseTab);
 	
-	Ext.getCmp("acCommCode").setProcessConfig("/success.action", "aaa", null, function(){});
-	Ext.getCmp("acCustPartNo").setProcessConfig("/success.action", "aaa", null, function(){});
-	Ext.getCmp("acPartNo").setProcessConfig("/success.action", "aaa", null, function(){});
+	Ext.getCmp("acCommCode").setProcessConfig("/customerInfo/customerInfo!getInfo.action?custInfo.state=0", "custInfo.commCode", null, function(action){
+		if(!action.success)
+			return;
+		Ext.getCmp("acShortName").setValue(action.data.custInfo.shortName);
+		Ext.getCmp("acShortNameHidden").setValue(action.data.custInfo.shortName);
+		
+		Ext.getCmp("acCurrency").setValue(action.data.custInfo.currency);
+		Ext.getCmp("acCurrencyDesc").setValue(action.data.custInfo.currencyDesc);
+		
+		o = action.data.custInfo.commCode;
+		Ext.getCmp("acCustPartNo").setParam("commCode",o);
+		Ext.getCmp("acPartNo").setParam("commCode",o);
+	});
+
+	// 根据本公司物料信息填写项目
+	function fillPartNo(partNo) {
+		Ext.getCmp("acPnDesc").setValue(partNo.pnDesc);
+		Ext.getCmp("acPnDescHidden").setValue(partNo.pnDesc);
+	}
+
+	/*Ext.getCmp("acCustPartNo").setProcessConfig("/partNo/partNo!list.action", "partNo.", null, function(action) {
+		if(action.success && action.data.list &&　action.data.list.length > 0)
+			fillPartNo(action.data.list[0]);
+	});*/
+	Ext.getCmp("acPartNo").setProcessConfig("/partNo/partNo!get.action", "partNo.partNo", null, function(action){
+		if(action.success)
+			fillPartNo(action.data.partNo);
+	});
 	
 	// -------------------------------------- 页面操作逻辑处理
-	
 	
 	
 	// 新增页面的处理逻辑

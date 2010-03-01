@@ -98,6 +98,7 @@ public class CustOrderUtil {
 	/**
 	 * 判断commCode是否存在，并且复制一些数据。
 	 * @param custOrder
+	 * @param otherData 存储一些客户信息，以备其他函数使用
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
