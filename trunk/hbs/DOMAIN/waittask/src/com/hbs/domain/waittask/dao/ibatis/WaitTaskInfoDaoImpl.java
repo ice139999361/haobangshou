@@ -54,7 +54,15 @@ public class WaitTaskInfoDaoImpl extends SqlMapClientDaoSupport implements WaitT
     		logger.debug("离开deleteWaitTaskInfo(String)");
 		}
     }
-    
+    public void deleteWaitTaskInfoByExpireTime(String expireTime)throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+    		logger.debug("进入deleteWaitTaskInfo(String), 输入参数[" + expireTime + "]");
+		}
+        getSqlMapClientTemplate().update("WaitTaskInfo_deleteWaitTaskInfoByExpireTime", expireTime);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开deleteWaitTaskInfo(String)");
+		}
+    }
     /**
      * update.
      * @param waitTaskInfo waitTaskInfo
