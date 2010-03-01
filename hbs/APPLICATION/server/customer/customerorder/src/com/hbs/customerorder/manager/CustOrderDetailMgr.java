@@ -552,14 +552,20 @@ public class CustOrderDetailMgr {
 	
 	public List<CustOrderDetail> listCustOrderDetail(CustOrderDetail orderDetail) throws Exception{
 		List<CustOrderDetail> retList = null;
-		logger.debug("根据条件订单明细 ,输入的参数为：" + orderDetail.toString());
+		logger.debug("根据条件查询订单明细 ,输入的参数为：" + orderDetail.toString());
 		CustOrderDetailDao cDetailDao = (CustOrderDetailDao)BeanLocator.getInstance().getBean(CustOrderConstants.CUST_ORDERDETAIL_DAO);
 		retList = cDetailDao.listCustOrderDetail(orderDetail);
 		return retList;
 		
 	}
 	
-	
+	public Integer listCustOrderDetailCount(CustOrderDetail orderDetail) throws Exception{
+		Integer iRet = 0;
+		logger.debug("根据条件查询订单明细数量 ,输入的参数为：" + orderDetail.toString());
+		CustOrderDetailDao cDetailDao = (CustOrderDetailDao)BeanLocator.getInstance().getBean(CustOrderConstants.CUST_ORDERDETAIL_DAO);
+		iRet = cDetailDao.listCustOrderDetailCount(orderDetail);
+		return iRet;
+	}
 	
 	private List<CustOrderDetail> getDetailState(CustOrderDetail orderDetail) throws Exception{
 		CustOrderDetailDao cDetailDao = (CustOrderDetailDao)BeanLocator.getInstance().getBean(CustOrderConstants.CUST_ORDERDETAIL_DAO);
