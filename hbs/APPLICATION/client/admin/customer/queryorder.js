@@ -4,10 +4,10 @@ var querygridUrl;
 (function() {
 	switch(urlPs.roleType) {
 		case "sccustomers":
-			querygridUrl = "/customerInfo/customerInfo!list.action";
+			querygridUrl = "/custOrder/custOrder!list.action";
 			break;
 		case "scmanager":
-			querygridUrl = "/customerInfo/customerInfoMgr!list.action";
+			querygridUrl = "/custOrder/custOrderMgr!list.action";
 			break; 
 	}
 }())
@@ -26,12 +26,12 @@ HBSConvertHelper.init(function() {
 	querygrid.getView().on("refresh", function(view) {
 		//alert(this.ds.getCount())
 		for(var i = 0 ; i < view.ds.getCount() ; i++) {
-			// 获取客户简称所在的列
-			var shortName_cell = view.getCell(i, view.grid.getColumnIndexById("shortName"));
+			// 获取订单号所在的列
+			var poNo_cell = view.getCell(i, view.grid.getColumnIndexById("poNo"));
 			// 获取操作列
 			var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));
 			// 将需要的链接渲染到此列
-			HBSConvertHelper.renderATag2Cell(shortName_cell.innerText, "abc.action", "open", shortName_cell);
+			HBSConvertHelper.renderATag2Cell(poNo_cell.innerText, "abc.action", "open", poNo_cell);
 			
 			// 操作列显示逻辑
 			switch(view.ds.getAt(i).get("state")) {

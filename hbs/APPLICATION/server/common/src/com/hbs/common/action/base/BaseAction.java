@@ -339,6 +339,7 @@ public class BaseAction extends ActionSupport {
 	 * @throws Exception
 	 */
     protected Staff getLoginStaff() throws Exception {
+    	// TODO:getLoginStaff
     	return new Staff("1", "user1");
         //return (Staff) LoginHelper.getLoginStaff(domain);
     }
