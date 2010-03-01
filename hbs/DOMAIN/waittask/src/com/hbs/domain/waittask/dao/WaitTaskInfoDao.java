@@ -25,6 +25,7 @@ public interface WaitTaskInfoDao {
      * @throws DataAccessException DataAccessException
      */
     void deleteWaitTaskInfo(String businessKey) throws DataAccessException ;
+    void deleteWaitTaskInfoByExpireTime(String expireTime) throws DataAccessException ;
     
     /**
      * update.

@@ -58,6 +58,14 @@
 ]]>
 </delete>    
 
+<delete id="WaitTaskInfo_deleteWaitTaskInfoByExpireTime" parameterClass="string">
+<![CDATA[
+    DELETE  FROM  t_waittask_info 
+    WHERE EXPIRE_TIME < = DATE_ADD(STR_TO_DATE(#expireTime#,'%Y-%m-%d'),INTERVAL 1 DAY)
+]]>
+
+</delete>
+
 <update id="WaitTaskInfo_updateWaitTaskInfo" parameterClass="waitTaskInfo">
     UPDATE t_waittask_info 
     SET
