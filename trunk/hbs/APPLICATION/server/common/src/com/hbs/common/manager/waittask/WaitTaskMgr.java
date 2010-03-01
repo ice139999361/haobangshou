@@ -6,6 +6,7 @@
  */
 package com.hbs.common.manager.waittask;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.springhelper.BeanLocator;
+import com.hbs.common.utils.DateUtils;
 import com.hbs.domain.waittask.dao.WaitTaskInfoDao;
 import com.hbs.domain.waittask.pojo.WaitTaskConfigInfo;
 import com.hbs.domain.waittask.pojo.WaitTaskInfo;
@@ -65,6 +67,7 @@ public class WaitTaskMgr {
 //				commDesc.replaceAll(RET_BIZKEY, StringUtils.isEmpty(waitTaskInfo.getBusinessKey()) ? "" : waitTaskInfo.getBusinessKey());
 				waitTaskConfigInfo.setComments(commDesc);
 				BeanUtils.copyProperties(waitTaskInfo, waitTaskConfigInfo);
+				waitTaskInfo.setCreateTime(new Date());
 				WaitTaskInfoDao waitTaskInfoDao = (WaitTaskInfoDao) BeanLocator
 						.getInstance().getBean(WAITTASKINFODAO);
 				waitTaskInfoDao.insertWaitTaskInfo(waitTaskInfo);
@@ -98,7 +101,16 @@ public class WaitTaskMgr {
 		}
 		return ret;
 	}
-
+	public static void deleteWaitTaskByExpireTime(){
+		String curDate = DateUtils.getCurFormatDate("yyyy-MM-dd");
+		try {
+			WaitTaskInfoDao waitTaskInfoDao = (WaitTaskInfoDao) BeanLocator
+					.getInstance().getBean(WAITTASKINFODAO);
+			waitTaskInfoDao.deleteWaitTaskInfoByExpireTime(curDate);
+		} catch (Exception e) {
+			logger.error("取消提醒待办失败! ", e);			
+		}
+	}
 	/**
 	 * 查询所属条件的待办
 	 * 

@@ -13,12 +13,15 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import com.hbs.common.manager.baseinfo.AccountPreiodMgr;
+
+import com.hbs.common.manager.systemconfig.SystemConfigMgr;
 import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.common.utils.DateUtils;
 import com.hbs.customerinfo.manager.CustPrePaidMgr;
-import com.hbs.domain.common.pojo.baseinfo.AccountPreiod;
+import com.hbs.domain.common.pojo.SystemConfig;
 import com.hbs.domain.common.pojo.baseinfo.PrePaidInfo;
+import com.hbs.domain.customer.customerinfo.dao.CustomerInfoDao;
+import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
 import com.hbs.domain.waittask.pojo.WaitTaskInfo;
 import com.hbs.domain.warehouse.pojo.WarehouseSendDetail;
 import com.hbs.warehouse.common.constants.WareHouseConstants;
@@ -33,6 +36,7 @@ public class CustPrepaidReminderTask {
 	private static final Logger logger = Logger.getLogger(CustPrepaidReminderTask.class);
 	private static final String ACCOUNT_PREIOD_STATE_0 ="0"; //正常状态
 	private static final String CustPrePaidMgr ="custPrePaidMgr";
+	private static final String CUSTOMERINFODAO = "customerInfoDao";
 	
 	public void processPrePaidReminder() throws Exception{
 		logger.info("获取需要货到付款的订单！");
@@ -40,13 +44,17 @@ public class CustPrepaidReminderTask {
 		if(null != detailList){
 			String curDate = DateUtils.getCurFormatDate(DateUtils.DATEFORMAT);
 			for( WarehouseSendDetail detail : detailList){
-				
+				processSingelReminder(detail,curDate );
 			}
 		}else{
 			logger.info("本次没有需要处理提醒的货到付款的订单！");
 		}
 	}
-	
+	/**
+	 * 获取需要催款提醒的预付费订单
+	 * @return
+	 * @throws Exception
+	 */
 	public List<WarehouseSendDetail> getSendDetailList()throws Exception{
 		WareHouseSendDetailMgr wsMgr = (WareHouseSendDetailMgr)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_SEND_DETAILMGR);
 		WarehouseSendDetail detail = new WarehouseSendDetail();
@@ -56,7 +64,12 @@ public class CustPrepaidReminderTask {
 		detail.setActiveState(WareHouseConstants.WAREHOUSE_SEND_ACTIVE);
 		return wsMgr.listWarehouseSendDetail(detail);
 	}
-	
+	/**
+	 * 处理单条订单的催款提醒待办
+	 * @param detail
+	 * @param curDate
+	 * @throws Exception
+	 */
 	private void processSingelReminder(WarehouseSendDetail detail,String curDate)throws Exception{
 		logger.info("需要处理的货到付款的订单信息为：" + detail.toString());
 		//获取提醒日
@@ -64,7 +77,7 @@ public class CustPrepaidReminderTask {
 		if(reminderDay != null){
 			String day = DateUtils.getFormatDate(detail.getCreateTime(), reminderDay, DateUtils.DATEFORMAT, true);
 			if(day.equals(curDate)){
-				
+				processWaitTask(detail , "CUST_REMINDER_003");
 			}
 		}else{
 			logger.info("需要处理的货到付款的订单信息,没有提醒日设置，不做处理!");
@@ -94,16 +107,58 @@ public class CustPrepaidReminderTask {
 		}
 		return ret;
 	}
-	
-	private void processWaitTask(AccountPreiod preiod, String accountPreiod , String aDay,String cfgId){
+	/**
+	 * 处理催款提醒待办
+	 * @param detail
+	 * @param cfgId
+	 */
+	private void processWaitTask(WarehouseSendDetail detail,String cfgId){
 		WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
 		Map<String , String> hmParam = new HashMap<String,String>();
-		hmParam.put("$custCode", preiod.getCommCode());
-		hmParam.put("$period", accountPreiod);
-		hmParam.put("$accountDay", aDay);
+		hmParam.put("$custCode", detail.getCustCode());
+		hmParam.put("$custPoNo", detail.getRltPoNo());
+		hmParam.put("$custPartNo", detail.getCustPartNo());
+		hmParam.put("$sendPoNo", detail.getSendPoNo());
 		waitTaskInfo.setHmParam(hmParam);
-		waitTaskInfo.setBusinessKey(preiod.getCommCode()+"提醒日-"+ cfgId);
+		waitTaskInfo.setStaffId(getCustInfoOfSalesID(detail));
+		waitTaskInfo.setExpireTime(getExpireTime());
+		waitTaskInfo.setBusinessKey(detail.getCustCode()+ "--" + detail.getCustPartNo() +"催款提醒-"+ cfgId);
 		WareHouseWaitTaskMgr.processCreateWaitTask(cfgId, waitTaskInfo);
+		
+	}
+	/**
+	 * 获取催款提醒待办过期时间
+	 * @return
+	 */
+	private Date getExpireTime(){		
+		String strL = "5";
+		SystemConfig config = SystemConfigMgr.findSystemConfig("PREPAID_REMINDER_DAY");
+		if(null != config){
+			strL = config.getConfigValue();
+		}
+		return DateUtils.getNeedDate(new Date(), strL, true);
+	}
+	/**
+	 * 获取客户信息中的销售人员，催款提醒待办使用
+	 * @param detail
+	 * @return
+	 */
+	private String getCustInfoOfSalesID(WarehouseSendDetail detail){
+		String salesID = null;
+		try{
+		CustomerInfo retInfo =  new CustomerInfo();
+		retInfo.setCommCode(detail.getCustCode());
+		retInfo.setState("0");
+		CustomerInfoDao customerInfoDao = (CustomerInfoDao)BeanLocator.getInstance().getBean(CUSTOMERINFODAO);
+		
+		retInfo = customerInfoDao.findCustomerInfoByBase(retInfo);
+		if(null != retInfo){
+			salesID = retInfo.getStaffId();
+		}
+		}catch(Exception e){
+			logger.error("获取客户的销售人员时错误，" , e);
+		}
+		return salesID;
 		
 	}
 }
