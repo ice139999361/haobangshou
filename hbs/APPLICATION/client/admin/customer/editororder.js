@@ -48,12 +48,75 @@ HBSConvertHelper.init(function() {
 	// 当单机取消按钮时，调用默认的关闭窗口方法
 	backBtn.on("click", HBSConvertHelper.defaultCloseTab);
 	
-	Ext.getCmp("acCommCode").setProcessConfig("/success.action", "aaa", null, function(){});
-	// 联系人
-	Ext.getCmp("xx").setProcessConfig("/success.action", "aaa", null, function(){});
-	// 收货人
-	Ext.getCmp("xx").setProcessConfig("/success.action", "aaa", null, function(){});
+	Ext.getCmp("acCommCode").setProcessConfig("/customerInfo/customerInfo!getInfo.action?custInfo.state=0", "custInfo.commCode", null, function(action){
+		if(!action.success)
+			return;
+		Ext.getCmp("acCompanyBranch").setValue(action.data.custInfo.companyBranchDesc);
+		Ext.getCmp("acShortName").setValue(action.data.custInfo.shortName);
+		Ext.getCmp("acSettlementType").setValue(action.data.custInfo.settlementDesc);
+
+		var o = this.getValue();
+		var list = Ext.getCmp("acContactList");
+		list.store.baseParams["custInfo.commCode"] = o;
+		list.store.baseParams["custInfo.state"] = "0";
+		list = Ext.getCmp("acConsigneeList");
+		list.store.baseParams["custInfo.commCode"] = o;
+		list.store.baseParams["custInfo.state"] = "0";
+	});
 	
+	/*
+	function selectContactFunc() {
+		debugger;
+		if(this.selectedIndex < 0)
+			return;
+		var data = this.store.getAt(this.selectedIndex);
+		var o = data.get("conTel");
+		Ext.getCmp("acTel").setValue(o);
+		Ext.getCmp("acTelHidden").setValue(o);
+		o = data.get("conFax");
+		Ext.getCmp("acFax").setValue(o);
+		Ext.getCmp("acFaxHidden").setValue(o);
+	}
+	
+	function selectConsigneeFunc() {
+		if(this.selectedIndex < 0)
+			return;
+		var data = this.store.getAt(this.selectedIndex);
+		var o = data.get("conAddress");
+		Ext.getCmp("acAddress").setValue(o);
+		Ext.getCmp("acAddressHidden").setValue(o);
+		o = data.get("conZip");
+		Ext.getCmp("acZip").setValue(o);
+		Ext.getCmp("acZipHidden").setValue(o);
+	}
+	*/
+	
+	// 联系人
+	//Ext.getCmp("acContactList").on("select", selectContactFunc);
+	Ext.getCmp("acContactList").setProcessConfig("/customerInfo/customerInfo!getContactInfoById.action", "seqId", null, function(action){
+		if(!action.success)
+			return;
+		Ext.getCmp("acConNameHidden").setValue(action.data.contactInfo.conName);
+		var o = action.data.contactInfo.conTel;
+		Ext.getCmp("acTel").setValue(o);
+		Ext.getCmp("acTelHidden").setValue(o);
+		o = action.data.contactInfo.conFax;
+		Ext.getCmp("acFax").setValue(o);
+		Ext.getCmp("acFaxHidden").setValue(o);		
+	});
+	// 收货人
+	//Ext.getCmp("acConsigneeList").on("select", selectConsigneeFunc);
+	Ext.getCmp("acConsigneeList").setProcessConfig("/customerInfo/customerInfo!getContactInfoById.action", "seqId", null, function(action){
+		if(!action.success)
+			return;
+		Ext.getCmp("acReceiveNameHidden").setValue(action.data.contactInfo.conName);
+		var o = action.data.contactInfo.conAddress;
+		Ext.getCmp("acAddress").setValue(o);
+		Ext.getCmp("acAddressHidden").setValue(o);
+		o = action.data.contactInfo.conZip;
+		Ext.getCmp("acZip").setValue(o);
+		Ext.getCmp("acZipHidden").setValue(o);
+	});	
 	
 	// -------------------------------------- 页面操作逻辑处理
 	

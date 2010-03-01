@@ -59,7 +59,40 @@
      	<action name="customerInfo!del" method="doDelete" 
     			class="com.hbs.customerinfo.action.CustomerInfoNormalAction">
 		</action>
-
+		<!-- 
+	/**
+	 * 获取正式数据中的联系人信息
+	 * @action.input	custInfo.baseSeqId 或 (custInfo.commCode + custInfo.state)
+	 * @action.result list：列表 count：总数
+	 * @return
+	 */
+		 -->
+		 <action name="customerInfo!getContactList" method="doGetContactList" 
+    			class="com.hbs.customerinfo.action.CustomerInfoNormalAction">
+		</action>
+		<!-- 
+	/**
+	 * 获取正式数据中的收货人信息
+	 * @action.input	custInfo.baseSeqId 或 (custInfo.commCode + custInfo.state)
+	 * @action.result list：列表 count：总数
+	 * @return
+	 */
+		 -->
+		 <action name="customerInfo!getConsigneeList" method="doGetConsigneeList" 
+    			class="com.hbs.customerinfo.action.CustomerInfoNormalAction">
+		</action>
+		 <!-- 
+	/**
+	 * 根据seqId获取联系人信息
+	 * @action.input seqId
+	 * @action.result contactInfo.*
+	 * @return
+	 */
+		  -->
+		  <action name="customerInfo!getContactInfoById" method="doGetContactInfoById" 
+    			class="com.hbs.customerinfo.action.CustomerInfoNormalAction">
+		</action>
+		
 <!-- *************************************************************** -->
 
 		<!-- 经理用户客户信息 -->

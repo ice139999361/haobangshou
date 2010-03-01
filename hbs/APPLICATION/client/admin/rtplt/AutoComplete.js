@@ -32,6 +32,7 @@ ExtUx.widget.AutoComplete = function(config){
 }
 
 Ext.extend(ExtUx.widget.AutoComplete, ExtUx.widget.DictCombo, {
+	/*
 	setProcessConfig: function(url, paramName, params, processFun) {
 		this.__processConfig = {
 			 "url"        : url
@@ -64,6 +65,7 @@ Ext.extend(ExtUx.widget.AutoComplete, ExtUx.widget.DictCombo, {
 		this.on("select", _process);
 		new Ext.KeyNav(this.getEl(), { enter: _process, scope: this });
 	}
+	*/
 });
 
 Ext.reg("autocomplete", ExtUx.widget.AutoComplete);
