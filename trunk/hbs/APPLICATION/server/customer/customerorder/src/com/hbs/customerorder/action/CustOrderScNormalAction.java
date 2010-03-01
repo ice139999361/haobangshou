@@ -52,7 +52,7 @@ public class CustOrderScNormalAction extends BaseAction {
 	public String doSaveTemp()
 	{
 		try {
-			logger.info("begin doSaveTemp " + custOrder);
+			logger.debug("begin doSaveTemp " + custOrder);
 
 			if (custOrder == null) {
 				logger.info("参数错误！");
@@ -122,5 +122,35 @@ public class CustOrderScNormalAction extends BaseAction {
 			setErrorReason("内部错误");
 			return ERROR;
 		}
+	}
+	
+	/**
+	 * 查询，限定自己能管理的客户范围。
+	 * @action.input custOrder.查询条件
+	 * @action.result list：列表 count：总数
+	 * @return
+	 */
+	public String doList() {
+		try {
+			logger.debug("begin doList");
+			if(custOrder == null)
+				custOrder = new CustomerOrder();
+			setPagination(custOrder);
+			setMyId();
+			CustOrderMgr mgr = (CustOrderMgr) BeanLocator.getInstance().getBean(CustOrderConstants.CUSTORDERMGR);
+			setResult("list", mgr.listCustomerOrder(custOrder));
+			setTotalCount(mgr.listCustomerOrderCount(custOrder));
+			setResult("count", getTotalCount());
+			logger.debug("end doList");
+			return SUCCESS;
+		} catch(Exception e) {
+			logger.error("catch Exception in doList", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+	}
+
+	private void setMyId() throws Exception {
+		custOrder.setStaffId(getLoginStaff().getStaffId());
 	}
 }

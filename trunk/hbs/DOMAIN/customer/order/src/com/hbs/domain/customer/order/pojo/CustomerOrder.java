@@ -230,7 +230,7 @@ public class CustomerOrder extends BaseDomain{
     	ceParam.setEncodeType("COMPANY_BRANCH");
     	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
     	if(null != cEncode){
-    		retStr = cEncode.getEncodeDesc();
+    		retStr = cEncode.getEncodeValue();
     	}
     	return retStr;
     }
@@ -253,7 +253,7 @@ public class CustomerOrder extends BaseDomain{
     	ceParam.setEncodeType("SETTLEMENT_TYPE");
     	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
     	if(null != cEncode){
-    		retStr = cEncode.getEncodeDesc();
+    		retStr = cEncode.getEncodeValue();
     	}
     	return retStr;
     }
@@ -333,7 +333,7 @@ public class CustomerOrder extends BaseDomain{
     	ceParam.setEncodeType("IS_SHOW_PRICE");
     	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
     	if(null != cEncode){
-    		retStr = cEncode.getEncodeDesc();
+    		retStr = cEncode.getEncodeValue();
     	}
     	return retStr;
     }
@@ -382,6 +382,18 @@ public class CustomerOrder extends BaseDomain{
         return this.state;
     }	
   
+    public String getStateDesc() {
+    	String retStr ="Œ¥∂®“Â";
+    	ConfigEncode ceParam = new ConfigEncode();
+    	ceParam.setEncodeKey(getSettlementType());
+    	ceParam.setEncodeType("CUST_ORDER_TYPE");
+    	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
+    	if(null != cEncode){
+    		retStr = cEncode.getEncodeValue();
+    	}
+    	return retStr;    	
+    }
+    
     public void setState(String state) {
         this.state = state;
     }

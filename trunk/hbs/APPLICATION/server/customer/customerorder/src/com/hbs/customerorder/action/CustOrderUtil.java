@@ -88,6 +88,7 @@ public class CustOrderUtil {
 				info.setStaffName(staffName);
 				info.setSettlementType(settlementType);
 				info.setVendorCode(vendorCode);
+				info.setTaxRate((BigDecimal)otherData.get("taxRate"));
 			}
 			custOrder.setOrderDetailList(list);
 		} catch (Exception e) {
@@ -120,6 +121,7 @@ public class CustOrderUtil {
 			{
 				if(otherData != null) {
 					otherData.put("contactFee", custInfo.getContactFee());
+					otherData.put("taxRate", custInfo.getTaxRate());
 					otherData.put("custInfo", custInfo);
 				} else
 					logger.info("checkCommCode : otherData is null");

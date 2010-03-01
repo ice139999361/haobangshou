@@ -30,16 +30,17 @@
 		 -->
     	<action name="custOrder!saveTemp" method="doSaveTemp" 
     			class="com.hbs.customerorder.action.CustOrderScNormalAction">
-			<result name="error" type="json">
-			    <param name="includeProperties">
-                 	success,errorReason.*
-                </param>
-            </result>
- 			<result name="success" type="json">
-				<param name="includeProperties">
-                	success, result.*
-                </param>
-			</result>
+		</action>
+		<!-- 
+	/**
+	 * 查询，限定自己能管理的客户范围。
+	 * @action.input custOrder.查询条件
+	 * @action.result list：列表 count：总数
+	 * @return
+	 */
+		 -->
+    	<action name="custOrder!list" method="doList" 
+    			class="com.hbs.customerorder.action.CustOrderScNormalAction">
 		</action>
 
 	</package>

@@ -18,30 +18,25 @@
 			    	<!-- service ext ui.  begin. -->
 			    		<queryform gridId="querygrid" exportId="exportBtn">
 			    			<layoutpanel columnNum="3">
-			    				<textfield fieldLabel="客户编码"           name="custInfo.commCode"  />
-			    				<textfield fieldLabel="客户订单号"         name=""  />
+			    				<textfield fieldLabel="客户编码"           name="custOrder.commCode"  />
+			    				<textfield fieldLabel="客户订单号"         name="custOrder.poNo"  />
 			    				<datefield fieldLabel="创建年月"           name="" format="Y-m"/>
 			    			</layoutpanel>
 			    		</queryform>
 				    		
-				    	<complexgrid id="querygrid" title="客户P/N对照列表" frame="true" page="true" root="data.list">
+				    	<complexgrid id="querygrid" title="客户订单列表" frame="true" page="true" root="data.list">
 			    			<fields>
-			    				<field name="shortName"     />
-			    				<field name="commCode"      />
-			    				<field name="allName"       />
-			    				<field name="address"       />
-			    				<field name="creditDesc"    />
-			    				<field name="importantDesc" />
-			    				<field name="stateDesc"     />
-			    				
-			    				<field name="baseSeqId"     />
-			    				<field name="state"         />
+			    				<field name="poNo"	/>
+			    				<field name="commCode"	/>
+			    				<field name="shortName"	/>
+			    				<field name="stateDesc"	/>
+			    				<field name="state"	/>
 			    			</fields>
 			    			
 			    			<columns>
-			    				<column header="客户订单号"     dataIndex="commCode"      id="shortName" />
-			    				<column header="客户编码"       dataIndex="shortName"     />
-			    				<column header="客户简称"       dataIndex="allName"       />
+			    				<column header="客户订单号"     dataIndex="poNo"      id="poNo" />
+			    				<column header="客户编码"       dataIndex="commCode"     />
+			    				<column header="客户简称"       dataIndex="shortName"       />
 			    				<column header="状态"           dataIndex="stateDesc"     />
 			    				<column header="操作"           dataIndex=""              id="operator" width="250" />
 			    			</columns>

@@ -55,12 +55,19 @@
 			    		
 			    		<complexgrid id="ordergrid" frame="true" height="200" deftbar="true" url="1">
 			    			<fields>
-			    				<field name="conAddress" />
-			    				<field name="conZip" />
-			    				<field name="isPrimary" />
+			    				<field name="seqId" />
+			    				<field name="pnName" />
 			    				<field name="cpartNo" />
 			    				<field name="partNo" />
+			    				<field name="pnDesc"  />
+			    				<field name="cprice"  />
+			    				<field name="cpriceTax"  />
+			    				<field name="isTax" />
+			    				<field name="amount" />
+			    				<field name="money"  />
+			    				<field name="orgDeliveryDate" />
 			    				<field name="specDesc" />
+			    				<field name="commDesc" />
 			    			</fields>
 			    			
 			    			<columns>
