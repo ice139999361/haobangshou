@@ -45,7 +45,8 @@ public class CustomerInfoUtil {
 		{
 			if(custInfo == null)
 				return false;
-			if(custInfo.getBaseSeqId() != 0)
+			Integer i = custInfo.getBaseSeqId();
+			if(i != null && !i.equals(0))
 				return true;
 			String s = custInfo.getCommCode();
 			if(StringUtils.isEmpty(s))

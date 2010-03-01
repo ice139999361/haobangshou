@@ -5,6 +5,7 @@ package com.hbs.customerinfo.action;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -75,6 +76,9 @@ public class CustPartNoInfoUtil {
 			list.add(new FieldErr("", "参数错误"));
 			return list;
 		}
+		
+		if(custPartNoInfo.getCreateDate() == null)
+			custPartNoInfo.setCreateDate(new Date());
 		
 		String s;
 		// DONE:完成checkInputFields，对输入的客户信息进行校验

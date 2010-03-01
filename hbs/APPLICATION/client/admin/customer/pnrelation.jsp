@@ -24,26 +24,31 @@
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="2">
-				    				<label fieldLabel="客户简称"               name="custInfo.shortName"      labelStyle="width:150" allowBlank="false"/>
-				    				<label fieldLabel="客户结算币种"           name="custInfo.currencyDesc"   labelStyle="width:150" paramsValue="CURRENCY"        emptyText="请选择" />
+				    				<label fieldLabel="客户简称"               name="custInfo.shortName"  	id="acShortName"    labelStyle="width:150" allowBlank="false"/>
+				    				<label fieldLabel="客户结算币种"           id="acCurrencyDesc"   labelStyle="width:150" paramsValue="CURRENCY"        emptyText="请选择" />
 				    			</layoutpanel>
+				    			<layoutpanel columnNum="1">
+				    				<hidden name="custInfo.currency" id="acCurrency" />
+				    				<hidden name="custInfo.shortName" id="acShortNameHidden" />
+				    				<hidden name="custPartNoInfo.pnDesc" id="acPnDescHidden" />
+								</layoutpanel>
 				    		</listpanel>
 				    		
 				    		<listpanel frame="true" title="P/N对照信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<autocomplete fieldLabel="客户"               name="custPartNoInfo.custPartNo"              labelStyle="width:150" allowBlank="false" id="acCustPartNo" />
-				    				<autocomplete fieldLabel="本公司"             name="custPartNoInfo.partNo"                  labelStyle="width:150" allowBlank="false" id="acPartNo" />
+				    				<textfield fieldLabel="客户" 	name="custPartNoInfo.custPartNo"              labelStyle="width:150" allowBlank="false" />
+				    				<autocomplete fieldLabel="本公司"	name="custPartNoInfo.partNo"                  labelStyle="width:150" allowBlank="false" id="acPartNo" />
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">
-				    				<label fieldLabel="描述"                   name="custPartNoInfo.pnDesc"                  labelStyle="width:150" allowBlank="false"/>
+				    				<label fieldLabel="描述"  id="acPnDesc"                 name="custPartNoInfo.pnDesc"                  labelStyle="width:150" allowBlank="false"/>
 				    			</layoutpanel>
 				    		</listpanel>
 				    		
 				    		<listpanel frame="true" title="关联信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
 				    				<textfield fieldLabel="单价"               name="custPartNoInfo.price"                   labelStyle="width:150" />
-				    				<textfield fieldLabel="最小包装" 			     name=""                        labelStyle="width:150" value="1" />
+				    				<!--textfield fieldLabel="最小包装" 			     name=""                        labelStyle="width:150" value="1" /-->
 				    				<textfield fieldLabel="样品编码" 					 name="custPartNoInfo.sampleCode"              labelStyle="width:150" />
 				    				
 				    				<textfield fieldLabel="税率"               name="custPartNoInfo.priceTax"                labelStyle="width:150" />				    				
