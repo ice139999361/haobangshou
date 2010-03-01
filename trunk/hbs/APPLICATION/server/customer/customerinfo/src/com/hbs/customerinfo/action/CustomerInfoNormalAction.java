@@ -386,7 +386,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 			setErrorReason("参数为空！");
 			return null;
 		}
-		CustContactMgr mgr = (CustContactMgr)BeanLocator.getInstance().getBean("contactMgr");
+		CustContactMgr mgr = (CustContactMgr)BeanLocator.getInstance().getBean("custContactMgr");
 		ContactInfo contactInfo = new ContactInfo();
 		contactInfo.setState("0");
 		contactInfo.setConType(type);
@@ -397,6 +397,31 @@ public class CustomerInfoNormalAction extends BaseAction {
 			contactInfo.setCommCode(custInfo.getCommCode());
 		
 		return mgr.listContactInfo(contactInfo);
+	}
+	
+	/**
+	 * 根据seqId获取联系人信息
+	 * @action.input seqId
+	 * @action.result contactInfo.*
+	 * @return
+	 */
+	public String doGetContactInfoById() {
+		try {
+			String s = this.getHttpServletRequest().getParameter("seqId");
+			logger.debug("begin doGetContactInfoById " + s);
+			if(StringUtils.isEmpty(s)) {
+				logger.info("参数为空！");
+				setErrorReason("参数为空！");
+				return ERROR;
+			}
+			CustContactMgr mgr = (CustContactMgr)BeanLocator.getInstance().getBean("custContactMgr");
+			setResult("contactInfo", mgr.getContactInfo(s));
+			return SUCCESS;
+		} catch (Exception e) {
+			logger.error("catch Exception in doGetContactInfoById", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
 	}
 	
 	/**

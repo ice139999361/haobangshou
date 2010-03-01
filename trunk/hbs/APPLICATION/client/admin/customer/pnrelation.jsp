@@ -28,7 +28,7 @@
 				    				<label fieldLabel="客户结算币种"           id="acCurrencyDesc"   labelStyle="width:150" paramsValue="CURRENCY"        emptyText="请选择" />
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
-				    				<hidden name="custInfo.currency" id="acCurrency" />
+				    				<hidden name="custInfo.currency" id="acCurrencyHidden" />
 				    				<hidden name="custInfo.shortName" id="acShortNameHidden" />
 				    				<hidden name="custPartNoInfo.pnDesc" id="acPnDescHidden" />
 								</layoutpanel>
@@ -37,7 +37,7 @@
 				    		<listpanel frame="true" title="P/N对照信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
 				    				<textfield fieldLabel="客户" 	name="custPartNoInfo.custPartNo"              labelStyle="width:150" allowBlank="false" />
-				    				<autocomplete fieldLabel="本公司"	name="custPartNoInfo.partNo"                  labelStyle="width:150" allowBlank="false" id="acPartNo" />
+				    				<autocomplete fieldLabel="本公司" url="/partNo/partNo!list.action" displayField="partNo" valueField="partNo" queryParam="partNo.partNo"	name="custPartNoInfo.partNo"                  labelStyle="width:150" allowBlank="false" id="acPartNo" />
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">

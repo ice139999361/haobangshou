@@ -16,31 +16,39 @@
 			    	<items>
 			    	<!-- service ext ui.  begin. -->
 			    	
-			    		<form id="form"><items>
+<form id="form"><items>
 				    		<listpanel frame="true" title="订单基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<autocomplete fieldLabel="客户编码"           name="custOrder.commCode"       labelStyle="width:150" id="acCommCode" />
+				    				<autocomplete fieldLabel="客户编码"	url="/customerInfo/customerInfo!list.action"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"           name="custOrder.commCode"       labelStyle="width:150" id="acCommCode" />
 				    				<textfield    fieldLabel="客户订单号"         name="custOrder.poNo"                        labelStyle="width:150"/>
-				    				<label        fieldLabel="对应分公司"         name="custOrder.companyBranch"                        labelStyle="width:150"/>
+				    				<label        fieldLabel="对应分公司"         id="acCompanyBranch"                        labelStyle="width:150"/>
 				    					
 				    				
-				    				<autocomplete fieldLabel="客户简称"           name="custOrder.shortName"                        labelStyle="width:150"/>
+				    				<autocomplete fieldLabel="客户简称"           name="custOrder.shortName"	id="acShortName"                       labelStyle="width:150"/>
 				    				<datefield    fieldLabel="客户订单日期"       name="custOrder.oderTime" 	format="Y-m-d"                       labelStyle="width:150"/>
-				    				<label        fieldLabel="结算类型"           name="custOrder.settlementType"                        labelStyle="width:150"/>
+				    				<label        fieldLabel="结算类型"           id="acSettlementType"                        labelStyle="width:150"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
-				    				<dictcombo    fieldLabel="选择联系人"         name="custOrder.conName"                        labelStyle="width:150"/>
+				    				<hidden name="custOrder.conName"	id="acConNameHidden" />
+				    				<hidden name="custOrder.conTel"	id="acTelHidden" />
+				    				<hidden name="custOrder.conFax"	id="acFaxHidden" />
+				    				<hidden name="custOrder.receiveName"	id="acReceiveNameHidden" />
+				    				<hidden name="custOrder.receiveAddress"	id="acAddressHidden" />
+				    				<hidden name="custOrder.receiveZip"	id="acZipHidden" />
+				    			</layoutpanel>
+				    			<layoutpanel columnNum="1">
+				    				<dictcombo    fieldLabel="选择联系人"	id="acContactList"	url="/customerInfo/customerInfo!getContactList.action"	root="data.list"	valueField="seqId"	displayField="conName"                        labelStyle="width:150"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="2">
-				    				<label        fieldLabel="电话"               name="custOrder.conTel"                        labelStyle="width:150"/>
-				    				<label        fieldLabel="传真"               name="custOrder.conFax"                        labelStyle="width:150"/>
+				    				<label        fieldLabel="电话"               name="custOrder.conTel"	id="acTel"                        labelStyle="width:150"/>
+				    				<label        fieldLabel="传真"               name="custOrder.conFax"	id="acFax"                       labelStyle="width:150"/>
 				    			</layoutpanel>	
 				    			<layoutpanel columnNum="1">
-				    				<dictcombo    fieldLabel="选择收货人"         name="custOrder.receiveName"                        labelStyle="width:150"/>
+				    				<dictcombo    fieldLabel="选择收货人"	id="acConsigneeList"	url="/customerInfo/customerInfo!getConsigneeList.action"	root="data.list"	valueField="seqId"	displayField="conName"                        labelStyle="width:150"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="2">
-				    				<label        fieldLabel="收货地址"           name="custOrder.receiveAddress"                        labelStyle="width:150"/>
-				    				<label        fieldLabel="邮编"               name="custOrder.receiveZip"                        labelStyle="width:150"/>
+				    				<label        fieldLabel="收货地址"           name="custOrder.receiveAddress"	id="acAddress"                        labelStyle="width:150"/>
+				    				<label        fieldLabel="邮编"               name="custOrder.receiveZip"	id="acZip"                        labelStyle="width:150"/>
 				    			</layoutpanel>	
 				    		</listpanel>
 			    		</items></form>
