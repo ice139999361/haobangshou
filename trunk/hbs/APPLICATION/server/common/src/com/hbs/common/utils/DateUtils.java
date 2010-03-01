@@ -18,8 +18,9 @@ import org.joda.time.format.DateTimeFormatter;
  */
 public class DateUtils {
 	
-	private static final String DATEFORMAT ="yyyyMMdd";
-	private static final String MONTHFORMAT ="yyyyMM";
+	public static final String DATEFORMAT ="yyyyMMdd";
+	public static final String MONTHFORMAT ="yyyyMM";
+	public static final String DETAIL_DATEFORMAT ="yyyy年MM月dd日";
 	
 	/**
 	 * 私有构造函数
@@ -49,7 +50,7 @@ public class DateUtils {
 		DateTimeFormatter fmt = DateTimeFormat.forPattern(MONTHFORMAT);				
 		DateTime dtStart = new DateTime(fmt.parseDateTime(curPeriod));	
 		int iInternal = Integer.parseInt(internal);
-		dtStart.plusMonths(-iInternal);
+		dtStart = dtStart.plusMonths(-iInternal);
 		return dtStart.toString(MONTHFORMAT);
 	}
 	
@@ -66,10 +67,43 @@ public class DateUtils {
 		
 		return dtStart.toDate();
 	}
-	
-	
-	//public static String getEndPeriod()
-	
+	/**
+	 * 获取对账日/结算日的提醒日期 ，根据当前日期算出当前账期日期的起始日期，
+	 * 起始日期-1 就为上个账期的结束日，结束日+ 天数 就为对账日/结算日
+	 * 对账日 - 提交提醒天数  = 提醒日期
+	 * @param curDate 当前日期
+	 * @param startDate  账期起始日，格式为yyyymmdd
+	 * @param internal  账期的跨度,1 表示一个月,2 表示2个月,依次类推
+	 * @param accountDay 账期结束后的第几日为对账日/结算日
+	 * @return  字符串日期
+	 */
+	public static String getReminderDay(Date curDate ,String startDate , String internal,String accountDay,String reminderDay){
+		DateTime dtStart = getStartPeriodDateTime(curDate,startDate,internal);
+		//上个账期的结束日
+		dtStart = dtStart.plusDays(-1);
+		//加账期结束后几天为对账日/结算日
+		dtStart = dtStart.plusDays(new Integer(accountDay));
+		//提前几天提醒通知
+		dtStart = dtStart.plusDays( - (new Integer(reminderDay)));
+		
+		return dtStart.toString(DATEFORMAT);
+	}
+	/**
+	 * 获取账期的对账日/结算日
+	 * @param curDate 当前日期
+	 * @param startDate  账期起始日，格式为yyyymmdd
+	 * @param internal  账期的跨度,1 表示一个月,2 表示2个月,依次类推
+	 * @param accountDay 账期结束后的第几日为对账日/结算日
+	 * @return 字符串日期
+	 */
+	public static String getAccountDay(Date curDate ,String startDate , String internal,String accountDay){
+		DateTime dtStart = getStartPeriodDateTime(curDate,startDate,internal);
+		//上个账期的结束日
+		dtStart = dtStart.plusDays(-1);
+		//加账期结束后几天为对账日/结算日
+		dtStart = dtStart.plusDays(new Integer(accountDay));
+		return dtStart.toString(DETAIL_DATEFORMAT);
+	}
 	/**
 	 * 根据入参获取账期起始日,私有静态函数
 	 * @param curDate  传入需要计算账期的日期
@@ -125,4 +159,35 @@ public class DateUtils {
 		}
 		return (new DateTime(date)).toString(ft);
 	}
+	/**
+	 * 根据传入的日期和需要的格式，返回格式化字符串
+	 * 如果传入的格式为null，使用系统缺省的格式 
+	 * @param date 
+	 * @param internal 需要减去的间隔
+	 * @param format
+	 * @return
+	 */
+	public static String getFormatDate(Date date , String internal , String format,boolean isAdd){
+		String ft = null;
+		if(null == format){
+			ft = DATEFORMAT;
+		}else{
+			ft = format;
+		}
+		DateTime dt = new DateTime(date);
+		if(!isAdd){
+			if(internal != null){
+				dt = dt.plusDays(-(new Integer(internal)));
+			}else{
+				dt = dt.plusDays(1);
+			}
+		}else{
+			if(internal != null){
+				dt = dt.plusDays((new Integer(internal)));
+			}
+		}
+		return dt.toString(ft);
+	}
+	
+	
 }
