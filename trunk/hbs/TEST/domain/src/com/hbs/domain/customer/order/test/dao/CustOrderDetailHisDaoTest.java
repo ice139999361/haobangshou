@@ -31,7 +31,7 @@ public class CustOrderDetailHisDaoTest extends AbstractTransactionalDataSourceSp
         custOrderDetail.setShortName("1");
         custOrderDetail.setPoNoType("1");
         custOrderDetail.setPoNo("1");
-        custOrderDetail.setCpartNo(new Date());
+       // custOrderDetail.setCpartNo(new Date());
         custOrderDetail.setPartNo("1");
         custOrderDetail.setPnDesc("1");
         //custOrderDetail.setCprice("1");
@@ -85,7 +85,7 @@ public class CustOrderDetailHisDaoTest extends AbstractTransactionalDataSourceSp
         custOrderDetail.setShortName("1");
         custOrderDetail.setPoNoType("1");
         custOrderDetail.setPoNo("1");
-        custOrderDetail.setCpartNo(new Date());
+       // custOrderDetail.setCpartNo(new Date());
         custOrderDetail.setPartNo("1");
         custOrderDetail.setPnDesc("1");
         //custOrderDetail.setCprice("1");
