@@ -6,13 +6,17 @@
  */
 package com.hbs.warehousereceive.task;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import com.hbs.common.manager.systemconfig.SystemConfigMgr;
 import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.common.task.PeriodReminderTask;
+import com.hbs.common.utils.DateUtils;
+import com.hbs.domain.common.pojo.SystemConfig;
 import com.hbs.domain.common.pojo.baseinfo.AccountPreiod;
 import com.hbs.domain.waittask.pojo.WaitTaskInfo;
 import com.hbs.domain.warehouse.pojo.WarehouseRecDetail;
@@ -104,7 +108,21 @@ public class VendorPeriodReminderTask extends PeriodReminderTask {
 		hmParam.put("$accountDay", aDay);
 		waitTaskInfo.setHmParam(hmParam);
 		waitTaskInfo.setBusinessKey(preiod.getCommCode()+"提醒日-"+ cfgId);
+		waitTaskInfo.setExpireTime(getExpireTime());
 		WareHouseWaitTaskMgr.processCreateWaitTask(cfgId, waitTaskInfo);
 		
+	}
+	
+	/**
+	 * 获取提醒待办过期时间
+	 * @return
+	 */
+	private Date getExpireTime(){		
+		String strL = "5";
+		SystemConfig config = SystemConfigMgr.findSystemConfig("VENDOR_REMINDER_DAY");
+		if(null != config){
+			strL = config.getConfigValue();
+		}
+		return DateUtils.getNeedDate(new Date(), strL, true);
 	}
 }
