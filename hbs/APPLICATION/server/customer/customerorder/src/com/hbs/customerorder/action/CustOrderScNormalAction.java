@@ -16,6 +16,7 @@ import com.hbs.common.action.base.BaseAction;
 import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.customerorder.constants.CustOrderConstants;
 import com.hbs.customerorder.manager.CustOrderMgr;
+import com.hbs.domain.customer.order.pojo.CustOrderDetail;
 import com.hbs.domain.customer.order.pojo.CustomerOrder;
 
 /**
@@ -97,12 +98,17 @@ public class CustOrderScNormalAction extends BaseAction {
 			}
 			int ret = -1;
 			try {
+				for(CustOrderDetail info : custOrder.getOrderDetailList()) {
+					info.setDeliveryAmount(0);
+					info.setSelfDeliveryAmount(0);
+					info.setCommDeliveryAmount(0);
+				}
 				if(custOrder2 == null)
 				{
 					ret = mgr.saveTempCustomerOrder(custOrder);
 				}
 				else
-					ret = mgr.commitCustomerOrder(custOrder);
+					ret = mgr.updateTempCustomerOrder(custOrder);
 			} catch (Exception e) {
 				logger.error("catch Exception in doSaveTemp", e);
 			}
