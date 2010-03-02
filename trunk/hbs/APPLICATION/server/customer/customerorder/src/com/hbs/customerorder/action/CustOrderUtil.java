@@ -18,7 +18,9 @@ import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.common.utils.ListDataUtil;
 import com.hbs.customerinfo.action.CustomerInfoUtil;
 import com.hbs.customerinfo.constants.CustInfoConstants;
+import com.hbs.customerinfo.manager.CustPartNoInfoMgr;
 import com.hbs.customerinfo.manager.CustomerInfoMgr;
+import com.hbs.domain.customer.customerinfo.pojo.CustPartNoInfo;
 import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
 import com.hbs.domain.customer.order.pojo.CustOrderDetail;
 import com.hbs.domain.customer.order.pojo.CustomerOrder;
@@ -165,7 +167,7 @@ public class CustOrderUtil {
 			list.add(new FieldErr("OrderTime","OrderTime没有填写"));
 		
 		/*
-		//TODO:选择联系人
+		//DONE:选择联系人，这些信息都从前台传来，不需要在此设置
 		if(StringUtils.isEmpty(custOrder.getConName()))
 			list.add(new FieldErr("ConName", "ConName没有填写"));
 		
@@ -178,6 +180,30 @@ public class CustOrderUtil {
 			for(CustOrderDetail info : details) {
 				if(StringUtils.isEmpty(info.getPartNo()))
 					list.add(new FieldErr("PartNo", "PartNo没有填写"));
+				else {
+					// TODO:复制价格等数据
+					if( null == info.getCprice() && StringUtils.isNotEmpty(info.getCpartNo())) {
+						CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)BeanLocator.getInstance().getBean("custPartNoInfoMgr");
+						CustPartNoInfo custPartNoInfo = new CustPartNoInfo();
+						CustPartNoInfo custPartNoInfo2 = null;
+						custPartNoInfo.setCommCode(info.getCommCode());
+						custPartNoInfo.setPartNo(info.getPartNo());
+						//custPartNoInfo.setState("0");
+						custPartNoInfo.setCustPartNo(info.getCpartNo());
+						try {
+							logger.info("in: " + custPartNoInfo.getLogBizKey());
+							custPartNoInfo2 = mgr.getCustPartNoInfoByBizKey(custPartNoInfo);
+							logger.info("out: " + custPartNoInfo2.getLogContent());
+						} catch (Exception e) {
+							logger.info("err:", e);
+						}
+						if(custPartNoInfo2 != null) {
+							info.setCprice(custPartNoInfo2.getPrice());
+							info.setCpriceTax(custPartNoInfo2.getPriceTax());
+							info.setPnDesc(custPartNoInfo2.getPnDesc());
+						}
+					}
+				}
 				if(StringUtils.isEmpty(info.getCpartNo()))
 					list.add(new FieldErr("CPartNo", "CPartNo没有填写"));
 				if(StringUtils.isEmpty(info.getIsTax()))
