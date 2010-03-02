@@ -29,22 +29,20 @@
 				    				<label        fieldLabel="结算类型"           id="acSettlementType"                        labelStyle="width:150"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
-				    				<hidden name="custOrder.conName"	id="acConNameHidden" />
 				    				<hidden name="custOrder.conTel"	id="acTelHidden" />
 				    				<hidden name="custOrder.conFax"	id="acFaxHidden" />
-				    				<hidden name="custOrder.receiveName"	id="acReceiveNameHidden" />
 				    				<hidden name="custOrder.receiveAddress"	id="acAddressHidden" />
 				    				<hidden name="custOrder.receiveZip"	id="acZipHidden" />
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
-				    				<dictcombo    fieldLabel="选择联系人"	id="acContactList"	url="/customerInfo/customerInfo!getContactList.action"	root="data.list"	valueField="seqId"	displayField="conName"                        labelStyle="width:150"/>
+				    				<dictcombo    fieldLabel="选择联系人"	id="acContactList"	url="/customerInfo/customerInfo!getContactList.action"	root="data.list"	valueField="conName"	displayField="conName"	name="custOrder.conName"                        labelStyle="width:150"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="2">
 				    				<label        fieldLabel="电话"               name="custOrder.conTel"	id="acTel"                        labelStyle="width:150"/>
 				    				<label        fieldLabel="传真"               name="custOrder.conFax"	id="acFax"                       labelStyle="width:150"/>
 				    			</layoutpanel>	
 				    			<layoutpanel columnNum="1">
-				    				<dictcombo    fieldLabel="选择收货人"	id="acConsigneeList"	url="/customerInfo/customerInfo!getConsigneeList.action"	root="data.list"	valueField="seqId"	displayField="conName"                        labelStyle="width:150"/>
+				    				<dictcombo    fieldLabel="选择收货人"	id="acConsigneeList"	url="/customerInfo/customerInfo!getConsigneeList.action"	root="data.list"	valueField="conName"	displayField="conName"	name="custOrder.receiveName"                        labelStyle="width:150"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="2">
 				    				<label        fieldLabel="收货地址"           name="custOrder.receiveAddress"	id="acAddress"                        labelStyle="width:150"/>
