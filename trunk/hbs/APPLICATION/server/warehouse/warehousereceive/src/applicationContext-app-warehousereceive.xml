@@ -81,4 +81,7 @@
 	<bean id="warehouseRec13" class="com.hbs.warehousereceive.manager.helper.PrePaidHelper">		
 	</bean>
 	
+	<!--  供应商对账日/结算日 job  -->
+	<bean id="vendorPeriodReminderTask" class="com.hbs.warehousereceive.task.VendorPeriodReminderTask">		
+	</bean>
 </beans>

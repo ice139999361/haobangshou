@@ -82,5 +82,11 @@
 	</bean>
 	<bean id="warehouseSend13" class="com.hbs.warehousesend.manager.helper.SendPrePaidHelper">		
 	</bean>
+	<!-- 客户对账日/结算日提醒 job  -->
+	<bean id="custPeriodReminderTask" class="com.hbs.warehousesend.task.CustPeriodReminderTask">		
+	</bean>
 	
+	<!-- 客户催款提醒 job  -->
+	<bean id="custPrepaidReminderTask" class="com.hbs.warehousesend.task.CustPrepaidReminderTask">		
+	</bean>
 </beans>
