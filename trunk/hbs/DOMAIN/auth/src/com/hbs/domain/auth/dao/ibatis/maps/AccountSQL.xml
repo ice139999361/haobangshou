@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="Account">
+<typeAlias alias="account" type="com.hbs.domain.auth.pojo.Account"/> 
+<resultMap id="account_result" class="account">
+    <result property="staffId" column="STAFF_ID"/>
+    <result property="account" column="ACCOUNT"/>
+    <result property="password" column="PASSWORD"/>
+    <result property="loginTime" column="LOGIN_TIME"/>
+    <result property="logoutTime" column="LOGOUT_TIME"/>
+    <result property="enabled" column="ENABLED"/>
+</resultMap>
+
+
+
+<insert id="Account_insertAccount" parameterClass="account" >
+<![CDATA[
+    INSERT INTO account (
+            STAFF_ID, 
+            ACCOUNT, 
+            PASSWORD, 
+            LOGIN_TIME, 
+            LOGOUT_TIME, 
+            ENABLED
+        )
+    VALUES (
+            #staffId#,
+            #account#,
+            #password#,
+            #loginTime#,
+            #logoutTime#,
+            #enabled#
+    )
+]]>
+</insert>
+
+<delete id="Account_deleteAccount" parameterClass="string">
+<![CDATA[
+    DELETE  FROM  account WHERE STAFF_ID = #staffId#
+]]>
+</delete>    
+
+<update id="Account_updateAccount" parameterClass="account">
+    UPDATE account 
+    SET
+    	STAFF_ID = #staffId#
+	<isNotEmpty prepend="," property="account">
+            ACCOUNT = #account#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="password">
+            PASSWORD = #password#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="loginTime">
+            LOGIN_TIME = #loginTime#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="logoutTime">
+            LOGOUT_TIME = #logoutTime#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="enabled">
+            ENABLED = #enabled#
+	</isNotEmpty>
+    WHERE STAFF_ID = #staffId#
+</update> 
+
+<select id="Account_findAccount" resultMap="account_result" parameterClass="string">
+<![CDATA[
+    SELECT
+            STAFF_ID, 
+            ACCOUNT, 
+            PASSWORD, 
+            LOGIN_TIME, 
+            LOGOUT_TIME, 
+            ENABLED
+    FROM account WHERE STAFF_ID = #staffId#
+]]>
+</select>
+
+<select id="Account_listAccount" resultMap="account_result" parameterClass="account">
+<![CDATA[
+    SELECT
+            STAFF_ID, 
+            ACCOUNT, 
+            PASSWORD, 
+            LOGIN_TIME, 
+            LOGOUT_TIME, 
+            ENABLED
+    FROM account
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "staffId">
+				STAFF_ID = #staffId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "account">
+				ACCOUNT = #account#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "password">
+				PASSWORD = #password#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "loginTime">
+				LOGIN_TIME = #loginTime#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "logoutTime">
+				LOGOUT_TIME = #logoutTime#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "enabled">
+				ENABLED = #enabled#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+
+<select id="Account_listAccountCount" resultClass="java.lang.Integer" parameterClass="account">
+<![CDATA[
+    SELECT
+		COUNT(*)
+    FROM account
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "staffId">
+				STAFF_ID = #staffId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "account">
+				ACCOUNT = #account#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "password">
+				PASSWORD = #password#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "loginTime">
+				LOGIN_TIME = #loginTime#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "logoutTime">
+				LOGOUT_TIME = #logoutTime#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "enabled">
+				ENABLED = #enabled#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+</sqlMap>

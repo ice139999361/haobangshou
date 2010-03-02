@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="Staff">
+<typeAlias alias="staff" type="com.hbs.domain.auth.pojo.Staff"/> 
+<resultMap id="staff_result" class="staff">
+    <result property="staffId" column="STAFF_ID"/>
+    <result property="staffName" column="STAFF_NAME"/>
+    <result property="identityNumber" column="IDENTITY_NUMBER"/>
+    <result property="gender" column="GENDER"/>
+    <result property="birthDate" column="BIRTH_DATE"/>
+    <result property="phone" column="PHONE"/>
+    <result property="mobile" column="MOBILE"/>
+    <result property="email" column="EMAIL"/>
+    <result property="duty" column="DUTY"/>
+    <result property="memo" column="MEMO"/>
+</resultMap>
+
+
+
+<insert id="Staff_insertStaff" parameterClass="staff" >
+<![CDATA[
+    INSERT INTO staff (            
+            STAFF_NAME, 
+            IDENTITY_NUMBER, 
+            GENDER, 
+            BIRTH_DATE, 
+            PHONE, 
+            MOBILE, 
+            EMAIL, 
+            DUTY, 
+            MEMO
+        )
+    VALUES (           
+            #staffName#,
+            #identityNumber#,
+            #gender#,
+            #birthDate#,
+            #phone#,
+            #mobile#,
+            #email#,
+            #duty#,
+            #memo#
+    )
+]]>
+<selectKey resultClass="Integer" keyProperty="staffId">
+            SELECT LAST_INSERT_ID()  
+ </selectKey>
+</insert>
+
+<delete id="Staff_deleteStaff" parameterClass="string">
+<![CDATA[
+    DELETE  FROM  staff WHERE STAFF_ID = #staffId#
+]]>
+</delete>    
+
+<update id="Staff_updateStaff" parameterClass="staff">
+    UPDATE staff 
+    SET
+    	STAFF_ID = #staffId#
+	<isNotEmpty prepend="," property="staffName">
+            STAFF_NAME = #staffName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="identityNumber">
+            IDENTITY_NUMBER = #identityNumber#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="gender">
+            GENDER = #gender#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="birthDate">
+            BIRTH_DATE = #birthDate#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="phone">
+            PHONE = #phone#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="mobile">
+            MOBILE = #mobile#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="email">
+            EMAIL = #email#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="duty">
+            DUTY = #duty#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="memo">
+            MEMO = #memo#
+	</isNotEmpty>
+    WHERE STAFF_ID = #staffId#
+</update> 
+
+<select id="Staff_findStaff" resultMap="staff_result" parameterClass="string">
+<![CDATA[
+    SELECT
+            STAFF_ID, 
+            STAFF_NAME, 
+            IDENTITY_NUMBER, 
+            GENDER, 
+            BIRTH_DATE, 
+            PHONE, 
+            MOBILE, 
+            EMAIL, 
+            DUTY, 
+            MEMO
+    FROM staff WHERE STAFF_ID = #staffId#
+]]>
+</select>
+
+<select id="Staff_listStaff" resultMap="staff_result" parameterClass="staff">
+<![CDATA[
+    SELECT
+            STAFF_ID, 
+            STAFF_NAME, 
+            IDENTITY_NUMBER, 
+            GENDER, 
+            BIRTH_DATE, 
+            PHONE, 
+            MOBILE, 
+            EMAIL, 
+            DUTY, 
+            MEMO
+    FROM staff
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "staffId">
+				STAFF_ID = #staffId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffName">
+				STAFF_NAME = #staffName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "identityNumber">
+				IDENTITY_NUMBER = #identityNumber#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "gender">
+				GENDER = #gender#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "birthDate">
+				BIRTH_DATE = #birthDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "phone">
+				PHONE = #phone#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "mobile">
+				MOBILE = #mobile#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "email">
+				EMAIL = #email#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "duty">
+				DUTY = #duty#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "memo">
+				MEMO = #memo#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+
+<select id="Staff_listStaffCount" resultClass="java.lang.Integer" parameterClass="staff">
+<![CDATA[
+    SELECT
+		COUNT(*)
+    FROM staff
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "staffId">
+				STAFF_ID = #staffId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffName">
+				STAFF_NAME = #staffName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "identityNumber">
+				IDENTITY_NUMBER = #identityNumber#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "gender">
+				GENDER = #gender#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "birthDate">
+				BIRTH_DATE = #birthDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "phone">
+				PHONE = #phone#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "mobile">
+				MOBILE = #mobile#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "email">
+				EMAIL = #email#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "duty">
+				DUTY = #duty#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "memo">
+				MEMO = #memo#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+</sqlMap>

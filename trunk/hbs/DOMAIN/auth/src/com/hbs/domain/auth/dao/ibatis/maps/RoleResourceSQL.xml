@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="RoleResource">
+<typeAlias alias="roleResource" type="com.hbs.domain.auth.pojo.RoleResource"/> 
+<resultMap id="roleResource_result" class="roleResource">
+    <result property="roleId" column="ROLE_ID"/>
+    <result property="resourceId" column="RESOURCE_ID"/>
+    <result property="operations" column="OPERATIONS"/>
+</resultMap>
+
+
+<insert id="RoleResource_insertRoleResource" parameterClass="roleResource" >
+<![CDATA[
+    INSERT INTO role_resource (
+            ROLE_ID, 
+            RESOURCE_ID, 
+            OPERATIONS
+        )
+    VALUES (
+            #roleId#,
+            #resourceId#,
+            #operations#
+    )
+]]>
+</insert>
+
+<delete id="RoleResource_deleteRoleResource" parameterClass="string">
+<![CDATA[
+    DELETE  FROM  role_resource WHERE ROLE_ID = #roleId#
+]]>
+</delete>    
+
+<update id="RoleResource_updateRoleResource" parameterClass="roleResource">
+    UPDATE role_resource 
+    SET
+    	ROLE_ID = #roleId#
+	<isNotEmpty prepend="," property="resourceId">
+            RESOURCE_ID = #resourceId#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="operations">
+            OPERATIONS = #operations#
+	</isNotEmpty>
+    WHERE ROLE_ID = #roleId#
+</update> 
+
+<select id="RoleResource_findRoleResource" resultMap="roleResource_result" parameterClass="string">
+<![CDATA[
+    SELECT
+            ROLE_ID, 
+            RESOURCE_ID, 
+            OPERATIONS
+    FROM role_resource WHERE ROLE_ID = #roleId#
+]]>
+</select>
+
+<select id="RoleResource_listRoleResource" resultMap="roleResource_result" parameterClass="roleResource">
+<![CDATA[
+    SELECT
+            ROLE_ID, 
+            RESOURCE_ID, 
+            OPERATIONS
+    FROM role_resource
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "roleId">
+				ROLE_ID = #roleId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "resourceId">
+				RESOURCE_ID = #resourceId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "operations">
+				OPERATIONS = #operations#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+
+<select id="RoleResource_listRoleResourceCount" resultClass="java.lang.Integer" parameterClass="roleResource">
+<![CDATA[
+    SELECT
+		COUNT(*)
+    FROM role_resource
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "roleId">
+				ROLE_ID = #roleId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "resourceId">
+				RESOURCE_ID = #resourceId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "operations">
+				OPERATIONS = #operations#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+</sqlMap>
