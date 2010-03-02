@@ -48,6 +48,17 @@ HBSConvertHelper.init(function() {
 	// 当单机取消按钮时，调用默认的关闭窗口方法
 	backBtn.on("click", HBSConvertHelper.defaultCloseTab);
 	
+	Ext.getCmp("acContactList").store = new Ext.data.JsonStore({
+		url : "/server/customerInfo/customerInfo!getContactList.action",
+		root : "data.list",
+		fields : ["seqId", "conName", "conTel", "conFax"]
+	});
+	Ext.getCmp("acConsigneeList").store = new Ext.data.JsonStore({
+		url : "/server/customerInfo/customerInfo!getConsigneeList.action",
+		root : "data.list",
+		fields : ["seqId", "conName", "conAddress", "conZip"]
+	});
+
 	Ext.getCmp("acCommCode").setProcessConfig("/customerInfo/customerInfo!getInfo.action?custInfo.state=0", "custInfo.commCode", null, function(action){
 		if(!action.success)
 			return;
@@ -64,9 +75,7 @@ HBSConvertHelper.init(function() {
 		list.store.baseParams["custInfo.state"] = "0";
 	});
 	
-	/*
 	function selectContactFunc() {
-		debugger;
 		if(this.selectedIndex < 0)
 			return;
 		var data = this.store.getAt(this.selectedIndex);
@@ -89,34 +98,8 @@ HBSConvertHelper.init(function() {
 		Ext.getCmp("acZip").setValue(o);
 		Ext.getCmp("acZipHidden").setValue(o);
 	}
-	*/
-	
-	// 联系人
-	//Ext.getCmp("acContactList").on("select", selectContactFunc);
-	Ext.getCmp("acContactList").setProcessConfig("/customerInfo/customerInfo!getContactInfoById.action", "seqId", null, function(action){
-		if(!action.success)
-			return;
-		Ext.getCmp("acConNameHidden").setValue(action.data.contactInfo.conName);
-		var o = action.data.contactInfo.conTel;
-		Ext.getCmp("acTel").setValue(o);
-		Ext.getCmp("acTelHidden").setValue(o);
-		o = action.data.contactInfo.conFax;
-		Ext.getCmp("acFax").setValue(o);
-		Ext.getCmp("acFaxHidden").setValue(o);		
-	});
-	// 收货人
-	//Ext.getCmp("acConsigneeList").on("select", selectConsigneeFunc);
-	Ext.getCmp("acConsigneeList").setProcessConfig("/customerInfo/customerInfo!getContactInfoById.action", "seqId", null, function(action){
-		if(!action.success)
-			return;
-		Ext.getCmp("acReceiveNameHidden").setValue(action.data.contactInfo.conName);
-		var o = action.data.contactInfo.conAddress;
-		Ext.getCmp("acAddress").setValue(o);
-		Ext.getCmp("acAddressHidden").setValue(o);
-		o = action.data.contactInfo.conZip;
-		Ext.getCmp("acZip").setValue(o);
-		Ext.getCmp("acZipHidden").setValue(o);
-	});	
+	Ext.getCmp("acContactList").on("select", selectContactFunc);
+	Ext.getCmp("acConsigneeList").on("select", selectConsigneeFunc);
 	
 	// -------------------------------------- 页面操作逻辑处理
 	
