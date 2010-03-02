@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="Resource">
+<typeAlias alias="resource" type="com.hbs.domain.auth.pojo.Resource"/> 
+<resultMap id="resource_result" class="resource">
+    <result property="resourceId" column="RESOURCE_ID"/>
+    <result property="actionsId" column="ACTIONS_ID"/>
+    <result property="resourceName" column="RESOURCE_NAME"/>
+    <result property="description" column="DESCRIPTION"/>
+</resultMap>
+
+
+<insert id="Resource_insertResource" parameterClass="resource" >
+<![CDATA[
+    INSERT INTO resource (
+            ACTIONS_ID, 
+            RESOURCE_NAME, 
+            DESCRIPTION
+        )
+    VALUES (
+            #actionsId#,
+            #resourceName#,
+            #description#
+    )
+]]>
+<selectKey resultClass="Integer" keyProperty="resourceId">
+            SELECT LAST_INSERT_ID()  
+ </selectKey>
+</insert>
+
+<delete id="Resource_deleteResource" parameterClass="string">
+<![CDATA[
+    DELETE  FROM  resource WHERE RESOURCE_ID = #resourceId#
+]]>
+</delete>    
+
+<update id="Resource_updateResource" parameterClass="resource">
+    UPDATE resource 
+    SET
+    	RESOURCE_ID = #resourceId#
+	<isNotEmpty prepend="," property="actionsId">
+            ACTIONS_ID = #actionsId#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="resourceName">
+            RESOURCE_NAME = #resourceName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="description">
+            DESCRIPTION = #description#
+	</isNotEmpty>
+    WHERE RESOURCE_ID = #resourceId#
+</update> 
+
+<select id="Resource_findResource" resultMap="resource_result" parameterClass="string">
+<![CDATA[
+    SELECT
+            RESOURCE_ID, 
+            ACTIONS_ID, 
+            RESOURCE_NAME, 
+            DESCRIPTION
+    FROM resource WHERE RESOURCE_ID = #resourceId#
+]]>
+</select>
+
+<select id="Resource_listResource" resultMap="resource_result" parameterClass="resource">
+<![CDATA[
+    SELECT
+            RESOURCE_ID, 
+            ACTIONS_ID, 
+            RESOURCE_NAME, 
+            DESCRIPTION
+    FROM resource
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "resourceId">
+				RESOURCE_ID = #resourceId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "actionsId">
+				ACTIONS_ID = #actionsId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "resourceName">
+				RESOURCE_NAME = #resourceName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "description">
+				DESCRIPTION = #description#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+
+<select id="Resource_listResourceCount" resultClass="java.lang.Integer" parameterClass="resource">
+<![CDATA[
+    SELECT
+		COUNT(*)
+    FROM resource
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "resourceId">
+				RESOURCE_ID = #resourceId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "actionsId">
+				ACTIONS_ID = #actionsId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "resourceName">
+				RESOURCE_NAME = #resourceName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "description">
+				DESCRIPTION = #description#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+</sqlMap>

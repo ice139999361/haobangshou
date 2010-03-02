@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<sqlMap resource="com/hbs/domain/auth/dao/ibatis/maps/AccountSQL.xml"/>
+	<sqlMap resource="com/hbs/domain/auth/dao/ibatis/maps/ActionSQL.xml"/>
+	<sqlMap resource="com/hbs/domain/auth/dao/ibatis/maps/ResourceSQL.xml"/>
+	<sqlMap resource="com/hbs/domain/auth/dao/ibatis/maps/RoleResourceSQL.xml"/>
+	<sqlMap resource="com/hbs/domain/auth/dao/ibatis/maps/RoleSQL.xml"/>
+	<sqlMap resource="com/hbs/domain/auth/dao/ibatis/maps/StaffSQL.xml"/>
+	<sqlMap resource="com/hbs/domain/auth/dao/ibatis/maps/UserRoleSQL.xml"/>
+</sqlMapConfig>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="Action">
+<typeAlias alias="action" type="com.hbs.domain.auth.pojo.Action"/> 
+<resultMap id="action_result" class="action">
+    <result property="actionsId" column="ACTIONS_ID"/>
+    <result property="actionId" column="ACTION_ID"/>
+    <result property="actionName" column="ACTION_NAME"/>
+    <result property="buttonId" column="BUTTON_ID"/>
+</resultMap>
+
+
+<insert id="Action_insertAction" parameterClass="action" >
+<![CDATA[
+    INSERT INTO action (
+            ACTION_ID, 
+            ACTION_NAME, 
+            BUTTON_ID
+        )
+    VALUES (
+            #actionId#,
+            #actionName#,
+            #buttonId#
+    )
+]]>
+<selectKey resultClass="Integer" keyProperty="actionsId">
+            SELECT LAST_INSERT_ID()  
+ </selectKey>
+</insert>
+
+<delete id="Action_deleteAction" parameterClass="string">
+<![CDATA[
+    DELETE  FROM  action WHERE ACTIONS_ID = #actionsId#
+]]>
+</delete>    
+
+<update id="Action_updateAction" parameterClass="action">
+    UPDATE action 
+    SET
+    	ACTIONS_ID = #actionsId#
+	<isNotEmpty prepend="," property="actionId">
+            ACTION_ID = #actionId#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="actionName">
+            ACTION_NAME = #actionName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="buttonId">
+            BUTTON_ID = #buttonId#
+	</isNotEmpty>
+    WHERE ACTIONS_ID = #actionsId#
+</update> 
+
+<select id="Action_findAction" resultMap="action_result" parameterClass="string">
+<![CDATA[
+    SELECT
+            ACTIONS_ID, 
+            ACTION_ID, 
+            ACTION_NAME, 
+            BUTTON_ID
+    FROM action WHERE ACTIONS_ID = #actionsId#
+]]>
+</select>
+
+<select id="Action_listAction" resultMap="action_result" parameterClass="action">
+<![CDATA[
+    SELECT
+            ACTIONS_ID, 
+            ACTION_ID, 
+            ACTION_NAME, 
+            BUTTON_ID
+    FROM action
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "actionsId">
+				ACTIONS_ID = #actionsId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "actionId">
+				ACTION_ID = #actionId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "actionName">
+				ACTION_NAME = #actionName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "buttonId">
+				BUTTON_ID = #buttonId#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+
+<select id="Action_listActionCount" resultClass="java.lang.Integer" parameterClass="action">
+<![CDATA[
+    SELECT
+		COUNT(*)
+    FROM action
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "actionsId">
+				ACTIONS_ID = #actionsId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "actionId">
+				ACTION_ID = #actionId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "actionName">
+				ACTION_NAME = #actionName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "buttonId">
+				BUTTON_ID = #buttonId#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+</sqlMap>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="UserRole">
+<typeAlias alias="userRole" type="com.hbs.domain.auth.pojo.UserRole"/> 
+<resultMap id="userRole_result" class="userRole">
+    <result property="staffId" column="STAFF_ID"/>
+    <result property="roleId" column="ROLE_ID"/>
+    <result property="memo" column="MEMO"/>
+</resultMap>
+
+<insert id="UserRole_insertUserRole" parameterClass="userRole" >
+<![CDATA[
+    INSERT INTO user_role (
+            STAFF_ID, 
+            ROLE_ID, 
+            MEMO
+        )
+    VALUES (
+            #staffId#,
+            #roleId#,
+            #memo#
+    )
+]]>
+</insert>
+
+<delete id="UserRole_deleteUserRole" parameterClass="string">
+<![CDATA[
+    DELETE  FROM  user_role WHERE STAFF_ID = #staffId#
+]]>
+</delete>    
+
+<update id="UserRole_updateUserRole" parameterClass="userRole">
+    UPDATE user_role 
+    SET
+    	STAFF_ID = #staffId#
+	<isNotEmpty prepend="," property="roleId">
+            ROLE_ID = #roleId#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="memo">
+            MEMO = #memo#
+	</isNotEmpty>
+    WHERE STAFF_ID = #staffId#
+</update> 
+
+<select id="UserRole_findUserRole" resultMap="userRole_result" parameterClass="string">
+<![CDATA[
+    SELECT
+            STAFF_ID, 
+            ROLE_ID, 
+            MEMO
+    FROM user_role WHERE STAFF_ID = #staffId#
+]]>
+</select>
+
+<select id="UserRole_listUserRole" resultMap="userRole_result" parameterClass="userRole">
+<![CDATA[
+    SELECT
+            STAFF_ID, 
+            ROLE_ID, 
+            MEMO
+    FROM user_role
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "staffId">
+				STAFF_ID = #staffId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "roleId">
+				ROLE_ID = #roleId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "memo">
+				MEMO = #memo#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+
+<select id="UserRole_listUserRoleCount" resultClass="java.lang.Integer" parameterClass="userRole">
+<![CDATA[
+    SELECT
+		COUNT(*)
+    FROM user_role
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "staffId">
+				STAFF_ID = #staffId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "roleId">
+				ROLE_ID = #roleId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "memo">
+				MEMO = #memo#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+</sqlMap>

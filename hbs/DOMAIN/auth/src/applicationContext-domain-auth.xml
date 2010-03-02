@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans> 
+	<!-- dao bean -->
+	<bean id="accountDao" class="com.hbs.domain.auth.dao.ibatis.AccountDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>	
+	
+	<bean id="actionDao" class="com.hbs.domain.auth.dao.ibatis.ActionDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>	
+	
+	<bean id="resourceDao" class="com.hbs.domain.auth.dao.ibatis.ResourceDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>	
+	
+	<bean id="roleDao" class="com.hbs.domain.auth.dao.ibatis.RoleDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>	
+	
+	<bean id="roleResourceDao" class="com.hbs.domain.auth.dao.ibatis.RoleResourceDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>	
+	
+	<bean id="staffDao" class="com.hbs.domain.auth.dao.ibatis.StaffDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>	
+	
+	<bean id="userRoleDao" class="com.hbs.domain.auth.dao.ibatis.UserRoleDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>	
+</beans>
