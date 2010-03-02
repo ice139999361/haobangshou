@@ -38,16 +38,20 @@ public class CustPrepaidReminderTask {
 	private static final String CustPrePaidMgr ="custPrePaidMgr";
 	private static final String CUSTOMERINFODAO = "customerInfoDao";
 	
-	public void processPrePaidReminder() throws Exception{
+	public void processPrePaidReminder(){
 		logger.info("获取需要货到付款的订单！");
-		List<WarehouseSendDetail> detailList = getSendDetailList();
-		if(null != detailList){
-			String curDate = DateUtils.getCurFormatDate(DateUtils.DATEFORMAT);
-			for( WarehouseSendDetail detail : detailList){
-				processSingelReminder(detail,curDate );
+		try{
+			List<WarehouseSendDetail> detailList = getSendDetailList();
+			if(null != detailList){
+				String curDate = DateUtils.getCurFormatDate(DateUtils.DATEFORMAT);
+				for( WarehouseSendDetail detail : detailList){
+					processSingelReminder(detail,curDate );
+				}
+			}else{
+				logger.info("本次没有需要处理提醒的货到付款的订单！");
 			}
-		}else{
-			logger.info("本次没有需要处理提醒的货到付款的订单！");
+		}catch(Exception e){
+			logger.error("客户 款到发货 催款提醒执行错误" , e);
 		}
 	}
 	/**
@@ -55,7 +59,7 @@ public class CustPrepaidReminderTask {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<WarehouseSendDetail> getSendDetailList()throws Exception{
+	private List<WarehouseSendDetail> getSendDetailList()throws Exception{
 		WareHouseSendDetailMgr wsMgr = (WareHouseSendDetailMgr)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_SEND_DETAILMGR);
 		WarehouseSendDetail detail = new WarehouseSendDetail();
 		detail.setSettlementType("2");

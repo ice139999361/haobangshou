@@ -25,4 +25,10 @@
 		class="com.hbs.common.manager.baseinfo.PrePaidMgr"
 		abstract="true">		
 	</bean>
+	
+	<!--对账日/结算日提醒抽象类 -->
+	<bean id="periodReminderTask"
+		class="com.hbs.common.task.PeriodReminderTask"
+		abstract="true">		
+	</bean>
 </beans>
