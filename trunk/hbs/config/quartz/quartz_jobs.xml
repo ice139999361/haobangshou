@@ -12,77 +12,105 @@
 			</base-calendar>
 		</base-calendar>
 	</calendar>
-	<!-- -->
+	<!-- 客户 对账日/结算日提醒 job  -->
 	<job>		
 		<job-detail>
-			<name>MessageIdCacheJob</name>
+			<name>CustPeriodReminderJob</name>
 			<group>DEFAULT</group>
-			<job-class>com.aspire.disn.app.iodd.common.util.CaCheJob</job-class>
+			<job-class>com.hbs.warehouse.common.job.PeriodReminderJob</job-class>
 			<volatility>false</volatility>
 			<durability>false</durability>
 			<recover>false</recover>
 			<job-data-map allows-transient-data="true">
 				<entry>
-					<key>nodeType</key>
-					<value>sims</value>
+					<key>ReminderType</key>
+					<value>custPeriodReminderTask</value>
 				</entry>
 			</job-data-map>
 		</job-detail>
 		<trigger>
 			<cron>
-				<name>MessageIdCacheJobTrigger</name>
+				<name>CustPeriodReminderJobTrigger</name>
 				<group>DEFAULT</group>
-				<job-name>MessageIdCacheJob</job-name>
+				<job-name>CustPeriodReminderJob</job-name>
 				<job-group>DEFAULT</job-group>
-				<cron-expression>0 5 0 * * ?</cron-expression>
+				<cron-expression>0 5 3 * * ?</cron-expression>
 			</cron>
 		</trigger>
 	</job>
 	
-	<!--IODD发送邮件JOB，处理次数超过9次发告警邮件-->
+	<!-- 供应商 对账日/结算日提醒 job  -->
 	<job>		
 		<job-detail>
-			<name>emailSendJob</name>
+			<name>VendorPeriodReminderJob</name>
 			<group>DEFAULT</group>
-			<job-class>com.aspire.sims.rtplt.component.email.job.EmailSendJob</job-class>
+			<job-class>com.hbs.warehouse.common.job.PeriodReminderJob</job-class>
 			<volatility>false</volatility>
 			<durability>false</durability>
 			<recover>false</recover>
+			<job-data-map allows-transient-data="true">
+				<entry>
+					<key>ReminderType</key>
+					<value>vendorPeriodReminderTask</value>
+				</entry>
+			</job-data-map>
 		</job-detail>
 		<trigger>
 			<cron>
-				<name>emailSendJobTrigger</name>
+				<name>VendorPeriodReminderJobTrigger</name>
 				<group>DEFAULT</group>
-				<job-name>emailSendJob</job-name>
+				<job-name>VendorPeriodReminderJob</job-name>
+				<job-group>DEFAULT</job-group>
+				<cron-expression>0 5 5 * * ?</cron-expression>
+			</cron>
+		</trigger>
+	</job>
+	
+	<!--客户 款到发货 催款提醒 job-->
+	<job>		
+		<job-detail>
+			<name>CustPrepaidReminderJob</name>
+			<group>DEFAULT</group>
+			<job-class>com.hbs.warehousesend.job.PrepaidReminderJob</job-class>
+			<volatility>false</volatility>
+			<durability>false</durability>
+			<recover>false</recover>
+			<job-data-map allows-transient-data="true">
+				<entry>
+					<key>ReminderType</key>
+					<value>custPrepaidReminderTask</value>
+				</entry>
+			</job-data-map>
+		</job-detail>
+		<trigger>
+			<cron>
+				<name>CustPrepaidReminderJobTrigger</name>
+				<group>DEFAULT</group>
+				<job-name>CustPrepaidReminderJob</job-name>
 				<job-group>DEFAULT</job-group>
 				
-				<cron-expression>0 0/1 * * * ?</cron-expression>
+				<cron-expression>0 5 21 * * ?</cron-expression>
 			</cron>
 		</trigger>
 	</job>
 	
+	<!-- 提醒类待办过期删除 job -->
 	<job>		
 		<job-detail>
-			<name>bossCompareMessageReceiveDispatcherJob</name>
+			<name>WaitTaskExpireJob</name>
 			<group>DEFAULT</group>
-			<job-class>com.aspire.disn.rtplt.component.ftpadapter.job.FtpReceiverMessageJob</job-class>
+			<job-class>com.hbs.common.job.WaitTaskExpireJob</job-class>
 			<volatility>false</volatility>
 			<durability>false</durability>
-			<recover>false</recover>
-			<job-data-map allows-transient-data="true">
-				<entry>
-					<key>nodeType</key>
-					<value>BOSS_COMPARE</value>
-				</entry>
-			</job-data-map>
+			<recover>false</recover>			
 		</job-detail>
 		<trigger>
 			<cron>
-				<name>bossCompareMessageReceiveDispatcherJobTrigger</name>
+				<name>WaitTaskExpireJobTrigger</name>
 				<group>DEFAULT</group>
-				<job-name>bossCompareMessageReceiveDispatcherJob</job-name>
+				<job-name>WaitTaskExpireJob</job-name>
 				<job-group>DEFAULT</job-group>
-				<cron-expression>0 0/1 * * * ?</cron-expression>
+				<cron-expression>0 35 23 * * ?</cron-expression>
 			</cron>
 		</trigger>
 	</job>
