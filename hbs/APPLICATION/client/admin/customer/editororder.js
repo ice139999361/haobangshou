@@ -123,14 +123,14 @@ HBSConvertHelper.init(function() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("客户订单修改");
 		// 隐藏不需要的控件
-		if(urlPs.state != 1) ExtConvertHelper.hideItems("saveBtn");
+		if(urlPs.state != "01") ExtConvertHelper.hideItems("saveBtn");
 		
 		// 组装需要的参数
-		var params = ["custInfo.seqId=", urlPs.seqId].join("");
+		var params = ["custOrder.commCode=", urlPs.commCode, "&custOrder.poNo=", urlPs.poNo, "&custOrder.poNoType=", urlPs.poNoType].join("");
 		
 		// 加载数据
-		ExtConvertHelper.loadForm("form", "/customerInfo/customerInfo!getInfo.action", params, function(form, action) {
-				Ext.getCmp("ordergrid").addData(action.result.data.custInfo.dynamicFields.orderlist);
+		ExtConvertHelper.loadForm("form", "/custOrder/custOrder!getInfo.action", params, function(form, action) {
+				Ext.getCmp("ordergrid").addData(action.result.data.custOrder.orderlist);
 		});
 		
 		// 提交完成后的操作
