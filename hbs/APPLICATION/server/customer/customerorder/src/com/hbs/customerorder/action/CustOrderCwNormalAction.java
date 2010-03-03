@@ -21,9 +21,9 @@ public class CustOrderCwNormalAction extends BaseAction {
 	/**
 	 * logger.
 	 */
-	private static final Logger logger = Logger.getLogger(CustOrderScNormalAction.class);
+	private static final Logger logger = Logger.getLogger(CustOrderCwNormalAction.class);
 
-	public static final String roleName = "scmanager";
+	public static final String roleName = "cwnormal";
 
 	CustomerOrder custOrder;
 

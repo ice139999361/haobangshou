@@ -173,5 +173,31 @@
     	<action name="custOrderCw!financeDisAgree" method="doFinanceDisAgree" 
     			class="com.hbs.customerorder.action.CustOrderCwNormalAction">
 		</action>
+		
+		<!-- 财务经理用户 ***************************************************-->
+		<!-- 
+	/**
+	 * 查询
+	 * @action.input custOrder.查询条件
+	 * @action.result list：列表 count：总数
+	 * @return
+	 */
+		 -->
+    	<action name="custOrderCw!list" method="doList" 
+    			class="com.hbs.customerorder.action.CustOrderCwNormalAction">
+		</action>
+		<!-- 
+	/**
+	 * 获取客户订单信息
+	 * @action.input custOrder.commCode + custOrder.poNo
+	 * @action.result custOrder.*
+	 * @return
+	 */
+		 -->
+    	<action name="custOrderCw!getInfo" method="doGetInfo" 
+    			class="com.hbs.customerorder.action.CustOrderCwNormalAction">
+		</action>
+		
+		
 	</package>
 </struts>
