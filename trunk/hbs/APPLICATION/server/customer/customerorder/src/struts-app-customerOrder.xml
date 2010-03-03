@@ -19,16 +19,27 @@
 			</result>
         </global-results>
 
-		<!-- 普通用户 -->
+		<!-- 市场普通用户 ***************************************************-->
 		<!-- 
 	/**
 	 * 临时保存
 	 * @action.input custOrder.*
-	 * @action.result	seqId	insert的id。如果没有insert操作，则没有这一项。
+	 * @action.result
 	 * @return
 	 */
 		 -->
     	<action name="custOrder!saveTemp" method="doSaveTemp" 
+    			class="com.hbs.customerorder.action.CustOrderScNormalAction">
+		</action>
+		<!-- 
+	/**
+	 * 正式提交
+	 * @action.input custOrder.*
+	 * @action.result 
+	 * @return
+	 */
+		 -->
+    	<action name="custOrder!commit" method="doCommit" 
     			class="com.hbs.customerorder.action.CustOrderScNormalAction">
 		</action>
 		<!-- 
@@ -42,6 +53,125 @@
     	<action name="custOrder!list" method="doList" 
     			class="com.hbs.customerorder.action.CustOrderScNormalAction">
 		</action>
+		<!-- 
+	/**
+	 * 获取客户订单信息
+	 * @action.input custOrder.commCode + custOrder.poNo
+	 * @action.result custOrder.*
+	 * @return
+	 */
+		 -->
+    	<action name="custOrder!getInfo" method="doGetInfo" 
+    			class="com.hbs.customerorder.action.CustOrderScNormalAction">
+		</action>
+		<!-- 
+	/**
+	 * 取消客户订单
+	 * @action.input custOrder.commCode + custOrder.poNo
+	 * @action.result custOrder.*
+	 * @return
+	 */
+		 -->
+    	<action name="custOrder!cancel" method="doCancel" 
+    			class="com.hbs.customerorder.action.CustOrderScNormalAction">
+		</action>
 
+	
+		<!-- 市场经理用户 ***************************************************-->
+		<!-- 
+	/**
+	 * 查询
+	 * @action.input custOrder.查询条件
+	 * @action.result list：列表 count：总数
+	 * @return
+	 */
+		 -->
+    	<action name="custOrderScMgr!list" method="doList" 
+    			class="com.hbs.customerorder.action.CustOrderScManagerAction">
+		</action>
+		<!-- 
+	/**
+	 * 获取客户订单信息
+	 * @action.input custOrder.commCode + custOrder.poNo
+	 * @action.result custOrder.*
+	 * @return
+	 */
+		 -->
+    	<action name="custOrderScMgr!getInfo" method="doGetInfo" 
+    			class="com.hbs.customerorder.action.CustOrderScManagerAction">
+		</action>
+		<!-- 
+	/**
+	 * 经理审批通过超过账期最大金额的客户订单，审批结果为通过
+	 * @action.input custOrder.commCode + custOrder.poNo
+	 * @action.input memo	审批说明
+	 * @action.result
+	 * @return
+	 */
+		 -->
+    	<action name="custOrderScMgr!auditAgree" method="doAuditAgree" 
+    			class="com.hbs.customerorder.action.CustOrderScManagerAction">
+		</action>
+		<!-- 
+	/**
+	 * 经理审批不通过超过账期最大金额的客户订单，审批结果为不通过
+	 * @action.input custOrder.commCode + custOrder.poNo
+	 * @action.input memo	审批说明
+	 * @action.result
+	 * @return
+	 */
+		 -->
+    	<action name="custOrderScMgr!auditDisAgree" method="doAuditDisAgree" 
+    			class="com.hbs.customerorder.action.CustOrderScManagerAction">
+		</action>
+
+	
+		<!-- 财务普通用户 ***************************************************-->
+		<!-- 
+	/**
+	 * 查询
+	 * @action.input custOrder.查询条件
+	 * @action.result list：列表 count：总数
+	 * @return
+	 */
+		 -->
+    	<action name="custOrderCw!list" method="doList" 
+    			class="com.hbs.customerorder.action.CustOrderCwNormalAction">
+		</action>
+		<!-- 
+	/**
+	 * 获取客户订单信息
+	 * @action.input custOrder.commCode + custOrder.poNo
+	 * @action.result custOrder.*
+	 * @return
+	 */
+		 -->
+    	<action name="custOrderCw!getInfo" method="doGetInfo" 
+    			class="com.hbs.customerorder.action.CustOrderCwNormalAction">
+		</action>
+		<!-- 
+	/**
+	 * 财务确认了客户订单的预付款，待采购处理
+	 * @action.input custOrder.commCode + custOrder.poNo
+	 * @action.input memo	审批说明
+	 * @action.result
+	 * @return
+	 */
+		 -->
+    	<action name="custOrderCw!financeAgree" method="doFinanceAgree" 
+    			class="com.hbs.customerorder.action.CustOrderCwNormalAction">
+		</action>
+		<!-- 
+	/**
+	 * 财务退回待财务预付款确认客户订单，待业务助理处理
+	 * @action.input custOrder.commCode + custOrder.poNo
+	 * @action.input memo	审批说明
+	 * @action.result
+	 * @return
+	 */
+		 -->
+    	<action name="custOrderCw!financeDisAgree" method="doFinanceDisAgree" 
+    			class="com.hbs.customerorder.action.CustOrderCwNormalAction">
+		</action>
 	</package>
 </struts>

@@ -10,7 +10,6 @@ import org.apache.log4j.Logger;
 
 import com.hbs.common.action.FieldErr;
 import com.hbs.common.action.base.BaseAction;
-import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.customerinfo.manager.CustPartNoInfoMgr;
 import com.hbs.domain.customer.customerinfo.pojo.CustPartNoInfo;
 
@@ -63,7 +62,7 @@ public class CustPartNoInfoManagerAction extends BaseAction {
 				return ERROR;
 			
 			setPagination(custPartNoInfo);
-			CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)BeanLocator.getInstance().getBean(custPartNoInfoMgrName);
+			CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)getBean(custPartNoInfoMgrName);
 			setResult("list", mgr.listCustPartNoInfo(custPartNoInfo));
 			setTotalCount(mgr.listCustPartNoInfoCount(custPartNoInfo));
 			setResult("count", getTotalCount());
@@ -100,8 +99,8 @@ public class CustPartNoInfoManagerAction extends BaseAction {
 				return ERROR;
 			}
 			
-			CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)BeanLocator.getInstance().getBean(custPartNoInfoMgrName);
-			int i = mgr.auditAgreeCustPartNoInfo(custPartNoInfo, getLoginStaff().getStaffId(), getLoginStaff().getStaffName(), auditDesc);
+			CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)getBean(custPartNoInfoMgrName);
+			int i = mgr.auditAgreeCustPartNoInfo(custPartNoInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), auditDesc);
 			if(i != 0)
 			{
 				logger.info("审批出错！");
@@ -140,8 +139,8 @@ public class CustPartNoInfoManagerAction extends BaseAction {
 				return ERROR;
 			}
 			
-			CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)BeanLocator.getInstance().getBean(custPartNoInfoMgrName);
-			int i = mgr.auditDisAgreeCustPartNoInfo(custPartNoInfo, getLoginStaff().getStaffId(), getLoginStaff().getStaffName(), auditDesc);
+			CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)getBean(custPartNoInfoMgrName);
+			int i = mgr.auditDisAgreeCustPartNoInfo(custPartNoInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), auditDesc);
 			if(i != 0)
 			{
 				logger.info("审批出错！");

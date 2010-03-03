@@ -142,4 +142,9 @@ public class Staff extends BaseDomain{
         this.memo = memo;
     }
 
+	public Staff(Integer id, String name)
+	{
+		staffId = id;
+		staffName = name;
+	}
 }

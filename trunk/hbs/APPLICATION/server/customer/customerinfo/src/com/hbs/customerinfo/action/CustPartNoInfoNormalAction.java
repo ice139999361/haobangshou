@@ -10,7 +10,6 @@ import org.apache.log4j.Logger;
 
 import com.hbs.common.action.FieldErr;
 import com.hbs.common.action.base.BaseAction;
-import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.customerinfo.manager.CustPartNoInfoMgr;
 import com.hbs.customerinfo.manager.CustomerInfoMgr;
 import com.hbs.domain.customer.customerinfo.pojo.CustPartNoInfo;
@@ -57,7 +56,7 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 				return ERROR;
 			
 			setPagination(custPartNoInfo);
-			CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)BeanLocator.getInstance().getBean(custPartNoInfoMgrName);
+			CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)getBean(custPartNoInfoMgrName);
 			setResult("list", mgr.listCustPartNoInfo(custPartNoInfo));
 			setTotalCount(mgr.listCustPartNoInfoCount(custPartNoInfo));
 			setResult("count", getTotalCount());
@@ -100,7 +99,7 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 				setMyId(true);
 			//custPartNoInfo.setCreateDate(new Date());
 			
-			CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)BeanLocator.getInstance().getBean(custPartNoInfoMgrName);
+			CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)getBean(custPartNoInfoMgrName);
 			int i = mgr.commitCustPartNoInfo(custPartNoInfo);
 			if(i != 0)
 			{
@@ -127,7 +126,7 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 	 * @throws Exception
 	 */
 	private void setMyId(boolean setName) throws Exception {
-		custPartNoInfo.setStaffId(getLoginStaff().getStaffId());
+		custPartNoInfo.setStaffId(getLoginStaff().getStaffId().toString());
 		custPartNoInfo.setStaffName(setName ? getLoginStaff().getStaffName() : null);
 	}
 	
@@ -154,12 +153,12 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 			}
 			
 			//DONE：限制范围
-			CustomerInfoMgr custmgr = (CustomerInfoMgr)BeanLocator.getInstance().getBean(CustomerInfoNormalAction.custInfoMgrName);
+			CustomerInfoMgr custmgr = (CustomerInfoMgr)getBean(CustomerInfoNormalAction.custInfoMgrName);
 			CustomerInfo custInfo = new CustomerInfo();
 			custInfo.setCommCode(commCode);
 			custInfo.setState("0");
 			custInfo = custmgr.getCustomerInfo(custInfo, false);
-			String id = getLoginStaff().getStaffId();
+			String id = getLoginStaff().getStaffId().toString();
 			if(custInfo == null || (!id.equals(custInfo.getStaffId()) && id.equals(custInfo.getAssStaffId())))
 			{
 				logger.info("您没有权限访问！");

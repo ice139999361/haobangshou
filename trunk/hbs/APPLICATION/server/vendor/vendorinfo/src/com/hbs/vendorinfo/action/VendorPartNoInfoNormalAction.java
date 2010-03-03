@@ -120,7 +120,7 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
 	 * @throws Exception
 	 */
 	private void setMyId(boolean setName) throws Exception {
-		vendorPartNoInfo.setStaffId(getLoginStaff().getStaffId());
+		vendorPartNoInfo.setStaffId(getLoginStaff().getStaffId().toString());
 		vendorPartNoInfo.setStaffName(setName ? getLoginStaff().getStaffName() : null);
 	}
 	
@@ -150,7 +150,7 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
 			VendorInfoMgr vendormgr = (VendorInfoMgr)BeanLocator.getInstance().getBean(VendorInfoNormalAction.vendorInfoMgrName);
 			VendorInfo custInfo = new VendorInfo();
 			custInfo = vendormgr.getVendorInfo(custInfo, false);
-			String id = getLoginStaff().getStaffId();
+			String id = getLoginStaff().getStaffId().toString();
 			if(custInfo == null || custInfo.getStaffId() != id)
 			{
 				logger.info("您没有权限访问！");

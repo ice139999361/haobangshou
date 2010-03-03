@@ -10,14 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 import org.apache.struts2.ServletActionContext;
-
 
 import com.hbs.common.josn.annotations.JSON;
 import com.hbs.common.springhelper.BeanLocator;
+import com.hbs.domain.auth.pojo.Staff;
 import com.hbs.domain.common.pojo.base.BaseDomain;
-
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -340,7 +338,7 @@ public class BaseAction extends ActionSupport {
 	 */
     protected Staff getLoginStaff() throws Exception {
     	// TODO:getLoginStaff
-    	return new Staff("1", "user1");
+    	return new Staff(1, "user1");
         //return (Staff) LoginHelper.getLoginStaff(domain);
     }
 }
