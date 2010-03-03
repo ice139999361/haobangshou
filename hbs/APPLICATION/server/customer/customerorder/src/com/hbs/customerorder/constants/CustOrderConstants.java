@@ -46,6 +46,15 @@ public final class CustOrderConstants {
 	 * 采购确认,备货中
 	 */
 	public static final String ORDER_STATE_30 = "30";//待财务确认预付
+	
+	/** 
+	 * 31---待财务确认发货（针对预付X%，款到发货，财务确认后，状态转为70）
+	 */
+	public static final String ORDER_STATE_31 = "31";
+	/**
+	 * 33---款到发货而款未到，申请待经理审批
+	 */
+	public static final String ORDER_STATE_33 = "33";
 	/**
 	 * 待财务确认预付
 	 */
@@ -101,4 +110,17 @@ public final class CustOrderConstants {
 	public static final String WAREHOUSE_INFO_HOUSE_USE_2="2";//常规备货
 	
 	public static final String CUSTORDERMGR="custOrderMgr";
+	/**
+	 * 账期结算
+	 */
+	public static final int CUST_ORDER_SETTLEMENT_TYPE_1= 1;
+	/**
+	 * 预付X%,剩余货到付款
+	 */
+	public static final int CUST_ORDER_SETTLEMENT_TYPE_2= 2;
+	
+	/**
+	 * 预付X%剩余款到发货
+	 */
+	public static final int CUST_ORDER_SETTLEMENT_TYPE_3= 3;
 }
