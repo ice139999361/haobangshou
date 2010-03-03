@@ -313,7 +313,21 @@ public class CustOrderDetailMgr {
 			}else{
 				logger.debug("执行锁定操作！");
 				if(isavelockAmount == iAmount){//货已备齐
-					orderDetail.setState(CustOrderConstants.ORDER_STATE_71);
+					//根据订单明细的结算方式，来处理订单明细的状态
+					String settlementType = orderDetail.getSettlementType();
+					int isType = Integer.parseInt(settlementType);
+					String state = CustOrderConstants.ORDER_STATE_70;
+					switch(isType){
+					case 1: //账期结算，状态为货已备齐
+					case 2: //预付X%,剩余货到付款
+						 state = CustOrderConstants.ORDER_STATE_70;
+						 break;
+					case 3://预付X%剩余款到发货
+						state = CustOrderConstants.ORDER_STATE_31;
+						//此处差财务待办
+						break;
+					}
+					orderDetail.setState(state);
 				}else{//部分备货
 					orderDetail.setState(CustOrderConstants.ORDER_STATE_71);
 				}
@@ -374,6 +388,106 @@ public class CustOrderDetailMgr {
 		}
 		return ret;
 	}
+	/**
+	 * 财务确认订单明细的预付x%，款到发货
+	 * 状态有待财务确认31 改变为70货已备齐
+	 * @param orderDetail
+	 * @param auditId
+	 * @param auditName
+	 * @param auditContents
+	 * @return
+	 * @throws Exception
+	 */
+	public int financeConfirmDetailFee(CustOrderDetail orderDetail,String auditId, String auditName,String auditContents) throws Exception{
+		int ret =0;
+		logger.debug("财务确认订单明细的预付x%，款到发货，输入的参数为：" + orderDetail.toString());
+		String state = orderDetail.getState();
+		if((CustOrderConstants.ORDER_STATE_31).equals(state)){
+			orderDetail.setState(CustOrderConstants.ORDER_STATE_70);
+			ret = updateCustDetailByState(orderDetail);
+			//此处差操作日志
+		}else{
+			logger.debug("此订单明细的状态不正确，无法确认预付x%，款到发货！");
+			throw new Exception("此订单明细的状态不正确，无法确认预付x%，款到发货！");
+		}
+		return ret;
+	}
+	/**
+	 * 财务申请订单明细的预付x%，款到发货，款未到发货
+	 * 状态有待财务确认31 改变为33 待领导审批
+	 * @param orderDetail
+	 * @param auditId
+	 * @param auditName
+	 * @param auditContents
+	 * @return
+	 * @throws Exception
+	 */
+	public int financeApplyDetailFee(CustOrderDetail orderDetail,String auditId, String auditName,String auditContents) throws Exception{
+		int ret =0;
+		logger.debug("财务申请订单明细的预付x%，款到发货，款未到发货，输入的参数为：" + orderDetail.toString());
+		String state = orderDetail.getState();
+		if((CustOrderConstants.ORDER_STATE_31).equals(state)){
+			orderDetail.setState(CustOrderConstants.ORDER_STATE_33);
+			ret = updateCustDetailByState(orderDetail);
+			//此处差操作日志
+			//此处差待办
+		}else{
+			logger.debug("此订单明细的状态不正确，无法申请预付x%，款到发货，款未到发货！");
+			throw new Exception("此订单明细的状态不正确，无法申请预付x%，款到发货，款未到发货！");
+		}
+		return ret;
+	}
+	/**
+	 * 领导审批同意订单明细的预付x%，款到发货，款未到发货
+	 * 状态有待领导审批33 改变为70 货已备齐
+	 * @param orderDetail
+	 * @param auditId
+	 * @param auditName
+	 * @param auditContents
+	 * @return
+	 * @throws Exception
+	 */
+	public int auditAgreeDetailFee(CustOrderDetail orderDetail,String auditId, String auditName,String auditContents) throws Exception{
+		int ret =0;
+		logger.debug("领导审批同意订单明细的预付x%，款到发货，款未到发货，输入的参数为：" + orderDetail.toString());
+		String state = orderDetail.getState();
+		if((CustOrderConstants.ORDER_STATE_33).equals(state)){
+			orderDetail.setState(CustOrderConstants.ORDER_STATE_70);
+			ret = updateCustDetailByState(orderDetail);
+			//此处差操作日志
+			//此处差待办
+		}else{
+			logger.debug("此订单明细的状态不正确，无法执行领导审批同意预付x%，款到发货，款未到发货！");
+			throw new Exception("此订单明细的状态不正确，无法执行领导审批同意预付x%，款到发货，款未到发货！");
+		}
+		return ret;
+	}
+	/**
+	 * 领导审批同意订单明细的预付x%，款到发货，款未到发货
+	 * 状态有待领导审批33 改变为31 待财务确认 
+	 * @param orderDetail
+	 * @param auditId
+	 * @param auditName
+	 * @param auditContents
+	 * @return
+	 * @throws Exception
+	 */
+	public int auditDisAgreeDetailFee(CustOrderDetail orderDetail,String auditId, String auditName,String auditContents) throws Exception{
+		int ret =0;
+		logger.debug("领导审批不同意订单明细的预付x%，款到发货，款未到发货，输入的参数为：" + orderDetail.toString());
+		String state = orderDetail.getState();
+		if((CustOrderConstants.ORDER_STATE_33).equals(state)){
+			orderDetail.setState(CustOrderConstants.ORDER_STATE_31);
+			ret = updateCustDetailByState(orderDetail);
+			//此处差操作日志
+			//此处差待办
+		}else{
+			logger.debug("此订单明细的状态不正确，无法执行领导审批不同意预付x%，款到发货，款未到发货！");
+			throw new Exception("此订单明细的状态不正确，无法执行领导审批不同意预付x%，款到发货，款未到发货！");
+		}
+		return ret;
+	}
+	
 	/**
 	 * 修改订单明细的已发货数量，对于已发货的数量，同时把锁定数量减少
 	 
