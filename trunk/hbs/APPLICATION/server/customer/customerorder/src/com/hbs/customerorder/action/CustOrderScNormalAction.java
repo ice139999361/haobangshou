@@ -244,7 +244,6 @@ public class CustOrderScNormalAction extends BaseAction {
 				return ERROR;
 			}
 			CustOrderMgr mgr = (CustOrderMgr)getBean(CustOrderConstants.CUSTORDERMGR);
-			// TODO:custOrder cancelContent
 			String cancelContent = this.getHttpServletRequest().getParameter("memo");
 			int i = mgr.cancelCustOrder(custOrder, cancelContent);
 			if(i != 0) {

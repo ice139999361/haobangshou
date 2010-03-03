@@ -71,8 +71,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 			}
 			setPagination(custInfo);
 			setMyId(false);
-			CustomerInfoMgr mgr = (CustomerInfoMgr) BeanLocator.getInstance()
-					.getBean(custInfoMgrName);
+			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(custInfoMgrName);
 			setResult("list", mgr.getCustomerInfoList(custInfo));
 			setTotalCount(mgr.getCustomerInfoCount(custInfo));
 			setResult("count", getTotalCount());
