@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,9 +25,6 @@ import com.hbs.domain.customer.customerinfo.pojo.CustPartNoInfo;
 import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
 import com.hbs.domain.customer.order.pojo.CustOrderDetail;
 import com.hbs.domain.customer.order.pojo.CustomerOrder;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author xyf

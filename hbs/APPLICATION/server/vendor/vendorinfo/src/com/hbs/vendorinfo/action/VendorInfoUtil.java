@@ -10,10 +10,10 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.action.FieldErr;
-import com.hbs.common.action.base.Staff;
 import com.hbs.common.manager.configencode.ConfigEncodeMgr;
 import com.hbs.common.utils.ListDataUtil;
 import com.hbs.common.utils.StaffUtil;
+import com.hbs.domain.auth.pojo.Staff;
 import com.hbs.domain.common.pojo.ConfigEncode;
 import com.hbs.domain.common.pojo.baseinfo.AccountPreiod;
 import com.hbs.domain.common.pojo.baseinfo.BankInfo;

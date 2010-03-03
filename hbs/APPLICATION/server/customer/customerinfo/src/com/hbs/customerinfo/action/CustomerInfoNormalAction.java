@@ -116,13 +116,12 @@ public class CustomerInfoNormalAction extends BaseAction {
 			if (CustomerInfoUtil.checkSetStaffId(custInfo))
 				setMyId(true);
 
-			CustomerInfoMgr mgr = (CustomerInfoMgr) BeanLocator.getInstance()
-					.getBean(custInfoMgrName);
+			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(custInfoMgrName);
 
 			CustomerInfo info2 = mgr.getCustomerInfo(custInfo, false);
 			int ret;
 			if (info2 != null)
-				ret = mgr.updateCustomerInfo(custInfo, getLoginStaff().getStaffId(), getLoginStaff().getStaffName());
+				ret = mgr.updateCustomerInfo(custInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName());
 			else
 				ret = mgr.saveTempCustomerInfo(custInfo);
 			
@@ -176,8 +175,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 				return ERROR;
 			}
 
-			CustomerInfoMgr mgr = (CustomerInfoMgr) BeanLocator.getInstance()
-					.getBean(custInfoMgrName);
+			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(custInfoMgrName);
 
 			/*
 			CustomerInfo info2 = mgr.getCustomerInfo(custInfo, false);
@@ -192,7 +190,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 						.getStaffId(), getLoginStaff().getStaffName());
 			}
 			*/
-			int ret = mgr.commitCustomerInfo(custInfo, getLoginStaff().getStaffId(), getLoginStaff().getStaffName());
+			int ret = mgr.commitCustomerInfo(custInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName());
 			if (ret < 0) {
 				String s;
 				switch (ret) {
@@ -248,7 +246,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 			CustomerInfoMgr mgr = (CustomerInfoMgr) BeanLocator.getInstance()
 					.getBean(custInfoMgrName);
 			custInfo = CustomerInfoUtil.getCustomerInfo(mgr, custInfo);
-			String id = getLoginStaff().getStaffId();
+			String id = getLoginStaff().getStaffId().toString();
 			if(
 					StringUtils.isNotEmpty(id) &&
 					(id.equals(custInfo.getStaffId()) || id.equals(custInfo.getAssStaffId()))
@@ -303,7 +301,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 				setErrorReason("参数错误！");
 				return ERROR;
 			}
-			int i = mgr.deleteCustomerInfo(custInfo, getLoginStaff().getStaffId(), 
+			int i = mgr.deleteCustomerInfo(custInfo, getLoginStaff().getStaffId().toString(), 
 					getLoginStaff().getStaffName(), 
 					getHttpServletRequest().getParameter("delDesc"));
 			switch (i) {
@@ -386,7 +384,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 			setErrorReason("参数为空！");
 			return null;
 		}
-		CustContactMgr mgr = (CustContactMgr)BeanLocator.getInstance().getBean("custContactMgr");
+		CustContactMgr mgr = (CustContactMgr)getBean("custContactMgr");
 		ContactInfo contactInfo = new ContactInfo();
 		contactInfo.setState("0");
 		contactInfo.setConType(type);
@@ -414,7 +412,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 				setErrorReason("参数为空！");
 				return ERROR;
 			}
-			CustContactMgr mgr = (CustContactMgr)BeanLocator.getInstance().getBean("custContactMgr");
+			CustContactMgr mgr = (CustContactMgr)getBean("custContactMgr");
 			setResult("contactInfo", mgr.getContactInfo(s));
 			return SUCCESS;
 		} catch (Exception e) {
@@ -433,7 +431,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 	 * @throws Exception
 	 */
 	protected void setMyId(boolean setName) throws Exception {
-		custInfo.setStaffId(getLoginStaff().getStaffId());
+		custInfo.setStaffId(getLoginStaff().getStaffId().toString());
 		custInfo.setStaffName(setName ? getLoginStaff().getStaffName() : null);
 	}
 

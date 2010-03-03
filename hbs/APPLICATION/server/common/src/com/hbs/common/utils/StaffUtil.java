@@ -3,7 +3,7 @@
  */
 package com.hbs.common.utils;
 
-import com.hbs.common.action.base.Staff;
+import com.hbs.domain.auth.pojo.Staff;
 
 /**
  * 系统用户函数集合
@@ -21,6 +21,6 @@ public class StaffUtil {
 		if (id == null)
 			return null;
 		// TODO:StaffUtil.getStaffById
-		return new Staff(id, "user_" + id);
+		return new Staff(Integer.parseInt(id), "user_" + id);
 	}
 }

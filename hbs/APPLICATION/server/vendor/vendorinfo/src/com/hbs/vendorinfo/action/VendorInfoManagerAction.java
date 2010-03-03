@@ -78,9 +78,9 @@ public class VendorInfoManagerAction extends BaseAction {
 				setErrorReason("参数错误！");
 				return ERROR;
 			}
-			VendorInfoMgr mgr = (VendorInfoMgr)BeanLocator.getInstance().getBean(vendorInfoMgrName);
+			VendorInfoMgr mgr = (VendorInfoMgr)getBean(vendorInfoMgrName);
 			getCustInfoValue(mgr);
-			int ret = mgr.auditAgreeVendorInfo(vendorInfo, getLoginStaff().getStaffId(), getLoginStaff().getStaffName(), auditDesc);
+			int ret = mgr.auditAgreeVendorInfo(vendorInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), auditDesc);
 			if(ret != 0)
 			{
 				String s;
@@ -128,9 +128,9 @@ public class VendorInfoManagerAction extends BaseAction {
 				setErrorReason("参数错误！");
 				return ERROR;
 			}
-			VendorInfoMgr mgr = (VendorInfoMgr)BeanLocator.getInstance().getBean(vendorInfoMgrName);
+			VendorInfoMgr mgr = (VendorInfoMgr)getBean(vendorInfoMgrName);
 			getCustInfoValue(mgr);
-			int ret = mgr.auditDisAgreeVendorInfo(vendorInfo, getLoginStaff().getStaffId(), getLoginStaff().getStaffName(), auditDesc);
+			int ret = mgr.auditDisAgreeVendorInfo(vendorInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), auditDesc);
 			if(ret != 0)
 			{
 				String s;

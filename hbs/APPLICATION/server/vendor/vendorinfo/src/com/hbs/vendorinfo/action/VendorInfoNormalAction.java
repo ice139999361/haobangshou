@@ -313,7 +313,7 @@ public class VendorInfoNormalAction extends BaseAction {
 	 * @throws Exception
 	 */
 	protected void setMyId(boolean setName) throws Exception {
-		vendorInfo.setStaffId(getLoginStaff().getStaffId());
+		vendorInfo.setStaffId(getLoginStaff().getStaffId().toString());
 		vendorInfo.setStaffName(setName ? getLoginStaff().getStaffName() : null);
 	}
 

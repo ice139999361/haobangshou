@@ -82,7 +82,7 @@ public class CustomerInfoManagerAction extends BaseAction {
 			}
 			CustomerInfoMgr mgr = (CustomerInfoMgr)BeanLocator.getInstance().getBean(custInfoMgrName);
 			getCustInfoValue(mgr);
-			int ret = mgr.auditAgreeCustomerInfo(custInfo, getLoginStaff().getStaffId(), getLoginStaff().getStaffName(), auditDesc);
+			int ret = mgr.auditAgreeCustomerInfo(custInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), auditDesc);
 			if(ret != 0)
 			{
 				String s;
@@ -134,7 +134,7 @@ public class CustomerInfoManagerAction extends BaseAction {
 			}
 			CustomerInfoMgr mgr = (CustomerInfoMgr)BeanLocator.getInstance().getBean(custInfoMgrName);
 			getCustInfoValue(mgr);
-			int ret = mgr.auditDisAgreeCustomerInfo(custInfo, getLoginStaff().getStaffId(), getLoginStaff().getStaffName(), auditDesc);
+			int ret = mgr.auditDisAgreeCustomerInfo(custInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), auditDesc);
 			if(ret != 0)
 			{
 				String s;

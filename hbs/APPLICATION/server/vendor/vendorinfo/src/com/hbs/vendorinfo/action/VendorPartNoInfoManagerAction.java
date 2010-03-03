@@ -93,7 +93,7 @@ public class VendorPartNoInfoManagerAction extends BaseAction {
 			}
 			
 			VendorPartNoInfoMgr mgr = (VendorPartNoInfoMgr)BeanLocator.getInstance().getBean(vendorPartNoInfoMgrName);
-			int i = mgr.auditAgreeCustPartNoInfo(vendorPartNoInfo, getLoginStaff().getStaffId(), getLoginStaff().getStaffName(), auditDesc);
+			int i = mgr.auditAgreeCustPartNoInfo(vendorPartNoInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), auditDesc);
 			if(i != 0)
 			{
 				logger.info("审批出错！");
@@ -133,7 +133,7 @@ public class VendorPartNoInfoManagerAction extends BaseAction {
 			}
 			
 			VendorPartNoInfoMgr mgr = (VendorPartNoInfoMgr)BeanLocator.getInstance().getBean(vendorPartNoInfoMgrName);
-			int i = mgr.auditDisAgreeCustPartNoInfo(vendorPartNoInfo, getLoginStaff().getStaffId(), getLoginStaff().getStaffName(), auditDesc);
+			int i = mgr.auditDisAgreeCustPartNoInfo(vendorPartNoInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), auditDesc);
 			if(i != 0)
 			{
 				logger.info("审批出错！");

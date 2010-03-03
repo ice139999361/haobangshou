@@ -12,9 +12,9 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.action.FieldErr;
-import com.hbs.common.action.base.Staff;
 import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.common.utils.StaffUtil;
+import com.hbs.domain.auth.pojo.Staff;
 import com.hbs.domain.customer.customerinfo.pojo.CustPartNoInfo;
 import com.hbs.domain.product.pojo.CompanyPartNo;
 import com.hbs.product.manager.CompanyPartNoMgr;
