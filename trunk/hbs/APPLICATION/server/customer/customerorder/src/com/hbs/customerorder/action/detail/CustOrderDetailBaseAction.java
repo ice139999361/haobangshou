@@ -7,6 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.action.base.BaseAction;
+import com.hbs.customerorder.manager.CustOrderDetailMgr;
 import com.hbs.domain.customer.order.pojo.CustOrderDetail;
 
 /**
@@ -15,6 +16,8 @@ import com.hbs.domain.customer.order.pojo.CustOrderDetail;
  */
 @SuppressWarnings("serial")
 public class CustOrderDetailBaseAction extends BaseAction {
+
+	public static final String custOrderDetailMgrName = "custOrderDetailMgr";
 
 	/**
 	 * logger.
@@ -54,6 +57,18 @@ public class CustOrderDetailBaseAction extends BaseAction {
 			logger.error("catch Exception in checkKeyFields", e);
 		}
 		return true;
+	}
+	
+	protected CustOrderDetailMgr mgr = (CustOrderDetailMgr)getBean(custOrderDetailMgrName);
+
+	protected String getMemo() {
+		String memo = null;
+		try {
+			memo = getHttpServletRequest().getParameter("memo");
+		}catch(Exception e) {
+			logger.error("catch Exception in getMemo", e);
+		}
+		return memo;
 	}
 	
 }

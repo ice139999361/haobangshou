@@ -183,8 +183,8 @@
 	 * @return
 	 */
 		 -->
-    	<action name="custOrderCw!list" method="doList" 
-    			class="com.hbs.customerorder.action.CustOrderCwNormalAction">
+    	<action name="custOrderCwMgr!list" method="doList" 
+    			class="com.hbs.customerorder.action.CustOrderCwManagerAction">
 		</action>
 		<!-- 
 	/**
@@ -194,8 +194,8 @@
 	 * @return
 	 */
 		 -->
-    	<action name="custOrderCw!getInfo" method="doGetInfo" 
-    			class="com.hbs.customerorder.action.CustOrderCwNormalAction">
+    	<action name="custOrderCwMgr!getInfo" method="doGetInfo" 
+    			class="com.hbs.customerorder.action.CustOrderCwManagerAction">
 		</action>
 		
 		
