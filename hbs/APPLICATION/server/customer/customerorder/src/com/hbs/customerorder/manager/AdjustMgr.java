@@ -6,18 +6,22 @@
  */
 package com.hbs.customerorder.manager;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import com.hbs.common.manager.systemconfig.SystemConfigMgr;
 import com.hbs.common.springhelper.BeanLocator;
+import com.hbs.common.utils.DateUtils;
 import com.hbs.customer.common.utils.CustLogUtils;
 import com.hbs.customerorder.constants.CustOrderConstants;
 import com.hbs.customerorder.utils.CustOrderUtils;
 import com.hbs.domain.adjust.dao.AdjustInfoDao;
 import com.hbs.domain.adjust.pojo.AdjustInfo;
+import com.hbs.domain.common.pojo.SystemConfig;
 import com.hbs.domain.waittask.pojo.WaitTaskInfo;
 import com.hbs.domain.warehouse.pojo.WareHouseInfo;
 import com.hbs.warehouse.manager.WarehouseMgr;
@@ -75,7 +79,8 @@ public class AdjustMgr {
 				Map<String , String> hmParam = new HashMap<String,String>();
 				hmParam.put("$staffName", adjustInfo.getStaffName());
 				hmParam.put("$partNo", adjustInfo.getPartNo());
-				waitTaskInfo.setHmParam(hmParam);		
+				waitTaskInfo.setHmParam(hmParam);	
+				waitTaskInfo.setBusinessKey(adjustInfo.getBizKey());
 				CustOrderUtils.processCreateWaitTask("ADJUSTMENT_001",null, waitTaskInfo);
 				//处理日志
 				CustLogUtils.operLog(adjustInfo.getStaffId(), adjustInfo.getStaffName(), "提交", "调货申请", adjustInfo.getLogBizKey(), null, adjustInfo.getApplyContent());
@@ -117,7 +122,9 @@ public class AdjustMgr {
 		waitTaskInfo.setStaffId(adjustInfo.getStaffId());
 		hmParam.put("$staffName", adjustInfo.getAuditStaffName());
 		hmParam.put("$partNo", adjustInfo.getPartNo());
-		waitTaskInfo.setHmParam(hmParam);		
+		waitTaskInfo.setHmParam(hmParam);
+		waitTaskInfo.setBusinessKey(adjustInfo.getBizKey());
+		waitTaskInfo.setExpireTime(getExpireTime());
 		CustOrderUtils.processCreateWaitTask("ADJUSTMENT_002",null, waitTaskInfo);
 		//日志
 		CustLogUtils.operLog(adjustInfo.getAuditStaffId(), adjustInfo.getAuditStaffName(), "审批同意", "调货申请", adjustInfo.getLogBizKey(), null, adjustInfo.getAuditContent());
@@ -151,7 +158,9 @@ public class AdjustMgr {
 		waitTaskInfo.setStaffId(adjustInfo.getStaffId());
 		hmParam.put("$staffName", adjustInfo.getAuditStaffName());
 		hmParam.put("$partNo", adjustInfo.getPartNo());
-		waitTaskInfo.setHmParam(hmParam);		
+		waitTaskInfo.setHmParam(hmParam);	
+		waitTaskInfo.setBusinessKey(adjustInfo.getBizKey());
+		waitTaskInfo.setExpireTime(getExpireTime());
 		CustOrderUtils.processCreateWaitTask("ADJUSTMENT_003",null, waitTaskInfo);
 		//日志
 		CustLogUtils.operLog(adjustInfo.getAuditStaffId(), adjustInfo.getAuditStaffName(), "审批不同意", "调货申请", adjustInfo.getLogBizKey(), null, adjustInfo.getAuditContent());
@@ -229,5 +238,18 @@ public class AdjustMgr {
 			wInfo.setCustCode(adjustInfo.getToCustCode());
 		}
 		return wInfo;
+	}
+	
+	/**
+	 * 获取提醒待办过期时间
+	 * @return
+	 */
+	private Date getExpireTime(){		
+		String strL = "5";
+		SystemConfig config = SystemConfigMgr.findSystemConfig("ADJUST_REMINDER_DAY");
+		if(null != config){
+			strL = config.getConfigValue();
+		}
+		return DateUtils.getNeedDate(new Date(), strL, true);
 	}
 }
