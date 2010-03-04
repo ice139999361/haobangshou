@@ -552,8 +552,13 @@ public class CustOrderDetail extends BaseDomain{
 	
     public String getWaitTaskBizKey(){
     	StringBuilder sb = new StringBuilder();
-    	sb.append(this.commCode).append("µÄ¶©µ¥ºÅ");
-    	sb.append(this.poNo);
+    	sb.append(this.commCode).append(";");
+    	sb.append(this.poNo).append(";");
+    	sb.append(this.cpartNo).append(";");
+    	if(this.specDesc != null){
+    		sb.append(this.specDesc).append(";");
+    	}
+    	sb.append(this.operSeqId);
     	
     	return sb.toString();
     }

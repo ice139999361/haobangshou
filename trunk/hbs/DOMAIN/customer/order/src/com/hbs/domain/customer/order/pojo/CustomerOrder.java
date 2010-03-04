@@ -408,7 +408,7 @@ public class CustomerOrder extends BaseDomain{
 
     public String getBizKey(){
     	StringBuilder sb = new StringBuilder();
-    	//sb.append(this.commCode).append(";");
+    	sb.append(this.commCode).append(";");
     	sb.append(this.poNo);
     	return sb.toString();
     }

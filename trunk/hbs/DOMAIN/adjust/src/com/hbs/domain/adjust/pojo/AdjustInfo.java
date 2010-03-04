@@ -292,6 +292,10 @@ public class AdjustInfo extends BaseDomain{
     public String getLogBizKey(){
     	return this.applySeqId.toString() +";adjustment";
     }
+    
+    public String getBizKey(){
+    	return this.applySeqId.toString() +";adjustment";
+    }
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
