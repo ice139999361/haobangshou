@@ -405,7 +405,8 @@ public class CustOrderDetailMgr {
 		if((CustOrderConstants.ORDER_STATE_31).equals(state)){
 			orderDetail.setState(CustOrderConstants.ORDER_STATE_70);
 			ret = updateCustDetailByState(orderDetail);
-			//此处差操作日志
+			
+			CustLogUtils.operLog(auditId, auditName, "确认", "客户订单明细款到发货", orderDetail.getLogBizKey(), null, auditContents);
 		}else{
 			logger.debug("此订单明细的状态不正确，无法确认预付x%，款到发货！");
 			throw new Exception("此订单明细的状态不正确，无法确认预付x%，款到发货！");
@@ -429,7 +430,8 @@ public class CustOrderDetailMgr {
 		if((CustOrderConstants.ORDER_STATE_31).equals(state)){
 			orderDetail.setState(CustOrderConstants.ORDER_STATE_33);
 			ret = updateCustDetailByState(orderDetail);
-			//此处差操作日志
+			
+			CustLogUtils.operLog(auditId, auditName, "申请", "客户订单明细款到发货而款未到", orderDetail.getLogBizKey(), null, auditContents);
 			//此处差待办
 		}else{
 			logger.debug("此订单明细的状态不正确，无法申请预付x%，款到发货，款未到发货！");
@@ -453,8 +455,8 @@ public class CustOrderDetailMgr {
 		String state = orderDetail.getState();
 		if((CustOrderConstants.ORDER_STATE_33).equals(state)){
 			orderDetail.setState(CustOrderConstants.ORDER_STATE_70);
-			ret = updateCustDetailByState(orderDetail);
-			//此处差操作日志
+			ret = updateCustDetailByState(orderDetail);			
+			CustLogUtils.operLog(auditId, auditName, "同意", "客户订单明细款到发货而款未到", orderDetail.getLogBizKey(), null, auditContents);
 			//此处差待办
 		}else{
 			logger.debug("此订单明细的状态不正确，无法执行领导审批同意预付x%，款到发货，款未到发货！");
@@ -479,7 +481,7 @@ public class CustOrderDetailMgr {
 		if((CustOrderConstants.ORDER_STATE_33).equals(state)){
 			orderDetail.setState(CustOrderConstants.ORDER_STATE_31);
 			ret = updateCustDetailByState(orderDetail);
-			//此处差操作日志
+			CustLogUtils.operLog(auditId, auditName, "不同意", "客户订单明细款到发货而款未到", orderDetail.getLogBizKey(), null, auditContents);
 			//此处差待办
 		}else{
 			logger.debug("此订单明细的状态不正确，无法执行领导审批不同意预付x%，款到发货，款未到发货！");
