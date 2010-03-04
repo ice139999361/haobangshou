@@ -3,6 +3,10 @@ package com.hbs.domain.customer.customerinfo.pojo;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.apache.log4j.Logger;
+
+import com.hbs.common.manager.configencode.ConfigEncodeMgr;
+import com.hbs.domain.common.pojo.ConfigEncode;
 import com.hbs.domain.common.pojo.base.BaseDomain;
 
 /**
@@ -234,6 +238,28 @@ public class CustPartNoInfo extends BaseDomain{
 
 	public void setIsPriceChange(String isPriceChange) {
 		this.isPriceChange = isPriceChange;
+	}
+
+	/**
+	 * 根据state返回其中文说明
+	 * @return
+	 */
+	public String getStateDesc() {
+		try {
+			
+			ConfigEncode ce = new ConfigEncode();
+			ce.setEncodeType("CUSTOMER_INFO_STATE");
+			ce.setEncodeKey(getState());
+			ce = ConfigEncodeMgr.getConfigEncode(ce);
+			if(ce == null)
+				return null;
+			else
+				return ce.getEncodeValue();
+		} catch (Exception e) {
+			Logger logger = Logger.getLogger(CustPartNoInfo.class);
+			logger.error("catch Exception in getStateDesc state=" + getState(), e);
+			return null;
+		}
 	}
 
 	/* (non-Javadoc)

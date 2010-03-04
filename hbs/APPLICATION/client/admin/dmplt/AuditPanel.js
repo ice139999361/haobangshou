@@ -5,8 +5,8 @@ ExtUx.widget.AuditPanel = function(config) {
 		var cph = new ColumnPanelHelper;
 			
 		var p1 = cph.createLayoutPanel(1);
-		p1.push({xtype: "dictcombo", fieldLabel: "审批结果"       , hiddenName: ""           , paramsValue: "IMPORTANT_CODE", emptyText: "请选择"});
-		p1.push({xtype: "textarea" , fieldLabel: "审批意见"       , name: "custInfo.commDesc", width: 600 ,height: 80});
+		p1.push({xtype: "dictcombo", fieldLabel: "审批结果"       , hiddenName: "audit"           , paramsValue: "AUDIT", emptyText: "请选择"});
+		p1.push({xtype: "textarea" , fieldLabel: "审批意见"       , name: "auditDesc", width: 600 ,height: 80});
 		
 	
 	

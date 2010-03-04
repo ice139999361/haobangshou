@@ -78,7 +78,7 @@ HBSConvertHelper.init(function() {
 			// 按钮的单击事件
 			updateBtn.on("click", function() {
 				// 要访问的 url 地址
-				var url = ["/customer/detailcustomer.jsp?editorType=update&baseSeqId=", this.config.get("baseSeqId"), "&state=", this.config.get("state")].join("");
+				var url = ["/customer/detailcustomer.jsp?pageType=audit&editorType=update&baseSeqId=", this.config.get("baseSeqId"), "&state=", this.config.get("state")].join("");
 				// 打开指定页面
 				HBSConvertHelper.openNewWin(url);
 			});

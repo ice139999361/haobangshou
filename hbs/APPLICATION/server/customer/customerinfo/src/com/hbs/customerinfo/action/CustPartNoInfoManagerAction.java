@@ -54,9 +54,11 @@ public class CustPartNoInfoManagerAction extends BaseAction {
 			if(custPartNoInfo == null)
 				custPartNoInfo = new CustPartNoInfo();
 
+			/*
 			// 缺省查询正式数据
 			if(StringUtils.isEmpty(custPartNoInfo.getState()))
 				custPartNoInfo.setState("0");
+			*/
 			
 			if(!checkCommonFields())
 				return ERROR;

@@ -115,6 +115,19 @@
 		</action>
 		<!-- 
 	/**
+	 * 审批
+	 * @action.input 
+	 *	custInfo.baseSeqId 或 (custInfo.commCode + custInfo.state)
+	 * @action.input audit	审批结果 0：审批不通过；1：审批通过
+	 * @action.input	auditDesc 审批意见
+	 * @return
+	 */
+		 -->
+    	<action name="customerInfoMgr!audit" method="doAudit" 
+    			class="com.hbs.customerinfo.action.CustomerInfoManagerAction">
+		</action>
+		<!-- 
+	/**
 	 * 审批同意
 	 * @action.input 
 	 *	custInfo.baseSeqId 或 (custInfo.commCode + custInfo.state)

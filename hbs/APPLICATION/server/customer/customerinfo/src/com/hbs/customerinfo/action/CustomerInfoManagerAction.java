@@ -62,6 +62,34 @@ public class CustomerInfoManagerAction extends BaseAction {
 	public void setAuditDesc(String a) { auditDesc = a; }
 	
 	/**
+	 * 审批
+	 * @action.input 
+	 *	custInfo.baseSeqId 或 (custInfo.commCode + custInfo.state)
+	 * @action.input audit	审批结果 0：审批不通过；1：审批通过
+	 * @action.input	auditDesc 审批意见
+	 * @return
+	 */
+	public String doAudit() {
+		try {
+			String audit = this.getHttpServletRequest().getParameter("audit");
+			if(audit == null) {
+				logger.info("参数错误！");
+				setErrorReason("参数错误！");
+				return ERROR;
+			}
+			if(audit.equals("0")) {
+				return doAuditDisAgree();
+			} else {
+				return doAuditAgree();
+			}
+		} catch(Exception e) {
+			logger.error("catch Exception in doAudit", e);
+			setErrorReason("内部错误");
+            return ERROR;
+		}
+	}
+	
+	/**
 	 * 审批同意
 	 * @action.input 
 	 *	custInfo.baseSeqId 或 (custInfo.commCode + custInfo.state)
