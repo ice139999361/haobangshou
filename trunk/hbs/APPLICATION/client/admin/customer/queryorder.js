@@ -7,7 +7,7 @@ var querygridUrl;
 			querygridUrl = "/custOrder/custOrder!list.action";
 			break;
 		case "scmanager":
-			querygridUrl = "/custOrder/custOrderMgr!list.action";
+			querygridUrl = "/custOrder/custOrderScMgr!list.action";
 			break; 
 	}
 }())

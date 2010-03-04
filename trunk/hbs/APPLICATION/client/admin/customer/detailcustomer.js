@@ -1,3 +1,5 @@
+var submitUrl = "";
+
 HBSConvertHelper.init(function() {
 	// -------------------------------------- 获取需要持久用到的对象
 	
@@ -7,12 +9,11 @@ HBSConvertHelper.init(function() {
 	var submitBtn   = Ext.getCmp("submitBtn");
 	
 	
-	
 	// -------------------------------------- 应用逻辑处理
 	
 	// 当单击提交按钮时，调用默认的关闭窗口方法
 	submitBtn.on("click", function() {
-		ExtConvertHelper.submitForm("form", "/success.action", null, function(form, action) {
+		ExtConvertHelper.submitForm("form", submitUrl, null, function(form, action) {
 			// 获取成功后的提示信息
 			var msg = ExtConvertHelper.getMessageInfo(action, "操作成功！");
 			
@@ -48,7 +49,8 @@ HBSConvertHelper.init(function() {
 	};
 	
 	var auditInitFun = function() {
-		
+		submitUrl = "/customerInfo/customerInfoMgr!audit.action";
+		window.alert(submitUrl);
 	};
 	
 	// 根据不同的操作类型，做出不同的处理
