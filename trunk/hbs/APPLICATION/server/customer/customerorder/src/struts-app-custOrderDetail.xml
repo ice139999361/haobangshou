@@ -68,8 +68,54 @@
 		</action>
 
 
+		<!-- 财务普通用户 ***************************************************-->
+		<!-- 
+	/**
+	 * 财务确认订单明细的预付x%，款到发货
+	 * @action.input orderDetail.*
+	 * @action.input memo 原因
+	 * @return
+	 */
+		 -->
+    	<action name="orderDetailCw!confirmDetailFee" method="doConfirmDetailFee" 
+    			class="com.hbs.customerorder.action.detail.CustOrderDetailCwNormalAction">
+		</action>
+		<!-- 
+	/**
+	 * 财务申请订单明细的预付x%，款到发货，款未到发货
+	 * @action.input orderDetail.*
+	 * @action.input memo 原因
+	 * @return
+	 */
+		 -->
+    	<action name="orderDetailCw!applyDetailFee" method="doApplyDetailFee" 
+    			class="com.hbs.customerorder.action.detail.CustOrderDetailCwNormalAction">
+		</action>
 
 
+		<!-- 财务经理用户 ***************************************************-->
+		<!-- 
+	/**
+	 * 领导审批同意订单明细的预付x%，款到发货，款未到发货
+	 * @action.input orderDetail.*
+	 * @action.input memo 原因
+	 * @return
+	 */
+		 -->
+    	<action name="orderDetailCwMgr!agreeDetailFee" method="doAgreeDetailFee" 
+    			class="com.hbs.customerorder.action.detail.CustOrderDetailCwMangagerAction">
+		</action>
+		<!-- 
+	/**
+	 * 领导审批不同意订单明细的预付x%，款到发货，款未到发货
+	 * @action.input orderDetail.*
+	 * @action.input memo 原因
+	 * @return
+	 */
+		 -->
+    	<action name="orderDetailCwMgr!disAgreeDetailFee" method="doDisAgreeDetailFee" 
+    			class="com.hbs.customerorder.action.detail.CustOrderDetailCwMangagerAction">
+		</action>
 
 	</package>
 </struts>	

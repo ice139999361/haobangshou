@@ -39,4 +39,15 @@ public class CustOrderCgNormalAction extends BaseAction {
 		this.custOrder = custOrder;
 	}
 
+	public String doListStockupByVendor() {
+		try {
+			// TODO:CustOrderCgNormalAction.doListByVendor
+			return SUCCESS;
+		} catch (Exception e) {
+			logger.error("catch Exception in doListStockupByVendor", e);
+			setErrorReason("ÄÚ²¿´íÎó");
+			return ERROR;
+		}
+	}
+	
 }
