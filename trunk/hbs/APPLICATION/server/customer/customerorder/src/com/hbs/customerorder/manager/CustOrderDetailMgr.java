@@ -432,7 +432,15 @@ public class CustOrderDetailMgr {
 			ret = updateCustDetailByState(orderDetail);
 			
 			CustLogUtils.operLog(auditId, auditName, "申请", "客户订单明细款到发货而款未到", orderDetail.getLogBizKey(), null, auditContents);
-			//此处差待办
+			
+			//waittask
+			WaitTaskInfo waitTaskInfo = new WaitTaskInfo();			
+			Map<String , String> hmParam = new HashMap<String,String>();
+			hmParam.put("$staffName", auditName);
+			hmParam.put("$custCode", orderDetail.getCommCode());			
+			waitTaskInfo.setHmParam(hmParam);
+			waitTaskInfo.setBusinessKey(orderDetail.getBizKey());
+			CustOrderUtils.processCreateWaitTask(null,CustOrderConstants.ORDER_STATE_33, waitTaskInfo);
 		}else{
 			logger.debug("此订单明细的状态不正确，无法申请预付x%，款到发货，款未到发货！");
 			throw new Exception("此订单明细的状态不正确，无法申请预付x%，款到发货，款未到发货！");
@@ -457,7 +465,15 @@ public class CustOrderDetailMgr {
 			orderDetail.setState(CustOrderConstants.ORDER_STATE_70);
 			ret = updateCustDetailByState(orderDetail);			
 			CustLogUtils.operLog(auditId, auditName, "同意", "客户订单明细款到发货而款未到", orderDetail.getLogBizKey(), null, auditContents);
-			//此处差待办
+			//waittask
+			WaitTaskInfo waitTaskInfo = new WaitTaskInfo();			
+			Map<String , String> hmParam = new HashMap<String,String>();
+			hmParam.put("$staffName", auditName);
+			hmParam.put("$custCode", orderDetail.getCommCode());			
+			waitTaskInfo.setHmParam(hmParam);
+			waitTaskInfo.setBusinessKey(orderDetail.getBizKey());
+			waitTaskInfo.setExpireTime(CustOrderUtils.getExpireTime());
+			CustOrderUtils.processCreateWaitTask(null,CustOrderConstants.ORDER_STATE_70, waitTaskInfo);
 		}else{
 			logger.debug("此订单明细的状态不正确，无法执行领导审批同意预付x%，款到发货，款未到发货！");
 			throw new Exception("此订单明细的状态不正确，无法执行领导审批同意预付x%，款到发货，款未到发货！");
@@ -465,7 +481,7 @@ public class CustOrderDetailMgr {
 		return ret;
 	}
 	/**
-	 * 领导审批同意订单明细的预付x%，款到发货，款未到发货
+	 * 领导审批不同意订单明细的预付x%，款到发货，款未到发货
 	 * 状态有待领导审批33 改变为31 待财务确认 
 	 * @param orderDetail
 	 * @param auditId
@@ -482,7 +498,15 @@ public class CustOrderDetailMgr {
 			orderDetail.setState(CustOrderConstants.ORDER_STATE_31);
 			ret = updateCustDetailByState(orderDetail);
 			CustLogUtils.operLog(auditId, auditName, "不同意", "客户订单明细款到发货而款未到", orderDetail.getLogBizKey(), null, auditContents);
-			//此处差待办
+			//waittask
+			WaitTaskInfo waitTaskInfo = new WaitTaskInfo();			
+			Map<String , String> hmParam = new HashMap<String,String>();
+			hmParam.put("$staffName", auditName);
+			hmParam.put("$custCode", orderDetail.getCommCode());			
+			waitTaskInfo.setHmParam(hmParam);
+			waitTaskInfo.setBusinessKey(orderDetail.getBizKey());
+			waitTaskInfo.setExpireTime(CustOrderUtils.getExpireTime());
+			CustOrderUtils.processCreateWaitTask(null,CustOrderConstants.ORDER_STATE_31, waitTaskInfo);
 		}else{
 			logger.debug("此订单明细的状态不正确，无法执行领导审批不同意预付x%，款到发货，款未到发货！");
 			throw new Exception("此订单明细的状态不正确，无法执行领导审批不同意预付x%，款到发货，款未到发货！");

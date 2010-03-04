@@ -145,7 +145,8 @@ public class CustOrderMgr {
 		Map<String , String> hmParam = new HashMap<String,String>();
 		hmParam.put("$staffName", cOrder.getStaffName());
 		hmParam.put("$businessKey", cOrder.getWaitTaskBizKey());
-		waitTaskInfo.setHmParam(hmParam);		
+		waitTaskInfo.setHmParam(hmParam);	
+		waitTaskInfo.setBusinessKey(cOrder.getBizKey());
 		CustOrderUtils.processCreateWaitTask(null,state, waitTaskInfo);
 		//log
 		CustLogUtils.operLog(cOrder.getStaffId(),cOrder.getStaffName(), "提交","客户订单", cOrder.getLogBizKey(),null,null);
@@ -200,7 +201,8 @@ public class CustOrderMgr {
 			Map<String , String> hmParam = new HashMap<String,String>();
 			hmParam.put("$staffName", auditName);
 			hmParam.put("$businessKey", cOrder.getWaitTaskBizKey());
-			waitTaskInfo.setHmParam(hmParam);		
+			waitTaskInfo.setHmParam(hmParam);
+			waitTaskInfo.setBusinessKey(cOrder.getBizKey());
 			CustOrderUtils.processCreateWaitTask("CUST_ORDER_003",null, waitTaskInfo);
 			//log
 			CustLogUtils.operLog(auditId,auditName, "审批通过","客户订单", cOrder.getLogBizKey(),null,auditContents);
@@ -236,7 +238,8 @@ public class CustOrderMgr {
 			Map<String , String> hmParam = new HashMap<String,String>();
 			hmParam.put("$staffName", auditName);
 			hmParam.put("$businessKey", cOrder.getWaitTaskBizKey());
-			waitTaskInfo.setHmParam(hmParam);		
+			waitTaskInfo.setHmParam(hmParam);
+			waitTaskInfo.setBusinessKey(cOrder.getBizKey());
 			CustOrderUtils.processCreateWaitTask("CUST_ORDER_007",null, waitTaskInfo);
 			//log
 			CustLogUtils.operLog(auditId,auditName, "确认预付款","客户订单", cOrder.getLogBizKey(),null,auditContents);
@@ -291,8 +294,9 @@ public class CustOrderMgr {
 			Map<String , String> hmParam = new HashMap<String,String>();
 			hmParam.put("$staffName", auditName);
 			hmParam.put("$businessKey", cOrder.getWaitTaskBizKey());
-			waitTaskInfo.setHmParam(hmParam);		
-			CustOrderUtils.processCreateWaitTask("CUST_ORDER_009",null, waitTaskInfo);
+			waitTaskInfo.setHmParam(hmParam);
+			waitTaskInfo.setBusinessKey(cOrder.getBizKey());
+			CustOrderUtils.processCreateWaitTask("CUST_ORDER_007",null, waitTaskInfo);
 			//log
 			CustLogUtils.operLog(auditId,auditName, "财务退单","客户订单", cOrder.getLogBizKey(),null,auditContents);
 			
@@ -327,7 +331,8 @@ public class CustOrderMgr {
 			Map<String , String> hmParam = new HashMap<String,String>();
 			hmParam.put("$staffName", auditName);
 			hmParam.put("$businessKey", cOrder.getWaitTaskBizKey());
-			waitTaskInfo.setHmParam(hmParam);		
+			waitTaskInfo.setHmParam(hmParam);
+			waitTaskInfo.setBusinessKey(cOrder.getBizKey());
 			CustOrderUtils.processCreateWaitTask("CUST_ORDER_004",null, waitTaskInfo);
 			
 			//log
