@@ -5,13 +5,16 @@ package com.hbs.vendorinfo.action;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.action.FieldErr;
+import com.hbs.common.action.JianQuanUtil;
 import com.hbs.common.action.base.BaseAction;
-import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.domain.vendor.vendorinfo.pojo.VendorInfo;
+import com.hbs.vendorinfo.manager.VendorContactMgr;
 import com.hbs.vendorinfo.manager.VendorInfoMgr;
+import com.hbs.domain.common.pojo.baseinfo.ContactInfo;
 
 /**
  * 普通角色供应商信息Action
@@ -32,6 +35,7 @@ public class VendorInfoNormalAction extends BaseAction {
 	private static final Logger logger = Logger
 			.getLogger(VendorInfoNormalAction.class);
 
+	public static final String roleName = "cgnormal";
 	VendorInfo vendorInfo;
 
 	/**
@@ -65,11 +69,11 @@ public class VendorInfoNormalAction extends BaseAction {
 			}
 			setPagination(vendorInfo);
 			setMyId(false);
-			VendorInfoMgr mgr = (VendorInfoMgr) BeanLocator.getInstance()
-					.getBean(vendorInfoMgrName);
+			VendorInfoMgr mgr = (VendorInfoMgr)getBean(vendorInfoMgrName);
 			setResult("list", mgr.getVendorInfoList(vendorInfo));
 			setTotalCount(mgr.getCustomerInfoCount(vendorInfo));
 			setResult("count", getTotalCount());
+			setResult("jq", JianQuanUtil.getJQ(JianQuanUtil.TypeCustState, roleName));
 			if (logger.isDebugEnabled())
 				logger.debug("end doList");
 			return SUCCESS;
@@ -81,7 +85,7 @@ public class VendorInfoNormalAction extends BaseAction {
 	}
 
 	/**
-	 * 临时保存用户信息
+	 * 临时保存供应商信息
 	 * @action.input vendorInfo.*
 	 * @action.result	seqId	insert的id。如果没有insert操作，则没有这一项。
 	 * @return
@@ -109,8 +113,7 @@ public class VendorInfoNormalAction extends BaseAction {
 			if (VendorInfoUtil.checkSetStaffId(vendorInfo))
 				setMyId(true);
 
-			VendorInfoMgr mgr = (VendorInfoMgr) BeanLocator.getInstance()
-					.getBean(vendorInfoMgrName);
+			VendorInfoMgr mgr = (VendorInfoMgr)getBean(vendorInfoMgrName);
 
 			VendorInfo info2 = mgr.getVendorInfo(vendorInfo, false);
 			int ret;
@@ -157,7 +160,7 @@ public class VendorInfoNormalAction extends BaseAction {
 				return ERROR;
 			}
 
-			if (vendorInfo.getState() == null || vendorInfo.getState() == "")
+			if (StringUtils.isEmpty(vendorInfo.getState()))
 				vendorInfo.setState("2");
 			if (VendorInfoUtil.checkSetStaffId(vendorInfo))
 				setMyId(true);
@@ -171,8 +174,7 @@ public class VendorInfoNormalAction extends BaseAction {
 				return ERROR;
 			}
 
-			VendorInfoMgr mgr = (VendorInfoMgr) BeanLocator.getInstance()
-					.getBean(vendorInfoMgrName);
+			VendorInfoMgr mgr = (VendorInfoMgr)getBean(vendorInfoMgrName);
 
 			VendorInfo info2 = mgr.getVendorInfo(vendorInfo, false);
 			int ret;
@@ -194,6 +196,8 @@ public class VendorInfoNormalAction extends BaseAction {
 					break;
 				default:
 					s = "保存出错！";
+					logger.info(s + " ret=" + ret);
+					break;
 				}
 				logger.info(s);
 				setErrorReason(s);
@@ -233,13 +237,21 @@ public class VendorInfoNormalAction extends BaseAction {
 				return ERROR;
 			}
 			setMyId(false);
-			VendorInfoMgr mgr = (VendorInfoMgr) BeanLocator.getInstance()
-					.getBean(vendorInfoMgrName);
+			VendorInfoMgr mgr = (VendorInfoMgr)getBean(vendorInfoMgrName);
 			vendorInfo = VendorInfoUtil.getVendorInfo(mgr, vendorInfo);
-			this.setResult("vendorInfo", vendorInfo);
-			if (logger.isDebugEnabled())
-				logger.debug("end doGetInfo");
-			return SUCCESS;
+			String id = getLoginStaff().getStaffId().toString();
+			if(
+					StringUtils.isNotEmpty(id) &&
+					id.equals(vendorInfo.getStaffId())
+				)
+			{
+				this.setResult("vendorInfo", vendorInfo);
+				if (logger.isDebugEnabled())
+					logger.debug("end doGetInfo");
+				return SUCCESS;
+			}
+			this.setErrorReason("权限错误");
+			return ERROR;
 		} catch (Exception e) {
 			logger.error("catch Exception in doGetInfo", e);
 			setErrorReason("内部错误");
@@ -274,8 +286,7 @@ public class VendorInfoNormalAction extends BaseAction {
 				return ERROR;
 			}
 			setMyId(false);
-			VendorInfoMgr mgr = (VendorInfoMgr) BeanLocator.getInstance()
-					.getBean(vendorInfoMgrName);
+			VendorInfoMgr mgr = (VendorInfoMgr)getBean(vendorInfoMgrName);
 			vendorInfo = mgr.getVendorInfo(vendorInfo, true);
 			if (vendorInfo == null) {
 				logger.info("参数错误！");
@@ -304,6 +315,104 @@ public class VendorInfoNormalAction extends BaseAction {
 		}
 	}
 
+	/**
+	 * 获取正式数据中的收货人信息
+	 * @action.input	custInfo.baseSeqId 或 (custInfo.commCode + custInfo.state)
+	 * @action.result list：列表 count：总数
+	 * @return
+	 */
+	public String doGetConsigneeList()
+	{
+		try
+		{
+			if (logger.isDebugEnabled())
+				logger.debug("begin doGetConsigneeList");
+			setResult("list", getPersonList("2"));
+			logger.debug("end doGetConsigneeList");
+			return SUCCESS;
+		}
+		catch(Exception e)
+		{
+			logger.error("catch Exception in doGetConsigneeList", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+	}
+	
+	/**
+	 * 获取正式数据中的联系人信息
+	 * @action.input	custInfo.baseSeqId 或 (custInfo.commCode + custInfo.state)
+	 * @action.result list：列表 count：总数
+	 * @return
+	 */
+	public String doGetContactList()
+	{
+		try
+		{
+			if (logger.isDebugEnabled())
+				logger.debug("begin doGetContactList");
+			setResult("list", getPersonList("1"));
+			logger.debug("end doGetContactList");
+			return SUCCESS;
+		}
+		catch(Exception e)
+		{
+			logger.error("catch Exception in doGetContactList", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+	}
+	
+	/**
+	 * 获取正式数据中的联系人信息，doGetConsigneeList、doGetContactList的具体操作函数
+	 * @param type 联系人类别。1：联系人；2：收货人
+	 * @return
+	 */
+	protected List<ContactInfo> getPersonList(String type) throws Exception
+	{
+		if (!VendorInfoUtil.checkKeyFields(vendorInfo)) {
+			logger.info("参数为空！");
+			setErrorReason("参数为空！");
+			return null;
+		}
+		VendorContactMgr mgr = (VendorContactMgr)getBean("vendorContactMgr");
+		ContactInfo contactInfo = new ContactInfo();
+		contactInfo.setState("0");
+		contactInfo.setConType(type);
+		Integer id = vendorInfo.getBaseSeqId();
+		if(id != null)
+			contactInfo.setBaseSeqId(id.toString());
+		else
+			contactInfo.setCommCode(vendorInfo.getCommCode());
+		
+		return mgr.listContactInfo(contactInfo);
+	}
+	
+	/**
+	 * 根据seqId获取联系人信息
+	 * @action.input seqId
+	 * @action.result contactInfo.*
+	 * @return
+	 */
+	public String doGetContactInfoById() {
+		try {
+			String s = this.getHttpServletRequest().getParameter("seqId");
+			logger.debug("begin doGetContactInfoById " + s);
+			if(StringUtils.isEmpty(s)) {
+				logger.info("参数为空！");
+				setErrorReason("参数为空！");
+				return ERROR;
+			}
+			VendorContactMgr mgr = (VendorContactMgr)getBean("vendorContactMgr");
+			setResult("contactInfo", mgr.getContactInfo(s));
+			return SUCCESS;
+		} catch (Exception e) {
+			logger.error("catch Exception in doGetContactInfoById", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+	}
+	
 	/**
 	 * 设置STAFF信息为当前用户信息
 	 * 

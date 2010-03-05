@@ -5,6 +5,7 @@ package com.hbs.vendorinfo.action;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.action.FieldErr;
@@ -50,6 +51,9 @@ public class VendorPartNoInfoManagerAction extends BaseAction {
     	try
     	{
 			if (logger.isDebugEnabled())    logger.debug("begin doList");
+
+			if(vendorPartNoInfo == null)
+				vendorPartNoInfo = new VendorPartNoInfo();
 
 			if(!checkCommonFields())
 				return ERROR;
@@ -164,8 +168,7 @@ public class VendorPartNoInfoManagerAction extends BaseAction {
 				return false;
 			}
 			
-			String commCode = vendorPartNoInfo.getCommCode();
-			if(commCode == null || commCode.length() == 0)
+			if(StringUtils.isEmpty(vendorPartNoInfo.getCommCode()))
 			{
 				logger.info("供应商编码没有填写！");
 				setErrorReason("供应商编码没有填写！");
@@ -177,6 +180,24 @@ public class VendorPartNoInfoManagerAction extends BaseAction {
 			logger.error("catch Exception in checkCommonFields", e);
 			setErrorReason("内部错误");
 			return false;
+		}
+	}
+
+	protected void fixCommCode()
+	{
+		try {
+			if(vendorPartNoInfo == null)
+				return;
+			if(StringUtils.isEmpty(vendorPartNoInfo.getCommCode()))
+			{
+				String s = this.getHttpServletRequest().getParameter("vendorInfo.commCode");
+				if(StringUtils.isNotEmpty(s))
+				{
+					vendorPartNoInfo.setCommCode(s);
+				}
+			}
+		} catch (Exception e) {
+			logger.error("catch Exception in fixCommCode", e);
 		}
 	}
 }

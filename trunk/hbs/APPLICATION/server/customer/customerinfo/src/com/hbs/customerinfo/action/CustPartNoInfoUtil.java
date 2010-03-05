@@ -127,7 +127,7 @@ public class CustPartNoInfoUtil {
 			}
 		}
 		s = custPartNoInfo.getPnDesc();
-		if(s == null || s.length() == 0)
+		if(StringUtils.isEmpty(s))
 		{
 			list.add(new FieldErr("PnDesc","PnDesc√ª”–ÃÓ–¥"));
 		}

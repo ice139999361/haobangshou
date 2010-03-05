@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 
 import com.hbs.common.action.JianQuanUtil;
 import com.hbs.common.action.base.BaseAction;
-import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.customerinfo.manager.CustomerInfoMgr;
 import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
 
@@ -108,7 +107,7 @@ public class CustomerInfoManagerAction extends BaseAction {
 				setErrorReason("参数错误！");
 				return ERROR;
 			}
-			CustomerInfoMgr mgr = (CustomerInfoMgr)BeanLocator.getInstance().getBean(custInfoMgrName);
+			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(custInfoMgrName);
 			getCustInfoValue(mgr);
 			int ret = mgr.auditAgreeCustomerInfo(custInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), auditDesc);
 			if(ret != 0)
@@ -160,7 +159,7 @@ public class CustomerInfoManagerAction extends BaseAction {
 				setErrorReason("参数错误！");
 				return ERROR;
 			}
-			CustomerInfoMgr mgr = (CustomerInfoMgr)BeanLocator.getInstance().getBean(custInfoMgrName);
+			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(custInfoMgrName);
 			getCustInfoValue(mgr);
 			int ret = mgr.auditDisAgreeCustomerInfo(custInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), auditDesc);
 			if(ret != 0)
@@ -207,7 +206,7 @@ public class CustomerInfoManagerAction extends BaseAction {
 			if (custInfo == null) {
 				custInfo = new CustomerInfo();
 			}
-			CustomerInfoMgr mgr = (CustomerInfoMgr)BeanLocator.getInstance().getBean(custInfoMgrName);
+			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(custInfoMgrName);
 			setPagination(custInfo);
 			setResult("jq", JianQuanUtil.getJQ(JianQuanUtil.TypeCustState, roleName));
 			setResult("list", mgr.getCustomerInfoList(custInfo));
@@ -235,7 +234,7 @@ public class CustomerInfoManagerAction extends BaseAction {
 		try
 		{
 			if (logger.isDebugEnabled())    logger.debug("begin doListForAudit");
-			CustomerInfoMgr mgr = (CustomerInfoMgr)BeanLocator.getInstance().getBean(custInfoMgrName);
+			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(custInfoMgrName);
 			custInfo = new CustomerInfo();
 			custInfo.setState(stateForAudit);
 			setPagination(custInfo);
@@ -272,7 +271,7 @@ public class CustomerInfoManagerAction extends BaseAction {
 				setErrorReason("参数错误！");
 				return ERROR;
 			}
-			CustomerInfoMgr mgr = (CustomerInfoMgr)BeanLocator.getInstance().getBean(custInfoMgrName);
+			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(custInfoMgrName);
 			getCustInfoValue(mgr);
 			this.setResult("custInfo", custInfo);
 			if (logger.isDebugEnabled())    logger.debug("end doGetInfo");

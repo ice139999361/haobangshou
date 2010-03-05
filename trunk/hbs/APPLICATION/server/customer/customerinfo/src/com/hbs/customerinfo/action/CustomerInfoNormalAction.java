@@ -11,7 +11,6 @@ import org.apache.log4j.Logger;
 import com.hbs.common.action.FieldErr;
 import com.hbs.common.action.JianQuanUtil;
 import com.hbs.common.action.base.BaseAction;
-import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.customerinfo.manager.CustContactMgr;
 import com.hbs.customerinfo.manager.CustomerInfoMgr;
 import com.hbs.domain.common.pojo.baseinfo.ContactInfo;
@@ -242,8 +241,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 				return ERROR;
 			}
 			setMyId(false);
-			CustomerInfoMgr mgr = (CustomerInfoMgr) BeanLocator.getInstance()
-					.getBean(custInfoMgrName);
+			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(custInfoMgrName);
 			custInfo = CustomerInfoUtil.getCustomerInfo(mgr, custInfo);
 			String id = getLoginStaff().getStaffId().toString();
 			if(
@@ -292,8 +290,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 				return ERROR;
 			}
 			setMyId(false);
-			CustomerInfoMgr mgr = (CustomerInfoMgr) BeanLocator.getInstance()
-					.getBean(custInfoMgrName);
+			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(custInfoMgrName);
 			custInfo = mgr.getCustomerInfo(custInfo, true);
 			if (custInfo == null) {
 				logger.info("²ÎÊý´íÎó£¡");

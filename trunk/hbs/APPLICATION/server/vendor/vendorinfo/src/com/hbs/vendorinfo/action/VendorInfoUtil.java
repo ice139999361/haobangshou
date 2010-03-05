@@ -10,10 +10,10 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.action.FieldErr;
+import com.hbs.domain.auth.pojo.Staff;
 import com.hbs.common.manager.configencode.ConfigEncodeMgr;
 import com.hbs.common.utils.ListDataUtil;
 import com.hbs.common.utils.StaffUtil;
-import com.hbs.domain.auth.pojo.Staff;
 import com.hbs.domain.common.pojo.ConfigEncode;
 import com.hbs.domain.common.pojo.baseinfo.AccountPreiod;
 import com.hbs.domain.common.pojo.baseinfo.BankInfo;
@@ -45,10 +45,11 @@ public class VendorInfoUtil {
 		{
 			if(vendorInfo == null)
 				return false;
-			if(vendorInfo.getBaseSeqId() != 0)
+			Integer i = vendorInfo.getBaseSeqId();
+			if(i != null && !i.equals(0))
 				return true;
 			String s = vendorInfo.getCommCode();
-			if(s == null || s.length() == 0)
+			if(StringUtils.isEmpty(s))
 				return false;
 			s = vendorInfo.getState();
 			try
@@ -85,27 +86,27 @@ public class VendorInfoUtil {
 		String s;
 		// DONE:完成checkInputFields，对输入的客户信息进行校验
 		s = vendorInfo.getVendorCode();
-		if(s == null || s.length() == 0)
+		if(StringUtils.isEmpty(s))
 		{
 			list.add(new FieldErr("venderCode","venderCode没有填写"));
 		}
 		s = vendorInfo.getCommCode();
-		if(s == null || s.length() == 0)
+		if(StringUtils.isEmpty(s))
 		{
 			list.add(new FieldErr("CommCode","CommCode没有填写"));
 		}
 		s = vendorInfo.getShortName();
-		if(s == null || s.length() == 0)
+		if(StringUtils.isEmpty(s))
 		{
 			list.add(new FieldErr("ShortName","ShortName没有填写"));
 		}
 		s = vendorInfo.getAllName();
-		if(s == null || s.length() == 0)
+		if(StringUtils.isEmpty(s))
 		{
 			list.add(new FieldErr("AllName","AllName没有填写"));
 		}
 		s = vendorInfo.getIsShowPrice();
-		if(s == null || s.length() == 0)
+		if(StringUtils.isEmpty(s))
 		{
 			list.add(new FieldErr("IsShowPrice","IsShowPrice没有填写"));
 		}
@@ -122,11 +123,12 @@ public class VendorInfoUtil {
 			accountPreiod.setBaseSeqId(baseSeqId);
 		}
 		PrePaidInfo prePaidInfo = vendorInfo.getPrePaidInfo();
-		if(prePaidInfo != null)
+		if(prePaidInfo != null) {
 			prePaidInfo.setCommCode(vendorInfo.getCommCode());
 			prePaidInfo.setState(vendorInfo.getState());
 			prePaidInfo.setBaseSeqId(baseSeqId);
 		
+		}
 		return list;
 	}
 		
@@ -165,12 +167,12 @@ public class VendorInfoUtil {
 	 * 联系人列表字符串对应字段名
 	 */
 	
-	private static final String splitter = "\\|\\|;;";
+	public static final String splitter = "\\|\\|;;";
 	
+	public static final String fieldNameSplitter = ",";
 	private static final String contactListFields1 = "contactlistFields";
 	private static final String contactListFields2 = "consigneelistFields";
 	private static final String bankListFields = "custbanklistFields";
-	private static final String fieldNameSplitter = ",";
 	
 	/**
 	 * 处理上传的List数据。将String数组转换为List
@@ -179,8 +181,6 @@ public class VendorInfoUtil {
 	public static void processListData(VendorInfo vendorInfo, HttpServletRequest request) throws Exception
 	{
 		// Done: 处理上传的List数据
-		if(false)
-			return;
 		try
 		{
 			Integer id = vendorInfo.getBaseSeqId();
@@ -283,7 +283,7 @@ public class VendorInfoUtil {
 			String s;
 			ConfigEncode ce;
 			s = vendorInfo.getImportantCode();
-			if(s != null && s.length() != 0)
+			if(StringUtils.isNotEmpty(s))
 			{
 				ce = getEncode("IMPORTANT_CODE", s);
 				if(ce == null)
@@ -296,7 +296,10 @@ public class VendorInfoUtil {
 			}
 				
 			s = vendorInfo.getCreditRate();
-			if(s != null && s.length() != 0)
+			// 没有填写CreditRate，缺省为一般（3）
+			if(StringUtils.isEmpty(s))
+				s = "3";
+			//if(StringUtils.isNotEmpty(s))
 			{
 				ce = getEncode("CREDIT_RATE", s);
 				if(s == null)
@@ -309,7 +312,7 @@ public class VendorInfoUtil {
 			}
 				
 			s = vendorInfo.getSettlementType();
-			if(s != null && s.length() != 0)
+			if(StringUtils.isNotEmpty(s))
 			{
 				ce = getEncode("SETTLEMENT_TYPE", s);
 				if(s == null)
@@ -321,7 +324,7 @@ public class VendorInfoUtil {
 			}
 			
 			s = vendorInfo.getCurrency();
-			if(s != null && s.length() != 0)
+			if(StringUtils.isNotEmpty(s))
 			{
 				ce = getEncode("CURRENCY", s);
 				if(s == null)
@@ -334,7 +337,7 @@ public class VendorInfoUtil {
 			}
 			
 			s = vendorInfo.getIsShowPrice();
-			if(s != null && s.length() != 0)
+			if(StringUtils.isNotEmpty(s))
 			{
 				ce = getEncode("IS_SHOW_PRICE", s);
 				if(s == null)
