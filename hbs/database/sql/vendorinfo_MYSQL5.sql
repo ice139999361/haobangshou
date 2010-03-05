@@ -33,7 +33,7 @@ CREATE TABLE `t_vendor_info` (
   `COMPANY_BRANCH` varchar(64) DEFAULT NULL COMMENT '对应的分公司或分支机构，从字典表选取或手工输入',
   `CREDIT_RATE` varchar(8) DEFAULT NULL COMMENT '信用度，参见字典表定义  ',
   `CREDIT_DESC` varchar(32) DEFAULT NULL COMMENT '信用等级描述',
-  `IMPORTORT_CODE` varchar(8) DEFAULT NULL COMMENT '重要程度，参见字典表定义',
+  `IMPORTANT_CODE` varchar(8) DEFAULT NULL COMMENT '重要程度，参见字典表定义',
   `IMPORTANT_DESC` varchar(20) DEFAULT NULL COMMENT '重要程度描述',
   `SETTLEMENT_TYPE` varchar(8) DEFAULT NULL COMMENT '结算类型，参见字典表定义  1---账期介绍  2---预付X%,剩余货到付款  3---预付X%剩余款到发货',
   `SETTLEMENT_DESC` varchar(32) DEFAULT NULL COMMENT '结算方式描述',
