@@ -65,6 +65,10 @@
 		          sqlMapConfig-domain-waittask.xml,
 		          sqlMapConfig-domain-customerinfo.xml,
 		          sqlMapConfig-domain-customerorder.xml,
+		          sqlMapConfig-domain-auth.xml,
+				  sqlMapConfig-domain-vendorinfo.xml,		
+                  sqlMapConfig-domain-vendororder.xml,
+                  sqlMapConfig-domain-adjust.xml,	
 		          sqlMapConfig-domain-product.xml" />                   
 		<property name="dataSource" ref="dataSource" />
 		
@@ -88,16 +92,16 @@
     
 	<!-- DM_PLT -->
 	<import resource="classpath:applicationContext-domain-system.xml" /> 
-<!--	<import resource="classpath:applicationContext-domain-product.xml" /> -->
 	<import resource="classpath:applicationContext-domain-customerinfo.xml" /> 
 	<import resource="classpath:application-domain-customerorder.xml" />
-<!--	<import resource="classpath:applicationContext-domain-adjust.xml" /> -->
-<!--	<import resource="classpath:applicationContext-domain-invoice.xml" /> -->
-<!--	<import resource="classpath:applicationContext-domain-vendorinfo.xml" /> -->
-<!--	<import resource="classpath:applicationContext-domain-vendororder.xml" /> -->
-<!--	<import resource="classpath:applicationContext-domain-warehouse.xml" /> -->
+	<import resource="classpath:applicationContext-domain-adjust.xml" /> 
+	<import resource="classpath:application-domain-invoice.xml" /> 
+	<import resource="classpath:application-domain-vendorinfo.xml" /> 
+	<import resource="classpath:application-domain-vendororder.xml" /> 
+	<import resource="classpath:applicationContext-domain-warehouse.xml" />
 	<import resource="classpath:applicationContext-domain-waittask.xml" /> 
 	<import resource="classpath:application-domain-product.xml" />
+	<import resource="classpath:applicationContext-domain-auth.xml" />
 	
 	<!-- app -->
     <import resource="classpath:applicationContext-app-common.xml" />
@@ -105,4 +109,5 @@
 	<import resource="classpath:applicationContext-app-customerorder.xml" />
 	<import resource="classpath:applicationContext-app-vendorinfo.xml" />
 	<import resource="classpath:applicationContext-app-product.xml" />
+	<import resource="classpath:applicationContext-app-auth.xml" />
 </beans>

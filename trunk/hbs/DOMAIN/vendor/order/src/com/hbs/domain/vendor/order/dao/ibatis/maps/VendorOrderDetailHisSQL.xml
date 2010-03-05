@@ -2,7 +2,7 @@
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
 <!-- Always ensure to use the correct XML header as above! -->
-<sqlMap namespace="VendorOrderDetail">
+<sqlMap namespace="VendorOrderDetailHis">
 <typeAlias alias="vendorOrderDetail" type="com.hbs.domain.vendor.order.pojo.VendorOrderDetail"/> 
 <resultMap id="vendorOrderDetail_result" class="vendorOrderDetail">
     <result property="operSeqId" column="ORDER_SEQID"/>
@@ -30,7 +30,7 @@
     <result property="rltRecPoNo" column="RLT_REC_PO_NO"/>
 </resultMap>
 
-<select id="VendorOrderDetail_getNextId" resultClass="java.lang.String">
+<select id="VendorOrderDetailHis_getNextId" resultClass="java.lang.String">
 <![CDATA[
     SELECT ltrim(to_char(Seq_T_VENDOR_ORDER_DETAIL_HIS_Id.Nextval,'0000000000')) 
            AS Id 
@@ -38,7 +38,7 @@
 ]]>
 </select>
 
-<insert id="VendorOrderDetail_insertVendorOrderDetail" parameterClass="vendorOrderDetail" >
+<insert id="VendorOrderDetailHis_insertVendorOrderDetail" parameterClass="vendorOrderDetail" >
 <![CDATA[
     INSERT INTO T_VENDOR_ORDER_DETAIL_HIS (
             ORDER_SEQID, 
@@ -93,13 +93,13 @@
 ]]>
 </insert>
 
-<delete id="VendorOrderDetail_deleteVendorOrderDetail" parameterClass="string">
+<delete id="VendorOrderDetailHis_deleteVendorOrderDetail" parameterClass="string">
 <![CDATA[
     DELETE  FROM  T_VENDOR_ORDER_DETAIL_HIS WHERE ORDER_SEQID = #operSeqId#
 ]]>
 </delete>    
 
-<update id="VendorOrderDetail_updateVendorOrderDetail" parameterClass="vendorOrderDetail">
+<update id="VendorOrderDetailHis_updateVendorOrderDetail" parameterClass="vendorOrderDetail">
     UPDATE T_VENDOR_ORDER_DETAIL_HIS 
     SET
     	ORDER_SEQID = #operSeqId#
@@ -172,7 +172,7 @@
     WHERE ORDER_SEQID = #operSeqId#
 </update> 
 
-<select id="VendorOrderDetail_findVendorOrderDetail" resultMap="vendorOrderDetail_result" parameterClass="string">
+<select id="VendorOrderDetailHis_findVendorOrderDetail" resultMap="vendorOrderDetail_result" parameterClass="string">
 <![CDATA[
     SELECT
             ORDER_SEQID, 
@@ -202,7 +202,7 @@
 ]]>
 </select>
 
-<select id="VendorOrderDetail_listVendorOrderDetail" resultMap="vendorOrderDetail_result" parameterClass="vendorOrderDetail">
+<select id="VendorOrderDetailHis_listVendorOrderDetail" resultMap="vendorOrderDetail_result" parameterClass="vendorOrderDetail">
 <![CDATA[
     SELECT
             ORDER_SEQID, 
@@ -304,7 +304,7 @@
 </select>
 
 
-<select id="VendorOrderDetail_listVendorOrderDetailCount" resultClass="java.lang.Integer" parameterClass="vendorOrderDetail">
+<select id="VendorOrderDetailHis_listVendorOrderDetailCount" resultClass="java.lang.Integer" parameterClass="vendorOrderDetail">
 <![CDATA[
     SELECT
 		COUNT(*)

@@ -18,7 +18,7 @@
 			    	<!-- service ext ui.  begin. -->
 			    		<queryform gridId="querygrid" exportId="exportBtn" itemsFun="queryformFun" />
 				    		
-				    	<complexgrid id="querygrid" title="供应商信息列表" frame="true" page="true" root="data.list" url="/customerInfo/customerInfo!list.action" itemsFun="complexgridFun" />
+				    	<complexgrid id="querygrid" title="供应商信息列表" frame="true" page="true" root="data.list" itemsFun="complexgridFun" />
 			    	<!-- service ext ui.  end. -->
 			    	</items>
 			    </panel>

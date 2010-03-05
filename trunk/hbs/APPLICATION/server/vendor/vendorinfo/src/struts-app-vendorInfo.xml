@@ -33,6 +33,52 @@
      	<action name="vendorInfo!save" method="doSave" 
     			class="com.hbs.vendorinfo.action.VendorInfoNormalAction">
 		</action>
+		<!-- 
+	/**
+	 * 删除审批不通过的数据
+	 * 
+	 * @action.input vendorInfo.baseSeqId 或 (vendorInfo.commCode + vendorInfo.state)
+	 * @return
+	 */
+		 -->
+     	<action name="vendorInfo!del" method="doDelete" 
+    			class="com.hbs.vendorinfo.action.VendorInfoNormalAction">
+		</action>
+		<!-- 
+	/**
+	 * 获取正式数据中的联系人信息
+	 * @action.input	vendorInfo.baseSeqId 或 (vendorInfo.commCode + vendorInfo.state)
+	 * @action.result list：列表 count：总数
+	 * @return
+	 */
+		 -->
+		 <action name="vendorInfo!getContactList" method="doGetContactList" 
+    			class="com.hbs.vendorinfo.action.VendorInfoNormalAction">
+		</action>
+		<!-- 
+	/**
+	 * 获取正式数据中的收货人信息
+	 * @action.input	vendorInfo.baseSeqId 或 (vendorInfo.commCode + vendorInfo.state)
+	 * @action.result list：列表 count：总数
+	 * @return
+	 */
+		 -->
+		 <action name="vendorInfo!getConsigneeList" method="doGetConsigneeList" 
+    			class="com.hbs.vendorinfo.action.VendorInfoNormalAction">
+		</action>
+		 <!-- 
+	/**
+	 * 根据seqId获取联系人信息
+	 * @action.input seqId
+	 * @action.result contactInfo.*
+	 * @return
+	 */
+		  -->
+		  <action name="vendorInfo!getContactInfoById" method="doGetContactInfoById" 
+    			class="com.hbs.vendorinfo.action.VendorInfoNormalAction">
+		</action>
+		
+<!-- *************************************************************** -->
 
 		<!-- 经理用户客户信息 -->
      	<action name="vendorInfoMgr!list" method="doList" 
@@ -41,22 +87,72 @@
     	<action name="vendorInfoMgr!getInfo" method="doGetInfo" 
     			class="com.hbs.vendorinfo.action.VendorInfoManagerAction">
 		</action>
+		<!-- 
+	/**
+	 * 查询待审批数据
+	 * @action.input 无
+	 * @action.result list：列表 count：总数
+	 * @return
+	 */
+		 -->
+    	<action name="vendorInfoMgr!listForAudit" method="doListForAudit" 
+    			class="com.hbs.vendorinfo.action.VendorInfoManagerAction">
+		</action>
+		<!-- 
+	/**
+	 * 审批
+	 * @action.input 
+	 *	vendorInfo.baseSeqId 或 (vendorInfo.commCode + vendorInfo.state)
+	 * @action.input audit	审批结果 0：审批不通过；1：审批通过
+	 * @action.input	auditDesc 审批意见
+	 * @return
+	 */
+		 -->
+    	<action name="vendorInfoMgr!audit" method="doAudit" 
+    			class="com.hbs.vendorinfo.action.VendorInfoManagerAction">
+		</action>
+		<!-- 
+	/**
+	 * 审批同意
+	 * @action.input 
+	 *	vendorInfo.baseSeqId 或 (vendorInfo.commCode + vendorInfo.state)
+	 * @action.input	auditDesc 审批意见
+	 * @return
+	 */
+		 -->
      	<action name="vendorInfoMgr!auditAgree" method="doAuditAgree" 
     			class="com.hbs.vendorinfo.action.VendorInfoManagerAction">
 		</action>
+		<!-- 
+	/**
+	 * 审批不同意
+	 * @action.input 
+	 *	vendorInfo.baseSeqId 或 (vendorInfo.commCode + vendorInfo.state)
+	 * @action.input	auditDesc 审批意见
+	 * @return
+	 */
+		 -->
      	<action name="vendorInfoMgr!auditDisAgree" method="doAuditDisAgree" 
     			class="com.hbs.vendorinfo.action.VendorInfoManagerAction">
 		</action>
-		
-		
+
+<!-- *************************************************************** -->
+<!-- *************************************************************** -->		
+<!-- *************************************************************** -->		
+<!-- *************************************************************** -->		
+<!-- *************************************************************** -->		
+
 		<!-- 普通用户客户物料信息 -->
+ 		<!-- list已经返回了物料关系的所有信息，所以不另外做doGet了 -->
      	<action name="vendorPartNoInfo!list" method="doList" 
     			class="com.hbs.vendorinfo.action.VendorPartNoInfoNormalAction">
 		</action>
       	<action name="vendorPartNoInfo!save" method="doSave" 
     			class="com.hbs.vendorinfo.action.VendorPartNoInfoNormalAction">
 		</action>
-		
+
+<!-- *************************************************************** -->
+
 		<!-- 经理用户客户物料信息 -->
      	<action name="vendorPartNoInfoMgr!list" method="doList" 
     			class="com.hbs.vendorinfo.action.VendorPartNoInfoManagerAction">

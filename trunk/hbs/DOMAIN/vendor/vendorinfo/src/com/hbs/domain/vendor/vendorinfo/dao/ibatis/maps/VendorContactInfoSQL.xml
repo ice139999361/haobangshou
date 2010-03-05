@@ -5,7 +5,7 @@
 <sqlMap namespace="Vendor_ContactInfo">
 <typeAlias alias="contactInfo" type="com.hbs.domain.common.pojo.baseinfo.ContactInfo"/> 
 <resultMap id="contactInfo_result" class="contactInfo">
-    <result property="SEQID" column="SEQID"/>
+    <result property="seqId" column="SEQID"/>
     <result property="baseSeqId" column="BASE_SEQID"/>
     <result property="commCode" column="C_CODE"/>
     <result property="state" column="STATE"/>

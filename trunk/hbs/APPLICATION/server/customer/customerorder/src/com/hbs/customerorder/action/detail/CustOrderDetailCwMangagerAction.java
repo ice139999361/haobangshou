@@ -16,6 +16,7 @@ public class CustOrderDetailCwMangagerAction extends CustOrderDetailBaseAction {
 	 */
 	protected static Logger logger = Logger.getLogger(CustOrderDetailCgNormalAction.class);
 
+	// DONE：33---款到发货而款未到，申请待经理审批
 	/**
 	 * 领导审批同意订单明细的预付x%，款到发货，款未到发货
 	 * @action.input orderDetail.*
