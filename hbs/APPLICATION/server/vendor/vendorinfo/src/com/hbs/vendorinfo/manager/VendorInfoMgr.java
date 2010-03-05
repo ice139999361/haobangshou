@@ -17,6 +17,7 @@ import com.hbs.common.manager.baseinfo.PrePaidMgr;
 
 
 import com.hbs.common.springhelper.BeanLocator;
+import com.hbs.common.utils.ExpireTimeUtil;
 
 
 
@@ -177,6 +178,7 @@ public class VendorInfoMgr {
 				waitTaskInfo.setHmParam(hmParam);
 				waitTaskInfo.setStaffId(vInfo.getStaffId());
 				waitTaskInfo.setBusinessKey(vInfo.getWaitTaskKey());
+				waitTaskInfo.setExpireTime(ExpireTimeUtil.getExpireTime("VENDORINFO_REMINDER_DAY"));
 				VendorWaitTaskUtils.processCreateWaitTask("VENDOR002", null, waitTaskInfo);				
 			}
 		}else{

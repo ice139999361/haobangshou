@@ -14,11 +14,12 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 
-import com.hbs.common.manager.systemconfig.SystemConfigMgr;
+
 import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.common.utils.DateUtils;
+import com.hbs.common.utils.ExpireTimeUtil;
 import com.hbs.customerinfo.manager.CustPrePaidMgr;
-import com.hbs.domain.common.pojo.SystemConfig;
+
 import com.hbs.domain.common.pojo.baseinfo.PrePaidInfo;
 import com.hbs.domain.customer.customerinfo.dao.CustomerInfoDao;
 import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
@@ -125,23 +126,12 @@ public class CustPrepaidReminderTask {
 		hmParam.put("$sendPoNo", detail.getSendPoNo());
 		waitTaskInfo.setHmParam(hmParam);
 		waitTaskInfo.setStaffId(getCustInfoOfSalesID(detail));
-		waitTaskInfo.setExpireTime(getExpireTime());
+		waitTaskInfo.setExpireTime(ExpireTimeUtil.getExpireTime("PREPAID_REMINDER_DAY"));
 		waitTaskInfo.setBusinessKey(detail.getCustCode()+ "--" + detail.getCustPartNo() +"催款提醒-"+ cfgId);
 		WareHouseWaitTaskMgr.processCreateWaitTask(cfgId, waitTaskInfo);
 		
 	}
-	/**
-	 * 获取催款提醒待办过期时间
-	 * @return
-	 */
-	private Date getExpireTime(){		
-		String strL = "5";
-		SystemConfig config = SystemConfigMgr.findSystemConfig("PREPAID_REMINDER_DAY");
-		if(null != config){
-			strL = config.getConfigValue();
-		}
-		return DateUtils.getNeedDate(new Date(), strL, true);
-	}
+	
 	/**
 	 * 获取客户信息中的销售人员，催款提醒待办使用
 	 * @param detail
