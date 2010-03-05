@@ -17,11 +17,15 @@ import com.hbs.common.manager.baseinfo.AccountPreiodMgr;
 import com.hbs.common.manager.baseinfo.BankInfoMgr;
 import com.hbs.common.manager.baseinfo.ContactMgr;
 import com.hbs.common.manager.baseinfo.PrePaidMgr;
+
 import com.hbs.common.manager.waittask.WaitTaskMgr;
 import com.hbs.common.springhelper.BeanLocator;
+
+import com.hbs.common.utils.ExpireTimeUtil;
 import com.hbs.customer.common.constants.StateConstants;
 import com.hbs.customerinfo.constants.CustInfoConstants;
 import com.hbs.domain.common.dao.baseinfo.OperLogDao;
+
 import com.hbs.domain.common.pojo.baseinfo.AccountPreiod;
 import com.hbs.domain.common.pojo.baseinfo.BankInfo;
 import com.hbs.domain.common.pojo.baseinfo.ContactInfo;
@@ -120,6 +124,7 @@ public class CustomerInfoMgr {
 				hmParam.put("$staffName", custInfo.getStaffName());
 				hmParam.put("$businessKey", custInfo.getCommCode());
 				waitTaskInfo.setHmParam(hmParam);
+				waitTaskInfo.setExpireTime(ExpireTimeUtil.getExpireTime("CUSTOMERINFO_REMINDER_DAY"));
 				waitTaskInfo.setStaffId(custInfo.getStaffId());
 				waitTaskInfo.setBusinessKey(custInfo.getCommCode());
 				WaitTaskMgr.deleteWaitTask(custInfo.getCommCode());
@@ -653,4 +658,6 @@ public class CustomerInfoMgr {
 		
 		return ret;
 	}
+	
+	
 }

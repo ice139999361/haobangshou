@@ -6,15 +6,15 @@
  */
 package com.hbs.customerorder.utils;
 
-import java.util.Date;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import com.hbs.common.manager.systemconfig.SystemConfigMgr;
+
 import com.hbs.common.manager.waittask.WaitTaskMgr;
-import com.hbs.common.utils.DateUtils;
+
 import com.hbs.customerorder.constants.CustOrderConstants;
-import com.hbs.domain.common.pojo.SystemConfig;
+
 import com.hbs.domain.waittask.pojo.WaitTaskInfo;
 
 /**
@@ -55,16 +55,5 @@ public class CustOrderUtils {
 		WaitTaskMgr.deleteWaitTask(waitBusinessKey);
 	}
 	
-	/**
-	 * 获取提醒待办过期时间
-	 * @return
-	 */
-	public static Date getExpireTime(){		
-		String strL = "5";
-		SystemConfig config = SystemConfigMgr.findSystemConfig("CUST_ORDER_REMINDER_DAY");
-		if(null != config){
-			strL = config.getConfigValue();
-		}
-		return DateUtils.getNeedDate(new Date(), strL, true);
-	}
+	
 }

@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 
 import com.hbs.common.manager.waittask.WaitTaskMgr;
 import com.hbs.common.springhelper.BeanLocator;
+import com.hbs.common.utils.ExpireTimeUtil;
 import com.hbs.customer.common.constants.StateConstants;
 import com.hbs.customer.common.utils.CustLogUtils;
 import com.hbs.domain.common.pojo.baseinfo.OperLog;
@@ -135,6 +136,7 @@ public class CustPartNoInfoMgr {
 				hmParam.put("$cpartNo", custPartNoInfo.getCustPartNo());
 				waitTaskInfo.setHmParam(hmParam);
 				waitTaskInfo.setStaffId(custPartNoInfo.getStaffId());
+				waitTaskInfo.setExpireTime(ExpireTimeUtil.getExpireTime("CUST_PARTNO_REMINDER_DAY"));
 				waitTaskInfo.setBusinessKey(custPartNoInfo.getWaitTaskBizKey());
 				WaitTaskMgr.deleteWaitTask(custPartNoInfo.getWaitTaskBizKey());
 				WaitTaskMgr.createWaitTask("CUST_PARTNO_002", waitTaskInfo);

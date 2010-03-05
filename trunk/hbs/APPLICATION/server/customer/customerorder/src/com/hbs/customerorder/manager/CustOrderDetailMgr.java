@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 
 import com.hbs.common.springhelper.BeanLocator;
 
+import com.hbs.common.utils.ExpireTimeUtil;
 import com.hbs.common.utils.OrderCalUtils;
 import com.hbs.customer.common.utils.CustLogUtils;
 import com.hbs.customerorder.constants.CustOrderConstants;
@@ -472,7 +473,7 @@ public class CustOrderDetailMgr {
 			hmParam.put("$custCode", orderDetail.getCommCode());			
 			waitTaskInfo.setHmParam(hmParam);
 			waitTaskInfo.setBusinessKey(orderDetail.getBizKey());
-			waitTaskInfo.setExpireTime(CustOrderUtils.getExpireTime());
+			waitTaskInfo.setExpireTime(ExpireTimeUtil.getExpireTime("CUST_ORDER_REMINDER_DAY"));
 			CustOrderUtils.processCreateWaitTask(null,CustOrderConstants.ORDER_STATE_70, waitTaskInfo);
 		}else{
 			logger.debug("此订单明细的状态不正确，无法执行领导审批同意预付x%，款到发货，款未到发货！");
@@ -505,7 +506,7 @@ public class CustOrderDetailMgr {
 			hmParam.put("$custCode", orderDetail.getCommCode());			
 			waitTaskInfo.setHmParam(hmParam);
 			waitTaskInfo.setBusinessKey(orderDetail.getBizKey());
-			waitTaskInfo.setExpireTime(CustOrderUtils.getExpireTime());
+			waitTaskInfo.setExpireTime(ExpireTimeUtil.getExpireTime("CUST_ORDER_REMINDER_DAY"));
 			CustOrderUtils.processCreateWaitTask(null,CustOrderConstants.ORDER_STATE_31, waitTaskInfo);
 		}else{
 			logger.debug("此订单明细的状态不正确，无法执行领导审批不同意预付x%，款到发货，款未到发货！");

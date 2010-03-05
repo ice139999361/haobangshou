@@ -14,6 +14,7 @@ import java.util.Map;
 
 
 import com.hbs.common.springhelper.BeanLocator;
+import com.hbs.common.utils.ExpireTimeUtil;
 import com.hbs.domain.common.pojo.baseinfo.OperLog;
 
 import com.hbs.domain.vendor.vendorinfo.dao.VendorPartNoInfoDao;
@@ -114,6 +115,7 @@ public class VendorPartNoInfoMgr {
 				waitTaskInfo.setHmParam(hmParam);
 				waitTaskInfo.setStaffId(vPartNoInfo.getStaffId());
 				waitTaskInfo.setBusinessKey(vPartNoInfo.getWaitTaskBizKey());
+				waitTaskInfo.setExpireTime(ExpireTimeUtil.getExpireTime("VENDOR_PARTNO_REMINDER_DAY"));
 				VendorWaitTaskUtils.processCreateWaitTask("VENDOR_PARTNO_002", null, waitTaskInfo);
 				
 				
