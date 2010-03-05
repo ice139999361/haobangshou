@@ -5,11 +5,11 @@ package com.hbs.vendorinfo.action;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.action.FieldErr;
 import com.hbs.common.action.base.BaseAction;
-import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.domain.vendor.vendorinfo.pojo.VendorInfo;
 import com.hbs.domain.vendor.vendorinfo.pojo.VendorPartNoInfo;
 import com.hbs.vendorinfo.manager.VendorInfoMgr;
@@ -49,11 +49,14 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
     	{
 			if (logger.isDebugEnabled())    logger.debug("begin doList");
 
+			if(vendorPartNoInfo == null)
+				vendorPartNoInfo = new VendorPartNoInfo();
+			
 			if(!checkCommonFields())
 				return ERROR;
 			
 			setPagination(vendorPartNoInfo);
-			VendorPartNoInfoMgr mgr = (VendorPartNoInfoMgr)BeanLocator.getInstance().getBean(vendorPartNoInfoMgrName);
+			VendorPartNoInfoMgr mgr = (VendorPartNoInfoMgr)getBean(vendorPartNoInfoMgrName);
 			setResult("list", mgr.listVendorPartNoInfo(vendorPartNoInfo));
 			setTotalCount(mgr.listVendorPartNoInfoCount(vendorPartNoInfo));
 			setResult("count", getTotalCount());
@@ -93,7 +96,7 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
 			if(VendorPartNoInfoUtil.checkSetStaffId(vendorPartNoInfo))
 				setMyId(true);
 			
-			VendorPartNoInfoMgr mgr = (VendorPartNoInfoMgr)BeanLocator.getInstance().getBean(vendorPartNoInfoMgrName);
+			VendorPartNoInfoMgr mgr = (VendorPartNoInfoMgr)getBean(vendorPartNoInfoMgrName);
 			int i = mgr.commitVendorPartNoInfo(vendorPartNoInfo);
 			if(i != 0)
 			{
@@ -139,7 +142,7 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
 			}
 			
 			String commCode = vendorPartNoInfo.getCommCode();
-			if(commCode == null || commCode.length() == 0)
+			if(StringUtils.isEmpty(commCode))
 			{
 				logger.info("供应商编码没有填写！");
 				setErrorReason("供应商编码没有填写！");
@@ -147,11 +150,13 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
 			}
 			
 			//DONE：限制范围
-			VendorInfoMgr vendormgr = (VendorInfoMgr)BeanLocator.getInstance().getBean(VendorInfoNormalAction.vendorInfoMgrName);
-			VendorInfo custInfo = new VendorInfo();
-			custInfo = vendormgr.getVendorInfo(custInfo, false);
+			VendorInfoMgr vendormgr = (VendorInfoMgr)getBean(VendorInfoNormalAction.vendorInfoMgrName);
+			VendorInfo vendorInfo = new VendorInfo();
+			vendorInfo.setCommCode(commCode);
+			vendorInfo.setState("0");
+			vendorInfo = vendormgr.getVendorInfo(vendorInfo, false);
 			String id = getLoginStaff().getStaffId().toString();
-			if(custInfo == null || custInfo.getStaffId() != id)
+			if(vendorInfo == null || id.equals(vendorInfo.getStaffId()))
 			{
 				logger.info("您没有权限访问！");
 				setErrorReason("您没有权限访问！");
@@ -162,6 +167,24 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
 			logger.error("catch Exception in checkCommonFields", e);
 			setErrorReason("内部错误");
 			return false;
+		}
+	}
+	
+	protected void fixCommCode()
+	{
+		try {
+			if(vendorPartNoInfo == null)
+				return;
+			if(StringUtils.isEmpty(vendorPartNoInfo.getCommCode()))
+			{
+				String s = this.getHttpServletRequest().getParameter("vendorInfo.commCode");
+				if(StringUtils.isNotEmpty(s))
+				{
+					vendorPartNoInfo.setCommCode(s);
+				}
+			}
+		} catch (Exception e) {
+			logger.error("catch Exception in fixCommCode", e);
 		}
 	}
 }
