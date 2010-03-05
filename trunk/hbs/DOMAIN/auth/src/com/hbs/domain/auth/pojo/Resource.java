@@ -64,4 +64,13 @@ public class Resource extends BaseDomain{
         this.description = description;
     }
 
+    @Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("resourceId=").append(resourceId).append(";");
+		sb.append("actionsId=").append(actionsId).append(";");
+		sb.append("resourceName=").append(resourceName).append(";");
+		sb.append("description=").append(description);		
+		return sb.toString();
+	}
 }

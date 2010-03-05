@@ -51,4 +51,12 @@ public class UserRole extends BaseDomain{
         this.memo = memo;
     }
 
+    @Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("roleId=").append(roleId).append(";");
+		sb.append("staffId=").append(staffId).append(";");
+		sb.append("memo=").append(memo);		
+		return sb.toString();
+	}
 }
