@@ -164,7 +164,7 @@
                     "text": "供应商信息审批",
                     "menuOrder": "50000",
                     "leaf": "true",
-                    "url": "/customer/queryorder.jsp"
+                    "url": "/vendor/auditvendor.jsp"
                 }
             ]
         },

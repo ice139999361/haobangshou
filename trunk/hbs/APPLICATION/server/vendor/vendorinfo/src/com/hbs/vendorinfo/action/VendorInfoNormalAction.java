@@ -178,8 +178,12 @@ public class VendorInfoNormalAction extends BaseAction {
 
 			VendorInfo info2 = mgr.getVendorInfo(vendorInfo, false);
 			int ret;
-			if (info2 != null)
-				ret = mgr.updateCustomerInfo(vendorInfo);
+			if (info2 != null) {
+				if(vendorInfo.getState().equals("1"))
+					ret = mgr.commitVendorInfo(vendorInfo);
+				else
+					ret = mgr.updateCustomerInfo(vendorInfo);
+			}
 			else {
 				vendorInfo.setState("1");
 				vendorInfo.setCreditRate("3");

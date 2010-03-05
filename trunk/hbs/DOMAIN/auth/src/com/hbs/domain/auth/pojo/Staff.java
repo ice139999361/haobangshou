@@ -148,6 +148,8 @@ public class Staff extends BaseDomain{
 		staffName = name;
 	}
 	
+	public Staff() {}
+	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

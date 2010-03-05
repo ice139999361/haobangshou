@@ -178,9 +178,13 @@ public class CustomerInfoNormalAction extends BaseAction {
 			
 			CustomerInfo info2 = mgr.getCustomerInfo(custInfo, false);
 			int ret;
-			if (info2 != null)
-				ret = mgr.updateCustomerInfo(custInfo, getLoginStaff()
+			if (info2 != null) {
+				if(custInfo.getState().equals("1"))
+					ret = mgr.commitCustomerInfo(custInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName());
+				else
+					ret = mgr.updateCustomerInfo(custInfo, getLoginStaff()
 						.getStaffId().toString(), getLoginStaff().getStaffName());
+			}
 			else {
 				custInfo.setCreditRate("3");
 				custInfo.setState("1");

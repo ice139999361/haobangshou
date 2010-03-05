@@ -83,10 +83,10 @@
 		<isNotEmpty prepend="and" property="state">
 			STATE = #state#
 		</isNotEmpty>
-		<isNotEmpty prepend="," property="conType">
+		<isNotEmpty prepend="and" property="conType">
             CON_TYPE = #conType#
 		</isNotEmpty>
-		<isNotEmpty prepend="," property="conName">
+		<isNotEmpty prepend="and" property="conName">
             CON_NAME = #conName#
 		</isNotEmpty>
 	</dynamic>

@@ -38,12 +38,12 @@ HBSConvertHelper.init(function() {
 	
 	// 当提交按钮被单击时
 	submitBtn.on("click", function() {
-		submitData("/customerInfo/customerInfo!save.action");
+		submitData("/vendorInfo/vendorInfo!save.action");
 	});
 	
 	// 当保存按钮被单击时
 	saveBtn.on("click", function() {
-		submitData("/customerInfo/customerInfo!saveTemp.action");
+		submitData("/vendorInfo/vendorInfo!saveTemp.action");
 	});
 	
 	// 当单机取消按钮时，调用默认的关闭窗口方法
@@ -74,13 +74,13 @@ HBSConvertHelper.init(function() {
 		if(urlPs.state != 1) ExtConvertHelper.hideItems("saveBtn");
 		
 		// 组装需要的参数
-		var params = ["custInfo.baseSeqId=", urlPs.baseSeqId].join("");
+		var params = ["vendorInfo.baseSeqId=", urlPs.baseSeqId].join("");
 		
 		// 加载数据
-		ExtConvertHelper.loadForm("form", "/customerInfo/customerInfo!getInfo.action", params, function(form, action) {
-				Ext.getCmp("contactgrid").addData(action.result.data.custInfo.dynamicFields.contactlist);
-				Ext.getCmp("consigneegrid").addData(action.result.data.custInfo.dynamicFields.consigneelist);
-				Ext.getCmp("custbankgrid").addData(action.result.data.custInfo.listBankInfo);
+		ExtConvertHelper.loadForm("form", "/vendorInfo/vendorInfo!getInfo.action", params, function(form, action) {
+				Ext.getCmp("contactgrid").addData(action.result.data.vendorInfo.dynamicFields.contactlist);
+				Ext.getCmp("consigneegrid").addData(action.result.data.vendorInfo.dynamicFields.consigneelist);
+				Ext.getCmp("custbankgrid").addData(action.result.data.vendorInfo.listBankInfo);
 		});
 		
 		// 提交完成后的操作
