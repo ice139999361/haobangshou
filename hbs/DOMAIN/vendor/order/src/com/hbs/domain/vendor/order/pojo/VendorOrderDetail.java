@@ -153,7 +153,7 @@ public class VendorOrderDetail extends BaseDomain{
     /**
      * Ω·À„∑Ω Ω
      */
-    private String SettlementType;
+    private String settlementType;
     
     
     /**
@@ -217,14 +217,14 @@ public class VendorOrderDetail extends BaseDomain{
 	 * @return the settlementType
 	 */
 	public String getSettlementType() {
-		return SettlementType;
+		return settlementType;
 	}
 
 	/**
 	 * @param settlementType the settlementType to set
 	 */
 	public void setSettlementType(String settlementType) {
-		SettlementType = settlementType;
+		settlementType = settlementType;
 	}
 
 	public Integer getOperSeqId() {
@@ -455,7 +455,7 @@ public class VendorOrderDetail extends BaseDomain{
 		sb.append("rltRecPoNo=").append(this.rltRecPoNo).append(" ");
 		sb.append("staffId=").append(this.staffId).append(" ");
 		sb.append("staffName=").append(this.staffName).append(" ");
-		sb.append("SettlementType=").append(this.SettlementType).append(" ");
+		sb.append("settlementType=").append(this.settlementType).append(" ");
 		sb.append("custCcode=").append(this.custCcode).append(" ");
 		return sb.toString();
 	}

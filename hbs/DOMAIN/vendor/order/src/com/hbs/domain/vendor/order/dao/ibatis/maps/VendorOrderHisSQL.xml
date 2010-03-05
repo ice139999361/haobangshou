@@ -2,7 +2,7 @@
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
 <!-- Always ensure to use the correct XML header as above! -->
-<sqlMap namespace="VendorOrder">
+<sqlMap namespace="VendorOrderHis">
 <typeAlias alias="vendorOrder" type="com.hbs.domain.vendor.order.pojo.VendorOrder"/> 
 <resultMap id="vendorOrder_result" class="vendorOrder">
     <result property="commCode" column="C_CODE"/>
@@ -14,8 +14,8 @@
     <result property="conTel" column="CON_TEL"/>
     <result property="conFax" column="CON_FAX"/>
     <result property="companyBranch" column="COMPANY_BRANCH"/>
-    <result property="SettlementType" column="SETTLEMENT_TYPE"/>
-    <result property="ReceiveName" column="RECEIVE_NAME"/>
+    <result property="settlementType" column="SETTLEMENT_TYPE"/>
+    <result property="receiveName" column="RECEIVE_NAME"/>
     <result property="receiveAddress" column="RECEIVE_ADDRESS"/>
     <result property="receiveZip" column="RECEIVE_ZIP"/>
     <result property="staffId" column="STAFF_ID"/>
@@ -28,7 +28,7 @@
     <result property="activeState" column="ACTIVE_STATE"/>
 </resultMap>
 
-<select id="VendorOrder_getNextId" resultClass="java.lang.String">
+<select id="VendorOrderHis_getNextId" resultClass="java.lang.String">
 <![CDATA[
     SELECT ltrim(to_char(Seq_T_VENDOR_ORDER_HIS_Id.Nextval,'0000000000')) 
            AS Id 
@@ -36,7 +36,7 @@
 ]]>
 </select>
 
-<insert id="VendorOrder_insertVendorOrder" parameterClass="vendorOrder" >
+<insert id="VendorOrderHis_insertVendorOrder" parameterClass="vendorOrder" >
 <![CDATA[
     INSERT INTO T_VENDOR_ORDER_HIS (
             C_CODE, 
@@ -71,8 +71,8 @@
             #conTel#,
             #conFax#,
             #companyBranch#,
-            #SettlementType#,
-            #ReceiveName#,
+            #settlementType#,
+            #receiveName#,
             #receiveAddress#,
             #receiveZip#,
             #staffId#,
@@ -87,13 +87,13 @@
 ]]>
 </insert>
 
-<delete id="VendorOrder_deleteVendorOrder" parameterClass="string">
+<delete id="VendorOrderHis_deleteVendorOrder" parameterClass="string">
 <![CDATA[
     DELETE  FROM  T_VENDOR_ORDER_HIS WHERE C_CODE = #commCode#
 ]]>
 </delete>    
 
-<update id="VendorOrder_updateVendorOrder" parameterClass="vendorOrder">
+<update id="VendorOrderHis_updateVendorOrder" parameterClass="vendorOrder">
     UPDATE T_VENDOR_ORDER_HIS 
     SET
     	C_CODE = #commCode#
@@ -121,11 +121,11 @@
 	<isNotEmpty prepend="," property="companyBranch">
             COMPANY_BRANCH = #companyBranch#
 	</isNotEmpty>
-	<isNotEmpty prepend="," property="SettlementType">
-            SETTLEMENT_TYPE = #SettlementType#
+	<isNotEmpty prepend="," property="settlementType">
+            SETTLEMENT_TYPE = #settlementType#
 	</isNotEmpty>
-	<isNotEmpty prepend="," property="ReceiveName">
-            RECEIVE_NAME = #ReceiveName#
+	<isNotEmpty prepend="," property="receiveName">
+            RECEIVE_NAME = #receiveName#
 	</isNotEmpty>
 	<isNotEmpty prepend="," property="receiveAddress">
             RECEIVE_ADDRESS = #receiveAddress#
@@ -160,7 +160,7 @@
     WHERE C_CODE = #commCode#
 </update> 
 
-<select id="VendorOrder_findVendorOrder" resultMap="vendorOrder_result" parameterClass="string">
+<select id="VendorOrderHis_findVendorOrder" resultMap="vendorOrder_result" parameterClass="string">
 <![CDATA[
     SELECT
             C_CODE, 
@@ -188,7 +188,7 @@
 ]]>
 </select>
 
-<select id="VendorOrder_listVendorOrder" resultMap="vendorOrder_result" parameterClass="vendorOrder">
+<select id="VendorOrderHis_listVendorOrder" resultMap="vendorOrder_result" parameterClass="vendorOrder">
 <![CDATA[
     SELECT
             C_CODE, 
@@ -242,11 +242,11 @@
 			<isNotEmpty prepend="and" property = "companyBranch">
 				COMPANY_BRANCH = #companyBranch#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "SettlementType">
-				SETTLEMENT_TYPE = #SettlementType#
+			<isNotEmpty prepend="and" property = "settlementType">
+				SETTLEMENT_TYPE = #settlementType#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "ReceiveName">
-				RECEIVE_NAME = #ReceiveName#
+			<isNotEmpty prepend="and" property = "receiveName">
+				RECEIVE_NAME = #receiveName#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "receiveAddress">
 				RECEIVE_ADDRESS = #receiveAddress#
@@ -282,7 +282,7 @@
 </select>
 
 
-<select id="VendorOrder_listVendorOrderCount" resultClass="java.lang.Integer" parameterClass="vendorOrder">
+<select id="VendorOrderHis_listVendorOrderCount" resultClass="java.lang.Integer" parameterClass="vendorOrder">
 <![CDATA[
     SELECT
 		COUNT(*)
@@ -316,11 +316,11 @@
 			<isNotEmpty prepend="and" property = "companyBranch">
 				COMPANY_BRANCH = #companyBranch#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "SettlementType">
-				SETTLEMENT_TYPE = #SettlementType#
+			<isNotEmpty prepend="and" property = "settlementType">
+				SETTLEMENT_TYPE = #settlementType#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "ReceiveName">
-				RECEIVE_NAME = #ReceiveName#
+			<isNotEmpty prepend="and" property = "receiveName">
+				RECEIVE_NAME = #receiveName#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "receiveAddress">
 				RECEIVE_ADDRESS = #receiveAddress#

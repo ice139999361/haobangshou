@@ -52,11 +52,8 @@ var cgmLayout = function(cmpobj) {
 };
 
 
-var querygridUrl;
+
 var complexgridFun = function() {
-	// 查询数据的地址
-	querygridUrl = "/customerInfo/customerInfo!list.action";
-			    		
 	var cgh = new ComplexGridHelper;
 	
 	cgh.appendField("shortName");

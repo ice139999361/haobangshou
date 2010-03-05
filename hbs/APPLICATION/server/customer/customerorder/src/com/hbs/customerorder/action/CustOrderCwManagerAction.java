@@ -92,5 +92,4 @@ public class CustOrderCwManagerAction extends BaseAction {
 		}
 	}
 
-	// TODO：33---款到发货而款未到，申请待经理审批
 }

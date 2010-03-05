@@ -92,7 +92,7 @@
 		]]>
 		
 </select>
-<select id="OperLog_listOperLogCount" resultClass="java.lang.Integer" parameterClass="String">
+<select id="Vendor_OperLog_listOperLogCount" resultClass="java.lang.Integer" parameterClass="String">
 <![CDATA[
     SELECT COUNT(1)
     FROM T_VENDOR_OPER_LOG

@@ -67,12 +67,12 @@ public class VendorOrder extends BaseDomain{
     /**
      * 结算方式，对应信息中的结算方式.
      */
-    private String SettlementType;
+    private String settlementType;
     
     /**
      * 收货人，对应信息的收货人.
      */
-    private String ReceiveName;
+    private String receiveName;
     
     /**
      * 收货地址，对应信息的收货地址.
@@ -256,19 +256,19 @@ public class VendorOrder extends BaseDomain{
     }
     
     public String getSettlementType() {
-        return this.SettlementType;
+        return this.settlementType;
     }	
   
-    public void setSettlementType(String SettlementType) {
-        this.SettlementType = SettlementType;
+    public void setSettlementType(String settlementType) {
+        this.settlementType = settlementType;
     }
     
     public String getReceiveName() {
-        return this.ReceiveName;
+        return this.receiveName;
     }	
   
-    public void setReceiveName(String ReceiveName) {
-        this.ReceiveName = ReceiveName;
+    public void setReceiveName(String receiveName) {
+        this.receiveName = receiveName;
     }
     
     public String getReceiveAddress() {
@@ -373,7 +373,7 @@ public class VendorOrder extends BaseDomain{
     	return sb.toString();
     }
 
-	@Override
+	@Override 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("commCode=").append(this.commCode).append(" ");
@@ -384,8 +384,8 @@ public class VendorOrder extends BaseDomain{
 		sb.append("conTel=").append(this.conTel).append(" ");
 		sb.append("conFax=").append(this.conFax).append(" ");
 		sb.append("companyBranch=").append(this.companyBranch).append(" ");
-		sb.append("SettlementType=").append(this.SettlementType).append(" ");
-		sb.append("ReceiveName=").append(this.ReceiveName).append(" ");
+		sb.append("settlementType=").append(this.settlementType).append(" ");
+		sb.append("receiveName=").append(this.receiveName).append(" ");
 		sb.append("receiveAddress=").append(this.receiveAddress).append(" ");
 		sb.append("receiveZip=").append(this.receiveZip).append(" ");
 		sb.append("staffId=").append(this.staffId).append(" ");

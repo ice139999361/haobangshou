@@ -1,3 +1,18 @@
+// 查询数据的地址
+var querygridUrl;
+
+// 初始方法
+(function() {
+	switch(urlPs.roleType) {
+		case "cgy":
+			querygridUrl = "/vendorInfo/vendorInfo!list.action";
+			break;
+		case "cgm":
+			querygridUrl = "/vendorInfo/vendorInfoMgr!list.action";
+			break; 
+	}
+}())
+
 HBSConvertHelper.init(function() {
 	// -------------------------------------- 获取需要持久用到的对象
 	

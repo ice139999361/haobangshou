@@ -3,6 +3,10 @@
  */
 package com.hbs.common.utils;
 
+import org.apache.commons.lang.StringUtils;
+
+import com.hbs.auth.manager.StaffMgr;
+import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.domain.auth.pojo.Staff;
 
 /**
@@ -18,9 +22,11 @@ public class StaffUtil {
 	 * @return
 	 */
 	public static Staff getStaffById(String id) {
-		if (id == null)
+		if (StringUtils.isEmpty(id))
 			return null;
-		// TODO:StaffUtil.getStaffById
-		return new Staff(Integer.parseInt(id), "user_" + id);
+		// DONE:StaffUtil.getStaffById
+		StaffMgr mgr = (StaffMgr)BeanLocator.getInstance().getBean("staffMgr");
+		return mgr.findStaff(id);
+		//return new Staff(Integer.parseInt(id), "user_" + id);
 	}
 }
