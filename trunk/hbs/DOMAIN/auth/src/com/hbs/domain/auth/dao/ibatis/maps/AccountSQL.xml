@@ -73,7 +73,7 @@
             LOGIN_TIME, 
             LOGOUT_TIME, 
             ENABLED
-    FROM account WHERE STAFF_ID = #staffId#
+    FROM account WHERE ACCOUNT = #account#
 ]]>
 </select>
 
