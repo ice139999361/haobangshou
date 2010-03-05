@@ -8,6 +8,7 @@
     <result property="actionsId" column="ACTIONS_ID"/>
     <result property="actionId" column="ACTION_ID"/>
     <result property="actionName" column="ACTION_NAME"/>
+    <result property="description" column="DESCRIPTION"/>
     <result property="buttonId" column="BUTTON_ID"/>
 </resultMap>
 
@@ -16,12 +17,14 @@
 <![CDATA[
     INSERT INTO action (
             ACTION_ID, 
-            ACTION_NAME, 
+            ACTION_NAME,
+            DESCRIPTION,
             BUTTON_ID
         )
     VALUES (
             #actionId#,
             #actionName#,
+            #description#,
             #buttonId#
     )
 ]]>
@@ -46,7 +49,10 @@
 	<isNotEmpty prepend="," property="actionName">
             ACTION_NAME = #actionName#
 	</isNotEmpty>
-	<isNotEmpty prepend="," property="buttonId">
+	<isNotEmpty prepend="," property = "description">
+            ACTION_NAME = #description#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property = "buttonId">
             BUTTON_ID = #buttonId#
 	</isNotEmpty>
     WHERE ACTIONS_ID = #actionsId#
@@ -58,6 +64,7 @@
             ACTIONS_ID, 
             ACTION_ID, 
             ACTION_NAME, 
+            DESCRIPTION,
             BUTTON_ID
     FROM action WHERE ACTIONS_ID = #actionsId#
 ]]>
@@ -68,7 +75,8 @@
     SELECT
             ACTIONS_ID, 
             ACTION_ID, 
-            ACTION_NAME, 
+            ACTION_NAME,
+            DESCRIPTION, 
             BUTTON_ID
     FROM action
 ]]>
@@ -81,6 +89,9 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "actionName">
 				ACTION_NAME = #actionName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property = "description">
+		            ACTION_NAME = #description#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "buttonId">
 				BUTTON_ID = #buttonId#
@@ -104,6 +115,9 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "actionName">
 				ACTION_NAME = #actionName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="description">
+		            ACTION_NAME = #description#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "buttonId">
 				BUTTON_ID = #buttonId#
