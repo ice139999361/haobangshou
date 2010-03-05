@@ -147,4 +147,20 @@ public class Staff extends BaseDomain{
 		staffId = id;
 		staffName = name;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("staffId=").append(staffId).append(";");
+		sb.append("staffName=").append(staffName).append(";");
+		sb.append("identityNumber=").append(identityNumber).append(";");
+		sb.append("gender=").append(gender).append(";");
+		sb.append("birthDate=").append(birthDate).append(";");
+		sb.append("phone=").append(phone).append(";");		
+		sb.append("mobile=").append(mobile).append(";");
+		sb.append("email=").append(email).append(";");
+		sb.append("duty=").append(duty).append(";");
+		sb.append("memo=").append(memo);
+		return sb.toString();
+	}
 }

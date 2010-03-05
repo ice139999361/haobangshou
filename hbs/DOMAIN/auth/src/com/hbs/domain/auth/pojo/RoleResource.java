@@ -51,4 +51,12 @@ public class RoleResource extends BaseDomain{
         this.operations = operations;
     }
 
+    @Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("roleId=").append(roleId).append(";");
+		sb.append("resourceId=").append(resourceId).append(";");
+		sb.append("operations=").append(operations);		
+		return sb.toString();
+	}
 }

@@ -30,9 +30,17 @@ public class Action extends BaseDomain{
      */
     private String buttonId;
 
-
+    private String description;
     
-    public Integer getActionsId() {
+    public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Integer getActionsId() {
         return this.actionsId;
     }	
   
@@ -64,4 +72,14 @@ public class Action extends BaseDomain{
         this.buttonId = buttonId;
     }
 
+    @Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("actionsId=").append(actionsId).append(";");
+		sb.append("actionId=").append(actionId).append(";");
+		sb.append("actionName=").append(actionName).append(";");
+		sb.append("description=").append(description).append(";");
+		sb.append("buttonId=").append(buttonId);		
+		return sb.toString();
+	}
 }

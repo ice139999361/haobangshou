@@ -91,4 +91,15 @@ public class Account extends BaseDomain{
         this.enabled = enabled;
     }
 
+    @Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("staffId=").append(staffId).append(";");
+		sb.append("account=").append(account).append(";");
+		sb.append("password=").append(password).append(";");
+		sb.append("loginTime=").append(loginTime).append(";");
+		sb.append("logoutTime=").append(logoutTime).append(";");
+		sb.append("enabled=").append(enabled);		
+		return sb.toString();
+	}
 }
