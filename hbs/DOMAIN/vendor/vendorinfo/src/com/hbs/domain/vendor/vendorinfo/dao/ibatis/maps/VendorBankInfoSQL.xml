@@ -55,10 +55,10 @@
 		<isNotEmpty prepend="and" property="state">
 				STATE = #state#
 		</isNotEmpty>
-		<isNotEmpty prepend="," property="accountBank">
+		<isNotEmpty prepend="and" property="accountBank">
 					ACCOUNT_BANK = #accountBank#
 		</isNotEmpty>
-		<isNotEmpty prepend="," property="account">
+		<isNotEmpty prepend="and" property="account">
 					ACCOUNT = #account#
 		</isNotEmpty>
 		</dynamic>

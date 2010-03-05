@@ -70,8 +70,8 @@ public class VendorInfoUtil {
 	
 	
 	/**
-	 * 对输入的客户信息进行校验，内部调用checkSelectFields。
-	 * @param vendorInfo	客户信息
+	 * 对输入的供应商信息进行校验，内部调用checkSelectFields。
+	 * @param vendorInfo	供应商信息
 	 * @return 出错信息，格式：Map<出错字段,出错信息>
 	 */
 	public static List<FieldErr> checkInputFields(VendorInfo vendorInfo)
@@ -84,12 +84,14 @@ public class VendorInfoUtil {
 			list = new ArrayList<FieldErr>();
 		
 		String s;
-		// DONE:完成checkInputFields，对输入的客户信息进行校验
+		// DONE:完成checkInputFields，对输入的供应商信息进行校验
+		/*
 		s = vendorInfo.getVendorCode();
 		if(StringUtils.isEmpty(s))
 		{
 			list.add(new FieldErr("venderCode","venderCode没有填写"));
 		}
+		*/
 		s = vendorInfo.getCommCode();
 		if(StringUtils.isEmpty(s))
 		{

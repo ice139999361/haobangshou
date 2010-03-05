@@ -113,9 +113,9 @@
 ]]>
 </delete>
 
-<delete id="VendorInfo_deleteVendorInfoByBase" parameterClass="string">
+<delete id="VendorInfo_deleteVendorInfoByBase" parameterClass="vendorInfo">
 <![CDATA[
-    DELETE  FROM  T_VENDOR_INFO WHERE BASE_SEQID = #baseSeqId#
+    DELETE  FROM  T_VENDOR_INFO 
 ]]>
 	<dynamic prepend="WHERE">
 		<isNotEmpty prepend="and" property="commCode">

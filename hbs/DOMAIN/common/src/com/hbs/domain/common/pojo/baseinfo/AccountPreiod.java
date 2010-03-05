@@ -125,7 +125,7 @@ public class AccountPreiod {
     	ceParam.setEncodeType("ACCOUNT_TYPE");
     	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
     	if(null != cEncode){
-    		retStr = cEncode.getEncodeDesc();
+    		retStr = cEncode.getEncodeValue();
     	}
     	return retStr;
     }

@@ -24,7 +24,7 @@ public class VendorPrePaidMgr extends PrePaidMgr {
 	@Override
 	public String getLogDao() {
 		// TODO Auto-generated method stub
-		return VendorInfoConstants.VENDOR_PREPAIDINFODAO;
+		return VendorInfoConstants.VENDOR_OPERLOGDAO;
 	}
 
 	/* (non-Javadoc)
@@ -33,7 +33,7 @@ public class VendorPrePaidMgr extends PrePaidMgr {
 	@Override
 	public String getPrePaidDao() {
 		// TODO Auto-generated method stub
-		return VendorInfoConstants.VENDOR_OPERLOGDAO;
+		return VendorInfoConstants.VENDOR_PREPAIDINFODAO;
 	}
 
 	/* (non-Javadoc)

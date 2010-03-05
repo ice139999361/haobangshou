@@ -51,6 +51,8 @@ var cgmLayout = function(cmpobj) {
 	return cph;
 };
 
+// 审批页面
+var auditLayout = cgyLayout;
 
 
 var complexgridFun = function() {
@@ -75,7 +77,7 @@ var complexgridFun = function() {
 	cgh.appendColumn({header: "供应商信用度"			, dataIndex: "creditDesc"});
 	cgh.appendColumn({header: "供应商重要程度"	, dataIndex: "importantDesc"});
 	cgh.appendColumn({header: "状态"						, dataIndex: "stateDesc"});
-	if(urlPs.roleType == "cgy") cgh.appendColumn({header: "操作"						, dataIndex: ""              , id: "operator"});
+	cgh.appendColumn({header: "操作"						, dataIndex: ""              , id: "operator"});
 
 	return cgh;
 };
