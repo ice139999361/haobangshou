@@ -1,0 +1,124 @@
+权限子系统
+
+角色：系统管理员（systemadmin）
+
+1）系统管理左边菜单：
+
+系统管理
+   |-- 用户管理	
+   	|-- 创建用户
+   	|-- 修改用户（说明：包括暂停/激活用户）
+   	|-- 删除用户
+   |-- 角色管理
+        |-- 创建角色   
+        |-- 修改角色
+   |-- 权限管理
+   
+2）数据库表设计
+  a）用户基本信息表：
+    表名：staff
+    字段：staff_id  用户id(pk,自动生成)
+          staff_name 用户名(unique) 
+          identity_number 身份证号码
+          gender   性别
+          birth_date 出生日期
+          phone    电话
+          mobile   手机
+      	  email    邮箱
+      	  duty     职务
+      	  memo     注释
+      	  
+  b）用户账号表：
+    表名：account
+    字段：staff_id  用户id(pk,fk->staff.staff_id)
+          account  用户账号(unique) 
+          password 密码
+          login_time  登入时间
+          logout_time 登出时间
+          enabled   是否有效（true 有效； false 无效）
+    
+  c）角色表：
+    表名：role
+    字段：role_id  角色id(pk,自动生成)
+          role_name 角色名(unique)           
+      	  memo     注释
+  
+  d）用户角色表：
+    表名：user_role
+    字段：staff_id  用户id(pk,fk->staff.staff_id)
+          role_id 角色id(fk->role.role_id)
+      	  memo     注释
+  
+  e）资源表：
+    表名：resource
+    字段：resource_id  资源id(pk,自动生成)
+          resource_name 资源名
+          description 描述 
+          actions_id   该资源页面的所有操作id（fk->action.actions_id)
+        	  
+  f）操作表：
+    表名：action
+    字段：actions_id  所有操作id(pk,自动生成)
+          action_id  操作id            
+          action_name 操作名
+          button_id  对应的页面按钮的id名
+          
+  g）角色权限对应表：
+    表名：role_resource
+    字段：role_id  角色id(fk->role.role_id)
+          resource_id  资源id(fk->resource.id)            
+          operations 操作（operation_id，有多个操作用半角逗号隔开.来自action表）
+          
+3）页面
+  a）创建用户
+     账号：
+     密码：
+     确认密码：
+     姓名：
+     性别：
+     出生日期：
+     身份证号：
+     邮箱：
+     电话：
+     手机：
+       按钮：创建
+  b）修改用户
+    基本上同创建用户。有以下区别：
+     页面最上面按照用户账号查询，显示用户列表（默认显示全部），点击用户名后在下面显示基本信息。其中：账号字段是只读的，不可修改。
+     有“激活”或者“暂停”按钮。
+  c）删除用户
+     页面最上面按照用户账号查询，显示用户列表（默认显示全部），点击用户名后在下面显示基本信息。所有字段都是只读的。
+     有“删除”按钮。   
+  d）创建角色
+     角色名：     角色描述：
+     资源列表：
+      资源描述 
+          checkbox 操作1 checkbox 操作2 ... checkbox 操作n
+          
+       按钮：创建
+  e）修改角色
+    基本上同创建角色。有以下区别：
+     页面最上面按照角色名查询，显示角色列表（默认显示全部），点击角色名后在下面显示对应的资源信息。其中：角色名是只读的，不可修改。
+       按钮：修改     
+  f）权限管理
+     用户账号：下拉列表（可以输入的查询下拉框，模糊匹配）
+     角色名：  角色列表（多选列表框）
+     
+       按钮：确定 （增加，修改，删除时同一个页面）
+
+4）权限过滤
+    已经完成。
+    
+  
+5）左边整体菜单。
+   定义好json格式，从BaseAction中获取登录用户的基本信息，从service中获取数据。
+           
+        
+    
+    
+          
+       
+     
+     	
+   	
+	          
