@@ -118,6 +118,33 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
     	}
     }
     
+    /**
+     * 获取客户物料关系
+     * @action.input	vendorPartNoInfo.seqId
+     * @action.result	vendorPartNoInfo.*
+     * @return
+     */
+   public String doGetInfo() {
+    	try {
+    		VendorPartNoInfoMgr mgr = (VendorPartNoInfoMgr)getBean(vendorPartNoInfoMgrName);
+    		if(vendorPartNoInfo == null || vendorPartNoInfo.getSeqId() == null) {
+    			logger.info("参数错误！");
+				setErrorReason("参数错误！");
+				return ERROR;
+    		}
+    		vendorPartNoInfo = mgr.getVendorPartNoInfoByID(vendorPartNoInfo.getSeqId().toString());
+    		if(!checkCommonFields())
+    			return ERROR;;
+    				
+    		setResult("vendorPartNoInfo", vendorPartNoInfo);
+    		return SUCCESS;
+    	} catch(Exception e) {
+    		logger.error("catch Exception in doGetInfo.", e);
+			setErrorReason("内部错误");
+			return ERROR;
+    	}
+    }
+    
 	/**
 	 * 设置STAFF信息为当前用户信息
 	 * @param setName 是否设置用户名。为true时设置staffName为当前用户的staffName；为false时设置staffName为null。

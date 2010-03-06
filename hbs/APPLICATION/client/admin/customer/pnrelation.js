@@ -69,10 +69,17 @@ HBSConvertHelper.init(function() {
 		submitBtn.url = "/customerInfo/custPartNoInfo!save.action";
 		
 		// 组装需要的参数
-		var params = ["custInfo.seqId=", urlPs.seqId].join("");
+		var params = ["custPartNoInfo.seqId=", urlPs.seqId].join("");
 		
 		// 加载数据
-		ExtConvertHelper.loadForm("form", "/customerInfo/customerInfo!getInfo.action", params, null);
+		ExtConvertHelper.loadForm("form", "/customerInfo/custPartNoInfo!getInfo.action", params, function(form, action) {
+			var o = Ext.getCmp("acCommCode");
+			o.setValue(action.result.data.custPartNoInfo.commCode);
+			//TODO：触发回车事件
+			o = Ext.getCmp("acPartNo");
+			o.setValue(action.result.data.custPartNoInfo.partNo);
+			//触发回车事件
+		});
 	}
 	
 	// 根据不同的操作类型，做出不同的处理

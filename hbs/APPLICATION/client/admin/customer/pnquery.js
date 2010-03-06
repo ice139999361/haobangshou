@@ -27,11 +27,11 @@ HBSConvertHelper.init(function() {
 		//alert(this.ds.getCount())
 		for(var i = 0 ; i < view.ds.getCount() ; i++) {
 			// 获取客户简称所在的列
-			var shortName_cell = view.getCell(i, view.grid.getColumnIndexById("shortName"));
+			var custPartNo_cell = view.getCell(i, view.grid.getColumnIndexById("custPartNo"));
 			// 获取操作列
 			var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));
 			// 将需要的链接渲染到此列
-			HBSConvertHelper.renderATag2Cell(shortName_cell.innerText, "/customer/detailpnrelation.jsp?pageType=query&baseSeqId="+view.ds.getAt(i).get("baseSeqId"), "open", shortName_cell);
+			HBSConvertHelper.renderATag2Cell(custPartNo_cell.innerText, "/customer/detailpnrelation.jsp?pageType=query&seqId="+view.ds.getAt(i).get("seqId"), "open", custPartNo_cell);
 			
 			// 操作列显示逻辑
 			switch(view.ds.getAt(i).get("state")) {
@@ -49,11 +49,22 @@ HBSConvertHelper.init(function() {
 					// 修改按钮事件
 					btns.get(2).on("click", function() {
 						// 要访问的 url 地址
+						debugger;
 						var url = ["/customer/pnrelation.jsp?editorType=update&seqId=", this.config.get("seqId"), "&state=", this.config.get("state")].join("");
 						// 打开指定页面
 						HBSConvertHelper.openNewWin(url);
 					});
 					break;
+				case "2":
+					if(urlPs.roleType == "scmanager") {
+				  		// 创建按钮到操作列
+						var btns = HBSConvertHelper.renderButton2Cell(["审批"], operator_cell, view.ds.getAt(i));
+						btns.on("click", function() {
+							var url= ["/customer/detailpnrelation.jsp?editorType=update&seqId=", this.config.get("seqId"), "&state=2"].join("");
+							HBSConvertHelper.openNewWin(url);
+						});
+					}
+					break
 			}
 			
 		}

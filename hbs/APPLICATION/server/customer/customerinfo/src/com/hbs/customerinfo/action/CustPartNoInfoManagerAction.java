@@ -159,6 +159,57 @@ public class CustPartNoInfoManagerAction extends BaseAction {
     	}
     }
     
+   /**
+     * 审批
+     * @action.input 	custPartNoInfo.seqId
+	 * @action.input audit	审批结果 0：审批不通过；1：审批通过
+	 * @action.input	auditDesc	审批意见
+     * @return
+     */
+    public String doAudit()
+    {
+		try {
+			String audit = this.getHttpServletRequest().getParameter("audit");
+			if(audit == null) {
+				logger.info("参数错误！");
+				setErrorReason("参数错误！");
+				return ERROR;
+			}
+			if(audit.equals("0")) {
+				return doAuditDisAgree();
+			} else {
+				return doAuditAgree();
+			}
+		} catch(Exception e) {
+			logger.error("catch Exception in doAudit", e);
+			setErrorReason("内部错误");
+            return ERROR;
+		}
+    }
+    
+    /**
+     * 获取客户物料关系
+     * @action.input	custPartNoInfo.seqId
+     * @action.result	custPartNoInfo.*
+     * @return
+     */
+   public String doGetInfo() {
+    	try {
+    		CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)getBean(custPartNoInfoMgrName);
+    		if(custPartNoInfo == null || custPartNoInfo.getSeqId() == null) {
+    			logger.info("参数错误！");
+				setErrorReason("参数错误！");
+				return ERROR;
+    		}
+    		setResult("custPartNoInfo", mgr.getCustPartNoInfoByID(custPartNoInfo.getSeqId().toString()));
+    		return SUCCESS;
+    	} catch(Exception e) {
+    		logger.error("catch Exception in doGetInfo.", e);
+			setErrorReason("内部错误");
+			return ERROR;
+    	}
+    }
+    
 	/**
 	 * 检查客户编码是否填写。如果出现问题，本函数内设置了ErrorReaseon。
 	 * @return

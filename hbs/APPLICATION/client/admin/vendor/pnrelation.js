@@ -72,7 +72,14 @@ HBSConvertHelper.init(function() {
 		var params = ["vendorInfo.seqId=", urlPs.seqId].join("");
 		
 		// 加载数据
-		ExtConvertHelper.loadForm("form", "/vendorInfo/vendoromerInfo!getInfo.action", params, null);
+		ExtConvertHelper.loadForm("form", "/vendorInfo/vendoromerInfo!getInfo.action", params, function(form, action) {
+			var o = Ext.getCmp("acCommCode");
+			o.setValue(action.result.data.vendorPartNoInfo.commCode);
+			//TODO：触发回车事件
+			o = Ext.getCmp("acPartNo");
+			o.setValue(action.result.data.vendorPartNoInfo.partNo);
+			//触发回车事件
+		});
 	}
 	
 	// 根据不同的操作类型，做出不同的处理
