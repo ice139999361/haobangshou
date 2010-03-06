@@ -88,7 +88,7 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 				return ERROR;
 
 			List<FieldErr> errs = CustPartNoInfoUtil.checkInputFields(custPartNoInfo);
-			if(errs.isEmpty())
+			if(!errs.isEmpty())
 			{
 				String s = FieldErr.formFieldsErrString(errs);
 				logger.info(s);
@@ -159,7 +159,7 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 			custInfo.setState("0");
 			custInfo = custmgr.getCustomerInfo(custInfo, false);
 			String id = getLoginStaff().getStaffId().toString();
-			if(custInfo == null || (!id.equals(custInfo.getStaffId()) && id.equals(custInfo.getAssStaffId())))
+			if(custInfo == null || (!id.equals(custInfo.getStaffId()) && !id.equals(custInfo.getAssStaffId())))
 			{
 				logger.info("您没有权限访问！");
 				setErrorReason("您没有权限访问！");

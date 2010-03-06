@@ -158,7 +158,7 @@ public class VendorPartNoInfoUtil {
 			
 			int i;
 			s = vendorPartNoInfo.getStaffId();
-			if(s != null && s.length() != 0)
+			if(StringUtils.isNotEmpty(s))
 			{
 				//DONE：用户信息需要处理	
 				Staff u = StaffUtil.getStaffById(s);

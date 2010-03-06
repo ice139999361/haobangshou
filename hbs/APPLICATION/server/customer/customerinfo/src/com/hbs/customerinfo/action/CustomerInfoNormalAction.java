@@ -248,7 +248,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(custInfoMgrName);
 			custInfo = CustomerInfoUtil.getCustomerInfo(mgr, custInfo);
 			String id = getLoginStaff().getStaffId().toString();
-			if(
+			if(custInfo != null &&
 					StringUtils.isNotEmpty(id) &&
 					(id.equals(custInfo.getStaffId()) || id.equals(custInfo.getAssStaffId()))
 				)

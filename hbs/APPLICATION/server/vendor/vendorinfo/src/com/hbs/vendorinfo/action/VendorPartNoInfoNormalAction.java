@@ -82,11 +82,13 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
     	{
 			if (logger.isDebugEnabled())    logger.debug("begin doSave");
 
+			fixCommCode();
+
 			if(!checkCommonFields())
 				return ERROR;
 
 			List<FieldErr> errs = VendorPartNoInfoUtil.checkInputFields(vendorPartNoInfo);
-			if(errs.isEmpty())
+			if(!errs.isEmpty())
 			{
 				String s = FieldErr.formFieldsErrString(errs);
 				logger.info(s);
@@ -156,7 +158,7 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
 			vendorInfo.setState("0");
 			vendorInfo = vendormgr.getVendorInfo(vendorInfo, false);
 			String id = getLoginStaff().getStaffId().toString();
-			if(vendorInfo == null || id.equals(vendorInfo.getStaffId()))
+			if(vendorInfo == null || !id.equals(vendorInfo.getStaffId()))
 			{
 				logger.info("您没有权限访问！");
 				setErrorReason("您没有权限访问！");

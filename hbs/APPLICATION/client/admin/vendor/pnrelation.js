@@ -27,8 +27,28 @@ HBSConvertHelper.init(function() {
 	// 当单机取消按钮时，调用默认的关闭窗口方法
 	backBtn.on("click", HBSConvertHelper.defaultCloseTab);
 	
-	// -------------------------------------- 页面操作逻辑处理
+	Ext.getCmp("acCommCode").setProcessConfig("/vendorInfo/vendorInfo!getInfo.action?vendorInfo.state=0", "vendorInfo.commCode", null, function(action){
+		if(!action.success)
+			return;
+		Ext.getCmp("acShortName").setValue(action.data.vendorInfo.shortName);
+		Ext.getCmp("acShortNameHidden").setValue(action.data.vendorInfo.shortName);
+		
+		Ext.getCmp("acCurrencyHidden").setValue(action.data.vendorInfo.currency);
+		Ext.getCmp("acCurrencyDesc").setValue(action.data.vendorInfo.currencyDesc);
+	});
+
+	// 根据本公司物料信息填写项目
+	function fillPartNo(partNo) {
+		Ext.getCmp("acPnDesc").setValue(partNo.pnDesc);
+		Ext.getCmp("acPnDescHidden").setValue(partNo.pnDesc);
+	}
+
+	Ext.getCmp("acPartNo").setProcessConfig("/partNo/partNo!get.action", "partNo.partNo", null, function(action){
+		if(action.success)
+			fillPartNo(action.data.partNo);
+	});
 	
+	// -------------------------------------- 页面操作逻辑处理
 	
 	
 	// 新增页面的处理逻辑
@@ -37,7 +57,7 @@ HBSConvertHelper.init(function() {
 		HBSConvertHelper.setDocumentTitle("供应商P/N对照录入");
 		
 		// 设置关联按钮的 url
-		submitBtn.url = "/customerInfo/custPartNoInfo!save.action";
+		submitBtn.url = "/vendorInfo/vendorPartNoInfo!save.action";
 	}
 	
 	// 修改页面的处理逻辑
@@ -46,13 +66,13 @@ HBSConvertHelper.init(function() {
 		HBSConvertHelper.setDocumentTitle("供应商P/N对照修改");
 		
 		// 设置关联按钮的 url
-		submitBtn.url = "/customerInfo/custPartNoInfo!save.action";
+		submitBtn.url = "/vendorInfo/vendorPartNoInfo!save.action";
 		
 		// 组装需要的参数
-		var params = ["custInfo.seqId=", urlPs.seqId].join("");
+		var params = ["vendorInfo.seqId=", urlPs.seqId].join("");
 		
 		// 加载数据
-		ExtConvertHelper.loadForm("form", "/customerInfo/customerInfo!getInfo.action", params, null);
+		ExtConvertHelper.loadForm("form", "/vendorInfo/vendoromerInfo!getInfo.action", params, null);
 	}
 	
 	// 根据不同的操作类型，做出不同的处理

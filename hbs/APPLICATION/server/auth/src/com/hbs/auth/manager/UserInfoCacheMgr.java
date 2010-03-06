@@ -15,7 +15,7 @@ import com.hbs.domain.auth.pojo.Resource;
 import com.hbs.domain.auth.pojo.RoleResource;
 import com.hbs.domain.auth.pojo.Staff;
 import com.hbs.domain.auth.pojo.UserRole;
-import com.hbs.auth.contants.*;
+import com.hbs.auth.contants.AuthConstants;
 
 public class UserInfoCacheMgr {
 	

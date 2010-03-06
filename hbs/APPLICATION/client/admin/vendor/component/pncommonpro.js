@@ -3,10 +3,10 @@ var queryformFun = function() {
 		
 	var p1 = cph.createLayoutPanel(3);
 	
-	p1.push({xtype: "textfield", fieldLabel: "供应商编码"     , name: "custPartNoInfo.commCode"});
-	p1.push({xtype: "dictcombo", fieldLabel: "状态"         , hiddenName: "custPartNoInfo.state", paramsValue: "IMPORTANT_CODE"});
-	p1.push({xtype: "textfield", fieldLabel: "客户P/N"      , name: "custPartNoInfo.custPartNo"});
-	p1.push({xtype: "textfield", fieldLabel: "本公司P/N"    , name: "custPartNoInfo.partNO"});
+	p1.push({xtype: "textfield", fieldLabel: "供应商编码"     , name: "vendorPartNoInfo.commCode"});
+	p1.push({xtype: "dictcombo", fieldLabel: "状态"         , hiddenName: "vendorPartNoInfo.state", paramsValue: "IMPORTANT_CODE"});
+	p1.push({xtype: "textfield", fieldLabel: "客户P/N"      , name: "vendorPartNoInfo.custPartNo"});
+	p1.push({xtype: "textfield", fieldLabel: "本公司P/N"    , name: "vendorPartNoInfo.partNO"});
 	
 	return cph;
 };
