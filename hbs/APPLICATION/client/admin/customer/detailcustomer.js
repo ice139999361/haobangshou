@@ -50,7 +50,6 @@ HBSConvertHelper.init(function() {
 	
 	var auditInitFun = function() {
 		submitUrl = "/customerInfo/customerInfoMgr!audit.action";
-		window.alert(submitUrl);
 	};
 	
 	// 根据不同的操作类型，做出不同的处理
