@@ -181,11 +181,36 @@
       	<action name="custPartNoInfo!save" method="doSave" 
     			class="com.hbs.customerinfo.action.CustPartNoInfoNormalAction">
 		</action>
+		<!-- 
+    /**
+     * 获取客户物料关系
+     * @action.input	custPartNoInfo.seqId
+     * @action.result	custPartNoInfo.*
+     * @return
+     */
+		 -->
+     	<action name="custPartNoInfo!getInfo" method="doGetInfo" 
+    			class="com.hbs.customerinfo.action.CustPartNoInfoNormalAction">
+		</action>
 
 <!-- *************************************************************** -->
-
 		<!-- 经理用户客户物料信息 -->
+
+		<!-- 
+    /**
+     * 获取客户物料关系
+     * @action.input	custPartNoInfo.seqId
+     * @action.result	custPartNoInfo.*
+     * @return
+     */
+		 -->
+     	<action name="custPartNoInfo!getInfo" method="doGetInfo" 
+    			class="com.hbs.customerinfo.action.CustPartNoInfoNormalAction">
+		</action>
      	<action name="custPartNoInfoMgr!list" method="doList" 
+    			class="com.hbs.customerinfo.action.CustPartNoInfoManagerAction">
+		</action>
+      	<action name="custPartNoInfoMgr!audit" method="doAudit" 
     			class="com.hbs.customerinfo.action.CustPartNoInfoManagerAction">
 		</action>
 		<!-- 

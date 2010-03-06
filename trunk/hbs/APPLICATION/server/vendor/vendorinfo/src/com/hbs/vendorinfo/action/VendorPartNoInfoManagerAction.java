@@ -154,6 +154,57 @@ public class VendorPartNoInfoManagerAction extends BaseAction {
     	}
     }
     
+    /**
+     * 审批
+     * @action.input 	custPartNoInfo.seqId
+	 * @action.input audit	审批结果 0：审批不通过；1：审批通过
+	 * @action.input	auditDesc	审批意见
+     * @return
+     */
+    public String doAudit()
+    {
+		try {
+			String audit = this.getHttpServletRequest().getParameter("audit");
+			if(audit == null) {
+				logger.info("参数错误！");
+				setErrorReason("参数错误！");
+				return ERROR;
+			}
+			if(audit.equals("0")) {
+				return doAuditDisAgree();
+			} else {
+				return doAuditAgree();
+			}
+		} catch(Exception e) {
+			logger.error("catch Exception in doAudit", e);
+			setErrorReason("内部错误");
+            return ERROR;
+		}
+    }
+    
+   /**
+     * 获取客户物料关系
+     * @action.input	vendorPartNoInfo.seqId
+     * @action.result	vendorPartNoInfo.*
+     * @return
+     */
+   public String doGetInfo() {
+    	try {
+    		VendorPartNoInfoMgr mgr = (VendorPartNoInfoMgr)getBean(vendorPartNoInfoMgrName);
+    		if(vendorPartNoInfo == null || vendorPartNoInfo.getSeqId() == null) {
+    			logger.info("参数错误！");
+				setErrorReason("参数错误！");
+				return ERROR;
+    		}
+    		setResult("vendorPartNoInfo", mgr.getVendorPartNoInfoByID(vendorPartNoInfo.getSeqId().toString()));
+    		return SUCCESS;
+    	} catch(Exception e) {
+    		logger.error("catch Exception in doGetInfo.", e);
+			setErrorReason("内部错误");
+			return ERROR;
+    	}
+    }
+    
 	/**
 	 * 检查供应商编码是否填写。如果出现问题，本函数内设置了ErrorReaseon。
 	 * @return

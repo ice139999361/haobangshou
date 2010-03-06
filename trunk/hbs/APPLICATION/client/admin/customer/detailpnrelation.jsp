@@ -19,8 +19,11 @@
 			    	
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="客户基本信息" collapsible="true" titleCollapse="true">
+				    			<layoutpanel>
+				    				<hidden name="custPartNoInfo.seqId" />
+				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
-				    				<label fieldLabel="客户编码"           name="custInfo.commCode"       labelStyle="width:150" allowBlank="false"/>
+				    				<label fieldLabel="客户编码"           name="custPartNoInfo.commCode"       labelStyle="width:150" allowBlank="false"/>
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="2">
