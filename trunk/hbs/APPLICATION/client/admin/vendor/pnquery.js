@@ -4,10 +4,10 @@ var querygridUrl;
 (function() {
 	switch(urlPs.roleType) {
 		case "cgy":
-			querygridUrl = "/customerInfo/custPartNoInfo!list.action";
+			querygridUrl = "/vendorInfo/vendorPartNoInfo!list.action";
 			break;
-		case "scmanager":
-			querygridUrl = "/customerInfo/custPartNoInfoMgr!list.action";
+		case "cgm":
+			querygridUrl = "/vendorInfo/vendorPartNoInfoMgr!list.action";
 			break; 
 	}
 }())

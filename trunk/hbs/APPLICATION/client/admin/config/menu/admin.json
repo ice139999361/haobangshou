@@ -129,7 +129,7 @@
                     "url": "/vendor/pnrelation.jsp?editorType=add"
                 },
                 {
-                		"id": "cgbupn_add",
+                		"id": "cgbupn_query",
                     "text": "供应商P/N对照查询",
                     "menuOrder": "40000",
                     "leaf": "true",

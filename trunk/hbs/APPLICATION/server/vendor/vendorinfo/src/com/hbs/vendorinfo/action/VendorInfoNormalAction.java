@@ -244,7 +244,7 @@ public class VendorInfoNormalAction extends BaseAction {
 			VendorInfoMgr mgr = (VendorInfoMgr)getBean(vendorInfoMgrName);
 			vendorInfo = VendorInfoUtil.getVendorInfo(mgr, vendorInfo);
 			String id = getLoginStaff().getStaffId().toString();
-			if(
+			if(vendorInfo != null &&
 					StringUtils.isNotEmpty(id) &&
 					id.equals(vendorInfo.getStaffId())
 				)
