@@ -90,6 +90,9 @@ public class CustPartNoInfoManagerAction extends BaseAction {
     	try{
     		if (logger.isDebugEnabled())    logger.debug("begin doAuditAgree");
     		
+			CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)getBean(custPartNoInfoMgrName);
+    		
+			/*
 			if(!checkCommonFields())
 				return ERROR;
 			List<FieldErr> errs = CustPartNoInfoUtil.checkInputFields(custPartNoInfo);
@@ -101,7 +104,19 @@ public class CustPartNoInfoManagerAction extends BaseAction {
 				return ERROR;
 			}
 			
-			CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)getBean(custPartNoInfoMgrName);
+			*/
+			if(custPartNoInfo == null || custPartNoInfo.getSeqId() == null) {
+				logger.info("参数错误！");
+				setErrorReason("参数错误！");
+				return ERROR;
+			}
+    		custPartNoInfo = mgr.getCustPartNoInfoByID(custPartNoInfo.getSeqId().toString());
+			if(custPartNoInfo == null) {
+				logger.info("参数错误！");
+				setErrorReason("参数错误！");
+				return ERROR;
+			}
+			
 			int i = mgr.auditAgreeCustPartNoInfo(custPartNoInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), auditDesc);
 			if(i != 0)
 			{
@@ -130,7 +145,10 @@ public class CustPartNoInfoManagerAction extends BaseAction {
     	try{
     		if (logger.isDebugEnabled())    logger.debug("begin doAuditDisAgree");
     		
-			if(!checkCommonFields())
+			CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)getBean(custPartNoInfoMgrName);
+			
+    		/*
+    		if(!checkCommonFields())
 				return ERROR;
 			List<FieldErr> errs = CustPartNoInfoUtil.checkInputFields(custPartNoInfo);
 			if(errs.isEmpty())
@@ -140,8 +158,20 @@ public class CustPartNoInfoManagerAction extends BaseAction {
 				setErrorReason(s);
 				return ERROR;
 			}
+			*/
+    		
+			if(custPartNoInfo == null || custPartNoInfo.getSeqId() == null) {
+				logger.info("参数错误！");
+				setErrorReason("参数错误！");
+				return ERROR;
+			}
+    		custPartNoInfo = mgr.getCustPartNoInfoByID(custPartNoInfo.getSeqId().toString());
+			if(custPartNoInfo == null) {
+				logger.info("参数错误！");
+				setErrorReason("参数错误！");
+				return ERROR;
+			}
 			
-			CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)getBean(custPartNoInfoMgrName);
 			int i = mgr.auditDisAgreeCustPartNoInfo(custPartNoInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), auditDesc);
 			if(i != 0)
 			{

@@ -82,11 +82,6 @@ public class CustPartNoInfoUtil {
 		
 		String s;
 		// DONE:完成checkInputFields，对输入的客户信息进行校验
-		s = custPartNoInfo.getVendorCode();
-		if(StringUtils.isEmpty(s))
-		{
-			list.add(new FieldErr("venderCode","venderCode没有填写"));
-		}
 		s = custPartNoInfo.getCommCode();
 		if(StringUtils.isEmpty(s))
 		{
@@ -125,6 +120,11 @@ public class CustPartNoInfoUtil {
 				logger.error("检查PartNo出错", e);
 				list.add(new FieldErr("PartNo", "PartNo错误"));
 			}
+		}
+		s = custPartNoInfo.getVendorCode();
+		if(StringUtils.isEmpty(s))
+		{
+			list.add(new FieldErr("venderCode","venderCode没有填写"));
 		}
 		s = custPartNoInfo.getPnDesc();
 		if(StringUtils.isEmpty(s))

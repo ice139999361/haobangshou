@@ -19,7 +19,7 @@
 			    	
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="客户基本信息" collapsible="true" titleCollapse="true">
-				    			<layoutpanel>
+				    			<layoutpanel columnNum="1">
 				    				<hidden name="custPartNoInfo.seqId" />
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
