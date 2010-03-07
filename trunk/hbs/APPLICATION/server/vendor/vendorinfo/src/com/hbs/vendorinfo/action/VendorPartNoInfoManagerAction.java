@@ -85,6 +85,7 @@ public class VendorPartNoInfoManagerAction extends BaseAction {
     	try{
     		if (logger.isDebugEnabled())    logger.debug("begin doAuditAgree");
     		
+			/*
 			if(!checkCommonFields())
 				return ERROR;
 			List<FieldErr> errs = VendorPartNoInfoUtil.checkInputFields(vendorPartNoInfo);
@@ -96,7 +97,20 @@ public class VendorPartNoInfoManagerAction extends BaseAction {
 				return ERROR;
 			}
 			
+			*/
 			VendorPartNoInfoMgr mgr = (VendorPartNoInfoMgr)BeanLocator.getInstance().getBean(vendorPartNoInfoMgrName);
+
+			if(vendorPartNoInfo == null || vendorPartNoInfo.getSeqId() == null) {
+				logger.info("参数错误！");
+				setErrorReason("参数错误！");
+				return ERROR;
+			}
+    		vendorPartNoInfo = mgr.getVendorPartNoInfoByID(vendorPartNoInfo.getSeqId().toString());
+			if(vendorPartNoInfo == null) {
+				logger.info("参数错误！");
+				setErrorReason("参数错误！");
+				return ERROR;
+			}
 			int i = mgr.auditAgreeCustPartNoInfo(vendorPartNoInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), auditDesc);
 			if(i != 0)
 			{
@@ -125,6 +139,7 @@ public class VendorPartNoInfoManagerAction extends BaseAction {
     	try{
     		if (logger.isDebugEnabled())    logger.debug("begin doAuditDisAgree");
     		
+    		/*
 			if(!checkCommonFields())
 				return ERROR;
 			List<FieldErr> errs = VendorPartNoInfoUtil.checkInputFields(vendorPartNoInfo);
@@ -135,8 +150,20 @@ public class VendorPartNoInfoManagerAction extends BaseAction {
 				setErrorReason(s);
 				return ERROR;
 			}
-			
+			*/
 			VendorPartNoInfoMgr mgr = (VendorPartNoInfoMgr)BeanLocator.getInstance().getBean(vendorPartNoInfoMgrName);
+			if(vendorPartNoInfo == null || vendorPartNoInfo.getSeqId() == null) {
+				logger.info("参数错误！");
+				setErrorReason("参数错误！");
+				return ERROR;
+			}
+    		vendorPartNoInfo = mgr.getVendorPartNoInfoByID(vendorPartNoInfo.getSeqId().toString());
+			if(vendorPartNoInfo == null) {
+				logger.info("参数错误！");
+				setErrorReason("参数错误！");
+				return ERROR;
+			}
+			
 			int i = mgr.auditDisAgreeCustPartNoInfo(vendorPartNoInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), auditDesc);
 			if(i != 0)
 			{

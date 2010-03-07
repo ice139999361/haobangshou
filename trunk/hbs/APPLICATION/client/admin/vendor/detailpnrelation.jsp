@@ -20,6 +20,9 @@
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="供应商基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="1">
+				    				<hidden name="vendorPartNoInfo.seqId" />
+				    			</layoutpanel>
+				    			<layoutpanel columnNum="1">
 				    				<label fieldLabel="供应商编码"           name="custInfo.commCode"       labelStyle="width:150" allowBlank="false"/>
 				    			</layoutpanel>
 				    			

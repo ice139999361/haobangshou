@@ -37,6 +37,8 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
     public VendorPartNoInfo getVendorPartNoInfo() { return vendorPartNoInfo; }
     public void setVendorPartNoInfo(VendorPartNoInfo vendorPartNoInfo) { this.vendorPartNoInfo = vendorPartNoInfo; }
     
+    VendorInfo vendorInfo;
+    
     /**
      * 查询供应商物料关系，判断了用户是否可以查看。
  	 * @action.input vendorPartNoInfo.commCode + vendorPartNoInfo.查询条件
@@ -180,10 +182,15 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
 			
 			//DONE：限制范围
 			VendorInfoMgr vendormgr = (VendorInfoMgr)getBean(VendorInfoNormalAction.vendorInfoMgrName);
-			VendorInfo vendorInfo = new VendorInfo();
+			vendorInfo = new VendorInfo();
 			vendorInfo.setCommCode(commCode);
 			vendorInfo.setState("0");
 			vendorInfo = vendormgr.getVendorInfo(vendorInfo, false);
+			if(vendorInfo == null) {
+				logger.info("供应编码错误！");
+				setErrorReason("供应编码错误！");
+				return false;
+			}
 			String id = getLoginStaff().getStaffId().toString();
 			if(vendorInfo == null || !id.equals(vendorInfo.getStaffId()))
 			{
