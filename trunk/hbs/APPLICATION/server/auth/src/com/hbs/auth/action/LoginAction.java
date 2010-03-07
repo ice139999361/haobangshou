@@ -3,6 +3,7 @@ package com.hbs.auth.action;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.action.base.BaseAction;
+import com.hbs.common.authfilter.User;
 import com.hbs.auth.contants.AuthConstants;
 import com.hbs.auth.manager.LoginMgr;
 import com.hbs.auth.manager.UserInfoCacheMgr;
@@ -37,7 +38,8 @@ public class LoginAction extends BaseAction {
 				LoginMgr loginMgr = (LoginMgr)getBean(AuthConstants.LOGIN_MANAGER_NAME);
 				if (loginMgr.validateUser(userAccount, password)) {
 					UserInfoCacheMgr userInfoCacheMgr = (UserInfoCacheMgr)getBean(AuthConstants.USER_INFO_CACHE_MANAGER_NAME);
-					userInfoCacheMgr.cacheUserInfo(userAccount);
+					User user = userInfoCacheMgr.cacheUserInfo(userAccount);
+					getSession().setAttribute("user", user);
 					return SUCCESS;
 				} else {
 					logger.error("invalidate user:" + userAccount);
