@@ -13,6 +13,7 @@ ExtUx.widget.DictCombo = function(config){
 	    ,root					 : "data.encodeDict"
 	    ,paramsName    : "encodeDict.encodeType"
 	    ,paramsValue   : ""
+	    ,record        : null
 	    ,width         : 123
     });
 
@@ -22,7 +23,7 @@ ExtUx.widget.DictCombo = function(config){
 Ext.extend(ExtUx.widget.DictCombo, Ext.form.ComboBox, {
 		initComponent : function(){
 			// 定义数据结构
-			var RecordType = new Ext.data.Record.create([this.valueField, this.displayField])
+			var RecordType = new Ext.data.Record.create((this.record ? this.record.split(",") : [this.valueField, this.displayField]));
 			// 创建数据容器
 			this.store = new Ext.data.Store({
 				proxy: new Ext.data.HttpProxy({url: SERVER_PATH + this.url}),
