@@ -37,6 +37,8 @@ public class CustPartNoInfoNormalAction extends BaseAction {
     public CustPartNoInfo getCustPartNoInfo() { return custPartNoInfo; }
     public void setCustPartNoInfo(CustPartNoInfo custPartNoInfo) { this.custPartNoInfo = custPartNoInfo; }
     
+    CustomerInfo custInfo;
+    
     /**
      * 查询客户物料关系，判断了用户是否可以查看。
  	 * @action.input custPartNoInfo.commCode + custPartNoInfo.查询条件
@@ -54,7 +56,7 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 			
 			if(!checkCommonFields())
 				return ERROR;
-			
+
 			setPagination(custPartNoInfo);
 			CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)getBean(custPartNoInfoMgrName);
 			setResult("list", mgr.listCustPartNoInfo(custPartNoInfo));
@@ -86,6 +88,8 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 
 			if(!checkCommonFields())
 				return ERROR;
+
+			custPartNoInfo.setVendorCode(custInfo.getVendorCode());
 
 			List<FieldErr> errs = CustPartNoInfoUtil.checkInputFields(custPartNoInfo);
 			if(!errs.isEmpty())
@@ -181,10 +185,15 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 			
 			//DONE：限制范围
 			CustomerInfoMgr custmgr = (CustomerInfoMgr)getBean(CustomerInfoNormalAction.custInfoMgrName);
-			CustomerInfo custInfo = new CustomerInfo();
+			custInfo = new CustomerInfo();
 			custInfo.setCommCode(commCode);
 			custInfo.setState("0");
 			custInfo = custmgr.getCustomerInfo(custInfo, false);
+			if(custInfo == null) {
+				logger.info("客户编码错误！");
+				setErrorReason("客户编码错误！");
+				return false;
+			}
 			String id = getLoginStaff().getStaffId().toString();
 			if(custInfo == null || (!id.equals(custInfo.getStaffId()) && !id.equals(custInfo.getAssStaffId())))
 			{

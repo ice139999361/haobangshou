@@ -37,23 +37,25 @@ HBSConvertHelper.init(function() {
 			switch(view.ds.getAt(i).get("state")) {
 				case "1":
 				case "0":
-				  // 创建按钮到操作列
-					var btns = HBSConvertHelper.renderButton2Cell(["删除", "恢复", "修改"], operator_cell, view.ds.getAt(i));
-
-					// 删除按钮事件
-					btns.get(0).on("click", function() { alert(1) });
-					
-					// 恢复按钮事件
-					btns.get(1).on("click", function() { alert(2) });
-					
-					// 修改按钮事件
-					btns.get(2).on("click", function() {
-						// 要访问的 url 地址
-						debugger;
-						var url = ["/customer/pnrelation.jsp?editorType=update&seqId=", this.config.get("seqId"), "&state=", this.config.get("state")].join("");
-						// 打开指定页面
-						HBSConvertHelper.openNewWin(url);
-					});
+					if(urlPs.roleType == "sccustomers") {
+					  // 创建按钮到操作列
+						var btns = HBSConvertHelper.renderButton2Cell(["删除", "恢复", "修改"], operator_cell, view.ds.getAt(i));
+	
+						// 删除按钮事件
+						btns.get(0).on("click", function() { alert(1) });
+						
+						// 恢复按钮事件
+						btns.get(1).on("click", function() { alert(2) });
+						
+						// 修改按钮事件
+						btns.get(2).on("click", function() {
+							// 要访问的 url 地址
+							debugger;
+							var url = ["/customer/pnrelation.jsp?editorType=update&seqId=", this.config.get("seqId"), "&state=", this.config.get("state")].join("");
+							// 打开指定页面
+							HBSConvertHelper.openNewWin(url);
+						});
+					}
 					break;
 				case "2":
 					if(urlPs.roleType == "scmanager") {
@@ -64,7 +66,22 @@ HBSConvertHelper.init(function() {
 							HBSConvertHelper.openNewWin(url);
 						});
 					}
-					break
+					break;
+				case "3":
+					if(urlPs.roleType == "sccustomers") {
+						var btns = HBSConvertHelper.renderButton2Cell(["修改","删除"], operator_cell, view.ds.getAt(i));
+						btns.get(0).on("click", function() {
+							var url= ["/customer/pnrelation.jsp?editorType=update&seqId=", this.config.get("seqId"), "&state=2"].join("");
+							HBSConvertHelper.openNewWin(url);
+						});
+						/*
+						btns.get(1).on("click", function() {
+							var url= ["/customer/pnrelation.jsp?editorType=update&seqId=", this.config.get("seqId"), "&state=2"].join("");
+							HBSConvertHelper.openNewWin(url);
+						});
+						*/
+					}
+					break;
 			}
 			
 		}
