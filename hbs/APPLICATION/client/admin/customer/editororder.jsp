@@ -35,14 +35,14 @@
 				    				<hidden name="custOrder.receiveZip"	id="acZipHidden" />
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
-				    				<dictcombo    fieldLabel="选择联系人"	id="acContactList"	url="/customerInfo/customerInfo!getContactList.action"	root="data.list"	valueField="conName"	displayField="conName"	name="custOrder.conName"                        labelStyle="width:150"/>
+				    				<dictcombo    fieldLabel="选择联系人"	id="acContactList"	url="/customerInfo/customerInfo!getContactList.action" record="seqId,conName,conTel,conFax"	root="data.list"	valueField="conName"	displayField="conName"	name="custOrder.conName"                        labelStyle="width:150"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="2">
 				    				<label        fieldLabel="电话"               name="custOrder.conTel"	id="acTel"                        labelStyle="width:150"/>
 				    				<label        fieldLabel="传真"               name="custOrder.conFax"	id="acFax"                       labelStyle="width:150"/>
 				    			</layoutpanel>	
 				    			<layoutpanel columnNum="1">
-				    				<dictcombo    fieldLabel="选择收货人"	id="acConsigneeList"	url="/customerInfo/customerInfo!getConsigneeList.action"	root="data.list"	valueField="conName"	displayField="conName"	name="custOrder.receiveName"                        labelStyle="width:150"/>
+				    				<dictcombo    fieldLabel="选择收货人"	id="acConsigneeList"	url="/customerInfo/customerInfo!getConsigneeList.action" record="seqId,conName,conAddress,conZip"	root="data.list"	valueField="conName"	displayField="conName"	name="custOrder.receiveName"                        labelStyle="width:150"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="2">
 				    				<label        fieldLabel="收货地址"           name="custOrder.receiveAddress"	id="acAddress"                        labelStyle="width:150"/>
@@ -69,19 +69,19 @@
 			    			</fields>
 			    			
 			    			<columns>
-			    			  <column isCheck="true"          dataIndex="seqId"         />
-			    				<column header="货品名称"       dataIndex="pnName" />
-			    				<column dataIndex="cpartNo"      xtype="autocomplete"      header="客户型号&lt;font color=red&gt;*&lt;/font&gt;"    />
-			    				<column dataIndex="partNo"   xtype="autocomplete"      header="GLE型号&lt;font color=red&gt;*&lt;/font&gt;"     />
-			    				<column header="描述"           dataIndex="pnDesc"  />
-			    				<column header="单价"           dataIndex="cprice"  />
-			    				<column header="税率"           dataIndex="cpriceTax"  />
-			    				<column dataIndex="isTax"   xtype="dictcombo"  paramsValue="IS_TAX"       header="是否含税交易&lt;font color=red&gt;*&lt;/font&gt;"/>
-			    				<column dataIndex="amount"   xtype="textfield"         header="数量&lt;font color=red&gt;*&lt;/font&gt;"        />
-			    				<column header="金额"           dataIndex="money"  />
-			    				<column dataIndex="orgDeliveryDate"   xtype="datefield" 	format="Y-m-d"        header="交货日期&lt;font color=red&gt;*&lt;/font&gt;"    />
-			    				<column dataIndex="specDesc"   xtype="textfield"         header="特殊备注&lt;font color=red&gt;*&lt;/font&gt;"    />
-			    				<column dataIndex="commDesc"   xtype="textfield"         header="备注&lt;font color=red&gt;*&lt;/font&gt;"        />
+			    			  <column dataIndex="seqId"             isCheck="true"            />
+			    				<column dataIndex="pnName"            header="货品名称"         />
+			    				<column dataIndex="cpartNo"           xtype="autocomplete"      header="客户型号&lt;font color=red&gt;*&lt;/font&gt;"    />
+			    				<column dataIndex="partNo"            xtype="autocomplete"      header="GLE型号&lt;font color=red&gt;*&lt;/font&gt;"     />
+			    				<column dataIndex="pnDesc"            header="描述"             />
+			    				<column dataIndex="cprice"            header="单价"             />
+			    				<column dataIndex="cpriceTax"         header="税率"             />
+			    				<column dataIndex="isTax"             xtype="dictcombo"         paramsValue="IS_TAX"       header="是否含税交易&lt;font color=red&gt;*&lt;/font&gt;"/>
+			    				<column dataIndex="amount"            xtype="textfield"         header="数量&lt;font color=red&gt;*&lt;/font&gt;"        />
+			    				<column dataIndex="money"             header="金额"             />
+			    				<column dataIndex="orgDeliveryDate"   xtype="datefield" 	      format="Y-m-d"        header="交货日期&lt;font color=red&gt;*&lt;/font&gt;"    />
+			    				<column dataIndex="specDesc"          xtype="textfield"         header="特殊备注&lt;font color=red&gt;*&lt;/font&gt;"    />
+			    				<column dataIndex="commDesc"          xtype="textfield"         header="备注&lt;font color=red&gt;*&lt;/font&gt;"        />
 			    			</columns>
 			    			
 			    			<submitFields value="seqId,pnName,cpartNo,partNo,pnDesc,cprice,cpriceTax,isTax,amount,money,orgDeliveryDate,specDesc,commDesc" />

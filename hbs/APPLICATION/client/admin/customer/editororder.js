@@ -48,6 +48,7 @@ HBSConvertHelper.init(function() {
 	// 当单机取消按钮时，调用默认的关闭窗口方法
 	backBtn.on("click", HBSConvertHelper.defaultCloseTab);
 	
+	/*
 	Ext.getCmp("acContactList").store = new Ext.data.JsonStore({
 		url : "/server/customerInfo/customerInfo!getContactList.action",
 		root : "data.list",
@@ -58,6 +59,7 @@ HBSConvertHelper.init(function() {
 		root : "data.list",
 		fields : ["seqId", "conName", "conAddress", "conZip"]
 	});
+	*/
 
 	Ext.getCmp("acCommCode").setProcessConfig("/customerInfo/customerInfo!getInfo.action?custInfo.state=0", "custInfo.commCode", null, function(action){
 		if(!action.success)
@@ -75,7 +77,7 @@ HBSConvertHelper.init(function() {
 		list.store.baseParams["custInfo.state"] = "0";
 	});
 	
-	function selectContactFunc() {
+	Ext.getCmp("acContactList").on("select", function() {
 		if(this.selectedIndex < 0)
 			return;
 		var data = this.store.getAt(this.selectedIndex);
@@ -85,9 +87,9 @@ HBSConvertHelper.init(function() {
 		o = data.get("conFax");
 		Ext.getCmp("acFax").setValue(o);
 		Ext.getCmp("acFaxHidden").setValue(o);
-	}
+	});
 	
-	function selectConsigneeFunc() {
+	Ext.getCmp("acConsigneeList").on("select", function() {
 		if(this.selectedIndex < 0)
 			return;
 		var data = this.store.getAt(this.selectedIndex);
@@ -97,9 +99,7 @@ HBSConvertHelper.init(function() {
 		o = data.get("conZip");
 		Ext.getCmp("acZip").setValue(o);
 		Ext.getCmp("acZipHidden").setValue(o);
-	}
-	Ext.getCmp("acContactList").on("select", selectContactFunc);
-	Ext.getCmp("acConsigneeList").on("select", selectConsigneeFunc);
+	});
 	
 	// -------------------------------------- 页面操作逻辑处理
 	
