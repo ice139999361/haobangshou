@@ -211,6 +211,8 @@ var u41 = document.getElementById('u41');
 gv_vAlignTable['u41'] = 'top';
 var u53 = document.getElementById('u53');
 gv_vAlignTable['u53'] = 'center';
+var u57 = document.getElementById('u57');
+gv_vAlignTable['u57'] = 'center';
 var u21 = document.getElementById('u21');
 gv_vAlignTable['u21'] = 'top';
 var u37 = document.getElementById('u37');
@@ -223,6 +225,8 @@ var u17 = document.getElementById('u17');
 gv_vAlignTable['u17'] = 'top';
 var u5 = document.getElementById('u5');
 gv_vAlignTable['u5'] = 'top';
+var u56 = document.getElementById('u56');
+
 var u3 = document.getElementById('u3');
 gv_vAlignTable['u3'] = 'center';
 var u1 = document.getElementById('u1');
@@ -295,4 +299,31 @@ var u0 = document.getElementById('u0');
 
 var u23 = document.getElementById('u23');
 gv_vAlignTable['u23'] = 'top';
+var u58 = document.getElementById('u58');
+
+x = 0;
+y = 0;
+InsertAfterBegin(document.getElementById('u58ann'), "<div id='u58Note' class='annnoteimage' style='left:" + x + ";top:" + y + "' onclick=\"ToggleWorkflow(event, 'u58', 300, 300, false)\"></div>");
+
+eval(annwindow.replace(/\[\[id\]\]/g, 'u58').replace(/\[\[label\]\]/g, "?"));
+
+InsertAfterBegin(document.body, "<div id='u58based' style='z-index:1; visibility:hidden; position:absolute'></div><div id='u58base' style='z-index:1; visibility:hidden; position:absolute'></div>");
+var u58based = document.getElementById('u58based');
+            
+InsertBeforeEnd(u58based, "<div class='anncontent'><span class='annfieldname'>功能说明:</span> 帐号支持链接到用户信息详情页面<BR><BR></div>");
+
+u58.style.cursor = 'pointer';
+if (bIE) u58.attachEvent("onclick", Clicku58);
+else u58.addEventListener("click", Clicku58, true);
+function Clicku58(e)
+{
+
+if (true) {
+
+	NewWindow("用户信息详情.html" + GetQuerystring(), "", "directories=1, height=500, location=1, menubar=1, resizable=1, scrollbars=1, status=1, toolbar=1, width=500", true, 500, 500);
+
+}
+
+}
+gv_vAlignTable['u58'] = 'top';
 if (window.OnLoad) OnLoad();
