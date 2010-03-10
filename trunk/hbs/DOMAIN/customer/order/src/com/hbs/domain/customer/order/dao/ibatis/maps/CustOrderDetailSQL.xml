@@ -606,6 +606,21 @@
 			<isNotEmpty prepend="and" property = "rltSendPoNo">
 				RLT_SEND_PO_NO = #rltSendPoNo#
 			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "verDeliveryDate">
+				VER_DELIVERY_DATE = #verDeliveryDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.stateList">
+				<![CDATA[	
+					STATE IN($dynamicFields.stateList$)
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.settlementTypeList">
+				<![CDATA[	
+					SETTLEMENT_TYPE IN($dynamicFields.settlementTypeList$)
+				]]>
+			</isNotEmpty>
 			<isNotEmpty prepend="order by" property="sort">
                    $sort$
             </isNotEmpty>
@@ -646,48 +661,9 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "pnDesc">
 				PN_DESC = #pnDesc#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "cprice">
-				C_PRICE = #cprice#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "isTax">
-				IS_TAX = #isTax#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "taxRate">
-				TAX_RATE = #taxRate#
-			</isNotEmpty>
+			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "specDesc">
 				SPEC_DESC = #specDesc#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "commDesc">
-				COMM_DESC = #commDesc#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "amount">
-				AMOUNT = #amount#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "money">
-				MONEY = #money#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "deliveryAmount">
-				DELIVERY_AMOUNT = #deliveryAmount#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "lockAmount">
-				LOCK_AMOUNT = #lockAmount#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "selfLockAmount">
-				SELF_LOCK_AMOUNT = #selfLockAmount#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "commLockAmount">
-				COMM_LOCK_AMOUNT = #commLockAmount#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "orgDeliveryDate">
-				ORG_DELIVERY_DATE = #orgDeliveryDate#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "preDeliveryDate">
-				PRE_DELIVERY_DATE = #preDeliveryDate#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "verDeliveryDate">
-				VER_DELIVERY_DATE = #verDeliveryDate#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "period">
 				PERIOD = #period#
@@ -706,6 +682,15 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "rltSendPoNo">
 				RLT_SEND_PO_NO = #rltSendPoNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "verDeliveryDate">
+				VER_DELIVERY_DATE = #verDeliveryDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.stateList">
+				<![CDATA[	
+					STATE IN($dynamicFields.stateList$)
+				]]>
 			</isNotEmpty>
 		</dynamic>
 </select>
