@@ -51,7 +51,7 @@
 				    		</listpanel>
 			    		</items></form>
 			    		
-			    		<complexgrid id="ordergrid" frame="true" height="200" deftbar="true" url="1">
+			    		<complexgrid id="ordergrid" frame="true" height="200" deftbar="true" url="1" title="订单详情">
 			    			<fields>
 			    				<field name="seqId" />
 			    				<field name="pnName" />
@@ -71,8 +71,8 @@
 			    			<columns>
 			    			  <column dataIndex="seqId"             isCheck="true"            />
 			    				<column dataIndex="pnName"            header="货品名称"         />
-			    				<column dataIndex="cpartNo"           xtype="autocomplete"      header="客户型号&lt;font color=red&gt;*&lt;/font&gt;"    />
-			    				<column dataIndex="partNo"            xtype="autocomplete"      header="GLE型号&lt;font color=red&gt;*&lt;/font&gt;"     />
+			    				<column dataIndex="cpartNo"           xtype="autocomplete"      id="cCpartNo"   header="客户型号&lt;font color=red&gt;*&lt;/font&gt;"    />
+			    				<column dataIndex="partNo"            xtype="autocomplete"      id="cPartNo"    header="GLE型号&lt;font color=red&gt;*&lt;/font&gt;"     />
 			    				<column dataIndex="pnDesc"            header="描述"             />
 			    				<column dataIndex="cprice"            header="单价"             />
 			    				<column dataIndex="cpriceTax"         header="税率"             />
