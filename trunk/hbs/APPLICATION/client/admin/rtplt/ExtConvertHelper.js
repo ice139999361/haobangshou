@@ -273,7 +273,7 @@ var ExtConvertHelper = {
 Ext.apply(ExtConvertHelper, {
 	extProConvertMap: {
 	 		 // 将会做出自动转换，属性名之间用 "," 分隔
-	 		 "boolean" : "editorFlag,fileUpload,allowBlank,deftbar,sortable,page,enableTabScroll,closable,frame,displayIcon,split,collapsible,preloadChildren,expanded,singleClickExpand"
+	 		 "boolean" : "titleCollapse,editorFlag,fileUpload,allowBlank,deftbar,sortable,page,enableTabScroll,closable,frame,displayIcon,split,collapsible,preloadChildren,expanded,singleClickExpand"
 	 		,"number"	 : "activeTab,width,height,labelWidth"
 	 		 // 添加自己的转换方法
 			//,"items" 	 : ExtConvertHelper.__convertExtItem

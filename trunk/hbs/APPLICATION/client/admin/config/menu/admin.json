@@ -206,7 +206,7 @@
 				                    "text": "创建用户",
 				                    "menuOrder": "10000",
 				                    "leaf": "true",
-				                    "url": "/materiel/editormateriel.jsp"
+				                    "url": "/auth/editoruser.jsp?editorType=add"
 				                },{
 				                		"id": "sau02",
 				                    "text": "修改用户",
