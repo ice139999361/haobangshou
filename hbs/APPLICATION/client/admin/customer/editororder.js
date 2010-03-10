@@ -7,6 +7,8 @@ HBSConvertHelper.init(function() {
 	var saveBtn 	  = Ext.getCmp("saveBtn");
 	// 获取返回按钮
 	var backBtn 		= Ext.getCmp("backBtn");
+	// 获取订单详情表格
+	var ordergrid   = Ext.getCmp("ordergrid");
 	
 	
 	// -------------------------------------- 应用逻辑处理
@@ -35,18 +37,46 @@ HBSConvertHelper.init(function() {
 		});
 	}
 	
-	// 当提交按钮被单击时
-	submitBtn.on("click", function() {
-		submitData("/custOrder/custOrder!save.action");
-	});
+	(function() {
+		// 当提交按钮被单击时
+		submitBtn.on("click", function() {
+			submitData("/custOrder/custOrder!save.action");
+		});
+		
+		// 当保存按钮被单击时
+		saveBtn.on("click", function() {
+			submitData("/custOrder/custOrder!saveTemp.action");
+		});
+		
+		// 当单机取消按钮时，调用默认的关闭窗口方法
+		backBtn.on("click", HBSConvertHelper.defaultCloseTab);
+		
+		// 获取表格的列模型
+		var cm = ordergrid.getColumnModel();
+		
+		// 输入客户P/N或本公司P/N时，自动填写名称、描述、单价、税率
+		var orderacfun = function(action){
+			if(!action.success)
+				return;
+				
+			var sm = ordergrid.getSelectionModel();
+			sm.getSelected().set("pnName"   , "货品名称");
+			sm.getSelected().set("pnDesc"   , "描述");
+			sm.getSelected().set("cprice"   , "单价");
+			sm.getSelected().set("cpriceTax", "税率");
+		};
+		
+		// 获取客户型号控件并加载事件
+		cm.getColumnById("cCpartNo").editor.setProcessConfig("/customerInfo/customerInfo!list.action", "custInfo.commCode", null, orderacfun);
+		
+		// 获取GLE型号控件并加载事件
+		cm.getColumnById("cPartNo").editor.setProcessConfig("/customerInfo/customerInfo!list.action", "custInfo.commCode", null, orderacfun);
+		
+		//根据税率设置是否含税交易：税率为0时，可选；否则设为是，并不可修改。 
+		//输入数量时，自动填写金额。 
+
+	}())
 	
-	// 当保存按钮被单击时
-	saveBtn.on("click", function() {
-		submitData("/custOrder/custOrder!saveTemp.action");
-	});
-	
-	// 当单机取消按钮时，调用默认的关闭窗口方法
-	backBtn.on("click", HBSConvertHelper.defaultCloseTab);
 	
 	/*
 	Ext.getCmp("acContactList").store = new Ext.data.JsonStore({
