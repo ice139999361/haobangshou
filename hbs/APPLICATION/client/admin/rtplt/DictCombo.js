@@ -70,9 +70,10 @@ Ext.extend(ExtUx.widget.DictCombo, Ext.form.ComboBox, {
     	}, null, this);
 		}
 		
-		
-		this.on("select", _process);
-		new Ext.KeyNav(this.getEl(), { enter: _process, scope: this });
+		try{
+			this.on("select", _process);
+			new Ext.KeyNav(this.getEl(), { enter: _process, scope: this });
+		} catch(e) {}
 	}
 });
 
