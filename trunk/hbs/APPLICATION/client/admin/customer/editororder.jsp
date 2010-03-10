@@ -16,7 +16,7 @@
 			    	<items>
 			    	<!-- service ext ui.  begin. -->
 			    	
-<form id="form"><items>
+							<form id="form"><items>
 				    		<listpanel frame="true" title="订单基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
 				    				<autocomplete fieldLabel="客户编码"	url="/customerInfo/customerInfo!list.action"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"           name="custOrder.commCode"       labelStyle="width:150" id="acCommCode" />
@@ -71,13 +71,13 @@
 			    			<columns>
 			    			  <column dataIndex="seqId"             isCheck="true"            />
 			    				<column dataIndex="pnName"            header="货品名称"         />
-			    				<column dataIndex="cpartNo"           xtype="autocomplete"      id="cCpartNo"   header="客户型号&lt;font color=red&gt;*&lt;/font&gt;"    />
-			    				<column dataIndex="partNo"            xtype="autocomplete"      id="cPartNo"    header="GLE型号&lt;font color=red&gt;*&lt;/font&gt;"     />
+			    				<column dataIndex="cpartNo"           xtype="autocomplete"      id="cCpartNo"    header="客户型号&lt;font color=red&gt;*&lt;/font&gt;"    />
+			    				<column dataIndex="partNo"            xtype="autocomplete"      id="cPartNo"     header="GLE型号&lt;font color=red&gt;*&lt;/font&gt;"     />
 			    				<column dataIndex="pnDesc"            header="描述"             />
 			    				<column dataIndex="cprice"            header="单价"             />
 			    				<column dataIndex="cpriceTax"         header="税率"             />
 			    				<column dataIndex="isTax"             xtype="dictcombo"         paramsValue="IS_TAX"       header="是否含税交易&lt;font color=red&gt;*&lt;/font&gt;"/>
-			    				<column dataIndex="amount"            xtype="textfield"         header="数量&lt;font color=red&gt;*&lt;/font&gt;"        />
+			    				<column dataIndex="amount"            xtype="numberfield"       renderer="amountRenderer" header="数量&lt;font color=red&gt;*&lt;/font&gt;"        />
 			    				<column dataIndex="money"             header="金额"             />
 			    				<column dataIndex="orgDeliveryDate"   xtype="datefield" 	      format="Y-m-d"        header="交货日期&lt;font color=red&gt;*&lt;/font&gt;"    />
 			    				<column dataIndex="specDesc"          xtype="textfield"         header="特殊备注&lt;font color=red&gt;*&lt;/font&gt;"    />

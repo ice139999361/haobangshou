@@ -1,3 +1,11 @@
+var amountRenderer = function(value, metadata, record) {
+	if(value) {
+		
+		record.set("money", Math.FloatMul(value, record.get("cprice")));
+	}
+	return value;
+}
+
 HBSConvertHelper.init(function() {
 	// -------------------------------------- 获取需要持久用到的对象
 	
@@ -62,7 +70,7 @@ HBSConvertHelper.init(function() {
 			var sm = ordergrid.getSelectionModel();
 			sm.getSelected().set("pnName"   , "货品名称");
 			sm.getSelected().set("pnDesc"   , "描述");
-			sm.getSelected().set("cprice"   , "单价");
+			sm.getSelected().set("cprice"   , "33.3");
 			sm.getSelected().set("cpriceTax", "税率");
 		};
 		
@@ -76,6 +84,7 @@ HBSConvertHelper.init(function() {
 		//输入数量时，自动填写金额。 
 
 	}())
+	
 	
 	
 	/*
