@@ -123,4 +123,8 @@ public final class CustOrderConstants {
 	 * 预付X%剩余款到发货
 	 */
 	public static final int CUST_ORDER_SETTLEMENT_TYPE_3= 3;
+	/**
+	 * 客户订单为订货单
+	 */
+	public static final String CUST_ORDER_PONO_TYPE_0="0";
 }

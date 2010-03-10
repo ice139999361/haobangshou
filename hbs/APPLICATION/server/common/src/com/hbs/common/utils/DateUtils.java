@@ -163,8 +163,9 @@ public class DateUtils {
 	 * 根据传入的日期和需要的格式，返回格式化字符串
 	 * 如果传入的格式为null，使用系统缺省的格式 
 	 * @param date 
-	 * @param internal 需要减去的间隔
+	 * @param internal 需要的间隔
 	 * @param format
+	 * @param isAdd 加减标识  
 	 * @return
 	 */
 	public static String getFormatDate(Date date , String internal , String format,boolean isAdd){
@@ -197,6 +198,7 @@ public class DateUtils {
 	 */
 	public static Date getNeedDate(Date date , String internal,boolean isAdd){
 		DateTime dt = new DateTime(date);
+		
 		if(!isAdd){
 			if(internal != null){
 				dt = dt.plusDays(-(new Integer(internal)));

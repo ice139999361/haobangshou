@@ -27,5 +27,6 @@ public class ExpireTimeUtil {
 			strL = config.getConfigValue();
 		}
 		return DateUtils.getNeedDate(new Date(), strL, true);
-	}
+	}	
+	
 }
