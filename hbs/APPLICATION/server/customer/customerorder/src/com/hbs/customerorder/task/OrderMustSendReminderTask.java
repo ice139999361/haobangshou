@@ -1,6 +1,6 @@
 /**
  * system ：hbs
- * desc:    查询需要发货的但货没有备齐的订单明细，提醒采购催货
+ * desc:    在发货日期的前几天提醒仓库发货给客户
  * version: 1.0
  * author : yangzj
  */
@@ -21,22 +21,23 @@ import com.hbs.customerorder.utils.CustOrderUtils;
 import com.hbs.domain.customer.order.pojo.CustOrderDetail;
 import com.hbs.domain.waittask.pojo.WaitTaskInfo;
 
-public class OrderPrepareReminderTask implements SendReminderTask {
-	private static final Logger logger = Logger.getLogger(OrderPrepareReminderTask.class);
+public class OrderMustSendReminderTask implements SendReminderTask {
+
+	private static final Logger logger = Logger.getLogger(OrderMustSendReminderTask.class);
 	/* (non-Javadoc)
 	 * @see com.hbs.customerorder.task.SendReminderTask#reminder()
 	 */
 	public void reminder() {
-		logger.info("扫描需要提醒的货未备齐的客户订单明细！");
+		logger.info("扫描需要提醒的需要发货的客户订单明细！");
 		try{
 			List<CustOrderDetail> detailList = getCustOrderDetailList();
 			if(null == detailList || detailList.size() ==0){
-				logger.info("本次扫描的需要提醒货未备齐的客户订单明细的数量为0！");
+				logger.info("本次扫描的需要提醒需要发货的客户订单明细的数量为0！");
 			}else{
-				logger.info("本次扫描的需要提醒货未备齐的客户订单明细的数量为" + detailList.size());
+				logger.info("本次扫描的需要提醒需要发货的客户订单明细的数量为" + detailList.size());
 				for(CustOrderDetail detail : detailList){
 					logger.info("当前处理的客户订单明细信息为：" + detail.toString());
-					processWaitTask(detail,"CUST_ORDER_012");
+					processWaitTask(detail,"CUST_ORDER_013");
 				}
 			}
 		}catch(Exception e){
@@ -59,27 +60,14 @@ public class OrderPrepareReminderTask implements SendReminderTask {
 		waitTaskInfo.setHmParam(hmParam);
 		waitTaskInfo.setBusinessKey(detail.getBizKey()+"提醒日-"+ cfgId);
 		waitTaskInfo.setExpireTime(detail.getVerDeliveryDate());
-		waitTaskInfo.setStaffId(getVendorStaffId(detail.getVendorCode()));
 		CustOrderUtils.processCreateWaitTask(cfgId,null, waitTaskInfo);
 	}
 	
 	/**
-	 * 根据客户信息中的供应商编码，查询供应商对应的本公司的采购员
-	 * @param vendorCode
-	 * @return
-	 * @throws Exception
-	 */
-	private String getVendorStaffId(String vendorCode) throws Exception{		
-		CustOrderDetailMgr detailMgr = (CustOrderDetailMgr)BeanLocator.getInstance().getBean("custOrderDetailMgr");
-		
-		return detailMgr.getVendorStaffId(vendorCode);
-		
-	}
-	/**
-	 * 获取货未备齐的客户订单明细
+	 * 获取需要发货的客户订单明细
 	 * 条件为当前日期+ 提醒日期天数 = 发货日期
 	 
-	 *       状态为 70（部分备货） 
+	 *       状态为 71（部分备货） 
 	 *       客户订单0
 	 *       活动状态为ACTIVE
 	 * @return
@@ -88,13 +76,13 @@ public class OrderPrepareReminderTask implements SendReminderTask {
 		CustOrderDetail detail = new CustOrderDetail();
 		detail.setActiveState(CustOrderConstants.ORDER_ACTIVE_STATE);
 		detail.setPoNoType(CustOrderConstants.CUST_ORDER_PONO_TYPE_0);		
-		detail.setState(CustOrderConstants.ORDER_STATE_70);
+		detail.setState(CustOrderConstants.ORDER_STATE_71);
 		//发货日期
-		detail.setVerDeliveryDate(ExpireTimeUtil.getExpireTime("CUST_ORDER_PREPARE_REMINDER_DAY"));
+		detail.setVerDeliveryDate(ExpireTimeUtil.getExpireTime("CUST_ORDER_SEND_REMINDER_DAY"));
 		CustOrderDetailMgr detailMgr = (CustOrderDetailMgr)BeanLocator.getInstance().getBean("custOrderDetailMgr");
 		
 		return detailMgr.listCustOrderDetail(detail);
 	}
 	
-	
+
 }

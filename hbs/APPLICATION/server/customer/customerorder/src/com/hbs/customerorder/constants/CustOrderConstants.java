@@ -23,6 +23,11 @@ public final class CustOrderConstants {
 	 * 业务取消数据
 	 */
 	public static final String ORDER_STATE_04 = "04"; //待业务确认交期
+	
+	/**
+	 * 交期到，待业务确认发货（货未备齐）
+	 */
+	public static final String ORDER_STATE_05 = "05"; //待业务确认交期
 	/**
 	 * 待业务确认交期
 	 */
