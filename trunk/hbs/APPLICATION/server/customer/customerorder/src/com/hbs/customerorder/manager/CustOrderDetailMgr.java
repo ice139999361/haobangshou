@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 
 import com.hbs.common.springhelper.BeanLocator;
 
+import com.hbs.common.utils.DateUtils;
 import com.hbs.common.utils.ExpireTimeUtil;
 import com.hbs.common.utils.OrderCalUtils;
 import com.hbs.customer.common.utils.CustLogUtils;
@@ -38,6 +39,7 @@ import com.hbs.warehouse.manager.WarehouseMgr;
  * @author Administrator
  *
  */
+
 public class CustOrderDetailMgr {
 	private static final Logger logger = Logger.getLogger(CustOrderDetailMgr.class);
 	private static final String VENDORINFO_DAO ="vendorInfoDao";
@@ -260,7 +262,7 @@ public class CustOrderDetailMgr {
 	 * @return
 	 * @throws Exception
 	 */
-	private String getVendorStaffId(String vendorCode) throws Exception{
+	public String getVendorStaffId(String vendorCode) throws Exception{
 		String retStr = null;
 		VendorInfoDao vInfoDao = (VendorInfoDao)BeanLocator.getInstance().getBean(VENDORINFO_DAO);
 		VendorInfo vInfo = new VendorInfo();
@@ -406,7 +408,19 @@ public class CustOrderDetailMgr {
 		if((CustOrderConstants.ORDER_STATE_31).equals(state)){
 			orderDetail.setState(CustOrderConstants.ORDER_STATE_70);
 			ret = updateCustDetailByState(orderDetail);
-			
+			//向仓库发出出货待办提醒
+			WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
+			Map<String , String> hmParam = new HashMap<String,String>();
+			hmParam.put("$custCode", orderDetail.getCommCode());
+			hmParam.put("$poNo", orderDetail.getPoNo());
+			hmParam.put("$partNo", orderDetail.getPartNo());
+			hmParam.put("$veryDeliveryDate", DateUtils.getFormatDate(orderDetail.getVerDeliveryDate(),DateUtils.DETAIL_DATEFORMAT));
+			waitTaskInfo.setHmParam(hmParam);
+			String cfgId ="CUST_ORDER_013";
+			waitTaskInfo.setBusinessKey(orderDetail.getBizKey()+"提醒日-"+ cfgId);
+			waitTaskInfo.setExpireTime(orderDetail.getVerDeliveryDate());
+			CustOrderUtils.processCreateWaitTask(cfgId,null, waitTaskInfo);
+			//日志
 			CustLogUtils.operLog(auditId, auditName, "确认", "客户订单明细款到发货", orderDetail.getLogBizKey(), null, auditContents);
 		}else{
 			logger.debug("此订单明细的状态不正确，无法确认预付x%，款到发货！");
@@ -466,7 +480,7 @@ public class CustOrderDetailMgr {
 			orderDetail.setState(CustOrderConstants.ORDER_STATE_70);
 			ret = updateCustDetailByState(orderDetail);			
 			CustLogUtils.operLog(auditId, auditName, "同意", "客户订单明细款到发货而款未到", orderDetail.getLogBizKey(), null, auditContents);
-			//waittask
+			//waittask向申请人发提醒，审批通过
 			WaitTaskInfo waitTaskInfo = new WaitTaskInfo();			
 			Map<String , String> hmParam = new HashMap<String,String>();
 			hmParam.put("$staffName", auditName);
@@ -475,6 +489,18 @@ public class CustOrderDetailMgr {
 			waitTaskInfo.setBusinessKey(orderDetail.getBizKey());
 			waitTaskInfo.setExpireTime(ExpireTimeUtil.getExpireTime("CUST_ORDER_REMINDER_DAY"));
 			CustOrderUtils.processCreateWaitTask(null,CustOrderConstants.ORDER_STATE_70, waitTaskInfo);
+			//向仓库发出出货待办提醒
+			WaitTaskInfo waitTaskInfo1 = new WaitTaskInfo();
+			Map<String , String> hmParam1 = new HashMap<String,String>();
+			hmParam1.put("$custCode", orderDetail.getCommCode());
+			hmParam1.put("$poNo", orderDetail.getPoNo());
+			hmParam1.put("$partNo", orderDetail.getPartNo());
+			hmParam1.put("$veryDeliveryDate", DateUtils.getFormatDate(orderDetail.getVerDeliveryDate(),DateUtils.DETAIL_DATEFORMAT));
+			waitTaskInfo1.setHmParam(hmParam);
+			String cfgId ="CUST_ORDER_013";
+			waitTaskInfo1.setBusinessKey(orderDetail.getBizKey()+"提醒日-"+ cfgId);
+			waitTaskInfo1.setExpireTime(orderDetail.getVerDeliveryDate());
+			CustOrderUtils.processCreateWaitTask(cfgId,null, waitTaskInfo);
 		}else{
 			logger.debug("此订单明细的状态不正确，无法执行领导审批同意预付x%，款到发货，款未到发货！");
 			throw new Exception("此订单明细的状态不正确，无法执行领导审批同意预付x%，款到发货，款未到发货！");
