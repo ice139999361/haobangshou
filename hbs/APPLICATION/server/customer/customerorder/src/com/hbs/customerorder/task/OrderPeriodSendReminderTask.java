@@ -73,7 +73,7 @@ public class OrderPeriodSendReminderTask implements SendReminderTask {
 	 * 获取1（账期结算）的客户订单明细
 	 * 条件为当前日期+ 提醒日期天数 = 发货日期
 	 *        1（账期结算）
-	 *       状态为 70（货未备齐） 
+	 *       状态为 71（货未备齐） 
 	 *       客户订单0
 	 *       活动状态为ACTIVE
 	 * @return
@@ -82,7 +82,7 @@ public class OrderPeriodSendReminderTask implements SendReminderTask {
 		CustOrderDetail detail = new CustOrderDetail();
 		detail.setActiveState(CustOrderConstants.ORDER_ACTIVE_STATE);
 		detail.setPoNoType(CustOrderConstants.CUST_ORDER_PONO_TYPE_0);		
-		detail.setState(CustOrderConstants.ORDER_STATE_70);
+		detail.setState(CustOrderConstants.ORDER_STATE_71);
 		detail.setSettlementType(new Integer(CustOrderConstants.CUST_ORDER_SETTLEMENT_TYPE_1).toString());
 		//发货日期
 		detail.setVerDeliveryDate(ExpireTimeUtil.getExpireTime("CUST_ORDER_PERIOD_1_REMINDER_DAY"));

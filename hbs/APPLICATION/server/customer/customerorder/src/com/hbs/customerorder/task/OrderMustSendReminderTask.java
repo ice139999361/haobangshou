@@ -67,7 +67,7 @@ public class OrderMustSendReminderTask implements SendReminderTask {
 	 * 获取需要发货的客户订单明细
 	 * 条件为当前日期+ 提醒日期天数 = 发货日期
 	 
-	 *       状态为 71（部分备货） 
+	 *       状态为 70（货已备齐） 
 	 *       客户订单0
 	 *       活动状态为ACTIVE
 	 * @return
@@ -76,7 +76,7 @@ public class OrderMustSendReminderTask implements SendReminderTask {
 		CustOrderDetail detail = new CustOrderDetail();
 		detail.setActiveState(CustOrderConstants.ORDER_ACTIVE_STATE);
 		detail.setPoNoType(CustOrderConstants.CUST_ORDER_PONO_TYPE_0);		
-		detail.setState(CustOrderConstants.ORDER_STATE_71);
+		detail.setState(CustOrderConstants.ORDER_STATE_70);
 		//发货日期
 		detail.setVerDeliveryDate(ExpireTimeUtil.getExpireTime("CUST_ORDER_SEND_REMINDER_DAY"));
 		CustOrderDetailMgr detailMgr = (CustOrderDetailMgr)BeanLocator.getInstance().getBean("custOrderDetailMgr");
