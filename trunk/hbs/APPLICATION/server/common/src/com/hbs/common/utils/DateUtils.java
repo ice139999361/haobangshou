@@ -9,6 +9,7 @@ package com.hbs.common.utils;
 import java.util.Date;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -190,26 +191,25 @@ public class DateUtils {
 		return dt.toString(ft);
 	}
 	/**
-	 * 获取需要的时间
-	 * @param date  当前时间
-	 * @param internal  时间间隔
+	 * 获取需要的日期时间
+	 * @param date  当前日期时间
+	 * @param internal  日期时间间隔
 	 * @param isAdd 增或减
-	 * @return
+	 * @return 日期的格式不带时间
 	 */
-	public static Date getNeedDate(Date date , String internal,boolean isAdd){
-		DateTime dt = new DateTime(date);
-		
+	public static Date getNeedDate(Date date , String internal,boolean isAdd){		
+		LocalDate ld = new LocalDate(date);
 		if(!isAdd){
 			if(internal != null){
-				dt = dt.plusDays(-(new Integer(internal)));
+				ld = ld.plusDays(-(new Integer(internal)));
 			}else{
-				dt = dt.plusDays(1);
+				ld = ld.plusDays(1);
 			}
 		}else{
 			if(internal != null){
-				dt = dt.plusDays((new Integer(internal)));
+				ld = ld.plusDays((new Integer(internal)));
 			}
 		}
-		return dt.toDate();
+		return new DateTime(ld.getYear(),ld.getMonthOfYear(),ld.getDayOfMonth(),0,0,0,0).toDate();
 	}
 }
