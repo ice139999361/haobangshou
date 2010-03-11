@@ -212,4 +212,19 @@ public class DateUtils {
 		}
 		return new DateTime(ld.getYear(),ld.getMonthOfYear(),ld.getDayOfMonth(),0,0,0,0).toDate();
 	}
+	/**
+	 * 比较2个时间大小
+	 * @param firstDate
+	 * @param secondDate
+	 * @return true 大于 else  小于
+	 */
+	public static boolean compareDate(Date firstDate , Date secondDate){
+		boolean ret = false;
+		DateTime firstDateTime = new DateTime(firstDate);
+		DateTime secondDateTime = new DateTime(secondDate);
+		if(firstDateTime.isAfter(secondDateTime)){
+			ret = true;
+		}
+		return ret;
+	}
 }

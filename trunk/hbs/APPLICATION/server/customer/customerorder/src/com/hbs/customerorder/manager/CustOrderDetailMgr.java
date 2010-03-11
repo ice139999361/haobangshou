@@ -119,6 +119,8 @@ public class CustOrderDetailMgr {
 		
 		return ret;
 	}
+	
+
 	/**
 	 * 采购确认订单明细的交期
 	 * 状态为21
@@ -215,7 +217,67 @@ public class CustOrderDetailMgr {
 		CustOrderUtils.processCreateWaitTask("CUST_ORDER_005",null, waitTaskInfo);		
 		return ret;
 	}
-	
+	/**
+	 * 账期客户订单明细交期将到，但货未备齐，业务助理决定部分发货
+	 * 状态由05----交期到，待业务确认发货（货未备齐） 转为原来状态70
+	 * @param orderDetail
+	 * @param content
+	 * @return
+	 * @throws Exception
+	 */
+	public int salesConfirmSendDetail(CustOrderDetail orderDetail, String content) throws Exception{
+		int ret =0;
+		logger.debug("账期客户订单明细交期将到，但货未备齐，业务助理决定部分发货，输入的参数为：" + orderDetail.toString());
+		orderDetail.setState(CustOrderConstants.ORDER_STATE_70);
+		Map<String,Object> hm = new HashMap<String,Object>();
+		hm.put("state", CustOrderConstants.ORDER_STATE_03);
+		orderDetail.setDynamicFields(hm);
+		updateCustDetailByState(orderDetail);		
+		//log
+		CustLogUtils.operLog(orderDetail.getStaffId(), orderDetail.getStaffName(), "业务同意部分出货", "客户订单明细", orderDetail.getLogBizKey(), null, content);
+		//waittask,清除发出的待办
+		CustOrderUtils.processDeleteWaitTask(orderDetail.getBizKey());	
+		//决定向仓库发出出货提醒待办		
+//		Date firstDate = ExpireTimeUtil.getExpireTime("CUST_ORDER_SEND_REMINDER_DAY");
+//		if(DateUtils.compareDate(firstDate, orderDetail.getVerDeliveryDate())){
+			WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
+			Map<String , String> hmParam = new HashMap<String,String>();
+			hmParam.put("$custCode", orderDetail.getCommCode());
+			hmParam.put("$poNo", orderDetail.getPoNo());
+			hmParam.put("$partNo", orderDetail.getPartNo());
+			hmParam.put("$veryDeliveryDate", DateUtils.getFormatDate(orderDetail.getVerDeliveryDate(),DateUtils.DETAIL_DATEFORMAT));
+			waitTaskInfo.setHmParam(hmParam);
+			String cfgId ="CUST_ORDER_016";
+			waitTaskInfo.setBusinessKey(orderDetail.getBizKey()+"提醒日-"+ cfgId);
+			waitTaskInfo.setExpireTime(orderDetail.getVerDeliveryDate());
+			CustOrderUtils.processCreateWaitTask(cfgId,null, waitTaskInfo);
+	//	}
+		return ret;
+	}
+	/**
+	 * 账期客户订单明细交期将到，但货未备齐，业务助理决定不部分发货
+	 * 状态由05----交期到，待业务确认发货（货未备齐） 转为原来状态71
+	 * @param orderDetail
+	 * @param content
+	 * @return
+	 * @throws Exception
+	 */
+	public int salesConfirmNotSendDetail(CustOrderDetail orderDetail, String content) throws Exception{
+		int ret =0;
+		logger.debug("账期客户订单明细交期将到，但货未备齐，业务助理决定不部分发货，输入的参数为：" + orderDetail.toString());
+		orderDetail.setState(CustOrderConstants.ORDER_STATE_71);
+		Map<String,Object> hm = new HashMap<String,Object>();
+		hm.put("state", CustOrderConstants.ORDER_STATE_03);
+		orderDetail.setDynamicFields(hm);
+		updateCustDetailByState(orderDetail);		
+		//log
+		CustLogUtils.operLog(orderDetail.getStaffId(), orderDetail.getStaffName(), "业务拒绝部分出货", "客户订单明细", orderDetail.getLogBizKey(), null, content);
+		//waittask,清除发出的待办
+		
+		CustOrderUtils.processDeleteWaitTask(orderDetail.getBizKey());	
+					
+		return ret;
+	}
 	/**
 	 * 业务提交变更后的交期，提交给采购处理
 	 * 状态变为20  待采购处理
@@ -245,7 +307,6 @@ public class CustOrderDetailMgr {
 		cOrderDao.updateCustomerOrderByState(cOrder);
 		//log
 		CustLogUtils.operLog(orderDetail.getStaffId(), orderDetail.getStaffName(), "业务提交交期", "客户订单明细", orderDetail.getLogBizKey(), null, content);
-			
 		//waittask
 		WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
 		waitTaskInfo.setStaffId(getVendorStaffId(orderDetail.getCommCode()));//这里需要查找采购人员ID
@@ -253,7 +314,8 @@ public class CustOrderDetailMgr {
 		hmParam.put("$staffName", orderDetail.getStaffName());
 		hmParam.put("$businessKey", orderDetail.getWaitTaskBizKey());
 		waitTaskInfo.setHmParam(hmParam);		
-		CustOrderUtils.processCreateWaitTask("CUST_ORDER_006",null, waitTaskInfo);			
+		CustOrderUtils.processCreateWaitTask("CUST_ORDER_006",null, waitTaskInfo);	
+					
 		return ret;
 	}
 	/**
