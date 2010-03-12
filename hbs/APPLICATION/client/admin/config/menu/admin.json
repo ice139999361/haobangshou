@@ -193,41 +193,13 @@
             "leaf": false,
             "icon": "/portal/images/title_icon02.gif",
             "children": [
-                {
-				            "id": "useradmin",
-				            "text": "用户管理",
-				            "menuOrder": "10000",
-				            "iconCls": "nav",
-				            "leaf": false,
-				            "icon": "/portal/images/title_icon02.gif",
-				            "children": [
-				                {
-				                		"id": "sau01",
-				                    "text": "创建用户",
-				                    "menuOrder": "10000",
-				                    "leaf": "true",
-				                    "url": "/auth/editoruser.jsp?editorType=add"
-				                },{
-				                		"id": "sau02",
-				                    "text": "修改用户",
-				                    "menuOrder": "20000",
-				                    "leaf": "true",
-				                    "url": "/materiel/editormateriel.jsp"
-				                },{
-				                		"id": "sau03",
-				                    "text": "删除提示",
-				                    "menuOrder": "30000",
-				                    "leaf": "true",
-				                    "url": "/materiel/editormateriel.jsp"
-				                },{
-				                		"id": "sau04",
-				                    "text": "用户信息详情",
-				                    "menuOrder": "40000",
-				                    "leaf": "true",
-				                    "url": "/materiel/editormateriel.jsp"
-				                }
-				            ]
-				        },{
+			              {
+			              		"id": "susermanager",
+			                  "text": "用户管理",
+			                  "menuOrder": "10000",
+			                  "leaf": "true",
+			                  "url" : "/auth/usermanager.jsp"
+			              },{
 				            "id": "roleadmin",
 				            "text": "角色管理",
 				            "menuOrder": "20000",
