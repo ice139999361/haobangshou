@@ -106,7 +106,7 @@ Ice.util.JSON = {
 	// 属性部分
 	
 	// 需要直接解析为 array 的节点，用于没有属性
-	__noAttributeParse2Array : ":items:,:fields:,:columns:,:buttons:",
+	__noAttributeParse2Array : ":items:,:fields:,:columns:,:buttons:,:multiselects:",
 	// 需要加入 __children 属性的 array 节点，有属性的情况下
 	__attributeParse2Array   : ":layoutpanel:",
 	
