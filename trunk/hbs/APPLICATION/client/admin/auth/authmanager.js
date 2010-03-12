@@ -18,7 +18,7 @@ HBSConvertHelper.init(function() {
 			// 修改按钮触发事件
 			var updateBtnFun = function() {
 				// 要访问的 url 地址
-				var url = ["/auth/editoruser.jsp?editorType=update&staffName=", this.config.get("staffName")].join("");
+				var url = ["/auth/editorauth.jsp?editorType=update&staffName=", this.config.get("staffName")].join("");
 				// 打开指定页面
 				HBSConvertHelper.openNewWin(url);
 			};
