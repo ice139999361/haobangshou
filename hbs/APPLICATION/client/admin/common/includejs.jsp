@@ -29,13 +29,15 @@
 	document.writeln('<link rel="stylesheet" type="text/css" href="<%=contextPath %>/dmplt/css/dmplt.css"/>');
 	document.writeln('<link rel="stylesheet" type="text/css" href="<%=contextPath %>/ext/css/common.css"/>');
 	document.writeln('<link rel="stylesheet" type="text/css" href="<%=contextPath %>/ext/css/xtheme-<%=css %>.css"/>');
+	document.writeln('<link rel="stylesheet" type="text/css" href="<%=contextPath %>/ext/ux/css/ux-all.css"/>');
 	
 	
 	// 添加 ExtJs 组件的 JavaScript 代码
 	document.writeln('<script type="text/javascript" src="<%=contextPath %>/ext/ext-base.js"><\/script>');
 	document.writeln('<script type="text/javascript" src="<%=contextPath %>/ext/ext-all-debug.js"><\/script>');
-	document.writeln('<script type="text/javascript" src="<%=contextPath %>/ext/Panel.js"><\/script>');
+	//document.writeln('<script type="text/javascript" src="<%=contextPath %>/ext/Panel.js"><\/script>');
 	document.writeln('<script type="text/javascript" src="<%=contextPath %>/ext/ext-lang-zh_CN.js"><\/script>');
+	document.writeln('<script type="text/javascript" src="<%=contextPath %>/ext/ux/ux-all.js"><\/script>');
 	
 	// 添加 Rtplt 组件的 JavaScript 代码
 	document.writeln('<script type="text/javascript" src="<%=contextPath %>/rtplt/rtpltjs-all.js"><\/script>');
