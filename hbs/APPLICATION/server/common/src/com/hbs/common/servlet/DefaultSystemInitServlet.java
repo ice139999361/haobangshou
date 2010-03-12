@@ -1,6 +1,10 @@
 package com.hbs.common.servlet;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
 
 
 import javax.servlet.ServletException;
@@ -9,9 +13,13 @@ import javax.servlet.http.HttpServlet;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.IntegerConverter;
 import org.apache.commons.beanutils.converters.LongConverter;
+import org.apache.commons.lang.StringUtils;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.impl.StdSchedulerFactory;
 
 
 import com.hbs.common.springhelper.BeanLocator;
@@ -31,7 +39,10 @@ public class DefaultSystemInitServlet extends HttpServlet {
      */
     private static final Logger logger = Logger.getLogger(DefaultSystemInitServlet.class);
     
-
+    /**
+     * quartz调度器.
+     */
+    private static Scheduler scheduler = null;
     /**
      * 初始化.
      */
@@ -50,13 +61,25 @@ public class DefaultSystemInitServlet extends HttpServlet {
 
         // 初始化log4j配置(日志输出目录等)
         initLog4j();
+        
+     // 初始化quartz配置(如果子系统有用quartz).
+        initQuartz();
     }
 
     /**
      * 关闭时资源清理.
      */
     public void destroy() {
-        
+    	 if (scheduler != null) {
+             try {
+                 scheduler.shutdown();
+             } catch (SchedulerException e) {
+                 logger.error("关闭quartz任务调度失败，失败原因:",e);
+                 return;
+             }
+
+             logger.info("关闭quartz任务调度成功！");
+         }
     }
 
     /**
@@ -113,66 +136,66 @@ public class DefaultSystemInitServlet extends HttpServlet {
 
    
 
-//    /**
-//     * 初始化quartz配置(quartz配置文件目录等).
-//     */
-//    public void initQuartz() {
-//        // 初始化quartz配置(quartz配置文件目录等).
-//        // 从init-param中得到quartz.properties配置文件相对路径.
-//        String quartzConfig = this.getInitParameter("quartzConfig");
-//        if (quartzConfig == null || quartzConfig.length() == 0) {
-//            logger.info("没有指定quartz配置文件相对路径！");
-//            return;
-//        }
-//
-//        // 得到quartz配置文件全路径名
-//        String quartzConfigFileName = ConfigurationHelper.getFullFileName(quartzConfig);
-//        FileInputStream fileInputStream = null;
-//        try {
-//            fileInputStream = new FileInputStream(quartzConfigFileName);
-//        } catch (FileNotFoundException e) {
-//            logger.error("找不到quartz配置文件,文件名:" + quartzConfigFileName);
-//            return;
-//        }
-//
-//        // 得到quartz配置文件的目录
-//        String quartzConfigPath = StringUtils.substringBeforeLast(quartzConfigFileName, "/");
-//
-//        // 加载配置文件
-//        Properties properties = new Properties();
-//        try {
-//            properties.load(fileInputStream);
-//
-//            // 设置quartz_jobs.xml路径
-//            properties.setProperty("org.quartz.plugin.jobInitializer.fileName", quartzConfigPath + File.separator
-//                    + "quartz_jobs.xml");
-//
-//        } catch (IOException e) {
-//            logger.error("加载quartz配置文件失败,文件名:" + quartzConfigFileName);
-//            return;
-//        }
-//
-//        // 启动quartz
-//        StdSchedulerFactory factory = null;
-//        try {
-//            factory = new StdSchedulerFactory(properties);
-//        } catch (SchedulerException e) {
-//            logger.error("初始化quartz失败,失败原因:" + e.getMessage());
-//            return;
-//        }
-//
-//        // 启动quartz任务调度器
-//        try {
-//            scheduler = factory.getScheduler();
-//            scheduler.start();
-//        } catch (SchedulerException e) {
-//            logger.error("启动quartz任务调度失败,失败原因:" + e.getMessage());
-//            return;
-//        }
-//
-//        logger.info("启动quartz任务调度成功！");
-//    }
-//
+    /**
+     * 初始化quartz配置(quartz配置文件目录等).
+     */
+    public void initQuartz() {
+        // 初始化quartz配置(quartz配置文件目录等).
+        // 从init-param中得到quartz.properties配置文件相对路径.
+        String quartzConfig = this.getInitParameter("quartzConfig");
+        if (quartzConfig == null || quartzConfig.length() == 0) {
+            logger.info("没有指定quartz配置文件相对路径！");
+            return;
+        }
+
+        // 得到quartz配置文件全路径名
+        String quartzConfigFileName = ConfigurationHelper.getFullFileName(quartzConfig);
+        FileInputStream fileInputStream = null;
+        try {
+            fileInputStream = new FileInputStream(quartzConfigFileName);
+        } catch (FileNotFoundException e) {
+            logger.error("找不到quartz配置文件,文件名:" + quartzConfigFileName);
+            return;
+        }
+
+        // 得到quartz配置文件的目录
+        String quartzConfigPath = StringUtils.substringBeforeLast(quartzConfigFileName, "/");
+
+        // 加载配置文件
+        Properties properties = new Properties();
+        try {
+            properties.load(fileInputStream);
+
+            // 设置quartz_jobs.xml路径
+            properties.setProperty("org.quartz.plugin.jobInitializer.fileName", quartzConfigPath + File.separator
+                    + "quartz_jobs.xml");
+
+        } catch (IOException e) {
+            logger.error("加载quartz配置文件失败,文件名:" + quartzConfigFileName);
+            return;
+        }
+
+        // 启动quartz
+        StdSchedulerFactory factory = null;
+        try {
+            factory = new StdSchedulerFactory(properties);
+        } catch (SchedulerException e) {
+            logger.error("初始化quartz失败,失败原因:" ,e);
+            return;
+        }
+
+        // 启动quartz任务调度器
+        try {
+            scheduler = factory.getScheduler();
+            scheduler.start();
+        } catch (SchedulerException e) {
+            logger.error("启动quartz任务调度失败,失败原因:" ,e);
+            return;
+        }
+
+        logger.info("启动quartz任务调度成功！");
+    }
+
 
 
 }

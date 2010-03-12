@@ -91,4 +91,30 @@
 	<!-- 预付费状态实现类 parent ="custOrderState" custOrder 订单类型（订单）  结算方式（预付X%剩余款到发货）-->
 	<bean id="custOrder03" class="com.hbs.customerorder.manager.helper.PrepaidCustOrderState">		
 	</bean>
+	
+	<!-- 定时任务的工作类-->
+	   <!-- 客户订单明细定时任务接口类 -->
+	<bean id="sendReminderTask"
+		class="com.hbs.customerorder.task.SendReminderTask"
+		abstract="true">		
+	</bean>
+	<!-- 在发货日期的前几天提醒仓库发货给客户 -->
+	<bean id="orderMustSendReminderTask"
+		class="com.hbs.customerorder.task.OrderMustSendReminderTask">
+	</bean>
+	
+	<!-- 账期客户订单明细交期将到，货没有备齐，提醒业务助理是否发货 -->
+	<bean id="orderPeriodSendReminderTask"
+		class="com.hbs.customerorder.task.OrderPeriodSendReminderTask">
+	</bean>
+	
+	<!-- 货已备齐，未收款，提醒业务助理催款 -->
+	<bean id="orderPrePaidSendReminderTask"
+		class="com.hbs.customerorder.task.OrderPrePaidSendReminderTask">
+	</bean>
+	
+	<!-- 查询需要发货的但货没有备齐的订单明细，提醒采购催货 -->
+	<bean id="orderPrepareReminderTask"
+		class="com.hbs.customerorder.task.OrderPrepareReminderTask">
+	</bean>
 </beans>
