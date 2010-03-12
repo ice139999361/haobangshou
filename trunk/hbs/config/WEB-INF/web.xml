@@ -18,6 +18,10 @@
 			<param-name>log4jConfig</param-name>
 			<param-value>log4j/log4j.xml</param-value>
 		</init-param>
+		<init-param>   
+			<param-name>quartzConfig</param-name>
+			<param-value>quartz/quartz.properties</param-value>
+		</init-param>
 		<load-on-startup>1</load-on-startup>
  	</servlet>
 	 <servlet>   
