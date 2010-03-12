@@ -234,40 +234,12 @@
 				                }
 				            ]
 				        },{
-				            "id": "peradmin",
-				            "text": "权限管理",
-				            "menuOrder": "30000",
-				            "iconCls": "nav",
-				            "leaf": false,
-				            "icon": "/portal/images/title_icon02.gif",
-				            "children": [
-				                {
-				                		"id": "sap01",
-				                    "text": "新增帐号权限",
-				                    "menuOrder": "10000",
-				                    "leaf": "true",
-				                    "url": "/materiel/editormateriel.jsp"
-				                },{
-				                		"id": "sap02",
-				                    "text": "修改权限",
-				                    "menuOrder": "20000",
-				                    "leaf": "true",
-				                    "url": "/materiel/editormateriel.jsp"
-				                },{
-				                		"id": "sap03",
-				                    "text": "删除提示",
-				                    "menuOrder": "30000",
-				                    "leaf": "true",
-				                    "url": "/materiel/editormateriel.jsp"
-				                },{
-				                		"id": "sap04",
-				                    "text": "权限信息详情",
-				                    "menuOrder": "40000",
-				                    "leaf": "true",
-				                    "url": "/materiel/editormateriel.jsp"
-				                }
-				            ]
-				        },{
+	              		"id": "authadmin",
+	                  "text": "权限管理",
+	                  "menuOrder": "30000",
+	                  "leaf": "true",
+	                  "url" : "/auth/authmanager.jsp"
+	              },{
                 		"id": "pasup",
                     "text": "用户自修改密码",
                     "menuOrder": "40000",
