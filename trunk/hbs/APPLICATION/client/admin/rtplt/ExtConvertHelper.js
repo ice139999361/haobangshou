@@ -1,5 +1,6 @@
 // 好帮手引用框架作用域
 var HBS = Ice;
+var panelSyncSizeFlagIds = "";
 
 var ExtConvertHelper = { 
 	 /**
