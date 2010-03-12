@@ -272,7 +272,7 @@
                     "text": "用户自修改密码",
                     "menuOrder": "40000",
                     "leaf": "true",
-                    "url": "/materiel/editormateriel.jsp"
+                    "url": "/auth/updatepassword.jsp"
                 }
             ]
         },
