@@ -30,7 +30,7 @@ HBSConvertHelper.init(function() {
 			HBSConvertHelper.openNewWin(url);
 		};
 		
-		// 修改按钮触发事件
+		// 删除按钮触发事件
 		var deleteBtnFun = function() {
 			Ext.Msg.confirm("提示", "您要执行的是删除操作，请确认是否继续？", function(btn) {
 				if(btn == "no") return;
