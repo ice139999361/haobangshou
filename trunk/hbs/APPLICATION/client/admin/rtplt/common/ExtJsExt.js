@@ -1,3 +1,4 @@
+Ext.BLANK_IMAGE_URL = Ext.isIE6||Ext.isIE7||Ext.isAir?CONTEXT_PATH+"/ext/images/default/s.gif":"data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==";
 Ext.data.Connection.prototype.doExportData = function(config) {
 		// 获取 iframe
     var iFrame = Ice.getIFrame("fileDownIFrame");
@@ -196,4 +197,55 @@ Ext.apply(Ext.form.BasicForm.prototype, {
 			
 			return newobject;
 	 }
+});
+
+
+Ext.ux.form.ItemSelector.prototype.imagePath = CONTEXT_PATH + "/ext/ux/images";
+Ext.apply(Ext.ux.form.MultiSelect.prototype, {
+	initComponent: function() {
+	    Ext.ux.form.MultiSelect.superclass.initComponent.call(this);
+	
+			if(this.url) {
+				// 定义数据结构
+				var RecordType = new Ext.data.Record.create((this.record ? this.record.split(",") : [this.valueField, this.displayField]));
+				// 创建数据容器
+				this.store = new Ext.data.Store({
+					proxy: new Ext.data.HttpProxy({url: SERVER_PATH + this.url}),
+					reader: new Ext.data.JsonReader({
+						root: this.root
+					}, RecordType)
+				});
+				
+				// 设置参数
+				for(var i = 0, _paramsName = this.paramsName.split(","), _paramsValue = this.paramsValue.split(","), count = _paramsName.length ; i < count ; i++) {
+					this.store.baseParams[_paramsName[i]] = _paramsValue[i];
+				}
+				
+				this.store.load();
+			} else {
+				if(Ext.isString(this.store)) this.store = eval(this.store);
+		    if(Ext.isArray(this.store)){
+		        this.store = new Ext.data.ArrayStore({
+	              fields: [this.valueField, this.displayField],
+	              data: this.store
+	          });
+		    } else {
+		        this.store = Ext.StoreMgr.lookup(this.store);
+		    }
+	  	}
+	
+	    this.addEvents({
+	        'dblclick' : true,
+	        'click' : true,
+	        'change' : true,
+	        'drop' : true
+	    });
+	},
+	valueField: "value",
+	displayField: "text",
+	root: "data.list",
+	paramsName: "",
+	paramsValue: "",
+	record: null,
+	url: ""
 });
