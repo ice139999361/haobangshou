@@ -150,6 +150,36 @@ public class CustPartNoInfoNormalAction extends BaseAction {
     	}
     }
     
+   /**
+    * 获取客户物料关系
+    * @action.input	custPartNoInfo.commCode + custPartNoInfo.custPartNo + custPartNoInfo.state，如果state没有填写，则默认state=0
+    * @action.result	custPartNoInfo.*
+    * @return
+    */
+  public String doGetInfoByBizKey() {
+   	try {
+   		CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)getBean(custPartNoInfoMgrName);
+   		if(custPartNoInfo == null || custPartNoInfo.getSeqId() == null || StringUtils.isEmpty(custPartNoInfo.getCustPartNo())) {
+   			logger.info("参数错误！");
+				setErrorReason("参数错误！");
+				return ERROR;
+   		}
+   		if(StringUtils.isEmpty(custPartNoInfo.getState()))
+   			custPartNoInfo.setState("0");
+   		
+   		custPartNoInfo = mgr.getCustPartNoInfoByBizKey(custPartNoInfo);
+   		
+   		if(!checkCommonFields())
+   			return ERROR;;
+   				
+   		setResult("custPartNoInfo", custPartNoInfo);
+   		return SUCCESS;
+   	} catch(Exception e) {
+   		logger.error("catch Exception in doGetInfo.", e);
+			setErrorReason("内部错误");
+			return ERROR;
+   	}
+   }
 	/**
 	 * 设置STAFF信息为当前用户信息
 	 * @param setName 是否设置用户名。为true时设置staffName为当前用户的staffName；为false时设置staffName为null。
