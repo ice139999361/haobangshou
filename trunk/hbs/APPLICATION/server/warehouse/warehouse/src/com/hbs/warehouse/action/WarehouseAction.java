@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 
 import com.hbs.common.action.base.BaseAction;
 import com.hbs.domain.warehouse.pojo.WareHouseInfo;
+import com.hbs.warehouse.common.constants.WareHouseConstants;
 import com.hbs.warehouse.manager.WarehouseMgr;
 
 @SuppressWarnings("serial")
@@ -14,8 +15,6 @@ public class WarehouseAction extends BaseAction {
 	 */
 	private static final Logger logger = Logger.getLogger(WarehouseAction.class);
 
-	public static final String WAREHOUSEMGR = "warehouseMgr";
-	
 	WareHouseInfo wInfo;
 
 	/**
@@ -38,7 +37,7 @@ public class WarehouseAction extends BaseAction {
 			if(wInfo == null)
 				wInfo = new WareHouseInfo();
 			setPagination(wInfo);
-			WarehouseMgr mgr = (WarehouseMgr)getBean(WAREHOUSEMGR);
+			WarehouseMgr mgr = (WarehouseMgr)getBean(WareHouseConstants.WAREHOUSE_INFO_MGR);
 			setResult("list", mgr.listWareHouseInfo(wInfo));
 			setTotalCount(mgr.listWareHouseInfoCount(wInfo));
 			setResult("count", getTotalCount());

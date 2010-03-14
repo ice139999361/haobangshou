@@ -50,8 +50,11 @@ public class CustOrderDetailBaseAction extends BaseAction {
 				return false;
 			if(StringUtils.isEmpty(orderDetail.getOperSeqId())) {
 				if(StringUtils.isEmpty(orderDetail.getCommCode()) 
-						|| StringUtils.isEmpty(orderDetail.getCpartNo()) )
+						|| StringUtils.isEmpty(orderDetail.getCpartNo()) ) {
+					logger.info("参数错误:" + orderDetail);
+					setErrorReason("参数错误");
 					return false;
+				}
 			}
 		}catch(Exception e) {
 			logger.error("catch Exception in checkKeyFields", e);
@@ -71,4 +74,15 @@ public class CustOrderDetailBaseAction extends BaseAction {
 		return memo;
 	}
 	
+	protected boolean findOrderDetail() throws Exception{
+		if(!checkKeyFields())
+			return false;
+		orderDetail = mgr.findCustOrderDetailById(orderDetail.getOperSeqId());
+		if(orderDetail == null) {
+			logger.info("参数错误 findCustOrderDetailById 返回null");
+			setErrorReason("参数错误");
+			return false;
+		} else
+			return true;
+	}
 }

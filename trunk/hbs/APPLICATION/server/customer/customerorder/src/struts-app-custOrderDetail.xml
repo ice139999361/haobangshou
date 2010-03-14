@@ -66,6 +66,19 @@
     	<action name="orderDetailCg!confirmDelivery" method="doConfirmDelivery" 
     			class="com.hbs.customerorder.action.detail.CustOrderDetailCgNormalAction">
 		</action>
+		<!-- 
+	/**
+	 * 采购员查看物料库存
+	 * @action.input orderDetail.operSeqId
+	 * @action.result self.* 本客户备货库存信息 WareHouseInfo
+	 * @action.result common.* 常规备货库存信息 WareHouseInfo
+	 * @action.result otherList 其他客户备货库存信息列表 List<WareHouseInfo>
+	 * @return
+	 */
+		 -->
+    	<action name="orderDetailCg!getStockInfo" method="doGetStockInfo" 
+    			class="com.hbs.customerorder.action.detail.CustOrderDetailCgNormalAction">
+		</action>
 
 
 		<!-- 财务普通用户 ***************************************************-->
