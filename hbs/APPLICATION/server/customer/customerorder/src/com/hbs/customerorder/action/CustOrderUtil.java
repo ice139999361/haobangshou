@@ -199,6 +199,8 @@ public class CustOrderUtil {
 							info.setCprice(custPartNoInfo2.getPrice());
 							info.setCpriceTax(custPartNoInfo2.getPriceTax());
 							info.setPnDesc(custPartNoInfo2.getPnDesc());
+						} else {
+							list.add(new FieldErr("CpartNo", "客户型号无法找到"));
 						}
 					}
 				}
