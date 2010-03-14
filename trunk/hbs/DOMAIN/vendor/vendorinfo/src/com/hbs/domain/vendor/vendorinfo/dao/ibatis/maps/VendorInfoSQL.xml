@@ -367,6 +367,11 @@
 			<isNotEmpty prepend="and" property = "staffName">
 				STAFF_NAME = #staffName#
 			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dynamicFields.noState01">
+				<![CDATA[
+					STATE != "1"
+				]]>
+			</isNotEmpty>
 			<isNotEmpty prepend="order by" property="sort">
                    $sort$
             </isNotEmpty>			
@@ -422,6 +427,11 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "staffName">
 				STAFF_NAME = #staffName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dynamicFields.noState01">
+				<![CDATA[
+					STATE != "1"
+				]]>
 			</isNotEmpty>
 		</dynamic>
 </select>

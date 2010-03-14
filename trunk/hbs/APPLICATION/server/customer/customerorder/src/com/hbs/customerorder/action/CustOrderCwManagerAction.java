@@ -52,6 +52,7 @@ public class CustOrderCwManagerAction extends BaseAction {
 			logger.debug("begin doList");
 			if(custOrder == null)
 				custOrder = new CustomerOrder();
+			custOrder.setField("noState01", true);
 			setPagination(custOrder);
 			CustOrderMgr mgr = (CustOrderMgr)getBean(CustOrderConstants.CUSTORDERMGR);
 			setResult("list", mgr.listCustomerOrder(custOrder));
