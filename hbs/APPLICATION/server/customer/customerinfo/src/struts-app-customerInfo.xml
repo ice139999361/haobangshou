@@ -189,7 +189,18 @@
      * @return
      */
 		 -->
-     	<action name="custPartNoInfo!getInfo" method="doGetInfo" 
+     	<action name="custPartNoInfo!getInfoById" method="doGetInfo" 
+    			class="com.hbs.customerinfo.action.CustPartNoInfoNormalAction">
+		</action>
+		<!-- 
+    /**
+     * 获取客户物料关系
+    * @action.input	custPartNoInfo.commCode + custPartNoInfo.custPartNo + custPartNoInfo.state，如果state没有填写，则默认state=0
+     * @action.result	custPartNoInfo.*
+     * @return
+     */
+		 -->
+     	<action name="custPartNoInfo!getInfoByBizKey" method="doGetInfoByBizKey" 
     			class="com.hbs.customerinfo.action.CustPartNoInfoNormalAction">
 		</action>
 
