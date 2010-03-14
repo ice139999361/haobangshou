@@ -207,6 +207,7 @@ public class CustomerInfoManagerAction extends BaseAction {
 				custInfo = new CustomerInfo();
 			}
 			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(custInfoMgrName);
+			custInfo.setField("noState01", true);
 			setPagination(custInfo);
 			setResult("jq", JianQuanUtil.getJQ(JianQuanUtil.TypeCustState, roleName));
 			setResult("list", mgr.getCustomerInfoList(custInfo));

@@ -318,6 +318,11 @@
 				<![CDATA[	
 					ORDER_TIME <= STR_TO_DATE('$dynamicFields.likeEndTime$','%Y-%m-%d')
 				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dynamicFields.noState01">
+				<![CDATA[
+					STATE != "01"
+				]]>
 			</isNotEmpty>				
 			<isNotEmpty prepend="order by" property="sort">
                    $sort$
@@ -392,6 +397,11 @@
 				property="dynamicFields.likeEndTime">
 				<![CDATA[	
 					ORDER_TIME < STR_TO_DATE('$dynamicFields.likeEndTime$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dynamicFields.noState01">
+				<![CDATA[
+					STATE != "01"
 				]]>
 			</isNotEmpty>
 		</dynamic>

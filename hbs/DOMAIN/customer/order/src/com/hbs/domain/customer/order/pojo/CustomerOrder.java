@@ -383,7 +383,7 @@ public class CustomerOrder extends BaseDomain{
     }	
   
     public String getStateDesc() {
-    	String retStr ="未定义";
+    	String retStr ="未定义(" + getState() + ")";
     	ConfigEncode ceParam = new ConfigEncode();
     	ceParam.setEncodeKey(getSettlementType());
     	ceParam.setEncodeType("CUST_ORDER_TYPE");

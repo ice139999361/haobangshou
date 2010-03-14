@@ -208,6 +208,7 @@ public class VendorInfoManagerAction extends BaseAction {
 				vendorInfo = new VendorInfo();
 			}
 			VendorInfoMgr mgr = (VendorInfoMgr)getBean(vendorInfoMgrName);
+			vendorInfo.setField("noState01", true);
 			setPagination(vendorInfo);
 			setResult("jq", JianQuanUtil.getJQ(JianQuanUtil.TypeCustState, roleName));
 			setResult("list", mgr.getVendorInfoList(vendorInfo));
