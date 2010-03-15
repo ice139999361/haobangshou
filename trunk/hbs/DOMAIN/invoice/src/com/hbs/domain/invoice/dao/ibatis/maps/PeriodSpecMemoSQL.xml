@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="PeriodSpecMemo">
+<typeAlias alias="periodSpecMemo" type="com.hbs.domain.invoice.pojo.PeriodSpecMemo"/> 
+<resultMap id="periodSpecMemo_result" class="periodSpecMemo">
+    <result property="commCode" column="COMM_CODE"/>
+    <result property="commShortName" column="COMM_SHORT_NAME"/>
+    <result property="commType" column="COMM_TYPE"/>
+    <result property="staffId" column="STAFF_ID"/>
+    <result property="staffName" column="STAFF_NAME"/>
+    <result property="createTime" column="CREATE_TIME"/>
+    <result property="memo" column="MEMO"/>
+</resultMap>
+
+<insert id="PeriodSpecMemo_insertPeriodSpecMemo" parameterClass="periodSpecMemo" >
+<![CDATA[
+    INSERT INTO T_PERIOD_SPEC_MEMO (
+            COMM_CODE, 
+            COMM_SHORT_NAME, 
+            COMM_TYPE, 
+            STAFF_ID, 
+            STAFF_NAME, 
+            CREATE_TIME, 
+            MEMO
+        )
+    VALUES (
+            #commCode#,
+            #commShortName#,
+            #commType#,
+            #staffId#,
+            #staffName#,
+            #createTime#,
+            #memo#
+    )
+]]>
+</insert>
+
+<delete id="PeriodSpecMemo_deletePeriodSpecMemo" parameterClass="string">
+<![CDATA[
+    DELETE  FROM  T_PERIOD_SPEC_MEMO WHERE COMM_CODE = #commCode#
+]]>
+</delete>    
+
+<update id="PeriodSpecMemo_updatePeriodSpecMemo" parameterClass="periodSpecMemo">
+    UPDATE T_PERIOD_SPEC_MEMO 
+    SET
+    	COMM_CODE = #commCode#
+	<isNotEmpty prepend="," property="commShortName">
+            COMM_SHORT_NAME = #commShortName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="commType">
+            COMM_TYPE = #commType#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="staffId">
+            STAFF_ID = #staffId#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="staffName">
+            STAFF_NAME = #staffName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="createTime">
+            CREATE_TIME = #createTime#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="memo">
+            MEMO = #memo#
+	</isNotEmpty>
+    WHERE COMM_CODE = #commCode#
+</update> 
+
+<select id="PeriodSpecMemo_findPeriodSpecMemo" resultMap="periodSpecMemo_result" parameterClass="string">
+<![CDATA[
+    SELECT
+            COMM_CODE, 
+            COMM_SHORT_NAME, 
+            COMM_TYPE, 
+            STAFF_ID, 
+            STAFF_NAME, 
+            CREATE_TIME, 
+            MEMO
+    FROM T_PERIOD_SPEC_MEMO WHERE COMM_CODE = #commCode#
+]]>
+</select>
+
+<select id="PeriodSpecMemo_listPeriodSpecMemo" resultMap="periodSpecMemo_result" parameterClass="periodSpecMemo">
+<![CDATA[
+    SELECT
+            COMM_CODE, 
+            COMM_SHORT_NAME, 
+            COMM_TYPE, 
+            STAFF_ID, 
+            STAFF_NAME, 
+            CREATE_TIME, 
+            MEMO
+    FROM T_PERIOD_SPEC_MEMO
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "commCode">
+				COMM_CODE = #commCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "commShortName">
+				COMM_SHORT_NAME = #commShortName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "commType">
+				COMM_TYPE = #commType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffId">
+				STAFF_ID = #staffId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffName">
+				STAFF_NAME = #staffName#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+
+<select id="PeriodSpecMemo_listPeriodSpecMemoCount" resultClass="java.lang.Integer" parameterClass="periodSpecMemo">
+<![CDATA[
+    SELECT
+		COUNT(1)
+    FROM T_PERIOD_SPEC_MEMO
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "commCode">
+				COMM_CODE = #commCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "commShortName">
+				COMM_SHORT_NAME = #commShortName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "commType">
+				COMM_TYPE = #commType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffId">
+				STAFF_ID = #staffId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffName">
+				STAFF_NAME = #staffName#
+			</isNotEmpty>
+			
+		</dynamic>
+</select>
+
+</sqlMap>

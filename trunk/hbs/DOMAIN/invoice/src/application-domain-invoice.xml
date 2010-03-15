@@ -23,4 +23,9 @@
 	<bean id="custSendInvoiceHisDao"  class="com.hbs.domain.invoice.dao.ibatis.CustSendInvoiceHisDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient"/>
 	</bean>
+	
+	<!-- 财务账期结算备注DAO实现类   -->
+	<bean id="periodSpecMemoDao"  class="com.hbs.domain.invoice.dao.ibatis.PeriodSpecMemoDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
 </beans>
