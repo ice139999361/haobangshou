@@ -20,4 +20,5 @@ public class VendorOrderCgNormalAction extends VendorOrderBaseAction {
 		return "cgnormal";
 	}
 
+	
 }

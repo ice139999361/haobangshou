@@ -50,7 +50,7 @@ public abstract class VendorOrderBaseAction extends BaseAction {
 	public abstract String getRoleName();
 	
 	/**
-	 * 返回是否经理，经理查看所有的已提交数据
+	 * 返回是否经理，内部使用。true：查看所有的已提交数据（不包括临时数据）；false：查看自己的数据（根据staffId）
 	 * @return
 	 */
 	protected abstract boolean getIsManager();
