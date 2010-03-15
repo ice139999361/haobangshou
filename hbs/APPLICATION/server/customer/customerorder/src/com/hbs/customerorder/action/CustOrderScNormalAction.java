@@ -12,6 +12,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.action.FieldErr;
+import com.hbs.common.action.JianQuanUtil;
 import com.hbs.common.action.base.BaseAction;
 import com.hbs.customerorder.constants.CustOrderConstants;
 import com.hbs.customerorder.manager.CustOrderMgr;
@@ -181,6 +182,7 @@ public class CustOrderScNormalAction extends BaseAction {
 			setResult("list", mgr.listCustomerOrder(custOrder));
 			setTotalCount(mgr.listCustomerOrderCount(custOrder));
 			setResult("count", getTotalCount());
+			setResult("jq", JianQuanUtil.getJQ(JianQuanUtil.TypeCustOrderState, roleName));
 			logger.debug("end doList");
 			return SUCCESS;
 		} catch(Exception e) {
