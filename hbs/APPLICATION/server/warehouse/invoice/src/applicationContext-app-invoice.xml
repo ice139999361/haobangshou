@@ -9,4 +9,8 @@
 	<!-- 供应商发票实现类   -->
 	<bean id="recInvoiceMgr"  class="com.hbs.invoice.manager.RecInvoiceMgr">		
 	</bean>
+	
+	<!-- 财务账期结算备注信息实现类   -->
+	<bean id="periodSpecMemoMgr"  class="com.hbs.invoice.manager.PeriodSpecMemoMgr">		
+	</bean>
 </beans>
