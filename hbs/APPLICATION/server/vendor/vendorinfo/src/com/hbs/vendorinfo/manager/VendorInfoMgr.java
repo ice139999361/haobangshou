@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.hbs.common.manager.baseinfo.AccountPreiodMgr;
 import com.hbs.common.manager.baseinfo.BankInfoMgr;
 import com.hbs.common.manager.baseinfo.ContactMgr;
@@ -39,7 +41,7 @@ import com.hbs.vendorinfo.constants.VendorInfoConstants;
 
 public class VendorInfoMgr {
 	private static final String VENDORINFO_DAO ="vendorInfoDao";
-	
+	private static final Logger logger = Logger.getLogger(VendorInfoMgr.class);
 	/**
 	 * 保存供应商信息的临时数据,数据状态为临时状态
 	 * @param vInfo
@@ -47,6 +49,7 @@ public class VendorInfoMgr {
 	 * @throws Exception
 	 */
 	public int saveTempVendorInfo(VendorInfo vInfo) throws Exception{
+		logger.debug("保存供应商信息的临时数据,数据状态为临时状态,输入的参数为:" + vInfo.toString());
 		vInfo.setState(new Integer(StateConstants.STATE_1).toString());
 		return insertVendorInfo(vInfo);
 	}
@@ -124,6 +127,7 @@ public class VendorInfoMgr {
 	 * @throws Exception
 	 */
 	public int commitVendorInfo(VendorInfo vInfo) throws Exception{
+		logger.debug("提交数据审批,输入的参数为：" + vInfo.toString());
 		int ret =0;
 		//获取提交数据的baseSeqId ，如果不存在，表示没有保存过，需要先保存
 		Integer ibaseSeqId = vInfo.getBaseSeqId();
@@ -165,6 +169,7 @@ public class VendorInfoMgr {
 	 */
 	public int auditAgreeVendorInfo(VendorInfo vInfo , String auditId, String auditName,String auditDesc) throws Exception{
 		int ret =0;
+		logger.debug("审批同意供应商资料,输入的参数为：" + vInfo.toString());
 		int iState = Integer.parseInt(vInfo.getState());
 		if(iState == StateConstants.STATE_2 ){
 			vInfo.setState(new Integer(StateConstants.STATE_0).toString());
@@ -197,6 +202,7 @@ public class VendorInfoMgr {
 	 */
 	public int auditDisAgreeVendorInfo(VendorInfo vInfo , String auditId, String auditName,String auditDesc) throws Exception{
 		int ret =0;
+		logger.debug("审批不同意供应商资料,输入的参数为：" + vInfo.toString());
 		int iState = Integer.parseInt(vInfo.getState());
 		if(iState == StateConstants.STATE_2 ){
 			vInfo.setState(new Integer(StateConstants.STATE_3).toString());
@@ -219,7 +225,7 @@ public class VendorInfoMgr {
 	}
 	
 	/**
-	 * 修改客户信息，修改前的状态可能不同，需要区别对待
+	 * 修改供应商信息，修改前的状态可能不同，需要区别对待
 	 * 修改前状态为1 ，对临时数据做修改
 	 * 修改前状态为0 ，对正式数据做修改，直接提交领导审批
 	 * 修改前状态为3 ，对审批不通过的数据修改，直接提交领导审批
@@ -229,6 +235,7 @@ public class VendorInfoMgr {
 	 * @throws Exception
 	 */
 	public int updateCustomerInfo(VendorInfo vInfo) throws Exception{
+		logger.debug("修改供应商信息,输入的参数为：" + vInfo.toString());
 		int ret =0;
 		int iState = Integer.parseInt(vInfo.getState());
 		//状态为1 ，对临时数据做修改
@@ -336,6 +343,7 @@ public class VendorInfoMgr {
 	 */
 	public int deleteVendorInfo(VendorInfo vInfo,String delDesc) throws Exception{
 		int ret =0;
+		logger.debug("废除供应商数据,输入的参数为：" + vInfo.toString());
 		int iState = Integer.parseInt(vInfo.getState());
 		switch(iState){
 		case 3:
@@ -358,6 +366,7 @@ public class VendorInfoMgr {
      */
 	public VendorInfo getVendorInfo(VendorInfo vInfo,boolean isAll)throws Exception{
 		VendorInfo retInfo = null;
+		logger.debug("查询单条供应商信息,输入的参数为：" + vInfo.toString());
 		VendorInfoDao vInfoDao = (VendorInfoDao)BeanLocator.getInstance().getBean(VENDORINFO_DAO);
 		if(null != vInfo.getBaseSeqId()){//以主键查询
 			retInfo = vInfoDao.findVendorInfoByID(vInfo.getBaseSeqId().toString());
@@ -385,16 +394,18 @@ public class VendorInfoMgr {
 	 * @throws Exception
 	 */
 	public List<VendorInfo> getVendorInfoList(VendorInfo vInfo)throws Exception{
+		logger.debug("获取满足条件的供应商信息,输入的参数为：" + vInfo.toString());
 		VendorInfoDao vInfoDao = (VendorInfoDao)BeanLocator.getInstance().getBean(VENDORINFO_DAO);
 		return vInfoDao.listVendorInfo(vInfo);
 	}
 	/**
-	 * 获取满足条件的客户数量
+	 * 获取满足条件的供应商数量
 	 * @param cInfo
 	 * @return
 	 * @throws Exception
 	 */
 	public Integer getCustomerInfoCount(VendorInfo vInfo)throws Exception{
+		logger.debug("获取满足条件的供应商数量,输入的参数为：" + vInfo.toString());
 		VendorInfoDao vInfoDao = (VendorInfoDao)BeanLocator.getInstance().getBean(VENDORINFO_DAO);
 		return vInfoDao.listVendorInfoCount(vInfo);
 	}
