@@ -10,7 +10,7 @@ Ext.Panel.prototype.__setSyncSize__ = function() {
 		}
 	}
 	
-	if(!flag) setTimeout("Ext.getCmp('" + this.id + "').syncSize()", 0);
+	if(flag) setTimeout("Ext.getCmp('" + this.id + "').syncSize()", 0);
 	this.un("afterrender", this.__setSyncSize__);
 };
 
