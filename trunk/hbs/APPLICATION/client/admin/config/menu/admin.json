@@ -1,4 +1,4 @@
-	{
+{
     "domain": "js",
     "subsystem": "js_admin",
     "data": [
@@ -11,42 +11,42 @@
             "icon": "/portal/images/title_icon02.gif",
             "children": [
                 {
-                		"id": "sccustomers_add",
+                    "id": "sccustomers_add",
                     "text": "新客户信息录入",
                     "menuOrder": "10000",
                     "leaf": "true",
                     "url": "/customer/editorcustomer.jsp?editorType=add"
                 },
                 {
-                		"id": "sccustomers_query",
+                    "id": "sccustomers_query",
                     "text": "客户信息查询",
                     "menuOrder": "20000",
                     "leaf": "true",
                     "url": "/customer/querycustomer.jsp?roleType=sccustomers"
                 },
                 {
-                		"id": "pnrelation",
+                    "id": "pnrelation",
                     "text": "客户P/N对照录入",
                     "menuOrder": "30000",
                     "leaf": "true",
                     "url": "/customer/pnrelation.jsp?editorType=add"
                 },
                 {
-                		"id": "pnquery",
+                    "id": "pnquery",
                     "text": "客户P/N对照查询",
                     "menuOrder": "40000",
                     "leaf": "true",
                     "url": "/customer/pnquery.jsp?roleType=sccustomers"
                 },
                 {
-                		"id": "editororder",
+                    "id": "editororder",
                     "text": "客户订单录入",
                     "menuOrder": "40000",
                     "leaf": "true",
                     "url": "/customer/editororder.jsp?editorType=add"
                 },
                 {
-                		"id": "queryorder",
+                    "id": "queryorder",
                     "text": "客户订单查询",
                     "menuOrder": "50000",
                     "leaf": "true",
@@ -63,35 +63,35 @@
             "icon": "/portal/images/title_icon02.gif",
             "children": [
                 {
-                		"id": "scmcustomers_query",
+                    "id": "scmcustomers_query",
                     "text": "客户信息查询",
                     "menuOrder": "10000",
                     "leaf": "true",
                     "url": "/customer/querycustomer.jsp?roleType=scmanager"
                 },
                 {
-                		"id": "auditcustomers",
+                    "id": "auditcustomers",
                     "text": "客户信息审批",
                     "menuOrder": "20000",
                     "leaf": "true",
                     "url": "/customer/auditcustomer.jsp"
                 },
                 {
-                		"id": "scmpnaudit",
+                    "id": "scmpnaudit",
                     "text": "客户P/N对照审批",
                     "menuOrder": "30000",
                     "leaf": "true",
                     "url": "/customer/auditpnrelation.jsp"
                 },
                 {
-                		"id": "scmpnquery",
+                    "id": "scmpnquery",
                     "text": "客户P/N对照查询",
                     "menuOrder": "40000",
                     "leaf": "true",
                     "url": "/customer/pnquery.jsp?roleType=scmanager"
                 },
                 {
-                		"id": "scmqueryorder",
+                    "id": "scmqueryorder",
                     "text": "客户订单查询",
                     "menuOrder": "50000",
                     "leaf": "true",
@@ -108,35 +108,35 @@
             "icon": "/portal/images/title_icon02.gif",
             "children": [
                 {
-                		"id": "cgbuyer_add",
+                    "id": "cgbuyer_add",
                     "text": "供应商信息录入",
                     "menuOrder": "10000",
                     "leaf": "true",
                     "url": "/vendor/editorvendor.jsp?editorType=add"
                 },
                 {
-                		"id": "cgbuyer_query",
+                    "id": "cgbuyer_query",
                     "text": "供应商信息查询",
                     "menuOrder": "20000",
                     "leaf": "true",
                     "url": "/vendor/queryvendor.jsp?roleType=cgy"
                 },
                 {
-                		"id": "cgbupn_add",
+                    "id": "cgbupn_add",
                     "text": "供应商P/N对照录入",
                     "menuOrder": "30000",
                     "leaf": "true",
                     "url": "/vendor/pnrelation.jsp?editorType=add"
                 },
                 {
-                		"id": "cgbupn_query",
+                    "id": "cgbupn_query",
                     "text": "供应商P/N对照查询",
                     "menuOrder": "40000",
                     "leaf": "true",
                     "url": "/vendor/pnquery.jsp?roleType=cgy"
                 },
                 {
-                		"id": "cgyqueryorder",
+                    "id": "cgyqueryorder",
                     "text": "客户订单查询",
                     "menuOrder": "50000",
                     "leaf": "true",
@@ -153,14 +153,14 @@
             "icon": "/portal/images/title_icon02.gif",
             "children": [
                 {
-                		"id": "a114",
+                    "id": "a114",
                     "text": "供应商信息查询",
                     "menuOrder": "20000",
                     "leaf": "true",
                     "url": "/vendor/queryvendor.jsp?roleType=cgm"
                 },
                 {
-                		"id": "a115",
+                    "id": "a115",
                     "text": "供应商信息审批",
                     "menuOrder": "50000",
                     "leaf": "true",
@@ -177,7 +177,7 @@
             "icon": "/portal/images/title_icon02.gif",
             "children": [
                 {
-                		"id": "materiel_add",
+                    "id": "materiel_add",
                     "text": "本公司物料录入",
                     "menuOrder": "10000",
                     "leaf": "true",
@@ -193,54 +193,29 @@
             "leaf": false,
             "icon": "/portal/images/title_icon02.gif",
             "children": [
-			              {
-			              		"id": "susermanager",
-			                  "text": "用户管理",
-			                  "menuOrder": "10000",
-			                  "leaf": "true",
-			                  "url" : "/auth/usermanager.jsp"
-			              },{
-				            "id": "roleadmin",
-				            "text": "角色管理",
-				            "menuOrder": "20000",
-				            "iconCls": "nav",
-				            "leaf": false,
-				            "icon": "/portal/images/title_icon02.gif",
-				            "children": [
-				                {
-				                		"id": "sar01",
-				                    "text": "创建角色",
-				                    "menuOrder": "10000",
-				                    "leaf": "true",
-				                    "url": "/materiel/editormateriel.jsp"
-				                },{
-				                		"id": "sar02",
-				                    "text": "修改角色",
-				                    "menuOrder": "20000",
-				                    "leaf": "true",
-				                    "url": "/materiel/editormateriel.jsp"
-				                },{
-				                		"id": "sar03",
-				                    "text": "删除提示",
-				                    "menuOrder": "30000",
-				                    "leaf": "true",
-				                    "url": "/materiel/editormateriel.jsp"
-				                },{
-				                		"id": "sar04",
-				                    "text": "角色信息详情",
-				                    "menuOrder": "40000",
-				                    "leaf": "true",
-				                    "url": "/materiel/editormateriel.jsp"
-				                }
-				            ]
-				        },{
-	              		"id": "authadmin",
-	                  "text": "权限管理",
-	                  "menuOrder": "30000",
-	                  "leaf": "true",
-	                  "url" : "/auth/authmanager.jsp"
-	              },{
-                		"id": "pasup",
+                {
+                    "id": "susermanager",
+                    "text": "用户管理",
+                    "menuOrder": "10000",
+                    "leaf": "true",
+                    "url": "/auth/usermanager.jsp"
+                },
+                {
+                    "id": "roleadmin",
+                    "text": "角色管理",
+                    "menuOrder": "30000",
+                    "leaf": "true",
+                    "url": "/auth/rolemanager.jsp"
+                },
+                {
+                    "id": "authadmin",
+                    "text": "权限管理",
+                    "menuOrder": "30000",
+                    "leaf": "true",
+                    "url": "/auth/authmanager.jsp"
+                },
+                {
+                    "id": "pasup",
                     "text": "用户自修改密码",
                     "menuOrder": "40000",
                     "leaf": "true",
