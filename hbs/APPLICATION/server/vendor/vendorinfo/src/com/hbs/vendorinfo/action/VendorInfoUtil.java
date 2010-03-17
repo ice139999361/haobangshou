@@ -184,8 +184,7 @@ public class VendorInfoUtil {
 	public static void processListData(VendorInfo vendorInfo, HttpServletRequest request) throws Exception
 	{
 		// Done: 处理上传的List数据
-		try
-		{
+		
 			Integer id = vendorInfo.getBaseSeqId();
 			String baseSeqId = id == null ? null : id.toString();
 			String commCode = vendorInfo.getCommCode();
@@ -247,7 +246,7 @@ public class VendorInfoUtil {
 						request.getParameter(bankListFields).split(fieldNameSplitter), 
 						splitter);
 				if(null != listBank && listBank.size() >0){
-					logger.debug("银行信息数量为：" + list.size());
+					logger.debug("银行信息数量为：" + listBank.size());
 					for(BankInfo info : listBank){
 						info.setBaseSeqId(baseSeqId);
 						info.setCommCode(commCode);
@@ -259,11 +258,7 @@ public class VendorInfoUtil {
 				}
 				
 			
-		}
-		catch(Exception e)
-		{
-			logger.error("处理上传的List数据,processListData出错", e);
-		}
+		
 	}
 	
 	/**

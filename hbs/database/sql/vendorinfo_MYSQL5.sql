@@ -61,7 +61,7 @@ CREATE TABLE `t_vendor_account_period` (
   `SEQID` int(11) NOT NULL AUTO_INCREMENT,
   `ACCOUNT_TYPE` varchar(2) NOT NULL COMMENT '账期类型  1---月结  2---天结',
   `ACCOUNT_PERIOD` varchar(32) NOT NULL COMMENT '供应商的账期设置，账期结算有效，如果月结，是月数，如果天结是天数',
-  `PERIOD_START` varchar(2) NOT NULL COMMENT '账期的起始日，账期结算有效',
+  `PERIOD_START` varchar(8) DEFAULT NULL COMMENT '账期的起始日，账期结算有效,格式为：YYYYMMDD',
   `ACCOUNT_DAY` varchar(2) NOT NULL COMMENT '对账日，账期结束后的第几日，账期结算有效',
   `SETTLEMENT_DAY` varchar(2) NOT NULL COMMENT '结算日，账期结束的第几日，须大于对账日，对账期结算有效',
   `MAX_MONEY` int(11) NOT NULL DEFAULT '0' COMMENT '账期的最大交易金额，账期结算有效,对供应商无用',

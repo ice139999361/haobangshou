@@ -186,14 +186,15 @@ public class VendorInfoNormalAction extends BaseAction {
 			}
 			else {
 				vendorInfo.setState("1");
-				vendorInfo.setCreditRate("3");
+				//delete by yangzj 为什么要设置此值？
+				//vendorInfo.setCreditRate("3");
 				ret = mgr.commitVendorInfo(vendorInfo);
 			}
 			if (ret < 0) {
 				String s;
 				switch (ret) {
 				case -1:
-					s = "无此状态！";
+					s = "已经存在待领导审批的修改信息，无法再次修改！";
 					break;
 				case -2:
 					s = "状态不正确！";

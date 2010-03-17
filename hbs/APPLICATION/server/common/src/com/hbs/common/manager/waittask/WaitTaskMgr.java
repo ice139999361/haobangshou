@@ -31,7 +31,7 @@ public class WaitTaskMgr {
 
 	private static final String WAITTASKINFODAO = "waitTaskInfoDao";
 	
-//	private static final String RET_STAFFNAME="$staffName";
+	private static final String PREFIX="\\";
 //	
 //	private static final String RET_BIZKEY ="$businessKey";
 
@@ -60,7 +60,7 @@ public class WaitTaskMgr {
 						Map.Entry<String,String> entry = iter.next(); 
 					    String key = entry.getKey(); 
 					    String val = entry.getValue(); 
-					    commDesc.replaceFirst(key, val);
+					    commDesc = commDesc.replaceFirst(PREFIX + key, val);
 					}
 				}
 //				commDesc.replaceAll(RET_STAFFNAME,StringUtils.isEmpty(waitTaskInfo.getStaffName()) ? "" : waitTaskInfo.getStaffName());
