@@ -1,0 +1,15 @@
+﻿{
+    "data": {
+        "list": [
+            {
+                "staffName": "ice_china19871117",
+                "name"     : "徐康宁",
+                "gender"   : "男",
+                "duty"     : "民工",
+                "mobile"   : "88888888888"
+            }
+        ],
+        "count": 1
+    },
+    "success": true
+}

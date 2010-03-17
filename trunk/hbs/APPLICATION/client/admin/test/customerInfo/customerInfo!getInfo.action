@@ -1,0 +1,124 @@
+{
+    "data": {
+        "custInfo": {
+            "accountPreiod": {
+                "accounDay": "1",
+                "accountPeriod": "1",
+                "accountType": "",
+                "baseSeqId": "3",
+                "commCode": "33333",
+                "maxMoney": 1,
+                "periodStart": "1",
+                "reminderDay": "1",
+                "seqId": "3",
+                "settlementDay": "1",
+                "state": "2"
+            },
+            "address": "3",
+            "allName": "3",
+            "assStaffId": "1",
+            "assStaffName": "123",
+            "baseSeqId": 3,
+            "commCode": "33333",
+            "commDesc": "",
+            "commScale": "",
+            "commType": "",
+            "companyBranch": "1",
+            "companyBranchDesc": "哈哈哈",
+            "contactFee": 1,
+            "createTime": "2010-02-11 23:58:44",
+            "creditDesc": "一般",
+            "creditRate": "3",
+            "currency": "1",
+            "currencyDesc": "人民币",
+            "dynamicFields": {
+                "contactlist": [
+                    {
+                        "baseSeqId": "3",
+                        "commCode": "33333",
+                        "conAddress": null,
+                        "conDuty": "3",
+                        "conFax": "3",
+                        "conMail": "3",
+                        "conMobile": "3",
+                        "conMsn": "3",
+                        "conName": "31",
+                        "conOther": "3",
+                        "conQq": "3",
+                        "conTel": "3",
+                        "conType": "1",
+                        "conZip": null,
+                        "isPrimary": "0",
+                        "seqId": "2",
+                        "state": "2"
+                    }
+                ],
+                "consigneelist": []
+            },
+            "enAddress": "",
+            "enName": "",
+            "enShortName": "3",
+            "end": 9999999,
+            "importantCode": "1",
+            "importantDesc": "一般",
+            "isShowPrice": "0",
+            "listBankInfo": [
+                {
+                    "account": "3",
+                    "accountBank": "3",
+                    "accountName": "3",
+                    "baseSeqId": "3",
+                    "commCode": "33333",
+                    "seqId": "2",
+                    "state": "2"
+                }
+            ],
+            "listContactInfo": [
+                {
+                    "baseSeqId": "3",
+                    "commCode": "33333",
+                    "conAddress": null,
+                    "conDuty": "3",
+                    "conFax": "3",
+                    "conMail": "3",
+                    "conMobile": "3",
+                    "conMsn": "3",
+                    "conName": "31",
+                    "conOther": "3",
+                    "conQq": "3",
+                    "conTel": "3",
+                    "conType": "1",
+                    "conZip": null,
+                    "isPrimary": "0",
+                    "seqId": "2",
+                    "state": "2"
+                }
+            ],
+            "order": null,
+            "partNoInfoList": null,
+            "prePaidInfo": {
+                "baseSeqId": "3",
+                "commCode": "33333",
+                "prePaid": "1",
+                "reminderDay": "1",
+                "seqId": "2",
+                "state": "2"
+            },
+            "representative": "",
+            "settlementDesc": "账期结算",
+            "settlementType": "1",
+            "shortName": "33333",
+            "sort": null,
+            "staffId": "1",
+            "staffName": "user1",
+            "start": 0,
+            "state": "2",
+            "stateDesc": "待审批数据",
+            "taxCode": "",
+            "taxRate": 1,
+            "vendorCode": "333",
+            "webSite": ""
+        }
+    },
+    "success": true
+}

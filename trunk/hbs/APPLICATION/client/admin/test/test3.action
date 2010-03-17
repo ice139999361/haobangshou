@@ -1,0 +1,33 @@
+﻿{
+    "data": {
+        "custInfo": {
+            "commCode": "commCode",
+            "shortName": "shortName",
+            "taxCode": "taxCode",
+            "creditRate": "creditRate",
+            "enName": "enName",
+            "companyBranch": "companyBranch",
+            "staffName": "staffName",
+            "vendorCode": "vendorCode",
+            "taxRate": "taxRate",
+            "enShortName": "enShortName",
+            "enAddress": "enAddress",
+            "isShowPrice": "123",
+            "listBankInfo": [
+                {
+                    "seqId": "HR-0062",
+                    "accountName": "Ice.",
+                    "accountBank": "男",
+                    "account": "1987-11-17"
+                },
+                {
+                    "seqId": "HR-0062",
+                    "accountName": "Ice.",
+                    "accountBank": "男",
+                    "account": "1987-11-17"
+                }
+            ]
+        }
+    },
+    "success": true
+}

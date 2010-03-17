@@ -1,0 +1,24 @@
+﻿{
+    "data": {
+        "list": [
+            {
+                "text": "测试",
+                "children": [
+                    {
+                        "text": "子测试1",
+                        "children": null,
+                        "leaf": true,
+                        "id": 3
+                    }
+                ],
+                "id": 1
+            },
+            {
+                "text": "测试2",
+                "children": null,
+                "id": 2
+            }
+        ]
+    },
+    "success": true
+}
