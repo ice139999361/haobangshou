@@ -1,0 +1,12 @@
+﻿{
+    "data": {
+        "list": [
+            {
+                "roleName": "系统管理员",
+                "memo"    : "拥有无比强大的管理权限"
+            }
+        ],
+        "count": 1
+    },
+    "success": true
+}
