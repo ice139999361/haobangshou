@@ -83,7 +83,9 @@ public class ConfigEncode {
         return this.isValid;
     }	
   
-    public void setIsValid(String isValid) {
+   
+
+	public void setIsValid(String isValid) {
         this.isValid = isValid;
     }
     
@@ -94,5 +96,15 @@ public class ConfigEncode {
     public void setSortId(Integer sortId) {
         this.sortId = sortId;
     }
-
+    @Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("encodeType=").append(this.encodeType).append(" ");
+		sb.append("encodeKey=").append(this.encodeKey).append(" ");
+		sb.append("encodeValue=").append(this.encodeValue).append(" ");
+		sb.append("encodeDesc=").append(this.encodeDesc).append(" ");
+		sb.append("isValid=").append(this.isValid).append(" ");
+		sb.append("sortId=").append(this.sortId);
+		return sb.toString();
+	}
 }

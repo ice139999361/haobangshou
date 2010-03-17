@@ -263,7 +263,7 @@ public class VendorInfoMgr {
 		case 0:
 			vInfo.setState(new Integer(StateConstants.STATE_2).toString());
 			ret = insertVendorInfo(vInfo);
-			if(ret == 0){//发待办通知,先取消可能的待办，再添加新的待办
+			if(ret > 0){//发待办通知,先取消可能的待办，再添加新的待办
 				WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
 				Map<String , String> hmParam = new HashMap<String,String>();
 				hmParam.put("$staffName", vInfo.getStaffName());

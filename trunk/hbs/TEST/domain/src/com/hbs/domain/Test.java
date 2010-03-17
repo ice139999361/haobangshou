@@ -8,6 +8,8 @@ package com.hbs.domain;
 
 import java.util.Date;
 
+import org.joda.time.DateTime;
+
 /**
  * @author Administrator
  *
@@ -23,7 +25,25 @@ public class Test {
 		Integer j = -i;
 		
 		System.out.println(i + j);
-		
+		System.out.println(getNeedDate(new Date(), "1",true));
 	}
 
+	
+	public static Date getNeedDate(Date date , String internal,boolean isAdd){
+		DateTime dt = new DateTime(date);
+		
+		if(!isAdd){
+			if(internal != null){
+				dt = dt.plusDays(-(new Integer(internal)));
+			}else{
+				dt = dt.plusDays(1);
+			}
+		}else{
+			if(internal != null){
+				dt = dt.plusDays((new Integer(internal)));
+			}
+		}
+
+		return dt.toDate();
+	}
 }
