@@ -3,8 +3,11 @@ package com.hbs.customerorder.action.detail;
 import java.util.List;
 import java.util.Vector;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
+import com.hbs.customerorder.constants.CustOrderConstants;
+import com.hbs.domain.customer.order.pojo.CustOrderDetail;
 import com.hbs.domain.warehouse.pojo.WareHouseInfo;
 import com.hbs.warehouse.common.constants.WareHouseConstants;
 import com.hbs.warehouse.manager.WarehouseMgr;
@@ -129,5 +132,80 @@ public class CustOrderDetailCgNormalAction extends CustOrderDetailBaseAction {
 			setErrorReason("内部错误");
 			return ERROR;
 		}
+	}
+	
+	/**
+	 * 下供应商订单时，用于将客户订单详情按照供应商编码分割
+	 * @action.input	operSeqId	待分割的客户订单详情id，多个值
+	 * @action.result	commCode	供应商编码，可能不出现
+	 * @action.result	list	客户订单详情列表 List<CustOrderDetail>
+	 * @action.result	leftOperSeqId	剩余的客户订单详情id List<String>
+	 * @return
+	 */
+	public String doCheckOperSeqId() {
+		try {
+			String commCode = null;
+			List<String> left = new Vector<String>();
+			List<CustOrderDetail> details = new Vector<CustOrderDetail>();
+			String[] ids = this.getHttpServletRequest().getParameterValues("operSeqId");
+			CustOrderDetail orderDetail2;
+			for(String id : ids) {
+				if(StringUtils.isEmpty(id))
+					continue;
+				try {
+					orderDetail2 = mgr.findCustOrderDetailById(id);
+					if(orderDetail2 == null)
+						continue;
+					
+					// 判断客户订单详情是否能下单
+					String state = orderDetail2.getState();
+					if(!CustOrderConstants.ORDER_STATE_21.equals(state))
+						continue;
+					Integer i = orderDetail2.getAmount();
+					if(i == null)
+						continue;
+					i -= isNull(orderDetail2.getDeliveryAmount(), 0);
+					i -= isNull(orderDetail2.getLockAmount(), 0);
+					if(i == null || i.compareTo(0) <= 0)
+						continue;
+					
+					if(StringUtils.isEmpty(commCode)) {
+						// 还没有确定供应商
+						commCode = orderDetail2.getVendorCode();
+					} else {
+						// 已经确定了供应商
+						if(!commCode.equals(orderDetail2.getVendorCode())) {
+							left.add(id);
+							continue;
+						}
+					}
+					details.add(orderDetail2);
+				} catch(Exception e) {
+					logger.error("catch Exception in doCheckOperSeqId when checking " + id, e);
+				}
+			}
+			setResult("list", details);
+			setResult("leftOperSeqId", left);
+			if(commCode != null)
+				setResult("commCode", commCode);
+			return SUCCESS;
+		} catch(Exception e) {
+			logger.error("catch Exception in doCheckOperSeqId", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+	}
+	
+	/**
+	 * 如果i为null，则返回v；否则返回i
+	 * @param i	带判断的Integer
+	 * @param v 缺省返回值
+	 * @return 如果i为null，则返回v；否则返回i
+	 */
+	private static Integer isNull(Integer i, int v) {
+		if(i == null)
+			return v;
+		else
+			return i;
 	}
 }

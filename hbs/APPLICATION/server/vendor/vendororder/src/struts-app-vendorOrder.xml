@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="app-vendorOrder" namespace="/vendorOrder" extends="json-default">
+		
+		<global-results>
+			<result name="error" type="json">
+			    <param name="includeProperties">
+                 	success,errorReason.*
+                </param>
+            </result>
+ 			<result name="success" type="json">
+				<param name="includeProperties">
+                	success, result.*
+                </param>
+			</result>
+        </global-results>
+
+		<!-- 采购普通用户 ***************************************************-->
+    	<action name="vendorOrder!list" method="doList" 
+    			class="com.hbs.vendororder.action.VendorOrderCgNormalAction">
+		</action>
+    	<action name="vendorOrder!getInfo" method="doGetInfo" 
+    			class="com.hbs.vendororder.action.VendorOrderCgNormalAction">
+		</action>
+		<!-- 
+	/**
+	 * 临时保存
+	 * @action.input vendorOrder.*
+	 * @action.result
+	 * @return
+	 */
+		 -->
+    	<action name="vendorOrder!saveTemp" method="doSaveTemp" 
+    			class="com.hbs.vendororder.action.VendorOrderCgNormalAction">
+		</action>
+		<!-- 
+	/**
+	 * 正式提交
+	 * @action.input vendorOrder.*
+	 * @action.result 
+	 * @return
+	 */
+		 -->
+    	<action name="vendorOrder!save" method="doSave" 
+    			class="com.hbs.vendororder.action.VendorOrderCgNormalAction">
+		</action>
+
+
+	</package>
+</struts>
