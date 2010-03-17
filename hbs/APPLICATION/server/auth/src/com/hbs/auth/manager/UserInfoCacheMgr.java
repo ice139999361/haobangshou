@@ -74,7 +74,9 @@ public class UserInfoCacheMgr {
 				String actionName = action.getActionName();
 				actionNames.put(actionName, actionName);
 			}
-		}		
+		}	
+		user.setActionNames(actionNames);
+		user.setResourceButtons(resourceButtons);
 		return user;
 	}
 
