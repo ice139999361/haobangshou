@@ -10,7 +10,7 @@ HBSConvertHelper.init(function() {
 	(function() {
 		// 新增用户按钮单击事件
 		addBtn.on("click", function() {
-			HBSConvertHelper.openNewWin("/auth/editorauth.jsp?editorType=add");
+			HBSConvertHelper.openNewWin("/auth/editorrole.jsp?editorType=add");
 		});
 		
 		// 用户列表控件的刷新事件
@@ -18,7 +18,7 @@ HBSConvertHelper.init(function() {
 			// 修改按钮触发事件
 			var updateBtnFun = function() {
 				// 要访问的 url 地址
-				var url = ["/auth/editorauth.jsp?editorType=update&staffName=", this.config.get("staffName")].join("");
+				var url = ["/auth/editorrole.jsp?editorType=update&roleName=", this.config.get("roleName")].join("");
 				// 打开指定页面
 				HBSConvertHelper.openNewWin(url);
 			};
@@ -28,7 +28,7 @@ HBSConvertHelper.init(function() {
 				Ext.Msg.confirm("提示", "您要执行的是删除操作，请确认是否继续？", function(btn) {
 					if(btn == "no") return;
 					
-					ExtConvertHelper.request("/success.action?staffName=" + this.config.get("staffName"), null, function() {
+					ExtConvertHelper.request("/success.action?roleName=" + this.config.get("roleName"), null, function() {
 						HBSConvertHelper.refreshGrid("querygrid");
 					});
 				}, this);
