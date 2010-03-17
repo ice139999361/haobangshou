@@ -78,7 +78,7 @@ public class PeriodSpecMemoMgr {
 	 * @return
 	 * @throws Exception
 	 */
-	public PeriodSpecMemo getSendInvoice(String commCode) throws Exception{
+	public PeriodSpecMemo getSepcMemo(String commCode) throws Exception{
 		PeriodSpecMemo ret = null;
 		logger.debug("查找单条财务账期结算备注信息！输入的参数为：" + commCode);
 		PeriodSpecMemoDao dao = (PeriodSpecMemoDao)BeanLocator.getInstance().getBean(InvoiceConstants.PERIOD_SPEC_MEMO_DAO);
