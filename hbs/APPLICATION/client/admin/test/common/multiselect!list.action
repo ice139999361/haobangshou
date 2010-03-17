@@ -1,0 +1,19 @@
+﻿{
+    "data": {
+        "list": [
+            {
+                "value": "1",
+                "text": "系统类"
+            },
+            {
+                "value": "2",
+                "text": "系统类2"
+            },
+            {
+                "value": "3",
+                "text": "系统类3"
+            }
+        ]
+    },
+    "success": true
+}

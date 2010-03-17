@@ -1,0 +1,53 @@
+﻿[
+    {
+        "text": "core",
+        "id": "src/core",
+        "cls": "folder"
+    },
+    {
+        "text": "dd",
+        "id": "src/dd",
+        "cls": "folder"
+    },
+    {
+        "text": "locale",
+        "id": "src/locale",
+        "cls": "folder"
+    },
+    {
+        "text": "widgets",
+        "id": "src/widgets",
+        "cls": "folder"
+    },
+    {
+        "text": "adapter",
+        "id": "src/adapter",
+        "cls": "folder"
+    },
+    {
+        "text": "debug.js",
+        "id": "src/debug.js",
+        "leaf": true,
+        "cls": "file"
+    },
+    {
+        "text": "data",
+        "id": "src/data",
+        "cls": "folder"
+    },
+    {
+        "text": "state",
+        "id": "src/state",
+        "cls": "folder"
+    },
+    {
+        "text": "direct",
+        "id": "src/direct",
+        "cls": "folder"
+    },
+    {
+        "text": "util",
+        "id": "src/util",
+        "cls": "folder"
+    }
+]
