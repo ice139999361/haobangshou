@@ -38,7 +38,7 @@ HBSConvertHelper.init(function() {
 				// 获取数据容器
 				var record = view.ds.getAt(i);
 				// 渲染链接到帐号列
-				HBSConvertHelper.renderATag2Cell(record.get("staffName"), "/auth/detailuser.jsp?staffName=" + record.get("staffName") , "open", view.getCell(i, view.grid.getColumnIndexById("staffName")));
+				HBSConvertHelper.renderATag2Cell(record.get("staffName"), "/auth/detailauth.jsp?staffName=" + record.get("staffName") , "open", view.getCell(i, view.grid.getColumnIndexById("staffName")));
 				
 				// 获取操作列
 				var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));
