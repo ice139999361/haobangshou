@@ -3,9 +3,9 @@
  */
 package com.hbs.common.utils;
 
-import java.text.DateFormat;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -14,9 +14,12 @@ import org.apache.log4j.Logger;
 /**
  * 处理列表数据
  * @author xyf
+ * modified by yangzj  20100317
  *
  */
 public class ListDataUtil {
+	
+	private static final String SPLIT_FORMATER = ",";
 	/**
      * logger.
      */
@@ -29,10 +32,10 @@ public class ListDataUtil {
 	 * @param fieldNames	每列数据对应的字段名
 	 * @return
 	 */
-	@SuppressWarnings({"unused", "unchecked"})
+	@SuppressWarnings({"unchecked"})
 	public static List splitIntoList(Class itemClass, String[] values, String[] fieldNames)
 	{
-		return splitIntoList(itemClass, values, fieldNames, ",");
+		return splitIntoList(itemClass, values, fieldNames, SPLIT_FORMATER);
 	}
 	
 	/**
@@ -46,32 +49,29 @@ public class ListDataUtil {
 	@SuppressWarnings("unchecked")
 	public static List splitIntoList(Class itemClass, String[] values, String[] fieldNames, String spliter)
 	{
-		//DONE:完成splitIntoList
-		try
-		{
-			ArrayList list = new ArrayList();
-			if(values == null)
-				return list;
-			
-			for(int i = 0; i < values.length; i++)
-			{
-				try
-				{
+		ArrayList list = null;		
+
+		if (values == null) {
+			logger.info("需要设置对象的值为null,对象为：" + itemClass.getName());
+		} else {
+			list = new ArrayList();
+			int i = 0;
+			try {
+				for (; i < values.length; i++) {
 					Object o = itemClass.newInstance();
 					splitIntoFields(o, values[i], fieldNames, spliter);
 					list.add(o);
+
 				}
-				catch(Exception e)
-				{
-					logger.info("splitIntoList处理数据"+values[i]+"出错", e);
-				}
+
+			} catch (Exception e) {
+				list = null;
+				logger.error("splitIntoList处理数据" + values[i] + "出错" , e);				
 			}
-			return list;
 		}
-		catch(Exception e)
-		{
-			return null;
-		}
+		
+		return list;
+		
 	}
 
 	/**
@@ -82,9 +82,9 @@ public class ListDataUtil {
 	 */
 	@SuppressWarnings("unused")
 	private static void splitIntoFields(Object o, String values,
-			String[] fieldNames)
+			String[] fieldNames) throws Exception
 	{
-		splitIntoFields(o, values, fieldNames, ",");
+		splitIntoFields(o, values, fieldNames, SPLIT_FORMATER);
 	}
 	
 	/**
@@ -95,52 +95,30 @@ public class ListDataUtil {
 	 * @param spliter	values的列分隔符
 	 */
 	private static void splitIntoFields(Object o, String values,
-			String[] fieldNames, String spliter)
+			String[] fieldNames, String spliter) throws Exception
 	{
-		if(o == null || values == null || fieldNames == null)
+		if (o == null || values == null || fieldNames == null)
 			return;
-		try
-		{
+		
 			String[] ar = values.split(spliter);
 			// 数据列数不能少于给出的字段名数
-			if(ar.length < fieldNames.length)
-				return;
-			
-			// 将数据接入对应字段
-			for(int i = 0; i < fieldNames.length; i++)
-			{
-				if(StringUtils.isEmpty(fieldNames[i]))
-					continue;
-				try
-				{
-					o.getClass().getDeclaredField(fieldNames[i]).set(o, ar[i]);
-				}
-				catch(Exception e)
-				{
-					if(logger.isDebugEnabled())	logger.debug("splitIntoFields处理字段"+fieldNames[i]+"出错", e);
-					String setName = "set" + fieldNames[i].substring(0, 1).toUpperCase() + fieldNames[i].substring(1);
-					try{
-						o.getClass().getDeclaredMethod(setName, String.class).invoke(o, ar[i]);
-					}catch(Exception e1){
-						if(logger.isDebugEnabled())	logger.debug("splitIntoFields处理"+setName+"(String)出错", e1);
-						try{
-							o.getClass().getDeclaredMethod(setName, Integer.class).invoke(o, Integer.parseInt(ar[i]));
-						}catch(Exception e2){
-							if(logger.isDebugEnabled())	logger.debug("splitIntoFields处理"+setName+"(Integer)出错", e2);
-							try {
-								o.getClass().getDeclaredMethod(setName, Date.class).invoke(o, DateFormat.getDateInstance().parse(ar[i]));
-							} catch (Exception e3) {
-								if(logger.isDebugEnabled())	logger.debug("splitIntoFields处理"+setName+"(Date)出错", e3);
-							}
+			if (ar.length < fieldNames.length){
+				
+				throw new Exception("传入的参数错误：数据列数不能少于给出的字段名数!");
+			}else{
+				int i = 0;
+				for (; i < fieldNames.length; i++) {
+					if (StringUtils.isNotEmpty(fieldNames[i])){
+						Field fd = o.getClass().getDeclaredField(fieldNames[i]);
+						if(!(Modifier.isPublic(fd.getModifiers()))){//非公共属性
+							fd.setAccessible(true);
 						}
+						//此处可能还需要修改，特别是日期型的数据，需要转换格式，否则错误
+						fd.set(o, ar[i]);
 					}
 				}
-			}
-		}
-		catch(Exception e)
-		{
-			logger.info("splitIntoFields出错", e);
-		}
+			}		
+		
 	}
 
 
