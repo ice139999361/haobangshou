@@ -1,7 +1,8 @@
 package com.hbs.domain.auth.pojo;
 
-import com.hbs.domain.common.pojo.base.BaseDomain;
+import java.util.List;
 
+import com.hbs.domain.common.pojo.base.BaseDomain;
 
 /**
  * Role对象.
@@ -25,9 +26,25 @@ public class Role extends BaseDomain{
      */
     private String memo;
 
-
+    // begin add by xyf
+    /**
+     * 角色对应的资源列表
+     */
+    private List<RoleResource> resources;
     
-    public Integer getRoleId() {
+    /**
+     * 角色对应的资源列表
+     */
+    public List<RoleResource> getResources() {
+		return resources;
+	}
+
+	public void setResources(List<RoleResource> resources) {
+		this.resources = resources;
+	}
+	// end add by xyf
+	
+	public Integer getRoleId() {
         return this.roleId;
     }	
   
