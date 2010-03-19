@@ -41,6 +41,17 @@
     	<action name="orderDetail!confirmDelivery" method="doConfirmDelivery" 
     			class="com.hbs.customerorder.action.detail.CustOrderDetailScNormalAction">
 		</action>
+		<!-- 
+	/**
+	 * 切换ActiveState
+	 * @action.input orderDetail.*
+	 * @action.input memo
+	 * @return
+	 */
+		 -->
+    	<action name="orderDetail!controlActiveState" method="doControlActiveState" 
+    			class="com.hbs.customerorder.action.detail.CustOrderDetailScNormalAction">
+		</action>
 
 
 		<!-- 采购普通用户 ***************************************************-->

@@ -30,6 +30,17 @@
     	<action name="orderDetailCg!confirmDelivery" method="doConfirmDelivery" 
     			class="com.hbs.vendororder.action.detail.VendorOrderDetailCgNormalAction">
 		</action>
+		<!-- 
+	/**
+	 * 切换ActiveState
+	 * @action.input vendorOrder.*
+	 * @action.input memo
+	 * @return
+	 */
+		 -->
+    	<action name="orderDetailCg!controlActiveState" method="doControlActiveState" 
+    			class="com.hbs.vendororder.action.detail.VendorOrderDetailCgNormalAction">
+		</action>
 
 	</package>
 </struts>	

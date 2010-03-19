@@ -144,4 +144,35 @@ public class VendorOrderCgNormalAction extends VendorOrderBaseAction {
 		}
 		
 	}
+	
+	/**
+	 * 切换ActiveState
+	 * @action.input vendorOrder.*
+	 * @action.input memo
+	 * @return
+	 */
+	public String doControlActiveState() {
+		try {
+			if(vendorOrder == null
+					|| StringUtils.isEmpty(vendorOrder.getCommCode()) 
+					|| StringUtils.isEmpty(vendorOrder.getPoNo())) {
+				logger.debug("参数为空！");
+				setErrorReason("参数为空！");
+				return ERROR;
+			}
+			VendorOrderMgr mgr = (VendorOrderMgr)getBean(VENDOR_ORDER_MGR);
+			int i = mgr.controlActiveState(vendorOrder, this.getHttpServletRequest().getParameter("memo"));
+			if(i != 0) {
+				logger.error("提交出错！ ret = " + i);
+				setErrorReason("提交出错！");
+				return ERROR;
+			}
+			return SUCCESS;
+		} catch(Exception e) {
+			logger.error("catch Exception in doControlActiveState", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+	}
+
 }

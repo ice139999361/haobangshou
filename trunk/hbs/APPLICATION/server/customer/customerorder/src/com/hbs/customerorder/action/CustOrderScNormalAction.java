@@ -262,6 +262,36 @@ public class CustOrderScNormalAction extends BaseAction {
 		}
 	}
 	
+	/**
+	 * 切换ActiveState
+	 * @action.input custOrder.*
+	 * @action.input memo
+	 * @return
+	 */
+	public String doControlActiveState() {
+		try {
+			if(custOrder == null
+					|| StringUtils.isEmpty(custOrder.getCommCode()) 
+					|| StringUtils.isEmpty(custOrder.getPoNo())) {
+				logger.debug("参数为空！");
+				setErrorReason("参数为空！");
+				return ERROR;
+			}
+			CustOrderMgr mgr = (CustOrderMgr)getBean(CustOrderConstants.CUSTORDERMGR);
+			int i = mgr.controlActiveState(custOrder, this.getHttpServletRequest().getParameter("memo"));
+			if(i != 0) {
+				logger.error("提交出错！ ret = " + i);
+				setErrorReason("提交出错！");
+				return ERROR;
+			}
+			return SUCCESS;
+		} catch(Exception e) {
+			logger.error("catch Exception in doControlActiveState", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+	}
+
 	private void setMyId() throws Exception {
 		custOrder.setStaffId(getLoginStaff().getStaffId().toString());
 	}
