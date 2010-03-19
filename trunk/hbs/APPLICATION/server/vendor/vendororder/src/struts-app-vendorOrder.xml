@@ -28,9 +28,9 @@
 		</action>
 		<!-- 
 	/**
-	 * 临时保存
-	 * @action.input vendorOrder.*
-	 * @action.result
+	 * 临时保存供应商订单
+	 * @action.input	vendorOrder.*
+	 * @action.result	poNo	插入时返回订单号
 	 * @return
 	 */
 		 -->
@@ -39,9 +39,9 @@
 		</action>
 		<!-- 
 	/**
-	 * 正式提交
-	 * @action.input vendorOrder.*
-	 * @action.result 
+	 * 正式保存供应商订单
+	 * @action.input	vendorOrder.*
+	 * @action.result	poNo	插入时返回订单号
 	 * @return
 	 */
 		 -->

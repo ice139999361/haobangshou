@@ -13,6 +13,10 @@
 <include file="struts-app-customerOrder.xml" />
 <include file="struts-app-custOrderDetail.xml" />
 <include file="struts-app-vendorInfo.xml" />
+<include file="struts-app-vendorOrder.xml" />
+<include file="struts-app-vendorOrderDetail.xml" />
 <include file="struts-app-partNo.xml" />
+<include file="struts-app-auth.xml" />
+
 	<!--end merged code-->	
 </struts>

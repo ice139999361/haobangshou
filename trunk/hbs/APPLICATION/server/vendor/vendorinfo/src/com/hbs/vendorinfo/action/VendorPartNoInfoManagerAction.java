@@ -3,12 +3,9 @@
  */
 package com.hbs.vendorinfo.action;
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-import com.hbs.common.action.FieldErr;
 import com.hbs.common.action.base.BaseAction;
 import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.domain.vendor.vendorinfo.pojo.VendorPartNoInfo;

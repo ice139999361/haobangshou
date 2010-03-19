@@ -224,7 +224,7 @@ public class VendorOrderDetail extends BaseDomain{
 	 * @param settlementType the settlementType to set
 	 */
 	public void setSettlementType(String settlementType) {
-		settlementType = settlementType;
+		this.settlementType = settlementType;
 	}
 
 	public Integer getOperSeqId() {
