@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<package name="app-auth" namespace="/auth" extends="json-default">
+		
+		<global-results>
+			<result name="error" type="json">
+			    <param name="includeProperties">
+                 	success,errorReason.*
+                </param>
+            </result>
+ 			<result name="success" type="json">
+				<param name="includeProperties">
+                	success, result.*
+                </param>
+			</result>
+        </global-results>
+
+		<!-- 登录 -->
+		<action name="login!login" method="doLogin" 
+    			class="com.hbs.auth.action.LoginAction">
+		</action>
+		
+		
+		
+
+		<!-- 账户信息 -->
+		<!-- 
+	/**
+	 * 查询账户信息
+	 * @action.input account.*
+	 * @action.result list List<Account>
+	 * @action.result count 数量
+	 * @return
+	 */
+		 -->
+     	<action name="account!list" method="doList" 
+    			class="com.hbs.auth.action.AccountAction">
+		</action>
+		<!-- 
+	/**
+	 * 获取账户信息
+	 * @action.input account.account
+	 * @action.result account.*
+	 * @return
+	 */
+	 	 -->
+    	<action name="account!getInfo" method="doGetInfo" 
+    			class="com.hbs.auth.action.AccountAction">
+		</action>
+		<!-- 
+	/**
+	 * 删除账户信息
+	 * @action.input account.account
+	 * @return
+	 */
+		 -->
+    	<action name="account!del" method="doDelete" 
+    			class="com.hbs.auth.action.AccountAction">
+		</action>
+		<!-- 
+	/**
+	 * 保存账户信息
+	 * @action.input account.*
+	 * @return
+	 */
+		 -->
+     	<action name="account!save" method="doSave" 
+    			class="com.hbs.auth.action.AccountAction">
+		</action>
+
+
+
+		<!-- 用户信息 -->
+		<!-- 
+	/**
+	 * 查询用户信息
+	 * @action.input staff.*
+	 * @action.result list List<Staff>
+	 * @action.result count 数量
+	 * @return
+	 */
+		 -->
+     	<action name="staff!list" method="doList" 
+    			class="com.hbs.auth.action.StaffAction">
+		</action>
+		<!-- 
+	/**
+	 * 获取用户信息
+	 * @action.input staff.staffId
+	 * @action.result staff.*
+	 * @return
+	 */
+	 	 -->
+    	<action name="staff!getInfo" method="doGetInfo" 
+    			class="com.hbs.auth.action.StaffAction">
+		</action>
+		<!-- 
+	/**
+	 * 删除用户信息
+	 * @action.input staff.staffId
+	 * @return
+	 */
+		 -->
+    	<action name="staff!del" method="doDelete" 
+    			class="com.hbs.auth.action.StaffAction">
+		</action>
+		<!-- 
+	/**
+	 * 保存用户信息
+	 * @action.input staff.*
+	 * @return
+	 */
+		 -->
+     	<action name="staff!save" method="doSave" 
+    			class="com.hbs.auth.action.StaffAction">
+		</action>
+
+
+
+
+		<!-- 角色信息 -->
+		<!-- 
+	/**
+	 * 查询角色信息
+	 * @action.input role.*
+	 * @action.result list List<Role>
+	 * @action.result count 数量
+	 * @return
+	 */
+		 -->
+     	<action name="role!list" method="doList" 
+    			class="com.hbs.auth.action.RoleAction">
+		</action>
+		<!-- 
+	/**
+	 * 获取角色信息
+	 * @action.input role.roleId
+	 * @action.result role.*
+	 * @return
+	 */
+	 	 -->
+    	<action name="role!getInfo" method="doGetInfo" 
+    			class="com.hbs.auth.action.RoleAction">
+		</action>
+		<!-- 
+	/**
+	 * 删除角色信息
+	 * @action.input role.roleId
+	 * @return
+	 */
+		 -->
+    	<action name="role!del" method="doDelete" 
+    			class="com.hbs.auth.action.RoleAction">
+		</action>
+		<!-- 
+	/**
+	 * 保存角色信息
+	 * @action.input role.*
+	 * @return
+	 */
+		 -->
+     	<action name="role!save" method="doSave" 
+    			class="com.hbs.auth.action.RoleAction">
+		</action>
+
+
+
+
+    </package>
+</struts>
