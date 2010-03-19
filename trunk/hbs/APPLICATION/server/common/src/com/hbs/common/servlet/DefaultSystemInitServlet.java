@@ -146,6 +146,8 @@ public class DefaultSystemInitServlet extends HttpServlet {
         if (quartzConfig == null || quartzConfig.length() == 0) {
             logger.info("没有指定quartz配置文件相对路径！");
             return;
+        }else{
+        	logger.info("quartz配置文件的相对路径为：" + quartzConfig);
         }
 
         // 得到quartz配置文件全路径名
@@ -154,7 +156,7 @@ public class DefaultSystemInitServlet extends HttpServlet {
         try {
             fileInputStream = new FileInputStream(quartzConfigFileName);
         } catch (FileNotFoundException e) {
-            logger.error("找不到quartz配置文件,文件名:" + quartzConfigFileName);
+            logger.error("找不到quartz配置文件,文件名:" + quartzConfigFileName,e);
             return;
         }
 
@@ -169,9 +171,11 @@ public class DefaultSystemInitServlet extends HttpServlet {
             // 设置quartz_jobs.xml路径
             properties.setProperty("org.quartz.plugin.jobInitializer.fileName", quartzConfigPath + File.separator
                     + "quartz_jobs.xml");
+            
+            logger.info("配置为：" + properties.toString());
 
         } catch (IOException e) {
-            logger.error("加载quartz配置文件失败,文件名:" + quartzConfigFileName);
+            logger.error("加载quartz配置文件失败,文件名:" + quartzConfigFileName,e);
             return;
         }
 
@@ -194,6 +198,7 @@ public class DefaultSystemInitServlet extends HttpServlet {
         }
 
         logger.info("启动quartz任务调度成功！");
+        System.out.println("启动quartz任务调度成功！");
     }
 
 
