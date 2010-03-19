@@ -75,6 +75,17 @@
     	<action name="custOrder!cancel" method="doCancel" 
     			class="com.hbs.customerorder.action.CustOrderScNormalAction">
 		</action>
+		<!-- 
+	/**
+	 * 切换ActiveState
+	 * @action.input custOrder.*
+	 * @action.input memo
+	 * @return
+	 */
+		 -->
+    	<action name="custOrder!controlActiveState" method="doControlActiveState" 
+    			class="com.hbs.customerorder.action.CustOrderScNormalAction">
+		</action>
 
 	
 		<!-- 市场经理用户 ***************************************************-->
