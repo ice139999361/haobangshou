@@ -180,7 +180,7 @@
 	 * @return
 	 */
 		 -->
-     	<action name="role!list" method="doList" 
+     	<action name="userRole!list" method="doList" 
     			class="com.hbs.auth.action.UserRoleAction">
 		</action>
 		<!-- 
@@ -191,7 +191,7 @@
 	 * @return
 	 */
 	 	 -->
-    	<action name="role!getInfo" method="doGetInfo" 
+    	<action name="userRole!getInfo" method="doGetInfo" 
     			class="com.hbs.auth.action.UserRoleAction">
 		</action>
 		<!-- 
@@ -201,7 +201,7 @@
 	 * @return
 	 */
 		 -->
-    	<action name="role!del" method="doDelete" 
+    	<action name="userRole!del" method="doDelete" 
     			class="com.hbs.auth.action.UserRoleAction">
 		</action>
 		<!-- 
@@ -212,7 +212,7 @@
 	 * @return
 	 */
 		 -->
-     	<action name="role!save" method="doSave" 
+     	<action name="userRole!save" method="doSave" 
     			class="com.hbs.auth.action.UserRoleAction">
 		</action>
 
