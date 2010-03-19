@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="app-vendorOrderDetail" namespace="/vendorOrder" extends="json-default">
+		<global-results>
+			<result name="error" type="json">
+			    <param name="includeProperties">
+                 	success,errorReason.*
+                </param>
+            </result>
+ 			<result name="success" type="json">
+				<param name="includeProperties">
+                	success, result.*
+                </param>
+			</result>
+        </global-results>
+
+		<!-- 采购普通用户 ***************************************************-->
+		<!-- 
+	/**
+	 * 采购确认订单明细的交期
+	 * @action.input orderDetail.*
+	 * @action.input memo 原因
+	 * @return
+	 */
+		 -->
+    	<action name="orderDetailCg!confirmDelivery" method="doConfirmDelivery" 
+    			class="com.hbs.vendororder.action.detail.VendorOrderDetailCgNormalAction">
+		</action>
+
+	</package>
+</struts>	

@@ -30,6 +30,12 @@ public class VendorOrderCgNormalAction extends VendorOrderBaseAction {
 		return "cgnormal";
 	}
 
+	/**
+	 * 临时保存供应商订单
+	 * @action.input	vendorOrder.*
+	 * @action.result	poNo	插入时返回订单号
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public String doSaveTemp() {
 		try {
@@ -89,6 +95,12 @@ public class VendorOrderCgNormalAction extends VendorOrderBaseAction {
 		}
 	}
 	
+	/**
+	 * 正式保存供应商订单
+	 * @action.input	vendorOrder.*
+	 * @action.result	poNo	插入时返回订单号
+	 * @return
+	 */
 	public String doSave() {
 		try {
 			logger.debug("begin doSave");

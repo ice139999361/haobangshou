@@ -18,7 +18,6 @@ import com.hbs.domain.auth.pojo.Staff;
 import com.hbs.domain.product.pojo.CompanyPartNo;
 import com.hbs.domain.vendor.vendorinfo.pojo.VendorPartNoInfo;
 import com.hbs.product.manager.CompanyPartNoMgr;
-import com.hbs.vendorinfo.manager.VendorPartNoInfoMgr;
 
 /**
  * Action中对VendorPartNoInfo的一些通用处理函数集
@@ -156,7 +155,6 @@ public class VendorPartNoInfoUtil {
 		{
 			String s;
 			
-			int i;
 			s = vendorPartNoInfo.getStaffId();
 			if(StringUtils.isNotEmpty(s))
 			{
