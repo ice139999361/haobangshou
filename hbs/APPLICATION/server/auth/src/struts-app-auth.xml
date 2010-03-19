@@ -170,6 +170,51 @@
 
 
 
+		<!-- 用户权限信息 -->
+		<!-- 
+	/**
+	 * 查询用户权限信息
+	 * @action.input userRole.*
+	 * @action.result list List<UserRole>
+	 * @action.result count 数量
+	 * @return
+	 */
+		 -->
+     	<action name="role!list" method="doList" 
+    			class="com.hbs.auth.action.UserRoleAction">
+		</action>
+		<!-- 
+	/**
+	 * 获取用户权限信息
+	 * @action.input userRole.staffId
+	 * @action.result roles List<UserRole>
+	 * @return
+	 */
+	 	 -->
+    	<action name="role!getInfo" method="doGetInfo" 
+    			class="com.hbs.auth.action.UserRoleAction">
+		</action>
+		<!-- 
+	/**
+	 * 删除用户权限信息
+	 * @action.input userRole.staffId
+	 * @return
+	 */
+		 -->
+    	<action name="role!del" method="doDelete" 
+    			class="com.hbs.auth.action.UserRoleAction">
+		</action>
+		<!-- 
+	/**
+	 * 保存用户权限信息
+	 * @action.input userRole.staffId
+	 * @action.input roleId 多个
+	 * @return
+	 */
+		 -->
+     	<action name="role!save" method="doSave" 
+    			class="com.hbs.auth.action.UserRoleAction">
+		</action>
 
     </package>
 </struts>
