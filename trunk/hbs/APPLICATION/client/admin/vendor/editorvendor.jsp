@@ -28,16 +28,14 @@
 				    				<dictcombo fieldLabel="重要程度"               hiddenName="vendorInfo.importantCode"  labelStyle="width:150" paramsValue="IMPORTANT_CODE"  emptyText="请选择" />
 				    				<textfield fieldLabel="纳税人识别号"           name="vendorInfo.taxCode"              labelStyle="width:150" />
 				    				<textfield fieldLabel="性质"                   name="vendorInfo.commType"             labelStyle="width:150" />
-				    				<textfield fieldLabel="操作人员ID"             name="vendorInfo.staffId"              labelStyle="width:150" />
+				    					
 				    				<dictcombo fieldLabel="对应的分公司或分支机构" hiddenName="vendorInfo.companyBranch"  labelStyle="width:150" paramsValue="COMPANY_BRANCH"  emptyText="请选择" />			
-				    				
-				    				<textfield fieldLabel="法人代表"               name="vendorInfo.representative"       labelStyle="width:150" />
 				    				<textfield fieldLabel="英文名称"               name="vendorInfo.enName"               labelStyle="width:150" />
-				    				<textfield fieldLabel="公司英文地址"           name="vendorInfo.enAddress"            labelStyle="width:150" />	
 				    				<textfield fieldLabel="英文简称"               name="vendorInfo.enShortName"          labelStyle="width:150" />
+				    				<textfield fieldLabel="公司英文地址"           name="vendorInfo.enAddress"            labelStyle="width:150" />	
+				    				<textfield fieldLabel="法人代表"               name="vendorInfo.representative"       labelStyle="width:150" />
 				    				<textfield fieldLabel="公司网址"               name="vendorInfo.webSite"              labelStyle="width:150" />
 				    				<textfield fieldLabel="规模"                   name="vendorInfo.commScale"            labelStyle="width:150" />
-				    				<textfield fieldLabel="操作人员名字"           name="vendorInfo.staffName"            labelStyle="width:150" />
 				    				<dictcombo fieldLabel="是否显示单价"           hiddenName="vendorInfo.isShowPrice"    labelStyle="width:150" paramsValue="IS_SHOW_PRICE"   emptyText="请选择" />
 				    			</layoutpanel>
 				    			
