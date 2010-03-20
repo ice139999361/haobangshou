@@ -19,16 +19,16 @@
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="客户基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<label fieldLabel="帐户"                   name="vendorInfo.commCode"             labelStyle="width:150"   />
-				    				<label fieldLabel="性别"                   name="vendorInfo.creditRate"           labelStyle="width:150" />	
-				    				<label fieldLabel="职务"                   name="vendorInfo.allName"              labelStyle="width:150" />
-				    				<label fieldLabel="手机"                   name="vendorInfo.address"              labelStyle="width:150" />
-				    				<label fieldLabel="邮箱"                   name="vendorInfo.taxCode"              labelStyle="width:150" />
+				    				<label fieldLabel="帐户"                   name="account.account"             labelStyle="width:150"   />
+				    				<label fieldLabel="性别"                   name="staff.gender"           labelStyle="width:150" />	
+				    				<label fieldLabel="职务"                   name="staff.duty"              labelStyle="width:150" />
+				    				<label fieldLabel="手机"                   name="staff.mobile"              labelStyle="width:150" />
+				    				<label fieldLabel="邮箱"                   name="staff.email"              labelStyle="width:150" />
 				    				
-				    				<label fieldLabel="姓名"                   name="vendorInfo.representative"       labelStyle="width:150" />
-				    				<label fieldLabel="出生日期"               name="vendorInfo.enName"               labelStyle="width:150" />
-				    				<label fieldLabel="身份证号"               name="vendorInfo.enAddress"            labelStyle="width:150" />	
-				    				<label fieldLabel="电话"                   name="vendorInfo.webSite"              labelStyle="width:150" />
+				    				<label fieldLabel="姓名"                   name="staff.staffName"       labelStyle="width:150" />
+				    				<label fieldLabel="出生日期"               name="staff.birthDate"               labelStyle="width:150" />
+				    				<label fieldLabel="身份证号"               name="staff.identityNumber"            labelStyle="width:150" />	
+				    				<label fieldLabel="电话"                   name="staff.phone"              labelStyle="width:150" />
 				    			</layoutpanel>
 				    		</listpanel>
 				    			

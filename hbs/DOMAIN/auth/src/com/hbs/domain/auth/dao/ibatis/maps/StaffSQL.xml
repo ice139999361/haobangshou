@@ -152,6 +152,9 @@
 			<isNotEmpty prepend="and" property = "memo">
 				MEMO = #memo#
 			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "dynamicFields.account">
+				STAFF_ID in (select STAFF_ID from account where account = #dynamicFields.account#)
+			</isNotEmpty>
 		</dynamic>
 </select>
 
@@ -192,6 +195,9 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "memo">
 				MEMO = #memo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "dynamicFields.account">
+				STAFF_ID in (select STAFF_ID from account where account = #dynamicFields.account#)
 			</isNotEmpty>
 		</dynamic>
 </select>

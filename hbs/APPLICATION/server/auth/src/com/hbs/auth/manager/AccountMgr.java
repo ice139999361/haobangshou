@@ -84,6 +84,24 @@ public class AccountMgr {
 	}
     
     /**
+     * find by staffId.
+     * @param id id
+     * @return account
+     * @throws DataAccessException DataAccessException
+     */
+	public Account findAccountById(String id) throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+    		logger.debug("Invoking findAccountById(String id): parameter=" + id);
+    	}
+		AccountDao accountDao = (AccountDao)BeanLocator.getInstance().getBean(ACCOUNT_DAO_NAME);
+		Account ret = accountDao.findAccountById(id);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("Finished invoking findAccountById(String id)");
+    	}
+		return ret;
+	}
+
+	/**
      * list.
      * @param account account
      * @return account list

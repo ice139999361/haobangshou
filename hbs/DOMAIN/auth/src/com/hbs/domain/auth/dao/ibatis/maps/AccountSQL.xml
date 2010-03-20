@@ -77,6 +77,19 @@
 ]]>
 </select>
 
+<select id="Account_findAccountById" resultMap="account_result" parameterClass="string">
+<![CDATA[
+    SELECT
+            STAFF_ID, 
+            ACCOUNT, 
+            PASSWORD, 
+            LOGIN_TIME, 
+            LOGOUT_TIME, 
+            ENABLED
+    FROM account WHERE STAFF_ID = #staffId#
+]]>
+</select>
+
 <select id="Account_listAccount" resultMap="account_result" parameterClass="account">
 <![CDATA[
     SELECT

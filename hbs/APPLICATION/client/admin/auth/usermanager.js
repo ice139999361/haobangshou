@@ -18,7 +18,7 @@ HBSConvertHelper.init(function() {
 			// 修改按钮触发事件
 			var updateBtnFun = function() {
 				// 要访问的 url 地址
-				var url = ["/auth/editoruser.jsp?editorType=update&staffName=", this.config.get("staffName")].join("");
+				var url = ["/auth/editoruser.jsp?editorType=update&staffId=", this.config.get("staffId")].join("");
 				// 打开指定页面
 				HBSConvertHelper.openNewWin(url);
 			};
@@ -28,7 +28,7 @@ HBSConvertHelper.init(function() {
 				Ext.Msg.confirm("提示", "您要执行的是删除操作，请确认是否继续？", function(btn) {
 					if(btn == "no") return;
 					
-					ExtConvertHelper.request("/success.action?staffName=" + this.config.get("staffName"), null, function() {
+					ExtConvertHelper.request("/auth/user!del.action?staff.staffId=" + this.config.get("staffId"), null, function() {
 						HBSConvertHelper.refreshGrid("querygrid");
 					});
 				}, this);
@@ -38,7 +38,7 @@ HBSConvertHelper.init(function() {
 				// 获取数据容器
 				var record = view.ds.getAt(i);
 				// 渲染链接到帐号列
-				HBSConvertHelper.renderATag2Cell(record.get("staffName"), "/auth/detailuser.jsp?staffName=" + record.get("staffName") , "open", view.getCell(i, view.grid.getColumnIndexById("staffName")));
+				HBSConvertHelper.renderATag2Cell(record.get("staffName"), "/auth/detailuser.jsp?staffId=" + record.get("staffId") , "open", view.getCell(i, view.grid.getColumnIndexById("staffName")));
 				
 				// 获取操作列
 				var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));

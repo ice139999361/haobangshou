@@ -87,7 +87,18 @@ public class AccountDaoImpl extends SqlMapClientDaoSupport implements AccountDao
         return account;
     }
     
-    /**
+	public Account findAccountById(String id) {
+		if (logger.isDebugEnabled()) {
+        	logger.debug("进入findAccountById(id), 输入参数[" + id + "]");
+		}
+        Account account = (Account) getSqlMapClientTemplate().queryForObject("Account_findAccountById", id);
+		if (logger.isDebugEnabled()) {
+        	logger.debug("离开findAccountById(id), 返回[" + account + "]");
+		}
+        return account;
+	}  
+
+	/**
      * list.
      * @param account account
      * @return account list
@@ -120,5 +131,6 @@ public class AccountDaoImpl extends SqlMapClientDaoSupport implements AccountDao
         	logger.debug("离开listAccountCount(Account), 返回[" + count + "]");
 		}
         return count;
-    }  
+    }
+
 }
