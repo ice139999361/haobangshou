@@ -82,7 +82,7 @@ var complexgridFun = function() {
 		case "cgm":
 			break;
 		default:
-			cgh.appendColumn({header: "操作"						, dataIndex: ""              , id: "operator"});
+			cgh.appendColumn({header: "操作"						, dataIndex: ""              , id: "operator", width: 170});
 			break;
 	}
 
