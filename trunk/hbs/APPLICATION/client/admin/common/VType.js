@@ -211,6 +211,42 @@ function isPassPrefixSuffixVerify(val, cmp, vText) {
 	return true;
 }
 
+/**
+ * 控件是否通过后台数据校验
+ * @param val   (String)  要验证的文本
+ * @param cmp   (Object)  要验证的组件
+ * @param vText (String)  VType的提示名字
+ * @returnValue (Boolean) true：通过；false：不通过
+ */
+function isPassActionVerify(val, cmp, vText) {
+	// 如果不需要后台校验
+	if(Ext.isEmpty(cmp.checkUrl)) return true;
+	// 获取缓存对象
+	var checkedVal = cmp.__checkedVal;
+	// 如果缓存对象不存在则创建
+	if(Ext.isEmpty(checkedVal)) cmp.__checkedVal = checkedVal = {};
+	// 如果有对此数据进行缓存则直接返回
+	if(Ext.isEmpty(checkedVal[val])) {
+		// 同步校验
+		var action = ExtConvertHelper.syncRequest(cmp.checkUrl + (cmp.checkUrl.indexOf("?") == -1 ? "?" : "&") + "value=" + val);
+		// 转换 Boolean 值
+		action.success = action.success == "true";
+
+		// 缓存验证信息
+		checkedVal[val] = {
+			 success  : action.success
+			,errorMsg : ExtConvertHelper.getMessageInfo(action, "请求失败：服务器异常")
+		};
+	}
+
+	// 验证通过
+	if(checkedVal[val].success) return true;
+	
+	// 错误提示
+	Ext.form.VTypes[vText] = checkedVal[val].errorMsg;
+	// 验证不通过
+	return false;
+}
 
 
 Ext.apply(Ext.form.VTypes, {
@@ -233,7 +269,9 @@ Ext.apply(Ext.form.VTypes, {
 	 		if(!isPassTextLen(val, cmp, vText, (Ext.isEmpty(cmp.charFlag) ? true : cmp.charFlag == true))) return false;
 	 		// 验证控件前缀和后缀
 	 		if(!isPassPrefixSuffixVerify(val, cmp, vText)) return false;
-	 		//
+	 		// 通过 Action 进行后台验证
+	 		if(!isPassActionVerify(val, cmp, vText)) return false;
+	 		
 	 		// 验证通过
 	 		return true;
 	 }
