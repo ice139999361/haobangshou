@@ -47,7 +47,7 @@ public class ResourceAction extends BaseAction {
 			ActionMgr amgr = (ActionMgr)getBean(AuthConstants.ACTION_MANAGER_NAME);
 			for(Resource res : list) {
 				Action action = new Action();
-				action.setActionId(res.getActionsId().toString());
+				action.setActionsId(res.getActionsId());
 				res.setField("actions", amgr.listAction(action));
 			}
 			setResult("list", list);
