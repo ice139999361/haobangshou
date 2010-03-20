@@ -102,6 +102,8 @@ public class VendorInfoNormalAction extends BaseAction {
 			}
 
 			vendorInfo.setState("1");
+			if (VendorInfoUtil.checkSetStaffId(vendorInfo))
+				setMyId(true);
 			VendorInfoUtil.processListData(vendorInfo, this.getHttpServletRequest());
 			List<FieldErr> errs = VendorInfoUtil.checkInputFields(vendorInfo);
 			if (!errs.isEmpty()) {

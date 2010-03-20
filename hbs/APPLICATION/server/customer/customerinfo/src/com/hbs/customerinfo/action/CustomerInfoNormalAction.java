@@ -103,6 +103,8 @@ public class CustomerInfoNormalAction extends BaseAction {
 			}
 
 			custInfo.setState("1");
+			if (CustomerInfoUtil.checkSetStaffId(custInfo))
+				setMyId(true);
 			CustomerInfoUtil.processListData(custInfo, this.getHttpServletRequest());
 			List<FieldErr> errs = CustomerInfoUtil.checkInputFields(custInfo);
 			if (!errs.isEmpty()) {
