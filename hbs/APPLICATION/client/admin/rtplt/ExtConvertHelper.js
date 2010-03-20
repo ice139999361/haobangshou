@@ -219,10 +219,38 @@ var ExtConvertHelper = {
 	  * 隐藏不需要的页面元素
 	  */
 	,hideItems: function(items) {
+			this.itemsDisplay(items, "hide");
+	 }
+	 /**
+	  * 显示不需要的页面元素
+	  */
+	,showItems: function(items)  {
+			this.itemsDisplay(items, "show");
+	 }
+	 // 修改控件的显示方式
+	,itemsDisplay: function(items, type) {
+			// 显示配置
+			var config = {
+				 hide: ["none", "hide", "disable"]
+				,show: [""    , "show", "enable" ]
+			};
+			
 			Ext.each(items.split(","), function(item, index, itemsAll) {
-					var cmp = Ext.getCmp(item);
-					cmp.hide();
-					cmp.disable();
+				// 获取需要用到的控件对象
+				var dom = Ext.getDom(item);
+				var cmp = Ext.getCmp(item);
+				
+				// 隐藏或显示控件
+				if(dom && dom.parentElement.previousSibling && dom.parentElement.previousSibling.attributes["for"] && dom.parentElement.previousSibling.attributes["for"].value == item) {
+					dom.parentElement.parentElement.style.display = config[type][0];
+				} else if(dom && dom.parentElement.parentElement.previousSibling && dom.parentElement.parentElement.previousSibling.attributes["for"] && dom.parentElement.parentElement.previousSibling.attributes["for"].value == item) {
+					dom.parentElement.parentElement.parentElement.style.display = config[type][0];
+				} else if(cmp) {
+					cmp[config[type][1]]();
+				}
+				
+				// 禁用或恢复控件
+				if(cmp) cmp[config[type][2]]();
 			});
 	 }
 	 // 从对象中获取指定 key 的值
