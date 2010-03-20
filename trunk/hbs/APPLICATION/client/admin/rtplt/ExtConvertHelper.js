@@ -58,6 +58,36 @@ var ExtConvertHelper = {
 																		 }
 			});
 	 }
+	,syncRequest: function(url) {
+			// 获取链接对象
+			var conn = this.createXhrObject();
+			// 打开链接
+			conn.open("POST", SERVER_PATH + url, false);
+			// 请求
+			conn.send(null);
+			// 返回数据
+			return Ext.util.JSON.decode(conn.responseText);
+	 }
+	,createXhrObject: function() {
+			var http;   
+			var activeX = ["MSXML2XMLHttp.5.0","MSXML2XMLHttp.4.0","MSXML2.XMLHttp.3.0",   
+			"MSXML2.XMLHttp","Microsoft.XMLHttp"];   
+			
+			try {   
+				http = new XMLHttpRequest();   
+			} catch (e) {   
+				for (var i = 0; i < activeX.length; ++i) {   
+					try {   
+						http = new ActiveXObject(activeX[i]);   
+						break;   
+					} catch (e) {   
+						//UICtrl.WriteToPhoneMessageBox('生成'+activeX[i]+'失败！');   
+					}   
+				}   
+			} finally {   
+				return http;   
+			} 
+	 }
 	 /**
  		* 对指定 form 进行 vtype 校验
  		* @param formId 要进行验证的 form 的 id 属性
