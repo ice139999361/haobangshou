@@ -212,6 +212,70 @@ function isPassPrefixSuffixVerify(val, cmp, vText) {
 }
 
 /**
+ * 控件是否通过关联数据校验
+ * @param val   (String)  要验证的文本
+ * @param cmp   (Object)  要验证的组件
+ * @param vText (String)  VType的提示名字
+ * @returnValue (Boolean) true：通过；false：不通过
+ */
+function isPassRelateVerify(val, cmp, vText) {
+	// 如果不需要关联校验
+	if(Ext.isEmpty(cmp.relate)) return true;
+	// 获取校验配置
+	var vconfig = cmp.relate.split("|;");
+	// 获取相关联控件
+	var rcmp = Ext.getCmp(vconfig[0]);
+	
+	// 如果相关联控件不存在则提示
+	if(!rcmp) {
+		// 错误提示
+		Ext.form.VTypes[vText] = "需要关联的控件不存在";
+		// 验证不通过
+		return false;
+	}
+	
+	// 获取关联控件内容
+	var rval = rcmp.getValue();
+	// 如果关联控件没有输入则返回
+	if(Ext.isEmpty(rval)) return true;
+	// 存放验证结果
+	var verifyResult = true;
+	// 针对于符合进行判断
+	switch(vconfig[1]) {
+		case ">":
+			verifyResult = (val > rval);
+			break;
+		case "<":
+			verifyResult = (val < rval);
+			break;
+		case "==":
+			verifyResult = (val == rval);
+			break;
+		case "<=":
+			verifyResult = (val <= rval);
+			break;
+		case ">=":
+			verifyResult = (val >= rval);
+			break;
+		case "===":
+			verifyResult = (val === rval);
+			break;
+		case "&&":
+			verifyResult = (val && rval);
+			break;
+		case "||":
+			verifyResult = (val || rval);
+			break;
+	}
+	
+	// 如果不通过则错误提示
+	if(!verifyResult) Ext.form.VTypes[vText] = vconfig[2];
+	
+	// 返回验证结果
+	return verifyResult;
+}
+
+/**
  * 控件是否通过后台数据校验
  * @param val   (String)  要验证的文本
  * @param cmp   (Object)  要验证的组件
@@ -258,6 +322,7 @@ Ext.apply(Ext.form.VTypes, {
 	   		,prefix   : "GV|;string|;2"        // 前缀，可选填，如：GV     (固定格式|;数据类型|;数据长度)
 	   		,suffix   : "GV|;string|;2|;true"  // 后缀，可选填，如：GV     (固定格式|;数据类型|;数据长度|;是否与前缀有关系)
 	   		,psMsg    : "格式错误!"            // 前/后缀校验错误后，提示信息
+	   		,relate   : "cmp1;>;必须大于cmp1"  // 关联控件的验证  (关联控件ID|;两者的关系|;有错误时的提示信息)  在HTML中写时注意转意
 	   }
 	 */
 	 commCheck: function(val, cmp) {
@@ -269,6 +334,8 @@ Ext.apply(Ext.form.VTypes, {
 	 		if(!isPassTextLen(val, cmp, vText, (Ext.isEmpty(cmp.charFlag) ? true : cmp.charFlag == true))) return false;
 	 		// 验证控件前缀和后缀
 	 		if(!isPassPrefixSuffixVerify(val, cmp, vText)) return false;
+	 		// 验证控件关联
+	 		if(!isPassRelateVerify(val, cmp, vText)) return false;
 	 		// 通过 Action 进行后台验证
 	 		if(!isPassActionVerify(val, cmp, vText)) return false;
 	 		
