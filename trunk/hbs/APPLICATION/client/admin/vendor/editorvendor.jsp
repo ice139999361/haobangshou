@@ -51,21 +51,20 @@
 				    		
 				    		<listpanel frame="true" title="结算信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<dictcombo fieldLabel="结算类型"               hiddenName="vendorInfo.settlementType"            labelStyle="width:150" paramsValue="SETTLEMENT_TYPE" emptyText="请选择" />
-				    				<dictcombo fieldLabel="结算币种"               hiddenName="vendorInfo.currency"                  labelStyle="width:150" paramsValue="CURRENCY"        emptyText="请选择" />	
-				    				<textfield fieldLabel="合同费"                 name="vendorInfo.contactFee"                      labelStyle="width:150" />
-				    				<dictcombo fieldLabel="账期类型" 			         hiddenName="vendorInfo.accountPreiod.accountType" labelStyle="width:150" paramsValue="ACCOUNT_TYPE" emptyText="请选择" />
-				    				<textfield fieldLabel="账期的起始日" 					 name="vendorInfo.accountPreiod.periodStart"       labelStyle="width:150" />
-				    				<textfield fieldLabel="账期的对账日" 					 name="vendorInfo.accountPreiod.accounDay"     labelStyle="width:150" />
-				    				<textfield fieldLabel="账期的结算日" 					 name="vendorInfo.accountPreiod.settlementDay"     labelStyle="width:150" />	
-				    				<textfield fieldLabel="客户账期的最大交易金额" name="vendorInfo.accountPreiod.maxMoney"          labelStyle="width:150" />
-				    				<textfield fieldLabel="提醒设置" 							 name="vendorInfo.accountPreiod.reminderDay"       labelStyle="width:150" />
-				    				
-				    				
-				    				<textfield fieldLabel="税率"                   name="vendorInfo.taxRate"                         labelStyle="width:150" />	
-				    				<textfield fieldLabel="供应商的账期设置" 		   name="vendorInfo.accountPreiod.accountPeriod"     labelStyle="width:150" />	
-				    				<textfield fieldLabel="预付百分比" 						 name="vendorInfo.prePaidInfo.prePaid"             labelStyle="width:150" />
-				    				<textfield fieldLabel="提醒日" 			           name="vendorInfo.prePaidInfo.reminderDay"         labelStyle="width:150" />
+				    				<dictcombo   fieldLabel="结算类型"               hiddenName="vendorInfo.settlementType"            labelStyle="width:150" paramsValue="SETTLEMENT_TYPE" emptyText="请选择" id="vSettlementType" />
+				    				<dictcombo   fieldLabel="结算币种"               hiddenName="vendorInfo.currency"                  labelStyle="width:150" paramsValue="CURRENCY"        emptyText="请选择" />	
+				    				<textfield   fieldLabel="合同费"                 name="vendorInfo.contactFee"                      labelStyle="width:150" />
+				    				<dictcombo   fieldLabel="账期类型" 			         hiddenName="vendorInfo.accountPreiod.accountType" labelStyle="width:150" paramsValue="ACCOUNT_TYPE"    emptyText="请选择" id="vaAccountType" />
+				    				<datefield   fieldLabel="账期的起始日" 					 name="vendorInfo.accountPreiod.periodStart"       labelStyle="width:150" id="vaPeriodStart"     format="Ymd" />
+				    				<numberfield fieldLabel="账期的对账日"  				 name="vendorInfo.accountPreiod.accounDay"         labelStyle="width:150" id="vaAccounDay"       emptyText="账期结束后的第几日" />
+				    				<numberfield fieldLabel="账期的结算日" 					 name="vendorInfo.accountPreiod.settlementDay"     labelStyle="width:150" id="vaSettlementDay"   emptyText="账期结束的第几日"   relate="vaAccounDay|;&gt;|;必须大于账期的对账日" vtype="commCheck" />
+				    					
+				    				<textfield   fieldLabel="客户账期的最大交易金额" name="vendorInfo.accountPreiod.maxMoney"          labelStyle="width:150" id="vaMaxMoney"     />
+				    				<numberfield fieldLabel="提醒设置" 							 name="vendorInfo.accountPreiod.reminderDay"       labelStyle="width:150" id="vaReminderDay"     emptyText="提前几天提醒对账" />
+				    				<textfield   fieldLabel="税率"                   name="vendorInfo.taxRate"                         labelStyle="width:150" />	
+				    				<textfield   fieldLabel="供应商的账期设置" 		   name="vendorInfo.accountPreiod.accountPeriod"     labelStyle="width:150" id="vaAccountPeriod"/>	
+				    				<textfield   fieldLabel="预付百分比" 						 name="vendorInfo.prePaidInfo.prePaid"             labelStyle="width:150" />
+				    				<textfield   fieldLabel="提醒日" 			           name="vendorInfo.prePaidInfo.reminderDay"         labelStyle="width:150" id="vpReminderDay"  />
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">
