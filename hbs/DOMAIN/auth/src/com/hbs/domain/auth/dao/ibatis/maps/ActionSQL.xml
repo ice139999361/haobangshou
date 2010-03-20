@@ -91,7 +91,7 @@
 				ACTION_NAME = #actionName#
 			</isNotEmpty>
 			<isNotEmpty prepend="," property = "description">
-		            ACTION_NAME = #description#
+		        DESCRIPTION = #description#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "buttonId">
 				BUTTON_ID = #buttonId#
@@ -117,7 +117,7 @@
 				ACTION_NAME = #actionName#
 			</isNotEmpty>
 			<isNotEmpty prepend="," property="description">
-		            ACTION_NAME = #description#
+		        DESCRIPTION = #description#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "buttonId">
 				BUTTON_ID = #buttonId#
