@@ -12,6 +12,23 @@ HBSConvertHelper.init(function() {
 	
 	// -------------------------------------- 应用逻辑处理
 	
+	// 添加结算类型的选择事件
+	Ext.getCmp("vSettlementType").on("select", function() {
+		val = this.getValue();
+		switch(val) {
+			case "1":
+				// 显示：账期类型,账期的起始日,账期的对账日,账期的结算日,客户账期的最大交易金额,提醒设置,供应商的账期设置,提醒日
+				ExtConvertHelper.showItems("vaAccountType,vaPeriodStart,vaAccounDay,vaSettlementDay,vaMaxMoney,vaReminderDay,vaAccountPeriod,vpReminderDay");
+				break;
+			case "2":
+			case "3":
+				// 隐藏：账期类型,账期的起始日,账期的对账日,账期的结算日,客户账期的最大交易金额,提醒设置,供应商的账期设置,提醒日
+				ExtConvertHelper.hideItems("vaAccountType,vaPeriodStart,vaAccounDay,vaSettlementDay,vaMaxMoney,vaReminderDay,vaAccountPeriod,vpReminderDay");
+				break;
+		}
+	});
+	
+	//Ext.getCmp("vSettlementType").fireEvent("select", Ext.getCmp("vSettlementType"))
 	// 提交操作成功后要做的事情
 	var submitSuccessPro;
 	
