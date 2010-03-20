@@ -42,6 +42,14 @@ public interface AccountDao {
     Account findAccount(String id) throws DataAccessException ;
     
     /**
+     * find by staffId.
+     * @param id id
+     * @return account
+     * @throws DataAccessException DataAccessException
+     */
+	Account findAccountById(String id);
+
+	/**
      * list.
      * @param account account
      * @return account list
@@ -56,4 +64,5 @@ public interface AccountDao {
      * @throws DataAccessException DataAccessException
      */
     Integer listAccountCount(Account account) throws DataAccessException ;
+
 }

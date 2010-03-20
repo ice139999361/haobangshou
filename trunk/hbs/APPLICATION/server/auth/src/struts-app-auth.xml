@@ -25,7 +25,52 @@
     			class="com.hbs.auth.action.LoginAction">
 		</action>
 		
-		
+		<!-- 界面使用的用户信息 staff + account  -->
+		<!-- 
+	/**
+	 * 查询用户信息
+	 * @action.input staff.* + (dynamicFields.account)
+	 * @action.result list List<Staff> + (dynamicFields.account)
+	 * @action.result count 数量
+	 * @return
+	 */
+		 -->
+     	<action name="user!list" method="doList" 
+    			class="com.hbs.auth.action.UserAction">
+		</action>
+		<!-- 
+	/**
+	 * 获取用户信息
+	 * @action.input staff.staffId
+	 * @action.result staff.*
+	 * @action.result account.*
+	 * @return
+	 */
+	 	 -->
+    	<action name="user!getInfo" method="doGetInfo" 
+    			class="com.hbs.auth.action.UserAction">
+		</action>
+		<!-- 
+	/**
+	 * 删除用户信息
+	 * @action.input staff.staffId
+	 * @return
+	 */
+		 -->
+    	<action name="user!del" method="doDelete" 
+    			class="com.hbs.auth.action.UserAction">
+		</action>
+		<!-- 
+	/**
+	 * 保存账户信息
+	 * @action.input staff.*
+	 * @action.input account.*
+	 * @return
+	 */
+		 -->
+     	<action name="user!save" method="doSave" 
+    			class="com.hbs.auth.action.UserAction">
+		</action>
 		
 
 		<!-- 账户信息 -->

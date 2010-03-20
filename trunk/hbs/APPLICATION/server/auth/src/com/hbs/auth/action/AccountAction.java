@@ -119,6 +119,8 @@ public class AccountAction extends BaseAction {
 	
 	private List<FieldErr> checkInputFields() throws Exception {
 		List<FieldErr> errs = new Vector<FieldErr>();
+		if(account.getEnabled() == null)
+			account.setEnabled(1);
 		if(StringUtils.isEmpty(account.getAccount())) {
 			errs.add(new FieldErr("account", "account√ª”–ÃÓ–¥"));
 		}
