@@ -28,7 +28,6 @@ HBSConvertHelper.init(function() {
 		}
 	});
 	
-	//Ext.getCmp("vSettlementType").fireEvent("select", Ext.getCmp("vSettlementType"))
 	// 提交操作成功后要做的事情
 	var submitSuccessPro;
 	
@@ -98,6 +97,9 @@ HBSConvertHelper.init(function() {
 				Ext.getCmp("contactgrid").addData(action.result.data.vendorInfo.dynamicFields.contactlist);
 				Ext.getCmp("consigneegrid").addData(action.result.data.vendorInfo.dynamicFields.consigneelist);
 				Ext.getCmp("custbankgrid").addData(action.result.data.vendorInfo.listBankInfo);
+				
+				// 触发一次结算类型的选择事件
+				Ext.getCmp("vSettlementType").fireEvent("select", Ext.getCmp("vSettlementType"));
 		});
 		
 		// 提交完成后的操作
