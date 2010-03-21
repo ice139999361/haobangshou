@@ -66,17 +66,17 @@ HBSConvertHelper.init(function() {
 		//alert(this.ds.getCount())
 		for(var i = 0 ; i < view.ds.getCount() ; i++) {
 			// 获取客户简称所在的列
-			var shortName_cell = view.getCell(i, view.grid.getColumnIndexById("shortName"));
+			var commCode_cell = view.getCell(i, view.grid.getColumnIndexById("commCode"));
 			// 将需要的链接渲染到此列
-			HBSConvertHelper.renderATag2Cell(shortName_cell.innerText, "/customer/detailpnrelation.jsp?pageType=query&baseSeqId="+view.ds.getAt(i).get("baseSeqId"), "open", shortName_cell);
+			HBSConvertHelper.renderATag2Cell(commCode_cell.innerText, "/customer/detailpnrelation.jsp?pageType=query&baseSeqId="+view.ds.getAt(i).get("baseSeqId"), "open", commCode_cell);
 			
 			
 			// 获取操作列
 			var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));	
 		  // 创建按钮到操作列
-			var updateBtn = HBSConvertHelper.renderButton2Cell(["审批"], operator_cell, view.ds.getAt(i));
+			var auditBtn = HBSConvertHelper.renderButton2Cell(["审批"], operator_cell, view.ds.getAt(i));
 			// 按钮的单击事件
-			updateBtn.on("click", function() {
+			auditBtn.on("click", function() {
 				// 要访问的 url 地址
 				var url = ["/customer/detailpnrelation.jsp?editorType=update&baseSeqId=", this.config.get("baseSeqId"), "&state=", this.config.get("state")].join("");
 				// 打开指定页面
