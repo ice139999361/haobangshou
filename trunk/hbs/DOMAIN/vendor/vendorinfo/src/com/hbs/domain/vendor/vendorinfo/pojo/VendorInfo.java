@@ -195,7 +195,15 @@ public class VendorInfo extends BaseDomain{
      */
     private Date createTime = new Date();
     
-    /**
+    public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	/**
 	 * @return the baseSeqId
 	 */
 	public Integer getBaseSeqId() {

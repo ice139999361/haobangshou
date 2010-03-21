@@ -78,10 +78,10 @@
 	</bean>
 	
 	<!-- 预付费状态实现类 parent ="vendorOrderState" vendorOrder 订单类型（订单）  结算方式（预付X%剩余款到发货）-->
-	<bean id="vendorOrder03" class="com.hbs.vendororder.manager.helper.PrepaidCustOrderState">		
+	<bean id="vendorOrder03" class="com.hbs.vendororder.manager.helper.PrepaidVendorOrderState">		
 	</bean>
-	<bean id="vendorOrder23" class="com.hbs.vendororder.manager.helper.PrepaidCustOrderState">		
+	<bean id="vendorOrder23" class="com.hbs.vendororder.manager.helper.PrepaidVendorOrderState">		
 	</bean>
-	<bean id="vendorOrder33" class="com.hbs.vendororder.manager.helper.PrepaidCustOrderState">		
+	<bean id="vendorOrder33" class="com.hbs.vendororder.manager.helper.PrepaidVendorOrderState">		
 	</bean>
 </beans>
