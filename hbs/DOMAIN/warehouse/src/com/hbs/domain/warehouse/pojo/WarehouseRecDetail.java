@@ -340,8 +340,8 @@ public class WarehouseRecDetail extends BaseDomain{
         return this.cpartNo;
     }	
   
-    public void setCpartNo(String venPartNo) {
-        this.cpartNo = venPartNo;
+    public void setCpartNo(String cpartNo) {
+        this.cpartNo = cpartNo;
     }
     
     public String getPnDesc() {
