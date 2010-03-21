@@ -8,10 +8,10 @@
 	<sqlMap resource="com/hbs/domain/warehouse/dao/ibatis/maps/WarehouseSendDetailSQL.xml"/>
 	<sqlMap resource="com/hbs/domain/warehouse/dao/ibatis/maps/WarehouseRecInfoSQL.xml"/>
 	<sqlMap resource="com/hbs/domain/warehouse/dao/ibatis/maps/WarehouseRecDetailSQL.xml"/>
-	<sqlMap resource="com/hbs/domain/warehouse/dao/ibatis/maps/WarehouseSendInfoHisSQL.xml"/>
-	<sqlMap resource="com/hbs/domain/warehouse/dao/ibatis/maps/WarehouseSendDetailHisSQL.xml"/>
-	<sqlMap resource="com/hbs/domain/warehouse/dao/ibatis/maps/WarehouseRecInfoHisSQL.xml"/>
-	<sqlMap resource="com/hbs/domain/warehouse/dao/ibatis/maps/WarehouseRecDetailHisSQL.xml"/>
+<!--	<sqlMap resource="com/hbs/domain/warehouse/dao/ibatis/maps/WarehouseSendInfoHisSQL.xml"/>  -->
+<!--	<sqlMap resource="com/hbs/domain/warehouse/dao/ibatis/maps/WarehouseSendDetailHisSQL.xml"/>  -->
+<!--	<sqlMap resource="com/hbs/domain/warehouse/dao/ibatis/maps/WarehouseRecInfoHisSQL.xml"/>  -->
+<!--	<sqlMap resource="com/hbs/domain/warehouse/dao/ibatis/maps/WarehouseRecDetailHisSQL.xml"/>  -->
 	<sqlMap resource="com/hbs/domain/warehouse/dao/ibatis/maps/WarehouseOperLogSQL.xml"/>
-	<sqlMap resource="com/hbs/domain/warehouse/dao/ibatis/maps/WarehouseOperLogHisSQL.xml"/>
+	<!-- <sqlMap resource="com/hbs/domain/warehouse/dao/ibatis/maps/WarehouseOperLogHisSQL.xml"/>   -->
 </sqlMapConfig>
