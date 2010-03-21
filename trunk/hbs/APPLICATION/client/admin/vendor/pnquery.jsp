@@ -19,13 +19,6 @@
 			    		<queryform gridId="querygrid" exportId="exportBtn" itemsFun="queryformFun" />
 				    		
 				    	<complexgrid id="querygrid" title="供应商P/N对照列表" frame="true" page="true" root="data.list" itemsFun="complexgridFun" />
-			    		
-			    		<panel buttonAlign="center">
-			    			<buttons>
-			    				<button text="删除" id="deleteBtn" />
-			    				<button text="恢复" id="reBtn"   />
-			    			</buttons>
-			    		</panel>
 			    	<!-- service ext ui.  end. -->
 			    	</items>
 			    </panel>
