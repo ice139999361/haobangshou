@@ -1,10 +1,9 @@
 Ext.Panel.prototype.__setSyncSize__ = function() {
 	var flag = true;
 	for(var i = 0, datas = panelSyncSizeFlagIds.split(","), count = datas.length ; i < count ; i++) {
-		if(this.id == "selectrolepanel") alert(134)
 		var cmp = Ext.getCmp(item);
-		if(!cmp) return;
-		if(!cmp.getEl()) return;
+		if(!cmp) continue;
+		if(!cmp.getEl()) continue;
 		if(cmp.getEl().dom.innerHTML.indexOf(this.id) != -1) {
 			flag = false;
 			break;
@@ -31,7 +30,7 @@ Ext.Panel.prototype.syncSize = function () {
 Ext.Panel.prototype.__initComponent__ = Ext.Panel.prototype.initComponent;
 
 Ext.Panel.prototype.initComponent = function() {
-	// ÒòÎª IE »á³öÎÊÌâ£¬ËùÒÔÐèÒª´Ë·½·¨½øÐÐ×ª»»£¬ÊôÓÚ ext µÄ bug
+	// å› ä¸º IE ä¼šå‡ºé—®é¢˜ï¼Œæ‰€ä»¥éœ€è¦æ­¤æ–¹æ³•è¿›è¡Œè½¬æ¢ï¼Œå±žäºŽ ext çš„ bug
 	this.on("afterrender", this.__setSyncSize__);
 	this.__initComponent__();
 };
