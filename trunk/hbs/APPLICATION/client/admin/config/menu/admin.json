@@ -167,14 +167,14 @@
                     "url": "/vendor/auditvendor.jsp"
                 },
                 {
-                    "id": "scmpnaudit",
+                    "id": "cgmgpnaudit",
                     "text": "供应商P/N对照审批",
                     "menuOrder": "30000",
                     "leaf": "true",
                     "url": "/vendor/auditpnrelation.jsp"
                 },
                 {
-                    "id": "scmpnquery",
+                    "id": "cgmgpnquery",
                     "text": "供应商P/N对照查询",
                     "menuOrder": "40000",
                     "leaf": "true",
