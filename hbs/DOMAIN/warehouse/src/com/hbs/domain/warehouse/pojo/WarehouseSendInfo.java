@@ -208,7 +208,7 @@ public class WarehouseSendInfo extends BaseDomain{
     	ceParam.setEncodeType("COMPANY_BRANCH");
     	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
     	if(null != cEncode){
-    		retStr = cEncode.getEncodeDesc();
+    		retStr = cEncode.getEncodeValue();
     	}
     	return retStr;
     }
@@ -240,7 +240,7 @@ public class WarehouseSendInfo extends BaseDomain{
     	ceParam.setEncodeType("SETTLEMENT_TYPE");
     	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
     	if(null != cEncode){
-    		retStr = cEncode.getEncodeDesc();
+    		retStr = cEncode.getEncodeValue();
     	}
     	return retStr;
     }
@@ -249,8 +249,8 @@ public class WarehouseSendInfo extends BaseDomain{
         return this.settlementType;
     }	
   
-    public void setSettlement_type(String settlement_type) {
-        this.settlementType = settlement_type;
+    public void setSettlementType(String settlementType) {
+        this.settlementType = settlementType;
     }
     
     public Date getCreateDate() {
