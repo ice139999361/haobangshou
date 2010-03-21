@@ -112,11 +112,19 @@ public class VendorInfoNormalAction extends BaseAction {
 				setErrorReason(s);
 				return ERROR;
 			}
-			if (VendorInfoUtil.checkSetStaffId(vendorInfo))
-				setMyId(true);
 
 			VendorInfoMgr mgr = (VendorInfoMgr)getBean(vendorInfoMgrName);
 
+			if(vendorInfo.getBaseSeqId() == null) {
+				VendorInfo vInfo = new VendorInfo();
+				vInfo.setCommCode(vendorInfo.getCommCode());
+				Integer i = mgr.getCustomerInfoCount(vInfo);
+				if(i == null || i.compareTo(0) > 0) {
+					logger.error("供应商编码重复！" + vendorInfo.getCommCode());
+					setErrorReason("供应商编码重复！");
+					return ERROR;
+				}
+			}
 			VendorInfo info2 = mgr.getVendorInfo(vendorInfo, false);
 			int ret;
 			if (info2 != null)
@@ -178,6 +186,16 @@ public class VendorInfoNormalAction extends BaseAction {
 
 			VendorInfoMgr mgr = (VendorInfoMgr)getBean(vendorInfoMgrName);
 
+			if(vendorInfo.getBaseSeqId() == null) {
+				VendorInfo vInfo = new VendorInfo();
+				vInfo.setCommCode(vendorInfo.getCommCode());
+				Integer i = mgr.getCustomerInfoCount(vInfo);
+				if(i == null || i.compareTo(0) > 0) {
+					logger.error("供应商编码重复！" + vendorInfo.getCommCode());
+					setErrorReason("供应商编码重复！");
+					return ERROR;
+				}
+			}
 			VendorInfo info2 = mgr.getVendorInfo(vendorInfo, false);
 			int ret;
 			if (info2 != null) {

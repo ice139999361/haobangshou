@@ -173,5 +173,37 @@
     			class="com.hbs.vendorinfo.action.VendorPartNoInfoManagerAction">
 		</action>
 		
+<!-- *************************************************************** -->
+		<!-- 财务用户客户信息 -->
+     	<action name="vendorInfoCw!list" method="doList" 
+    			class="com.hbs.vendorinfo.action.VendorInfoCwNormalAction">
+		</action>
+    	<action name="vendorInfoCw!getInfo" method="doGetInfo" 
+    			class="com.hbs.vendorinfo.action.VendorInfoCwNormalAction">
+		</action>
+		<!-- 
+	/**
+	 * 财务锁定
+	 * @action.input 
+	 *	vendorInfo.baseSeqId 或 vendorInfo.commCode
+	 * @action.input memo 说明
+	 * @return
+	 */
+		 -->
+    	<action name="vendorInfoCw!lock" method="doLock" 
+    			class="com.hbs.vendorinfo.action.VendorInfoCwNormalAction">
+		</action>
+		<!-- 
+	/**
+	 * 财务解锁
+	 * @action.input 
+	 *	vendorInfo.baseSeqId 或 vendorInfo.commCode
+	 * @action.input memo 说明
+	 * @return
+	 */
+		 -->
+     	<action name="vendorInfoCw!unlock" method="doUnlock" 
+    			class="com.hbs.vendorinfo.action.VendorInfoCwNormalAction">
+		</action>
     </package>
 </struts>

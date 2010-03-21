@@ -247,5 +247,36 @@
     			class="com.hbs.customerinfo.action.CustPartNoInfoManagerAction">
 		</action>
 		
+		<!-- 财务用户客户信息 -->
+     	<action name="customerInfoCw!list" method="doList" 
+    			class="com.hbs.customerinfo.action.CustomerInfoCwNormalAction">
+		</action>
+    	<action name="customerInfoCw!getInfo" method="doGetInfo" 
+    			class="com.hbs.customerinfo.action.CustomerInfoCwNormalAction">
+		</action>
+		<!-- 
+	/**
+	 * 财务锁定
+	 * @action.input 
+	 *	custInfo.baseSeqId 或 custInfo.commCode
+	 * @action.input memo 说明
+	 * @return
+	 */
+		 -->
+    	<action name="customerInfoCw!lock" method="doLock" 
+    			class="com.hbs.customerinfo.action.CustomerInfoCwNormalAction">
+		</action>
+		<!-- 
+	/**
+	 * 财务解锁
+	 * @action.input 
+	 *	custInfo.baseSeqId 或 custInfo.commCode
+	 * @action.input memo 说明
+	 * @return
+	 */
+		 -->
+     	<action name="customerInfoCw!unlock" method="doUnlock" 
+    			class="com.hbs.customerinfo.action.CustomerInfoCwNormalAction">
+		</action>
     </package>
 </struts>

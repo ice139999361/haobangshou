@@ -109,7 +109,7 @@ public class VendorInfoManagerAction extends BaseAction {
 				return ERROR;
 			}
 			VendorInfoMgr mgr = (VendorInfoMgr)getBean(vendorInfoMgrName);
-			getCustInfoValue(mgr);
+			getVendorInfoValue(mgr);
 			int ret = mgr.auditAgreeVendorInfo(vendorInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), auditDesc);
 			if(ret != 0)
 			{
@@ -161,7 +161,7 @@ public class VendorInfoManagerAction extends BaseAction {
 				return ERROR;
 			}
 			VendorInfoMgr mgr = (VendorInfoMgr)getBean(vendorInfoMgrName);
-			getCustInfoValue(mgr);
+			getVendorInfoValue(mgr);
 			int ret = mgr.auditDisAgreeVendorInfo(vendorInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), auditDesc);
 			if(ret != 0)
 			{
@@ -274,7 +274,7 @@ public class VendorInfoManagerAction extends BaseAction {
 				return ERROR;
 			}
 			VendorInfoMgr mgr = (VendorInfoMgr)getBean(vendorInfoMgrName);
-			getCustInfoValue(mgr);
+			getVendorInfoValue(mgr);
 			this.setResult("vendorInfo", vendorInfo);
 			if (logger.isDebugEnabled())    logger.debug("end doGetInfo");
 			return SUCCESS;
@@ -292,7 +292,7 @@ public class VendorInfoManagerAction extends BaseAction {
 	 * @param mgr
 	 * @throws Exception
 	 */
-	protected void getCustInfoValue(VendorInfoMgr mgr) throws Exception
+	protected void getVendorInfoValue(VendorInfoMgr mgr) throws Exception
 	{
 		vendorInfo = VendorInfoUtil.getVendorInfo(mgr, vendorInfo);
 	}
