@@ -107,7 +107,7 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 			
 			if(item.isCheck) {
 				config.checkId = column.id;
-				column.width = 27;
+				column.width = 35;
 				column = new Ext.grid.CheckboxSelectionModel(column);
 			} else {
 				// 处理渲染方法
