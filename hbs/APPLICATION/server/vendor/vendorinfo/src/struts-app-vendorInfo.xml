@@ -185,7 +185,7 @@
 	/**
 	 * 财务锁定
 	 * @action.input 
-	 *	vendorInfo.baseSeqId 或 vendorInfo.commCode
+	 *	vendorInfo.baseSeqId 或 (vendorInfo.commCode + vendorInfo.state)
 	 * @action.input memo 说明
 	 * @return
 	 */
@@ -197,7 +197,7 @@
 	/**
 	 * 财务解锁
 	 * @action.input 
-	 *	vendorInfo.baseSeqId 或 vendorInfo.commCode
+	 *	vendorInfo.baseSeqId 或 (vendorInfo.commCode + vendorInfo.state)
 	 * @action.input memo 说明
 	 * @return
 	 */
