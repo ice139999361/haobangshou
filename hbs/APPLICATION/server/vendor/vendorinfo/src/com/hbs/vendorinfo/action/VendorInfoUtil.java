@@ -69,7 +69,30 @@ public class VendorInfoUtil {
 		}
 	}
 	
-	
+	/**
+	 * 判断是否填写了key字段。vendorInfo.baseSeqId 或 vendorInfo.commCode
+	 * @param vendorInfo
+	 * @return
+	 */
+	public static boolean checkKeyFields2(VendorInfo vendorInfo) {
+		try
+		{
+			if(vendorInfo == null)
+				return false;
+			Integer i = vendorInfo.getBaseSeqId();
+			if(i != null && !i.equals(0))
+				return true;
+			String s = vendorInfo.getCommCode();
+			if(StringUtils.isEmpty(s))
+				return false;
+			return true;
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
+	}
+
 	/**
 	 * 对输入的供应商信息进行校验，内部调用checkSelectFields。
 	 * @param vendorInfo	供应商信息
@@ -418,4 +441,5 @@ public class VendorInfoUtil {
 		}
 		return vendorInfo;
 	}
+
 }

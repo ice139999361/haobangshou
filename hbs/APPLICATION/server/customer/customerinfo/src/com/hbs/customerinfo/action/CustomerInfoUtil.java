@@ -68,6 +68,30 @@ public class CustomerInfoUtil {
 		}
 	}
 	
+	/**
+	 * 判断是否填写了key字段。custInfo.baseSeqId 或 custInfo.commCode
+	 * @param custInfo
+	 * @return
+	 */
+	public static boolean checkKeyFields2(CustomerInfo custInfo) {
+		try
+		{
+			if(custInfo == null)
+				return false;
+			Integer i = custInfo.getBaseSeqId();
+			if(i != null && !i.equals(0))
+				return true;
+			String s = custInfo.getCommCode();
+			if(StringUtils.isEmpty(s))
+				return false;
+			return true;
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
+	}
+	
 	
 	/**
 	 * 对输入的客户信息进行校验，内部调用checkSelectFields。

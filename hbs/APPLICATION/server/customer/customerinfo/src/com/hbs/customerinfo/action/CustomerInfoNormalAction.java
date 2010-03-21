@@ -113,11 +113,19 @@ public class CustomerInfoNormalAction extends BaseAction {
 				setErrorReason(s);
 				return ERROR;
 			}
-			if (CustomerInfoUtil.checkSetStaffId(custInfo))
-				setMyId(true);
 
 			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(custInfoMgrName);
 
+			if(custInfo.getBaseSeqId() == null) {
+				CustomerInfo cInfo = new CustomerInfo();
+				cInfo.setCommCode(custInfo.getCommCode());
+				Integer i = mgr.getCustomerInfoCount(cInfo);
+				if(i == null || i.compareTo(0) > 0) {
+					logger.error("客户编码重复！" + custInfo.getCommCode());
+					setErrorReason("客户编码重复！");
+					return ERROR;
+				}
+			}
 			CustomerInfo info2 = mgr.getCustomerInfo(custInfo, false);
 			int ret;
 			if (info2 != null)
@@ -178,6 +186,16 @@ public class CustomerInfoNormalAction extends BaseAction {
 			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(custInfoMgrName);
 
 			
+			if(custInfo.getBaseSeqId() == null) {
+				CustomerInfo cInfo = new CustomerInfo();
+				cInfo.setCommCode(custInfo.getCommCode());
+				Integer i = mgr.getCustomerInfoCount(cInfo);
+				if(i == null || i.compareTo(0) > 0) {
+					logger.error("客户编码重复！" + custInfo.getCommCode());
+					setErrorReason("客户编码重复！");
+					return ERROR;
+				}
+			}
 			CustomerInfo info2 = mgr.getCustomerInfo(custInfo, false);
 			int ret;
 			if (info2 != null) {
