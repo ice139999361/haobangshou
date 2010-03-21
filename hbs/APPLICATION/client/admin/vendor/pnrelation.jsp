@@ -36,8 +36,8 @@
 				    		
 				    		<listpanel frame="true" title="P/N对照信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<textfield fieldLabel="供应商"               name="vendorPartNoInfo.custPartNo"              labelStyle="width:150" allowBlank="false"/>
-				    				<autocomplete fieldLabel="本公司" url="/partNo/partNo!list.action" displayField="partNo" valueField="partNo" queryParam="partNo.partNo"	name="vendorPartNoInfo.partNo"                  labelStyle="width:150" allowBlank="false" id="acPartNo" />
+				    				<textfield    fieldLabel="供应商P/N"               name="vendorPartNoInfo.custPartNo"              labelStyle="width:150" allowBlank="false"/>
+				    				<autocomplete fieldLabel="本公司P/N" url="/partNo/partNo!list.action" displayField="partNo" valueField="partNo" queryParam="partNo.partNo"	name="vendorPartNoInfo.partNo"                  labelStyle="width:150" allowBlank="false" id="acPartNo" />
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">
@@ -47,12 +47,15 @@
 				    		
 				    		<listpanel frame="true" title="关联信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<textfield fieldLabel="单价"               name="vendorPartNoInfo.price"                   labelStyle="width:150" />
-				    				<textfield fieldLabel="最小包装" 			     name=""                        labelStyle="width:150" value="1" />
-				    				<textfield fieldLabel="样品编码" 					 name="vendorPartNoInfo.sampleCode"              labelStyle="width:150" />
+				    				<textfield   fieldLabel="单价"               name="vendorPartNoInfo.price"                   labelStyle="width:150" />
+				    				<textfield   fieldLabel="最小包装" 			     name=""                        labelStyle="width:150" value="1" />
+				    				<textfield   fieldLabel="样品编码" 					 name="vendorPartNoInfo.sampleCode"              labelStyle="width:150" />
 				    				
-				    				<textfield fieldLabel="税率"               name="vendorPartNoInfo.priceTax"                labelStyle="width:150" />				    				
-				    				<textfield fieldLabel="最小订单量" 				 name="vendorPartNoInfo.minAmount"               labelStyle="width:150" value="0" />
+				    				<numberfield fieldLabel="税率"               name="vendorPartNoInfo.priceTax"                labelStyle="width:150" value="0.00" minValue="0.00" maxValue="1"/>
+				    				<textfield   fieldLabel="最小订单量" 				 name="vendorPartNoInfo.minAmount"               labelStyle="width:150" value="0" />
+				    			</layoutpanel>
+				    			<layoutpanel columnNum="1">
+				    				<label style="color:red" text="注意：单价和税率的关系，税率为0.00，单价为不含税，税率不为0.00，单价为含税" />
 				    			</layoutpanel>
 				    		</listpanel>
 			    		</items></form>
