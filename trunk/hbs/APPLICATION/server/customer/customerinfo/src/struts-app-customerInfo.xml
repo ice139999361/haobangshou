@@ -258,7 +258,7 @@
 	/**
 	 * 财务锁定
 	 * @action.input 
-	 *	custInfo.baseSeqId 或 custInfo.commCode
+	 *	custInfo.baseSeqId 或 (custInfo.commCode + custInfo.state)
 	 * @action.input memo 说明
 	 * @return
 	 */
@@ -270,7 +270,7 @@
 	/**
 	 * 财务解锁
 	 * @action.input 
-	 *	custInfo.baseSeqId 或 custInfo.commCode
+	 *	custInfo.baseSeqId 或 (custInfo.commCode + custInfo.state)
 	 * @action.input memo 说明
 	 * @return
 	 */

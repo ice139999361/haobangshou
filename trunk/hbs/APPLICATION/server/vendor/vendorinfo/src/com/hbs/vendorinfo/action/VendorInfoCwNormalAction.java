@@ -45,7 +45,7 @@ public class VendorInfoCwNormalAction extends BaseAction {
 			}
 			setPagination(vendorInfo);
 			VendorInfoMgr mgr = (VendorInfoMgr)getBean(VendorInfoNormalAction.vendorInfoMgrName);
-			vendorInfo.setState("0");
+			vendorInfo.setField("noState01", true);
 			setResult("list", mgr.getVendorInfoList(vendorInfo));
 			setTotalCount(mgr.getCustomerInfoCount(vendorInfo));
 			setResult("count", getTotalCount());
@@ -63,7 +63,7 @@ public class VendorInfoCwNormalAction extends BaseAction {
 	/**
 	 * 获取供应商详细信息
 	 * @action.input 
-	 *	vendorInfo.baseSeqId 或 vendorInfo.commCode
+	 *	vendorInfo.baseSeqId 或 (vendorInfo.commCode + vendorInfo.state)
 	 * @action.result vendorInfo.*
 	 * @return
 	 */
@@ -72,13 +72,12 @@ public class VendorInfoCwNormalAction extends BaseAction {
 		try
 		{
 			if (logger.isDebugEnabled())    logger.debug("begin doGetInfo");
-			if(!VendorInfoUtil.checkKeyFields2(vendorInfo))
+			if(!VendorInfoUtil.checkKeyFields(vendorInfo))
 			{
 				logger.info("参数错误！");
 				setErrorReason("参数错误！");
 				return ERROR;
 			}
-			vendorInfo.setState("0");
 			VendorInfoMgr mgr = (VendorInfoMgr)getBean(VendorInfoNormalAction.vendorInfoMgrName);
 			getVendorInfoValue(mgr);
 			if(!"0".equals(vendorInfo.getState())){
@@ -101,7 +100,7 @@ public class VendorInfoCwNormalAction extends BaseAction {
 	/**
 	 * 财务锁定
 	 * @action.input 
-	 *	vendorInfo.baseSeqId 或 vendorInfo.commCode
+	 *	vendorInfo.baseSeqId 或 (vendorInfo.commCode + vendorInfo.state)
 	 * @action.input memo 说明
 	 * @return
 	 */
@@ -109,13 +108,12 @@ public class VendorInfoCwNormalAction extends BaseAction {
 		try
 		{
 			if (logger.isDebugEnabled())    logger.debug("begin doLock");
-			if(!VendorInfoUtil.checkKeyFields2(vendorInfo))
+			if(!VendorInfoUtil.checkKeyFields(vendorInfo))
 			{
 				logger.info("参数错误！");
 				setErrorReason("参数错误！");
 				return ERROR;
 			}
-			vendorInfo.setState("0");
 			VendorInfoMgr mgr = (VendorInfoMgr)getBean(VendorInfoNormalAction.vendorInfoMgrName);
 			int i = mgr.lockVendorInfo(vendorInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), getMemo());
 			if(i != 0) {
@@ -136,7 +134,7 @@ public class VendorInfoCwNormalAction extends BaseAction {
 	/**
 	 * 财务解锁
 	 * @action.input 
-	 *	vendorInfo.baseSeqId 或 vendorInfo.commCode
+	 *	vendorInfo.baseSeqId 或 (vendorInfo.commCode + vendorInfo.state)
 	 * @action.input memo 说明
 	 * @return
 	 */
@@ -144,13 +142,12 @@ public class VendorInfoCwNormalAction extends BaseAction {
 		try
 		{
 			if (logger.isDebugEnabled())    logger.debug("begin doUnlock");
-			if(!VendorInfoUtil.checkKeyFields2(vendorInfo))
+			if(!VendorInfoUtil.checkKeyFields(vendorInfo))
 			{
 				logger.info("参数错误！");
 				setErrorReason("参数错误！");
 				return ERROR;
 			}
-			vendorInfo.setState("0");
 			VendorInfoMgr mgr = (VendorInfoMgr)getBean(VendorInfoNormalAction.vendorInfoMgrName);
 			int i = mgr.unlockVendorInfo(vendorInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), getMemo());
 			if(i != 0) {

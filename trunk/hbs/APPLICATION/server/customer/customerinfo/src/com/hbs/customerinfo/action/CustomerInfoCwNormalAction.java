@@ -45,7 +45,7 @@ public class CustomerInfoCwNormalAction extends BaseAction {
 			}
 			setPagination(custInfo);
 			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(CustomerInfoNormalAction.custInfoMgrName);
-			custInfo.setState("0");
+			custInfo.setField("noState01", true);
 			setResult("list", mgr.getCustomerInfoList(custInfo));
 			setTotalCount(mgr.getCustomerInfoCount(custInfo));
 			setResult("count", getTotalCount());
@@ -63,7 +63,7 @@ public class CustomerInfoCwNormalAction extends BaseAction {
 	/**
 	 * 获取供应商详细信息
 	 * @action.input 
-	 *	custInfo.baseSeqId 或 custInfo.commCode
+	 *	custInfo.baseSeqId 或 (custInfo.commCode + custInfo.state)
 	 * @action.result custInfo.*
 	 * @return
 	 */
@@ -72,13 +72,12 @@ public class CustomerInfoCwNormalAction extends BaseAction {
 		try
 		{
 			if (logger.isDebugEnabled())    logger.debug("begin doGetInfo");
-			if(!CustomerInfoUtil.checkKeyFields2(custInfo))
+			if(!CustomerInfoUtil.checkKeyFields(custInfo))
 			{
 				logger.info("参数错误！");
 				setErrorReason("参数错误！");
 				return ERROR;
 			}
-			custInfo.setState("0");
 			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(CustomerInfoNormalAction.custInfoMgrName);
 			getCustomerInfoValue(mgr);
 			if(!"0".equals(custInfo.getState())){
@@ -101,7 +100,7 @@ public class CustomerInfoCwNormalAction extends BaseAction {
 	/**
 	 * 财务锁定
 	 * @action.input 
-	 *	custInfo.baseSeqId 或 custInfo.commCode
+	 *	custInfo.baseSeqId 或 (custInfo.commCode + custInfo.state)
 	 * @action.input memo 说明
 	 * @return
 	 */
@@ -109,13 +108,12 @@ public class CustomerInfoCwNormalAction extends BaseAction {
 		try
 		{
 			if (logger.isDebugEnabled())    logger.debug("begin doLock");
-			if(!CustomerInfoUtil.checkKeyFields2(custInfo))
+			if(!CustomerInfoUtil.checkKeyFields(custInfo))
 			{
 				logger.info("参数错误！");
 				setErrorReason("参数错误！");
 				return ERROR;
 			}
-			custInfo.setState("0");
 			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(CustomerInfoNormalAction.custInfoMgrName);
 			int i = mgr.lockCustomerInfo(custInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), getMemo());
 			if(i != 0) {
@@ -136,7 +134,7 @@ public class CustomerInfoCwNormalAction extends BaseAction {
 	/**
 	 * 财务解锁
 	 * @action.input 
-	 *	custInfo.baseSeqId 或 custInfo.commCode
+	 *	custInfo.baseSeqId 或 (custInfo.commCode + custInfo.state)
 	 * @action.input memo 说明
 	 * @return
 	 */
@@ -144,13 +142,12 @@ public class CustomerInfoCwNormalAction extends BaseAction {
 		try
 		{
 			if (logger.isDebugEnabled())    logger.debug("begin doUnlock");
-			if(!CustomerInfoUtil.checkKeyFields2(custInfo))
+			if(!CustomerInfoUtil.checkKeyFields(custInfo))
 			{
 				logger.info("参数错误！");
 				setErrorReason("参数错误！");
 				return ERROR;
 			}
-			custInfo.setState("0");
 			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(CustomerInfoNormalAction.custInfoMgrName);
 			int i = mgr.unlockCustomerInfo(custInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), getMemo());
 			if(i != 0) {
