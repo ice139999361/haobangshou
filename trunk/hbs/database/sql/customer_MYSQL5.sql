@@ -390,8 +390,8 @@ CREATE TABLE `t_customer_oper_log` (
   `STAFF_ID` varchar(20) DEFAULT NULL,
   `STAFF_NAME` varchar(20) DEFAULT NULL,
   `OPER_TYPE` varchar(20) DEFAULT NULL COMMENT '操作类型  ADD  MOD  DEL  AUDIT',
-  `OPER_OBJECT` varchar(20) DEFAULT NULL COMMENT '操作对象  CUST_INFO  CUST_P/N  CUST_ORDER',
-  `OPER_KEY` varchar(32) DEFAULT NULL COMMENT '操作关键字  对客户信息为C_CODE  对物料为C_PART_NO  对订单为订单号  对订单明细为订单明细序列号',
+  `OPER_OBJECT` varchar(128) DEFAULT NULL COMMENT '操作对象  CUST_INFO  CUST_P/N  CUST_ORDER',
+  `OPER_KEY` varchar(128) DEFAULT NULL COMMENT '操作关键字  对客户信息为C_CODE  对物料为C_PART_NO  对订单为订单号  对订单明细为订单明细序列号',
   `OPER_CONTENT` varchar(256) DEFAULT NULL COMMENT '具体说明',
   `MEMO` varchar(512) DEFAULT NULL COMMENT 'MEMO',
   PRIMARY KEY (`SEQID`)
@@ -413,8 +413,8 @@ CREATE TABLE `t_customer_oper_log_his` (
   `STAFF_ID` varchar(20) DEFAULT NULL,
   `STAFF_NAME` varchar(20) DEFAULT NULL,
   `OPER_TYPE` varchar(20) DEFAULT NULL COMMENT '操作类型  ADD  MOD  DEL  AUDIT',
-  `OPER_OBJECT` varchar(20) DEFAULT NULL COMMENT '操作对象  CUST_INFO  CUST_P/N  CUST_ORDER',
-  `OPER_KEY` varchar(32) DEFAULT NULL COMMENT '操作关键字  对客户信息为C_CODE  对物料为C_PART_NO  对订单为订单号  对订单明细为订单明细序列号',
+  `OPER_OBJECT` varchar(128) DEFAULT NULL COMMENT '操作对象  CUST_INFO  CUST_P/N  CUST_ORDER',
+  `OPER_KEY` varchar(128) DEFAULT NULL COMMENT '操作关键字  对客户信息为C_CODE  对物料为C_PART_NO  对订单为订单号  对订单明细为订单明细序列号',
   `OPER_CONTENT` varchar(256) DEFAULT NULL COMMENT '具体说明',
   `MEMO` varchar(512) DEFAULT NULL,
   PRIMARY KEY (`SEQID`)

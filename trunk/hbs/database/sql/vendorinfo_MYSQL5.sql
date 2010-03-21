@@ -16,7 +16,7 @@
 
 DROP TABLE IF EXISTS `t_vendor_info`;
 CREATE TABLE `t_vendor_info` (
-  `BASE_SEQID` int(11) NOT NULL auto_increment COMMENT '   ',
+  `BASE_SEQID` int(11) NOT NULL AUTO_INCREMENT,
   `C_CODE` varchar(32) NOT NULL COMMENT '供应商编码，格式GV0001',
   `STATE` varchar(2) NOT NULL COMMENT '状态  0----正式数据  1---临时数据（没有提交审批）  2---待审批数据  3---审批不通过  4---废弃数据  5----锁定',
   `SHORT_NAME` varchar(32) NOT NULL COMMENT '供应商简称',
@@ -45,8 +45,10 @@ CREATE TABLE `t_vendor_info` (
   `CONTACT_FEE` float(4,2) DEFAULT NULL COMMENT '合同费，百分值',
   `IS_SHOW_PRICE` varchar(2) NOT NULL COMMENT '是否显示单价  0---不显示  1---显示',
   `TAX_RATE` float(4,2) DEFAULT '0.00' COMMENT '税率，百分值',
+  `CREATE_TIME` datetime DEFAULT NULL COMMENT '录入时间',
   PRIMARY KEY (`BASE_SEQID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='供应商信息表（正式）';
+) ENGINE=InnoDB  DEFAULT CHARSET=gb2312 COMMENT='供应商信息表（正式）';
+
 
 #
 # Dumping data for table t_vendor_info
@@ -146,8 +148,8 @@ CREATE TABLE `t_vendor_oper_log` (
   `STAFF_ID` varchar(20) DEFAULT NULL,
   `STAFF_NAME` varchar(20) DEFAULT NULL,
   `OPER_TYPE` varchar(20) DEFAULT NULL COMMENT '操作类型  ADD  MOD  DEL  AUDIT',
-  `OPER_OBJECT` varchar(20) DEFAULT NULL COMMENT '操作对象  VENDOR_INFO  VENDOR_P/N  VENDOR_ORDER',
-  `OPER_KEY` varchar(20) DEFAULT NULL COMMENT '操作的具体对象：  对供应商信息为C_CODE  对供应商物料为C_PART_NO  对供应商订单为CPO_NO',
+  `OPER_OBJECT` varchar(128) DEFAULT NULL COMMENT '操作对象  VENDOR_INFO  VENDOR_P/N  VENDOR_ORDER',
+  `OPER_KEY` varchar(128) DEFAULT NULL COMMENT '操作的具体对象：  对供应商信息为C_CODE  对供应商物料为C_PART_NO  对供应商订单为CPO_NO',
   `OPER_CONTENT` varchar(256) DEFAULT NULL COMMENT '具体说明',
   `MEMO` varchar(256) DEFAULT NULL,
   PRIMARY KEY (`SEQID`)
@@ -169,8 +171,8 @@ CREATE TABLE `t_vendor_oper_log_his` (
   `STAFF_ID` varchar(20) DEFAULT NULL,
   `STAFF_NAME` varchar(20) DEFAULT NULL,
   `OPER_TYPE` varchar(20) DEFAULT NULL COMMENT '操作类型  ADD  MOD  DEL  AUDIT',
-  `OPER_OBJECT` varchar(20) DEFAULT NULL COMMENT '操作对象  VENDOR_INFO  VENDOR_P/N  VENDOR_ORDER',
-  `OPER_KEY` varchar(20) DEFAULT NULL COMMENT '操作的具体对象：  对供应商信息为C_CODE  对供应商物料为C_PART_NO  对供应商订单为CPO_NO',
+  `OPER_OBJECT` varchar(128) DEFAULT NULL COMMENT '操作对象  VENDOR_INFO  VENDOR_P/N  VENDOR_ORDER',
+  `OPER_KEY` varchar(128) DEFAULT NULL COMMENT '操作的具体对象：  对供应商信息为C_CODE  对供应商物料为C_PART_NO  对供应商订单为CPO_NO',
   `OPER_CONTENT` varchar(256) DEFAULT NULL COMMENT '具体说明',
   `MEMO` varchar(512) DEFAULT NULL,
   PRIMARY KEY (`SEQID`)
