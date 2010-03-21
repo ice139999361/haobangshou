@@ -68,22 +68,11 @@
 		          sqlMapConfig-domain-auth.xml,
 				  sqlMapConfig-domain-vendorinfo.xml,		
                   sqlMapConfig-domain-vendororder.xml,
-                  sqlMapConfig-domain-adjust.xml,	
+                  sqlMapConfig-domain-adjust.xml,
+                  sqlMapConfig-domain-warehouse.xml,
+                  sqlMapConfig-domain-invoice.xml,	
 		          sqlMapConfig-domain-product.xml" />                   
 		<property name="dataSource" ref="dataSource" />
-		
-		
-		<!--       sqlMapConfig-domain-system.xml,            
-                   sqlMapConfig-domain-waittask.xml
-		           sqlMapConfig-domain-product.xml,	
-                   sqlMapConfig-domain-customerinfo.xml,
-                   sqlMapConfig-domain-customerorder.xml,	
-                   sqlMapConfig-domain-adjust.xml,	
-                   sqlMapConfig-domain-invoice.xml,
-                   sqlMapConfig-domain-vendorinfo.xml,		
-                   sqlMapConfig-domain-vendororder.xml,
-                   sqlMapConfig-domain-warehouse.xml,  
-        -->
 	</bean>
 
 	
@@ -110,4 +99,11 @@
 	<import resource="classpath:applicationContext-app-vendorinfo.xml" />
 	<import resource="classpath:applicationContext-app-product.xml" />
 	<import resource="classpath:applicationContext-app-auth.xml" />
+	
+	<import resource="classpath:applicationContext-app-invoice.xml" />
+	<import resource="classpath:applicationContext-app-vendororder.xml" />
+	<import resource="classpath:applicationContext-app-warehouse.xml" />
+	<import resource="classpath:applicationContext-app-warehousereceive.xml" />
+	<import resource="classpath:applicationContext-app-warehousesend.xml" />
+	
 </beans>
