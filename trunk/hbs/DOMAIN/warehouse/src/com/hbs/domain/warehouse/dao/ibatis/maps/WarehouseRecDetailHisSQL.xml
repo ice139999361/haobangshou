@@ -15,7 +15,7 @@
     <result property="rltPoNo" column="RLT_PO_NO"/>
     <result property="settlementType" column="SETTLEMENT_TYPE"/>
     <result property="partNo" column="PART_NO"/>
-    <result property="venPartNo" column="C_PART_NO"/>
+    <result property="cpartNo" column="C_PART_NO"/>
     <result property="pnDesc" column="PN_DESC"/>
     <result property="price" column="C_PRICE"/>
     <result property="isTax" column="IS_TAX"/>
@@ -74,7 +74,7 @@
             #rltPoNo#,
             #settlementType#,
             #partNo#,
-            #venPartNo#,
+            #cpartNo#,
             #pnDesc#,
             #price#,
             #isTax#,
@@ -127,8 +127,8 @@
 	<isNotEmpty prepend="," property="partNo">
             PART_NO = #partNo#
 	</isNotEmpty>
-	<isNotEmpty prepend="," property="venPartNo">
-            C_PART_NO = #venPartNo#
+	<isNotEmpty prepend="," property="cpartNo">
+            C_PART_NO = #cpartNo#
 	</isNotEmpty>
 	<isNotEmpty prepend="," property="pnDesc">
             PN_DESC = #pnDesc#
@@ -244,8 +244,8 @@
 			<isNotEmpty prepend="and" property = "partNo">
 				PART_NO = #partNo#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "venPartNo">
-				C_PART_NO = #venPartNo#
+			<isNotEmpty prepend="and" property = "cpartNo">
+				C_PART_NO = #cpartNo#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "pnDesc">
 				PN_DESC = #pnDesc#
@@ -323,8 +323,8 @@
 			<isNotEmpty prepend="and" property = "partNo">
 				PART_NO = #partNo#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "venPartNo">
-				C_PART_NO = #venPartNo#
+			<isNotEmpty prepend="and" property = "cpartNo">
+				C_PART_NO = #cpartNo#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "pnDesc">
 				PN_DESC = #pnDesc#
