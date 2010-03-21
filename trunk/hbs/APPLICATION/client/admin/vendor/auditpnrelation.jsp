@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>供应商P/N对照查询</title>
+	<title>供应商P/N对照审批</title>
 	<script type="text/javascript" src="<%=contextPath %>/vendor/component/pncommonpro.js"></script>
 </head>
 
@@ -16,14 +16,15 @@
 			    <panel frame="true" autoScroll="true">
 			    	<items>
 			    	<!-- service ext ui.  begin. -->
+			    		
 			    		<queryform gridId="querygrid" exportId="exportBtn" itemsFun="queryformFun" />
 				    		
 				    	<complexgrid id="querygrid" title="供应商P/N对照列表" frame="true" page="true" root="data.list" itemsFun="complexgridFun" />
 			    		
 			    		<panel buttonAlign="center">
 			    			<buttons>
-			    				<button text="删除" id="deleteBtn" />
-			    				<button text="恢复" id="reBtn"   />
+			    				<button text="批量通过" id="passBtn"   />
+			    				<button text="批量拒绝" id="rejectBtn" />
 			    			</buttons>
 			    		</panel>
 			    	<!-- service ext ui.  end. -->
@@ -35,4 +36,4 @@
 	</xmp>
 </body>
 </html>
-<script type="text/javascript" src="<%=contextPath %>/vendor/pnquery.js"></script>
+<script type="text/javascript" src="<%=contextPath %>/vendor/auditpnrelation.js"></script>
