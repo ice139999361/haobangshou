@@ -34,6 +34,7 @@
     <result property="contactFee" column="CONTACT_FEE"/>
     <result property="isShowPrice" column="IS_SHOW_PRICE"/>
     <result property="taxRate" column="TAX_RATE"/>
+    <result property="createTime" column="CREATE_TIME" />
 </resultMap>
 
 
@@ -68,7 +69,8 @@
             COMM_DESC,             
             CONTACT_FEE, 
             IS_SHOW_PRICE, 
-            TAX_RATE
+            TAX_RATE,
+			CREATE_TIME
         )
     VALUES (
             #commCode#,
@@ -98,7 +100,8 @@
             #commDesc#,           
             #contactFee#,
             #isShowPrice#,
-            #taxRate#
+            #taxRate#,
+			#createTime#
     )
 ]]>
 
@@ -252,7 +255,8 @@
             COMM_DESC, 
             CONTACT_FEE, 
             IS_SHOW_PRICE, 
-            TAX_RATE
+            TAX_RATE,
+			CREATE_TIME
     FROM T_VENDOR_INFO WHERE C_CODE = #commCode# AND STATE = #state#
 ]]>
 </select>
@@ -288,7 +292,8 @@
             COMM_DESC, 
             CONTACT_FEE, 
             IS_SHOW_PRICE, 
-            TAX_RATE
+            TAX_RATE,
+			CREATE_TIME
     FROM T_VENDOR_INFO WHERE BASE_SEQID = #baseSeqId#
 ]]>
 </select>
@@ -324,7 +329,8 @@
             COMM_DESC, 
             CONTACT_FEE, 
             IS_SHOW_PRICE, 
-            TAX_RATE
+            TAX_RATE,
+			CREATE_TIME
     FROM T_VENDOR_INFO
 ]]>
 		<dynamic prepend="WHERE">
@@ -366,6 +372,19 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "staffName">
 				STAFF_NAME = #staffName#
+			</isNotEmpty>
+			<!-- 时间段查询 -->
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeBegainTime">
+				<![CDATA[	
+					CREATE_TIME >= STR_TO_DATE('$dynamicFields.likeBegainTime$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeEndTime">
+				<![CDATA[	
+					CREATE_TIME < DATE_ADD(STR_TO_DATE('$dynamicFields.likeEndTime$','%Y-%m-%d'),INTERVAL 1 DAY)
+				]]>
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="dynamicFields.noState01">
 				<![CDATA[
@@ -427,6 +446,19 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "staffName">
 				STAFF_NAME = #staffName#
+			</isNotEmpty>
+			<!-- 时间段查询 -->
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeBegainTime">
+				<![CDATA[	
+					CREATE_TIME >= STR_TO_DATE('$dynamicFields.likeBegainTime$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeEndTime">
+				<![CDATA[	
+					CREATE_TIME < DATE_ADD(STR_TO_DATE('$dynamicFields.likeEndTime$','%Y-%m-%d'),INTERVAL 1 DAY)
+				]]>
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="dynamicFields.noState01">
 				<![CDATA[

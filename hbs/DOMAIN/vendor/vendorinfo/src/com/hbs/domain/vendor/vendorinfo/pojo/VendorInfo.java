@@ -1,6 +1,7 @@
 package com.hbs.domain.vendor.vendorinfo.pojo;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import com.hbs.common.manager.configencode.ConfigEncodeMgr;
@@ -188,6 +189,11 @@ public class VendorInfo extends BaseDomain{
      * 预付费信息
      */
     private PrePaidInfo prePaidInfo;
+    
+    /**
+     * 录入时间
+     */
+    private Date createTime = new Date();
     
     /**
 	 * @return the baseSeqId
@@ -585,6 +591,8 @@ public class VendorInfo extends BaseDomain{
 		sb.append("listBankInfo=").append(this.listBankInfo == null ? null : this.listBankInfo.size()).append(" ");
 		sb.append("accountPreiod=").append(this.accountPreiod == null ? null : this.accountPreiod.toString()).append(" ");
 		sb.append("prePaidInfo=").append(this.prePaidInfo == null ? null : this.prePaidInfo.toString()).append(" ");
+		
+		sb.append("createTime=").append(this.createTime);
 		
 		return sb.toString();
 	}
