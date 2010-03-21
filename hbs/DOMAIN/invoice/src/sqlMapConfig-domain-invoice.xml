@@ -3,8 +3,8 @@
 
 <sqlMapConfig>
 	<sqlMap resource="com/hbs/domain/invoice/dao/ibatis/maps/CustSendInvoiceSQL.xml"/>
-	<sqlMap resource="com/hbs/domain/invoice/dao/ibatis/maps/CustSendInvoiceHisSQL.xml"/>
+	<!-- <sqlMap resource="com/hbs/domain/invoice/dao/ibatis/maps/CustSendInvoiceHisSQL.xml"/>  -->
 	<sqlMap resource="com/hbs/domain/invoice/dao/ibatis/maps/CustRecInvoiceSQL.xml"/>
-	<sqlMap resource="com/hbs/domain/invoice/dao/ibatis/maps/CustRecInvoiceHisSQL.xml"/>
+	<!-- <sqlMap resource="com/hbs/domain/invoice/dao/ibatis/maps/CustRecInvoiceHisSQL.xml"/>  -->
 	<sqlMap resource="com/hbs/domain/invoice/dao/ibatis/maps/PeriodSpecMemoSQL.xml"/>
 </sqlMapConfig>
