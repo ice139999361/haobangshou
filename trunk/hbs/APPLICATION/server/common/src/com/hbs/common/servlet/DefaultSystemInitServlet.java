@@ -182,18 +182,21 @@ public class DefaultSystemInitServlet extends HttpServlet {
         // 启动quartz
         StdSchedulerFactory factory = null;
         try {
+        	logger.info("开始实例化quartz工厂！");
             factory = new StdSchedulerFactory(properties);
+            logger.info("开始启动quartz！");
+            scheduler = factory.getScheduler();
+            scheduler.start();
         } catch (SchedulerException e) {
             logger.error("初始化quartz失败,失败原因:" ,e);
             return;
         }
-
-        // 启动quartz任务调度器
-        try {
-            scheduler = factory.getScheduler();
-            scheduler.start();
-        } catch (SchedulerException e) {
+        catch(Exception e){
+        	 logger.error("启动quartz任务调度失败,失败原因:" ,e);             
+             return;
+        } catch (Throwable e) {
             logger.error("启动quartz任务调度失败,失败原因:" ,e);
+            
             return;
         }
 
