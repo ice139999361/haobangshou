@@ -34,7 +34,7 @@ public class CustSendInvoiceDaoImpl extends SqlMapClientDaoSupport implements In
         
        
         
-    	Integer i = (Integer)getSqlMapClientTemplate().insert("InvoiceInfo_insertInvoiceInfo", invoiceInfo);
+    	Integer i = (Integer)getSqlMapClientTemplate().insert("CustSend_InvoiceInfo_insertInvoiceInfo", invoiceInfo);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开insertInvoiceInfo(InvoiceInfo), 返回");
 		}
@@ -50,7 +50,7 @@ public class CustSendInvoiceDaoImpl extends SqlMapClientDaoSupport implements In
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入deleteInvoiceInfo(String), 输入参数[" + pk + "]");
 		}
-        getSqlMapClientTemplate().update("InvoiceInfo_deleteInvoiceInfo", pk);
+        getSqlMapClientTemplate().update("CustSend_InvoiceInfo_deleteInvoiceInfo", pk);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开deleteInvoiceInfo(String)");
 		}
@@ -65,7 +65,7 @@ public class CustSendInvoiceDaoImpl extends SqlMapClientDaoSupport implements In
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入updateInvoiceInfo(InvoiceInfo), 输入参数[" + invoiceInfo + "]");
 		}
-    	getSqlMapClientTemplate().update("InvoiceInfo_updateInvoiceInfo", invoiceInfo);
+    	getSqlMapClientTemplate().update("CustSend_InvoiceInfo_updateInvoiceInfo", invoiceInfo);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开updateInvoiceInfo(InvoiceInfo)");
 		}
@@ -81,7 +81,7 @@ public class CustSendInvoiceDaoImpl extends SqlMapClientDaoSupport implements In
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入findInvoiceInfo(InvoiceInfo), 输入参数[" + pk + "]");
 		}
-        InvoiceInfo invoiceInfo = (InvoiceInfo) getSqlMapClientTemplate().queryForObject("InvoiceInfo_findInvoiceInfo", pk);
+        InvoiceInfo invoiceInfo = (InvoiceInfo) getSqlMapClientTemplate().queryForObject("CustSend_InvoiceInfo_findInvoiceInfo", pk);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开findInvoiceInfo(InvoiceInfo), 返回[" + invoiceInfo + "]");
 		}
@@ -99,7 +99,7 @@ public class CustSendInvoiceDaoImpl extends SqlMapClientDaoSupport implements In
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listInvoiceInfo(InvoiceInfo), 输入参数[" + invoiceInfo + "]");
 		}
-        List<InvoiceInfo> list = getSqlMapClientTemplate().queryForList("InvoiceInfo_listInvoiceInfo", invoiceInfo);
+        List<InvoiceInfo> list = getSqlMapClientTemplate().queryForList("CustSend_InvoiceInfo_listInvoiceInfo", invoiceInfo);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listInvoiceInfo(InvoiceInfo), 返回[" + list + "]");
 		}
@@ -116,7 +116,7 @@ public class CustSendInvoiceDaoImpl extends SqlMapClientDaoSupport implements In
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listInvoiceInfoCount(InvoiceInfo), 输入参数[" + invoiceInfo + "]");
 		}
-        Integer count = (Integer)getSqlMapClientTemplate().queryForObject("InvoiceInfo_listInvoiceInfoCount", invoiceInfo);
+        Integer count = (Integer)getSqlMapClientTemplate().queryForObject("CustSend_InvoiceInfo_listInvoiceInfoCount", invoiceInfo);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listInvoiceInfoCount(InvoiceInfo), 返回[" + count + "]");
 		}
