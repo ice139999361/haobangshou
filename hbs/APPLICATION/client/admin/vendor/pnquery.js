@@ -24,7 +24,37 @@ HBSConvertHelper.init(function() {
 	// -------------------------------------- 应用逻辑处理
 	
 	querygrid.getView().on("refresh", function(view) {
-		//alert(this.ds.getCount())
+		// 修改按钮触发事件
+		var updateBtnFun = function() {				
+			// 要访问的 url 地址
+			var url = ["/vendor/pnrelation.jsp?editorType=update&seqId=", this.config.get("seqId"), "&state=", this.config.get("state")].join("");
+			// 打开指定页面
+			HBSConvertHelper.openNewWin(url);
+		};
+		
+		// 删除按钮触发事件
+		var deleteBtnFun = function() {
+			Ext.Msg.confirm("提示", "您要执行的是删除操作，请确认是否继续？", function(btn) {
+				if(btn == "no") return;
+				
+				ExtConvertHelper.request("/vendorInfo/vendorInfo!del.action?seqId=" + this.config.get("seqId"), null, function() {
+					HBSConvertHelper.refreshGrid("querygrid");
+				});
+			}, this);
+		};
+		
+		// 恢复按钮触发事件
+		var recoverBtnFun = function() {
+			Ext.Msg.confirm("提示", "您要执行的是恢复操作，请确认是否继续？", function(btn) {
+				if(btn == "no") return;
+				
+				ExtConvertHelper.request("/vendorInfo/vendorInfo!recover.action?seqId=" + this.config.get("seqId"), null, function() {
+					HBSConvertHelper.refreshGrid("querygrid");
+				});
+			}, this);
+		};
+		
+
 		for(var i = 0 ; i < view.ds.getCount() ; i++) {
 			// 获取客户简称所在的列
 			var custPartNo_cell = view.getCell(i, view.grid.getColumnIndexById("custPartNo"));
@@ -39,28 +69,21 @@ HBSConvertHelper.init(function() {
 				case "0":
 					if(urlPs.roleType == "cgy") {
 					  // 创建按钮到操作列
-						var btns = HBSConvertHelper.renderButton2Cell(["删除", "恢复", "修改"], operator_cell, view.ds.getAt(i));
+						var operatorBtn = HBSConvertHelper.renderButton2Cell(["删除", "恢复", "修改"], operator_cell, view.ds.getAt(i));
 	
 						// 删除按钮事件
-						btns.get(0).on("click", function() { alert(1) });
-						
+						operatorBtn.get(0).on("click", deleteBtnFun);
 						// 恢复按钮事件
-						btns.get(1).on("click", function() { alert(2) });
-						
+						operatorBtn.get(1).on("click", recoverBtnFun);
 						// 修改按钮事件
-						btns.get(2).on("click", function() {
-							// 要访问的 url 地址
-							var url = ["/vendor/pnrelation.jsp?editorType=update&seqId=", this.config.get("seqId"), "&state=", this.config.get("state")].join("");
-							// 打开指定页面
-							HBSConvertHelper.openNewWin(url);
-						});
+						operatorBtn.get(2).on("click", updateBtnFun);
 					}
 					break;
 				case "2":
 					if(urlPs.roleType == "cgm") {
 				  		// 创建按钮到操作列
-						var btns = HBSConvertHelper.renderButton2Cell(["审批"], operator_cell, view.ds.getAt(i));
-						btns.on("click", function() {
+						var operatorBtn = HBSConvertHelper.renderButton2Cell(["审批"], operator_cell, view.ds.getAt(i));
+						operatorBtn.on("click", function() {
 							var url= ["/vendor/detailpnrelation.jsp?editorType=update&seqId=", this.config.get("seqId"), "&state=2"].join("");
 							HBSConvertHelper.openNewWin(url);
 						});
@@ -68,17 +91,11 @@ HBSConvertHelper.init(function() {
 					break;
 				case "3":
 					if(urlPs.roleType == "cgy") {
-						var btns = HBSConvertHelper.renderButton2Cell(["修改","删除"], operator_cell, view.ds.getAt(i));
-						btns.get(0).on("click", function() {
-							var url= ["/vendor/pnrelation.jsp?editorType=update&seqId=", this.config.get("seqId"), "&state=2"].join("");
-							HBSConvertHelper.openNewWin(url);
-						});
-						/*
-						btns.get(1).on("click", function() {
-							var url= ["/vendor/pnrelation.jsp?editorType=update&seqId=", this.config.get("seqId"), "&state=2"].join("");
-							HBSConvertHelper.openNewWin(url);
-						});
-						*/
+						var operatorBtn = HBSConvertHelper.renderButton2Cell(["删除", "修改"], operator_cell, view.ds.getAt(i));
+						// 删除按钮事件
+						operatorBtn.get(0).on("click", deleteBtnFun);
+						// 修改按钮事件
+						operatorBtn.get(1).on("click", updateBtnFun);
 					}
 					break;
 			}

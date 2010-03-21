@@ -42,7 +42,7 @@ HBSConvertHelper.init(function() {
 					HBSConvertHelper.refreshGrid("querygrid");
 				});
 			}, this);
-		}
+		};
 		
 		//alert(this.ds.getCount())
 		for(var i = 0 ; i < view.ds.getCount() ; i++) {
