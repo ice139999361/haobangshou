@@ -28,6 +28,8 @@ public class JianQuanUtil {
 	
 	public static final String TypeVendorOrderState = "vendorOrder_state";
 	public static final String TypeVendorOrderDetailState = "vendorOrderDetail_state";
+
+	public static final String TypeWarehouseRecState = "warehouseRec_state";
 	
 	/**
 	 * 获取鉴权列表
