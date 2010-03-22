@@ -1,6 +1,7 @@
 package com.hbs.auth.action;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -101,7 +102,7 @@ public class ResourceAction extends BaseAction {
 			
 			// °´ÕÕparent¡¢idÅÅÐò
 			if(list2.size() > 0)
-			java.util.Collections.sort(list2, new Comparator<Resource>(){
+			Collections.sort(list2, new Comparator<Resource>(){
 				private int getParent(Resource res) {
 					try{
 						return res.getParent().intValue();
