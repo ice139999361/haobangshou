@@ -93,7 +93,7 @@ public class ResourceAction extends BaseAction {
 					continue;
 				if(resourceButtons == null || 
 						(resourceButtons.containsKey(res.getResourceId().toString())
-						&& res.getIsMenu())
+						&& !res.getIsMenu().equals(0))
 						){
 					list2.add(res);
 					idmap.put(res.getResourceId(), res);
