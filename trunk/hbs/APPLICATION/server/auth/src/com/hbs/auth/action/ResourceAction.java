@@ -34,6 +34,7 @@ public class ResourceAction extends BaseAction {
 	
 	/**
 	 * 查询资源
+	 * @action.input resource.*
 	 * @action.result list List<Resource> + dynamicFields.actions(List<Action>)
 	 * @action.result count 数量
 	 * @return
