@@ -170,5 +170,19 @@
     			class="com.hbs.auth.action.UserRoleAction">
 		</action>
 
+		<!-- 资源信息 -->
+		<!-- 
+		/**
+	 * 查询资源
+	 * @action.input resource.*
+	 * @action.result list List<Resource> + dynamicFields.actions(List<Action>)
+	 * @action.result count 数量
+	 * @return
+	 */
+	 	 -->
+		 <action name="recource!list" method="doList" 
+    			class="com.hbs.auth.action.ResourceAction">
+		</action>
+		
     </package>
 </struts>
