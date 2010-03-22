@@ -9,6 +9,10 @@
     <result property="actionsId" column="ACTIONS_ID"/>
     <result property="resourceName" column="RESOURCE_NAME"/>
     <result property="description" column="DESCRIPTION"/>
+    <result property="urlAddress" column="URL_ADDRESS"/>
+    <result property="parent" column="PARENT"/>
+    <result property="isMenu" column="IS_MENU"/>
+    
 </resultMap>
 
 
@@ -17,12 +21,18 @@
     INSERT INTO resource (
             ACTIONS_ID, 
             RESOURCE_NAME, 
-            DESCRIPTION
+            DESCRIPTION,
+			URL_ADDRESS,
+			PARENT,
+			IS_MENU
         )
     VALUES (
             #actionsId#,
             #resourceName#,
-            #description#
+            #description#,
+            #urlAddress#,
+            #parent#,
+            #isMenu#
     )
 ]]>
 <selectKey resultClass="Integer" keyProperty="resourceId">
@@ -49,6 +59,15 @@
 	<isNotEmpty prepend="," property="description">
             DESCRIPTION = #description#
 	</isNotEmpty>
+	<isNotEmpty prepend="," property="urlAddress">
+            URL_ADDRESS = #urlAddress#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="parent">
+            PARENT = #parent#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="isMenu">
+            IS_MENU = #isMenu#
+	</isNotEmpty>
     WHERE RESOURCE_ID = #resourceId#
 </update> 
 
@@ -58,7 +77,10 @@
             RESOURCE_ID, 
             ACTIONS_ID, 
             RESOURCE_NAME, 
-            DESCRIPTION
+            DESCRIPTION,
+			URL_ADDRESS,
+			PARENT,
+			IS_MENU
     FROM resource WHERE RESOURCE_ID = #resourceId#
 ]]>
 </select>
@@ -69,7 +91,10 @@
             RESOURCE_ID, 
             ACTIONS_ID, 
             RESOURCE_NAME, 
-            DESCRIPTION
+            DESCRIPTION,
+			URL_ADDRESS,
+			PARENT,
+			IS_MENU
     FROM resource
 ]]>
 		<dynamic prepend="WHERE">
@@ -84,6 +109,15 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "description">
 				DESCRIPTION = #description#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="urlAddress">
+		            URL_ADDRESS = #urlAddress#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="parent">
+		            PARENT = #parent#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="isMenu">
+		            IS_MENU = #isMenu#
 			</isNotEmpty>
 		</dynamic>
 </select>
@@ -107,6 +141,15 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "description">
 				DESCRIPTION = #description#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="urlAddress">
+		            URL_ADDRESS = #urlAddress#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="parent">
+		            PARENT = #parent#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="isMenu">
+		            IS_MENU = #isMenu#
 			</isNotEmpty>
 		</dynamic>
 </select>

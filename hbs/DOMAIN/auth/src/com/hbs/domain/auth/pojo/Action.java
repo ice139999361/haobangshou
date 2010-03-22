@@ -11,7 +11,7 @@ import com.hbs.domain.common.pojo.base.BaseDomain;
 public class Action extends BaseDomain{
     
     /**
-     * 所有操作ID(PK.
+     * 所有操作ID(.
      */
     private Integer actionsId;
     
