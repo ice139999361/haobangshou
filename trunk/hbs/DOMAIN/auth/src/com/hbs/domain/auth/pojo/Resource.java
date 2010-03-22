@@ -29,8 +29,65 @@ public class Resource extends BaseDomain{
      * 描述.
      */
     private String description;
+    
+    /**
+     * 资源对应的url地址
+     */
+    private String urlAddress;
+    
+    /**
+	 * @return the urlAddress
+	 */
+	public String getUrlAddress() {
+		return urlAddress;
+	}
 
+	/**
+     * 资源父子关系标识 0---标识顶级资源 1--一级资源，依次类推
+     */
+    private Integer parent;
+    
+    /**
+     * 是否是菜单资源，0---是  1---不是
+     */
+    private Integer isMenu;
+    
+	/**
+	 * @param urlAddress the urlAddress to set
+	 */
+	public void setUrlAddress(String urlAddress) {
+		this.urlAddress = urlAddress;
+	}
 
+	/**
+	 * @return the parent
+	 */
+	public Integer getParent() {
+		return parent;
+	}
+
+	/**
+	 * @param parent the parent to set
+	 */
+	public void setParent(Integer parent) {
+		this.parent = parent;
+	}
+
+	/**
+	 * @return the isMenu
+	 */
+	public Integer getIsMenu() {
+		return isMenu;
+	}
+
+	/**
+	 * @param isMenu the isMenu to set
+	 */
+	public void setIsMenu(Integer isMenu) {
+		this.isMenu = isMenu;
+	}
+
+	
     
     public Integer getResourceId() {
         return this.resourceId;
