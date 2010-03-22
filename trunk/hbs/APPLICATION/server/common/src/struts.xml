@@ -17,6 +17,7 @@
 <include file="struts-app-vendorOrderDetail.xml" />
 <include file="struts-app-partNo.xml" />
 <include file="struts-app-auth.xml" />
+<include file="struts-app-invoice.xml" />
 
 	<!--end merged code-->	
 </struts>
