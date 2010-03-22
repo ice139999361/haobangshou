@@ -34,6 +34,12 @@ public class PeriodSpecMemoAction extends BaseAction {
 		return (PeriodSpecMemoMgr)getBean("periodSpecMemoMgr"); 
 	}
 	
+	/**
+	 * 获取对帐单注意事项
+	 * @action.input specMemo.commCode
+	 * @action.result specMemo.*
+	 * @return
+	 */
 	public String doGetInfo() {
 		try {
 			if(specMemo == null || StringUtils.isEmpty(specMemo.getCommCode())){
@@ -50,6 +56,11 @@ public class PeriodSpecMemoAction extends BaseAction {
 		}
 	}
 	
+	/**
+	 * 保存对帐单注意事项
+	 * @action.input specMemo.*
+	 * @return
+	 */
 	public String doSave() {
 		try {
 			if(specMemo == null || 

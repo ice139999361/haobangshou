@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="app-invoice" namespace="/invoice" extends="json-default">
+		
+		<global-results>
+			<result name="error" type="json">
+			    <param name="includeProperties">
+                 	success,errorReason.*
+                </param>
+            </result>
+ 			<result name="success" type="json">
+				<param name="includeProperties">
+                	success, result.*
+                </param>
+			</result>
+        </global-results>
+
+		<!-- 市场普通用户 ***************************************************-->
+		<!-- 
+	/**
+	 * 保存对帐单注意事项
+	 * @action.input specMemo.*
+	 * @return
+	 */
+		 -->
+    	<action name="periodSpec!save" method="doSave" 
+    			class="com.hbs.invoice.action.PeriodSpecMemoAction">
+		</action>
+		<!-- 
+	/**
+	 * 获取对帐单注意事项
+	 * @action.input specMemo.commCode
+	 * @action.result specMemo.*
+	 * @return
+	 */
+		 -->
+    	<action name="periodSpec!getInfo" method="doGetInfo" 
+    			class="com.hbs.invoice.action.PeriodSpecMemoAction">
+		</action>
+	</package>
+</struts>
