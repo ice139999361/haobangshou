@@ -172,15 +172,25 @@
 
 		<!-- 资源信息 -->
 		<!-- 
-		/**
+	/**
 	 * 查询资源
 	 * @action.input resource.*
-	 * @action.result list List<Resource> + dynamicFields.actions(List<Action>)
+	 * @action.result list List<Resource> + dynamicFields.actions (List<Action>)
 	 * @action.result count 数量
 	 * @return
 	 */
 	 	 -->
 		 <action name="recource!list" method="doList" 
+    			class="com.hbs.auth.action.ResourceAction">
+		</action>
+		<!-- 
+	/**
+	 * 获取菜单
+	 * @action.result menu: List<Resource> + dnamicFields.children (List<Resource>) + dynamicFields.isLeaf (boolean)
+	 * @return
+	 */
+	 	 -->
+		 <action name="recource!menu" method="doMenu" 
     			class="com.hbs.auth.action.ResourceAction">
 		</action>
 		
