@@ -21,7 +21,7 @@ HBSConvertHelper.init(function() {
 	 */
 	function submitData(url) {
 		// 验证 form 内容是符满足要求
-		//if(!ExtConvertHelper.isFormValid("form")) return;
+		if(!ExtConvertHelper.isFormValid("form")) return;
 		
 		// 获取（客户联系人信息、客户收货人信息、客户银行信息）表格中的提交数据
 		var girdData = HBSConvertHelper.getGridSubmitData("contactgrid,consigneegrid,custbankgrid", "contactlist,consigneelist,custbanklist");
