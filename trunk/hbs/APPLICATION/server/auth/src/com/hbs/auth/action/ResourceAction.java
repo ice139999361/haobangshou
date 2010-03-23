@@ -19,6 +19,8 @@ import com.hbs.domain.auth.pojo.Resource;
 
 @SuppressWarnings("serial")
 public class ResourceAction extends BaseAction {
+	protected static final String childrenFieldName = "children";
+
 	/**
 	 * logger.
 	 */
@@ -138,10 +140,10 @@ public class ResourceAction extends BaseAction {
 				Integer i = res.getParent();
 				if(i == null || i.equals(0))
 					continue;
-				List<Resource> sublist = (List<Resource>)idmap.get(i).getField("children");
+				List<Resource> sublist = (List<Resource>)idmap.get(i).getField(childrenFieldName);
 				if(sublist == null) {
 					sublist = new Vector<Resource>();
-					idmap.get(i).setField("children", sublist);
+					idmap.get(i).setField(childrenFieldName, sublist);
 				}
 				sublist.add(res);
 				//list2.remove(res); // 不能删除，否则在下一个for时会出异常
@@ -151,7 +153,7 @@ public class ResourceAction extends BaseAction {
 			if(list2.size() > 0)
 			for(Iterator<Resource> it = list2.iterator();it.hasNext();){
 				Resource res = it.next();
-				List<Resource> sublist = (List<Resource>)res.getField("children");
+				List<Resource> sublist = (List<Resource>)res.getField(childrenFieldName);
 				res.setField("isLeaf", sublist == null || sublist.size() == 0);
 				if(res.getParent() == null || !res.getParent().equals(0))
 					it.remove();
