@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
@@ -88,6 +89,7 @@ public class ResourceAction extends BaseAction {
 			HashMap<Integer, Resource> idmap = new HashMap<Integer, Resource>();
 			List<Resource> list = getRMgr().listResource(resource);
 			List<Resource> list2 = new Vector<Resource>();
+			if(list.size()>0)
 			for(Resource res : list) {
 				if(res == null || res.getResourceId() == null)
 					continue;
@@ -131,6 +133,7 @@ public class ResourceAction extends BaseAction {
 			});
 			
 			// 整形
+			if(list2.size() > 0)
 			for(Resource res : list2){
 				Integer i = res.getParent();
 				if(i == null || i.equals(0))
@@ -141,13 +144,17 @@ public class ResourceAction extends BaseAction {
 					idmap.get(i).setField("children", sublist);
 				}
 				sublist.add(res);
-				list2.remove(res);
+				//list2.remove(res); // 不能删除，否则在下一个for时会出异常
 			}
 			
 			// 设置isLeaf
-			for(Resource res : list2){
+			if(list2.size() > 0)
+			for(Iterator<Resource> it = list2.iterator();it.hasNext();){
+				Resource res = it.next();
 				List<Resource> sublist = (List<Resource>)res.getField("children");
 				res.setField("isLeaf", sublist == null || sublist.size() == 0);
+				if(res.getParent() == null || !res.getParent().equals(0))
+					it.remove();
 			}
 			
 			setResult("menu", list2);

@@ -180,7 +180,7 @@
 	 * @return
 	 */
 	 	 -->
-		 <action name="recource!list" method="doList" 
+		 <action name="resource!list" method="doList" 
     			class="com.hbs.auth.action.ResourceAction">
 		</action>
 		<!-- 
@@ -190,7 +190,7 @@
 	 * @return
 	 */
 	 	 -->
-		 <action name="recource!menu" method="doMenu" 
+		 <action name="resource!menu" method="doMenu" 
     			class="com.hbs.auth.action.ResourceAction">
 		</action>
 		
