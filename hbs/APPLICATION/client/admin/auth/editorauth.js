@@ -38,7 +38,7 @@ HBSConvertHelper.init(function() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("新增帐号权限");
 		// 新增时提交数据的Url
-		submitBtn.url = "/success.action";
+		submitBtn.url = "/auth/userRole!save.action";
 	}
 	
 	// 修改页面的处理逻辑
@@ -46,11 +46,12 @@ HBSConvertHelper.init(function() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("修改帐号权限");
 		// 修改时提交数据的Url
-		submitBtn.url = "/success.action";
+		submitBtn.url = "/auth/userRole!save.action";
 		// 组装需要的参数
-		var params = ["custInfo.staffName=", urlPs.staffName].join("");
+		var params = ["userRole.staffId=", urlPs.staffId].join("");
 		// 加载数据
-		ExtConvertHelper.loadForm("form", "/customerInfo/customerInfo!getInfo.action", params);
+		Ext.getCmp("staffId").setValue(urlPs.staffId);
+		ExtConvertHelper.loadForm("form", "/auth/userRole!getInfo.action", params);
 	}
 	
 	// 根据不同的操作类型，做出不同的处理

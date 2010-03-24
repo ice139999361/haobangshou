@@ -1,5 +1,7 @@
 package com.hbs.auth.action;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Vector;
 
@@ -8,11 +10,15 @@ import org.apache.log4j.Logger;
 
 import com.hbs.auth.contants.AuthConstants;
 import com.hbs.auth.manager.AccountMgr;
+import com.hbs.auth.manager.RoleMgr;
 import com.hbs.auth.manager.StaffMgr;
+import com.hbs.auth.manager.StaffRoleMgr;
 import com.hbs.common.action.FieldErr;
 import com.hbs.common.action.base.BaseAction;
 import com.hbs.domain.auth.pojo.Account;
+import com.hbs.domain.auth.pojo.Role;
 import com.hbs.domain.auth.pojo.Staff;
+import com.hbs.domain.auth.pojo.UserRole;
 
 @SuppressWarnings("serial")
 public class UserAction extends BaseAction  {
@@ -52,7 +58,7 @@ public class UserAction extends BaseAction  {
 	/**
 	 * 获取用户信息
 	 * @action.input staff.staffId
-	 * @action.result staff.*
+	 * @action.result staff.* + dynamicFields.roleIds 角色id列表，以,分隔
 	 * @action.result account.*
 	 * @return
 	 */
@@ -63,7 +69,10 @@ public class UserAction extends BaseAction  {
 				setErrorReason("参数错误！");
 				return ERROR;
 			}
-			setResult("staff", getSMgr().findStaff(staff.getStaffId().toString()));
+			staff = getSMgr().findStaff(staff.getStaffId().toString());
+			if(staff != null)
+				fillRoleInfo(staff, getAllRoleList());
+			setResult("staff", staff);
 			setResult("account", getAMgr().findAccountById(staff.getStaffId().toString()));
 			return SUCCESS;
 		} catch(Exception e) {
@@ -161,7 +170,10 @@ public class UserAction extends BaseAction  {
 	/**
 	 * 查询用户信息
 	 * @action.input staff.* + (dynamicFields.account)
-	 * @action.result list List<Staff> + (dynamicFields.account)
+	 * @action.result list List<Staff> 
+	 * + (dynamicFields.account) 
+	 * + dynamicFields.roleIds 角色id列表，以,分隔 
+	 * + dynamciFields.roleNames 角色名称列表，以,分隔
 	 * @action.result count 数量
 	 * @return
 	 */
@@ -173,10 +185,14 @@ public class UserAction extends BaseAction  {
 			List<Staff> list = getSMgr().listStaff(staff);
 			// 获取account，放在dynamicFields.account
 			AccountMgr amgr = getAMgr();
+			List<Role> roleList = getAllRoleList();
 			for(Staff s : list) {
 				Account a = amgr.findAccountById(s.getStaffId().toString());
-				if(a != null)
+				if(a != null) {
 					s.setField("account", a.getAccount());
+				
+					fillRoleInfo(s, roleList);
+				}
 			}
 			setResult("list", list);
 			setResult("count", getTotalCount());
@@ -187,6 +203,62 @@ public class UserAction extends BaseAction  {
 			return ERROR;
 		}
 	}
+
+	Comparator<Role> compRoleId = new Comparator<Role>(){
+		public int compare(Role o1, Role o2) {
+			return o1.getRoleId() - o2.getRoleId();
+		}
+	};
+		
+	/**
+	 * 返回根据roleId排序的所有角色列表
+	 * @return
+	 * @see UserAction.fillRoleInfo(Staff, List<Role>)
+	 */
+	protected List<Role> getAllRoleList() {
+		RoleMgr rmgr = (RoleMgr)getBean(AuthConstants.ROLE_MANAGER_NAME);
+		List<Role> roleList = rmgr.listRole(new Role());
+		if(roleList == null)
+			return null;
+		Collections.sort(roleList, compRoleId);
+		return roleList;
+	}
 	
+	/**
+	 * 填充用户的角色信息
+	 * dynamicFields.roleIds 角色id列表，以,分隔 
+	 * dynamciFields.roleNames 角色名称列表，以,分隔
+	 * @param staff 用户信息
+	 * @param roleList	所有角色列表，通过getAllRoleList()
+	 * @see UserAction.getAllRoleList()
+	 */
+	protected void fillRoleInfo(Staff staff, List<Role> roleList) {
+		if(staff == null || roleList == null || roleList.size() <= 0)
+			return;
+		StaffRoleMgr urMgr = (StaffRoleMgr)getBean(AuthConstants.STAFF_ROLE_MANAGER_NAME);
+		UserRole userRole = new UserRole();
+		userRole.setStaffId(staff.getStaffId());
+		List<UserRole> list2 = urMgr.listUserRole(userRole);
+		StringBuffer sb = new StringBuffer();
+		StringBuffer sbName = new StringBuffer();
+		for(UserRole ur : list2){
+			if(ur == null || ur.getRoleId() == null)
+				continue;
+			if(sb.length() > 0){
+				sb.append(",");
+				sbName.append(",");
+			}
+			sb.append(ur.getRoleId());
+			if(roleList != null) {
+				Role r = new Role();
+				r.setRoleId(ur.getRoleId());
+				int i = Collections.binarySearch(roleList, r, compRoleId);
+				if(i >= 0 && i < roleList.size())
+					sbName.append(roleList.get(i).getRoleName());
+			}
+		}
+		staff.setField("roleIds", sb.toString());
+		staff.setField("roleNames", sbName.toString());
+	}
 
 }
