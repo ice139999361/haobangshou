@@ -70,6 +70,10 @@ HBSConvertHelper.init(function() {
 	function updateInitFun() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("修改客户信息");
+		//设置客户编码的编辑框为只读	；同时不到后台校验
+		Ext.getDom("textCustCode").readOnly = true;
+		Ext.getCmp("textCustCode").vtype="";		
+		Ext.getCmp("textCustCode").allowBlank=true; 
 		// 隐藏不需要的控件
 		if(urlPs.state != 1) ExtConvertHelper.hideItems("saveBtn");
 		
