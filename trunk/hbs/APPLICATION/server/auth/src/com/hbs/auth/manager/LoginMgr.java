@@ -1,6 +1,7 @@
 
 package com.hbs.auth.manager;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.springhelper.BeanLocator;
@@ -12,6 +13,16 @@ public class LoginMgr {
 	
 	private static final Logger logger = Logger.getLogger(LoginMgr.class);
 	
+	/**
+	 * 对密码加密
+	 * @author xyf
+	 * @param password 初始密码
+	 * @return 加密后的密码
+	 */
+	public static final String transformPassword(String password) {
+		// TODO：对密码加密
+		return password;
+	}
 	
 	/**
 	 * validate user according to the account and password.
@@ -32,7 +43,7 @@ public class LoginMgr {
 		if (account == null) { 
 			ret = false;
 		} else {
-			if (!account.getPassword().equals(password)) {
+			if (!account.getPassword().equals(transformPassword(password))) {
 				ret = false;
 			} 	
 		}

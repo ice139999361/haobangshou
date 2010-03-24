@@ -13,7 +13,7 @@ HBSConvertHelper.init(function() {
 	// 当提交按钮被单击时
 	submitBtn.on("click", function() {
 		// 提交数据
-		ExtConvertHelper.submitForm("form", "/success.action", null, function(form, action) {
+		ExtConvertHelper.submitForm("form", "/auth/login!changePassword.action", null, function(form, action) {
 			// 获取成功后的提示信息
 			var msg = ExtConvertHelper.getMessageInfo(action, "操作成功！");
 			
