@@ -19,21 +19,16 @@
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="用户信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="1">
-				    				<dictcombo fieldLabel="请选择用户"                   hiddenName="vendorInfo.creditRate"     labelStyle="width:150"  paramsValue="CREDIT_RATE"     emptyText="请选择" />	
-				    			</layoutpanel>
-				    			
-				    			<layoutpanel columnNum="1">
-				    				<hidden name="vendorInfo.baseSeqId" />
-				    				<hidden name="vendorInfo.state" />
+				    				<dictcombo fieldLabel="请选择用户" hiddenName="userRole.staffId"     labelStyle="width:150"  url="/auth/user!list.action" valueField="staffId" displayField="staffName" root="data.list"     emptyText="请选择" id="staffId" />	
 				    			</layoutpanel>
 				    		</listpanel>
 				    	
 				    		<listpanel frame="true" title="角色信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="1">
-				    				<itemselector fieldLabel="请选择需要的角色"                   name="abcdef"     labelStyle="width:150" id="selectrolepanel">
+				    				<itemselector fieldLabel="请选择需要的角色"                   name="roleId"     labelStyle="width:150" id="selectrolepanel">
 				    					<multiselects>
-				    						<multiselect width="250" height="200" legend="可选的角色" url="/common/multiselect!list.action" />
-				    						<multiselect width="250" height="200" legend="己选的角色" store="[]" />
+				    						<multiselect width="250" height="200" legend="可选的角色" url="/auth/role!list.action" valueField="roleId" displayField="roleName" root="data.list" />
+				    						<multiselect width="250" height="200" legend="己选的角色" store="[]" valueField="roleId" displayField="roleName" />
 				    					</multiselects>
 				    				</itemselector>
 				    			</layoutpanel>

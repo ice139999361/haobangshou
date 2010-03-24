@@ -30,7 +30,7 @@
 	/**
 	 * 查询用户信息
 	 * @action.input staff.* + (dynamicFields.account)
-	 * @action.result list List<Staff> + (dynamicFields.account)
+	 * @action.result list List<Staff> + (dynamicFields.account) + dynamicFields.roleIds 角色id列表，以,分隔
 	 * @action.result count 数量
 	 * @return
 	 */
@@ -42,7 +42,7 @@
 	/**
 	 * 获取用户信息
 	 * @action.input staff.staffId
-	 * @action.result staff.*
+	 * @action.result staff.* + dynamicFields.roleIds 角色id列表，以,分隔
 	 * @action.result account.*
 	 * @return
 	 */

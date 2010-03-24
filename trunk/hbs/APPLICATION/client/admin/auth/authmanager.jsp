@@ -25,22 +25,23 @@
 			    		
 			    		<queryform gridId="querygrid">
 			    			<layoutpanel columnNum="1">
-			    				<textfield fieldLabel="用户帐号"                   name="vendorInfo.commCode"             />
+			    				<textfield fieldLabel="用户帐号"	name="staff.staffName"	/>
 			    			</layoutpanel>
 			    		</queryform>
 			    		
 				    	<complexgrid id="querygrid" title="用户列表" frame="true" page="true" root="data.list" url="/auth/user!list.action">
 				    		<fields>
 			    				<field name="staffName"	/>
-			    				<field name="name"	/>
+			    				<field name="dynamicFields.roleNames"	/>
 			    				<field name="gender"	/>
 			    				<field name="duty"	/>
 			    				<field name="mobile"	/>
+			    				<field name="staffId" />
 			    			</fields>
 			    			
 			    			<columns>
 			    				<column header="帐号"       dataIndex="staffName" id="staffName" width="150" />
-			    				<column header="对应的角色" dataIndex="name"                     width="500" />
+			    				<column header="对应的角色" dataIndex="dynamicFields.roleNames"                     width="500" />
 			    				<column header="操作"			  dataIndex=""          id="operator"  width="150" />
 			    			</columns>
 				    	</complexgrid>
