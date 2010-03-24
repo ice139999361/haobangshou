@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import com.hbs.auth.contants.AuthConstants;
 import com.hbs.auth.manager.AccountMgr;
+import com.hbs.auth.manager.LoginMgr;
 import com.hbs.auth.manager.StaffMgr;
 import com.hbs.common.action.FieldErr;
 import com.hbs.common.action.base.BaseAction;
@@ -103,6 +104,7 @@ public class AccountAction extends BaseAction {
 				setErrorReason(s);
 				return ERROR;
 			}
+			account.setPassword(LoginMgr.transformPassword(account.getPassword()));
 			AccountMgr mgr = getMgr();
 			if(null == mgr.findAccount(account.getAccount())) {
 				mgr.insertAccount(account);

@@ -24,6 +24,17 @@
 		<action name="login!login" method="doLogin" 
     			class="com.hbs.auth.action.LoginAction">
 		</action>
+		<!-- 
+	/**
+	 * 修改自己的密码
+	 * @action.input oldPassword	newPassword	rePassword
+	 * @author xyf
+	 * @return
+	 */
+		 -->
+		<action name="login!changePassword" method="doChangePassword" 
+    			class="com.hbs.auth.action.LoginAction">
+		</action>
 		
 		<!-- 界面使用的用户信息 staff + account  -->
 		<!-- 

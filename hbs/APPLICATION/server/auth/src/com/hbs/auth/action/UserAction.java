@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import com.hbs.auth.contants.AuthConstants;
 import com.hbs.auth.manager.AccountMgr;
+import com.hbs.auth.manager.LoginMgr;
 import com.hbs.auth.manager.RoleMgr;
 import com.hbs.auth.manager.StaffMgr;
 import com.hbs.auth.manager.StaffRoleMgr;
@@ -102,6 +103,9 @@ public class UserAction extends BaseAction  {
 				setErrorReason(s);
 				return ERROR;
 			}
+			
+			account.setPassword(LoginMgr.transformPassword(account.getPassword()));
+			
 			StaffMgr mgr = getSMgr();
 			if(staff.getStaffId() == null) {
 				mgr.insertStaff(staff);

@@ -19,14 +19,9 @@
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="密码修改" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="1">
-				    				<textfield fieldLabel="旧密码"                   name=""            labelStyle="width:150"  inputType="password" />
-				    				<textfield fieldLabel="新密码"                   name=""            labelStyle="width:150"  inputType="password" />
-				    				<textfield fieldLabel="确认密码"                 name=""            labelStyle="width:150"  inputType="password" />
-				    			</layoutpanel>
-				    			
-				    			<layoutpanel columnNum="1">
-				    				<hidden name="vendorInfo.baseSeqId" />
-				    				<hidden name="vendorInfo.state" />
+				    				<textfield fieldLabel="旧密码"                   name="oldPassword"            labelStyle="width:150"  inputType="password" />
+				    				<textfield fieldLabel="新密码"                   name="newPassword"            labelStyle="width:150"  inputType="password" />
+				    				<textfield fieldLabel="确认密码"                 name="rePassword"            labelStyle="width:150"  inputType="password" />
 				    			</layoutpanel>
 				    		</listpanel>
 			    		</items></form>
