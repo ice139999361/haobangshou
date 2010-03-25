@@ -5,6 +5,7 @@
 <sqlMap namespace="VendorPartNoInfo">
 <typeAlias alias="vendorPartNoInfo" type="com.hbs.domain.vendor.vendorinfo.pojo.VendorPartNoInfo"/> 
 <resultMap id="vendorPartNoInfo_result" class="vendorPartNoInfo">
+	<result property="seqId" column="SEQID"/>
     <result property="custPartNo" column="C_PART_NO"/>
     <result property="commCode" column="C_CODE"/>
     <result property="state" column="STATE"/>
