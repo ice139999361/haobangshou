@@ -60,15 +60,21 @@ HBSConvertHelper.init(function() {
 				// 操作列显示逻辑
 				switch(view.ds.getAt(i).get("state")) {
 					case "3":
-					case "1":
-					case "0":
-					  // 创建按钮到操作列
+						// 创建按钮到操作列
 						var operatorBtn = HBSConvertHelper.renderButton2Cell(["删除", "修改"], operator_cell, view.ds.getAt(i));
-						
 						// 删除按钮的单击事件
 						operatorBtn.get(0).on("click", deleteBtnFun);
 						// 修改按钮的单击事件
 						operatorBtn.get(1).on("click", updateBtnFun);
+						break;
+					case "2":
+						break;
+					case "1":
+					case "0":
+					  // 创建按钮到操作列
+						var updateBtn = HBSConvertHelper.renderButton2Cell(["修改"], operator_cell, view.ds.getAt(i));
+						// 按钮的单击事件
+						updateBtn.on("click", updateBtnFun);
 						break;
 				}
 			}
