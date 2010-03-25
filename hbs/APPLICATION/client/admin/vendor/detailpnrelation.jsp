@@ -23,34 +23,34 @@
 				    				<hidden name="vendorPartNoInfo.seqId" />
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
-				    				<label fieldLabel="供应商编码"           name="custInfo.commCode"       labelStyle="width:150" allowBlank="false"/>
+				    				<label fieldLabel="供应商编码"           name="vendorPartNoInfo.commCode"       labelStyle="width:150" allowBlank="false"/>
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="2">
-				    				<label fieldLabel="供应商简称"               name="custInfo.shortName"      labelStyle="width:150" allowBlank="false"/>
-				    				<label fieldLabel="供应商结算币种"           name="custInfo.currencyDesc"   labelStyle="width:150" paramsValue="CURRENCY"        emptyText="请选择" />
+				    				<label fieldLabel="供应商简称"               name="vendorPartNoInfo.shortName"      labelStyle="width:150" allowBlank="false"/>
+				    				<label fieldLabel="供应商结算币种"           name="vendorPartNoInfo.currencyDesc"   labelStyle="width:150" paramsValue="CURRENCY"        emptyText="请选择" />
 				    			</layoutpanel>
 				    		</listpanel>
 				    		
 				    		<listpanel frame="true" title="P/N对照信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<label fieldLabel="供应商"               name="custPartNoInfo.custPartNo"              labelStyle="width:150" allowBlank="false"/>
-				    				<label fieldLabel="本公司"             name="custPartNoInfo.partNo"                  labelStyle="width:150" allowBlank="false"/>
+				    				<label fieldLabel="供应商"               name="vendorPartNoInfo.custPartNo"              labelStyle="width:150" allowBlank="false"/>
+				    				<label fieldLabel="本公司"             name="vendorPartNoInfo.partNo"                  labelStyle="width:150" allowBlank="false"/>
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">
-				    				<label fieldLabel="描述"                   name="custPartNoInfo.pnDesc"                  labelStyle="width:150" allowBlank="false"/>
+				    				<label fieldLabel="描述"                   name="vendorPartNoInfo.pnDesc"                  labelStyle="width:150" allowBlank="false"/>
 				    			</layoutpanel>
 				    		</listpanel>
 				    		
 				    		<listpanel frame="true" title="关联信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<label fieldLabel="单价"               name="custPartNoInfo.price"                   labelStyle="width:150" />
+				    				<label fieldLabel="单价"               name="vendorPartNoInfo.price"                   labelStyle="width:150" />
 				    				<label fieldLabel="最小包装" 			     name=""                        labelStyle="width:150" value="1" />
-				    				<label fieldLabel="样品编码" 					 name="custPartNoInfo.sampleCode"              labelStyle="width:150" />
+				    				<label fieldLabel="样品编码" 					 name="vendorPartNoInfo.sampleCode"              labelStyle="width:150" />
 				    				
-				    				<label fieldLabel="税率"               name="custPartNoInfo.priceTax"                labelStyle="width:150" />				    				
-				    				<label fieldLabel="最小订单量" 				 name="custPartNoInfo.minAmount"               labelStyle="width:150" value="0" />
+				    				<label fieldLabel="税率"               name="vendorPartNoInfo.priceTax"                labelStyle="width:150" />				    				
+				    				<label fieldLabel="最小订单量" 				 name="vendorPartNoInfo.minAmount"               labelStyle="width:150" value="0" />
 				    			</layoutpanel>
 				    		</listpanel>
 				    		
