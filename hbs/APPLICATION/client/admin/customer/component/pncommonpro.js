@@ -31,7 +31,7 @@ var complexgridFun = function() {
 			    				
 	cgh.appendColumn({dataIndex: "seqId"	, isCheck: true});
 	cgh.appendColumn({header: "客户编码"	, dataIndex: "commCode", id: "commCode"});
-	cgh.appendColumn({header: "客户简称"	, dataIndex: "shortName"});
+	//cgh.appendColumn({header: "客户简称"	, dataIndex: "shortName"});
 	cgh.appendColumn({header: "客户P/N"		, dataIndex: "custPartNo", id : "custPartNo"});
 	cgh.appendColumn({header: "本公司P/N"	, dataIndex: "partNo"});
 	cgh.appendColumn({header: "描述"			, dataIndex: "pnDesc"});
