@@ -63,6 +63,8 @@ HBSConvertHelper.init(function() {
 						// 修改按钮的单击事件
 						operatorBtn.get(1).on("click", updateBtnFun);
 						break;
+					case "2":
+						break;
 					case "1":
 					case "0":
 					  // 创建按钮到操作列
