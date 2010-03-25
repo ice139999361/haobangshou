@@ -92,6 +92,16 @@
 		  <action name="customerInfo!getContactInfoById" method="doGetContactInfoById" 
     			class="com.hbs.customerinfo.action.CustomerInfoNormalAction">
 		</action>
+		 <!-- 
+	/**
+	 * 检查编码
+	 * @action.input value
+	 * @return
+	 */
+		  -->
+		  <action name="customerInfo!checkCommCode" method="doCheckCommCode" 
+    			class="com.hbs.customerinfo.action.CustomerInfoNormalAction">
+		</action>
 		
 <!-- *************************************************************** -->
 

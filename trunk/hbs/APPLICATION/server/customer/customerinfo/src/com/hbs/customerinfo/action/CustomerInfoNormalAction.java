@@ -443,6 +443,37 @@ public class CustomerInfoNormalAction extends BaseAction {
 	}
 	
 	/**
+	 * 检查编码
+	 * @action.input value
+	 * @return
+	 */
+	public String doCheckCommCode() {
+		try {
+			String s = this.getHttpServletRequest().getParameter("value");
+			logger.debug("begin doCheckCommCode " + s);
+			if(StringUtils.isEmpty(s)) {
+				logger.info("参数为空！");
+				setErrorReason("参数为空！");
+				return ERROR;
+			}
+			custInfo = new CustomerInfo();
+			custInfo.setCommCode(s);
+			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(custInfoMgrName);
+			Integer i = mgr.getCustomerInfoCount(custInfo);
+			if(i == null || i.compareTo(0) > 0 ){
+				logger.debug("编码重复！");
+				setErrorReason("编码重复！");
+				return ERROR;
+			}
+			return SUCCESS;
+		} catch (Exception e) {
+			logger.error("catch Exception in doCheckCommCode", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+	}
+	
+	/**
 	 * 设置STAFF信息为当前用户信息
 	 * 
 	 * @param setName 是否设置用户名。
