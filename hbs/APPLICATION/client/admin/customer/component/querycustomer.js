@@ -83,14 +83,8 @@ var complexgridFun = function() {
 	cgh.appendColumn({header: "客户信用度"			, dataIndex: "creditDesc"});
 	cgh.appendColumn({header: "客户的重要程度"	, dataIndex: "importantDesc"});
 	cgh.appendColumn({header: "状态"						, dataIndex: "stateDesc"});
+	cgh.appendColumn({header: "操作"						, dataIndex: ""              , id: "operator", width: 170});
 	
-	switch(urlPs.roleType) {
-		case "scmanager":
-			break;
-		default:
-			cgh.appendColumn({header: "操作"						, dataIndex: ""              , id: "operator", width: 170});
-			break;
-	}
 
 
 	return cgh;
