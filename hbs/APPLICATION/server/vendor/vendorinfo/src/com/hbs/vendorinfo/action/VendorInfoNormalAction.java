@@ -11,10 +11,10 @@ import org.apache.log4j.Logger;
 import com.hbs.common.action.FieldErr;
 import com.hbs.common.action.JianQuanUtil;
 import com.hbs.common.action.base.BaseAction;
+import com.hbs.domain.common.pojo.baseinfo.ContactInfo;
 import com.hbs.domain.vendor.vendorinfo.pojo.VendorInfo;
 import com.hbs.vendorinfo.manager.VendorContactMgr;
 import com.hbs.vendorinfo.manager.VendorInfoMgr;
-import com.hbs.domain.common.pojo.baseinfo.ContactInfo;
 
 /**
  * 普通角色供应商信息Action
@@ -433,6 +433,37 @@ public class VendorInfoNormalAction extends BaseAction {
 			return SUCCESS;
 		} catch (Exception e) {
 			logger.error("catch Exception in doGetContactInfoById", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+	}
+	
+	/**
+	 * 检查编码
+	 * @action.input value
+	 * @return
+	 */
+	public String doCheckCommCode() {
+		try {
+			String s = this.getHttpServletRequest().getParameter("value");
+			logger.debug("begin doCheckCommCode " + s);
+			if(StringUtils.isEmpty(s)) {
+				logger.info("参数为空！");
+				setErrorReason("参数为空！");
+				return ERROR;
+			}
+			vendorInfo = new VendorInfo();
+			vendorInfo.setCommCode(s);
+			VendorInfoMgr mgr = (VendorInfoMgr)getBean(vendorInfoMgrName);
+			Integer i = mgr.getCustomerInfoCount(vendorInfo);
+			if(i == null || i.compareTo(0) > 0 ){
+				logger.debug("编码重复！");
+				setErrorReason("编码重复！");
+				return ERROR;
+			}
+			return SUCCESS;
+		} catch (Exception e) {
+			logger.error("catch Exception in doCheckCommCode", e);
 			setErrorReason("内部错误");
 			return ERROR;
 		}

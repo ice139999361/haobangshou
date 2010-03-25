@@ -294,7 +294,7 @@ function isPassActionVerify(val, cmp, vText) {
 		// 同步校验
 		var action = ExtConvertHelper.syncRequest(cmp.checkUrl + (cmp.checkUrl.indexOf("?") == -1 ? "?" : "&") + "value=" + val);
 		// 转换 Boolean 值
-		action.success = action.success == "true";
+		//action.success = action.success == "true";
 
 		// 缓存验证信息
 		checkedVal[val] = {
