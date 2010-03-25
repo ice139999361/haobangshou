@@ -167,9 +167,10 @@
 <!-- *************************************************************** -->
 		<!-- 经理用户客户物料信息 -->
 
-     	<action name="vendorPartNoInfo!getInfo" method="doGetInfo" 
-    			class="com.hbs.vendorinfo.action.VendorPartNoInfoNormalAction">
-		</action>
+     <!--  	<action name="vendorPartNoInfo!getInfo" method="doGetInfo" 
+    			class="com.hbs.vendorinfo.action.VendorPartNoInfoNormalAction"> 
+		</action> 
+		-->
      	<action name="vendorPartNoInfoMgr!list" method="doList" 
     			class="com.hbs.vendorinfo.action.VendorPartNoInfoManagerAction">
 		</action>

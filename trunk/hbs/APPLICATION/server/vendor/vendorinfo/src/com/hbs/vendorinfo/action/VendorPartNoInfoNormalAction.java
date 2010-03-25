@@ -128,13 +128,17 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
      */
    public String doGetInfo() {
     	try {
+    		if (logger.isDebugEnabled())    logger.debug("begin doGetInfo()");
     		VendorPartNoInfoMgr mgr = (VendorPartNoInfoMgr)getBean(vendorPartNoInfoMgrName);
     		if(vendorPartNoInfo == null || vendorPartNoInfo.getSeqId() == null) {
     			logger.info("参数错误！");
 				setErrorReason("参数错误！");
 				return ERROR;
+    		}else{
+    			logger.debug("doGetInfo(),输入的参数为：" + vendorPartNoInfo.toString());
     		}
     		vendorPartNoInfo = mgr.getVendorPartNoInfoByID(vendorPartNoInfo.getSeqId().toString());
+    		//这里不需要检查了吧
     		if(!checkCommonFields())
     			return ERROR;;
     				

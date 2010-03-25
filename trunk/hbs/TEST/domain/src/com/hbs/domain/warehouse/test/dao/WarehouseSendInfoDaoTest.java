@@ -36,7 +36,7 @@ public class WarehouseSendInfoDaoTest extends AbstractTransactionalDataSourceSpr
         warehouseSendInfo.setConFax("1");
         warehouseSendInfo.setCompanyBranch("1");
         warehouseSendInfo.setHouseType("1");
-        warehouseSendInfo.setSettlement_type("1");
+       // warehouseSendInfo.setSettlement_type("1");
         warehouseSendInfo.setCreateDate(new Date());
         warehouseSendInfo.setOperId("1");
         warehouseSendInfo.setOperStaff("1");
@@ -82,7 +82,7 @@ public class WarehouseSendInfoDaoTest extends AbstractTransactionalDataSourceSpr
         warehouseSendInfo.setConFax("1");
         warehouseSendInfo.setCompanyBranch("1");
         warehouseSendInfo.setHouseType("1");
-        warehouseSendInfo.setSettlement_type("1");
+        //warehouseSendInfo.setSettlement_type("1");
         warehouseSendInfo.setCreateDate(new Date());
         warehouseSendInfo.setOperId("1");
         warehouseSendInfo.setOperStaff("1");
@@ -144,7 +144,7 @@ public class WarehouseSendInfoDaoTest extends AbstractTransactionalDataSourceSpr
         warehouseSendInfo.setConFax("1");
         warehouseSendInfo.setCompanyBranch("1");
         warehouseSendInfo.setHouseType("1");
-        warehouseSendInfo.setSettlement_type("1");
+        //warehouseSendInfo.setSettlement_type("1");
         warehouseSendInfo.setCreateDate(null);
         warehouseSendInfo.setOperId("1");
         warehouseSendInfo.setOperStaff("1");
@@ -199,7 +199,7 @@ public class WarehouseSendInfoDaoTest extends AbstractTransactionalDataSourceSpr
         warehouseSendInfo.setConFax("1");
         warehouseSendInfo.setCompanyBranch("1");
         warehouseSendInfo.setHouseType("1");
-        warehouseSendInfo.setSettlement_type("1");
+        //warehouseSendInfo.setSettlement_type("1");
         warehouseSendInfo.setCreateDate(null);
         warehouseSendInfo.setOperId("1");
         warehouseSendInfo.setOperStaff("1");
