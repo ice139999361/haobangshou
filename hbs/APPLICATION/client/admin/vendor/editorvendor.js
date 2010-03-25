@@ -86,10 +86,9 @@ HBSConvertHelper.init(function() {
 	function updateInitFun() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("修改供应商信息");
-		//设置供应商编码的编辑框为只读	；同时不到后台校验
-		Ext.getDom("textVendorCode").readOnly = true;
-		Ext.getCmp("textVendorCode").vtype="";		
-		Ext.getCmp("textVendorCode").allowBlank=true; 
+		
+		// 设置供应商编码的编辑框为只读	；同时不到后台校验
+		ExtConvertHelper.setItemsReadOnly("textVendorCode", true);
 		// 隐藏不需要的控件
 		if(urlPs.state != 1) ExtConvertHelper.hideItems("saveBtn");
 		
