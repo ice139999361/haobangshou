@@ -20,7 +20,7 @@
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="客户基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<textfield fieldLabel="客户编码"       id ="textCustCode"        name="custInfo.commCode"             labelStyle="width:150" prefix="GC" suffix="|;number|;4" psMsg="格式不正确，应该是 GC + 4位数字。例:(GC1234)" vtype="commCheck" checkUrl="/success.action" allowBlank="false"/>
+				    				<textfield fieldLabel="客户编码"       id ="textCustCode"        name="custInfo.commCode"             labelStyle="width:150" prefix="GC" suffix="|;number|;4" psMsg="格式不正确，应该是 GC + 4位数字。例:(GC1234)" vtype="commCheck" checkUrl="/customerInfo/customerInfo!checkCommCode.action" allowBlank="false"/>
 				    				<textfield fieldLabel="公司中文名称"           name="custInfo.allName"              labelStyle="width:150" />
 				    				<textfield fieldLabel="客户简称"               name="custInfo.shortName"            labelStyle="width:150" allowBlank="false"/>
 				    				<textfield fieldLabel="客户公司地址"           name="custInfo.address"              labelStyle="width:150" />
