@@ -261,6 +261,34 @@ var ExtConvertHelper = {
 			})
 			return obj;
 	 }
+	 // 设置控件只读属性状态
+	,setItemsReadOnly: function(items, value) {
+			Ext.each(items.split(","), function(id, index, ids) {
+				// 获取控件
+				var item = Ext.getCmp(id);
+				
+				// 设置控件为只读
+				item.getEl().dom.readOnly = value;
+				// 如果要设置为只读
+				if(value) {
+					// 备份验证属性
+					if(Ext.isEmpty(item._vtype)) item._vtype = item.vtype;
+					if(Ext.isEmpty(item._allowBlank)) item._allowBlank = item.allowBlank;
+					
+					// 设置验证属性失效
+					item.vtype = "";
+					item.allowBlank = true;
+				} else {
+					// 还原验证属性
+					if(!Ext.isEmpty(item._vtype)) item.vtype = item._vtype;
+					if(!Ext.isEmpty(item._allowBlank)) item.allowBlank = item._allowBlank;
+					
+					// 清空备份
+					item._vtype = "";
+					item._allowBlank = "";
+				} 
+			});
+	 }
 	 // 拷贝第一个 Array 中的子对象到第二个 Array
 	,copyArrayToArray: function(ar1, ar2) {
 			Ext.each(ar1, function(item, index, itemsAll) { ar2.push(item) });
