@@ -77,6 +77,16 @@
 		  <action name="vendorInfo!getContactInfoById" method="doGetContactInfoById" 
     			class="com.hbs.vendorinfo.action.VendorInfoNormalAction">
 		</action>
+		 <!-- 
+	/**
+	 * 检查编码
+	 * @action.input value
+	 * @return
+	 */
+		  -->
+		  <action name="vendorInfo!checkCommCode" method="doCheckCommCode" 
+    			class="com.hbs.vendorinfo.action.VendorInfoNormalAction">
+		</action>
 		
 <!-- *************************************************************** -->
 
