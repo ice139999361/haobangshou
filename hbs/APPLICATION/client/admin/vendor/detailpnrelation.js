@@ -33,9 +33,7 @@ HBSConvertHelper.init(function() {
 		
 		// 当单击历史变更查看按钮时，调用默认的关闭窗口方法
 		historyBtn.on("click", function() {
-			var url= "/complex/detailhistory.jsp";
-			var win = open(CONTEXT_PATH + url);
-			win.pageconfig = "fadfadfad";
+			HBSConvertHelper.open("/complex/detailhistory.jsp", 800, 500, {gridurl: ["/vendorInfo/vendorPartNoInfoMgr!list.action?vendorPartNoInfo.commCode=", Ext.getCmp("commCode").getValue(), "&vendorPartNoInfo.custPartNo=", Ext.getCmp("custPartNo").getValue(), "&vendorPartNoInfo.partNo=", Ext.getCmp("partNo").getValue()].join("")})
 		});
 	
 		// 组装需要的参数

@@ -23,7 +23,7 @@
 				    				<hidden name="vendorPartNoInfo.seqId" />
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
-				    				<label fieldLabel="供应商编码"           name="vendorPartNoInfo.commCode"       labelStyle="width:150" allowBlank="false"/>
+				    				<label fieldLabel="供应商编码"           name="vendorPartNoInfo.commCode"           id="commCode"    labelStyle="width:150" allowBlank="false"/>
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="2">
@@ -34,8 +34,8 @@
 				    		
 				    		<listpanel frame="true" title="P/N对照信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<label fieldLabel="供应商"               name="vendorPartNoInfo.custPartNo"              labelStyle="width:150" allowBlank="false"/>
-				    				<label fieldLabel="本公司"             name="vendorPartNoInfo.partNo"                  labelStyle="width:150" allowBlank="false"/>
+				    				<label fieldLabel="供应商"               name="vendorPartNoInfo.custPartNo"         id="custPartNo"             labelStyle="width:150" allowBlank="false"/>
+				    				<label fieldLabel="本公司"             name="vendorPartNoInfo.partNo"               id="partNo"           labelStyle="width:150" allowBlank="false"/>
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">
