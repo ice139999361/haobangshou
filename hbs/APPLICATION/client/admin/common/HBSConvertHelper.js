@@ -187,6 +187,33 @@ var HBSConvertHelper = {
 			// 打开页面
 			app.switchContent(url, flag);
 	 }
+	,open: function(url, width, height, pageconfig, title) {
+	    var xposition = yposition = 0;
+	    if((parseInt(navigator.appVersion) >= 4 ))
+	    {
+	    	// 窗体居中的x坐标
+	      xposition = (screen.width - width) / 2; 
+	      // 窗体居中的y坐标   
+	      yposition = (screen.height - height) / 2;   
+	    }
+	    
+	    // 打开窗口的属性
+	    var theproperty= ["width="  , width , ","        
+											, "height=" , height, ","
+											, "location=0,menubar=0,resizable=1,scrollbars=0,status=0,titlebar=0,toolbar=0,hotkeys=0,"
+											, "screenx=", xposition, ","
+											, "screeny=", yposition, ","
+											, "left="   , xposition, ","
+											, "top="    , yposition].join(",");
+							
+		  // 打开窗口
+		  var _win = window.open(CONTEXT_PATH + url, title, theproperty);
+		  // 设置 pageconfig 参数
+		  _win.pageconfig = pageconfig;
+		  
+		  // 返回新窗口的引用
+		  return _win;
+	 }
 	 /**
 	  * 返回一个 stirng 格式的 a 标签
 	  * @param text (String) 显示给用户的标提
