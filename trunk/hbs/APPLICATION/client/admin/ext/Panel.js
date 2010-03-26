@@ -1,7 +1,7 @@
 Ext.Panel.prototype.__setSyncSize__ = function() {
 	var flag = true;
 	for(var i = 0, datas = panelSyncSizeFlagIds.split(","), count = datas.length ; i < count ; i++) {
-		var cmp = Ext.getCmp(this.id);
+		var cmp = Ext.getCmp(datas[i]);
 		if(!cmp) continue;
 		if(!cmp.getEl()) continue;
 		if(cmp.getEl().dom.innerHTML.indexOf(this.id) != -1) {
