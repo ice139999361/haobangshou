@@ -12,6 +12,9 @@ ExtUx.widget.ComplexGrid = function(config) {
 Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 	initComponent : function(){
 		ExtUx.widget.ComplexGrid.superclass.initComponent.call(this);
+		
+		// 加载数据
+		if(this.storeAutoLoad) this.store.load();
 	},
 	__getDefData__: function() {
 		if(!this.__defdata) {

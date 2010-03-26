@@ -241,6 +241,16 @@ var ExtConvertHelper = {
 				var cmp = Ext.getCmp(item);
 				
 				// 隐藏或显示控件
+				if(dom && dom.parentNode.previousSibling && dom.parentNode.previousSibling.attributes["for"] && dom.parentNode.previousSibling.attributes["for"].value == item) {
+					dom.parentNode.parentNode.style.display = config[type][0];
+				} else if(dom && dom.parentNode.parentNode.previousSibling && dom.parentNode.parentNode.previousSibling.attributes["for"] && dom.parentNode.parentNode.previousSibling.attributes["for"].value == item) {
+					dom.parentNode.parentNode.parentNode.style.display = config[type][0];
+				} else if(cmp) {
+					cmp[config[type][1]]();
+				}
+				
+				/*
+				// 隐藏或显示控件
 				if(dom && dom.parentElement.previousSibling && dom.parentElement.previousSibling.attributes["for"] && dom.parentElement.previousSibling.attributes["for"].value == item) {
 					dom.parentElement.parentElement.style.display = config[type][0];
 				} else if(dom && dom.parentElement.parentElement.previousSibling && dom.parentElement.parentElement.previousSibling.attributes["for"] && dom.parentElement.parentElement.previousSibling.attributes["for"].value == item) {
@@ -248,7 +258,7 @@ var ExtConvertHelper = {
 				} else if(cmp) {
 					cmp[config[type][1]]();
 				}
-				
+				*/
 				// 禁用或恢复控件
 				if(cmp) cmp[config[type][2]]();
 			});
@@ -360,7 +370,7 @@ var ExtConvertHelper = {
 Ext.apply(ExtConvertHelper, {
 	extProConvertMap: {
 	 		 // 将会做出自动转换，属性名之间用 "," 分隔
-	 		 "boolean" : "titleCollapse,editorFlag,fileUpload,allowBlank,deftbar,sortable,page,enableTabScroll,closable,frame,displayIcon,split,collapsible,preloadChildren,expanded,singleClickExpand"
+	 		 "boolean" : "storeAutoLoad,titleCollapse,editorFlag,fileUpload,allowBlank,deftbar,sortable,page,enableTabScroll,closable,frame,displayIcon,split,collapsible,preloadChildren,expanded,singleClickExpand"
 	 		,"number"	 : "activeTab,width,height,labelWidth"
 	 		 // 添加自己的转换方法
 			//,"items" 	 : ExtConvertHelper.__convertExtItem
