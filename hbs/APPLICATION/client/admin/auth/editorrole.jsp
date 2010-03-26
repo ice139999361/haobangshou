@@ -17,20 +17,10 @@
 			    	<!-- service ext ui.  begin. -->
 			    	
 			    		<form id="form"><items>
-				    		<listpanel frame="true" title="用户信息" collapsible="true" titleCollapse="true">
-				    			<layoutpanel columnNum="2">
-				    				<textfield fieldLabel="帐户"                   name="vendorInfo.commCode"           labelStyle="width:150" />
-				    				<dictcombo fieldLabel="性别"                   hiddenName="vendorInfo.creditRate"     labelStyle="width:150"  paramsValue="CREDIT_RATE"     emptyText="请选择" />	
-				    				<textfield fieldLabel="职务"                   name="vendorInfo.allName"              labelStyle="width:150" />
-				    				<textfield fieldLabel="密码"                   name="vendorInfo.shortName"            labelStyle="width:150"  inputType="password" />
-				    				<textfield fieldLabel="手机"                   name="vendorInfo.address"              labelStyle="width:150" />
-				    				<textfield fieldLabel="邮箱"                   name="vendorInfo.taxCode"              labelStyle="width:150" />
-				    				
-				    				<textfield fieldLabel="姓名"                   name="vendorInfo.representative"       labelStyle="width:150" />
-				    				<datefield fieldLabel="出生日期"               name="vendorInfo.enName"               labelStyle="width:150"  width="123"  format="Y-m-d"/>
-				    				<textfield fieldLabel="身份证号"               name="vendorInfo.enAddress"            labelStyle="width:150" />	
-				    				<textfield fieldLabel="确认密码"               name="vendorInfo.enShortName"          labelStyle="width:150"  inputType="password"/>
-				    				<textfield fieldLabel="电话"                   name="vendorInfo.webSite"              labelStyle="width:150" />
+				    		<listpanel frame="true" title="基本信息" collapsible="true" titleCollapse="true">
+				    			<layoutpanel columnNum="1">
+				    				<textfield fieldLabel="角色名称"               name=""           labelStyle="width:150" />
+				    				<textarea  fieldLabel="角色描述"               name=""           labelStyle="width:150" width="600" />
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">
@@ -38,6 +28,8 @@
 				    				<hidden name="vendorInfo.state" />
 				    			</layoutpanel>
 				    		</listpanel>
+				    		
+				    		<checkboxgrouppanel title="角色对应的资源信息" id="checkboxgrouppanel" url="/auth/roleInfo!list.action" />
 			    		</items></form>
 			    		
 			    		<panel buttonAlign="center">
