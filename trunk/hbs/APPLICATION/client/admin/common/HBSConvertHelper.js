@@ -112,14 +112,14 @@ var HBSConvertHelper = {
 			var mainTab = this.getMainTab();
 			
 			// Portal 返回父页面的 tabId
-			return mainTab.tmpTabId;
+			return mainTab ? mainTab.tmpTabId : null;
 	 }
 	 /**
 	  * 说明：获取主标签的引用
 	  */	
 	,getMainTab: function() {
 			// 返回主的 Panel 模板
-			return app.getPortal().contentMgr.mainPanel;
+			return app.getPortal() ? app.getPortal().contentMgr.mainPanel : null;
 	 }
 	 /**
 	  * 说明：刷新指定表格
