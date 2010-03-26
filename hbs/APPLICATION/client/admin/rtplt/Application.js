@@ -56,7 +56,8 @@ Ext.extend(ExtUx.widget.Application, Ext.util.Observable, {
     //private
     ,getPortal:function(){
         for(var _parent = window ; ; _parent = _parent.parent) {
-        	if(_parent.portal) return _parent.portal;
+        	//alert(_parent)
+        	if(_parent.portal || _parent.top == _parent.self) return _parent.portal;
         }
     },
     switchContent:function(src,createNew,tabTip){
