@@ -23,19 +23,19 @@
 				    				<hidden name="custPartNoInfo.seqId" />
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
-				    				<label fieldLabel="客户编码"           name="custPartNoInfo.commCode"       labelStyle="width:150" allowBlank="false"/>
+				    				<label fieldLabel="客户编码"           name="custPartNoInfo.commCode"                id="commCode"      labelStyle="width:150" allowBlank="false"/>
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="2">
-				    				<label fieldLabel="客户简称"               name="custInfo.shortName"      labelStyle="width:150" allowBlank="false"/>
-				    				<label fieldLabel="客户结算币种"           name="custInfo.currencyDesc"   labelStyle="width:150" paramsValue="CURRENCY"        emptyText="请选择" />
+				    				<label fieldLabel="客户简称"           name="custInfo.shortName"                     labelStyle="width:150" allowBlank="false"/>
+				    				<label fieldLabel="客户结算币种"       name="custInfo.currencyDesc"                  labelStyle="width:150" paramsValue="CURRENCY"        emptyText="请选择" />
 				    			</layoutpanel>
 				    		</listpanel>
 				    		
 				    		<listpanel frame="true" title="P/N对照信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<label fieldLabel="客户"               name="custPartNoInfo.custPartNo"              labelStyle="width:150" allowBlank="false"/>
-				    				<label fieldLabel="本公司"             name="custPartNoInfo.partNo"                  labelStyle="width:150" allowBlank="false"/>
+				    				<label fieldLabel="客户"               name="custPartNoInfo.custPartNo"              id="custPartNo"             labelStyle="width:150" allowBlank="false"/>
+				    				<label fieldLabel="本公司"             name="custPartNoInfo.partNo"                  id="partNo"        labelStyle="width:150" allowBlank="false"/>
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">
