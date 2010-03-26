@@ -62,6 +62,7 @@
 			    			<buttons>
 			    				<button text="提交" id="submitBtn" />
 			    				<button text="取消" id="backBtn"   />
+			    				<button text="历史变更查看" id="historyBtn"   />
 			    			</buttons>
 			    		</panel>
 			    		
