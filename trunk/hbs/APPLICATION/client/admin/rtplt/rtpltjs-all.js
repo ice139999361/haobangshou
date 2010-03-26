@@ -13,8 +13,7 @@ document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt
 document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/plug/ManagedIFrame.js"><\/script>');
 document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/plug/ManagedIframePanel.js"><\/script>');
 
-
-
+//
 document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/ExtConvertHelper.js"><\/script>');
 document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/Application.js"><\/script>');
 document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/MenuTreeLoader.js"><\/script>');
@@ -27,6 +26,7 @@ document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt
 document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/QueryForm.js"><\/script>');
 document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/ListPanel.js"><\/script>');
 document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/ComplexGrid.js"><\/script>');
+document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/CheckBoxGroupPanel.js"><\/script>');
 document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/ExportButton.js"><\/script>');
 
 
