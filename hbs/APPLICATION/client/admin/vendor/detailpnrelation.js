@@ -5,30 +5,39 @@ HBSConvertHelper.init(function() {
 	var backBtn 		= Ext.getCmp("backBtn");
 	// 获取提交按钮
 	var submitBtn   = Ext.getCmp("submitBtn");
+	// 获取历史变更查看按钮
+	var historyBtn  = Ext.getCmp("historyBtn");
 	
 	
 	
 	// -------------------------------------- 应用逻辑处理
 	
-	// 当单击提交按钮时，调用默认的关闭窗口方法
-	submitBtn.on("click", function() {
-		ExtConvertHelper.submitForm("form", "/vendorInfo/vendorPartNoInfoMgr!audit.action", null, function(form, action) {
-			// 获取成功后的提示信息
-			var msg = ExtConvertHelper.getMessageInfo(action, "操作成功！");
-			
-			// 弹出提示框给用户
-			Ext.Msg.alert("提示", msg, function() {
-				// 用户单击后关闭此页面
-				HBSConvertHelper.defaultCloseTab();
-			});
-		});
-	});
-	
-	// 当单击取消按钮时，调用默认的关闭窗口方法
-	backBtn.on("click", HBSConvertHelper.defaultCloseTab);
-	
 	// 初始化方法
 	(function() {		
+		// 当单击提交按钮时，调用默认的关闭窗口方法
+		submitBtn.on("click", function() {
+			ExtConvertHelper.submitForm("form", "/vendorInfo/vendorPartNoInfoMgr!audit.action", null, function(form, action) {
+				// 获取成功后的提示信息
+				var msg = ExtConvertHelper.getMessageInfo(action, "操作成功！");
+				
+				// 弹出提示框给用户
+				Ext.Msg.alert("提示", msg, function() {
+					// 用户单击后关闭此页面
+					HBSConvertHelper.defaultCloseTab();
+				});
+			});
+		});
+		
+		// 当单击取消按钮时，调用默认的关闭窗口方法
+		backBtn.on("click", HBSConvertHelper.defaultCloseTab);
+		
+		// 当单击历史变更查看按钮时，调用默认的关闭窗口方法
+		historyBtn.on("click", function() {
+			var url= "/complex/detailhistory.jsp";
+			var win = open(CONTEXT_PATH + url);
+			win.pageconfig = "fadfadfad";
+		});
+	
 		// 组装需要的参数
 		var params = ["vendorPartNoInfo.seqId=", urlPs.seqId].join("");
 		
