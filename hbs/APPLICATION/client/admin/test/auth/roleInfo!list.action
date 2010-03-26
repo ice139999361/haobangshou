@@ -1,0 +1,87 @@
+﻿{
+    "data": {
+        "list": [
+            {
+                "title": "市场业务员",
+                "list": [
+                    {
+                        "title": "新客户信息录入",
+                        "name": "xkhxxlr",
+                        "list": [
+                            {
+                                "title": "提交",
+                                "value": "add"
+                            },
+                            {
+                                "title": "保存",
+                                "value": "save"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "客户信息查询",
+                        "name": "khxxcx",
+                        "list": [
+                            {
+                                "title": "查看",
+                                "value": "select"
+                            },
+                            {
+                                "title": "修改",
+                                "value": "update"
+                            },
+                            {
+                                "title": "删除",
+                                "value": "delete"
+                            },
+                            {
+                                "title": "导出",
+                                "value": "daochu"
+                            }
+                            
+                        ]
+                    }
+                ]
+            },
+            {
+                "title": "市场业经理",
+                "list": [
+                    {
+                        "title": "客户信息查询",
+                        "name": "jlkhxxcx",
+                        "list": [
+                            {
+                                "title": "查看",
+                                "value": "select"
+                            },
+                            {
+                                "title": "审批",
+                                "value": "audit"
+                            },
+                            {
+                                "title": "导出",
+                                "value": "daochu"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "客户信息审批",
+                        "name": "khjlsp",
+                        "list": [
+                            {
+                                "title": "查看",
+                                "value": "add"
+                            },
+                            {
+                                "title": "审批",
+                                "value": "audit"
+                            }
+                            
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "success": true
+}
