@@ -120,6 +120,8 @@ Ext.extend(Ext.form.Action.Export, Ext.form.Action, {
 
 // 扩展 label 的 setValue 方法
 Ext.form.Label.prototype.setValue = Ext.form.Label.prototype.setText;
+// 扩展 getValue 属性
+Ext.form.Label.prototype.getValue = function() { return this.getEl().dom.innerText; }
 
 // 备份 formPanel 的 initComponent 方法
 Ext.form.FormPanel.prototype._initComponent = Ext.form.FormPanel.prototype.initComponent;
