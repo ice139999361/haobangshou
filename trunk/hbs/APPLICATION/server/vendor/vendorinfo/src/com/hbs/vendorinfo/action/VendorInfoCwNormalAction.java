@@ -47,7 +47,7 @@ public class VendorInfoCwNormalAction extends BaseAction {
 			VendorInfoMgr mgr = (VendorInfoMgr)getBean(VendorInfoNormalAction.vendorInfoMgrName);
 			vendorInfo.setField("noState01", true);
 			setResult("list", mgr.getVendorInfoList(vendorInfo));
-			setTotalCount(mgr.getCustomerInfoCount(vendorInfo));
+			setTotalCount(mgr.getVendorInfoCount(vendorInfo));
 			setResult("count", getTotalCount());
 			setResult("jq", JianQuanUtil.getJQ(JianQuanUtil.TypeCustState, roleName));
 			if (logger.isDebugEnabled())

@@ -13,7 +13,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import com.hbs.common.manager.baseinfo.AccountPreiodMgr;
+
 import com.hbs.common.manager.baseinfo.BankInfoMgr;
 import com.hbs.common.manager.baseinfo.ContactMgr;
 import com.hbs.common.manager.baseinfo.PrePaidMgr;
@@ -336,9 +336,17 @@ public class CustomerInfoMgr {
 			/** 联系人信息 */
 			retInfo.setListContactInfo(getContactInfoList(retInfo.getCommCode(),retInfo.getState()));
 			
-			/**  获取账期或预付费信息    */
-			retInfo.setAccountPreiod(getAccountPreiod(retInfo.getCommCode(),retInfo.getState()));
-			retInfo.setPrePaidInfo(getPrePaidInfo(retInfo.getCommCode(),retInfo.getState()));
+			/**  获取账期或预付费信息   对应单个客户，只能有一种结算信息 */
+			int iSettleMent = Integer.parseInt(retInfo.getSettlementType());
+			switch(iSettleMent){
+			case 1:			
+				retInfo.setAccountPreiod(getAccountPreiod(retInfo.getCommCode(),retInfo.getState()));
+				break;
+			case 2:
+			case 3:
+				retInfo.setPrePaidInfo(getPrePaidInfo(retInfo.getCommCode(),retInfo.getState()));
+				break;
+			}
 		}
 		return retInfo;
 	}
@@ -428,7 +436,7 @@ public class CustomerInfoMgr {
 	 * @return baseSeqId--成功  -1--存在重复数据
 	 * @throws Exception
 	 */
-	public int insertCustomerInfo(CustomerInfo customerInfo) throws Exception{
+	private int insertCustomerInfo(CustomerInfo customerInfo) throws Exception{
 		int ret =0;		
 		CustomerInfoDao customerInfoDao = (CustomerInfoDao)BeanLocator.getInstance().getBean(CUSTOMERINFODAO);
 		CustomerInfo tempInfo = customerInfoDao.findCustomerInfoByBase(customerInfo);
@@ -456,23 +464,34 @@ public class CustomerInfoMgr {
 				BankInfoMgr bankInfoMgr =(BankInfoMgr)BeanLocator.getInstance().getBean(CustInfoConstants.CUSTBANKINFOMGR);
 				bankInfoMgr.insertBankInfoList(bankInfoList);
 			}
+			/**  处理账期信息和预付费信息  */			
+			//先清除，账期或预付费
+			CustAccountPreiodMgr custAccountPreiodMgr =(CustAccountPreiodMgr)BeanLocator.getInstance().getBean(CustInfoConstants.CUSTACCOUNTPREIODMGR);
+			custAccountPreiodMgr.deleteAccountPreiod(baseSeqId.toString());
+			PrePaidMgr prePaidMgr =(PrePaidMgr)BeanLocator.getInstance().getBean(CustInfoConstants.CUSTPREPAIDMGR);
+			prePaidMgr.deletePrePaidInfo(baseSeqId.toString());
+			int iSettleMent = Integer.parseInt(customerInfo.getSettlementType());
 			
-			/**  账期信息  */
-			AccountPreiod aPreiod = customerInfo.getAccountPreiod();
-			if(null != aPreiod){
-				aPreiod.setBaseSeqId(baseSeqId.toString());
-				aPreiod.setState(customerInfo.getState());
-				AccountPreiodMgr accountPreiodMgr =(AccountPreiodMgr)BeanLocator.getInstance().getBean(CustInfoConstants.CUSTACCOUNTPREIODMGR);
-				accountPreiodMgr.insertAccountPreiod(aPreiod);
-			}
-			
-			/**  预付费信息			 */
-			PrePaidInfo pInfo = customerInfo.getPrePaidInfo();
-			if(null != pInfo){
-				pInfo.setBaseSeqId(baseSeqId.toString());
-				pInfo.setState(customerInfo.getState());
-				PrePaidMgr prePaidMgr =(PrePaidMgr)BeanLocator.getInstance().getBean(CustInfoConstants.CUSTPREPAIDMGR);
-				prePaidMgr.insertPrePaidInfo(pInfo);
+			switch (iSettleMent){
+			case 1:
+				/**  账期信息  */
+				AccountPreiod aPreiod = customerInfo.getAccountPreiod();
+				if(null != aPreiod){
+					aPreiod.setBaseSeqId(baseSeqId.toString());
+					aPreiod.setState(customerInfo.getState());					
+					custAccountPreiodMgr.insertAccountPreiod(aPreiod);
+				}
+				break;
+			case 2:
+			case 3:
+				/**  预付费信息			 */
+				PrePaidInfo pInfo = customerInfo.getPrePaidInfo();
+				if(null != pInfo){
+					pInfo.setBaseSeqId(baseSeqId.toString());
+					pInfo.setState(customerInfo.getState());					
+					prePaidMgr.insertPrePaidInfo(pInfo);
+				}
+				break;
 			}
 //			/** 物料对关系信息*/
 //			List<CustPartNoInfo>  custPartNoInfoList = customerInfo.getPartNoInfoList();
@@ -543,18 +562,28 @@ public class CustomerInfoMgr {
 		/**  账期信息  */
 		AccountPreiod aPreiod = customerInfo.getAccountPreiod();
 		if(null != aPreiod){	
+			aPreiod.setState(customerInfo.getState());			
+		}else{
+			aPreiod = new AccountPreiod();
+			aPreiod.setCommCode(customerInfo.getCommCode());
 			aPreiod.setState(customerInfo.getState());
-			CustAccountPreiodMgr custAccountPreiodMgr =(CustAccountPreiodMgr)BeanLocator.getInstance().getBean(CustInfoConstants.CUSTACCOUNTPREIODMGR);
-			custAccountPreiodMgr.deleteAccountPreiod(aPreiod, isDelCurrent);
+			
 		}
+		CustAccountPreiodMgr custAccountPreiodMgr =(CustAccountPreiodMgr)BeanLocator.getInstance().getBean(CustInfoConstants.CUSTACCOUNTPREIODMGR);
+		custAccountPreiodMgr.deleteAccountPreiod(aPreiod, isDelCurrent);
+		
 		
 		/**  预付费信息			 */
 		PrePaidInfo pInfo = customerInfo.getPrePaidInfo();
 		if(null != pInfo){
+			pInfo.setState(customerInfo.getState());			
+		}else{
+			pInfo = new PrePaidInfo();
 			pInfo.setState(customerInfo.getState());
-			PrePaidMgr prePaidMgr =(PrePaidMgr)BeanLocator.getInstance().getBean(CustInfoConstants.CUSTPREPAIDMGR);
-			prePaidMgr.deletePrePaidInfo(pInfo, isDelCurrent);
+			pInfo.setCommCode(customerInfo.getCommCode());
 		}
+		PrePaidMgr prePaidMgr =(PrePaidMgr)BeanLocator.getInstance().getBean(CustInfoConstants.CUSTPREPAIDMGR);
+		prePaidMgr.deletePrePaidInfo(pInfo, isDelCurrent);
 		
 		
 		CustomerInfoDao customerInfoDao = (CustomerInfoDao)BeanLocator.getInstance().getBean(CUSTOMERINFODAO);
@@ -638,24 +667,38 @@ public class CustomerInfoMgr {
 			bankInfoMgr.updateBankInfoList(bankInfoList);
 		}
 		
-		/**  账期信息  */
-		AccountPreiod aPreiod = customerInfo.getAccountPreiod();
-		if(null != aPreiod){	
-			aPreiod.setState(customerInfo.getState());
-			aPreiod.setBaseSeqId((customerInfo.getBaseSeqId()).toString());
-			CustAccountPreiodMgr custAccountPreiodMgr =(CustAccountPreiodMgr)BeanLocator.getInstance().getBean(CustInfoConstants.CUSTACCOUNTPREIODMGR);
-			custAccountPreiodMgr.updateAccountPreiod(aPreiod);
-		}
+		/**  处理账期信息和预付费信息  */
+		String baseSeqId = customerInfo.getBaseSeqId().toString();
+		//先清除，账期或预付费
+		CustAccountPreiodMgr custAccountPreiodMgr =(CustAccountPreiodMgr)BeanLocator.getInstance().getBean(CustInfoConstants.CUSTACCOUNTPREIODMGR);
+		custAccountPreiodMgr.deleteAccountPreiod(baseSeqId);
+		PrePaidMgr prePaidMgr =(PrePaidMgr)BeanLocator.getInstance().getBean(CustInfoConstants.CUSTPREPAIDMGR);
+		prePaidMgr.deletePrePaidInfo(baseSeqId);
+		//获取结算信息类型
+		int iSettlement = Integer.parseInt(customerInfo.getSettlementType());
+		switch(iSettlement){
+		case 1:
+			/**  账期信息  */
+			AccountPreiod aPreiod = customerInfo.getAccountPreiod();
+			if(null != aPreiod){	//不存在插入
+				aPreiod.setState(customerInfo.getState());
+				aPreiod.setBaseSeqId((customerInfo.getBaseSeqId()).toString());			
+				custAccountPreiodMgr.insertAccountPreiod(aPreiod);
+			}
+			break;
+		case 2:
+		case 3:
 		
-		/**  预付费信息			 */
-		PrePaidInfo pInfo = customerInfo.getPrePaidInfo();
-		if(null != pInfo){
-			pInfo.setState(customerInfo.getState());
-			pInfo.setBaseSeqId((customerInfo.getBaseSeqId()).toString());
-			PrePaidMgr prePaidMgr =(PrePaidMgr)BeanLocator.getInstance().getBean(CustInfoConstants.CUSTPREPAIDMGR);
-			prePaidMgr.updatePrePaidInfo(pInfo);
+			/**  预付费信息			 */
+			PrePaidInfo pInfo = customerInfo.getPrePaidInfo();
+			if(null != pInfo){
+				pInfo.setState(customerInfo.getState());
+				pInfo.setBaseSeqId((customerInfo.getBaseSeqId()).toString());
+				
+				prePaidMgr.insertPrePaidInfo(pInfo);
+			}
+			break;
 		}
-		
 		return ret;
 	}
 	
