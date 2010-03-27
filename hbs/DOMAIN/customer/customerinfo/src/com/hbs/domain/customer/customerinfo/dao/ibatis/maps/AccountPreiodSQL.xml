@@ -50,7 +50,7 @@
 
 <delete id="AccountPreiod_deleteAccountPreiodByID" parameterClass="String">
 <![CDATA[
-    DELETE  FROM  T_CUST_ACCOUNT_PERIOD WHERE SEQID = #seqId#
+    DELETE  FROM  T_CUST_ACCOUNT_PERIOD WHERE BASE_SEQID = #baseSeqId#
 ]]>
 </delete>  
 
