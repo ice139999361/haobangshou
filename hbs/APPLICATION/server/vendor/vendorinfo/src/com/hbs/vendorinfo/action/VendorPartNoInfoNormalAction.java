@@ -139,6 +139,7 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
     		}
     		vendorPartNoInfo = mgr.getVendorPartNoInfoByID(vendorPartNoInfo.getSeqId().toString());
     		//这里不需要检查了吧
+    		//getVendorPartNoInfoByID返回null时也可以返回失败。
     		if(!checkCommonFields())
     			return ERROR;;
     				
