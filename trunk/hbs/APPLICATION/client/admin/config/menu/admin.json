@@ -266,7 +266,7 @@
                     "text": "客户订单查询",
                     "menuOrder": "30000",
                     "leaf": "true",
-                    "url": "/aaa.jsp"
+                    "url": "/customer/queryorder.jsp?roleType=finance"
                 },
                 {
                     "id": "cwgysddcx",
@@ -332,7 +332,7 @@
                     "text": "客户订单查询",
                     "menuOrder": "100000",
                     "leaf": "true",
-                    "url": "/aaa.jsp"
+                    "url": "/customer/queryorder.jsp?roleType=financemanager"
                 }
             ]
         },
