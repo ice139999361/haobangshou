@@ -16,7 +16,7 @@ HBSConvertHelper.init(function() {
 	// -------------------------------------- 应用逻辑处理
 	
 	// 隐藏不需要的按钮
-	ExtConvertHelper.hideItems("submitBtn,04process");
+	ExtConvertHelper.hideItems("submitBtn,04process,auditPanel");
 	
 	// 定义 submitFun
 	var submitFun = function() {
@@ -80,13 +80,13 @@ HBSConvertHelper.init(function() {
 						// 客户意见的选择事件，下边 01,02,03是假设的数据，需要和字典更对
 						Ext.getCmp("04khyj").on("select", function() {
 							switch(this.getValue()) {
-								case "01":
+								case "1":
 									submitBtn.url = "/success.action";
 									break;
-								case "02":
+								case "2":
 									submitBtn.url = "/success.action";
 									break;
-								case "03":
+								case "3":
 									submitBtn.url = "/success.action";
 									break;
 							}
@@ -111,6 +111,21 @@ HBSConvertHelper.init(function() {
 				case "50":
 					// 显示需要的控件
 					ExtConvertHelper.showItems("submitBtn,auditPanel");
+					submitBtn.url = "/success.action";
+					break;
+			}			
+		};
+		
+		// 采购部采购员的处理方法
+		var cgyViewFun = function() {
+			switch(urlPs.state) {
+				// 待采购确认交期（对账期订单有效，采购修改交期，状态变为此状态）
+				case "20":
+				// 采购备货中
+				case "21":
+					// 显示需要的控件
+					ExtConvertHelper.showItems("submitBtn");
+					submitBtn.setText("下单");
 					submitBtn.url = "/success.action";
 					break;
 			}			

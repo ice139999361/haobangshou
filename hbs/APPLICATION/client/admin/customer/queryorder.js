@@ -3,12 +3,18 @@ var querygridUrl;
 // 初始方法
 (function() {
 	switch(urlPs.roleType) {
+		// 市场业务员
 		case "sccustomers":
 			querygridUrl = "/custOrder/custOrder!list.action";
 			break;
+		// 市场经理
 		case "scmanager":
 			querygridUrl = "/custOrder/custOrderScMgr!list.action";
 			break; 
+		// 采购部采购员
+		case "cgy":
+			querygridUrl = "/custOrder/custOrderScMgr!list.action";
+			break;
 	}
 }())
 
@@ -17,7 +23,6 @@ HBSConvertHelper.init(function() {
 	
 	// 获取表格
 	var querygrid = Ext.getCmp("querygrid");
-	//HBSConvertHelper.getATagString("ffff", "abc.action", "open");
 	
 	
 	
@@ -132,6 +137,48 @@ HBSConvertHelper.init(function() {
 			
 		};
 		
+		// 采购部采购员的处理方法
+		var cgyViewFun = function(record, operator_cell) {
+			// 如果是暂停状态
+			if(record.get("activeState") == "PAUSE") return
+			
+			switch(record.get("state")) {
+				// 待采购确认交期（对账期订单有效，采购修改交期，状态变为此状态）
+				case "20":
+					// 创建操作按钮
+					var operatorBtn = HBSConvertHelper.renderButton2Cell(["处理", "查看库存", "采购交期"], operator_cell, record);
+					// 添加处理按钮事件
+					operatorBtn.get(0).on("click", processBtnFun);
+					// 添加查看库存按钮事件
+					operatorBtn.get(1).on("click", function(){});
+					// 添加采购交期按钮事件
+					operatorBtn.get(2).on("click", function() {
+						Ext.Msg.prompt("提示", "请输入供应商回复交期", function(btn, value) {
+							if(btn == "no") return;
+							// 要访问的 url 地址
+							var url = ["/success.action?poNo=", record.get("poNo")
+								,"&commCode="   , record.get("commCode")
+								,"&data="       , value
+							].join("");
+							
+							ExtConvertHelper.request(url, null, function() {
+								HBSConvertHelper.refreshGrid("querygrid");
+							});
+						}, this);
+					});
+					break;
+				// 采购备货中
+				case "21":
+					// 创建操作按钮
+					var operatorBtn = HBSConvertHelper.renderButton2Cell(["处理", "查看库存"], operator_cell, record);
+					// 添加处理按钮事件
+					operatorBtn.get(0).on("click", processBtnFun);
+					// 添加查看库存按钮事件
+					operatorBtn.get(1).on("click", function(){});
+					break;
+			}
+			
+		};
 		
 		//alert(this.ds.getCount())
 		for(var i = 0 ; i < view.ds.getCount() ; i++) {
@@ -151,6 +198,9 @@ HBSConvertHelper.init(function() {
 					break;
 				case "scmanager":
 					scmanagerViewFun(record, operator_cell);
+					break;
+				case "cgy":
+					cgyViewFun(record, operator_cell);
 					break;
 			}
 		}
