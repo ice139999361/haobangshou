@@ -1,6 +1,5 @@
 package com.hbs.auth.action;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -172,7 +171,7 @@ public class RoleAction extends BaseAction {
 			errs.add(new FieldErr("memo", "memo没有填写"));
 		}
 		
-		// TODO：完成资源列表的创建
+		// DONE：完成资源列表的创建
 		List<RoleResource> rrlist = role.getResources();
 		if(rrlist == null) {
 			rrlist = new Vector<RoleResource>();

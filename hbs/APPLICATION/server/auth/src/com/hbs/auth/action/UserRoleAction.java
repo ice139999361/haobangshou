@@ -99,7 +99,7 @@ public class UserRoleAction extends BaseAction {
 	/**
 	 * 保存用户权限信息
 	 * @action.input userRole.staffId
-	 * @action.input roleId 多个
+	 * @action.input roleId 以,分割
 	 * @return
 	 */
 	public String doSave() {
@@ -117,28 +117,31 @@ public class UserRoleAction extends BaseAction {
 				setErrorReason(s);
 				return ERROR;
 			}
-			String[] roles = this.getHttpServletRequest().getParameterValues(roleIdName);
-			if(roles != null) {
-				StaffRoleMgr mgr = getMgr();
-				mgr.deleteUserRole(userRole.getStaffId().toString());
-				UserRole ur2 = new UserRole();
-				ur2.setStaffId(userRole.getStaffId());
-				RoleMgr rmgr = (RoleMgr)getBean("roleMgr");
-				for(String roleId : roles) {
-					try {
-						ur2.setRoleId(Integer.parseInt(roleId));
-					}catch(Exception e) {
-						logger.info("catch Exception in doSave roleid=" + roleId);
-						continue;
-					}
-					if(null == rmgr.findRole(roleId)) {
-						logger.error("roleId " + roleId + " is not found!");
-						continue;
-					}
-					try{
-						mgr.insertUserRole(ur2);
-					}catch(Exception e){
-						logger.error("catch Exception in doSave roleid=" + roleId, e);
+			String roleStr = this.getHttpServletRequest().getParameter(roleIdName);
+			if(StringUtils.isNotEmpty(roleStr)){
+				String[] roles = roleStr.split(",");
+				if(roles != null && roles.length > 0) {
+					StaffRoleMgr mgr = getMgr();
+					mgr.deleteUserRole(userRole.getStaffId().toString());
+					UserRole ur2 = new UserRole();
+					ur2.setStaffId(userRole.getStaffId());
+					RoleMgr rmgr = (RoleMgr)getBean("roleMgr");
+					for(String roleId : roles) {
+						try {
+							ur2.setRoleId(Integer.parseInt(roleId));
+						}catch(Exception e) {
+							logger.info("catch Exception in doSave roleid=" + roleId);
+							continue;
+						}
+						if(null == rmgr.findRole(roleId)) {
+							logger.error("roleId " + roleId + " is not found!");
+							continue;
+						}
+						try{
+							mgr.insertUserRole(ur2);
+						}catch(Exception e){
+							logger.error("catch Exception in doSave roleid=" + roleId, e);
+						}
 					}
 				}
 			}

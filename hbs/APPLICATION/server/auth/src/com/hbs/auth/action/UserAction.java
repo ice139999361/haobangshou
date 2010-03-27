@@ -194,8 +194,8 @@ public class UserAction extends BaseAction  {
 				if(a != null) {
 					s.setField("account", a.getAccount());
 				
-					fillRoleInfo(s, roleList);
 				}
+				fillRoleInfo(s, roleList);
 			}
 			setResult("list", list);
 			setResult("count", getTotalCount());
