@@ -48,10 +48,22 @@ HBSConvertHelper.init(function() {
 		// 修改时提交数据的Url
 		submitBtn.url = "/auth/userRole!save.action";
 		// 组装需要的参数
-		var params = ["userRole.staffId=", urlPs.staffId].join("");
+		var params = ["staff.staffId=", urlPs.staffId].join("");
 		// 加载数据
 		Ext.getCmp("staffId").setValue(urlPs.staffId);
-		ExtConvertHelper.loadForm("form", "/auth/userRole!getInfo.action", params);
+		/*
+		ExtConvertHelper.loadForm("form", "/auth/user!getInfo.action", params);
+		*/
+		ExtConvertHelper.request("/auth/user!getInfo.action", params, function(response, options) {
+			var action = Ext.util.JSON.decode(response.responseText);
+			if(!action.success)
+				return;
+			var o = Ext.getCmp("selectrolepanel");
+			// alert(action.data.staff.dynamicFields.roleIds);
+			o.fromMultiselect.setValue(action.data.staff.dynamicFields.roleIds);
+			// alert("after selected");
+			o.fromTo();
+		});
 	}
 	
 	// 根据不同的操作类型，做出不同的处理

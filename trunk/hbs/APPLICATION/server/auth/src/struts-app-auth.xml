@@ -173,7 +173,7 @@
 	/**
 	 * 保存用户权限信息
 	 * @action.input userRole.staffId
-	 * @action.input roleId 多个
+	 * @action.input roleId 以,分割
 	 * @return
 	 */
 		 -->
