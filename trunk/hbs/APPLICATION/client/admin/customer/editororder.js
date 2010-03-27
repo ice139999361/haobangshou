@@ -1,10 +1,3 @@
-var amountRenderer = function(value, metadata, record) {
-	if(value) {
-		
-		record.set("money", Math.FloatMul(value, record.get("cprice")));
-	}
-	return value;
-}
 
 HBSConvertHelper.init(function() {
 	// -------------------------------------- 获取需要持久用到的对象
