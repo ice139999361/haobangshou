@@ -7,6 +7,10 @@ HBSConvertHelper.init(function() {
 	var submitBtn    = Ext.getCmp("submitBtn");
 	// 获取操作1按钮
 	var operatorBtn1 = Ext.getCmp("operatorBtn1");
+	// 获取操作2按钮
+	var operatorBtn2 = Ext.getCmp("operatorBtn2");
+	// 获取操作3按钮
+	var operatorBtn3 = Ext.getCmp("operatorBtn3");
 	// 获取历史变更查看按钮
 	var historyBtn   = Ext.getCmp("historyBtn");
 	// 组装需要的参数
@@ -67,8 +71,7 @@ HBSConvertHelper.init(function() {
 			if(urlPs.activeState == "PAUSE") {
 				// 显示需要的控件
 				ExtConvertHelper.showItems("goonBtn");
-			} 
-			else {
+			} else {
 				// 显示需要的控件
 				ExtConvertHelper.showItems("stopBtn");
 				
@@ -126,6 +129,40 @@ HBSConvertHelper.init(function() {
 					// 显示需要的控件
 					ExtConvertHelper.showItems("submitBtn");
 					submitBtn.setText("下单");
+					submitBtn.url = "/success.action";
+					break;
+			}			
+		};
+		
+		// 财务的处理方法
+		var financeViewFun = function() {
+			switch(urlPs.state) {
+				// 待财务确认预付
+				case "30":
+					ExtConvertHelper.showItems("operatorBtn2");
+					operatorBtn2.setText("退回");
+					operatorBtn2.url = "/success.action";
+					operatorBtn2.on("click", submitFun);
+				// 待财务确认发货（针对预付X%，款到发货）
+				case "31":
+				// 待财务确认收到剩余货款
+				case "32":
+					ExtConvertHelper.showItems("operatorBtn1");
+					operatorBtn1.setText("确认");
+					operatorBtn1.url = "/success.action";
+					operatorBtn1.on("click", submitFun);
+					break;
+			}
+			
+		};
+		
+		// 财务经理的处理方法
+		var financemanagerViewFun = function() {
+			switch(urlPs.state) {
+				// 款到发货而款未到，申请待经理审批（针对预付X%，剩余款到发货）
+				case "33":
+					// 显示需要的控件
+					ExtConvertHelper.showItems("submitBtn,auditPanel");
 					submitBtn.url = "/success.action";
 					break;
 			}			

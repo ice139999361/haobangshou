@@ -5,7 +5,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>客户订单查询</title>
-	<script type="text/javascript" src="<%=contextPath %>/customer/common/CommonPro.js"></script>
+	<script type="text/javascript" src="<%=contextPath %>/customer/component/queryorder.js"></script>
 </head>
 
 <body>
@@ -24,24 +24,7 @@
 			    			</layoutpanel>
 			    		</queryform>
 				    		
-				    	<complexgrid id="querygrid" title="客户订单列表" frame="true" page="true" root="data.list">
-			    			<fields>
-			    				<field name="poNo"	/>
-			    				<field name="commCode"	/>
-			    				<field name="shortName"	/>
-			    				<field name="stateDesc"	/>
-			    				<field name="state"	/>
-			    				<field name="activeState" />
-			    			</fields>
-			    			
-			    			<columns>
-			    				<column header="客户订单号"     dataIndex="poNo"      id="poNo" />
-			    				<column header="客户编码"       dataIndex="commCode"     />
-			    				<column header="客户简称"       dataIndex="shortName"       />
-			    				<column header="状态"           dataIndex="stateDesc"     />
-			    				<column header="操作"           dataIndex=""          id="operator" width="250" />
-			    			</columns>
-			    		</complexgrid>
+				    	<complexgrid id="querygrid" title="客户订单列表" frame="true" page="true" root="data.list" itemsFun="complexgridFun" />
 			    	<!-- service ext ui.  end. -->
 			    	</items>
 			    </panel>

@@ -15,6 +15,13 @@ var querygridUrl;
 		case "cgy":
 			querygridUrl = "/custOrder/custOrderScMgr!list.action";
 			break;
+		// 财务
+		case "finance":
+			querygridUrl = "/custOrder/custOrderScMgr!list.action";
+			break;
+		case "financemanager":
+			querygridUrl = "/custOrder/custOrderScMgr!list.action";
+			break;
 	}
 }())
 
@@ -136,7 +143,7 @@ HBSConvertHelper.init(function() {
 			}
 			
 		};
-		
+
 		// 采购部采购员的处理方法
 		var cgyViewFun = function(record, operator_cell) {
 			// 如果是暂停状态
@@ -180,6 +187,45 @@ HBSConvertHelper.init(function() {
 			
 		};
 		
+		// 财务的处理方法
+		var financeViewFun = function(record, operator_cell) {
+			// 如果是暂停状态
+			if(record.get("activeState") == "PAUSE") return
+			
+			switch(record.get("state")) {
+				// 待财务确认预付
+				case "30":
+				// 待财务确认发货（针对预付X%，款到发货）
+				case "31":
+				// 待财务确认收到剩余货款
+				case "32":
+					// 创建操作按钮
+					var operatorBtn = HBSConvertHelper.renderButton2Cell(["处理"], operator_cell, record);
+					// 添加继续按钮事件
+					operatorBtn.on("click", processBtnFun);
+					break;
+			}
+			
+		};
+		
+		// 财务经理的处理方法
+		var financemanagerViewFun = function(record, operator_cell) {
+			// 如果是暂停状态
+			if(record.get("activeState") == "PAUSE") return
+			
+			switch(record.get("state")) {
+				// 款到发货而款未到，申请待经理审批（针对预付X%，剩余款到发货）
+				case "33":
+					// 创建操作按钮
+					var operatorBtn = HBSConvertHelper.renderButton2Cell(["审批"], operator_cell, record);
+					// 添加继续按钮事件
+					operatorBtn.on("click", processBtnFun);
+					break;
+			}
+			
+		};
+		
+		
 		//alert(this.ds.getCount())
 		for(var i = 0 ; i < view.ds.getCount() ; i++) {
 			// 获取数据容器
@@ -201,6 +247,12 @@ HBSConvertHelper.init(function() {
 					break;
 				case "cgy":
 					cgyViewFun(record, operator_cell);
+					break;
+				case "finance":
+					financeViewFun(record, operator_cell);
+					break;
+				case "financemanager":
+					financemanagerViewFun(record, operator_cell);
 					break;
 			}
 		}
