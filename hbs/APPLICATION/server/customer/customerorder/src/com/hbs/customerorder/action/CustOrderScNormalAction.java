@@ -201,27 +201,13 @@ public class CustOrderScNormalAction extends BaseAction {
 	public String doGetInfo() {
 		try{
 			logger.debug("begin doGetInfo");
-			if(custOrder == null
-					|| StringUtils.isEmpty(custOrder.getCommCode()) 
-					|| StringUtils.isEmpty(custOrder.getPoNo())) {
-				logger.debug("参数为空！");
-				setErrorReason("参数为空！");
-				return ERROR;
-			}
 			CustOrderMgr mgr = (CustOrderMgr)getBean(CustOrderConstants.CUSTORDERMGR);
-			CustomerOrder custOrder2 = mgr.findCustomerOrderByBizKey(custOrder, true);
-			if(custOrder2 == null) {
-				logger.debug("没有找到");
-				setErrorReason("没有找到");
+			CustomerOrder custOrder2 = findCustOrder(mgr, true);
+			if(custOrder2 == null)
 				return ERROR;
-			} else if(custOrder2.getStaffId().equals(getLoginStaff().getStaffId().toString())) {
-				setResult("custOrder", custOrder2);
-				logger.debug("end doGetInfo");
-				return SUCCESS;
-			}
-			logger.debug("权限错误");
-			setErrorReason("权限错误");
-			return ERROR;
+			setResult("custOrder", custOrder2);
+			logger.debug("end doGetInfo");
+			return SUCCESS;
 		}catch(Exception e) {
 			logger.error("catch Exception in doGetInfo", e);
 			setErrorReason("内部错误");
@@ -270,15 +256,11 @@ public class CustOrderScNormalAction extends BaseAction {
 	 */
 	public String doControlActiveState() {
 		try {
-			if(custOrder == null
-					|| StringUtils.isEmpty(custOrder.getCommCode()) 
-					|| StringUtils.isEmpty(custOrder.getPoNo())) {
-				logger.debug("参数为空！");
-				setErrorReason("参数为空！");
-				return ERROR;
-			}
 			CustOrderMgr mgr = (CustOrderMgr)getBean(CustOrderConstants.CUSTORDERMGR);
-			int i = mgr.controlActiveState(custOrder, this.getHttpServletRequest().getParameter("memo"));
+			CustomerOrder custOrder2 = findCustOrder(mgr, true);
+			if(custOrder2 == null)
+				return ERROR;
+			int i = mgr.controlActiveState(custOrder2, this.getHttpServletRequest().getParameter("memo"));
 			if(i != 0) {
 				logger.error("提交出错！ ret = " + i);
 				setErrorReason("提交出错！");
@@ -290,6 +272,33 @@ public class CustOrderScNormalAction extends BaseAction {
 			setErrorReason("内部错误");
 			return ERROR;
 		}
+	}
+
+	/**获取客户订单信息，并判断权限
+	 * @param mgr
+	 * @param isAll	是否包含详情信息
+	 * @return	null表示错误，已经将错误信息调用setErrorReason。
+	 * @throws Exception
+	 */
+	private CustomerOrder findCustOrder(CustOrderMgr mgr, boolean isAll) throws Exception {
+		if(custOrder == null
+				|| StringUtils.isEmpty(custOrder.getCommCode()) 
+				|| StringUtils.isEmpty(custOrder.getPoNo())) {
+			logger.debug("参数为空！");
+			setErrorReason("参数为空！");
+			return null;
+		}
+		CustomerOrder custOrder2 = mgr.findCustomerOrderByBizKey(custOrder, isAll);
+		if(custOrder2 == null) {
+			logger.debug("没有找到");
+			setErrorReason("没有找到");
+			return null;
+		} else if(!getLoginStaff().getStaffId().toString().equals(custOrder2.getStaffId())) {
+			logger.debug("权限错误");
+			setErrorReason("权限错误");
+			return null;
+		}
+		return custOrder2;
 	}
 
 	private void setMyId() throws Exception {
