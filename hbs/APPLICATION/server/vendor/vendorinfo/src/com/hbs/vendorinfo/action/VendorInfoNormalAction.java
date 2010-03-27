@@ -71,7 +71,7 @@ public class VendorInfoNormalAction extends BaseAction {
 			setMyId(false);
 			VendorInfoMgr mgr = (VendorInfoMgr)getBean(vendorInfoMgrName);
 			setResult("list", mgr.getVendorInfoList(vendorInfo));
-			setTotalCount(mgr.getCustomerInfoCount(vendorInfo));
+			setTotalCount(mgr.getVendorInfoCount(vendorInfo));
 			setResult("count", getTotalCount());
 			setResult("jq", JianQuanUtil.getJQ(JianQuanUtil.TypeCustState, roleName));
 			if (logger.isDebugEnabled())
@@ -118,7 +118,7 @@ public class VendorInfoNormalAction extends BaseAction {
 			if(vendorInfo.getBaseSeqId() == null) {
 				VendorInfo vInfo = new VendorInfo();
 				vInfo.setCommCode(vendorInfo.getCommCode());
-				Integer i = mgr.getCustomerInfoCount(vInfo);
+				Integer i = mgr.getVendorInfoCount(vInfo);
 				if(i == null || i.compareTo(0) > 0) {
 					logger.error("供应商编码重复！" + vendorInfo.getCommCode());
 					setErrorReason("供应商编码重复！");
@@ -189,7 +189,7 @@ public class VendorInfoNormalAction extends BaseAction {
 			if(vendorInfo.getBaseSeqId() == null) {
 				VendorInfo vInfo = new VendorInfo();
 				vInfo.setCommCode(vendorInfo.getCommCode());
-				Integer i = mgr.getCustomerInfoCount(vInfo);
+				Integer i = mgr.getVendorInfoCount(vInfo);
 				if(i == null || i.compareTo(0) > 0) {
 					logger.error("供应商编码重复！" + vendorInfo.getCommCode());
 					setErrorReason("供应商编码重复！");
@@ -455,7 +455,7 @@ public class VendorInfoNormalAction extends BaseAction {
 			vendorInfo = new VendorInfo();
 			vendorInfo.setCommCode(s);
 			VendorInfoMgr mgr = (VendorInfoMgr)getBean(vendorInfoMgrName);
-			Integer i = mgr.getCustomerInfoCount(vendorInfo);
+			Integer i = mgr.getVendorInfoCount(vendorInfo);
 			if(i == null || i.compareTo(0) > 0 ){
 				logger.debug("编码重复！");
 				setErrorReason("编码重复！");

@@ -80,8 +80,13 @@ public abstract class AccountPreiodMgr {
 		AccountPreiodDao aPreiodDao = (AccountPreiodDao)BeanLocator.getInstance().getBean(getAccountPreiodDao());
 		aPreiodDao.deleteAccountPreiod(accountPreiod);
 		if(isDelCurrent){
-			aPreiodDao.deleteAccountPreiodByID(accountPreiod.getSeqId());
+			aPreiodDao.deleteAccountPreiodByID(accountPreiod.getBaseSeqId());
 		}
+	}
+	
+	public void deleteAccountPreiod(String baseSeqId) throws Exception{
+		AccountPreiodDao aPreiodDao = (AccountPreiodDao)BeanLocator.getInstance().getBean(getAccountPreiodDao());
+		aPreiodDao.deleteAccountPreiodByID(baseSeqId);
 	}
 	/**
 	 * 更新账期信息

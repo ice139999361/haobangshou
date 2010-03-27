@@ -78,10 +78,14 @@ public abstract class PrePaidMgr {
 		PrePaidInfoDao aPrepaidDao = (PrePaidInfoDao)BeanLocator.getInstance().getBean(getPrePaidDao());
 		aPrepaidDao.deletePrePaidInfo(prePaidInfo);
 		if(isDelCurrent){
-			aPrepaidDao.deletePrePaidInfoByID(prePaidInfo.getSeqId());
+			aPrepaidDao.deletePrePaidInfoByID(prePaidInfo.getBaseSeqId());
 		}
 	}
 	
+	public void deletePrePaidInfo(String baseSeqId) throws Exception{
+		PrePaidInfoDao aPrepaidDao = (PrePaidInfoDao)BeanLocator.getInstance().getBean(getPrePaidDao());
+		aPrepaidDao.deletePrePaidInfoByID(baseSeqId);
+	}
 	
 	/**
 	 * 更新预付费信息

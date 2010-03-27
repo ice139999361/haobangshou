@@ -212,7 +212,7 @@ public class VendorInfoManagerAction extends BaseAction {
 			setPagination(vendorInfo);
 			setResult("jq", JianQuanUtil.getJQ(JianQuanUtil.TypeCustState, roleName));
 			setResult("list", mgr.getVendorInfoList(vendorInfo));
-			setTotalCount(mgr.getCustomerInfoCount(vendorInfo));
+			setTotalCount(mgr.getVendorInfoCount(vendorInfo));
 			setResult("count", getTotalCount());
 			if (logger.isDebugEnabled())    logger.debug("end doList");
 			return SUCCESS;
@@ -242,7 +242,7 @@ public class VendorInfoManagerAction extends BaseAction {
 			setPagination(vendorInfo);
 			setResult("jq", JianQuanUtil.getJQ(JianQuanUtil.TypeCustState, roleName));
 			setResult("list", mgr.getVendorInfoList(vendorInfo));
-			setTotalCount(mgr.getCustomerInfoCount(vendorInfo));
+			setTotalCount(mgr.getVendorInfoCount(vendorInfo));
 			setResult("count", getTotalCount());
 			if (logger.isDebugEnabled())    logger.debug("end doListForAudit");
 			return SUCCESS;
