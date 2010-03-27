@@ -99,8 +99,11 @@ public class ListDataUtil {
 	{
 		if (o == null || values == null || fieldNames == null)
 			return;
-		
-			String[] ar = values.split(spliter);
+		   //为解决：||;;lwt||;;仓库||;;26718666||;;||;;||;;||;;||;;||;;||;;||;;||;;||;;
+		   // 这种多个字段为空的情况修改，加解析长度
+			int iLength = fieldNames.length +1;
+			String[] ar = values.split(spliter,iLength);
+			logger.debug("解析解析的字段值为：" + ar.toString());
 			// 数据列数不能少于给出的字段名数
 			if (ar.length < fieldNames.length){
 				

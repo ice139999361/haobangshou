@@ -98,7 +98,7 @@ public class CustomerInfoUtil {
 	 * @param custInfo	客户信息
 	 * @return 出错信息，格式：Map<出错字段,出错信息>
 	 */
-	public static List<FieldErr> checkInputFields(CustomerInfo custInfo)
+	public static List<FieldErr> checkInputFields(CustomerInfo custInfo) throws Exception
 	{
 		if(custInfo == null)
 			return new ArrayList<FieldErr>();
@@ -325,14 +325,13 @@ public class CustomerInfoUtil {
 	 * 检查选择数据。检查选项值，填写选项的说明字段
 	 * @param custInfo
 	 */
-	public static List<FieldErr> checkSelectFields(CustomerInfo custInfo)
+	public static List<FieldErr> checkSelectFields(CustomerInfo custInfo) throws Exception
 	{
 		if(custInfo == null)
 			return null;
 		List<FieldErr> list = new ArrayList<FieldErr>();
 		
-		try
-		{
+		
 			String s;
 			ConfigEncode ce;
 			s = custInfo.getImportantCode();
@@ -421,11 +420,7 @@ public class CustomerInfoUtil {
 				else
 					custInfo.setAssStaffName(u.getStaffName());
 			}
-		}
-		catch(Exception e)
-		{
-			logger.info("checkSelectFields出错", e);
-		}
+		
 		
 		return list;
 	}
