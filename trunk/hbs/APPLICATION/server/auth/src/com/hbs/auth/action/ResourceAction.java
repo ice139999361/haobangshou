@@ -17,11 +17,25 @@ import com.hbs.auth.manager.ResourceMgr;
 import com.hbs.common.action.base.BaseAction;
 import com.hbs.domain.auth.pojo.Action;
 import com.hbs.domain.auth.pojo.Resource;
+import com.hbs.domain.auth.pojo.Role;
 
 @SuppressWarnings("serial")
 public class ResourceAction extends BaseAction {
+	public static final String prefixAction = "a_";
+
+	public static final String prefixResource = "r_";
+
 	protected static final String childrenFieldName = "children";
 
+	/**
+	 * Resource比较器。根据ResourceId进行比较
+	 */
+	public static final Comparator<Resource> compResourceId = new Comparator<Resource>(){
+		public int compare(Resource o1, Resource o2) {
+			return o1.getResourceId() - o2.getResourceId();
+		}
+	};
+	
 	/**
 	 * logger.
 	 */
@@ -90,7 +104,7 @@ public class ResourceAction extends BaseAction {
 			for(Resource res : list) {
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("title", res.getResourceName());
-				map.put("name", "r" + res.getResourceId().toString());
+				map.put("name", prefixResource + res.getResourceId().toString());
 				if(res.getActionsId() != null) {
 					Action action = new Action();
 					action.setActionsId(res.getActionsId());
@@ -99,7 +113,7 @@ public class ResourceAction extends BaseAction {
 					for(Action a : actionList) {
 						Map<String, Object> actionMap = new HashMap<String, Object>();
 						actionMap.put("title", a.getDescription());
-						actionMap.put("value", "a"+a.getActionId());
+						actionMap.put("value", prefixAction+a.getActionId());
 						actionList2.add(actionMap);
 					}
 					map.put("list", actionList2);

@@ -39,8 +39,11 @@ Ext.extend(ExtUx.widget.CheckBoxGroupPanel, Ext.Panel, {
 		// 加载 name 属性
 		if(name) config.name = name;
 		// 加载 value 属性
-		if(value) config.value = value;
-		
+		if(value)
+		{
+			config.value = value;
+			config.inputValue = value;
+		}
 		// 返回 checkbox JSON Object
 		return config;
 	},
