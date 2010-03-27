@@ -232,91 +232,93 @@ public class CustomerInfoUtil {
 	public static void processListData(CustomerInfo custInfo, HttpServletRequest request) throws Exception
 	{
 		// Done: 处理上传的List数据
-		try
-		{
+		
 			Integer id = custInfo.getBaseSeqId();
 			String baseSeqId = id == null ? null : id.toString();
 			String commCode = custInfo.getCommCode();
 			String state = custInfo.getState();
 			List<ContactInfo> listAll = new ArrayList<ContactInfo>();
-			try
-			{
+			
+				logger.debug("联系人信息值数据：" + request.getParameterValues(contactListName1));
+				logger.debug("联系人信息字段值："+request.getParameter(contactListFields1));
+				
 				List<ContactInfo> list = ListDataUtil.splitIntoList(ContactInfo.class, 
 						request.getParameterValues(contactListName1), 
 						request.getParameter(contactListFields1).split(fieldNameSplitter), 
 						splitter);
-				Iterator<ContactInfo> it = list.iterator();
-				while(it.hasNext())
-				{
-					ContactInfo info = it.next();
-					if(info == null)
-						continue;
-					info.setBaseSeqId(baseSeqId);
-					info.setCommCode(commCode);
-					info.setState(state);
-					info.setConType("1");
+				if(null != list && list.size()>0 ){
+					logger.debug("联系人信息数量为：" + list.size());
+					Iterator<ContactInfo> it = list.iterator();
+					while(it.hasNext())
+					{
+						ContactInfo info = it.next();
+						if(info == null)
+							continue;
+						info.setBaseSeqId(baseSeqId);
+						info.setCommCode(commCode);
+						info.setState(state);
+						info.setConType("1");
+					}
+					listAll.addAll(list);
+				}else{
+					logger.debug("联系人信息数量为：0");
 				}
-				listAll.addAll(list);
-			}
-			catch(Exception e)
-			{
-				logger.info("processListData处理contactList1出错", e);
-			}
 			
-			try
-			{
-				List<ContactInfo> list = ListDataUtil.splitIntoList(ContactInfo.class, 
+			
+			
+				logger.debug("收货人信息值数据：" + request.getParameterValues(contactListName2));
+				logger.debug("收货人信息字段值："+request.getParameter(contactListFields2));
+				List<ContactInfo> listCon = ListDataUtil.splitIntoList(ContactInfo.class, 
 						request.getParameterValues(contactListName2), 
 						request.getParameter(contactListFields2).split(fieldNameSplitter), 
 						splitter);
-				Iterator<ContactInfo> it = list.iterator();
-				while(it.hasNext())
-				{
-					ContactInfo info = it.next();
-					if(info == null)
-						continue;
-					info.setBaseSeqId(baseSeqId);
-					info.setCommCode(commCode);
-					info.setState(state);
-					info.setConType("2");
+				if(null != listCon && listCon.size()>0 ){
+					logger.debug("收货人信息数量为：" + list.size());
+					Iterator<ContactInfo> it = listCon.iterator();
+					while(it.hasNext())
+					{
+						ContactInfo info = it.next();
+						if(info == null)
+							continue;
+						info.setBaseSeqId(baseSeqId);
+						info.setCommCode(commCode);
+						info.setState(state);
+						info.setConType("2");
+					}
+					listAll.addAll(listCon);
+				}else{
+					logger.debug("收货人信息数量为：0");
 				}
-				listAll.addAll(list);
-			}
-			catch(Exception e)
-			{
-				logger.info("processListData处理contactList2出错", e);
-			}
+			
 			if(listAll.size()>0)
 				custInfo.setListContactInfo(listAll);
 			
-			try
-			{
-				List<BankInfo> list = ListDataUtil.splitIntoList(BankInfo.class, 
+			
+				logger.debug("银行信息值数据：" + request.getParameterValues(bankListName));
+				logger.debug("银行信息字段值："+request.getParameter(bankListFields));
+				List<BankInfo> listBank = ListDataUtil.splitIntoList(BankInfo.class, 
 						request.getParameterValues(bankListName), 
 						request.getParameter(bankListFields).split(fieldNameSplitter), 
 						splitter);
-				Iterator<BankInfo> it = list.iterator();
-				while(it.hasNext())
-				{
-					BankInfo info = it.next();
-					if(info == null)
-						continue;
-					info.setBaseSeqId(baseSeqId);
-					info.setCommCode(commCode);
-					info.setState(state);
+				if(null != listBank && listBank.size() >0){
+					logger.debug("银行信息数量为：" + listBank.size());
+					Iterator<BankInfo> it = listBank.iterator();
+					while(it.hasNext())
+					{
+						BankInfo info = it.next();
+						if(info == null)
+							continue;
+						info.setBaseSeqId(baseSeqId);
+						info.setCommCode(commCode);
+						info.setState(state);
+					}
+					if(list.size() > 0)
+						custInfo.setListBankInfo(listBank);
+				}else{
+					logger.debug("银行信息数量为：0");
 				}
-				if(list.size() > 0)
-					custInfo.setListBankInfo(list);
-			}
-			catch(Exception e)
-			{
-				logger.info("processListData处理bankList出错", e);
-			}
-		}
-		catch(Exception e)
-		{
-			logger.info("processListData出错", e);
-		}
+			
+		
 	}
 	
 	/**
