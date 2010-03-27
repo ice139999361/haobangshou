@@ -252,14 +252,14 @@
                     "text": "客户对帐注意事项",
                     "menuOrder": "10000",
                     "leaf": "true",
-                    "url": "/aaa.jsp"
+                    "url": "/finance/editorreconciliationnote.jsp?beau=customer"
                 },
                 {
                     "id": "cwgysdzzysx",
                     "text": "供应商对帐注意事项",
                     "menuOrder": "20000",
                     "leaf": "true",
-                    "url": "/aaa.jsp"
+                    "url": "/finance/editorreconciliationnote.jsp?beau=vendor"
                 },
                 {
                     "id": "cwkhddcx",
@@ -280,7 +280,7 @@
                     "text": "出入库结算",
                     "menuOrder": "50000",
                     "leaf": "true",
-                    "url": "/aaa.jsp"
+                    "url": "/finance/inoutwarehouseclearing.jsp"
                 },
                 {
                     "id": "cwkhdz",
