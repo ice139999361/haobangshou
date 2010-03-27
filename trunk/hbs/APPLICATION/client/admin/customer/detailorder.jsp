@@ -47,14 +47,26 @@
 				    		
 				    		<complexgrid id="custbankgrid"   title="订单详情" itemsFun="ordergridFun"   frame="true" height="200" url="1" editorFlag="false"/>
 				    			
+			    			<listpanel title="处理信息" frame="true" collapsible="true" titleCollapse="true" id="04process">
+			    				<layoutpanel columnNum="1">
+				    				<dictcombo fieldLabel="客户意见"           hiddenName=""	paramsValue="AUDIT" emptyText="请选择" id="04khyj" />
+				    				<textarea  fieldLabel="客户原因"           name=""	      width="600"         height="80" />
+				    			</layoutpanel>	
+				    		</listpanel>
+				    		
 				    		<auditpanel id="auditPanel" />
-			    			
 			    		</items></form>
 			    		
 			    		<panel buttonAlign="center">
 			    			<buttons>
-			    				<button text="提交" id="submitBtn" />
-			    				<button text="取消" id="backBtn"   />
+			    				<button text="提交"         id="submitBtn"    hidden="true"/>
+			    				<button text="继续"         id="goonBtn"      hidden="true" url="/custOrder/custOrder!controlActiveState.action" />
+			    				<button text="暂停"         id="stopBtn"      hidden="true" url="/custOrder/custOrder!controlActiveState.action" />
+			    				<button text=""             id="operatorBtn1" hidden="true" />
+			    				<button text=""             id="operatorBtn2" hidden="true" />
+			    				<button text=""             id="operatorBtn3" hidden="true" />
+			    				<button text="取消"         id="backBtn"      />
+			    				<button text="查看操作历史" id="historyBtn"   />
 			    			</buttons>
 			    		</panel>
 			    		
