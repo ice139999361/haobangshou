@@ -19,17 +19,15 @@
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="1">
-				    				<textfield fieldLabel="角色名称"               name=""           labelStyle="width:150" />
-				    				<textarea  fieldLabel="角色描述"               name=""           labelStyle="width:150" width="600" />
+				    				<textfield fieldLabel="角色名称"               name="role.roleName"           labelStyle="width:150" />
+				    				<textarea  fieldLabel="角色描述"               name="role.memo"           labelStyle="width:150" width="600" />
 				    			</layoutpanel>
-				    			
 				    			<layoutpanel columnNum="1">
-				    				<hidden name="vendorInfo.baseSeqId" />
-				    				<hidden name="vendorInfo.state" />
+				    				<hidden name="role.roleId" />
 				    			</layoutpanel>
 				    		</listpanel>
 				    		
-				    		<checkboxgrouppanel title="角色对应的资源信息" id="checkboxgrouppanel" url="/auth/roleInfo!list.action" />
+				    		<checkboxgrouppanel title="角色对应的资源信息" id="checkboxgrouppanel" url="/auth/resource!list2.action" />
 			    		</items></form>
 			    		
 			    		<panel buttonAlign="center">

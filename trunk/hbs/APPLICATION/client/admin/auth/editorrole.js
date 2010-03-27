@@ -40,7 +40,7 @@ HBSConvertHelper.init(function() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("创建角色");
 		// 新增时提交数据的Url
-		submitBtn.url = "/success.action";
+		submitBtn.url = "/auth/role!save.action";
 	}
 	
 	// 修改页面的处理逻辑
@@ -48,11 +48,11 @@ HBSConvertHelper.init(function() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("修改角色");
 		// 修改时提交数据的Url
-		submitBtn.url = "/success.action";
+		submitBtn.url = "/auth/role!save.action";
 		// 组装需要的参数
-		var params = ["custInfo.staffName=", urlPs.staffName].join("");
+		var params = ["role.roleId=", urlPs.roleId].join("");
 		// 加载数据
-		ExtConvertHelper.loadForm("form", "/customerInfo/customerInfo!getInfo.action", params);
+		ExtConvertHelper.loadForm("form", "/auth/role!getInfo.action", params);
 	}
 	
 	// 根据不同的操作类型，做出不同的处理

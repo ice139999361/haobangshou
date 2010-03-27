@@ -4,7 +4,7 @@
         "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-	<package name="app-vendorOrderDetail" namespace="/vendorOrder" extends="json-default">
+	<package name="app-vendorOrderDetail" namespace="/vendorOrderDetail" extends="json-default">
 		<global-results>
 			<result name="error" type="json">
 			    <param name="includeProperties">

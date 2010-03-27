@@ -7,9 +7,9 @@
 	<constant name="struts.devMode" value="false" />
 	
 	<!--start merged code-->	
-<include file="struts-plugin.xml"/>
-<include file="struts-app-common.xml"/>
-<include file="struts-app-customerInfo.xml"/>
+<include file="struts-plugin.xml" />
+<include file="struts-app-common.xml" />
+<include file="struts-app-customerInfo.xml" />
 <include file="struts-app-customerOrder.xml" />
 <include file="struts-app-custOrderDetail.xml" />
 <include file="struts-app-vendorInfo.xml" />
