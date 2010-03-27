@@ -1,0 +1,32 @@
+{
+    "data": {
+        "vendorPartNoInfo": {
+            "catCode": null,
+            "clsName": "5",
+            "commCode": "GV0001",
+            "createDate": "2010-03-20 00:00:00",
+            "custPartNo": "GV_PART_NO_0001",
+            "dynamicFields": {},
+            "end": 9999999,
+            "isPriceChange": "0",
+            "logBizKey": "GLE0001;GV_PART_NO_0001;GV0001",
+            "logContent": "公司物料编码:GLE0001  供应商物料编码:GV_PART_NO_0001  供应商编码:GV0001  单价:0.5  含税单价:0.17  ",
+            "minAmount": 2,
+            "minPackage": 0,
+            "order": null,
+            "partNo": "GLE0001",
+            "pnDesc": "小小电容",
+            "price": 0.5,
+            "priceTax": 0.17,
+            "sampleCode": "ABCD",
+            "seqId": 3,
+            "sort": null,
+            "staffId": "1",
+            "staffName": "user1",
+            "start": 0,
+            "state": "2",
+            "stateDesc": "待审批数据",
+            "waitTaskBizKey": "GLE0001;GV_PART_NO_0001;GV0001"
+        }
+    },success: "true"
+}
