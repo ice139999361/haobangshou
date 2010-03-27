@@ -21,24 +21,39 @@ ExtUx.widget.DictCombo = function(config){
 }
 
 Ext.extend(ExtUx.widget.DictCombo, Ext.form.ComboBox, {
-		initComponent : function(){
-			// 定义数据结构
-			var RecordType = new Ext.data.Record.create((this.record ? this.record.split(",") : [this.valueField, this.displayField]));
-			// 创建数据容器
-			this.store = new Ext.data.Store({
-				proxy: new Ext.data.HttpProxy({url: SERVER_PATH + this.url}),
-				reader: new Ext.data.JsonReader({
-					root: this.root
-				}, RecordType)
-			});
-			// 设置参数
-			for(var i = 0, _paramsName = this.paramsName.split(","), _paramsValue = this.paramsValue.split(","), count = _paramsName.length ; i < count ; i++) {
-				this.store.baseParams[_paramsName[i]] = _paramsValue[i];
-			}
-			
-			ExtUx.widget.DictCombo.superclass.initComponent.call(this);
-			this.store.load();
-		},
+	initComponent : function(){
+		// 定义数据结构
+		var RecordType = new Ext.data.Record.create((this.record ? this.record.split(",") : [this.valueField, this.displayField]));
+		// 创建数据容器
+		this.store = new Ext.data.Store({
+			proxy: new Ext.data.HttpProxy({url: SERVER_PATH + this.url}),
+			reader: new Ext.data.JsonReader({
+				root: this.root
+			}, RecordType)
+		});
+		// 设置参数
+		for(var i = 0, _paramsName = this.paramsName.split(","), _paramsValue = this.paramsValue.split(","), count = _paramsName.length ; i < count ; i++) {
+			this.store.baseParams[_paramsName[i]] = _paramsValue[i];
+		}
+		
+		// 用来插入 “全部”“请选择” 等到第一项
+		if(this.showText) {
+			this.store.on("load", function() {
+				var vf = this.valueField, df = this.displayField;
+				//var record = new RecordType({vf: "", df: this.showText});
+				var record = new RecordType(Ext.util.JSON.decode(['{',vf, ':', '""', ',', df, ':', '"', this.showText, '"', '}'].join("")));
+				this.store.insert(0, record);
+				this.setValue("");
+			}, this);
+		}
+		
+		ExtUx.widget.DictCombo.superclass.initComponent.call(this);
+		this.store.load();
+	},
+	changeUrl: function(url) {
+		this.store.proxy.setUrl(SERVER_PATH + url, true);
+		this.store.load();
+	},
 	setParam : function(key, value){
 		this.store.baseParams[key] = value;
 	},
