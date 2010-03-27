@@ -68,7 +68,7 @@
 
 <delete id="Vendor_ContactInfo_deleteContactInfoByID" parameterClass="string">
 <![CDATA[
-    DELETE  FROM  T_VENDOR_CONTACT_INFO WHERE SEQID = #seqId#
+    DELETE  FROM  T_VENDOR_CONTACT_INFO WHERE BASE_SEQID = #baseSeqId#
 ]]>
 </delete>    
 
@@ -149,7 +149,7 @@
     SET
     	STATE = #state#
 	
-    WHERE SEQID = #seqId#
+    WHERE BASE_SEQID = #baseSeqId#
 </update>
 
 
