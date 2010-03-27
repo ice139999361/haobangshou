@@ -31,6 +31,7 @@
 			    				<field name="shortName"	/>
 			    				<field name="stateDesc"	/>
 			    				<field name="state"	/>
+			    				<field name="activeState" />
 			    			</fields>
 			    			
 			    			<columns>
@@ -38,7 +39,7 @@
 			    				<column header="客户编码"       dataIndex="commCode"     />
 			    				<column header="客户简称"       dataIndex="shortName"       />
 			    				<column header="状态"           dataIndex="stateDesc"     />
-			    				<column header="操作"           dataIndex=""              id="operator" width="250" />
+			    				<column header="操作"           dataIndex=""              id="operator" width="350" />
 			    			</columns>
 			    		</complexgrid>
 			    	<!-- service ext ui.  end. -->
