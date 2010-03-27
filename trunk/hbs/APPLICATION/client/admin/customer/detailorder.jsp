@@ -49,7 +49,7 @@
 				    			
 			    			<listpanel title="处理信息" frame="true" collapsible="true" titleCollapse="true" id="04process">
 			    				<layoutpanel columnNum="1">
-				    				<dictcombo fieldLabel="客户意见"           hiddenName=""	paramsValue="AUDIT" emptyText="请选择" id="04khyj" />
+				    				<dictcombo fieldLabel="客户意见"           hiddenName=""	paramsValue="CLIENT_CUST_OD_04" emptyText="请选择" id="04khyj" />
 				    				<textarea  fieldLabel="客户原因"           name=""	      width="600"         height="80" />
 				    			</layoutpanel>	
 				    		</listpanel>
