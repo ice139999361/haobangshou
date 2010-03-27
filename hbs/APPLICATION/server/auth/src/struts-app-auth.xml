@@ -204,6 +204,18 @@
 		 <action name="resource!menu" method="doMenu" 
     			class="com.hbs.auth.action.ResourceAction">
 		</action>
+		<!-- 
+	/**
+	 * 查询资源2
+	 * @action.input resource.*
+	 * @action.result list List<Resource> + dynamicFields.actions (List<Action>)
+	 * @action.result count 数量
+	 * @return
+	 */
+	 	 -->
+		 <action name="resource!list2" method="doList2" 
+    			class="com.hbs.auth.action.ResourceAction">
+		</action>
 		
     </package>
 </struts>

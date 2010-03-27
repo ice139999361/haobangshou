@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import org.apache.log4j.Logger;
@@ -55,9 +56,11 @@ public class ResourceAction extends BaseAction {
 			List<Resource> list = getRMgr().listResource(resource);
 			ActionMgr amgr = (ActionMgr)getBean(AuthConstants.ACTION_MANAGER_NAME);
 			for(Resource res : list) {
-				Action action = new Action();
-				action.setActionsId(res.getActionsId());
-				res.setField("actions", amgr.listAction(action));
+				if(res.getActionsId() != null){
+					Action action = new Action();
+					action.setActionsId(res.getActionsId());
+					res.setField("actions", amgr.listAction(action));
+				}
 			}
 			setResult("list", list);
 			setResult("count", getTotalCount());
@@ -69,6 +72,55 @@ public class ResourceAction extends BaseAction {
 		}
 	}
 	
+	/**
+	 * 查询资源
+	 * @action.input resource.*
+	 * @action.result list List<Resource> + dynamicFields.actions (List<Action>)
+	 * @action.result count 数量
+	 * @return
+	 */
+	public String doList2() {
+		try {
+			if(resource == null)
+				resource = new Resource();
+			setTotalCount(getRMgr().listResourceCount(resource));
+			List<Resource> list = getRMgr().listResource(resource);
+			ActionMgr amgr = (ActionMgr)getBean(AuthConstants.ACTION_MANAGER_NAME);
+			Vector<Map<String, Object>> list2 = new Vector<Map<String, Object>>();
+			for(Resource res : list) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("title", res.getResourceName());
+				map.put("name", "r" + res.getResourceId().toString());
+				if(res.getActionsId() != null) {
+					Action action = new Action();
+					action.setActionsId(res.getActionsId());
+					List<Action> actionList = amgr.listAction(action);
+					Vector<Map<String, Object>> actionList2 = new Vector<Map<String, Object>>();
+					for(Action a : actionList) {
+						Map<String, Object> actionMap = new HashMap<String, Object>();
+						actionMap.put("title", a.getDescription());
+						actionMap.put("value", "a"+a.getActionId());
+						actionList2.add(actionMap);
+					}
+					map.put("list", actionList2);
+					res.setField("actions", actionList);
+				}
+				list2.add(map);
+			}
+			//setResult("list", list);
+			//setResult("count", getTotalCount());
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("title","test");
+			map.put("list", list2);
+			setResult("list", new Map[] {map});
+			return SUCCESS;
+		} catch(Exception e) {
+			logger.error("catch Exception in doGetAllRes", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+	}
+
 	/**
 	 * 获取菜单
 	 * @action.result menu: List<Resource> + dnamicFields.children (List<Resource>) + dynamicFields.isLeaf (boolean)
