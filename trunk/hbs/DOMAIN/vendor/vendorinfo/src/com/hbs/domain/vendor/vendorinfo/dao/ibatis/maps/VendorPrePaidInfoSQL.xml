@@ -34,7 +34,7 @@
 
 <delete id="Vendor_PrePaidInfo_deletePrePaidInfoByID" parameterClass="string">
 <![CDATA[
-    DELETE  FROM  T_VENDOR_PREPAID WHERE SEQID = #seqId#
+    DELETE  FROM  T_VENDOR_PREPAID WHERE BASE_SEQID = #baseSeqId#
 ]]>
 </delete>    
 
