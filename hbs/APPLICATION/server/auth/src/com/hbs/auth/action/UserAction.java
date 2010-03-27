@@ -1,7 +1,6 @@
 package com.hbs.auth.action;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Vector;
 
@@ -208,12 +207,6 @@ public class UserAction extends BaseAction  {
 		}
 	}
 
-	Comparator<Role> compRoleId = new Comparator<Role>(){
-		public int compare(Role o1, Role o2) {
-			return o1.getRoleId() - o2.getRoleId();
-		}
-	};
-		
 	/**
 	 * 返回根据roleId排序的所有角色列表
 	 * @return
@@ -224,7 +217,7 @@ public class UserAction extends BaseAction  {
 		List<Role> roleList = rmgr.listRole(new Role());
 		if(roleList == null)
 			return null;
-		Collections.sort(roleList, compRoleId);
+		Collections.sort(roleList, RoleAction.compRoleId);
 		return roleList;
 	}
 	
@@ -256,7 +249,7 @@ public class UserAction extends BaseAction  {
 			if(roleList != null) {
 				Role r = new Role();
 				r.setRoleId(ur.getRoleId());
-				int i = Collections.binarySearch(roleList, r, compRoleId);
+				int i = Collections.binarySearch(roleList, r, RoleAction.compRoleId);
 				if(i >= 0 && i < roleList.size())
 					sbName.append(roleList.get(i).getRoleName());
 			}

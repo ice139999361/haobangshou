@@ -1,12 +1,1 @@
-﻿{
-    "data": {
-        "list": [
-            {
-                "roleName": "系统管理员",
-                "memo"    : "拥有无比强大的管理权限"
-            }
-        ],
-        "count": 1
-    },
-    "success": true
-}
+{"data":{"list":[{"dynamicFields":{},"end":9999999,"memo":null,"order":null,"resources":null,"roleId":1,"roleName":"testRole1","sort":null,"start":0},{"dynamicFields":{},"end":9999999,"memo":"adsagaer","order":null,"resources":null,"roleId":2,"roleName":"asdf","sort":null,"start":0},{"dynamicFields":{},"end":9999999,"memo":"asdf","order":null,"resources":null,"roleId":4,"roleName":"gdsa","sort":null,"start":0}],"count":3},"success":true}
