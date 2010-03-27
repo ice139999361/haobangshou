@@ -98,7 +98,7 @@ public class VendorInfoUtil {
 	 * @param vendorInfo	供应商信息
 	 * @return 出错信息，格式：Map<出错字段,出错信息>
 	 */
-	public static List<FieldErr> checkInputFields(VendorInfo vendorInfo)
+	public static List<FieldErr> checkInputFields(VendorInfo vendorInfo) throws Exception
 	{
 		if(vendorInfo == null)
 			return new ArrayList<FieldErr>();
@@ -288,14 +288,13 @@ public class VendorInfoUtil {
 	 * 检查选择数据。检查选项值，填写选项的说明字段
 	 * @param vendorInfo
 	 */
-	public static List<FieldErr> checkSelectFields(VendorInfo vendorInfo)
+	public static List<FieldErr> checkSelectFields(VendorInfo vendorInfo) throws Exception
 	{
 		if(vendorInfo == null)
 			return null;
 		List<FieldErr> list = new ArrayList<FieldErr>();
 		
-		try
-		{
+		
 			String s;
 			ConfigEncode ce;
 			s = vendorInfo.getImportantCode();
@@ -373,11 +372,7 @@ public class VendorInfoUtil {
 				else
 					vendorInfo.setStaffName(u.getStaffName());
 			}
-		}
-		catch(Exception e)
-		{
-			logger.info("checkSelectFields出错", e);
-		}
+		
 		
 		return list;
 	}

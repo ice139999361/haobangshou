@@ -93,7 +93,7 @@ public abstract class ContactMgr {
 		ContactInfoDao contactInfoDao =(ContactInfoDao)BeanLocator.getInstance().getBean(getContactInfoDao());
 		contactInfoDao.deleteContactInfo(contactInfo);
 		if(isDelCurrent){
-			contactInfoDao.deleteContactInfoByID(contactInfo.getSeqId());
+			contactInfoDao.deleteContactInfoByID(contactInfo.getBaseSeqId());
 		}
 	}
 	
@@ -105,7 +105,7 @@ public abstract class ContactMgr {
 	 * @param staffName
 	 * @throws Exception
 	 */
-	public int updateContactInfo(ContactInfo contactInfo)throws Exception{
+	private int updateContactInfo(ContactInfo contactInfo)throws Exception{
 		int ret =0;
 		getLogger().debug("更新联系人信息,输入的参数为：" + contactInfo.toString());
 		int state = Integer.parseInt(contactInfo.getState());
@@ -120,12 +120,18 @@ public abstract class ContactMgr {
 			//contactInfoDao.deleteContactInfoByID(contactInfo.getSeqId());
 			//strLogType = "审批数据";
 			break;
-		case 1://没有提交的数据修改		
-			contactInfoDao.updateContactInfo(contactInfo);
+		case 1://没有提交的数据修改	
+			//为保证列表数据变化能够实现，先删除所有的，再重新插入，删除动作在调用者中删除
+			//contactInfoDao.deleteContactInfoByID(contactInfo.getBaseSeqId());
+			contactInfoDao.insertContactInfo(contactInfo);
+			//contactInfoDao.updateContactInfo(contactInfo);
 			//strLogType = "修改临时数据";
 			break;
 		case 2://提交数据修改
-			contactInfoDao.updateContactInfo(contactInfo);
+			//为保证列表数据变化能够实现，先删除所有的，再重新插入，删除动作在调用者中删除
+			//contactInfoDao.deleteContactInfoByID(contactInfo.getBaseSeqId());
+			contactInfoDao.insertContactInfo(contactInfo);
+			//contactInfoDao.updateContactInfo(contactInfo);
 			//strLogType = "提交临时数据";
 			break;
 		case 3://审批不通过数据只修改状态
@@ -167,7 +173,19 @@ public abstract class ContactMgr {
 	public int updateContactInfoList(List<ContactInfo> contactInfoList, String staffId,String staffName,String otherInfo)throws Exception{
 		int ret =0 ;
 		getLogger().debug("批量更新联系人信息，批量数量为：" + contactInfoList.size());
+		boolean isDel = true;
 		for(ContactInfo contactInfo : contactInfoList){
+			if(isDel){
+				int state = Integer.parseInt(contactInfo.getState());
+				switch(state){
+				case 1:
+				case 2:
+					ContactInfoDao contactInfoDao =(ContactInfoDao)BeanLocator.getInstance().getBean(getContactInfoDao());
+					contactInfoDao.deleteContactInfoByID(contactInfo.getBaseSeqId());
+					isDel = false;
+					break;
+				}
+			}
 			updateContactInfo( contactInfo);
 		}
 		return ret;

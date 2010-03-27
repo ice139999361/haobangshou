@@ -90,7 +90,7 @@ public abstract class BankInfoMgr {
 		BankInfoDao bankInfoDao = (BankInfoDao)BeanLocator.getInstance().getBean(getBankInfoDao());
 		bankInfoDao.deleteBankInfo(bankInfo);
 		if(isDelCurrent){
-			bankInfoDao.deleteBankInfoByID(bankInfo.getSeqId());
+			bankInfoDao.deleteBankInfoByID(bankInfo.getBaseSeqId());
 		}		
 	}
 	/**
@@ -101,7 +101,7 @@ public abstract class BankInfoMgr {
 	 * @param staffName
 	 * @throws Exception
 	 */
-	public int updateBankInfo(BankInfo bankInfo)throws Exception{
+	private int updateBankInfo(BankInfo bankInfo)throws Exception{
 		int ret =0;
 		getLogger().debug("更新银行信息,输入的参数为：" + bankInfo.toString());
 		int state = Integer.parseInt(bankInfo.getState());
@@ -116,12 +116,18 @@ public abstract class BankInfoMgr {
 			//bankInfoDao.deleteBankInfoByID(bankInfo.getSeqId());
 			//strLogType = "审批数据";
 			break;
-		case 1://没有提交的数据修改		
-			bankInfoDao.updateBankInfo(bankInfo);
+		case 1://没有提交的数据修改	
+			//为保证列表数据变化能够实现，先删除所有的，再重新插入，删除动作在调用者中删除
+			//bankInfoDao.deleteBankInfoByID(bankInfo.getBaseSeqId());
+			bankInfoDao.insertBankInfo(bankInfo);
+			//bankInfoDao.updateBankInfo(bankInfo);
 			//strLogType = "修改临时数据";
 			break;
 		case 2://提交数据只修改状态
-			bankInfoDao.updateBankInfo(bankInfo);
+			//为保证列表数据变化能够实现，先删除所有的，再重新插入 ,删除动作在调用者中删除
+			//bankInfoDao.deleteBankInfoByID(bankInfo.getBaseSeqId());
+			bankInfoDao.insertBankInfo(bankInfo);
+			//bankInfoDao.updateBankInfo(bankInfo);
 			//strLogType = "提交临时数据";
 			break;
 		case 3://审批不通过数据只修改状态
@@ -166,7 +172,20 @@ public abstract class BankInfoMgr {
 	public int updateBankInfoList(List<BankInfo> bankInfoList ) throws Exception{
 		int ret =0;
 		getLogger().debug("批量更新银行信息，批量数量为：" + bankInfoList.size());
+		boolean isDel = true;
 		for(BankInfo bankInfo : bankInfoList){
+			if(isDel){
+				int state = Integer.parseInt(bankInfo.getState());
+				switch(state){
+				case 1:
+				case 2:
+					BankInfoDao bankInfoDao = (BankInfoDao)BeanLocator.getInstance().getBean(getBankInfoDao());
+					bankInfoDao.deleteBankInfoByID(bankInfo.getBaseSeqId());
+					isDel = false;
+					break;
+					
+				}
+			}
 			updateBankInfo( bankInfo);
 		}
 		return ret;
