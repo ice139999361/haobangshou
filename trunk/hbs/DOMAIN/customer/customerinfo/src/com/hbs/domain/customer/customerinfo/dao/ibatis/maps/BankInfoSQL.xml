@@ -39,7 +39,7 @@
 
 	<delete id="BankInfo_deleteBankInfoByID" parameterClass="string">
 <![CDATA[
-    DELETE  FROM  T_CUST_BANK WHERE SEQID = #seqId#
+    DELETE  FROM  T_CUST_BANK WHERE BASE_SEQID = #baseSeqId#
 ]]>
 	</delete>
 
@@ -93,7 +93,7 @@
 		SET
 		STATE = #state#
 
-		WHERE SEQID = #seqId#
+		WHERE BASE_SEQID = #baseSeqId#
 </update>
 
 	<select id="BankInfo_findBankInfo" resultMap="bankInfo_result"
