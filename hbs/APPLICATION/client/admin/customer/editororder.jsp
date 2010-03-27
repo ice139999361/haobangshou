@@ -5,6 +5,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title></title>
+	<script type="text/javascript" src="<%=contextPath %>/customer/component/ordercommonpro.js"></script>
 </head>
 
 <body>
@@ -51,41 +52,7 @@
 				    		</listpanel>
 			    		</items></form>
 			    		
-			    		<complexgrid id="ordergrid" frame="true" height="200" deftbar="true" url="1" title="订单详情">
-			    			<fields>
-			    				<field name="seqId" />
-			    				<field name="pnName" />
-			    				<field name="cpartNo" />
-			    				<field name="partNo" />
-			    				<field name="pnDesc"  />
-			    				<field name="cprice"  />
-			    				<field name="cpriceTax"  />
-			    				<field name="isTax" />
-			    				<field name="amount" />
-			    				<field name="money"  />
-			    				<field name="orgDeliveryDate" />
-			    				<field name="specDesc" />
-			    				<field name="commDesc" />
-			    			</fields>
-			    			
-			    			<columns>
-			    			  <column dataIndex="seqId"             isCheck="true"            />
-			    				<column dataIndex="pnName"            header="货品名称"         />
-			    				<column dataIndex="cpartNo"           xtype="autocomplete"      id="cCpartNo"    header="客户型号&lt;font color=red&gt;*&lt;/font&gt;"    />
-			    				<column dataIndex="partNo"            xtype="autocomplete"      id="cPartNo"     header="GLE型号&lt;font color=red&gt;*&lt;/font&gt;"     />
-			    				<column dataIndex="pnDesc"            header="描述"             />
-			    				<column dataIndex="cprice"            header="单价"             />
-			    				<column dataIndex="cpriceTax"         header="税率"             />
-			    				<column dataIndex="isTax"             xtype="dictcombo"         paramsValue="IS_TAX"       header="是否含税交易&lt;font color=red&gt;*&lt;/font&gt;"/>
-			    				<column dataIndex="amount"            xtype="numberfield"       renderer="amountRenderer" header="数量&lt;font color=red&gt;*&lt;/font&gt;"        />
-			    				<column dataIndex="money"             header="金额"             />
-			    				<column dataIndex="orgDeliveryDate"   xtype="datefield" 	      format="Y-m-d"        header="交货日期&lt;font color=red&gt;*&lt;/font&gt;"    />
-			    				<column dataIndex="specDesc"          xtype="textfield"         header="特殊备注&lt;font color=red&gt;*&lt;/font&gt;"    />
-			    				<column dataIndex="commDesc"          xtype="textfield"         header="备注&lt;font color=red&gt;*&lt;/font&gt;"        />
-			    			</columns>
-			    			
-			    			<submitFields value="seqId,pnName,cpartNo,partNo,pnDesc,cprice,cpriceTax,isTax,amount,money,orgDeliveryDate,specDesc,commDesc" />
-			    		</complexgrid>
+			    		<complexgrid id="ordergrid" frame="true" height="200" deftbar="true" url="1" title="订单详情" itemsFun="ordergridFun" />
 			    		
 			    		<panel buttonAlign="center">
 			    			<buttons>
