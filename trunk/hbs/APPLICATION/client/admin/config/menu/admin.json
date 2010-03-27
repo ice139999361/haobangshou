@@ -215,7 +215,7 @@
                     "text": "入库",
                     "menuOrder": "20000",
                     "leaf": "true",
-                    "url": "/vendor/auditvendor.jsp"
+                    "url": "/warehouse/editorwarehousein.jsp?editorType=add"
                 },
                 {
                     "id": "ckrkdcx",
@@ -229,7 +229,7 @@
                     "text": "出库",
                     "menuOrder": "40000",
                     "leaf": "true",
-                    "url": "/vendor/pnquery.jsp?roleType=cgm"
+                    "url": "/warehouse/editorwarehouseout.jsp?editorType=add"
                 },
                 {
                     "id": "ckckdcx",
