@@ -25,12 +25,12 @@ var ordergridFun = function() {
 			    							
 	cgh.appendColumn({dataIndex: "operSeqId"	, isCheck: true});
 	cgh.appendColumn({header: "货品名称"	, dataIndex: "pnName"});
-	cgh.appendColumn({header: "客户型号<font color=red>*</font>"	, dataIndex: "cpartNo", xtype: "autocomplete", id: "cCpartNo"});
-	cgh.appendColumn({header: "GLE型号<font color=red>*</font>"		, dataIndex: "partNo", xtype: "autocomplete", id : "cPartNo"});
+	cgh.appendColumn({header: "客户型号<font color=red>*</font>"	, dataIndex: "cpartNo", xtype: "autocomplete", id: "cCpartNo", queryParam: "cpartNo" , url: "/customerInfo/custPartNoInfo!getInfoDict.action"});
+	cgh.appendColumn({header: "GLE型号<font color=red>*</font>"		, dataIndex: "partNo", xtype: "autocomplete", id : "cPartNo", queryParam: "partNo"  , url: "/customerInfo/custPartNoInfo!getInfoDict.action"});
 	cgh.appendColumn({header: "描述"	, dataIndex: "pnDesc"});
 	cgh.appendColumn({header: "单价"			, dataIndex: "cprice"});
 	cgh.appendColumn({header: "税率"	    , dataIndex: "cpriceTax"});
-	cgh.appendColumn({header: "是否含税交易<font color=red>*</font>", dataIndex: "isTax" , xtype: "dictcombo"  , paramsValue: "IS_TAX"});
+	cgh.appendColumn({header: "是否含税交易<font color=red>*</font>", dataIndex: "isTax" , xtype: "dictcombo"  , paramsValue: "IS_TAX_DEALER"});
 	cgh.appendColumn({header: "数量<font color=red>*</font>"	      , dataIndex: "amount", xtype: "numberfield", renderer: "amountRenderer"});
 	cgh.appendColumn({header: "金额", dataIndex: "money"});
 	cgh.appendColumn({header: "交货日期<font color=red>*</font>", dataIndex: "orgDeliveryDate", xtype: "datefield", format: "Y-m-d"});
