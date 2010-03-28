@@ -284,7 +284,7 @@ public class CustPartNoInfo extends BaseDomain{
 		sb.append(minAmount).append(";");
 		sb.append(sampleCode).append(";");
 		sb.append(vendorCode);
-		return super.toString();
+		return sb.toString();
 	}
 	
 	public String getLogContent(){

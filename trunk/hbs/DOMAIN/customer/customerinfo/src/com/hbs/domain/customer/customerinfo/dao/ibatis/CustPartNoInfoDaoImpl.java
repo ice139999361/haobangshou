@@ -35,7 +35,7 @@ public class CustPartNoInfoDaoImpl extends SqlMapClientDaoSupport implements Cus
         
     	int id = (Integer)getSqlMapClientTemplate().insert("CustPartNoInfo_insertCustPartNoInfo", custPartNoInfo);
 		if (logger.isDebugEnabled()) {
-    		logger.debug("离开insertCustPartNoInfo(CustPartNoInfo), 返回");
+    		logger.debug("离开insertCustPartNoInfo(CustPartNoInfo), 返回" + custPartNoInfo);
 		}
     	return id;
     }

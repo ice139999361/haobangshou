@@ -310,10 +310,11 @@ public class VendorPartNoInfoMgr {
 		String strLogType = null;
 		switch (state){
 		case 0:  //审批通过,先删除后插入,同时删除待审批数据,待办未做
+			String seqId = vPartNoInfo.getSeqId().toString();
 			vPartNoInfo.setIsPriceChange(getIsPriceChange(vPartNoInfoDao,vPartNoInfo));
 			vPartNoInfoDao.deleteVendorPartNoInfoByBizKey(vPartNoInfo);
 			vPartNoInfoDao.insertVendorPartNoInfo(vPartNoInfo);			
-			vPartNoInfoDao.deleteVendorPartNoInfoByID(vPartNoInfo.getSeqId().toString());
+			vPartNoInfoDao.deleteVendorPartNoInfoByID(seqId);
 			strLogType = "审批数据";
 			break;
 		case 1://没有提交的数据修改		
