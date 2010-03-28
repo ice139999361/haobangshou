@@ -3,6 +3,7 @@
  */
 package com.hbs.common.utils;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -94,6 +95,7 @@ public class ListDataUtil {
 	 * @param fieldNames	每列数据对应的字段名
 	 * @param spliter	values的列分隔符
 	 */
+	@SuppressWarnings("unchecked")
 	private static void splitIntoFields(Object o, String values,
 			String[] fieldNames, String spliter) throws Exception
 	{
@@ -112,12 +114,30 @@ public class ListDataUtil {
 				int i = 0;
 				for (; i < fieldNames.length; i++) {
 					if (StringUtils.isNotEmpty(fieldNames[i])){
-						Field fd = o.getClass().getDeclaredField(fieldNames[i]);
-						if(!(Modifier.isPublic(fd.getModifiers()))){//非公共属性
-							fd.setAccessible(true);
+						try {
+							Field fd = o.getClass().getDeclaredField(fieldNames[i]);
+							if(!(Modifier.isPublic(fd.getModifiers()))){//非公共属性
+								fd.setAccessible(true);
+							}
+							//TODO:此处可能还需要修改，特别是日期型的数据，需要转换格式，否则错误
+							Class typeClass = fd.getType();
+							Constructor con = typeClass.getConstructor(String.class);
+							fd.set(o, con.newInstance(ar[i]));
+						} catch (Exception e) {
+							int line = -1;
+							for(StackTraceElement s : e.getStackTrace()){
+								if(s.getClassName().equals(ListDataUtil.class.getName())){
+									line = s.getLineNumber();
+									break;
+								}
+							}
+							StringBuffer sb = new StringBuffer();
+							sb.append("splitIntoFields line ").append(line)
+							.append(" ").append(o.getClass().getSimpleName()).append(".").append(fieldNames[i])
+							.append("=\"").append(ar[i]).append("\"")
+							.append(" ").append(e.toString());
+							logger.debug(sb);
 						}
-						//TODO:此处可能还需要修改，特别是日期型的数据，需要转换格式，否则错误
-						fd.set(o, ar[i]);
 					}
 				}
 			}		

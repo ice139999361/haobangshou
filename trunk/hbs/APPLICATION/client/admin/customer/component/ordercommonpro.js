@@ -9,7 +9,7 @@ var amountRenderer = function(value, metadata, record) {
 var ordergridFun = function() {
 	var cgh = new ComplexGridHelper;
 	
-	cgh.appendField("seqId");
+	cgh.appendField("operSeqId");
 	cgh.appendField("pnName");
 	cgh.appendField("cpartNo");
 	cgh.appendField("partNo");
@@ -23,7 +23,7 @@ var ordergridFun = function() {
 	cgh.appendField("specDesc");
 	cgh.appendField("commDesc");
 			    							
-	cgh.appendColumn({dataIndex: "seqId"	, isCheck: true});
+	cgh.appendColumn({dataIndex: "operSeqId"	, isCheck: true});
 	cgh.appendColumn({header: "货品名称"	, dataIndex: "pnName"});
 	cgh.appendColumn({header: "客户型号<font color=red>*</font>"	, dataIndex: "cpartNo", xtype: "autocomplete", id: "cCpartNo"});
 	cgh.appendColumn({header: "GLE型号<font color=red>*</font>"		, dataIndex: "partNo", xtype: "autocomplete", id : "cPartNo"});
@@ -37,6 +37,6 @@ var ordergridFun = function() {
 	cgh.appendColumn({header: "特殊备注<font color=red>*</font>"		, dataIndex: "specDesc", xtype: "textfield"});
 	cgh.appendColumn({header: "备注<font color=red>*</font>"		, dataIndex: "commDesc", xtype: "textfield"});
 
-	cgh.setSubmitFields("seqId,pnName,cpartNo,partNo,pnDesc,cprice,cpriceTax,isTax,amount,money,orgDeliveryDate,specDesc,commDesc");
+	cgh.setSubmitFields("operSeqId,pnName,cpartNo,partNo,pnDesc,cprice,cpriceTax,isTax,amount,money,orgDeliveryDate,specDesc,commDesc");
 	return cgh;
 };
