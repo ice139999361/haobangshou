@@ -16,6 +16,52 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 		// 加载数据
 		if(this.storeAutoLoad) this.store.load();
 	},
+	__defExtRenderer__: function(xtype) {
+		var extRenderer;
+		switch(xtype) {
+			case "datetimefield":
+				/*
+				// 精确到秒的日期控件渲染处理
+				extRenderer = function(cell, val, metadata, record, rowIndex, colIndex, store) {
+					return store.grid.editorGridUtil._dataProcess(cell.name, record, "Y-m-d H:i:s");
+				}
+				*/
+				break;
+			case "datefield":
+				// 精确到日控件渲染处理
+				extRenderer = function(val, metadata, record, rowIndex, colIndex, store, column) {
+					// 如果是日期类型则进行处理
+					if(val instanceof Date) {
+						val = val.format(column.editor.format || "Y-m-d");
+						record.set(column.dataIndex, val);
+					}
+					return val;
+					//return store.grid.editorGridUtil._dataProcess(cell.name, record, "Y-m-d");
+				}
+				break;
+			case "dictcombo":
+				/*
+				// 将codeType与此控件绑定
+				cmp["codeType"] = item.codeType;
+				// 字段控件
+				extRenderer = function(cell, val, metadata, record, rowIndex, colIndex, store) {
+					// 获取容器中的值
+					var _grid = store.grid;
+					var _cm = _grid.getColumnModel();
+					var _codeType = _cm.getColumnById(_cm.getColumnId(colIndex)).codeType;
+					val = DisnHelper.getCodeTypeText(_codeType, val);
+					return val;
+				}
+				*/
+				break;
+			default:
+				// 默认的扩展渲染方法
+				extRenderer;
+				break;
+		}
+		
+		return extRenderer;
+	},
 	__getDefData__: function() {
 		if(!this.__defdata) {
 			// 获取 fields 对象
@@ -114,7 +160,7 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 				column = new Ext.grid.CheckboxSelectionModel(column);
 			} else {
 				// 处理渲染方法
-				this.__processRenderer__(column);
+				this.__processRenderer__(column, item);
 				
 				
 				// 处理可编辑对象
@@ -142,27 +188,30 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 		// 创建edit对象
 		column.editor = ExtConvertHelper.createComponent(item);
 	},
-	__processRenderer__: function(column) {
+	__processRenderer__: function(column, item) {
 		// 设置扩展的渲染方法
-		this.__setExtRenderer__(column);
+		this.__setExtRenderer__(column, item);
 		// 设置应用开发的渲染方法
 		column.__selfRenderer = eval(column.renderer) || null;
 		// 控件的renderer方法
 		column.renderer = function(val, metadata, record, rowIndex, colIndex, store) {
 			// 获取表格控件
 			var _grid = Ext.getCmp(store.gridId);
+			// 添加列对象
+			if(Ext.isEmpty(this._column)) this._column = _grid.getColumnByIndex(colIndex);
 			// 获取列对象
-			var column = _grid.getColumnByIndex(colIndex);
+			var column = this._column;
+			
 			// 扩展的渲染处理
-			if(column.__extRenderer) val = column.__extRenderer.call(this, val, metadata, record, rowIndex, colIndex, store);
+			if(column.__extRenderer) val = column.__extRenderer.call(this, val, metadata, record, rowIndex, colIndex, store, column);
 			// 应用的渲染处理
-			if(column.__selfRenderer) val = column.__selfRenderer.call(this, val, metadata, record, rowIndex, colIndex, store);
+			if(column.__selfRenderer) val = column.__selfRenderer.call(this, val, metadata, record, rowIndex, colIndex, store, column);
 
 			return val;
 		}
 	},
-	__setExtRenderer__: function(column) {
-		column.__extRenderer = null;
+	__setExtRenderer__: function(column, item) {
+		column.__extRenderer = this.__defExtRenderer__(item.xtype);;
 	},
 	__setColumnBasPro__: function(column, proItem, columnFields) {
 		Ext.each(columnFields, function(item, index, itemsAll) {
@@ -187,7 +236,6 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 	__setStore__: function(config) {
 		// 获取 fields 字段
 		var fields = config.fields;
-		
 		// 组装 store 需要的 json
 		var json = {
 			 url    : SERVER_PATH + (config.url || eval((config.id + "Url")))
@@ -245,6 +293,10 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 		var columnModel = this.getColumnModel();
 		// 返回列索引
 		return columnModel.getIndexById(id);
+	},
+	// 根据列ID，返回指定定对象
+	getColumnById: function(id) {
+		return this.getColumnByIndex(this.getColumnIndexById(id));
 	},
 	removeSelectRow: function() {
 		// 获取选种的Record集合
