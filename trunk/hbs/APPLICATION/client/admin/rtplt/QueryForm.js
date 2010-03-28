@@ -31,7 +31,7 @@ Ext.extend(ExtUx.widget.QueryForm, Ext.form.FormPanel, {
 			 				// 用于存放查询的参数
 			 				var params = this.form.getForm().getValues();
 			 				// 组装分页信息参数
-			 				Ext.apply(params, _grid.getBottomToolbar().getPageParams());
+			 				if(_grid.getBottomToolbar() && _grid.getBottomToolbar().getPageParams) Ext.apply(params, _grid.getBottomToolbar().getPageParams());
 			 				// 设置查询的基本条件
 			 				_store.baseParams = params;
 			 				
