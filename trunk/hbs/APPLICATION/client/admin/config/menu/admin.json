@@ -287,14 +287,14 @@
                     "text": "客户对帐",
                     "menuOrder": "60000",
                     "leaf": "true",
-                    "url": "/aaa.jsp"
+                    "url": "/finance/customerreconciliation.jsp"
                 },
                 {
                     "id": "cwgysdz",
                     "text": "供应商对帐",
                     "menuOrder": "70000",
                     "leaf": "true",
-                    "url": "/aaa.jsp"
+                    "url": "/finance/vendorreconciliation.jsp"
                 },
                 {
                     "id": "rkdcx",
