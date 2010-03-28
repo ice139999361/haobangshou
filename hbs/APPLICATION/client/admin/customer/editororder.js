@@ -57,17 +57,13 @@ HBSConvertHelper.init(function() {
 		
 		// 输入客户P/N或本公司P/N时，自动填写名称、描述、单价、税率
 		var orderacfun = function(action){
-			alert(1);
-			//alert(action.data.custPartNoInfo.pnDesc);
-			//if(!action.success)
-			//	return;
+			if(!action.success)	return;
 			
-			//alert(action.data.custPartNoInfo.pnDesc);	
-			//var sm = ordergrid.getSelectionModel();
-			//sm.getSelected().set("pnName"   , action.data.custPartNoInfo.pnDesc);
-			//sm.getSelected().set("pnDesc"   , action.data.custPartNoInfo.pnDesc);
-			//sm.getSelected().set("cprice"   , action.data.custPartNoInfo.price);
-			//sm.getSelected().set("cpriceTax", action.data.custPartNoInfo.priceTax);
+			var sm = ordergrid.getSelectionModel();
+			sm.getSelected().set("pnName"   , action.data.custPartNoInfo.pnDesc);
+			sm.getSelected().set("pnDesc"   , action.data.custPartNoInfo.pnDesc);
+			sm.getSelected().set("cprice"   , action.data.custPartNoInfo.price);
+			sm.getSelected().set("cpriceTax", action.data.custPartNoInfo.priceTax);
 		};
 		
 		// 获取客户型号控件并加载事件
