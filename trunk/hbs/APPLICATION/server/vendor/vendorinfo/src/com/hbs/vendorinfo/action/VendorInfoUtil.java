@@ -249,7 +249,7 @@ public class VendorInfoUtil {
 						info.setBaseSeqId(baseSeqId);
 						info.setCommCode(commCode);
 						info.setState(state);
-						info.setConType("1");
+						info.setConType("2");
 					}
 					listAll.addAll(list);					
 				}else{
@@ -279,9 +279,6 @@ public class VendorInfoUtil {
 				}else{
 					logger.debug("银行信息数量为：0");
 				}
-				
-			
-		
 	}
 	
 	/**
