@@ -18,7 +18,7 @@ HBSConvertHelper.init(function() {
 		// 提交的方法
 		var _submitFun = function(params) {
 			// 提交数据
-			ExtConvertHelper.submitForm(null, "/success.action", params, function(form, action) {
+			ExtConvertHelper.submitForm(null, "/vendorInfo/vendorPartNoInfoMgr!auditList.action", params, function(form, action) {
 				// 获取成功后的提示信息
 				var msg = ExtConvertHelper.getMessageInfo(action, "操作成功！");
 				
@@ -31,7 +31,8 @@ HBSConvertHelper.init(function() {
 		
 		// 提交的参数
 		var params = {
-			"baseSeqId" : querygrid.getCheckFields()
+			"baseSeqId" : querygrid.getCheckFields(),
+			"audit" : operator
 		};
 		
 		switch(operator) {
@@ -68,7 +69,7 @@ HBSConvertHelper.init(function() {
 			// 获取客户简称所在的列
 			var commCode_cell = view.getCell(i, view.grid.getColumnIndexById("commCode"));
 			// 将需要的链接渲染到此列
-			HBSConvertHelper.renderATag2Cell(commCode_cell.innerText, "/vendor/detailpnrelation.jsp?pageType=query&baseSeqId="+view.ds.getAt(i).get("baseSeqId"), "open", commCode_cell);
+			HBSConvertHelper.renderATag2Cell(commCode_cell.innerText, "/vendor/detailpnrelation.jsp?pageType=query&seqId="+view.ds.getAt(i).get("seqId"), "open", commCode_cell);
 			
 			
 			// 获取操作列
@@ -78,7 +79,7 @@ HBSConvertHelper.init(function() {
 			// 按钮的单击事件
 			auditBtn.on("click", function() {
 				// 要访问的 url 地址
-				var url = ["/vendor/detailpnrelation.jsp?editorType=update&baseSeqId=", this.config.get("baseSeqId"), "&state=", this.config.get("state")].join("");
+				var url = ["/vendor/detailpnrelation.jsp?editorType=update&seqId=", this.config.get("seqId"), "&state=", this.config.get("state")].join("");
 				// 打开指定页面
 				HBSConvertHelper.openNewWin(url);
 			});
