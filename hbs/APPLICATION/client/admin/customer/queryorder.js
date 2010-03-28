@@ -56,7 +56,10 @@ HBSConvertHelper.init(function() {
 		// 修改按钮触发事件
 		var updateBtnFun = function() {
 			// 要访问的 url 地址
-			var url = ["/customer/editororder.jsp?editorType=update&seqId=", this.config.get("seqId"), "&state=", this.config.get("state")].join("");
+			var url = ["/customer/editororder.jsp?editorType=update&commCode=", this.config.get("commCode")
+						, "&poNo=", this.config.get("poNo")
+						, "&poNoType=", this.config.get("poNoType")
+						, "&state=", this.config.get("state")].join("");
 			// 打开指定页面
 			HBSConvertHelper.openNewWin(url);
 		};

@@ -7,6 +7,7 @@ var complexgridFun = function() {
 	cgh.appendField("stateDesc");
 	cgh.appendField("state");
 	cgh.appendField("activeState");
+	cgh.appendField("poNoType");
 
 	cgh.appendColumn({header: "客户订单号", dataIndex: "poNo"     , id: "poNo"});
 	cgh.appendColumn({header: "客户编码"	, dataIndex: "commCode"  });
