@@ -69,7 +69,7 @@ HBSConvertHelper.init(function() {
 			// 获取客户简称所在的列
 			var commCode_cell = view.getCell(i, view.grid.getColumnIndexById("commCode"));
 			// 将需要的链接渲染到此列
-			HBSConvertHelper.renderATag2Cell(commCode_cell.innerText, "/customer/detailpnrelation.jsp?pageType=query&baseSeqId="+view.ds.getAt(i).get("baseSeqId"), "open", commCode_cell);
+			HBSConvertHelper.renderATag2Cell(commCode_cell.innerText, "/customer/detailpnrelation.jsp?pageType=query&seqId="+view.ds.getAt(i).get("seqId"), "open", commCode_cell);
 			
 			
 			// 获取操作列
@@ -79,7 +79,7 @@ HBSConvertHelper.init(function() {
 			// 按钮的单击事件
 			auditBtn.on("click", function() {
 				// 要访问的 url 地址
-				var url = ["/customer/detailpnrelation.jsp?editorType=update&baseSeqId=", this.config.get("baseSeqId"), "&state=", this.config.get("state")].join("");
+				var url = ["/customer/detailpnrelation.jsp?editorType=update&seqId=", this.config.get("seqId"), "&state=", this.config.get("state")].join("");
 				// 打开指定页面
 				HBSConvertHelper.openNewWin(url);
 			});
