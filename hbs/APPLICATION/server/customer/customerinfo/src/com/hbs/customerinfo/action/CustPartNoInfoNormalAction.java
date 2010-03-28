@@ -40,6 +40,27 @@ public class CustPartNoInfoNormalAction extends BaseAction {
     CustomerInfo custInfo;
     
     /**
+     * 客户物料编号
+     */
+    private String cpartNo;
+    /**
+     * 本公司物料编号
+     */
+    private String partNo;
+    
+    public String getCpartNo() {
+		return cpartNo;
+	}
+	public void setCpartNo(String cpartNo) {
+		this.cpartNo = cpartNo;
+	}
+	public String getPartNo() {
+		return partNo;
+	}
+	public void setPartNo(String partNo) {
+		this.partNo = partNo;
+	}
+	/**
      * 查询客户物料关系，判断了用户是否可以查看。
  	 * @action.input custPartNoInfo.commCode + custPartNoInfo.查询条件
 	 * @action.result list：列表 count：总数
@@ -149,6 +170,37 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 			return ERROR;
     	}
     }
+   
+   /**
+    * 获取客户物料关系 add by yangzj
+    * @action.input	  客户物料编号或本公司物料编号
+    * @action.result	custPartNoInfo.*
+    * @return
+    */
+  public String doGetInfoDict() {
+   	try {
+   		
+   		if(cpartNo == null && partNo == null) {
+   			logger.info("doGetInfoDict() ，无输入参数无法获取！");
+				setErrorReason("无法获取客户物料关系对照！");
+				return ERROR;
+   		}else{
+   			logger.debug("doGetInfoDict(),输入的参数为：partno=" + partNo +"cpartno=" + cpartNo);
+   		}
+   		CustPartNoInfo cPartNoInfo = new CustPartNoInfo();
+   		cPartNoInfo.setCustPartNo(cpartNo);
+   		cPartNoInfo.setPartNo(partNo);
+   		cPartNoInfo.setState("0");
+   		CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)getBean(custPartNoInfoMgrName);
+   		custPartNoInfo = mgr.getCustPartNoInfoByBizKey(cPartNoInfo);   		
+   		setResult("custPartNoInfo", custPartNoInfo);
+   		return SUCCESS;
+   	} catch(Exception e) {
+   		logger.error("catch Exception in doGetInfo.", e);
+			setErrorReason("内部错误");
+			return ERROR;
+   	}
+   }
     
    /**
     * 获取客户物料关系

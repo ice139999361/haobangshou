@@ -228,6 +228,11 @@
      	<action name="custPartNoInfo!getInfo" method="doGetInfo" 
     			class="com.hbs.customerinfo.action.CustPartNoInfoNormalAction">
 		</action>
+		<!-- add by yangzj 客户订单详情使用 -->
+		<action name="custPartNoInfo!getInfoDict" method="doGetInfoDict" 
+    			class="com.hbs.customerinfo.action.CustPartNoInfoNormalAction">
+		</action>
+		
      	<action name="custPartNoInfoMgr!list" method="doList" 
     			class="com.hbs.customerinfo.action.CustPartNoInfoManagerAction">
 		</action>
