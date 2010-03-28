@@ -57,21 +57,24 @@ HBSConvertHelper.init(function() {
 		
 		// 输入客户P/N或本公司P/N时，自动填写名称、描述、单价、税率
 		var orderacfun = function(action){
-			if(!action.success)
-				return;
-				
-			var sm = ordergrid.getSelectionModel();
-			sm.getSelected().set("pnName"   , "货品名称");
-			sm.getSelected().set("pnDesc"   , "描述");
-			sm.getSelected().set("cprice"   , "33.3");
-			sm.getSelected().set("cpriceTax", "税率");
+			alert(1);
+			//alert(action.data.custPartNoInfo.pnDesc);
+			//if(!action.success)
+			//	return;
+			
+			//alert(action.data.custPartNoInfo.pnDesc);	
+			//var sm = ordergrid.getSelectionModel();
+			//sm.getSelected().set("pnName"   , action.data.custPartNoInfo.pnDesc);
+			//sm.getSelected().set("pnDesc"   , action.data.custPartNoInfo.pnDesc);
+			//sm.getSelected().set("cprice"   , action.data.custPartNoInfo.price);
+			//sm.getSelected().set("cpriceTax", action.data.custPartNoInfo.priceTax);
 		};
 		
 		// 获取客户型号控件并加载事件
-		cm.getColumnById("cCpartNo").editor.setProcessConfig("/customerInfo/customerInfo!list.action", "custInfo.commCode", null, orderacfun);
+		cm.getColumnById("cCpartNo").editor.setProcessConfig("/customerInfo/customerInfo!list.action", "cpartNo", null, orderacfun);
 		
 		// 获取GLE型号控件并加载事件
-		cm.getColumnById("cPartNo").editor.setProcessConfig("/customerInfo/customerInfo!list.action", "custInfo.commCode", null, orderacfun);
+		cm.getColumnById("cPartNo").editor.setProcessConfig("/customerInfo/customerInfo!list.action", "partNo", null, orderacfun);
 		
 		//根据税率设置是否含税交易：税率为0时，可选；否则设为是，并不可修改。 
 		//输入数量时，自动填写金额。 
