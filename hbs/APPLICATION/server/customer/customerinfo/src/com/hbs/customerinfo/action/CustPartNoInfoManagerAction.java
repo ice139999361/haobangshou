@@ -236,7 +236,66 @@ public class CustPartNoInfoManagerAction extends BaseAction {
 			return ERROR;
     	}
     }
-    
+
+	/**
+	* 批量审批
+	* @action.input baseSeqId	以,分割
+	* @action.input audit	审批通过与否，为"pass"时审批通过
+	* @action.input jqyy	拒绝意见
+	* @return
+	*/
+	public String doAuditList() {
+			try{
+				if (logger.isDebugEnabled())    logger.debug("begin doAuditList");		
+				CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)getBean(custPartNoInfoMgrName);
+
+				String jqyy = this.getHttpServletRequest().getParameter("jqyy");
+				String audit = this.getHttpServletRequest().getParameter("audit");
+				String idlist = this.getHttpServletRequest().getParameter("baseSeqId");
+				if(StringUtils.isEmpty(idlist)){
+					logger.info("参数错误！");
+					setErrorReason("参数错误！");
+					return ERROR;
+				}
+				StringBuffer sb = new StringBuffer();
+				for(String id : idlist.split(",")){
+					custPartNoInfo = mgr.getCustPartNoInfoByID(id);
+					if(custPartNoInfo == null) {
+						String s = "id=" + id + " 没有找到！";
+						if(sb.length() > 0)
+							sb.append("<br />");
+						sb.append(s);
+						logger.info(s);
+						continue;
+					}
+					
+					int i;
+					if("pass".equals(audit))
+						i = mgr.auditAgreeCustPartNoInfo(custPartNoInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), auditDesc);
+					else
+						i = mgr.auditDisAgreeCustPartNoInfo(custPartNoInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), jqyy);
+					if(i != 0)
+					{
+						String s = custPartNoInfo.getLogContent() + " 审批出错！";
+						if(sb.length() > 0)
+							sb.append("<br />");
+						sb.append(s);
+						logger.error(s);
+					}
+				}
+				if(sb.length() > 0){
+					setErrorReason(sb.toString());
+					return ERROR;
+				}
+				if (logger.isDebugEnabled())    logger.debug("end doAuditList");
+				return SUCCESS;
+			}catch(Exception e){
+				logger.error("catch Exception in doAuditList.", e);
+				setErrorReason("内部错误");
+				return ERROR;
+			} 
+	}
+
 	/**
 	 * 检查客户编码是否填写。如果出现问题，本函数内设置了ErrorReaseon。
 	 * @return

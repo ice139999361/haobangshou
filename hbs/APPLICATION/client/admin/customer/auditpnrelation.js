@@ -18,7 +18,7 @@ HBSConvertHelper.init(function() {
 		// 提交的方法
 		var _submitFun = function(params) {
 			// 提交数据
-			ExtConvertHelper.submitForm(null, "/success.action", params, function(form, action) {
+			ExtConvertHelper.submitForm(null, "/customerInfo/custPartNoInfoMgr!auditList.action", params, function(form, action) {
 				// 获取成功后的提示信息
 				var msg = ExtConvertHelper.getMessageInfo(action, "操作成功！");
 				
@@ -31,7 +31,8 @@ HBSConvertHelper.init(function() {
 		
 		// 提交的参数
 		var params = {
-			"baseSeqId" : querygrid.getCheckFields()
+			"baseSeqId" : querygrid.getCheckFields(),
+			"audit" : operator
 		};
 		
 		switch(operator) {

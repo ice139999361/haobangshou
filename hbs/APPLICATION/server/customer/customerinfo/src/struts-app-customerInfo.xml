@@ -256,6 +256,20 @@
       	<action name="custPartNoInfoMgr!auditDisAgree" method="doAuditDisAgree" 
     			class="com.hbs.customerinfo.action.CustPartNoInfoManagerAction">
 		</action>
+		<!-- 
+	/**
+	* 批量审批
+	* @action.input baseSeqId	以,分割
+	* @action.input audit	审批通过与否，为"pass"时审批通过
+	* @action.input jqyy	拒绝意见
+	* @return
+	*/
+		 -->
+      	<action name="custPartNoInfoMgr!auditList" method="doAuditList" 
+    			class="com.hbs.customerinfo.action.CustPartNoInfoManagerAction">
+		</action>
+
+
 		
 		<!-- 财务用户客户信息 -->
      	<action name="customerInfoCw!list" method="doList" 
