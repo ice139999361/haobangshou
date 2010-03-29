@@ -70,7 +70,6 @@
 	    				<button text="取消" id="wbackBtn"   />
 	    			</buttons>
 	    		</complexgrid>
-	    		
 				</items>
 			</window>
 		</application>
