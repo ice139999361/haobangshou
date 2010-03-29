@@ -273,7 +273,7 @@
                     "text": "供应商订单查询",
                     "menuOrder": "40000",
                     "leaf": "true",
-                    "url": "/aaa.jsp"
+                    "url": "/vendor/queryorder.jsp?roleType=finance"
                 },
                 {
                     "id": "cwcrkjs",
