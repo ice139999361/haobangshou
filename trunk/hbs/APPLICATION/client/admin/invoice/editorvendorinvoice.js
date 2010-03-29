@@ -13,13 +13,20 @@ HBSConvertHelper.init(function() {
 	(function() {
 		// 提交按钮的单击事件
 		submitBtn.on("click", function() {
-			
+			// 提交数据
+			ExtConvertHelper.submitForm(ExtConvertHelper.getHiddenForm().id, "/success.action", null, function(form, action) {
+				// 获取成功后的提示信息
+				var msg = ExtConvertHelper.getMessageInfo(action, "操作成功！");
+				
+				// 弹出提示框给用户
+				Ext.Msg.alert("提示", msg, function() {
+					HBSConvertHelper.defaultCloseTab();
+				});
+			});
 		});
 		
 		// 取消按钮的单击事件
-		backBtn.on("click", function() {
-			
-		});
+		backBtn.on("click", HBSConvertHelper.defaultCloseTab);
 
 		querygrid.getView().on("refresh", function(view) {
 			// 查看已有发票记录按钮事件

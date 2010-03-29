@@ -16,11 +16,17 @@
 			    <panel frame="true" autoScroll="true">
 			    	<items>
 			    	<!-- service ext ui.  begin. -->
+			    		<panel>
+			    			<buttons>
+			    				<button text="新增" id="addBtn" />
+			    			</buttons>
+			    		</panel>
+			    	
 			    		<queryform gridId="querygrid" itemsFun="queryformFun" />
 
-				    	<complexgrid id="querygrid" title="发票信息列表" frame="true" page="true" root="data.list" url="1" itemsAlign="after" itemsFun="querygridFun">
+				    	<complexgrid id="querygrid" title="发票信息列表" frame="true" page="true" root="data.list" url="/custOrder/custOrderScMgr!list.action" itemsAlign="after" itemsFun="querygridFun">
 				    		<columns>
-				    			<column header="操作"      dataIndex=""  id="operator" width="100" />
+				    			<column header="操作"      dataIndex=""  id="operator" width="170" />
 				    		</columns>
 				    	</complexgrid>
 			    	<!-- service ext ui.  end. -->
