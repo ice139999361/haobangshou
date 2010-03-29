@@ -147,7 +147,7 @@
                     "text": "下供应商订单",
                     "menuOrder": "60000",
                     "leaf": "true",
-                    "url": "/customer/queryorder.jsp?roleType=cgy"
+                    "url": "/vendor/editororder.jsp?editorType=add"
                 },
                 {
                     "id": "cgygysddcx",
