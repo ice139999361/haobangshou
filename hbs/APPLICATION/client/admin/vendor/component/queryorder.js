@@ -9,9 +9,9 @@ var complexgridFun = function() {
 	cgh.appendField("activeState");
 	cgh.appendField("poNoType");
 
-	cgh.appendColumn({header: "客户订单号", dataIndex: "poNo"     , id: "poNo"});
-	cgh.appendColumn({header: "客户编码"	, dataIndex: "commCode"  });
-	cgh.appendColumn({header: "客户简称"	, dataIndex: "shortName" });
+	cgh.appendColumn({header: "供应商订单号", dataIndex: "poNo"     , id: "poNo"});
+	cgh.appendColumn({header: "供应商编码"	, dataIndex: "commCode"  });
+	cgh.appendColumn({header: "供应商简称"	, dataIndex: "shortName" });
 	cgh.appendColumn({header: "状态"		  , dataIndex: "stateDesc" });
 	
 	switch(urlPs.roleType) {

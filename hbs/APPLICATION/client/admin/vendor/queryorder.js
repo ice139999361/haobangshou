@@ -56,9 +56,20 @@ HBSConvertHelper.init(function() {
 			HBSConvertHelper.openNewWin(url);
 		};
 		
-		// 删除按钮触发事件
+		// 取消按钮触发事件
 		var cancelBtnFun = function() {
 			Ext.Msg.confirm("提示", "您要执行的是取消操作，请确认是否继续？", function(btn) {
+				if(btn == "no") return;
+				
+				ExtConvertHelper.request("/success.action?baseSeqId=" + this.config.get("baseSeqId"), null, function() {
+					HBSConvertHelper.refreshGrid("querygrid");
+				});
+			}, this);
+		}
+		
+		// 删除按钮触发事件
+		var deleteBtnFun = function() {
+			Ext.Msg.confirm("提示", "您要执行的是删除操作，请确认是否继续？", function(btn) {
 				if(btn == "no") return;
 				
 				ExtConvertHelper.request("/success.action?baseSeqId=" + this.config.get("baseSeqId"), null, function() {
@@ -82,42 +93,28 @@ HBSConvertHelper.init(function() {
 		// 采购部采购员的处理方法
 		var cgyViewFun = function(record, operator_cell) {
 			// 如果是暂停状态
-			if(record.get("activeState") == "PAUSE") return
-			
-			switch(record.get("state")) {
-				// 待采购确认交期（对账期订单有效，采购修改交期，状态变为此状态）
-				case "20":
-					// 创建操作按钮
-					var operatorBtn = HBSConvertHelper.renderButton2Cell(["处理", "查看库存", "采购交期"], operator_cell, record);
-					// 添加处理按钮事件
-					operatorBtn.get(0).on("click", processBtnFun);
-					// 添加查看库存按钮事件
-					operatorBtn.get(1).on("click", function(){});
-					// 添加采购交期按钮事件
-					operatorBtn.get(2).on("click", function() {
-						Ext.Msg.prompt("提示", "请输入供应商回复交期", function(btn, value) {
-							if(btn == "no") return;
-							// 要访问的 url 地址
-							var url = ["/success.action?poNo=", record.get("poNo")
-								,"&commCode="   , record.get("commCode")
-								,"&data="       , value
-							].join("");
-							
-							ExtConvertHelper.request(url, null, function() {
-								HBSConvertHelper.refreshGrid("querygrid");
-							});
-						}, this);
-					});
-					break;
-				// 采购备货中
-				case "21":
-					// 创建操作按钮
-					var operatorBtn = HBSConvertHelper.renderButton2Cell(["处理", "查看库存"], operator_cell, record);
-					// 添加处理按钮事件
-					operatorBtn.get(0).on("click", processBtnFun);
-					// 添加查看库存按钮事件
-					operatorBtn.get(1).on("click", function(){});
-					break;
+			if(record.get("activeState") == "PAUSE") {
+				// 创建操作按钮
+				var operatorBtn = HBSConvertHelper.renderButton2Cell(["处理"], operator_cell, record);
+				// 添加继续按钮事件
+				operatorBtn.on("click", processBtnFun);
+			} else {
+				switch(record.get("state")) {
+					// 临时保存数据
+					case "01":
+						var operatorBtn = HBSConvertHelper.renderButton2Cell(["删除", "修改"], operator_cell, record);
+						// 添加删除按钮事件
+						operatorBtn.get(0).on("click", deleteBtnFun);
+						// 添加修改按钮事件
+						operatorBtn.get(1).on("click", updateBtnFun);
+						break;
+					// 待交期确认
+					case "04":
+						var operatorBtn = HBSConvertHelper.renderButton2Cell(["处理"], operator_cell, record);
+						// 添加删除按钮事件
+						operatorBtn.on("click", processBtnFun);
+						break;
+				}
 			}
 			
 		};
@@ -130,10 +127,6 @@ HBSConvertHelper.init(function() {
 			switch(record.get("state")) {
 				// 待财务确认预付
 				case "30":
-				// 待财务确认发货（针对预付X%，款到发货）
-				case "31":
-				// 待财务确认收到剩余货款
-				case "32":
 					// 创建操作按钮
 					var operatorBtn = HBSConvertHelper.renderButton2Cell(["处理"], operator_cell, record);
 					// 添加继续按钮事件
@@ -178,9 +171,6 @@ HBSConvertHelper.init(function() {
 					break;
 				case "finance":
 					financeViewFun(record, operator_cell);
-					break;
-				case "financemanager":
-					financemanagerViewFun(record, operator_cell);
 					break;
 			}
 		}
