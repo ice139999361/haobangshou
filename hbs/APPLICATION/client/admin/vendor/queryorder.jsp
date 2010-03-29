@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>客户订单查询</title>
+	<title>供应商订单查询</title>
 	<script type="text/javascript" src="<%=contextPath %>/vendor/component/queryorder.js"></script>
 </head>
 
