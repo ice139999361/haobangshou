@@ -178,7 +178,7 @@ HBSConvertHelper.init(function() {
 	// 修改页面的处理逻辑
 	function updateInitFun() {
 		// 更改页签标题
-		HBSConvertHelper.setDocumentTitle("客户订单修改");
+		HBSConvertHelper.setDocumentTitle("供应商订单修改");
 		// 隐藏不需要的控件
 		if(urlPs.state != "01") ExtConvertHelper.hideItems("saveBtn");
 		

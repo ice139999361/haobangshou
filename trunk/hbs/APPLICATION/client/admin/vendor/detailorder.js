@@ -20,7 +20,7 @@ HBSConvertHelper.init(function() {
 	// -------------------------------------- 应用逻辑处理
 	
 	// 隐藏不需要的按钮
-	ExtConvertHelper.hideItems("submitBtn,04process,auditPanel");
+	ExtConvertHelper.hideItems("submitBtn,04process");
 	
 	// 定义 submitFun
 	var submitFun = function() {
@@ -66,7 +66,7 @@ HBSConvertHelper.init(function() {
 	var processInitFun = function() {
 		
 		// 市场业务员的处理方法
-		var sccustomersViewFun = function() {
+		var cgyViewFun = function() {
 			// 如果是暂停状态
 			if(urlPs.activeState == "PAUSE") {
 				// 显示需要的控件
@@ -79,59 +79,17 @@ HBSConvertHelper.init(function() {
 					// 待业务确认交期(只对账期订单有效，本状态是采购修改交期后，显示的状态，等待业务确认交期，交期的概念针对订单明细，只要有一个订单明细需要确认交期，订单状态就为待交期确认)
 					case "04":
 						// 显示需要的控件
-						ExtConvertHelper.showItems("submitBtn,04process");
-						// 客户意见的选择事件，下边 01,02,03是假设的数据，需要和字典更对
-						Ext.getCmp("04khyj").on("select", function() {
-							switch(this.getValue()) {
-								case "1":
-									submitBtn.url = "/success.action";
-									break;
-								case "2":
-									submitBtn.url = "/success.action";
-									break;
-								case "3":
-									submitBtn.url = "/success.action";
-									break;
-							}
-						});
-						break;
-					// 交期到，待业务确认发货（货未备齐）
-					case "05":
-						// 显示需要的控件
-						ExtConvertHelper.showItems("submitBtn");
-						// 设置提交按钮
-						submitBtn.setText("客户要求发货");
-						submitBtn.url = "/success.action";
+						ExtConvertHelper.showItems("submitBtn,04process,operatorBtn1,operatorBtn2");
+						operatorBtn1.setText("确认交期");
+						operatorBtn1.url = "/success.action";
+						operatorBtn1.on("click", submitFun);
+						
+						operatorBtn2.setText("取消订单");
+						operatorBtn2.url = "/success.action";
+						operatorBtn2.on("click", submitFun);
 						break;
 				}
 			}
-		};
-		
-		// 市场经理的处理方法
-		var scmanagerViewFun = function() {
-			switch(urlPs.state) {
-				// 待经理审批最大金额（账期交易，本账期订单超出了最大金额）
-				case "50":
-					// 显示需要的控件
-					ExtConvertHelper.showItems("submitBtn,auditPanel");
-					submitBtn.url = "/success.action";
-					break;
-			}			
-		};
-		
-		// 采购部采购员的处理方法
-		var cgyViewFun = function() {
-			switch(urlPs.state) {
-				// 待采购确认交期（对账期订单有效，采购修改交期，状态变为此状态）
-				case "20":
-				// 采购备货中
-				case "21":
-					// 显示需要的控件
-					ExtConvertHelper.showItems("submitBtn");
-					submitBtn.setText("下单");
-					submitBtn.url = "/success.action";
-					break;
-			}			
 		};
 		
 		// 财务的处理方法
@@ -139,33 +97,17 @@ HBSConvertHelper.init(function() {
 			switch(urlPs.state) {
 				// 待财务确认预付
 				case "30":
-					ExtConvertHelper.showItems("operatorBtn2");
-					operatorBtn2.setText("退回");
-					operatorBtn2.url = "/success.action";
-					operatorBtn2.on("click", submitFun);
-				// 待财务确认发货（针对预付X%，款到发货）
-				case "31":
-				// 待财务确认收到剩余货款
-				case "32":
-					ExtConvertHelper.showItems("operatorBtn1");
-					operatorBtn1.setText("确认");
+					ExtConvertHelper.showItems("operatorBtn1,operatorBtn2");
+					operatorBtn1.setText("预付款已付");
 					operatorBtn1.url = "/success.action";
 					operatorBtn1.on("click", submitFun);
+					
+					operatorBtn2.setText("取消订单");
+					operatorBtn2.url = "/success.action";
+					operatorBtn2.on("click", submitFun);
 					break;
 			}
 			
-		};
-		
-		// 财务经理的处理方法
-		var financemanagerViewFun = function() {
-			switch(urlPs.state) {
-				// 款到发货而款未到，申请待经理审批（针对预付X%，剩余款到发货）
-				case "33":
-					// 显示需要的控件
-					ExtConvertHelper.showItems("submitBtn,auditPanel");
-					submitBtn.url = "/success.action";
-					break;
-			}			
 		};
 		
 		eval(urlPs.roleType + "ViewFun")();
