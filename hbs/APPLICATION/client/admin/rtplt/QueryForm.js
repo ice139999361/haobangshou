@@ -19,6 +19,8 @@ Ext.extend(ExtUx.widget.QueryForm, Ext.form.FormPanel, {
 		 		,text: "查询"
 		 		,listeners: {
 		 				click: function() {
+		 					// 如果 BaseForm 的 Ext Element 对象不存在
+		 					if(!this.form.getForm().getEl()) return;
 		 					// 获取关联表格的 id
 			 				var _gridId = this.form.gridId;
 			 				// 如果没有进行关联则跳出
