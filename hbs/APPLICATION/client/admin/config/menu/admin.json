@@ -311,11 +311,18 @@
                     "url": "/aaa.jsp"
                 },
                 {
-                    "id": "cwfp",
-                    "text": "发票",
+                    "id": "cwgysfpxz",
+                    "text": "供应商发票新增",
                     "menuOrder": "100000",
                     "leaf": "true",
-                    "url": "/aaa.jsp"
+                    "url": "/invoice/editorvendorinvoice.jsp"
+                },
+                {
+                    "id": "cwgysfpcx",
+                    "text": "供应商发票查询",
+                    "menuOrder": "110000",
+                    "leaf": "true",
+                    "url": "/invoice/queryvendorinvoice.jsp"
                 }
             ]
         },
