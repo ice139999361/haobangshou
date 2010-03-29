@@ -154,7 +154,7 @@
                     "text": "供应商订单查询",
                     "menuOrder": "60000",
                     "leaf": "true",
-                    "url": "/customer/queryorder.jsp?roleType=cgy"
+                    "url": "/vendor/queryorder.jsp?roleType=cgy"
                 }
             ]
         },
