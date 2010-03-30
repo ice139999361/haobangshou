@@ -419,25 +419,25 @@
 			<isNotEmpty prepend="and"
 				property="dynamicFields.beginPoNoDate">
 				<![CDATA[	
-					ORDER_TIME >= STR_TO_DATE('$dynamicFields.beginPoNoDate$','%Y-%m-%d')
+					PO_NO_DATE >= STR_TO_DATE('$dynamicFields.beginPoNoDate$','%Y-%m-%d')
 				]]>
 			</isNotEmpty>
 			<isNotEmpty prepend="and"
 				property="dynamicFields.endPoNoDate">
 				<![CDATA[	
-					ORDER_TIME < STR_TO_DATE('$dynamicFields.endPoNoDate$','%Y-%m-%d')
+					PO_NO_DATE < STR_TO_DATE('$dynamicFields.endPoNoDate$','%Y-%m-%d')
 				]]>
 			</isNotEmpty>
 			<isNotEmpty prepend="and"
 				property="dynamicFields.beginApplyDate">
 				<![CDATA[	
-					ORDER_TIME >= STR_TO_DATE('$dynamicFields.beginApplyDate$','%Y-%m-%d')
+					ARRAY_DATE >= STR_TO_DATE('$dynamicFields.beginApplyDate$','%Y-%m-%d')
 				]]>
 			</isNotEmpty>
 			<isNotEmpty prepend="and"
 				property="dynamicFields.endApplyDate">
 				<![CDATA[	
-					ORDER_TIME < STR_TO_DATE('$dynamicFields.endApplyDate$','%Y-%m-%d')
+					ARRAY_DATE < STR_TO_DATE('$dynamicFields.endApplyDate$','%Y-%m-%d')
 				]]>
 			</isNotEmpty>
 			
@@ -524,25 +524,25 @@
 			<isNotEmpty prepend="and"
 				property="dynamicFields.beginPoNoDate">
 				<![CDATA[	
-					ORDER_TIME >= STR_TO_DATE('$dynamicFields.beginPoNoDate$','%Y-%m-%d')
+					PO_NO_DATE >= STR_TO_DATE('$dynamicFields.beginPoNoDate$','%Y-%m-%d')
 				]]>
 			</isNotEmpty>
 			<isNotEmpty prepend="and"
 				property="dynamicFields.endPoNoDate">
 				<![CDATA[	
-					ORDER_TIME < STR_TO_DATE('$dynamicFields.endPoNoDate$','%Y-%m-%d')
+					PO_NO_DATE < STR_TO_DATE('$dynamicFields.endPoNoDate$','%Y-%m-%d')
 				]]>
 			</isNotEmpty>
 			<isNotEmpty prepend="and"
 				property="dynamicFields.beginApplyDate">
 				<![CDATA[	
-					ORDER_TIME >= STR_TO_DATE('$dynamicFields.beginApplyDate$','%Y-%m-%d')
+					ARRAY_DATE >= STR_TO_DATE('$dynamicFields.beginApplyDate$','%Y-%m-%d')
 				]]>
 			</isNotEmpty>
 			<isNotEmpty prepend="and"
 				property="dynamicFields.endApplyDate">
 				<![CDATA[	
-					ORDER_TIME < STR_TO_DATE('$dynamicFields.endApplyDate$','%Y-%m-%d')
+					ARRAY_DATE < STR_TO_DATE('$dynamicFields.endApplyDate$','%Y-%m-%d')
 				]]>
 			</isNotEmpty>
 		</dynamic>
