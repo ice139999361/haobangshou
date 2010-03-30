@@ -6,6 +6,15 @@ var amountRenderer = function(value, metadata, record) {
 	return value;
 }
 
+var cpriceTaxRenderer = function(value, metadata, record) {
+	if(value == "") return value;
+	if(value) {
+		record.set("isTax", "1");
+	} 
+	
+	return value;
+}
+
 var ordergridFun = function() {
 	var cgh = new ComplexGridHelper;
 	
@@ -29,7 +38,7 @@ var ordergridFun = function() {
 	cgh.appendColumn({header: "GLE型号<font color=red>*</font>"		, dataIndex: "partNo", xtype: "autocomplete", id : "cPartNo", queryParam: "partNo"  ,displayField:"partNo" , valueField:"partNo" , url: "/customerInfo/custPartNoInfo!getListDict.action"});
 	cgh.appendColumn({header: "描述"	, dataIndex: "pnDesc"});
 	cgh.appendColumn({header: "单价"			, dataIndex: "cprice"});
-	cgh.appendColumn({header: "税率"	    , dataIndex: "cpriceTax"});
+	cgh.appendColumn({header: "税率"	    , dataIndex: "cpriceTax", renderer: "cpriceTaxRenderer"});
 	cgh.appendColumn({header: "是否含税交易<font color=red>*</font>", dataIndex: "isTax" , xtype: "dictcombo"  , paramsValue: "IS_TAX_DEALER"});
 	cgh.appendColumn({header: "数量<font color=red>*</font>"	      , dataIndex: "amount", xtype: "numberfield", renderer: "amountRenderer"});
 	cgh.appendColumn({header: "金额", dataIndex: "money"});
