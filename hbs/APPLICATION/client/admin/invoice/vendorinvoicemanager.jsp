@@ -38,4 +38,4 @@
 	</xmp>
 </body>
 </html>
-<script type="text/javascript" src="<%=contextPath %>/invoice/queryvendorinvoice.js"></script>
+<script type="text/javascript" src="<%=contextPath %>/invoice/vendorinvoicemanager.js"></script>
