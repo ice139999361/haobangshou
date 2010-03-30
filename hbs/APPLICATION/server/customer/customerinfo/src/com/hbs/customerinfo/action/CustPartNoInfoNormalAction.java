@@ -202,6 +202,32 @@ public class CustPartNoInfoNormalAction extends BaseAction {
    	}
    }
     
+  public String doListDict() {
+	   	try {
+	   		
+	   		if(cpartNo == null && partNo == null) {
+	   			logger.info("doGetInfoDict() ，无输入参数无法获取！");
+					setErrorReason("无法获取客户物料关系对照！");
+					return ERROR;
+	   		}else{
+	   			logger.debug("doGetInfoDict(),输入的参数为：partno=" + partNo +"cpartno=" + cpartNo);
+	   		}
+	   		CustPartNoInfo cPartNoInfo = new CustPartNoInfo();
+	   		cPartNoInfo.setCustPartNo(cpartNo);
+	   		cPartNoInfo.setPartNo(partNo);
+	   		cPartNoInfo.setState("0");
+	   		
+	   		CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)getBean(custPartNoInfoMgrName);
+			setResult("list", mgr.listCustPartNoInfo(cPartNoInfo));
+			//setTotalCount(mgr.listCustPartNoInfoCount(cPartNoInfo));
+			//setResult("count", getTotalCount());
+	   		return SUCCESS;
+	   	} catch(Exception e) {
+	   		logger.error("catch Exception in doGetInfo.", e);
+				setErrorReason("内部错误");
+				return ERROR;
+	   	}
+	   }
    /**
     * 获取客户物料关系
     * @action.input	custPartNoInfo.commCode + custPartNoInfo.custPartNo + custPartNoInfo.state，如果state没有填写，则默认state=0
