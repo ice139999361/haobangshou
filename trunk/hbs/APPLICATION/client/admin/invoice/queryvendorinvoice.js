@@ -31,7 +31,7 @@ HBSConvertHelper.init(function() {
 			// 修改按钮触发事件
 			var updateBtnFun = function() {
 				// 要访问的 url 地址
-				var url = ["/invoice/editorvendorinvoice.jsp?editorType=update&commCode=", this.config.get("commCode")
+				var url = ["/invoice/editorvendorinvoiced.jsp?editorType=update&commCode=", this.config.get("commCode")
 							, "&poNo=", this.config.get("poNo")
 							, "&poNoType=", this.config.get("poNoType")
 							, "&state=", this.config.get("state")].join("");
@@ -42,6 +42,12 @@ HBSConvertHelper.init(function() {
 			for(var i = 0 ; i < view.ds.getCount() ; i++) {
 				// 获取数据容器
 				var record = view.ds.getAt(i);
+				
+				// 获取编码所在的列
+				var commCode_cell = view.getCell(i, view.grid.getColumnIndexById("commCode"));
+				// 将需要的链接渲染到此列
+				HBSConvertHelper.renderATag2Cell(commCode_cell.innerText, "/invoice/detailvendorinvoiced.jsp?pageType=query&baseSeqId=" + record.get("baseSeqId"), "open", commCode_cell);
+			
 				// 获取操作列
 				var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));
 				// 创建操作按钮
