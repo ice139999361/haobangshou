@@ -30,7 +30,7 @@ var querygridFun = function() {
 	cgh.appendField("l6");
 
 			    							
-	cgh.appendColumn({header: "编码"      , dataIndex: "l1"});
+	cgh.appendColumn({header: "编码"      , dataIndex: "l1"     , id: "commCode"});
 	cgh.appendColumn({header: "日期"      , dataIndex: "l2"});
 	cgh.appendColumn({header: "送货单号"  , dataIndex: "l3"});
 	cgh.appendColumn({header: "物料编号"  , dataIndex: "l4"});
