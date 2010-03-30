@@ -240,6 +240,18 @@ public class CustPartNoInfo extends BaseDomain{
 		this.isPriceChange = isPriceChange;
 	}
 
+	@Override
+	public int getEnd() {
+		// TODO Auto-generated method stub
+		return super.getEnd();
+	}
+
+	@Override
+	public int getStart() {
+		// TODO Auto-generated method stub
+		return super.getStart();
+	}
+
 	/**
 	 * 根据state返回其中文说明
 	 * @return

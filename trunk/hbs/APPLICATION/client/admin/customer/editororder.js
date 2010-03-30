@@ -60,17 +60,19 @@ HBSConvertHelper.init(function() {
 			if(!action.success)	return;
 			
 			var sm = ordergrid.getSelectionModel();
-			sm.getSelected().set("pnName"   , action.data.custPartNoInfo.pnDesc);
+			sm.getSelected().set("pnName"   , action.data.custPartNoInfo.pnName);
 			sm.getSelected().set("pnDesc"   , action.data.custPartNoInfo.pnDesc);
 			sm.getSelected().set("cprice"   , action.data.custPartNoInfo.price);
 			sm.getSelected().set("cpriceTax", action.data.custPartNoInfo.priceTax);
+			sm.getSelected().set("cpartNo"   , action.data.custPartNoInfo.custPartNo);
+			sm.getSelected().set("partNo", action.data.custPartNoInfo.partNo);
 		};
 		
 		// 获取客户型号控件并加载事件
-		cm.getColumnById("cCpartNo").editor.setProcessConfig("/customerInfo/customerInfo!list.action", "cpartNo", null, orderacfun);
+		cm.getColumnById("cCpartNo").editor.setProcessConfig("/customerInfo/custPartNoInfo!getInfoDict.action", "cpartNo", null, orderacfun);
 		
 		// 获取GLE型号控件并加载事件
-		cm.getColumnById("cPartNo").editor.setProcessConfig("/customerInfo/customerInfo!list.action", "partNo", null, orderacfun);
+		cm.getColumnById("cPartNo").editor.setProcessConfig("/customerInfo/custPartNoInfo!getInfoDict.action", "partNo", null, orderacfun);
 		
 		//根据税率设置是否含税交易：税率为0时，可选；否则设为是，并不可修改。 
 		//输入数量时，自动填写金额。 
