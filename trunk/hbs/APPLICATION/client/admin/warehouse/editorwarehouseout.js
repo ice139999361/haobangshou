@@ -10,6 +10,8 @@ HBSConvertHelper.init(function() {
 	var backBtn 		= Ext.getCmp("backBtn");
 	// 获取订单详情表格
 	var warehousegrid   = Ext.getCmp("warehousegrid");
+	// 获取查询客户订单 window 控件
+	var selectWindow = Ext.getCmp("selectWindow");
 	
 	
 	// -------------------------------------- 应用逻辑处理
@@ -41,16 +43,58 @@ HBSConvertHelper.init(function() {
 	(function() {
 		// 当提交按钮被单击时
 		submitBtn.on("click", function() {
-			submitData("/warehouse/warehouseSend!save.action");
+			submitData("/warehouse/warehouseRec!save.action");
 		});
 		
 		// 当保存按钮被单击时
 		saveBtn.on("click", function() {
-			submitData("/warehouse/warehouseSend!saveTemp.action");
+			submitData("/warehouse/warehouseRec!saveTemp.action");
 		});
 		
 		// 当单机取消按钮时，调用默认的关闭窗口方法
 		backBtn.on("click", HBSConvertHelper.defaultCloseTab);
+		
+		Ext.getCmp("addInfoBtn").on("click", function() {
+			selectWindow.show();
+			HBSConvertHelper.refreshGrid("querygrid");
+		});
+		
+		/*
+		// 获取表格的列模型
+		var cm = warehousegrid.getColumnModel();
+		
+		// 输入客户P/N或本公司P/N时，自动填写名称、描述、单价、税率
+		var warehouseacfun = function(action){
+			if(!action.success)
+				return;
+				
+			var sm = warehousegrid.getSelectionModel();
+			sm.getSelected().set("l4"   , "描述");
+			sm.getSelected().set("l5"   , "订单数量");
+		};
+		
+		// 获取GLE编码控件并加载事件
+		cm.getColumnById("cglecode").editor.setProcessConfig("/customerInfo/customerInfo!list.action", "custInfo.commCode", null, warehouseacfun);
+		
+		// 获取供应商编码控件并加载事件
+		cm.getColumnById("ccommcode").editor.setProcessConfig("/customerInfo/customerInfo!list.action", "custInfo.commCode", null, warehouseacfun);
+		*/
+
+		warehousegrid.getView().on("refresh", function(view) {
+			// 删除按钮触发事件
+			var deleteBtnFun = function() {
+				warehousegrid.store.remove(this.config);
+			};
+		
+			for(var i = 0 ; i < view.ds.getCount() ; i++) {
+				// 获取操作列
+				var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));
+				// 创建按钮到操作列
+				var operatorBtn = HBSConvertHelper.renderButton2Cell(["删除"], operator_cell, view.ds.getAt(i));
+				// 删除按钮的单击事件
+				operatorBtn.on("click", deleteBtnFun);
+			}
+		})
 	}())
 	
 	// -------------------------------------- 页面操作逻辑处理
@@ -73,4 +117,31 @@ HBSConvertHelper.init(function() {
 	
 	// 根据不同的操作类型，做出不同的处理
 	eval(urlPs.editorType + "InitFun")();
+	
+	// -------------------------------------- window 部分功能实现代码
+	(function() {
+		// 点击取消按钮的事件
+		Ext.getCmp("wbackBtn").on("click", function() {
+			selectWindow.hide();
+		});
+		
+		// 点击确定按钮的事件
+		Ext.getCmp("wokBtn").on("click", function() {
+			// 获取查询列表
+			var querygrid = Ext.getCmp("querygrid");
+			// 获取选择的数据集
+			var records = querygrid.getSelectionModel().getSelections();
+			// 添加标示
+			Ext.each(records, function(record) {
+				record.selectType = "window";
+			});
+			// 添加选择的数据至订单详情表格
+			warehousegrid.store.add(records);
+			// 刷新表格
+			setTimeout(function() {	warehousegrid.getView().refresh() }, 0);
+			// 隐藏 window 控件
+			selectWindow.hide();
+			
+		});
+	}())
 });
