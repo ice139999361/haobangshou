@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>供应商发票新增</title>
+	<title>客户发票新增</title>
 </head>
 
 <body>
@@ -19,16 +19,16 @@
 							<form id="form"><items>
 				    		<listpanel frame="true" title="发票基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<label        fieldLabel="供应商编码"                               labelStyle="width:150"/>
+				    				<label        fieldLabel="客户编码"                                 labelStyle="width:150"/>
 				    				<label        fieldLabel="操作人"                                   labelStyle="width:150"/>
 				    				<label        fieldLabel="送货单号"                                 labelStyle="width:150"/>
 				    				<label        fieldLabel="本公司物料编码"                           labelStyle="width:150"/>
-				    				<label        fieldLabel="送货数量"                                 labelStyle="width:150"/>
+				    				<label        fieldLabel="发货数量"                                 labelStyle="width:150"/>
 				    					
-				    				<label        fieldLabel="供应商简称"                               labelStyle="width:150"/>
+				    				<label        fieldLabel="客户简称"                                 labelStyle="width:150"/>
 				    				<label        fieldLabel="操作日期"                                 labelStyle="width:150"/>
-				    				<label        fieldLabel="送货日期"                                 labelStyle="width:150"/>
-				    				<label        fieldLabel="供应商物料编码"                           labelStyle="width:150"/>
+				    				<label        fieldLabel="发货日期"                                 labelStyle="width:150"/>
+				    				<label        fieldLabel="客户物料编码"                             labelStyle="width:150"/>
 				    				<label        fieldLabel="总金额"                                   labelStyle="width:150"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
@@ -64,4 +64,4 @@
 	</xmp>
 </body>
 </html>
-<script type="text/javascript" src="<%=contextPath %>/invoice/editorvendorinvoiced.js"></script>
+<script type="text/javascript" src="<%=contextPath %>/invoice/editorcustomerinvoiced.js"></script>

@@ -4,8 +4,8 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>供应商发票管理</title>
-	<script type="text/javascript" src="<%=contextPath %>/invoice/component/vendorinvoicecommonpro.js"></script>
+	<title>客户发票管理</title>
+	<script type="text/javascript" src="<%=contextPath %>/invoice/component/customerinvoicecommonpro.js"></script>
 </head>
 
 <body>
@@ -38,4 +38,4 @@
 	</xmp>
 </body>
 </html>
-<script type="text/javascript" src="<%=contextPath %>/invoice/vendorinvoicemanager.js"></script>
+<script type="text/javascript" src="<%=contextPath %>/invoice/customerinvoicemanager.js"></script>
