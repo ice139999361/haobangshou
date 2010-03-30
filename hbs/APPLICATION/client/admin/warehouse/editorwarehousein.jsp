@@ -23,9 +23,10 @@
 				    				<textfield    fieldLabel="入库单号"       name=""        labelStyle="width:150"     emptyText="供应商的送货单号" />
 				    				<datefield    fieldLabel="供应商单据日期" name=""        labelStyle="width:150"     emptyText="送货单的日期" format="Y-m-d" />
 				    				<autocomplete fieldLabel="供应商" url="/customerInfo/customerInfo!list.action"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"     name="custInfo.commCode"       labelStyle="width:150" allowBlank="false" id="acCommCode" />
-				    					 
-				    				<dictcombo    fieldLabel="仓库"           hiddenName=""  labelStyle="width:150"     paramsValue="COMPANY_BRANCH"     emptyText="请选择" />			
+				    				
+				    				<datefield    fieldLabel="入库日期"  	    name=""        labelStyle="width:150"     format="Y-m-d" />
 				    				<datefield    fieldLabel="到货日期"  	    name=""        labelStyle="width:150"     format="Y-m-d" />
+				    				<dictcombo    fieldLabel="仓库"           hiddenName=""  labelStyle="width:150"     paramsValue="COMPANY_BRANCH"     emptyText="请选择" />
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
 				    				<textarea     fieldLabel="备注"           name=""        labelStyle="width:150" width="600" />
