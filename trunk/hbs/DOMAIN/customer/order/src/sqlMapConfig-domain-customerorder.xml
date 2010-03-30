@@ -2,8 +2,8 @@
 <!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
 
 <sqlMapConfig>
-	<sqlMap resource="com/hbs/domain/customer/order/dao/ibatis/maps/CustomerOrderHisSQL.xml"/>
+	<!-- <sqlMap resource="com/hbs/domain/customer/order/dao/ibatis/maps/CustomerOrderHisSQL.xml"/>  -->
 	<sqlMap resource="com/hbs/domain/customer/order/dao/ibatis/maps/CustomerOrderSQL.xml"/>
 	<sqlMap resource="com/hbs/domain/customer/order/dao/ibatis/maps/CustOrderDetailSQL.xml"/>
-	<sqlMap resource="com/hbs/domain/customer/order/dao/ibatis/maps/CustOrderDetailHisSQL.xml"/>
+	<!-- <sqlMap resource="com/hbs/domain/customer/order/dao/ibatis/maps/CustOrderDetailHisSQL.xml"/>  -->
 </sqlMapConfig>
