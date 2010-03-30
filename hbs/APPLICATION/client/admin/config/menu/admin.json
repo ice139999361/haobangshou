@@ -51,6 +51,20 @@
                     "menuOrder": "50000",
                     "leaf": "true",
                     "url": "/customer/queryorder.jsp?roleType=sccustomers"
+                },
+                {
+                    "id": "stxzdhsq",
+                    "text": "新增调货申请",
+                    "menuOrder": "60000",
+                    "leaf": "true",
+                    "url": "/customer/editorcargotransfer.jsp?roleType=sccustomers"
+                },
+                {
+                    "id": "stxzdhsq",
+                    "text": "新增调货申请",
+                    "menuOrder": "60000",
+                    "leaf": "true",
+                    "url": "/customer/editorcargotransfer.jsp?roleType=sccustomers"
                 }
             ]
         },
@@ -208,7 +222,7 @@
                     "text": "查询库存",
                     "menuOrder": "10000",
                     "leaf": "true",
-                    "url": "/vendor/queryvendor.jsp?roleType=cgm"
+                    "url": "/warehouse/querywarehousestore.jsp?roleType=cgm"
                 },
                 {
                     "id": "ckrk",
