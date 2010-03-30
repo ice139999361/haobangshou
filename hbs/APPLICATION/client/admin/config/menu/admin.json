@@ -311,11 +311,18 @@
                     "url": "/aaa.jsp"
                 },
                 {
+                    "id": "cwkhfpcx",
+                    "text": "客户发票管理",
+                    "menuOrder": "100000",
+                    "leaf": "true",
+                    "url": "/invoice/customerinvoicemanager.jsp"
+                },
+                {
                     "id": "cwgysfpcx",
                     "text": "供应商发票管理",
                     "menuOrder": "110000",
                     "leaf": "true",
-                    "url": "/invoice/queryvendorinvoice.jsp"
+                    "url": "/invoice/vendorinvoicemanager.jsp"
                 }
             ]
         },
