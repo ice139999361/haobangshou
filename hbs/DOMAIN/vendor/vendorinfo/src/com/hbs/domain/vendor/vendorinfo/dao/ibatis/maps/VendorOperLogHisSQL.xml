@@ -16,13 +16,6 @@
     <result property="memo" column="MEMO"/>
 </resultMap>
 
-<select id="Vendor_OperLogHis_getNextId" resultClass="java.lang.String">
-<![CDATA[
-    SELECT ltrim(to_char(Seq_T_VENDOR_OPER_LOG_HIS_Id.Nextval,'0000000000')) 
-           AS Id 
-    FROM dual
-]]>
-</select>
 
 <insert id="Vendor_OperLogHis_insertOperLog" parameterClass="operLog" >
 <![CDATA[

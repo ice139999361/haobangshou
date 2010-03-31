@@ -32,7 +32,7 @@ public class VendorOrderDetailHisDaoImpl extends SqlMapClientDaoSupport implemen
     		logger.debug("进入insertVendorOrderDetail(VendorOrderDetail), 输入参数[" + vendorOrderDetail + "]");
     	}
         
-    	getSqlMapClientTemplate().insert("VendorOrderDetail_insertVendorOrderDetail", vendorOrderDetail);
+    	getSqlMapClientTemplate().insert("VendorOrderDetailHis_insertVendorOrderDetail", vendorOrderDetail);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开insertVendorOrderDetail(VendorOrderDetail), 返回");
 		}
@@ -48,7 +48,7 @@ public class VendorOrderDetailHisDaoImpl extends SqlMapClientDaoSupport implemen
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入deleteVendorOrderDetail(String), 输入参数[" + pk + "]");
 		}
-        getSqlMapClientTemplate().update("VendorOrderDetail_deleteVendorOrderDetail", pk);
+        getSqlMapClientTemplate().update("VendorOrderDetailHis_deleteVendorOrderDetail", pk);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开deleteVendorOrderDetail(String)");
 		}
@@ -63,7 +63,7 @@ public class VendorOrderDetailHisDaoImpl extends SqlMapClientDaoSupport implemen
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入updateVendorOrderDetail(VendorOrderDetail), 输入参数[" + vendorOrderDetail + "]");
 		}
-    	getSqlMapClientTemplate().update("VendorOrderDetail_updateVendorOrderDetail", vendorOrderDetail);
+    	getSqlMapClientTemplate().update("VendorOrderDetailHis_updateVendorOrderDetail", vendorOrderDetail);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开updateVendorOrderDetail(VendorOrderDetail)");
 		}
@@ -79,7 +79,7 @@ public class VendorOrderDetailHisDaoImpl extends SqlMapClientDaoSupport implemen
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入findVendorOrderDetail(VendorOrderDetail), 输入参数[" + pk + "]");
 		}
-        VendorOrderDetail vendorOrderDetail = (VendorOrderDetail) getSqlMapClientTemplate().queryForObject("VendorOrderDetail_findVendorOrderDetail", pk);
+        VendorOrderDetail vendorOrderDetail = (VendorOrderDetail) getSqlMapClientTemplate().queryForObject("VendorOrderDetailHis_findVendorOrderDetail", pk);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开findVendorOrderDetail(VendorOrderDetail), 返回[" + vendorOrderDetail + "]");
 		}
@@ -92,11 +92,12 @@ public class VendorOrderDetailHisDaoImpl extends SqlMapClientDaoSupport implemen
      * @return vendorOrderDetail list
      * @throws DataAccessException DataAccessException
      */
-    public List listVendorOrderDetail(VendorOrderDetail vendorOrderDetail) throws DataAccessException {
+    @SuppressWarnings("unchecked")
+	public List<VendorOrderDetail> listVendorOrderDetail(VendorOrderDetail vendorOrderDetail) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listVendorOrderDetail(VendorOrderDetail), 输入参数[" + vendorOrderDetail + "]");
 		}
-        List list = getSqlMapClientTemplate().queryForList("VendorOrderDetail_listVendorOrderDetail", vendorOrderDetail);
+        List<VendorOrderDetail> list = getSqlMapClientTemplate().queryForList("VendorOrderDetailHis_listVendorOrderDetail", vendorOrderDetail);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listVendorOrderDetail(VendorOrderDetail), 返回[" + list + "]");
 		}
@@ -113,7 +114,7 @@ public class VendorOrderDetailHisDaoImpl extends SqlMapClientDaoSupport implemen
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listVendorOrderDetailCount(VendorOrderDetail), 输入参数[" + vendorOrderDetail + "]");
 		}
-        Integer count = (Integer)getSqlMapClientTemplate().queryForObject("VendorOrderDetail_listVendorOrderDetailCount", vendorOrderDetail);
+        Integer count = (Integer)getSqlMapClientTemplate().queryForObject("VendorOrderDetailHis_listVendorOrderDetailCount", vendorOrderDetail);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listVendorOrderDetailCount(VendorOrderDetail), 返回[" + count + "]");
 		}

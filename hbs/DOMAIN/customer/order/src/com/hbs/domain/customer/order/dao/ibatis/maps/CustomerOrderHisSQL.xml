@@ -2,7 +2,7 @@
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
 <!-- Always ensure to use the correct XML header as above! -->
-<sqlMap namespace="CustomerOrder">
+<sqlMap namespace="CustomerOrderHis">
 <typeAlias alias="customerOrder" type="com.hbs.domain.customer.order.pojo.CustomerOrder"/> 
 <resultMap id="customerOrder_result" class="customerOrder">
     <result property="commCode" column="C_CODE"/>
@@ -35,7 +35,7 @@
 
 <insert id="CustomerOrderHis_insertCustomerOrder" parameterClass="customerOrder" >
 <![CDATA[
-    INSERT INTO T_CUST_ORDER_HIS (
+    INSERT INTO T_CUST_ORDER (
             C_CODE, 
             PO_NO, 
             PO_NO_TYPE, 
@@ -92,12 +92,40 @@
 
 <delete id="CustomerOrderHis_deleteCustomerOrder" parameterClass="string">
 <![CDATA[
-    DELETE  FROM  T_CUST_ORDER_HIS WHERE C_CODE = #commCode#
+    DELETE  FROM  T_CUST_ORDER WHERE C_CODE = #commCode#
 ]]>
 </delete>    
 
+<update id="CustomerOrderHis_updateCustomerOrderByActiveState" parameterClass="customerOrder">
+<![CDATA[
+    UPDATE T_CUST_ORDER
+    SET ACTIVE_STATE = #activeState# 
+    WHERE C_CODE = #commCode# AND PO_NO = #poNo#
+]]>	
+</update>
+
+<update id="CustomerOrderHis_updateCustomerOrderByState" parameterClass="customerOrder">
+	<![CDATA[
+	    UPDATE T_CUST_ORDER
+	    SET STATE = #state#     
+	]]>	
+	<dynamic prepend="WHERE">					
+					<isNotEmpty prepend="and" property = "commCode">
+						C_CODE = #commCode#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property = "poNo">
+						PO_NO = #poNo#
+					</isNotEmpty>
+					<isNotEmpty prepend = "and" property = "dynamicFields.state" >
+						<![CDATA[ 
+						  STATE != '%$dynamicFields.state$%'
+						]]> 
+					</isNotEmpty>
+		</dynamic>
+</update>
+
 <update id="CustomerOrderHis_updateCustomerOrder" parameterClass="customerOrder">
-    UPDATE T_CUST_ORDER_HIS 
+    UPDATE T_CUST_ORDER 
     SET
     	C_CODE = #commCode#
 	<isNotEmpty prepend="," property="poNo">
@@ -169,10 +197,10 @@
 	<isNotEmpty prepend="," property="activeState">
             ACTIVE_STATE = #activeState#
 	</isNotEmpty>
-    WHERE C_CODE = #commCode#
+    WHERE C_CODE = #commCode# AND PO_NO = #poNo#
 </update> 
 
-<select id="CustomerOrderHis_findCustomerOrder" resultMap="customerOrder_result" parameterClass="string">
+<select id="CustomerOrderHis_findCustomerOrder" resultMap="customerOrder_result" parameterClass="customerOrder">
 <![CDATA[
     SELECT
             C_CODE, 
@@ -199,7 +227,7 @@
             PERIOD, 
             STATE, 
             ACTIVE_STATE
-    FROM T_CUST_ORDER_HIS WHERE C_CODE = #commCode#
+    FROM T_CUST_ORDER WHERE C_CODE = #commCode# AND PO_NO = #poNo#
 ]]>
 </select>
 
@@ -230,7 +258,7 @@
             PERIOD, 
             STATE, 
             ACTIVE_STATE
-    FROM T_CUST_ORDER_HIS
+    FROM T_CUST_ORDER
 ]]>
 		<dynamic prepend="WHERE">
 			<isNotEmpty prepend="and" property = "commCode">
@@ -245,33 +273,16 @@
 			<isNotEmpty prepend="and" property = "shortName">
 				SHORT_NAME = #shortName#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "oderTime">
-				ORDER_TIME = #oderTime#
-			</isNotEmpty>
+			
 			<isNotEmpty prepend="and" property = "conName">
 				CON_NAME = #conName#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conTel">
-				CON_TEL = #conTel#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conFax">
-				CON_FAX = #conFax#
-			</isNotEmpty>
+			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "companyBranch">
 				COMPANY_BRANCH = #companyBranch#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "settlementType">
 				SETTLEMENT_TYPE = #settlementType#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "receiveName">
-				RECEIVE_NAME = #receiveName#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "receiveAddress">
-				RECEIVE_ADDRESS = #receiveAddress#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "receiveZip">
-				RECEIVE_ZIP = #receiveZip#
-			</isNotEmpty>
+			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "staffId">
 				STAFF_ID = #staffId#
 			</isNotEmpty>
@@ -283,18 +294,9 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "sales">
 				SALES = #sales#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "isShowPrice">
-				IS_SHOW_PRICE = #isShowPrice#
-			</isNotEmpty>
+			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "vendorCode">
 				VENDOR_CODE = #vendorCode#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "fristCreateTime">
-				FIRST_CREATE_TIME = #fristCreateTime#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "createTime">
-				CREATE_TIME = #createTime#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "period">
 				PERIOD = #period#
@@ -305,15 +307,38 @@
 			<isNotEmpty prepend="and" property = "activeState">
 				ACTIVE_STATE = #activeState#
 			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeBegainTime">
+				<![CDATA[	
+					ORDER_TIME >= STR_TO_DATE('$dynamicFields.startDate$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeEndTime">
+				<![CDATA[	
+					ORDER_TIME <= STR_TO_DATE('$dynamicFields.likeEndTime$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dynamicFields.noState01">
+				<![CDATA[
+					STATE != "01"
+				]]>
+			</isNotEmpty>				
+			<isNotEmpty prepend="order by" property="sort">
+                   $sort$
+            </isNotEmpty>
 		</dynamic>
+		<![CDATA[
+      		LIMIT #start# ,#end#
+		]]>
 </select>
 
 
 <select id="CustomerOrderHis_listCustomerOrderCount" resultClass="java.lang.Integer" parameterClass="customerOrder">
 <![CDATA[
     SELECT
-		COUNT(*)
-    FROM T_CUST_ORDER_HIS
+		COUNT(1)
+    FROM T_CUST_ORDER
 ]]>
 		<dynamic prepend="WHERE">
 			<isNotEmpty prepend="and" property = "commCode">
@@ -328,33 +353,16 @@
 			<isNotEmpty prepend="and" property = "shortName">
 				SHORT_NAME = #shortName#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "oderTime">
-				ORDER_TIME = #oderTime#
-			</isNotEmpty>
+			
 			<isNotEmpty prepend="and" property = "conName">
 				CON_NAME = #conName#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conTel">
-				CON_TEL = #conTel#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "conFax">
-				CON_FAX = #conFax#
-			</isNotEmpty>
+			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "companyBranch">
 				COMPANY_BRANCH = #companyBranch#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "settlementType">
 				SETTLEMENT_TYPE = #settlementType#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "receiveName">
-				RECEIVE_NAME = #receiveName#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "receiveAddress">
-				RECEIVE_ADDRESS = #receiveAddress#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "receiveZip">
-				RECEIVE_ZIP = #receiveZip#
-			</isNotEmpty>
+			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "staffId">
 				STAFF_ID = #staffId#
 			</isNotEmpty>
@@ -366,18 +374,9 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "sales">
 				SALES = #sales#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "isShowPrice">
-				IS_SHOW_PRICE = #isShowPrice#
-			</isNotEmpty>
+			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "vendorCode">
 				VENDOR_CODE = #vendorCode#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "fristCreateTime">
-				FIRST_CREATE_TIME = #fristCreateTime#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "createTime">
-				CREATE_TIME = #createTime#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "period">
 				PERIOD = #period#
@@ -387,6 +386,23 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "activeState">
 				ACTIVE_STATE = #activeState#
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeBegainTime">
+				<![CDATA[	
+					ORDER_TIME >= STR_TO_DATE('$dynamicFields.startDate$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeEndTime">
+				<![CDATA[	
+					ORDER_TIME < STR_TO_DATE('$dynamicFields.likeEndTime$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dynamicFields.noState01">
+				<![CDATA[
+					STATE != "01"
+				]]>
 			</isNotEmpty>
 		</dynamic>
 </select>

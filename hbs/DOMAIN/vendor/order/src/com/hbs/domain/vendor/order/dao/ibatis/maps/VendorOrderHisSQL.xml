@@ -26,19 +26,12 @@
     <result property="period" column="PERIOD"/>
     <result property="state" column="STATE"/>
     <result property="activeState" column="ACTIVE_STATE"/>
+    <result property="custCcode" column="CUST_C_CODE"/>
 </resultMap>
-
-<select id="VendorOrderHis_getNextId" resultClass="java.lang.String">
-<![CDATA[
-    SELECT ltrim(to_char(Seq_T_VENDOR_ORDER_HIS_Id.Nextval,'0000000000')) 
-           AS Id 
-    FROM dual
-]]>
-</select>
 
 <insert id="VendorOrderHis_insertVendorOrder" parameterClass="vendorOrder" >
 <![CDATA[
-    INSERT INTO T_VENDOR_ORDER_HIS (
+    INSERT INTO T_VENDOR_ORDER (
             C_CODE, 
             PO_NO, 
             PO_NO_TYPE, 
@@ -59,7 +52,8 @@
             ORDER_TIME, 
             PERIOD, 
             STATE, 
-            ACTIVE_STATE
+            ACTIVE_STATE,
+            CUST_C_CODE
         )
     VALUES (
             #commCode#,
@@ -82,19 +76,48 @@
             #orderTime#,
             #period#,
             #state#,
-            #activeState#
+            #activeState#,
+            #custCcode#
     )
 ]]>
 </insert>
 
 <delete id="VendorOrderHis_deleteVendorOrder" parameterClass="string">
 <![CDATA[
-    DELETE  FROM  T_VENDOR_ORDER_HIS WHERE C_CODE = #commCode#
+    DELETE  FROM  T_VENDOR_ORDER WHERE C_CODE = #commCode#
 ]]>
 </delete>    
 
+<update id="VendorOrderHis_updateVendorOrderByActiveState" parameterClass="vendorOrder">
+<![CDATA[
+    UPDATE T_VENDOR_ORDER
+    SET ACTIVE_STATE = #activeState# 
+    WHERE C_CODE = #commCode# AND PO_NO = #poNo#
+]]>	
+</update>
+
+<update id="VendorOrderHis_updateVendorOrderByState" parameterClass="vendorOrder">
+	<![CDATA[
+	    UPDATE T_VENDOR_ORDER
+	    SET STATE = #state#     
+	]]>	
+	<dynamic prepend="WHERE">					
+					<isNotEmpty prepend="and" property = "commCode">
+						C_CODE = #commCode#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property = "poNo">
+						PO_NO = #poNo#
+					</isNotEmpty>
+					<isNotEmpty prepend = "and" property = "dynamicFields.state" >
+						<![CDATA[ 
+						  STATE != '%$dynamicFields.state$%'
+						]]> 
+					</isNotEmpty>
+		</dynamic>
+</update>
+
 <update id="VendorOrderHis_updateVendorOrder" parameterClass="vendorOrder">
-    UPDATE T_VENDOR_ORDER_HIS 
+    UPDATE T_VENDOR_ORDER 
     SET
     	C_CODE = #commCode#
 	<isNotEmpty prepend="," property="poNo">
@@ -157,10 +180,13 @@
 	<isNotEmpty prepend="," property="activeState">
             ACTIVE_STATE = #activeState#
 	</isNotEmpty>
-    WHERE C_CODE = #commCode#
+	<isNotEmpty prepend="," property="custCcode">
+            CUST_C_CODE = #custCcode#
+	</isNotEmpty>
+    WHERE C_CODE = #commCode# AND PO_NO = #poNo#
 </update> 
 
-<select id="VendorOrderHis_findVendorOrder" resultMap="vendorOrder_result" parameterClass="string">
+<select id="VendorOrderHis_findVendorOrder" resultMap="vendorOrder_result" parameterClass="vendorOrder">
 <![CDATA[
     SELECT
             C_CODE, 
@@ -183,8 +209,9 @@
             ORDER_TIME, 
             PERIOD, 
             STATE, 
-            ACTIVE_STATE
-    FROM T_VENDOR_ORDER_HIS WHERE C_CODE = #commCode#
+            ACTIVE_STATE,
+            CUST_C_CODE
+    FROM T_VENDOR_ORDER WHERE C_CODE = #commCode# AND PO_NO = #poNo#
 ]]>
 </select>
 
@@ -211,8 +238,9 @@
             ORDER_TIME, 
             PERIOD, 
             STATE, 
-            ACTIVE_STATE
-    FROM T_VENDOR_ORDER_HIS
+            ACTIVE_STATE,
+            CUST_C_CODE
+    FROM T_VENDOR_ORDER
 ]]>
 		<dynamic prepend="WHERE">
 			<isNotEmpty prepend="and" property = "commCode">
@@ -278,15 +306,33 @@
 			<isNotEmpty prepend="and" property = "activeState">
 				ACTIVE_STATE = #activeState#
 			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeBegainTime">
+				<![CDATA[	
+					ORDER_TIME >= STR_TO_DATE('$dynamicFields.startDate$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeEndTime">
+				<![CDATA[	
+					ORDER_TIME <= STR_TO_DATE('$dynamicFields.likeEndTime$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>				
+			<isNotEmpty prepend="order by" property="sort">
+                   $sort$
+            </isNotEmpty>
 		</dynamic>
+		<![CDATA[
+      		LIMIT #start# ,#end#
+		]]>
 </select>
 
 
 <select id="VendorOrderHis_listVendorOrderCount" resultClass="java.lang.Integer" parameterClass="vendorOrder">
 <![CDATA[
     SELECT
-		COUNT(*)
-    FROM T_VENDOR_ORDER_HIS
+		COUNT(1)
+    FROM T_VENDOR_ORDER
 ]]>
 		<dynamic prepend="WHERE">
 			<isNotEmpty prepend="and" property = "commCode">
@@ -351,6 +397,18 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "activeState">
 				ACTIVE_STATE = #activeState#
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeBegainTime">
+				<![CDATA[	
+					ORDER_TIME >= STR_TO_DATE('$dynamicFields.likeBegainTime$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeEndTime">
+				<![CDATA[	
+					ORDER_TIME <= STR_TO_DATE('$dynamicFields.likeEndTime$','%Y-%m-%d')
+				]]>
 			</isNotEmpty>
 		</dynamic>
 </select>

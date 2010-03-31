@@ -78,11 +78,12 @@ public class CustOrderDetailHisDaoImpl extends SqlMapClientDaoSupport implements
      * @return custOrderDetail list
      * @throws DataAccessException DataAccessException
      */
-    public List listCustOrderDetail(CustOrderDetail custOrderDetail) throws DataAccessException {
+    @SuppressWarnings("unchecked")
+	public List<CustOrderDetail> listCustOrderDetail(CustOrderDetail custOrderDetail) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listCustOrderDetail(CustOrderDetail), 输入参数[" + custOrderDetail + "]");
 		}
-        List list = getSqlMapClientTemplate().queryForList("CustOrderDetailHis_listCustOrderDetail", custOrderDetail);
+        List<CustOrderDetail> list = getSqlMapClientTemplate().queryForList("CustOrderDetailHis_listCustOrderDetail", custOrderDetail);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listCustOrderDetail(CustOrderDetail), 返回[" + list + "]");
 		}

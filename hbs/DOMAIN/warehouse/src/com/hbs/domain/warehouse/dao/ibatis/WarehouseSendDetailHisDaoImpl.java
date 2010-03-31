@@ -32,7 +32,7 @@ public class WarehouseSendDetailHisDaoImpl extends SqlMapClientDaoSupport implem
     		logger.debug("进入insertWarehouseSendDetail(WarehouseSendDetail), 输入参数[" + warehouseSendDetail + "]");
     	}
        
-    	Integer iRet =(Integer)getSqlMapClientTemplate().insert("WarehouseSendDetail_insertWarehouseSendDetail", warehouseSendDetail);
+    	Integer iRet =(Integer)getSqlMapClientTemplate().insert("WarehouseSendDetailHis_insertWarehouseSendDetail", warehouseSendDetail);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开insertWarehouseSendDetail(WarehouseSendDetail), 返回");
 		}
@@ -48,7 +48,7 @@ public class WarehouseSendDetailHisDaoImpl extends SqlMapClientDaoSupport implem
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入deleteWarehouseSendDetail(String), 输入参数[" + pk + "]");
 		}
-        getSqlMapClientTemplate().update("WarehouseSendDetail_deleteWarehouseSendDetail", pk);
+        getSqlMapClientTemplate().update("WarehouseSendDetailHis_deleteWarehouseSendDetail", pk);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开deleteWarehouseSendDetail(String)");
 		}
@@ -63,7 +63,7 @@ public class WarehouseSendDetailHisDaoImpl extends SqlMapClientDaoSupport implem
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入updateWarehouseSendDetail(WarehouseSendDetail), 输入参数[" + warehouseSendDetail + "]");
 		}
-    	getSqlMapClientTemplate().update("WarehouseSendDetail_updateWarehouseSendDetail", warehouseSendDetail);
+    	getSqlMapClientTemplate().update("WarehouseSendDetailHis_updateWarehouseSendDetail", warehouseSendDetail);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开updateWarehouseSendDetail(WarehouseSendDetail)");
 		}
@@ -79,7 +79,7 @@ public class WarehouseSendDetailHisDaoImpl extends SqlMapClientDaoSupport implem
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入findWarehouseSendDetail(WarehouseSendDetail), 输入参数[" + pk + "]");
 		}
-        WarehouseSendDetail warehouseSendDetail = (WarehouseSendDetail) getSqlMapClientTemplate().queryForObject("WarehouseSendDetail_findWarehouseSendDetail", pk);
+        WarehouseSendDetail warehouseSendDetail = (WarehouseSendDetail) getSqlMapClientTemplate().queryForObject("WarehouseSendDetailHis_findWarehouseSendDetail", pk);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开findWarehouseSendDetail(WarehouseSendDetail), 返回[" + warehouseSendDetail + "]");
 		}
@@ -92,11 +92,12 @@ public class WarehouseSendDetailHisDaoImpl extends SqlMapClientDaoSupport implem
      * @return warehouseSendDetail list
      * @throws DataAccessException DataAccessException
      */
-    public List listWarehouseSendDetail(WarehouseSendDetail warehouseSendDetail) throws DataAccessException {
+    @SuppressWarnings("unchecked")
+	public List<WarehouseSendDetail> listWarehouseSendDetail(WarehouseSendDetail warehouseSendDetail) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listWarehouseSendDetail(WarehouseSendDetail), 输入参数[" + warehouseSendDetail + "]");
 		}
-        List list = getSqlMapClientTemplate().queryForList("WarehouseSendDetail_listWarehouseSendDetail", warehouseSendDetail);
+        List<WarehouseSendDetail> list = getSqlMapClientTemplate().queryForList("WarehouseSendDetailHis_listWarehouseSendDetail", warehouseSendDetail);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listWarehouseSendDetail(WarehouseSendDetail), 返回[" + list + "]");
 		}
@@ -113,7 +114,7 @@ public class WarehouseSendDetailHisDaoImpl extends SqlMapClientDaoSupport implem
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listWarehouseSendDetailCount(WarehouseSendDetail), 输入参数[" + warehouseSendDetail + "]");
 		}
-        Integer count = (Integer)getSqlMapClientTemplate().queryForObject("WarehouseSendDetail_listWarehouseSendDetailCount", warehouseSendDetail);
+        Integer count = (Integer)getSqlMapClientTemplate().queryForObject("WarehouseSendDetailHis_listWarehouseSendDetailCount", warehouseSendDetail);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listWarehouseSendDetailCount(WarehouseSendDetail), 返回[" + count + "]");
 		}

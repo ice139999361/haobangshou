@@ -32,7 +32,7 @@ public class WarehouseSendInfoHisDaoImpl extends SqlMapClientDaoSupport implemen
     		logger.debug("进入insertWarehouseSendInfo(WarehouseSendInfo), 输入参数[" + warehouseSendInfo + "]");
     	}
         
-    	getSqlMapClientTemplate().insert("WarehouseSendInfo_insertWarehouseSendInfo", warehouseSendInfo);
+    	getSqlMapClientTemplate().insert("WarehouseSendInfoHis_insertWarehouseSendInfo", warehouseSendInfo);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开insertWarehouseSendInfo(WarehouseSendInfo), 返回");
 		}
@@ -48,7 +48,7 @@ public class WarehouseSendInfoHisDaoImpl extends SqlMapClientDaoSupport implemen
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入deleteWarehouseSendInfo(String), 输入参数[" + pk + "]");
 		}
-        getSqlMapClientTemplate().update("WarehouseSendInfo_deleteWarehouseSendInfo", pk);
+        getSqlMapClientTemplate().update("WarehouseSendInfoHis_deleteWarehouseSendInfo", pk);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开deleteWarehouseSendInfo(String)");
 		}
@@ -63,7 +63,7 @@ public class WarehouseSendInfoHisDaoImpl extends SqlMapClientDaoSupport implemen
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入updateWarehouseSendInfo(WarehouseSendInfo), 输入参数[" + warehouseSendInfo + "]");
 		}
-    	getSqlMapClientTemplate().update("WarehouseSendInfo_updateWarehouseSendInfo", warehouseSendInfo);
+    	getSqlMapClientTemplate().update("WarehouseSendInfoHis_updateWarehouseSendInfo", warehouseSendInfo);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开updateWarehouseSendInfo(WarehouseSendInfo)");
 		}
@@ -79,7 +79,7 @@ public class WarehouseSendInfoHisDaoImpl extends SqlMapClientDaoSupport implemen
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入findWarehouseSendInfo(WarehouseSendInfo), 输入参数[" + pk + "]");
 		}
-        WarehouseSendInfo warehouseSendInfo = (WarehouseSendInfo) getSqlMapClientTemplate().queryForObject("WarehouseSendInfo_findWarehouseSendInfo", pk);
+        WarehouseSendInfo warehouseSendInfo = (WarehouseSendInfo) getSqlMapClientTemplate().queryForObject("WarehouseSendInfoHis_findWarehouseSendInfo", pk);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开findWarehouseSendInfo(WarehouseSendInfo), 返回[" + warehouseSendInfo + "]");
 		}
@@ -92,11 +92,12 @@ public class WarehouseSendInfoHisDaoImpl extends SqlMapClientDaoSupport implemen
      * @return warehouseSendInfo list
      * @throws DataAccessException DataAccessException
      */
-    public List listWarehouseSendInfo(WarehouseSendInfo warehouseSendInfo) throws DataAccessException {
+    @SuppressWarnings("unchecked")
+	public List<WarehouseSendInfo> listWarehouseSendInfo(WarehouseSendInfo warehouseSendInfo) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listWarehouseSendInfo(WarehouseSendInfo), 输入参数[" + warehouseSendInfo + "]");
 		}
-        List list = getSqlMapClientTemplate().queryForList("WarehouseSendInfo_listWarehouseSendInfo", warehouseSendInfo);
+        List<WarehouseSendInfo> list = getSqlMapClientTemplate().queryForList("WarehouseSendInfoHis_listWarehouseSendInfo", warehouseSendInfo);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listWarehouseSendInfo(WarehouseSendInfo), 返回[" + list + "]");
 		}
@@ -113,7 +114,7 @@ public class WarehouseSendInfoHisDaoImpl extends SqlMapClientDaoSupport implemen
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listWarehouseSendInfoCount(WarehouseSendInfo), 输入参数[" + warehouseSendInfo + "]");
 		}
-        Integer count = (Integer)getSqlMapClientTemplate().queryForObject("WarehouseSendInfo_listWarehouseSendInfoCount", warehouseSendInfo);
+        Integer count = (Integer)getSqlMapClientTemplate().queryForObject("WarehouseSendInfoHis_listWarehouseSendInfoCount", warehouseSendInfo);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listWarehouseSendInfoCount(WarehouseSendInfo), 返回[" + count + "]");
 		}
