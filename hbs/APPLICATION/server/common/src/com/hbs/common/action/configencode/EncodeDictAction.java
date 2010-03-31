@@ -55,7 +55,8 @@ public class EncodeDictAction extends BaseAction {
             setResult("encodeDict", encodeDicts);
         }
         catch(BusinessException e){
-            setErrorReason(e.getMessage());
+            setErrorReason("获取字典失败,请稍后再试!");
+            log.error("获取字典失败!" , e);
             return ERROR;
         }
         catch(Exception e){
@@ -82,7 +83,8 @@ public class EncodeDictAction extends BaseAction {
             setResult("encodeDict", ed);
         }
         catch(BusinessException e){
-            setErrorReason(e.getMessage());
+        	setErrorReason("获取字典失败,请稍后再试!");
+            log.error("获取字典失败!" , e);
             return ERROR;
         }
         catch(Exception e){
