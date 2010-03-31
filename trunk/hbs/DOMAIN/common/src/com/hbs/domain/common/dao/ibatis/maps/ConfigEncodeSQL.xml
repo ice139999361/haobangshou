@@ -55,9 +55,12 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "sortId">
 				SORT_ID = #sortId#
-			</isNotEmpty>
-			order by ENCODE_TYPE asc ,SORT_ID asc
-		</dynamic>
+			</isNotEmpty>	
+				
+		</dynamic> 
+			<![CDATA[
+				order by ENCODE_TYPE asc ,SORT_ID asc
+			]]>	
 </select>
 
 

@@ -14,6 +14,7 @@
     <result property="partNo" column="PART_NO"/>
     <result property="pnDesc" column="PN_DESC"/>
     <result property="cprice" column="C_PRICE"/>
+    <result property="cpriceTax" column="C_PRICE_TAX"/>
     <result property="isTax" column="IS_TAX"/>
     <result property="taxRate" column="TAX_RATE"/>
     <result property="specDesc" column="SPEC_DESC"/>
@@ -28,20 +29,17 @@
     <result property="state" column="STATE"/>
     <result property="activeState" column="ACTIVE_STATE"/>
     <result property="rltRecPoNo" column="RLT_REC_PO_NO"/>
+    <result property="settlementType" column="SETTLEMENT_TYPE"/>
+    <result property="staffId" column="STAFF_ID"/>
+    <result property="staffName" column="STAFF_NAME"/>
+    <result property="custCcode" column="CUST_C_CODE"/>
 </resultMap>
 
-<select id="VendorOrderDetailHis_getNextId" resultClass="java.lang.String">
-<![CDATA[
-    SELECT ltrim(to_char(Seq_T_VENDOR_ORDER_DETAIL_HIS_Id.Nextval,'0000000000')) 
-           AS Id 
-    FROM dual
-]]>
-</select>
 
 <insert id="VendorOrderDetailHis_insertVendorOrderDetail" parameterClass="vendorOrderDetail" >
 <![CDATA[
-    INSERT INTO T_VENDOR_ORDER_DETAIL_HIS (
-            ORDER_SEQID, 
+    INSERT INTO T_VENDOR_ORDER_DETAIL (   
+			ORDER_SEQID,         
             C_CODE, 
             SHORT_NAME, 
             PO_NO_TYPE, 
@@ -49,7 +47,8 @@
             C_PART_NO, 
             PART_NO, 
             PN_DESC, 
-            C_PRICE, 
+            C_PRICE,
+            C_PRICE_TAX, 
             IS_TAX, 
             TAX_RATE, 
             SPEC_DESC, 
@@ -63,10 +62,14 @@
             RLT_ORDER_PO_NO, 
             STATE, 
             ACTIVE_STATE, 
-            RLT_REC_PO_NO
+            RLT_REC_PO_NO,
+			SETTLEMENT_TYPE,
+            STAFF_ID,
+            STAFF_NAME,
+            CUST_C_CODE
         )
-    VALUES (
-            #operSeqId#,
+    VALUES ( 
+			#operSeqId#,          
             #commCode#,
             #shortName#,
             #poNoType#,
@@ -75,6 +78,7 @@
             #partNo#,
             #pnDesc#,
             #cprice#,
+            #cpriceTax#,
             #isTax#,
             #taxRate#,
             #specDesc#,
@@ -88,19 +92,126 @@
             #rltOrderPoNo#,
             #state#,
             #activeState#,
-            #rltRecPoNo#
+            #rltRecPoNo#,
+			#settlementType#,
+            #staffId#,
+            #staffName#,
+            #custCcode#
     )
 ]]>
+ <selectKey resultClass="Integer" keyProperty="operSeqId">
+            SELECT LAST_INSERT_ID()  
+  </selectKey>
 </insert>
 
 <delete id="VendorOrderDetailHis_deleteVendorOrderDetail" parameterClass="string">
 <![CDATA[
-    DELETE  FROM  T_VENDOR_ORDER_DETAIL_HIS WHERE ORDER_SEQID = #operSeqId#
+    DELETE  FROM  T_VENDOR_ORDER_DETAIL WHERE ORDER_SEQID = #operSeqId#
 ]]>
 </delete>    
 
+<update id="VendorOrderDetailHis_updateVendorOrderDetailByActiveState" parameterClass="vendorOrderDetail">
+<![CDATA[
+    UPDATE T_VENDOR_ORDER_DETAIL
+    SET ACTIVE_STATE = #activeState#     
+]]>	
+<dynamic prepend="WHERE">
+				<isNotEmpty prepend="and" property = "operSeqId">
+					ORDER_SEQID = #operSeqId#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property = "commCode">
+					C_CODE = #commCode#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property = "poNo">
+					PO_NO = #poNo#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property = "cpartNo">
+					C_PART_NO = #cpartNo#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property = "partNo">
+					PART_NO = #partNo#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property = "specDesc">
+					SPEC_DESC = #specDesc#
+				</isNotEmpty>				
+	</dynamic>
+</update>
+
+<update id="VendorOrderDetailHis_updateVendorOrderDetailByState" parameterClass="vendorOrderDetail">
+    UPDATE T_VENDOR_ORDER_DETAIL 
+     	SET STATE = #state# 
+			<isNotEmpty prepend="," property="orgDeliveryDate">
+		            ORG_DELIVERY_DATE = #orgDeliveryDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="verDeliveryDate">
+		            VER_DELIVERY_DATE = #verDeliveryDate#
+			</isNotEmpty>
+	<dynamic prepend="WHERE">
+				<isNotEmpty prepend="and" property = "operSeqId">
+					ORDER_SEQID = #operSeqId#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property = "commCode">
+					C_CODE = #commCode#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property = "poNo">
+					PO_NO = #poNo#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property = "cpartNo">
+					C_PART_NO = #cpartNo#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property = "partNo">
+					PART_NO = #partNo#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property = "specDesc">
+					SPEC_DESC = #specDesc#
+				</isNotEmpty>
+				<isNotEmpty prepend = "and" property = "dynamicFields.state" >
+					<![CDATA[ 
+					  STATE != '%$dynamicFields.state$%'
+					]]> 
+				</isNotEmpty>
+	</dynamic>
+</update>
+
+
+<update id="VendorOrderDetailHis_updateVendorOrderDetailAmount" parameterClass="vendorOrderDetail">
+    UPDATE T_VENDOR_ORDER_DETAIL 
+     	SET PO_NO = #poNo#
+		<isNotEmpty prepend="," property="state">
+            STATE = #state#
+		</isNotEmpty>	
+		<isNotEmpty prepend="," property="deliveryAmount">
+            DELIVERY_AMOUNT = #deliveryAmount#
+		</isNotEmpty>
+	<dynamic prepend="WHERE">
+				<isNotEmpty prepend="and" property = "operSeqId">
+					ORDER_SEQID = #operSeqId#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property = "commCode">
+					C_CODE = #commCode#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property = "poNo">
+					PO_NO = #poNo#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property = "cpartNo">
+					C_PART_NO = #cpartNo#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property = "partNo">
+					PART_NO = #partNo#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property = "specDesc">
+					SPEC_DESC = #specDesc#
+				</isNotEmpty>
+				<isNotEmpty prepend = "and" property = "dynamicFields.state" >
+					<![CDATA[ 
+					  STATE != '%$dynamicFields.state$%'
+					]]> 
+				</isNotEmpty>
+	</dynamic>
+</update>
+
 <update id="VendorOrderDetailHis_updateVendorOrderDetail" parameterClass="vendorOrderDetail">
-    UPDATE T_VENDOR_ORDER_DETAIL_HIS 
+    UPDATE T_VENDOR_ORDER_DETAIL 
     SET
     	ORDER_SEQID = #operSeqId#
 	<isNotEmpty prepend="," property="commCode">
@@ -126,6 +237,9 @@
 	</isNotEmpty>
 	<isNotEmpty prepend="," property="cprice">
             C_PRICE = #cprice#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="cpriceTax">
+            C_PRICE_TAX = #cpriceTax#
 	</isNotEmpty>
 	<isNotEmpty prepend="," property="isTax">
             IS_TAX = #isTax#
@@ -169,10 +283,22 @@
 	<isNotEmpty prepend="," property="rltRecPoNo">
             RLT_REC_PO_NO = #rltRecPoNo#
 	</isNotEmpty>
+	<isNotEmpty prepend="," property="settlementType">
+            SETTLEMENT_TYPE = #settlementType#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="staffId">
+            STAFF_ID = #staffId#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="staffName">
+            STAFF_NAME = #staffName#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="custCcode">
+            CUST_C_CODE = #custCcode#
+	</isNotEmpty>
     WHERE ORDER_SEQID = #operSeqId#
 </update> 
 
-<select id="VendorOrderDetailHis_findVendorOrderDetail" resultMap="vendorOrderDetail_result" parameterClass="string">
+<select id="VendorOrderDetailHis_findVendorOrderDetailById" resultMap="vendorOrderDetail_result" parameterClass="string">
 <![CDATA[
     SELECT
             ORDER_SEQID, 
@@ -184,6 +310,7 @@
             PART_NO, 
             PN_DESC, 
             C_PRICE, 
+            C_PRICE_TAX,
             IS_TAX, 
             TAX_RATE, 
             SPEC_DESC, 
@@ -197,9 +324,73 @@
             RLT_ORDER_PO_NO, 
             STATE, 
             ACTIVE_STATE, 
-            RLT_REC_PO_NO
-    FROM T_VENDOR_ORDER_DETAIL_HIS WHERE ORDER_SEQID = #operSeqId#
+            RLT_REC_PO_NO,
+			SETTLEMENT_TYPE,
+            STAFF_ID,
+            STAFF_NAME,
+            CUST_C_CODE
+    FROM T_VENDOR_ORDER_DETAIL WHERE ORDER_SEQID = #operSeqId#
 ]]>
+</select>
+
+<select id="VendorOrderDetailHis_findVendorOrderDetailByBizKey" resultMap="vendorOrderDetail_result" parameterClass="vendorOrderDetail">
+<![CDATA[
+    SELECT
+            ORDER_SEQID, 
+            C_CODE, 
+            SHORT_NAME, 
+            PO_NO_TYPE, 
+            PO_NO, 
+            C_PART_NO, 
+            PART_NO, 
+            PN_DESC, 
+            C_PRICE, 
+            C_PRICE_TAX,
+            IS_TAX, 
+            TAX_RATE, 
+            SPEC_DESC, 
+            COMM_DESC, 
+            AMOUNT, 
+            MONEY, 
+            DELIVERY_AMOUNT, 
+            ORG_DELIVERY_DATE, 
+            VER_DELIVERY_DATE, 
+            PERIOD, 
+            RLT_ORDER_PO_NO, 
+            STATE, 
+            ACTIVE_STATE, 
+            RLT_REC_PO_NO,
+			SETTLEMENT_TYPE,
+            STAFF_ID,
+            STAFF_NAME,
+            CUST_C_CODE
+    FROM T_VENDOR_ORDER_DETAIL
+]]>
+	<dynamic prepend="WHERE">
+				<isNotEmpty prepend="and" property = "operSeqId">
+					ORDER_SEQID = #operSeqId#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property = "commCode">
+					C_CODE = #commCode#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property = "poNo">
+					PO_NO = #poNo#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property = "cpartNo">
+					C_PART_NO = #cpartNo#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property = "partNo">
+					PART_NO = #partNo#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property = "specDesc">
+					SPEC_DESC = #specDesc#
+				</isNotEmpty>
+				<isNotEmpty prepend = "and" property = "dynamicFields.state" >
+					<![CDATA[ 
+					  STATE != '%$dynamicFields.state$%'
+					]]> 
+				</isNotEmpty>
+	</dynamic>
 </select>
 
 <select id="VendorOrderDetailHis_listVendorOrderDetail" resultMap="vendorOrderDetail_result" parameterClass="vendorOrderDetail">
@@ -213,7 +404,8 @@
             C_PART_NO, 
             PART_NO, 
             PN_DESC, 
-            C_PRICE, 
+            C_PRICE,
+            C_PRICE_TAX, 
             IS_TAX, 
             TAX_RATE, 
             SPEC_DESC, 
@@ -227,8 +419,12 @@
             RLT_ORDER_PO_NO, 
             STATE, 
             ACTIVE_STATE, 
-            RLT_REC_PO_NO
-    FROM T_VENDOR_ORDER_DETAIL_HIS
+            RLT_REC_PO_NO,
+			SETTLEMENT_TYPE,
+            STAFF_ID,
+            STAFF_NAME,
+            CUST_C_CODE
+    FROM T_VENDOR_ORDER_DETAIL
 ]]>
 		<dynamic prepend="WHERE">
 			<isNotEmpty prepend="and" property = "operSeqId">
@@ -254,36 +450,9 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "pnDesc">
 				PN_DESC = #pnDesc#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "cprice">
-				C_PRICE = #cprice#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "isTax">
-				IS_TAX = #isTax#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "taxRate">
-				TAX_RATE = #taxRate#
-			</isNotEmpty>
+			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "specDesc">
 				SPEC_DESC = #specDesc#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "commDesc">
-				COMM_DESC = #commDesc#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "amount">
-				AMOUNT = #amount#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "money">
-				MONEY = #money#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "deliveryAmount">
-				DELIVERY_AMOUNT = #deliveryAmount#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "orgDeliveryDate">
-				ORG_DELIVERY_DATE = #orgDeliveryDate#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "verDeliveryDate">
-				VER_DELIVERY_DATE = #verDeliveryDate#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "period">
 				PERIOD = #period#
@@ -300,15 +469,27 @@
 			<isNotEmpty prepend="and" property = "rltRecPoNo">
 				RLT_REC_PO_NO = #rltRecPoNo#
 			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffId">
+				STAFF_ID = #staffId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "settlementType">
+				SETTLEMENT_TYPE = #settlementType#
+			</isNotEmpty>
+			<isNotEmpty prepend="order by" property="sort">
+                   $sort$
+            </isNotEmpty>
 		</dynamic>
+		<![CDATA[
+      		LIMIT #start# ,#end#
+		]]>
 </select>
 
 
 <select id="VendorOrderDetailHis_listVendorOrderDetailCount" resultClass="java.lang.Integer" parameterClass="vendorOrderDetail">
 <![CDATA[
     SELECT
-		COUNT(*)
-    FROM T_VENDOR_ORDER_DETAIL_HIS
+		COUNT(1)
+    FROM T_VENDOR_ORDER_DETAIL
 ]]>
 		<dynamic prepend="WHERE">
 			<isNotEmpty prepend="and" property = "operSeqId">
@@ -334,36 +515,9 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "pnDesc">
 				PN_DESC = #pnDesc#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "cprice">
-				C_PRICE = #cprice#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "isTax">
-				IS_TAX = #isTax#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "taxRate">
-				TAX_RATE = #taxRate#
-			</isNotEmpty>
+			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "specDesc">
 				SPEC_DESC = #specDesc#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "commDesc">
-				COMM_DESC = #commDesc#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "amount">
-				AMOUNT = #amount#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "money">
-				MONEY = #money#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "deliveryAmount">
-				DELIVERY_AMOUNT = #deliveryAmount#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "orgDeliveryDate">
-				ORG_DELIVERY_DATE = #orgDeliveryDate#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "verDeliveryDate">
-				VER_DELIVERY_DATE = #verDeliveryDate#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "period">
 				PERIOD = #period#
@@ -379,6 +533,12 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "rltRecPoNo">
 				RLT_REC_PO_NO = #rltRecPoNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffId">
+				STAFF_ID = #staffId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "settlementType">
+				SETTLEMENT_TYPE = #settlementType#
 			</isNotEmpty>
 		</dynamic>
 </select>

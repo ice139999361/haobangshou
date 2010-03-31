@@ -2,7 +2,7 @@
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
 <!-- Always ensure to use the correct XML header as above! -->
-<sqlMap namespace="WarehouseRecDetail">
+<sqlMap namespace="WarehouseRecDetailHis">
 <typeAlias alias="warehouseRecDetail" type="com.hbs.domain.warehouse.pojo.WarehouseRecDetail"/> 
 <resultMap id="warehouseRecDetail_result" class="warehouseRecDetail">
     <result property="recDetailSeqId" column="REC_DETAIL_SEQID"/>
@@ -18,29 +18,29 @@
     <result property="cpartNo" column="C_PART_NO"/>
     <result property="pnDesc" column="PN_DESC"/>
     <result property="price" column="C_PRICE"/>
+    <result property="priceTax" column="C_PRICE_TAX"/>
     <result property="isTax" column="IS_TAX"/>
     <result property="taxRate" column="TAX_RATE"/>
     <result property="amount" column="AMOUNT"/>
+    <result property="currMoney" column="CUR_MONEY"/>
     <result property="period" column="PERIOD"/>
     <result property="financeState" column="FINANCE_STATE"/>
     <result property="poNoType" column="PO_NO_TYPE"/>
     <result property="staffId" column="STAFF_ID"/>
     <result property="staffName" column="STAFF_NAME"/>
     <result property="operTime" column="OPER_TIME"/>
+    <result property="state" column="STATE"/>
+    <result property="activeState" column="ACTIVE_STATE"/>
+    <result property="financePeriod" column="FINANCE_PERIOD"/>
+    <result property="specDesc" column="SPEC_DESC"/>
 </resultMap>
 
-<select id="WarehouseRecDetail_getNextId" resultClass="java.lang.String">
-<![CDATA[
-    SELECT ltrim(to_char(Seq_T_WAREHOUSE_RECEIVE_DETAIL_HIS_Id.Nextval,'0000000000')) 
-           AS Id 
-    FROM dual
-]]>
-</select>
 
-<insert id="WarehouseRecDetail_insertWarehouseRecDetail" parameterClass="warehouseRecDetail" >
+
+<insert id="WarehouseRecDetailHis_insertWarehouseRecDetail" parameterClass="warehouseRecDetail" >
 <![CDATA[
-    INSERT INTO T_WAREHOUSE_RECEIVE_DETAIL_HIS (
-            REC_DETAIL_SEQID, 
+    INSERT INTO T_WAREHOUSE_RECEIVE_DETAIL (  
+			REC_DETAIL_SEQID,           
             REC_PO_NO, 
             C_CODE, 
             SHORT_NAME, 
@@ -53,18 +53,24 @@
             C_PART_NO, 
             PN_DESC, 
             C_PRICE, 
+            C_PRICE_TAX,
             IS_TAX, 
             TAX_RATE, 
-            AMOUNT, 
+            AMOUNT,
+			CUR_MONEY, 
             PERIOD, 
             FINANCE_STATE, 
             PO_NO_TYPE,
 			STAFF_ID,
 			STAFF_NAME,
-			OPER_TIME
+			OPER_TIME,
+			STATE,
+			ACTIVE_STATE,
+			FINANCE_PERIOD,
+			SPEC_DESC
         )
-    VALUES (
-            #recDetailSeqId#,
+    VALUES (   
+			#recDetailSeqId#,         
             #recPoNo#,
             #vendorCode#,
             #shortName#,
@@ -77,27 +83,67 @@
             #cpartNo#,
             #pnDesc#,
             #price#,
+            #priceTax#,
             #isTax#,
             #taxRate#,
             #amount#,
+			#currMoney#,
             #period#,
             #financeState#,
             #poNoType#,
 			#staffId#,
 			#staffName#,
-			#operTime#
+			#operTime#,
+			#state#,
+			#activeState#,
+			#financePeriod#,
+			#specDesc#
     )
 ]]>
+<selectKey resultClass="Integer" keyProperty="recDetailSeqId">
+            SELECT LAST_INSERT_ID()  
+  </selectKey>
 </insert>
 
-<delete id="WarehouseRecDetail_deleteWarehouseRecDetail" parameterClass="string">
+<delete id="WarehouseRecDetailHis_deleteWarehouseRecDetail" parameterClass="string">
 <![CDATA[
-    DELETE  FROM  T_WAREHOUSE_RECEIVE_DETAIL_HIS WHERE REC_DETAIL_SEQID = #recDetailSeqId#
+    DELETE  FROM  T_WAREHOUSE_RECEIVE_DETAIL WHERE REC_DETAIL_SEQID = #recDetailSeqId#
 ]]>
 </delete>    
+<update id="WarehouseRecDetailHis_updateWarehouseRecDetailByState" parameterClass="warehouseRecDetail">
+	UPDATE T_WAREHOUSE_RECEIVE_DETAIL 
+    SET
+    	STATE = #state#
+    WHERE REC_DETAIL_SEQID = #recDetailSeqId#
 
-<update id="WarehouseRecDetail_updateWarehouseRecDetail" parameterClass="warehouseRecDetail">
-    UPDATE T_WAREHOUSE_RECEIVE_DETAIL_HIS 
+</update>
+
+<update id="WarehouseRecDetailHis_updateWarehouseRecDetailByActiveState" parameterClass="warehouseRecDetail">
+	UPDATE T_WAREHOUSE_RECEIVE_DETAIL 
+    SET
+    	ACTIVE_STATE = #activeState#
+    WHERE REC_DETAIL_SEQID = #recDetailSeqId#
+
+</update>
+
+<update id="WarehouseRecDetailHis_updateWarehouseRecDetailByFinanceState" parameterClass="warehouseRecDetail">
+	UPDATE T_WAREHOUSE_RECEIVE_DETAIL 
+    SET
+    	FINANCE_STATE = #financeState#
+    WHERE REC_DETAIL_SEQID = #recDetailSeqId#
+
+</update>
+
+<update id="WarehouseRecDetailHis_updateWarehouseRecDetailByFinancePeriod" parameterClass="warehouseRecDetail">
+	UPDATE T_WAREHOUSE_RECEIVE_DETAIL 
+    SET
+    	FINANCE_PERIOD = #financePeriod#
+    WHERE REC_DETAIL_SEQID = #recDetailSeqId#
+
+</update>
+
+<update id="WarehouseRecDetailHis_updateWarehouseRecDetail" parameterClass="warehouseRecDetail">
+    UPDATE T_WAREHOUSE_RECEIVE_DETAIL 
     SET
     	REC_DETAIL_SEQID = #recDetailSeqId#
 	<isNotEmpty prepend="," property="recPoNo">
@@ -136,6 +182,9 @@
 	<isNotEmpty prepend="," property="price">
             C_PRICE = #price#
 	</isNotEmpty>
+	<isNotEmpty prepend="," property="priceTax">
+            C_PRICE_TAX = #priceTax#
+	</isNotEmpty>
 	<isNotEmpty prepend="," property="isTax">
             IS_TAX = #isTax#
 	</isNotEmpty>
@@ -144,6 +193,9 @@
 	</isNotEmpty>
 	<isNotEmpty prepend="," property="amount">
             AMOUNT = #amount#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="currMoney">
+            CUR_MONEY = #currMoney#
 	</isNotEmpty>
 	<isNotEmpty prepend="," property="period">
             PERIOD = #period#
@@ -154,10 +206,25 @@
 	<isNotEmpty prepend="," property="poNoType">
             PO_NO_TYPE = #poNoType#
 	</isNotEmpty>
+	<isNotEmpty prepend="," property="operTime">
+            OPER_TIME = #operTime#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="state">
+            STATE = #state#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="activeState">
+            ACTIVE_STATE = #activeState#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="financePeriod">
+            FINANCE_PERIOD = #financePeriod#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="specDesc">
+            SPEC_DESC = #specDesc#
+	</isNotEmpty>
     WHERE REC_DETAIL_SEQID = #recDetailSeqId#
 </update> 
 
-<select id="WarehouseRecDetail_findWarehouseRecDetail" resultMap="warehouseRecDetail_result" parameterClass="string">
+<select id="WarehouseRecDetailHis_findWarehouseRecDetailByBizKey" resultMap="warehouseRecDetail_result" parameterClass="warehouseRecDetail">
 <![CDATA[
     SELECT
             REC_DETAIL_SEQID, 
@@ -173,47 +240,24 @@
             C_PART_NO, 
             PN_DESC, 
             C_PRICE, 
+            C_PRICE_TAX,
             IS_TAX, 
             TAX_RATE, 
-            AMOUNT, 
+            AMOUNT,
+			CUR_MONEY, 
             PERIOD, 
             FINANCE_STATE, 
             PO_NO_TYPE,
 			STAFF_ID,
 			STAFF_NAME,
-			OPER_TIME
-    FROM T_WAREHOUSE_RECEIVE_DETAIL_HIS WHERE REC_DETAIL_SEQID = #recDetailSeqId#
+			OPER_TIME,
+			STATE,
+			ACTIVE_STATE,
+			FINANCE_PERIOD,
+			SPEC_DESC
+    FROM T_WAREHOUSE_RECEIVE_DETAIL
 ]]>
-</select>
-
-<select id="WarehouseRecDetail_listWarehouseRecDetail" resultMap="warehouseRecDetail_result" parameterClass="warehouseRecDetail">
-<![CDATA[
-    SELECT
-            REC_DETAIL_SEQID, 
-            REC_PO_NO, 
-            C_CODE, 
-            SHORT_NAME, 
-            PO_NO_DATE, 
-            ARRAY_DATE, 
-            HOUSE_TYPE, 
-            RLT_PO_NO, 
-            SETTLEMENT_TYPE, 
-            PART_NO, 
-            C_PART_NO, 
-            PN_DESC, 
-            C_PRICE, 
-            IS_TAX, 
-            TAX_RATE, 
-            AMOUNT, 
-            PERIOD, 
-            FINANCE_STATE, 
-            PO_NO_TYPE,
-			STAFF_ID,
-			STAFF_NAME,
-			OPER_TIME
-    FROM T_WAREHOUSE_RECEIVE_DETAIL_HIS
-]]>
-		<dynamic prepend="WHERE">
+	<dynamic prepend="WHERE">
 			<isNotEmpty prepend="and" property = "recDetailSeqId">
 				REC_DETAIL_SEQID = #recDetailSeqId#
 			</isNotEmpty>
@@ -222,22 +266,7 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "vendorCode">
 				C_CODE = #vendorCode#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "shortName">
-				SHORT_NAME = #shortName#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "poNoDate">
-				PO_NO_DATE = #poNoDate#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "applyDate">
-				ARRAY_DATE = #applyDate#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "houseType">
-				HOUSE_TYPE = #houseType#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "rltPoNo">
-				RLT_PO_NO = #rltPoNo#
-			</isNotEmpty>
+			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "settlementType">
 				SETTLEMENT_TYPE = #settlementType#
 			</isNotEmpty>
@@ -246,51 +275,83 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "cpartNo">
 				C_PART_NO = #cpartNo#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "pnDesc">
-				PN_DESC = #pnDesc#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "price">
-				C_PRICE = #price#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "isTax">
-				IS_TAX = #isTax#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "taxRate">
-				TAX_RATE = #taxRate#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "amount">
-				AMOUNT = #amount#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "period">
-				PERIOD = #period#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "financeState">
-				FINANCE_STATE = #financeState#
-			</isNotEmpty>
+			</isNotEmpty>			
 			<isNotEmpty prepend="and" property = "poNoType">
 				PO_NO_TYPE = #poNoType#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "staffId">
-				STAFF_ID = #staffId#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "staffName">
-				STAFF_NAME = #staffName#
-			</isNotEmpty>
-			
-		<!--	这里处理时间段
-		    <isNotEmpty prepend="and" property = "poNoType">
-				PO_NO_TYPE = #poNoType#
-			</isNotEmpty> -->
+			<isNotEmpty prepend="and" property = "specDesc">
+				SPEC_DESC = #specDesc#
+			</isNotEmpty>			
 		</dynamic>
 </select>
 
-
-<select id="WarehouseRecDetail_listWarehouseRecDetailCount" resultClass="java.lang.Integer" parameterClass="warehouseRecDetail">
+<select id="WarehouseRecDetailHis_findWarehouseRecDetail" resultMap="warehouseRecDetail_result" parameterClass="string">
 <![CDATA[
     SELECT
-		COUNT(*)
-    FROM T_WAREHOUSE_RECEIVE_DETAIL_HIS
+            REC_DETAIL_SEQID, 
+            REC_PO_NO, 
+            C_CODE, 
+            SHORT_NAME, 
+            PO_NO_DATE, 
+            ARRAY_DATE, 
+            HOUSE_TYPE, 
+            RLT_PO_NO, 
+            SETTLEMENT_TYPE, 
+            PART_NO, 
+            C_PART_NO, 
+            PN_DESC, 
+            C_PRICE,
+            C_PRICE_TAX, 
+            IS_TAX, 
+            TAX_RATE, 
+            AMOUNT,
+			CUR_MONEY, 
+            PERIOD, 
+            FINANCE_STATE, 
+            PO_NO_TYPE,
+			STAFF_ID,
+			STAFF_NAME,
+			OPER_TIME,
+			STATE,
+			ACTIVE_STATE,
+			FINANCE_PERIOD,
+			SPEC_DESC
+    FROM T_WAREHOUSE_RECEIVE_DETAIL WHERE REC_DETAIL_SEQID = #recDetailSeqId#
+]]>
+</select>
+
+<select id="WarehouseRecDetailHis_listWarehouseRecDetail" resultMap="warehouseRecDetail_result" parameterClass="warehouseRecDetail">
+<![CDATA[
+    SELECT
+            REC_DETAIL_SEQID, 
+            REC_PO_NO, 
+            C_CODE, 
+            SHORT_NAME, 
+            PO_NO_DATE, 
+            ARRAY_DATE, 
+            HOUSE_TYPE, 
+            RLT_PO_NO, 
+            SETTLEMENT_TYPE, 
+            PART_NO, 
+            C_PART_NO, 
+            PN_DESC, 
+            C_PRICE, 
+            C_PRICE_TAX,
+            IS_TAX, 
+            TAX_RATE, 
+            AMOUNT,
+			CUR_MONEY, 
+            PERIOD, 
+            FINANCE_STATE, 
+            PO_NO_TYPE,
+			STAFF_ID,
+			STAFF_NAME,
+			OPER_TIME,
+			STATE,
+			ACTIVE_STATE,
+			FINANCE_PERIOD,
+			SPEC_DESC
+    FROM T_WAREHOUSE_RECEIVE_DETAIL
 ]]>
 		<dynamic prepend="WHERE">
 			<isNotEmpty prepend="and" property = "recDetailSeqId">
@@ -305,12 +366,7 @@
 			<isNotEmpty prepend="and" property = "shortName">
 				SHORT_NAME = #shortName#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "poNoDate">
-				PO_NO_DATE = #poNoDate#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "applyDate">
-				ARRAY_DATE = #applyDate#
-			</isNotEmpty>
+			
 			<isNotEmpty prepend="and" property = "houseType">
 				HOUSE_TYPE = #houseType#
 			</isNotEmpty>
@@ -325,21 +381,6 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "cpartNo">
 				C_PART_NO = #cpartNo#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "pnDesc">
-				PN_DESC = #pnDesc#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "price">
-				C_PRICE = #price#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "isTax">
-				IS_TAX = #isTax#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "taxRate">
-				TAX_RATE = #taxRate#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "amount">
-				AMOUNT = #amount#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "period">
 				PERIOD = #period#
@@ -356,11 +397,156 @@
 			<isNotEmpty prepend="and" property = "staffName">
 				STAFF_NAME = #staffName#
 			</isNotEmpty>
+			<isNotEmpty prepend="," property="state">
+		            STATE = #state#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="activeState">
+		            ACTIVE_STATE = #activeState#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="financePeriod">
+		            FINANCE_PERIOD = #financePeriod#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "specDesc">
+				SPEC_DESC = #specDesc#
+			</isNotEmpty>
 			
-		<!--	这里处理时间段
-		    <isNotEmpty prepend="and" property = "poNoType">
+			<!-- 账期范围查询  需要extends BaseDomain 入库单供应商日期 -->	
+			<isNotEmpty prepend="and"
+				property="dynamicFields.lessPeriod">
+				<![CDATA[	
+					CAST(PERIOD AS SIGNED) <= #lessPeriod#
+				]]>
+			</isNotEmpty>
+		<!-- 时间段范围查询  需要extends BaseDomain 入库单供应商日期 -->
+			<isNotEmpty prepend="and"
+				property="dynamicFields.beginPoNoDate">
+				<![CDATA[	
+					PO_NO_DATE >= STR_TO_DATE('$dynamicFields.beginPoNoDate$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.endPoNoDate">
+				<![CDATA[	
+					PO_NO_DATE < STR_TO_DATE('$dynamicFields.endPoNoDate$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.beginApplyDate">
+				<![CDATA[	
+					ARRAY_DATE >= STR_TO_DATE('$dynamicFields.beginApplyDate$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.endApplyDate">
+				<![CDATA[	
+					ARRAY_DATE < STR_TO_DATE('$dynamicFields.endApplyDate$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="order by" property="sort">
+                   $sort$
+            </isNotEmpty>
+		</dynamic>
+		<![CDATA[
+      		LIMIT #start# ,#end#
+		]]>
+</select>
+
+
+<select id="WarehouseRecDetailHis_listWarehouseRecDetailCount" resultClass="java.lang.Integer" parameterClass="warehouseRecDetail">
+<![CDATA[
+    SELECT
+		COUNT(1)
+    FROM T_WAREHOUSE_RECEIVE_DETAIL
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "recDetailSeqId">
+				REC_DETAIL_SEQID = #recDetailSeqId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "recPoNo">
+				REC_PO_NO = #recPoNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "vendorCode">
+				C_CODE = #vendorCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "shortName">
+				SHORT_NAME = #shortName#
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property = "houseType">
+				HOUSE_TYPE = #houseType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "rltPoNo">
+				RLT_PO_NO = #rltPoNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "settlementType">
+				SETTLEMENT_TYPE = #settlementType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "partNo">
+				PART_NO = #partNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "cpartNo">
+				C_PART_NO = #cpartNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "period">
+				PERIOD = #period#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "financeState">
+				FINANCE_STATE = #financeState#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "poNoType">
 				PO_NO_TYPE = #poNoType#
-			</isNotEmpty> -->
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffId">
+				STAFF_ID = #staffId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffName">
+				STAFF_NAME = #staffName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="state">
+		            STATE = #state#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="activeState">
+		            ACTIVE_STATE = #activeState#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="financePeriod">
+		            FINANCE_PERIOD = #financePeriod#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "specDesc">
+				SPEC_DESC = #specDesc#
+			</isNotEmpty>
+		<!-- 账期范围查询  需要extends BaseDomain 入库单供应商日期 -->	
+			<isNotEmpty prepend="and"
+				property="dynamicFields.lessPeriod">
+				<![CDATA[	
+					CAST(PERIOD AS SIGNED) <= #lessPeriod#
+				]]>
+			</isNotEmpty>
+		<!-- 时间段范围查询  需要extends BaseDomain 入库单供应商日期 -->
+			<isNotEmpty prepend="and"
+				property="dynamicFields.beginPoNoDate">
+				<![CDATA[	
+					PO_NO_DATE >= STR_TO_DATE('$dynamicFields.beginPoNoDate$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.endPoNoDate">
+				<![CDATA[	
+					PO_NO_DATE < STR_TO_DATE('$dynamicFields.endPoNoDate$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.beginApplyDate">
+				<![CDATA[	
+					ARRAY_DATE >= STR_TO_DATE('$dynamicFields.beginApplyDate$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.endApplyDate">
+				<![CDATA[	
+					ARRAY_DATE < STR_TO_DATE('$dynamicFields.endApplyDate$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
 		</dynamic>
 </select>
 

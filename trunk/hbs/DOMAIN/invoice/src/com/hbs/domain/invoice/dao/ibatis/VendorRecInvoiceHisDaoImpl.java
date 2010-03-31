@@ -33,7 +33,7 @@ public class VendorRecInvoiceHisDaoImpl extends SqlMapClientDaoSupport implement
     	}
         
         
-    	Integer i = (Integer)getSqlMapClientTemplate().insert("InvoiceInfo_insertInvoiceInfo", invoiceInfo);
+    	Integer i = (Integer)getSqlMapClientTemplate().insert("VendorRecHis_InvoiceInfo_insertInvoiceInfo", invoiceInfo);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开insertInvoiceInfo(InvoiceInfo), 返回");
 		}
@@ -49,7 +49,7 @@ public class VendorRecInvoiceHisDaoImpl extends SqlMapClientDaoSupport implement
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入deleteInvoiceInfo(String), 输入参数[" + pk + "]");
 		}
-        getSqlMapClientTemplate().update("InvoiceInfo_deleteInvoiceInfo", pk);
+        getSqlMapClientTemplate().update("VendorRecHis_InvoiceInfo_deleteInvoiceInfo", pk);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开deleteInvoiceInfo(String)");
 		}
@@ -64,7 +64,7 @@ public class VendorRecInvoiceHisDaoImpl extends SqlMapClientDaoSupport implement
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入updateInvoiceInfo(InvoiceInfo), 输入参数[" + invoiceInfo + "]");
 		}
-    	getSqlMapClientTemplate().update("InvoiceInfo_updateInvoiceInfo", invoiceInfo);
+    	getSqlMapClientTemplate().update("VendorRecHis_InvoiceInfo_updateInvoiceInfo", invoiceInfo);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开updateInvoiceInfo(InvoiceInfo)");
 		}
@@ -80,7 +80,7 @@ public class VendorRecInvoiceHisDaoImpl extends SqlMapClientDaoSupport implement
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入findInvoiceInfo(InvoiceInfo), 输入参数[" + pk + "]");
 		}
-        InvoiceInfo invoiceInfo = (InvoiceInfo) getSqlMapClientTemplate().queryForObject("InvoiceInfo_findInvoiceInfo", pk);
+        InvoiceInfo invoiceInfo = (InvoiceInfo) getSqlMapClientTemplate().queryForObject("VendorRecHis_InvoiceInfo_findInvoiceInfo", pk);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开findInvoiceInfo(InvoiceInfo), 返回[" + invoiceInfo + "]");
 		}
@@ -93,11 +93,12 @@ public class VendorRecInvoiceHisDaoImpl extends SqlMapClientDaoSupport implement
      * @return invoiceInfo list
      * @throws DataAccessException DataAccessException
      */
-    public List listInvoiceInfo(InvoiceInfo invoiceInfo) throws DataAccessException {
+    @SuppressWarnings("unchecked")
+	public List<InvoiceInfo> listInvoiceInfo(InvoiceInfo invoiceInfo) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listInvoiceInfo(InvoiceInfo), 输入参数[" + invoiceInfo + "]");
 		}
-        List list = getSqlMapClientTemplate().queryForList("InvoiceInfo_listInvoiceInfo", invoiceInfo);
+        List<InvoiceInfo> list = getSqlMapClientTemplate().queryForList("VendorRecHis_InvoiceInfo_listInvoiceInfo", invoiceInfo);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listInvoiceInfo(InvoiceInfo), 返回[" + list + "]");
 		}
@@ -114,7 +115,7 @@ public class VendorRecInvoiceHisDaoImpl extends SqlMapClientDaoSupport implement
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listInvoiceInfoCount(InvoiceInfo), 输入参数[" + invoiceInfo + "]");
 		}
-        Integer count = (Integer)getSqlMapClientTemplate().queryForObject("InvoiceInfo_listInvoiceInfoCount", invoiceInfo);
+        Integer count = (Integer)getSqlMapClientTemplate().queryForObject("VendorRecHis_InvoiceInfo_listInvoiceInfoCount", invoiceInfo);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listInvoiceInfoCount(InvoiceInfo), 返回[" + count + "]");
 		}

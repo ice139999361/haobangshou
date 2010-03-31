@@ -2,7 +2,7 @@
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
 <!-- Always ensure to use the correct XML header as above! -->
-<sqlMap namespace="OperLog">
+<sqlMap namespace="Cust_OperLogHis">
 <typeAlias alias="operLog" type="com.hbs.domain.common.pojo.baseinfo.OperLog"/> 
 <resultMap id="operLog_result" class="operLog">
     <result property="seqId" column="SEQID"/>
@@ -17,9 +17,10 @@
 </resultMap>
 
 
-<insert id="OperLog_insertOperLog" parameterClass="operLog" >
+<insert id="Cust_OperLogHis_insertOperLog" parameterClass="operLog" >
 <![CDATA[
-    INSERT INTO T_CUSTOMER_OPER_LOG (            
+    INSERT INTO T_CUSTOMER_OPER_LOG (  
+			SEQID,          
             OPER_TIME, 
             STAFF_ID, 
             STAFF_NAME, 
@@ -29,7 +30,8 @@
             OPER_CONTENT, 
             MEMO
         )
-    VALUES (          
+    VALUES (   
+			#seqId#,       
             #operTime#,
             #staffId#,
             #staffName#,
@@ -44,7 +46,7 @@
 
 
 
-<select id="OperLog_findOperLog" resultMap="operLog_result" parameterClass="string">
+<select id="Cust_OperLogHis_findOperLog" resultMap="operLog_result" parameterClass="string">
 <![CDATA[
     SELECT
             SEQID, 
@@ -60,7 +62,7 @@
 ]]>
 </select>
 
-<select id="OperLog_listOperLog" resultMap="operLog_result" parameterClass="String">
+<select id="Cust_OperLogHis_listOperLog" resultMap="operLog_result" parameterClass="String">
 <![CDATA[
     SELECT
             SEQID, 
@@ -92,7 +94,7 @@
       		LIMIT #start# ,#end#
 		]]>
 </select>
-<select id="OperLog_listOperLogCount" resultClass="java.lang.Integer" parameterClass="String">
+<select id="Cust_OperLogHis_listOperLogCount" resultClass="java.lang.Integer" parameterClass="String">
 <![CDATA[
     SELECT COUNT(1)
     FROM T_CUSTOMER_OPER_LOG

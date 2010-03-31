@@ -2,7 +2,7 @@
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
 <!-- Always ensure to use the correct XML header as above! -->
-<sqlMap namespace="InvoiceInfo">
+<sqlMap namespace="CustSendHis_InvoiceInfo">
 <typeAlias alias="invoiceInfo" type="com.hbs.domain.common.pojo.baseinfo.InvoiceInfo"/> 
 <resultMap id="invoiceInfo_result" class="invoiceInfo">
     <result property="invoiceSeqId" column="INVOICE_SEQID"/>
@@ -10,7 +10,7 @@
     <result property="staffName" column="STAFF_NAME"/>
     <result property="createTime" column="CREATE_TIME"/>
     <result property="poNo" column="PO_NO"/>
-    <result property="PO_NO_DATE" column="PO_NO_DATE"/>
+    <result property="poNoDate" column="PO_NO_DATE"/>
     <result property="ccode" column="C_CODE"/>
     <result property="shortName" column="SHORT_NAME"/>
     <result property="partNo" column="PART_NO"/>
@@ -23,18 +23,12 @@
     <result property="invoiceDesc" column="INVOICE_DESC"/>
 </resultMap>
 
-<select id="InvoiceInfo_getNextId" resultClass="java.lang.String">
-<![CDATA[
-    SELECT ltrim(to_char(Seq_T_CUST_SEND_INVOICE_HIS_Id.Nextval,'0000000000')) 
-           AS Id 
-    FROM dual
-]]>
-</select>
 
-<insert id="InvoiceInfo_insertInvoiceInfo" parameterClass="invoiceInfo" >
+
+<insert id="CustSendHis_InvoiceInfo_insertInvoiceInfo" parameterClass="invoiceInfo" >
 <![CDATA[
-    INSERT INTO T_CUST_SEND_INVOICE_HIS (
-            INVOICE_SEQID, 
+    INSERT INTO T_CUST_SEND_INVOICE (   
+			INVOICE_SEQID,         
             STAFF_ID, 
             STAFF_NAME, 
             CREATE_TIME, 
@@ -51,13 +45,13 @@
             LEFT_MONEY, 
             INVOICE_DESC
         )
-    VALUES (
-            #invoiceSeqId#,
+    VALUES (   
+			#invoiceSeqId#,         
             #staffId#,
             #staffName#,
             #createTime#,
             #poNo#,
-            #PO_NO_DATE#,
+            #poNoDate#,
             #ccode#,
             #shortName#,
             #partNo#,
@@ -70,16 +64,19 @@
             #invoiceDesc#
     )
 ]]>
+<selectKey resultClass="Integer" keyProperty="invoiceSeqId">
+            SELECT LAST_INSERT_ID()  
+  </selectKey>
 </insert>
 
-<delete id="InvoiceInfo_deleteInvoiceInfo" parameterClass="string">
+<delete id="CustSendHis_InvoiceInfo_deleteInvoiceInfo" parameterClass="string">
 <![CDATA[
-    DELETE  FROM  T_CUST_SEND_INVOICE_HIS WHERE INVOICE_SEQID = #invoiceSeqId#
+    DELETE  FROM  T_CUST_SEND_INVOICE WHERE INVOICE_SEQID = #invoiceSeqId#
 ]]>
 </delete>    
 
-<update id="InvoiceInfo_updateInvoiceInfo" parameterClass="invoiceInfo">
-    UPDATE T_CUST_SEND_INVOICE_HIS 
+<update id="CustSendHis_InvoiceInfo_updateInvoiceInfo" parameterClass="invoiceInfo">
+    UPDATE T_CUST_SEND_INVOICE 
     SET
     	INVOICE_SEQID = #invoiceSeqId#
 	<isNotEmpty prepend="," property="staffId">
@@ -94,8 +91,8 @@
 	<isNotEmpty prepend="," property="poNo">
             PO_NO = #poNo#
 	</isNotEmpty>
-	<isNotEmpty prepend="," property="PO_NO_DATE">
-            PO_NO_DATE = #PO_NO_DATE#
+	<isNotEmpty prepend="," property="poNoDate">
+            PO_NO_DATE = #poNoDate#
 	</isNotEmpty>
 	<isNotEmpty prepend="," property="ccode">
             C_CODE = #ccode#
@@ -130,7 +127,7 @@
     WHERE INVOICE_SEQID = #invoiceSeqId#
 </update> 
 
-<select id="InvoiceInfo_findInvoiceInfo" resultMap="invoiceInfo_result" parameterClass="string">
+<select id="CustSendHis_InvoiceInfo_findInvoiceInfo" resultMap="invoiceInfo_result" parameterClass="string">
 <![CDATA[
     SELECT
             INVOICE_SEQID, 
@@ -149,11 +146,11 @@
             CUR_MONEY, 
             LEFT_MONEY, 
             INVOICE_DESC
-    FROM T_CUST_SEND_INVOICE_HIS WHERE INVOICE_SEQID = #invoiceSeqId#
+    FROM T_CUST_SEND_INVOICE WHERE INVOICE_SEQID = #invoiceSeqId#
 ]]>
 </select>
 
-<select id="InvoiceInfo_listInvoiceInfo" resultMap="invoiceInfo_result" parameterClass="invoiceInfo">
+<select id="CustSendHis_InvoiceInfo_listInvoiceInfo" resultMap="invoiceInfo_result" parameterClass="invoiceInfo">
 <![CDATA[
     SELECT
             INVOICE_SEQID, 
@@ -172,7 +169,7 @@
             CUR_MONEY, 
             LEFT_MONEY, 
             INVOICE_DESC
-    FROM T_CUST_SEND_INVOICE_HIS
+    FROM T_CUST_SEND_INVOICE
 ]]>
 		<dynamic prepend="WHERE">
 			<isNotEmpty prepend="and" property = "invoiceSeqId">
@@ -184,14 +181,16 @@
 			<isNotEmpty prepend="and" property = "staffName">
 				STAFF_NAME = #staffName#
 			</isNotEmpty>
+			<!-- 
 			<isNotEmpty prepend="and" property = "createTime">
 				CREATE_TIME = #createTime#
 			</isNotEmpty>
+			 -->
 			<isNotEmpty prepend="and" property = "poNo">
 				PO_NO = #poNo#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "PO_NO_DATE">
-				PO_NO_DATE = #PO_NO_DATE#
+			<isNotEmpty prepend="and" property = "poNoDate">
+				PO_NO_DATE = #poNoDate#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "ccode">
 				C_CODE = #ccode#
@@ -202,36 +201,34 @@
 			<isNotEmpty prepend="and" property = "partNo">
 				PART_NO = #partNo#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "cpartNo">
-				C_PART_NO = #cpartNo#
+			<!-- 时间段查询 -->
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeBegainTime">
+				<![CDATA[	
+					CREATE_TIME >= STR_TO_DATE('$dynamicFields.likeBegainTime$','%Y-%m-%d')
+				]]>
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "pnDesc">
-				PN_DESC = #pnDesc#
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeEndTime">
+				<![CDATA[	
+					CREATE_TIME < DATE_ADD(STR_TO_DATE('$dynamicFields.likeEndTime$','%Y-%m-%d'),INTERVAL 1 DAY)
+				]]>
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "amount">
-				AMOUNT = #amount#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "allMoney">
-				ALL_MONEY = #allMoney#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "curMoney">
-				CUR_MONEY = #curMoney#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "leftMoney">
-				LEFT_MONEY = #leftMoney#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "invoiceDesc">
-				INVOICE_DESC = #invoiceDesc#
-			</isNotEmpty>
+			<isNotEmpty prepend="order by" property="sort">
+                   $sort$
+            </isNotEmpty> 			
 		</dynamic>
+		<![CDATA[
+      		LIMIT #start# ,#end#
+		]]>
 </select>
 
 
-<select id="InvoiceInfo_listInvoiceInfoCount" resultClass="java.lang.Integer" parameterClass="invoiceInfo">
+<select id="CustSendHis_InvoiceInfo_listInvoiceInfoCount" resultClass="java.lang.Integer" parameterClass="invoiceInfo">
 <![CDATA[
     SELECT
-		COUNT(*)
-    FROM T_CUST_SEND_INVOICE_HIS
+		COUNT(1)
+    FROM T_CUST_SEND_INVOICE
 ]]>
 		<dynamic prepend="WHERE">
 			<isNotEmpty prepend="and" property = "invoiceSeqId">
@@ -243,14 +240,16 @@
 			<isNotEmpty prepend="and" property = "staffName">
 				STAFF_NAME = #staffName#
 			</isNotEmpty>
+			<!-- 
 			<isNotEmpty prepend="and" property = "createTime">
 				CREATE_TIME = #createTime#
 			</isNotEmpty>
+			 -->
 			<isNotEmpty prepend="and" property = "poNo">
 				PO_NO = #poNo#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "PO_NO_DATE">
-				PO_NO_DATE = #PO_NO_DATE#
+			<isNotEmpty prepend="and" property = "poNoDate">
+				PO_NO_DATE = #poNoDate#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "ccode">
 				C_CODE = #ccode#
@@ -261,26 +260,18 @@
 			<isNotEmpty prepend="and" property = "partNo">
 				PART_NO = #partNo#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "cpartNo">
-				C_PART_NO = #cpartNo#
+			<!-- 时间段查询 -->
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeBegainTime">
+				<![CDATA[	
+					CREATE_TIME >= STR_TO_DATE('$dynamicFields.likeBegainTime$','%Y-%m-%d')
+				]]>
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "pnDesc">
-				PN_DESC = #pnDesc#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "amount">
-				AMOUNT = #amount#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "allMoney">
-				ALL_MONEY = #allMoney#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "curMoney">
-				CUR_MONEY = #curMoney#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "leftMoney">
-				LEFT_MONEY = #leftMoney#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "invoiceDesc">
-				INVOICE_DESC = #invoiceDesc#
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeEndTime">
+				<![CDATA[	
+					CREATE_TIME < DATE_ADD(STR_TO_DATE('$dynamicFields.likeEndTime$','%Y-%m-%d'),INTERVAL 1 DAY)
+				]]>
 			</isNotEmpty>
 		</dynamic>
 </select>

@@ -32,7 +32,7 @@ public class WarehouseRecInfoHisDaoImpl extends SqlMapClientDaoSupport implement
     		logger.debug("进入insertWarehouseRecInfo(WarehouseRecInfo), 输入参数[" + warehouseRecInfo + "]");
     	}
         
-    	getSqlMapClientTemplate().insert("WarehouseRecInfo_insertWarehouseRecInfo", warehouseRecInfo);
+    	getSqlMapClientTemplate().insert("WarehouseRecInfoHis_insertWarehouseRecInfo", warehouseRecInfo);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开insertWarehouseRecInfo(WarehouseRecInfo), 返回");
 		}
@@ -48,7 +48,7 @@ public class WarehouseRecInfoHisDaoImpl extends SqlMapClientDaoSupport implement
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入deleteWarehouseRecInfo(String), 输入参数[" + pk + "]");
 		}
-        getSqlMapClientTemplate().update("WarehouseRecInfo_deleteWarehouseRecInfo", pk);
+        getSqlMapClientTemplate().update("WarehouseRecInfoHis_deleteWarehouseRecInfo", pk);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开deleteWarehouseRecInfo(String)");
 		}
@@ -63,7 +63,7 @@ public class WarehouseRecInfoHisDaoImpl extends SqlMapClientDaoSupport implement
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入updateWarehouseRecInfo(WarehouseRecInfo), 输入参数[" + warehouseRecInfo + "]");
 		}
-    	getSqlMapClientTemplate().update("WarehouseRecInfo_updateWarehouseRecInfo", warehouseRecInfo);
+    	getSqlMapClientTemplate().update("WarehouseRecInfoHis_updateWarehouseRecInfo", warehouseRecInfo);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开updateWarehouseRecInfo(WarehouseRecInfo)");
 		}
@@ -79,7 +79,7 @@ public class WarehouseRecInfoHisDaoImpl extends SqlMapClientDaoSupport implement
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入findWarehouseRecInfo(WarehouseRecInfo), 输入参数[" + pk + "]");
 		}
-        WarehouseRecInfo warehouseRecInfo = (WarehouseRecInfo) getSqlMapClientTemplate().queryForObject("WarehouseRecInfo_findWarehouseRecInfo", pk);
+        WarehouseRecInfo warehouseRecInfo = (WarehouseRecInfo) getSqlMapClientTemplate().queryForObject("WarehouseRecInfoHis_findWarehouseRecInfo", pk);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开findWarehouseRecInfo(WarehouseRecInfo), 返回[" + warehouseRecInfo + "]");
 		}
@@ -92,11 +92,12 @@ public class WarehouseRecInfoHisDaoImpl extends SqlMapClientDaoSupport implement
      * @return warehouseRecInfo list
      * @throws DataAccessException DataAccessException
      */
-    public List listWarehouseRecInfo(WarehouseRecInfo warehouseRecInfo) throws DataAccessException {
+    @SuppressWarnings("unchecked")
+	public List<WarehouseRecInfo> listWarehouseRecInfo(WarehouseRecInfo warehouseRecInfo) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listWarehouseRecInfo(WarehouseRecInfo), 输入参数[" + warehouseRecInfo + "]");
 		}
-        List list = getSqlMapClientTemplate().queryForList("WarehouseRecInfo_listWarehouseRecInfo", warehouseRecInfo);
+        List<WarehouseRecInfo> list = getSqlMapClientTemplate().queryForList("WarehouseRecInfoHis_listWarehouseRecInfo", warehouseRecInfo);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listWarehouseRecInfo(WarehouseRecInfo), 返回[" + list + "]");
 		}
@@ -113,7 +114,7 @@ public class WarehouseRecInfoHisDaoImpl extends SqlMapClientDaoSupport implement
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listWarehouseRecInfoCount(WarehouseRecInfo), 输入参数[" + warehouseRecInfo + "]");
 		}
-        Integer count = (Integer)getSqlMapClientTemplate().queryForObject("WarehouseRecInfo_listWarehouseRecInfoCount", warehouseRecInfo);
+        Integer count = (Integer)getSqlMapClientTemplate().queryForObject("WarehouseRecInfoHis_listWarehouseRecInfoCount", warehouseRecInfo);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listWarehouseRecInfoCount(WarehouseRecInfo), 返回[" + count + "]");
 		}

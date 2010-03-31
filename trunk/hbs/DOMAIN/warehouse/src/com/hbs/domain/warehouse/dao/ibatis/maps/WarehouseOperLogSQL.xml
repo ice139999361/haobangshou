@@ -20,8 +20,7 @@
 
 <insert id="WareHouse_OperLog_insertOperLog" parameterClass="operLog" >
 <![CDATA[
-    INSERT INTO T_WAREHOUSE_OPER_LOG (
-            SEQID, 
+    INSERT INTO T_WAREHOUSE_OPER_LOG (             
             OPER_TIME, 
             STAFF_ID, 
             STAFF_NAME, 
@@ -31,8 +30,7 @@
             OPER_CONTENT, 
             MEMO
         )
-    VALUES (
-            #seqId#,
+    VALUES (           
             #operTime#,
             #staffId#,
             #staffName#,
