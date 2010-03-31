@@ -2,7 +2,7 @@ package com.hbs.common.manager.configencode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
+
 import java.util.List;
 import java.util.Map;
 
@@ -58,14 +58,14 @@ public class ConfigEncodeMgr {
 				listEncode.add(encode);
 			}
 		}
-		Iterator<Map.Entry<String,List<ConfigEncode>>> iter = cacheMap.entrySet().iterator();
-		while (iter.hasNext()) { 
-			Map.Entry<String,List<ConfigEncode>> entry = iter.next(); 		     
-		    List<ConfigEncode> list = entry.getValue();
-		    for(ConfigEncode encode : list){
-		    	System.out.println(encode.toString());
-		    }
-		}
+//		Iterator<Map.Entry<String,List<ConfigEncode>>> iter = cacheMap.entrySet().iterator();
+//		while (iter.hasNext()) { 
+//			Map.Entry<String,List<ConfigEncode>> entry = iter.next(); 		     
+//		    List<ConfigEncode> list = entry.getValue();
+//		    for(ConfigEncode encode : list){
+//		    	System.out.println(encode.toString());
+//		    }
+//		}
 	}
 	/**
 	 * 根据主键查询编码表(encodeType , encodeKey)
