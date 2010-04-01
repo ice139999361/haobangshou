@@ -124,7 +124,7 @@ public class ResourceAction extends BaseAction {
 			//setResult("list", list);
 			//setResult("count", getTotalCount());
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("title","test");
+			map.put("title","资源操作列表");
 			map.put("list", list2);
 			setResult("list", new Map[] {map});
 			return SUCCESS;
