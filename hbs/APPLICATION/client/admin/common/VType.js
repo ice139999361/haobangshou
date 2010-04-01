@@ -322,7 +322,7 @@ Ext.apply(Ext.form.VTypes, {
 	   		,prefix   : "GV|;string|;2"        // 前缀，可选填，如：GV     (固定格式|;数据类型|;数据长度)
 	   		,suffix   : "GV|;string|;2|;true"  // 后缀，可选填，如：GV     (固定格式|;数据类型|;数据长度|;是否与前缀有关系)
 	   		,psMsg    : "格式错误!"            // 前/后缀校验错误后，提示信息
-	   		,relate   : "cmp1;>;必须大于cmp1"  // 关联控件的验证  (关联控件ID|;两者的关系|;有错误时的提示信息)  在HTML中写时注意转意
+	   		,relate   : "cmp1|;>|;必须大于cmp1"  // 关联控件的验证  (关联控件ID|;两者的关系|;有错误时的提示信息)  在HTML中写时注意转意
 	   }
 	 */
 	 commCheck: function(val, cmp) {
