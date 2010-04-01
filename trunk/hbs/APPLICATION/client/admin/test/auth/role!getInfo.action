@@ -1,1 +1,37 @@
-{"data":{"role":{"dynamicFields":{},"end":9999999,"memo":"asdf","order":null,"resources":[{"dynamicFields":{},"end":9999999,"operations":"1,2","order":null,"resourceId":1100,"roleId":4,"sort":null,"start":0},{"dynamicFields":{},"end":9999999,"operations":"1,2","order":null,"resourceId":2100,"roleId":4,"sort":null,"start":0},{"dynamicFields":{},"end":9999999,"operations":"","order":null,"resourceId":2000,"roleId":4,"sort":null,"start":0},{"dynamicFields":{},"end":9999999,"operations":"","order":null,"resourceId":1000,"roleId":4,"sort":null,"start":0}],"roleId":4,"roleName":"gdsa","sort":null,"start":0}},"success":true}
+﻿{
+    "data": {
+        "role": {
+            "dynamicFields": {},
+            "end": 9999999,
+            "memo": "客户信息的维护，包括客户信息的录入，修改 ",
+            "order": null,
+            "resources": [
+                {
+                    "dynamicFields": {},
+                    "end": 9999999,
+                    "operations": "1,2",
+                    "order": null,
+                    "resourceId": 1100,
+                    "roleId": 1,
+                    "sort": null,
+                    "start": 0
+                },
+                {
+                    "dynamicFields": {},
+                    "end": 9999999,
+                    "operations": "",
+                    "order": null,
+                    "resourceId": 1000,
+                    "roleId": 1,
+                    "sort": null,
+                    "start": 0
+                }
+            ],
+            "roleId": 1,
+            "roleName": "市场部业务员",
+            "sort": null,
+            "start": 0
+        }
+    },
+    "success": true
+}
