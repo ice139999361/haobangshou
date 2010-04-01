@@ -1,3 +1,7 @@
+function roleNamesRender(value, metaData, record, rowIndex, colIndex, store) {
+	return value.roleNames;
+}
+
 HBSConvertHelper.init(function() {
 	// -------------------------------------- 获取需要持久用到的对象
 	// 获取新增用户按钮
