@@ -69,6 +69,9 @@ public class VendorPartNoInfoMgr {
 			if(iState == StateConstants.STATE_1 || iState == StateConstants.STATE_3){
 				vPartNoInfo.setState(new Integer(StateConstants.STATE_2).toString());
 				ret = this.innerUpdateVendorPartNoInfo(vPartNoInfo, vPartNoInfo.getStaffId(), vPartNoInfo.getStaffName(), null);
+			}else if(iState == StateConstants.STATE_0){
+				vPartNoInfo.setState(new Integer(StateConstants.STATE_2).toString());
+				this.insertVendorPartNoInfo(vPartNoInfo);
 			}
 		}else{
 			vPartNoInfo.setState(new Integer(StateConstants.STATE_2).toString());

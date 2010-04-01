@@ -280,22 +280,22 @@ public class CustPartNoInfo extends BaseDomain{
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(seqId).append(";");
-		sb.append(custPartNo).append(";");
-		sb.append(commCode).append(";");
-		sb.append(state).append(";");
-		sb.append(pnDesc).append(";");
-		sb.append(price).append(";");
-		sb.append(priceTax).append(";");
-		sb.append(createDate).append(";");
-		sb.append(staffId).append(";");
-		sb.append(staffName).append(";");
-		sb.append(partNo).append(";");
-		sb.append(catCode).append(";");
-		sb.append(clsName).append(";");
-		sb.append(minAmount).append(";");
-		sb.append(sampleCode).append(";");
-		sb.append(vendorCode);
+		sb.append("seqId=").append(seqId).append(";");
+		sb.append("custPartNo=").append(custPartNo).append(";");
+		sb.append("commCode=").append(commCode).append(";");
+		sb.append("state=").append(state).append(";");
+		sb.append("pnDesc=").append(pnDesc).append(";");
+		sb.append("price=").append(price).append(";");
+		sb.append("priceTax=").append(priceTax).append(";");
+		sb.append("createDate=").append(createDate).append(";");
+		sb.append("staffId=").append(staffId).append(";");
+		sb.append("staffName=").append(staffName).append(";");
+		sb.append("partNo=").append(partNo).append(";");
+		sb.append("catCode=").append(catCode).append(";");
+		sb.append("clsName=").append(clsName).append(";");
+		sb.append("minAmount=").append(minAmount).append(";");
+		sb.append("sampleCode=").append(sampleCode).append(";");
+		sb.append("vendorCode=").append(vendorCode);
 		return sb.toString();
 	}
 	
