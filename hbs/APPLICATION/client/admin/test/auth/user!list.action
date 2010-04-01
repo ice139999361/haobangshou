@@ -2,14 +2,48 @@
     "data": {
         "list": [
             {
-                "staffName": "ice_china19871117",
-                "name"     : "徐康宁",
-                "gender"   : "男",
-                "duty"     : "民工",
-                "mobile"   : "88888888888"
+                "birthDate": "2009-01-01",
+                "duty": "caigou",
+                "dynamicFields": {
+                    "roleNames": "市场部业务员,业务助理角色",
+                    "roleIds": "1,2"
+                },
+                "email": null,
+                "end": 9999999,
+                "gender": "nan",
+                "identityNumber": "123456789",
+                "memo": null,
+                "mobile": null,
+                "order": null,
+                "phone": "26718666",
+                "sort": null,
+                "staffId": 1,
+                "staffName": "yzj",
+                "start": 0
+            },
+            {
+                "birthDate": "2010-03-31",
+                "duty": "业务员",
+                "dynamicFields": {
+                    "account": "yangzjzj",
+                    "roleNames": "",
+                    "roleIds": ""
+                },
+                "email": "y@c.com",
+                "end": 9999999,
+                "gender": "0",
+                "identityNumber": "2512",
+                "memo": null,
+                "mobile": "123456",
+                "order": null,
+                "phone": "123466",
+                "sort": null,
+                "staffId": 2,
+                "staffName": "lwt",
+                "start": 0
             }
         ],
-        "count": 1
+        "count": 2
     },
     "success": true
 }
