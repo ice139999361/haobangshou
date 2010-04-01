@@ -4,7 +4,7 @@
         "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-	<package name="app-customerOrder" namespace="/custOrder" extends="json-default">
+	<package name="app-adjustInfo" namespace="/adjustInfo" extends="json-default">
 		
 		<global-results>
 			<result name="error" type="json">
