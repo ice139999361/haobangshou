@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="app-customerOrder" namespace="/custOrder" extends="json-default">
+		
+		<global-results>
+			<result name="error" type="json">
+			    <param name="includeProperties">
+                 	success,errorReason.*
+                </param>
+            </result>
+ 			<result name="success" type="json">
+				<param name="includeProperties">
+                	success, result.*
+                </param>
+			</result>
+        </global-results>
+		
+		<!-- 采购员用户 ***************************************************-->
+		<!-- 
+	/**
+	 * 查询
+	 * @action.input adjustInfo.查询条件
+	 * @action.result list：列表 count：总数
+	 * @return
+	 */
+		 -->
+    	<action name="adjustInfo!list" method="doList" 
+    			class="com.hbs.customerorder.action.AdjustCgNormalAction">
+		</action>
+		<!-- 
+	/**
+	 * 获取调货信息
+	 * @action.input adjustInfo.applySeqId 或 adjustInfo.*
+	 * @action.result adjustInfo.*
+	 * @return
+	 */
+		 -->
+    	<action name="adjustInfo!getInfo" method="doGetInfo" 
+    			class="com.hbs.customerorder.action.AdjustCgNormalAction">
+		</action>
+		<!-- 
+	/**
+	 * 保存
+	 * @action.input adjustInfo.*
+	 * @action.result	applySeqId 新记录的id，可能不出现
+	 * @return
+	 */
+		 -->
+    	<action name="adjustInfo!save" method="doSave" 
+    			class="com.hbs.customerorder.action.AdjustCgNormalAction">
+		</action>
+		
+
+		<!-- 采购经理用户 ***************************************************-->
+		<!-- 
+	/**
+	 * 查询
+	 * @action.input adjustInfo.查询条件
+	 * @action.result list：列表 count：总数
+	 * @return
+	 */
+		 -->
+    	<action name="adjustInfo!list" method="doList" 
+    			class="com.hbs.customerorder.action.AdjustCgManagerAction">
+		</action>
+		<!-- 
+	/**
+	 * 获取调货信息
+	 * @action.input adjustInfo.applySeqId 或 adjustInfo.*
+	 * @action.result adjustInfo.*
+	 * @return
+	 */
+		 -->
+    	<action name="adjustInfo!getInfo" method="doGetInfo" 
+    			class="com.hbs.customerorder.action.AdjustCgManagerAction">
+		</action>
+		<!-- 
+	/**
+	 * 审批
+	 * @action.input adjustInfo.applySeqId
+	 * @action.input adjustInfo.auditAgree	0-同意  1-不同意
+	 * @action.input adjustInfo.auditContent
+	 * @return
+	 */
+		 -->
+    	<action name="adjustInfo!audit" method="doAudit" 
+    			class="com.hbs.customerorder.action.AdjustCgManagerAction">
+		</action>
+	</package>
+</struts>
+        

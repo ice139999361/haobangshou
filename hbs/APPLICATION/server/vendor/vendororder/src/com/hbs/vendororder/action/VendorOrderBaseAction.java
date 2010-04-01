@@ -69,7 +69,7 @@ public abstract class VendorOrderBaseAction extends BaseAction {
 			if(getIsManager())
 				vendorOrder.setField("noState01", true);
 			else
-				setMyId();
+				setMyId(false);
 			setPagination(vendorOrder);
 			VendorOrderMgr mgr = (VendorOrderMgr)getBean(CustOrderConstants.CUSTORDERMGR);
 			setResult("list", mgr.getVendorOrderList(vendorOrder));
@@ -122,7 +122,9 @@ public abstract class VendorOrderBaseAction extends BaseAction {
 		}
 	}
 
-	private void setMyId() throws Exception {
+	protected void setMyId(boolean setName) throws Exception {
 		vendorOrder.setStaffId(getLoginStaff().getStaffId().toString());
+		if(setName)
+			vendorOrder.setStaffName(getLoginStaff().getStaffName());
 	}
 }
