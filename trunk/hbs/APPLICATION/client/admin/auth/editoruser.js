@@ -12,8 +12,12 @@ HBSConvertHelper.init(function() {
 	
 	// 当提交按钮被单击时
 	submitBtn.on("click", function() {
+		// 验证 form 内容是符满足要求
+		if(!ExtConvertHelper.isFormValid("form")) return;
+		
 		// 提交数据
 		ExtConvertHelper.submitForm("form", this.url, null, function(form, action) {
+			
 			// 获取成功后的提示信息
 			var msg = ExtConvertHelper.getMessageInfo(action, "操作成功！");
 			
