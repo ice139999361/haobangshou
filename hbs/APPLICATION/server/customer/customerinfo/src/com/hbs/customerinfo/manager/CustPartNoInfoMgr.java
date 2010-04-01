@@ -66,7 +66,7 @@ public class CustPartNoInfoMgr {
 	 */
 	public int commitCustPartNoInfo(CustPartNoInfo custPartNoInfo) throws Exception{
 		int ret =0;
-		logger.debug("提交客户临时物料关系信息列表，输入为：" + custPartNoInfo.toString());
+		logger.debug("提交客户物料关系信息列表，输入为：" + custPartNoInfo.toString());
 		CustPartNoInfo existInfo = this.getCustPartNoInfoByBizKey(custPartNoInfo);
 		if(existInfo != null){//存在数据
 			//获取提交数据打状态
@@ -75,6 +75,9 @@ public class CustPartNoInfoMgr {
 			if(iState == StateConstants.STATE_1 || iState == StateConstants.STATE_3){
 				custPartNoInfo.setState(new Integer(StateConstants.STATE_2).toString());
 				ret = this.innerUpdateCustPartNoInfo(custPartNoInfo, custPartNoInfo.getStaffId(), custPartNoInfo.getStaffName(), null);
+			}else if(iState == StateConstants.STATE_0){
+				custPartNoInfo.setState(new Integer(StateConstants.STATE_2).toString());
+				ret = this.insertCustPartNoInfo(custPartNoInfo);
 			}
 		}else{//不存在数据
 			custPartNoInfo.setState(new Integer(StateConstants.STATE_2).toString());
