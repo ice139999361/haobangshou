@@ -11,6 +11,7 @@
 <include file="struts-app-common.xml" />
 <include file="struts-app-customerInfo.xml" />
 <include file="struts-app-customerOrder.xml" />
+<include file="struts-app-adjustInfo.xml" />
 <include file="struts-app-custOrderDetail.xml" />
 <include file="struts-app-vendorInfo.xml" />
 <include file="struts-app-vendorOrder.xml" />

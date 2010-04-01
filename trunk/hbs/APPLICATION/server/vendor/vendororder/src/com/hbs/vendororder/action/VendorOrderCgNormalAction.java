@@ -54,8 +54,7 @@ public class VendorOrderCgNormalAction extends VendorOrderBaseAction {
 				vendorOrder.setCreateTime(new Date());
 			if(StringUtils.isEmpty(vendorOrder.getStaffId()))
 			{
-				vendorOrder.setStaffId(getLoginStaff().getStaffId().toString());
-				vendorOrder.setStaffName(getLoginStaff().getStaffName());
+				setMyId(true);
 			}
 			
 			// DONE:listdata¡¢¼ì²é
