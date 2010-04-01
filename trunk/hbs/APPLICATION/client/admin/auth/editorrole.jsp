@@ -27,7 +27,7 @@
 				    			</layoutpanel>
 				    		</listpanel>
 				    		
-				    		<checkboxgrouppanel title="角色对应的资源信息" id="checkboxgrouppanel" url="/auth/resource!list2.action" />
+				    		<checkboxgrouppanel title="角色对应的资源信息" id="checkboxgrouppanel" url="/auth/resource!list2.action" panelTitle="title22" />
 			    		</items></form>
 			    		
 			    		<panel buttonAlign="center">
