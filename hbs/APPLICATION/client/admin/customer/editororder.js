@@ -76,7 +76,11 @@ HBSConvertHelper.init(function() {
 		
 		//根据税率设置是否含税交易：税率为0时，可选；否则设为是，并不可修改。 
 		//输入数量时，自动填写金额。 
-
+		ordergrid.getSelectionModel().on("beforerowselect", function(sm, rowIndex, keepExisting, record) {
+			// 初始化 selectType
+			if(Ext.isEmpty(record.get("cpriceTax")) || record.get("cpriceTax") == 0) ordergrid.getColumnById("cisTax").editable = true;
+			else ordergrid.getColumnById("cisTax").editable = false;
+		});
 	}())
 	
 	
