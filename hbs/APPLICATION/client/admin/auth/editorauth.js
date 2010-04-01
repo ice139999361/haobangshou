@@ -58,6 +58,7 @@ HBSConvertHelper.init(function() {
 			var action = Ext.util.JSON.decode(response.responseText);
 			if(!action.success)
 				return;
+			Ext.getCmp("staffId").setValue(action.data.staff.staffId);
 			var o = Ext.getCmp("selectrolepanel");
 			// alert(action.data.staff.dynamicFields.roleIds);
 			o.fromMultiselect.setValue(action.data.staff.dynamicFields.roleIds);

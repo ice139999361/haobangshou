@@ -32,7 +32,7 @@
 				    	<complexgrid id="querygrid" title="用户列表" frame="true" page="true" root="data.list" url="/auth/user!list.action">
 				    		<fields>
 			    				<field name="staffName"	/>
-			    				<field name="dynamicFields.roleNames"	/>
+			    				<field name="dynamicFields"	/>
 			    				<field name="gender"	/>
 			    				<field name="duty"	/>
 			    				<field name="mobile"	/>
@@ -41,12 +41,12 @@
 			    			
 			    			<columns>
 			    				<column header="帐号"       dataIndex="staffName" id="staffName" width="150" />
-			    				<column header="对应的角色" dataIndex="dynamicFields.roleNames"                     width="500" />
+			    				<column header="对应的角色" dataIndex="dynamicFields"   renderer="roleNamesRender"   width="500" />
 			    				<column header="操作"			  dataIndex=""          id="operator"  width="150" />
 			    			</columns>
 				    	</complexgrid>
 			    		
-			    	<!-- service ext ui.  end. -->
+			    	<!-- service ext ui.  end.-->
 			    	</items>
 			    </panel>
 			  </items>
