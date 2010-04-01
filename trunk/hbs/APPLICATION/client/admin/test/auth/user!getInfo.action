@@ -1,0 +1,26 @@
+﻿{
+    "data": {
+        "account": null,
+        "staff": {
+            "birthDate": "2009-01-01",
+            "duty": "caigou",
+            "dynamicFields": {
+                "roleNames": "市场部业务员,业务助理角色",
+                "roleIds": "1,2"
+            },
+            "email": null,
+            "end": 9999999,
+            "gender": "nan",
+            "identityNumber": "123456789",
+            "memo": null,
+            "mobile": null,
+            "order": null,
+            "phone": "26718666",
+            "sort": null,
+            "staffId": 1,
+            "staffName": "yzj",
+            "start": 0
+        }
+    },
+    "success": true
+}
