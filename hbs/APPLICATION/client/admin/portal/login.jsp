@@ -10,7 +10,7 @@
 <META http-equiv=Content-Type content="text/html; charset=UTF-8">
 <META content="MSHTML 6.00.6000.16674" name=GENERATOR>
 </HEAD>
-<BODY id=userlogin_body><FORM action="/auth/login!login.action">
+<BODY id=userlogin_body><FORM action="/server/auth/login!login.action">
 <DIV></DIV>
 
 <DIV id=user_login>
