@@ -10,7 +10,7 @@
 <META http-equiv=Content-Type content="text/html; charset=UTF-8">
 <META content="MSHTML 6.00.6000.16674" name=GENERATOR>
 </HEAD>
-<BODY id=userlogin_body><FORM action="/server/auth/login!login.action">
+<BODY id=userlogin_body><FORM id="form">
 <DIV></DIV>
 
 <DIV id=user_login>
@@ -55,3 +55,21 @@ style="DISPLAY: none; COLOR: red"></SPAN>
 <DIV></DIV>
 
 </FORM></BODY></HTML>
+<%@include file="/common/includejs.jsp"%>
+<script>
+	
+	function submitFun() {
+		var params = {
+			userAccount : document.getElementById("TxtUserName").value,
+			password    : document.getElementById("TxtPassword").value
+		};
+		
+		ExtConvertHelper.submitForm(null, "/auth/login!login.action", params, function() {
+			location.href = CONTEXT_PATH + "/portal/main.jsp";
+		}, null);
+	}
+	Ext.getDom("form").onsubmit = function() { 
+		setTimeout("submitFun()", 0)
+		return false;
+	}
+</script>
