@@ -23,6 +23,10 @@
 		<!-- 登录 -->
 		<action name="login!login" method="doLogin" 
     			class="com.hbs.auth.action.LoginAction">
+    		<result name="success" type="redirect">
+    			<param name="location">/hbs/portal/main.jsp</param>
+    			<param name="prependServletContext">false</param>
+    		</result>
 		</action>
 		<!-- 
 	/**
