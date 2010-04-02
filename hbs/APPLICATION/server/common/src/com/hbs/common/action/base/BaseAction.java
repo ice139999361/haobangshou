@@ -338,7 +338,17 @@ public class BaseAction extends ActionSupport {
 	 */
     protected Staff getLoginStaff() throws Exception {
     	// TODO:getLoginStaff
-    	return new Staff(1, "user1");
+    	com.hbs.common.authfilter.User u = null;
+    	try {
+			u = (com.hbs.common.authfilter.User)getSession().getAttribute("user");
+		} catch (Exception e) {
+		}
+    	if(u != null)
+    		return new Staff(u.getStaffId(), u.getStarffName());
+    	else{
+    		
+    		return new Staff(1, "user1");
+    	}
         //return (Staff) LoginHelper.getLoginStaff(domain);
     }
 }
