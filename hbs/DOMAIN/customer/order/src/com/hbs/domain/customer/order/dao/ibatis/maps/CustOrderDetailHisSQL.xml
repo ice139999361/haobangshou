@@ -223,7 +223,7 @@
             SELF_DELIVERY_AMOUNT = #selfDeliveryAmount#
 	</isNotEmpty>
 	<isNotEmpty prepend="," property="commDeliveryAmount">
-            SELF_DELIVERY_AMOUNT = #commDeliveryAmount#
+            COMM_DELIVERY_AMOUNT = #commDeliveryAmount#
 	</isNotEmpty>
 	<isNotEmpty prepend="," property="lockAmount">
             LOCK_AMOUNT =  #lockAmount#
