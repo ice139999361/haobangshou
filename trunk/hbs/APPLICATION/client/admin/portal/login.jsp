@@ -10,7 +10,7 @@
 <META http-equiv=Content-Type content="text/html; charset=UTF-8">
 <META content="MSHTML 6.00.6000.16674" name=GENERATOR>
 </HEAD>
-<BODY id=userlogin_body><FORM action="/server/success.action">
+<BODY id=userlogin_body><FORM action="/auth/login!login.action">
 <DIV></DIV>
 
 <DIV id=user_login>
@@ -28,11 +28,11 @@
     <UL>
       <LI class=user_main_text>用户名： </LI>
       <LI class=user_main_input><INPUT class=TxtUserNameCssClass id=TxtUserName 
-      maxLength=20 name=TxtUserName> </LI></UL>
+      maxLength=20 name=userAccount> </LI></UL>
     <UL>
       <LI class=user_main_text>密 码： </LI>
       <LI class=user_main_input><INPUT class=TxtPasswordCssClass id=TxtPassword 
-      type=password name=TxtPassword> </LI></UL>
+      type=password name=password> </LI></UL>
     <UL>
       <LI class=user_main_text>Cookie： </LI>
       <LI class=user_main_input><SELECT id=DropExpiration name=DropExpiration> 
