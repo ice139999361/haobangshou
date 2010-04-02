@@ -55,7 +55,7 @@ HBSConvertHelper.init(function() {
 		});
 	
 		// 加载数据
-		ExtConvertHelper.loadForm("form", "/customerInfo/customerInfo!getInfo.action", params, function(form, action) {
+		ExtConvertHelper.loadForm("form", "/custOrder/custOrder!getInfo.action", params, function(form, action) {
 				Ext.getCmp("custbankgrid").addData(action.result.data);
 		});
 	}())
