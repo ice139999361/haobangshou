@@ -54,14 +54,16 @@ public class UserInfoCacheMgr {
 				if(null == listUserRole || listUserRole.size() == 0){
 					logger.info("根据staffid 无法查询到对应的角色，staffid=" + user.getStaffId());
 				}else{
+					HashMap<String, String> actionNames = new HashMap<String,String>(64);
+					HashMap<String,ArrayList<String>> resourceButtons = new HashMap<String,ArrayList<String>>(64);
 					for(UserRole userRole : listUserRole){
 						Integer roleId = userRole.getRoleId();		
 						RoleResourceMgr roleResourceMgr = (RoleResourceMgr)BeanLocator.getInstance().getBean(AuthConstants.ROLE_RESOURCE_MANAGER_NAME);
 						RoleResource rr = new RoleResource();		
 						rr.setRoleId(roleId);		
 						List<RoleResource> roleResources = roleResourceMgr.listRoleResource(rr);
-						HashMap<String, String> actionNames = new HashMap<String,String>(64);
-						HashMap<String,ArrayList<String>> resourceButtons = new HashMap<String,ArrayList<String>>(64);
+//						HashMap<String, String> actionNames = new HashMap<String,String>(64);
+//						HashMap<String,ArrayList<String>> resourceButtons = new HashMap<String,ArrayList<String>>(64);
 						for (RoleResource roleResource : roleResources) {
 							String resourceId = roleResource.getResourceId().toString();
 							String operations = roleResource.getOperations();
