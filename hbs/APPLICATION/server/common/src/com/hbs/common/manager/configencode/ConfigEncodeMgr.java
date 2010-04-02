@@ -80,11 +80,15 @@ public class ConfigEncodeMgr {
 		String encodeKey = ceParam.getEncodeKey();
 		if(null != cacheMap){
 			List<ConfigEncode> list = cacheMap.get(encodeType);
-			for( ConfigEncode code : list){
-				if(encodeKey.equals(code.getEncodeKey())){
-					ret_ConfigEncode = code;
-					break;
+			if(null != list){
+				for( ConfigEncode code : list){
+					if(encodeKey.equals(code.getEncodeKey())){
+						ret_ConfigEncode = code;
+						break;
+					}
 				}
+			}else{
+				logger.info("getConfigEncode(ConfigEncode ceParam) 失败,字典表无配置项，输入的参数为：" + ceParam.toString());
 			}
 		}else{
 			logger.info("getConfigEncode(ConfigEncode ceParam) 失败,缓存为null，输入的参数为：" + ceParam.toString());
