@@ -8,6 +8,6 @@ public class AuthConstants {
 	public static final String ROLE_RESOURCE_MANAGER_NAME = "roleResourceMgr";
 	public static final String RESOURCE_MANAGER_NAME = "resourceMgr";
 	public static final String ACTION_MANAGER_NAME = "actionMgr";
-	public static final String LOGIN_MANAGER_NAME = "LoginMgr";
-	public static final String USER_INFO_CACHE_MANAGER_NAME = "UserInfoCacheMgr";
+	public static final String LOGIN_MANAGER_NAME = "loginMgr";
+	public static final String USER_INFO_CACHE_MANAGER_NAME = "userInfoCacheMgr";
 }

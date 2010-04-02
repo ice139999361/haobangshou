@@ -14,7 +14,7 @@ HBSConvertHelper.init(function() {
 	// 获取历史变更查看按钮
 	var historyBtn   = Ext.getCmp("historyBtn");
 	// 组装需要的参数
-	var params = ["custOrder.poNo=", urlPs.poNo, "&custOrder.commCode=", urlPs.commCode].join("");
+	var params = ["custOrder.poNo=", urlPs.poNo, "&custOrder.commCode=", urlPs.commCode, "&custOrder.poNoType=", urlPs.poNoType].join("");
 	
 	
 	// -------------------------------------- 应用逻辑处理
@@ -56,7 +56,7 @@ HBSConvertHelper.init(function() {
 	
 		// 加载数据
 		ExtConvertHelper.loadForm("form", "/custOrder/custOrder!getInfo.action", params, function(form, action) {
-				Ext.getCmp("custbankgrid").addData(action.result.data);
+				Ext.getCmp("custbankgrid").addData(action.result.data.custOrder.orderDetailList);
 		});
 	}())
 	
