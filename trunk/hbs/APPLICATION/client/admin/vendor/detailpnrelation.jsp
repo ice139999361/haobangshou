@@ -28,8 +28,8 @@
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="2">
-				    				<label fieldLabel="供应商简称"               name="vendorPartNoInfo.shortName"      labelStyle="width:150" allowBlank="false"/>
-				    				<label fieldLabel="供应商结算币种"           name="vendorPartNoInfo.currencyDesc"   labelStyle="width:150" paramsValue="CURRENCY"        emptyText="请选择" />
+				    				<label fieldLabel="供应商简称"               name="vendorInfo.shortName"      labelStyle="width:150" allowBlank="false"/>
+				    				<label fieldLabel="供应商结算币种"           name="vendorInfo.currencyDesc"   labelStyle="width:150" paramsValue="CURRENCY"        emptyText="请选择" />
 				    			</layoutpanel>
 				    		</listpanel>
 				    		
