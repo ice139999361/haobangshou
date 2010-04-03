@@ -282,7 +282,7 @@ public class CustPartNoInfoMgr {
 	/**
 	 * 新增物料关系，判断是否存在相同业务关键字的数据存在，如果存在，则update操作
 	 * @param custPartNoInfo	
-	 * @return 0--成功 
+	 * @return 0--成功  -1 已经存在修改待审批数据
 	 * @throws Exception
 	 */
 	private int insertCustPartNoInfo(CustPartNoInfo custPartNoInfo) throws Exception{
@@ -299,11 +299,13 @@ public class CustPartNoInfoMgr {
 		//Integer seqID =0;
 		if(null == tempInfo){//不存在
 			custPartNoInfoDao.insertCustPartNoInfo(custPartNoInfo);
+			//记录日志			
+			CustLogUtils.operLog(custPartNoInfo.getStaffId(), custPartNoInfo.getStaffName(), (null == tempInfo ?"新增" : "修改"), "物料对照关系信息", custPartNoInfo.getLogBizKey(), custPartNoInfo.getLogContent(), null);
 		}else{
-			this.innerUpdateCustPartNoInfo(custPartNoInfo, custPartNoInfo.getStaffId(), custPartNoInfo.getStaffName(), null);
+			//this.innerUpdateCustPartNoInfo(custPartNoInfo, custPartNoInfo.getStaffId(), custPartNoInfo.getStaffName(), null);
+			ret = -1;
 		}
-		//记录日志			
-		CustLogUtils.operLog(custPartNoInfo.getStaffId(), custPartNoInfo.getStaffName(), (null == tempInfo ?"新增" : "修改"), "物料对照关系信息", custPartNoInfo.getLogBizKey(), custPartNoInfo.getLogContent(), null);
+		
 		
 		return ret;
 	}
