@@ -102,15 +102,20 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
 			
 			VendorPartNoInfoMgr mgr = (VendorPartNoInfoMgr)getBean(vendorPartNoInfoMgrName);
 			int i = mgr.commitVendorPartNoInfo(vendorPartNoInfo);
-			if(i != 0)
+			if(i == -1)
 			{
-				logger.info("保存出错！");
-				setErrorReason("保存出错！");
+				logger.info("已经存在修改待审批数据！");
+				setErrorReason("已经存在修改待审批数据！");
+				return ERROR;
+			}else if( i == 0 ){
+				this.setAlertMsg("提交成功！");
+				if (logger.isDebugEnabled())    logger.debug("end doSave");
+	    		return SUCCESS;
+			}else{
+				logger.info("保存失败！");
+				setErrorReason("保存失败！");
 				return ERROR;
 			}
-			this.setAlertMsg("提交成功！");
-			if (logger.isDebugEnabled())    logger.debug("end doSave");
-    		return SUCCESS;
     	}
     	catch(Exception e)
     	{
