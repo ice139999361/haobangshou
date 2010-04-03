@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>用户查看</title>
+	<title>角色查看</title>
 </head>
 
 <body>
