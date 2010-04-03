@@ -159,9 +159,22 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 				return ERROR;
     		}
     		custPartNoInfo = mgr.getCustPartNoInfoByID(custPartNoInfo.getSeqId().toString());
-    		if(!checkCommonFields())
-    			return ERROR;;
-    				
+//    		if(!checkCommonFields())
+//    			return ERROR;;
+    		if(null != custPartNoInfo){
+	    		//获取客户信息
+	    		CustomerInfoMgr custmgr = (CustomerInfoMgr)getBean(CustomerInfoNormalAction.custInfoMgrName);
+	    		CustomerInfo custInfo = new CustomerInfo();
+				custInfo.setCommCode(custPartNoInfo.getCommCode());
+				custInfo.setState("0");
+				custInfo = custmgr.getCustomerInfo(custInfo, false);
+				setResult("custInfo", custInfo);
+				
+    		}else{
+    			logger.info("无对应的客户物料信息！");
+				setErrorReason("无对应的客户物料信息！");
+				return ERROR;
+    		}
     		setResult("custPartNoInfo", custPartNoInfo);
     		return SUCCESS;
     	} catch(Exception e) {
