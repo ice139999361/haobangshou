@@ -1,6 +1,6 @@
 urlPs.pageType = "audit";
 // 查询数据的地址
-var querygridUrl = "/customerInfo/custPartNoInfoMgr!list.action";
+var querygridUrl = "/customerInfo/custPartNoInfoMgr!list.action?custPartNoInfo.state=0";
 
 HBSConvertHelper.init(function() {
 	// -------------------------------------- 获取需要持久用到的对象
