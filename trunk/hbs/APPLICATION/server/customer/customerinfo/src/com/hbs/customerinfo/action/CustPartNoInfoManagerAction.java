@@ -8,7 +8,9 @@ import org.apache.log4j.Logger;
 
 import com.hbs.common.action.base.BaseAction;
 import com.hbs.customerinfo.manager.CustPartNoInfoMgr;
+import com.hbs.customerinfo.manager.CustomerInfoMgr;
 import com.hbs.domain.customer.customerinfo.pojo.CustPartNoInfo;
+import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
 
 /**
  * 客户物料关系经理用户Action
@@ -228,7 +230,22 @@ public class CustPartNoInfoManagerAction extends BaseAction {
 				setErrorReason("参数错误！");
 				return ERROR;
     		}
-    		setResult("custPartNoInfo", mgr.getCustPartNoInfoByID(custPartNoInfo.getSeqId().toString()));
+    		CustPartNoInfo info =  mgr.getCustPartNoInfoByID(custPartNoInfo.getSeqId().toString());
+    		if(null != info){
+	    		//获取客户信息
+	    		CustomerInfoMgr custmgr = (CustomerInfoMgr)getBean(CustomerInfoNormalAction.custInfoMgrName);
+	    		CustomerInfo custInfo = new CustomerInfo();
+				custInfo.setCommCode(info.getCommCode());
+				custInfo.setState("0");
+				custInfo = custmgr.getCustomerInfo(custInfo, false);
+				setResult("custInfo", custInfo);
+				
+    		}else{
+    			logger.info("无对应的客户物料信息！");
+				setErrorReason("无对应的客户物料信息！");
+				return ERROR;
+    		}
+    		setResult("custPartNoInfo", info);
     		return SUCCESS;
     	} catch(Exception e) {
     		logger.error("catch Exception in doGetInfo.", e);
