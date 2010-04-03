@@ -271,6 +271,20 @@ var ExtConvertHelper = {
 			})
 			return obj;
 	 }
+	 // 从对象中获取指定 key 的值
+	,setCheckValues: function(name, values, valPrefix) {
+			// 初始化value的前缀值
+			if(!valPrefix) valPrefix = "";
+			
+			var valueMap = {};
+			// 分隔并组装 valueMap
+			Ext.each(values.split(","), function(val) {
+				valueMap[valPrefix + val] = true;
+			});
+			Ext.each(document.getElementsByName(name), function(item) {
+				item.checked = valueMap[item.value] || false;
+			});
+	 }
 	 // 设置控件只读属性状态
 	,setItemsReadOnly: function(items, value) {
 			Ext.each(items.split(","), function(id, index, ids) {
