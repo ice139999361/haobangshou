@@ -30,7 +30,7 @@
 			    			</layoutpanel>
 			    		</queryform>
 			    		
-				    	<complexgrid id="querygrid" title="用户列表" frame="true" page="true" root="data.list" url="/auth/role!list.action">
+				    	<complexgrid id="querygrid" title="角色列表" frame="true" page="true" root="data.list" url="/auth/role!list.action">
 				    		<fields>
 				    			<field name="roleId" />
 			    				<field name="roleName"	/>
