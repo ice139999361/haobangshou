@@ -54,10 +54,12 @@ public class UserInfoCacheMgr {
 				if(null == listUserRole || listUserRole.size() == 0){
 					logger.info("根据staffid 无法查询到对应的角色，staffid=" + user.getStaffId());
 				}else{
+					List<String> roleList = new ArrayList<String>();//存放角色ID
 					HashMap<String, String> actionNames = new HashMap<String,String>(64);
 					HashMap<String,ArrayList<String>> resourceButtons = new HashMap<String,ArrayList<String>>(64);
 					for(UserRole userRole : listUserRole){
-						Integer roleId = userRole.getRoleId();		
+						Integer roleId = userRole.getRoleId();	
+						roleList.add(roleId.toString());
 						RoleResourceMgr roleResourceMgr = (RoleResourceMgr)BeanLocator.getInstance().getBean(AuthConstants.ROLE_RESOURCE_MANAGER_NAME);
 						RoleResource rr = new RoleResource();		
 						rr.setRoleId(roleId);		
@@ -91,6 +93,7 @@ public class UserInfoCacheMgr {
 						user.setActionNames(actionNames);
 						user.setResourceButtons(resourceButtons);
 					}
+					user.setRoleList(roleList);
 				}
 			}else{
 				logger.info("不存在" + userAccount +"对应的用户信息！");

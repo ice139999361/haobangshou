@@ -3,6 +3,7 @@ package com.hbs.common.authfilter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * 
@@ -17,8 +18,17 @@ public class User {
 	private String userAccount;
 	private HashMap<String,ArrayList<String>> resourceButtons;
 	private HashMap<String,String> actionNames;
+	private List<String> roleList;
 	
 		
+	public List<String> getRoleList() {
+		return roleList;
+	}
+
+	public void setRoleList(List<String> roleList) {
+		this.roleList = roleList;
+	}
+
 	public Integer getStaffId() {
 		return staffId;
 	}

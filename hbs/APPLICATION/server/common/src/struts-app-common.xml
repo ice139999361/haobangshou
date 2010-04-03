@@ -30,5 +30,10 @@
     			class="com.hbs.common.action.configencode.EncodeDictAction">
 		</action>	
 		
+		<!-- 待办信息配置 -->
+    	<action name="waitTask!listWaitTaskInfo" method="doGetWaitTaskInfo" 
+    			class="com.hbs.common.action.waittask.WaitTaskAction">
+		</action>
+		
     </package>
 </struts>
