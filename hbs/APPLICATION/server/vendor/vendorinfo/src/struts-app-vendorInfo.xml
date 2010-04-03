@@ -215,5 +215,19 @@
      	<action name="vendorInfoCw!unlock" method="doUnlock" 
     			class="com.hbs.vendorinfo.action.VendorInfoCwNormalAction">
 		</action>
+		
+		<!-- ********************************************* -->
+		<!-- 
+ 	/**
+ 	 * 获取物料的历史价格变动，变通做法，获取操作历史记录
+ 	 * @action.input vendorPartNoInfo.* partNo custPartNo commCode
+ 	 * @action.result list	List<OperLog>
+ 	 * @return
+ 	 */
+		 -->
+     	<action name="vendorPartNoInfo!getPriceChange" method="doGetPriceChange" 
+    			class="com.hbs.vendorinfo.action.VendorPartNoInfoNormalAction">
+		</action>
+		
     </package>
 </struts>
