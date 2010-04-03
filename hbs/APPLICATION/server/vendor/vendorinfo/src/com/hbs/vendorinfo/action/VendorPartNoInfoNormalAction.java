@@ -37,7 +37,7 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
     public VendorPartNoInfo getVendorPartNoInfo() { return vendorPartNoInfo; }
     public void setVendorPartNoInfo(VendorPartNoInfo vendorPartNoInfo) { this.vendorPartNoInfo = vendorPartNoInfo; }
     
-    VendorInfo vendorInfo;
+    //VendorInfo vendorInfo;
     
     /**
      * 查询供应商物料关系，判断了用户是否可以查看。
@@ -140,9 +140,21 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
     		vendorPartNoInfo = mgr.getVendorPartNoInfoByID(vendorPartNoInfo.getSeqId().toString());
     		//这里不需要检查了吧
     		//getVendorPartNoInfoByID返回null时也可以返回失败。
-    		if(!checkCommonFields())
-    			return ERROR;;
-    				
+//    		if(!checkCommonFields())
+//    			return ERROR;;
+    		if(null != vendorPartNoInfo){
+    			VendorInfoMgr vendormgr = (VendorInfoMgr)getBean(VendorInfoNormalAction.vendorInfoMgrName);
+    			VendorInfo vendorInfo = new VendorInfo();
+    			vendorInfo.setCommCode(vendorPartNoInfo.getCommCode());
+    			vendorInfo.setState("0");
+    			vendorInfo = vendormgr.getVendorInfo(vendorInfo, false);
+				setResult("vendorInfo", vendorInfo);
+				
+    		}else{
+    			logger.info("无对应的供应商物料信息！");
+				setErrorReason("无对应的供应商物料信息！");
+				return ERROR;
+    		}		
     		setResult("vendorPartNoInfo", vendorPartNoInfo);
     		return SUCCESS;
     	} catch(Exception e) {
@@ -187,7 +199,7 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
 			
 			//DONE：限制范围
 			VendorInfoMgr vendormgr = (VendorInfoMgr)getBean(VendorInfoNormalAction.vendorInfoMgrName);
-			vendorInfo = new VendorInfo();
+			VendorInfo vendorInfo = new VendorInfo();
 			vendorInfo.setCommCode(commCode);
 			vendorInfo.setState("0");
 			vendorInfo = vendormgr.getVendorInfo(vendorInfo, false);
