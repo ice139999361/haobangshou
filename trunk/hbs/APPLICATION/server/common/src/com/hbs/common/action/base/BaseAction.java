@@ -4,14 +4,17 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 
+import com.hbs.common.authfilter.User;
 import com.hbs.common.josn.annotations.JSON;
 import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.domain.auth.pojo.Staff;
@@ -338,9 +341,9 @@ public class BaseAction extends ActionSupport {
 	 */
     protected Staff getLoginStaff() throws Exception {
     	// TODO:getLoginStaff
-    	com.hbs.common.authfilter.User u = null;
+    	User u = null;
     	try {
-			u = (com.hbs.common.authfilter.User)getSession().getAttribute("user");
+			u = (User)getSession().getAttribute("user");
 		} catch (Exception e) {
 		}
     	if(u != null)
@@ -351,4 +354,18 @@ public class BaseAction extends ActionSupport {
     	}
         //return (Staff) LoginHelper.getLoginStaff(domain);
     }
+    /**
+     * 获取登录用户的角色信息
+     * @return
+     */
+    protected List<String> getLoginStaffRole() {
+		List<String> roleList = null;
+
+		User u = (User) getSession().getAttribute("user");
+		if (null != u) {
+			roleList = u.getRoleList();
+		}
+
+		return roleList;
+	}
 }
