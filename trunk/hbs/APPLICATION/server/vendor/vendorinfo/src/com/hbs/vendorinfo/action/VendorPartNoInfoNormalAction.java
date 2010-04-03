@@ -178,7 +178,7 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
  	public String doGetPriceChange(){
  		try {
 	   		VendorPartNoInfoMgr mgr = (VendorPartNoInfoMgr)getBean(vendorPartNoInfoMgrName);
-	   		if(vendorPartNoInfo == null || vendorPartNoInfo.getSeqId() == null || StringUtils.isEmpty(vendorPartNoInfo.getCustPartNo())) {
+	   		if(vendorPartNoInfo == null || vendorPartNoInfo.getPartNo() == null || vendorPartNoInfo.getCommCode() == null || StringUtils.isEmpty(vendorPartNoInfo.getCustPartNo())) {
 	   			logger.info("参数错误！");
 					setErrorReason("参数错误！");
 					return ERROR;
