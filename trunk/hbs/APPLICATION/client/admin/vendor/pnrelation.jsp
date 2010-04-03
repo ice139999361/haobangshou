@@ -25,18 +25,18 @@
 				    			
 				    			<layoutpanel columnNum="2">
 				    				<label fieldLabel="供应商简称"               name="vendorInfo.shortName"  	id="acShortName"      labelStyle="width:150" allowBlank="false"/>
-				    				<label fieldLabel="供应商结算币种"           id="acCurrencyDesc"  labelStyle="width:150" paramsValue="CURRENCY"        emptyText="请选择" />
+				    				<label fieldLabel="供应商结算币种"           name="vendorInfo.currencyDesc" id="acCurrencyDesc"   labelStyle="width:150" />
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
-				    				<hidden name="vendorInfo.currency" id="acCurrencyHidden" />
-				    				<hidden name="vendorInfo.shortName" id="acShortNameHidden" />
+				    				<hidden name="vendorPartNoInfo.seqId" />
 				    				<hidden name="vendorPartNoInfo.pnDesc" id="acPnDescHidden" />
+				    				<hidden name="vendorPartNoInfo.state" />
 								</layoutpanel>
 				    		</listpanel>
 				    		
 				    		<listpanel frame="true" title="P/N对照信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<textfield    fieldLabel="供应商P/N"               name="vendorPartNoInfo.custPartNo"              labelStyle="width:150" allowBlank="false"/>
+				    				<textfield    fieldLabel="供应商P/N"       id="acCustPartNo"        name="vendorPartNoInfo.custPartNo"              labelStyle="width:150" allowBlank="false"/>
 				    				<autocomplete fieldLabel="本公司P/N" url="/partNo/partNo!list.action" displayField="partNo" valueField="partNo" queryParam="partNo.partNo"	name="vendorPartNoInfo.partNo"                  labelStyle="width:150" allowBlank="false" id="acPartNo" />
 				    			</layoutpanel>
 				    			
