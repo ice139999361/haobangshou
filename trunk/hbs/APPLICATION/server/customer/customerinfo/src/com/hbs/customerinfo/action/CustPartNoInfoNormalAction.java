@@ -299,7 +299,7 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 	   		setResult("list", mgr.getPartNoChange(custPartNoInfo));
 	   		return SUCCESS;
   		} catch(Exception e) {
-  			logger.error("catch Exception in doGetInfo.", e);
+  			logger.error("catch Exception in doGetPriceChange.", e);
 			setErrorReason("ÄÚ²¿´íÎó");
 			return ERROR;
   		}
