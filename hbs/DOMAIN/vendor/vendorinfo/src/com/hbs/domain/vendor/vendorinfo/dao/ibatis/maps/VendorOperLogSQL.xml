@@ -59,7 +59,7 @@
 ]]>
 </select>
 
-<select id="Vendor_OperLog_listOperLog" resultMap="operLog_result" parameterClass="String">
+<select id="Vendor_OperLog_listOperLog" resultMap="operLog_result" parameterClass="operLog">
 <![CDATA[
     SELECT
             SEQID, 

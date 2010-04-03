@@ -33,7 +33,7 @@ public class LogUtils {
 	 * @param logBizKey
 	 * @return
 	 */
-	public static List<OperLog> getlogList(String logDaoName ,String logBizKey){
+	public static List<OperLog> getlogList(String logDaoName ,OperLog logBizKey){
 		OperLogDao logDao = (OperLogDao)BeanLocator.getInstance().getBean(logDaoName);
 		return logDao.listOperLog(logBizKey);
 	}

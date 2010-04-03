@@ -248,8 +248,10 @@ public class VendorPartNoInfoMgr {
 	 * @throws Exception
 	 */
 	public List<OperLog> getPartNoChange(VendorPartNoInfo vPartNoInfo) throws Exception{
+		OperLog logKey = new OperLog();
+		logKey.setOperKey(vPartNoInfo.getLogBizKey()+"审批数据");
 		
-		return VendorLogUtils.getLogList(vPartNoInfo.getLogBizKey()+"审批数据");
+		return VendorLogUtils.getLogList(logKey);
 	}
 	/**
 	 * 新增物料关系，判断是否存在相同业务关键字的数据存在，如果存在，做update操作
@@ -271,11 +273,12 @@ public class VendorPartNoInfoMgr {
 		//Integer seqID =0;
 		if(null == tempInfo){//不存在
 			vPartNoInfoDao.insertVendorPartNoInfo(vPartNoInfo);
+			//记录日志			
+			VendorLogUtils.operLog(vPartNoInfo.getStaffId(), vPartNoInfo.getStaffName(), "新增", "物料对照关系信息", vPartNoInfo.getLogBizKey(), vPartNoInfo.getLogContent(), null);
 		}else{
-			this.innerUpdateVendorPartNoInfo(vPartNoInfo, vPartNoInfo.getStaffId(), vPartNoInfo.getStaffName(), null);
+			ret = -1;
 		}
-		//记录日志			
-		VendorLogUtils.operLog(vPartNoInfo.getStaffId(), vPartNoInfo.getStaffName(), "新增", "物料对照关系信息", vPartNoInfo.getLogBizKey(), vPartNoInfo.getLogContent(), null);
+		
 		
 		return ret;
 	}

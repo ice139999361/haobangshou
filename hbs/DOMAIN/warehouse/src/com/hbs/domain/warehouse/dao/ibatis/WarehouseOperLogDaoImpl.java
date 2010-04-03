@@ -65,7 +65,7 @@ public class WarehouseOperLogDaoImpl extends SqlMapClientDaoSupport implements O
      * @throws DataAccessException DataAccessException
      */
     @SuppressWarnings("unchecked")
-	public List<OperLog> listOperLog(String operKey) throws DataAccessException {
+	public List<OperLog> listOperLog(OperLog operKey) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listOperLog(OperLog), 输入参数[" + operKey + "]");
 		}

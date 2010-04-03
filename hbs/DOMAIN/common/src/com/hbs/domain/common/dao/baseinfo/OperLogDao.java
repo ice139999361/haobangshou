@@ -34,5 +34,5 @@ public interface OperLogDao {
      * @return operLog list
      * @throws DataAccessException DataAccessException
      */
-    List<OperLog> listOperLog(String operLey) throws DataAccessException ;
+    List<OperLog> listOperLog(OperLog operLey) throws DataAccessException ;
 }

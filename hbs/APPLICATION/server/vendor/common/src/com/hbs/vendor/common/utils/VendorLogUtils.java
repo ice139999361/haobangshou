@@ -54,7 +54,7 @@ public class VendorLogUtils {
 	 * @param logBizKey
 	 * @return
 	 */
-	public static List<OperLog> getLogList(String logBizKey){
+	public static List<OperLog> getLogList(OperLog logBizKey){
 		return LogUtils.getlogList(VENDOR_OPERLOG_DAO, logBizKey);
 	}
 }
