@@ -95,6 +95,7 @@ public class ResourceAction extends BaseAction {
 	 */
 	public String doList2() {
 		try {
+			/*
 			if(resource == null)
 				resource = new Resource();
 			setTotalCount(getRMgr().listResourceCount(resource));
@@ -127,6 +128,51 @@ public class ResourceAction extends BaseAction {
 			map.put("title","资源操作列表");
 			map.put("list", list2);
 			setResult("list", new Map[] {map});
+			*/
+			
+			///*
+			if(!SUCCESS.equals(doMenu())){
+				return ERROR;
+			}
+			ActionMgr amgr = (ActionMgr)getBean(AuthConstants.ACTION_MANAGER_NAME);
+			List<Resource> menulist = (List<Resource>)this.getResult().get("menu");
+			this.getResult().remove("menu");
+			List<Map<String, Object>> list = new Vector<Map<String, Object>>();
+			for(Resource r1 : menulist){
+				Map<String, Object> m1 = new HashMap<String, Object>();
+				m1.put("title", r1.getResourceName());
+				list.add(m1);
+				List<Map<String, Object>> list2 = new Vector<Map<String, Object>>();
+				m1.put("list", list2);
+				Object o = r1.getField("isLeaf");
+				if(o != null && o.equals(true) )
+					continue;
+				o = r1.getField(childrenFieldName);
+				if(o == null)
+					continue;
+				List<Resource> sublist = (List<Resource>)o;
+				for(Resource r2 : sublist){
+					Map<String, Object> m2 = new HashMap<String, Object>();
+					m2.put("title", r2.getResourceName());
+					m2.put("name", prefixResource + r2.getResourceId());
+					if(r2.getActionsId() != null) {
+						Action action = new Action();
+						action.setActionsId(r2.getActionsId());
+						List<Action> actionList = amgr.listAction(action);
+						Vector<Map<String, Object>> actionList2 = new Vector<Map<String, Object>>();
+						for(Action a : actionList) {
+							Map<String, Object> actionMap = new HashMap<String, Object>();
+							actionMap.put("title", a.getDescription());
+							actionMap.put("value", prefixAction+a.getActionId());
+							actionList2.add(actionMap);
+						}
+						m2.put("list", actionList2);
+					}
+					list2.add(m2);
+				}
+			}
+			setResult("list", list);
+			//*/
 			return SUCCESS;
 		} catch(Exception e) {
 			logger.error("catch Exception in doGetAllRes", e);
