@@ -24,12 +24,11 @@
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="2">
-				    				<label fieldLabel="客户简称"               name="custInfo.shortName"  	id="acShortName"    labelStyle="width:150" allowBlank="false"/>
-				    				<label fieldLabel="客户结算币种"           id="acCurrencyDesc"   labelStyle="width:150" paramsValue="CURRENCY"        emptyText="请选择" />
+				    				<label fieldLabel="客户简称"               name="custInfo.shortName"   id="acShortName"    labelStyle="width:150" allowBlank="false"/>
+				    				<label fieldLabel="客户结算币种"           name="custInfo.currencyDesc"                      id="acCurrencyDesc"   labelStyle="width:150" paramsValue="CURRENCY"        emptyText="请选择" />
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
-				    				<hidden name="custInfo.currency" id="acCurrencyHidden" />
-				    				<hidden name="custInfo.shortName" id="acShortNameHidden" />
+				    				<hidden name="custPartNoInfo.seqId" />
 				    				<hidden name="custPartNoInfo.pnDesc" id="acPnDescHidden" />
 								</layoutpanel>
 				    		</listpanel>
@@ -41,7 +40,7 @@
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">
-				    				<label fieldLabel="描述"  id="acPnDesc"                 name="custPartNoInfo.pnDesc"                  labelStyle="width:150" allowBlank="false"/>
+				    				<label fieldLabel="描述"  id="acPnDesc"   labelStyle="width:150" allowBlank="false"/>
 				    			</layoutpanel>
 				    		</listpanel>
 				    		
