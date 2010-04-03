@@ -275,8 +275,9 @@ public class CustPartNoInfoMgr {
 	 * @throws Exception
 	 */
 	public List<OperLog> getPartNoChange(CustPartNoInfo custPartNoInfo) throws Exception{
-		
-		return CustLogUtils.getLogList(custPartNoInfo.getLogBizKey()+"审批数据");
+		OperLog logKey = new OperLog();
+		logKey.setOperKey(custPartNoInfo.getLogBizKey()+"审批数据");
+		return CustLogUtils.getLogList(logKey);
 	}
 	
 	/**

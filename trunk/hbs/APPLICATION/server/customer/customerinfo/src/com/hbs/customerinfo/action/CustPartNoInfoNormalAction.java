@@ -288,7 +288,7 @@ public class CustPartNoInfoNormalAction extends BaseAction {
   	public String doGetPriceChange(){
   		try {
 	   		CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)getBean(custPartNoInfoMgrName);
-	   		if(custPartNoInfo == null || custPartNoInfo.getSeqId() == null || StringUtils.isEmpty(custPartNoInfo.getCustPartNo())) {
+	   		if(custPartNoInfo == null || custPartNoInfo.getPartNo() == null || custPartNoInfo.getCommCode() == null || StringUtils.isEmpty(custPartNoInfo.getCustPartNo())) {
 	   			logger.info("参数错误！");
 					setErrorReason("参数错误！");
 					return ERROR;

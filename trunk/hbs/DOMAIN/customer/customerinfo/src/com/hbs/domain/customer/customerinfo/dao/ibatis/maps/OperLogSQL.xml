@@ -2,7 +2,7 @@
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
 <!-- Always ensure to use the correct XML header as above! -->
-<sqlMap namespace="Cust_OperLogHis">
+<sqlMap namespace="Cust_OperLog">
 <typeAlias alias="operLog" type="com.hbs.domain.common.pojo.baseinfo.OperLog"/> 
 <resultMap id="operLog_result" class="operLog">
     <result property="seqId" column="SEQID"/>
@@ -17,7 +17,7 @@
 </resultMap>
 
 
-<insert id="Cust_OperLogHis_insertOperLog" parameterClass="operLog" >
+<insert id="Cust_OperLog_insertOperLog" parameterClass="operLog" >
 <![CDATA[
     INSERT INTO T_CUSTOMER_OPER_LOG (  
 			SEQID,          
@@ -46,7 +46,7 @@
 
 
 
-<select id="Cust_OperLogHis_findOperLog" resultMap="operLog_result" parameterClass="string">
+<select id="Cust_OperLog_findOperLog" resultMap="operLog_result" parameterClass="string">
 <![CDATA[
     SELECT
             SEQID, 
@@ -62,7 +62,7 @@
 ]]>
 </select>
 
-<select id="Cust_OperLogHis_listOperLog" resultMap="operLog_result" parameterClass="String">
+<select id="Cust_OperLog_listOperLog" resultMap="operLog_result" parameterClass="operLog">
 <![CDATA[
     SELECT
             SEQID, 
@@ -79,22 +79,19 @@
 		<dynamic prepend="WHERE">
 			<isNotEmpty prepend="and" property="operKey">
 				OPER_KEY = #operKey#
-			</isNotEmpty>			
-			<isNotEmpty prepend="order by" property="sort">
-                   $sort$
-            </isNotEmpty>
-            <isEmpty prepend="order by" property="sort">
+			</isNotEmpty>
+         <!--    <isEmpty prepend="order by" property="sort">
                    <![CDATA[
                    	ORDER BY OPER_TIME DESC
                    ]]>
             </isEmpty>
-            
+          -->   
 		</dynamic>
 		<![CDATA[
       		LIMIT #start# ,#end#
 		]]>
 </select>
-<select id="Cust_OperLogHis_listOperLogCount" resultClass="java.lang.Integer" parameterClass="String">
+<select id="Cust_OperLog_listOperLogCount" resultClass="java.lang.Integer" parameterClass="operLog">
 <![CDATA[
     SELECT COUNT(1)
     FROM T_CUSTOMER_OPER_LOG

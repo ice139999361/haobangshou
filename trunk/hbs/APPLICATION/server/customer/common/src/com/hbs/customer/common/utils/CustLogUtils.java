@@ -56,7 +56,7 @@ public class CustLogUtils {
 	 * @param logBizKey
 	 * @return
 	 */
-	public static List<OperLog> getLogList(String logBizKey){
+	public static List<OperLog> getLogList(OperLog logBizKey){
 		return LogUtils.getlogList(CUST_OPERLOG_DAO, logBizKey);
 	}
 }
