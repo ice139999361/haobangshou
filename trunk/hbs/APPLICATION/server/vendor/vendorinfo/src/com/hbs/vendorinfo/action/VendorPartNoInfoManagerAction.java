@@ -8,7 +8,9 @@ import org.apache.log4j.Logger;
 
 import com.hbs.common.action.base.BaseAction;
 import com.hbs.common.springhelper.BeanLocator;
+import com.hbs.domain.vendor.vendorinfo.pojo.VendorInfo;
 import com.hbs.domain.vendor.vendorinfo.pojo.VendorPartNoInfo;
+import com.hbs.vendorinfo.manager.VendorInfoMgr;
 import com.hbs.vendorinfo.manager.VendorPartNoInfoMgr;
 
 /**
@@ -220,7 +222,21 @@ public class VendorPartNoInfoManagerAction extends BaseAction {
 				setErrorReason("参数错误！");
 				return ERROR;
     		}
-    		setResult("vendorPartNoInfo", mgr.getVendorPartNoInfoByID(vendorPartNoInfo.getSeqId().toString()));
+    		VendorPartNoInfo info =mgr.getVendorPartNoInfoByID(vendorPartNoInfo.getSeqId().toString()); 
+    		setResult("vendorPartNoInfo", info);
+    		if(null != info){
+    			VendorInfoMgr vendormgr = (VendorInfoMgr)getBean(VendorInfoNormalAction.vendorInfoMgrName);
+    			VendorInfo vendorInfo = new VendorInfo();
+    			vendorInfo.setCommCode(info.getCommCode());
+    			vendorInfo.setState("0");
+    			vendorInfo = vendormgr.getVendorInfo(vendorInfo, false);
+				setResult("vendorInfo", vendorInfo);
+				
+    		}else{
+    			logger.info("无对应的供应商物料信息！");
+				setErrorReason("无对应的供应商物料信息！");
+				return ERROR;
+    		}	
     		return SUCCESS;
     	} catch(Exception e) {
     		logger.error("catch Exception in doGetInfo.", e);
