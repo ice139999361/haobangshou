@@ -20,7 +20,7 @@
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="供应商基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="1">
-				    				<autocomplete fieldLabel="供应商编码" url="/vendorInfo/vendorInfo!list.action"  displayField="commCode"  valueField="commCode" queryParam="vendorInfo.commCode"     name="vendorInfo.commCode"       labelStyle="width:150" allowBlank="false" id="acCommCode"/>
+				    				<autocomplete fieldLabel="供应商编码" url="/vendorInfo/vendorInfo!list.action?vendorInfo.state=0"  displayField="commCode"  valueField="commCode" queryParam="vendorInfo.commCode"     name="vendorInfo.commCode"       labelStyle="width:150" allowBlank="false" id="acCommCode"/>
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="2">
