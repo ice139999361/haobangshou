@@ -31,9 +31,6 @@ HBSConvertHelper.init(function() {
 		if(!action.success)
 			return;
 		Ext.getCmp("acShortName").setValue(action.data.vendorInfo.shortName);
-		Ext.getCmp("acShortNameHidden").setValue(action.data.vendorInfo.shortName);
-		
-		Ext.getCmp("acCurrencyHidden").setValue(action.data.vendorInfo.currency);
 		Ext.getCmp("acCurrencyDesc").setValue(action.data.vendorInfo.currencyDesc);
 	});
 
@@ -64,6 +61,8 @@ HBSConvertHelper.init(function() {
 	function updateInitFun() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("供应商P/N对照修改");
+		// 设置下列控件为只读
+		ExtConvertHelper.setItemsReadOnly("acCommCode,acCustPartNo,acPartNo", true);
 		
 		// 设置关联按钮的 url
 		submitBtn.url = "/vendorInfo/vendorPartNoInfo!save.action";
@@ -73,12 +72,7 @@ HBSConvertHelper.init(function() {
 		
 		// 加载数据
 		ExtConvertHelper.loadForm("form", "/vendorInfo/vendoromerInfo!getInfo.action", params, function(form, action) {
-			var o = Ext.getCmp("acCommCode");
-			o.setValue(action.result.data.vendorPartNoInfo.commCode);
-			//TODO：触发回车事件
-			o = Ext.getCmp("acPartNo");
-			o.setValue(action.result.data.vendorPartNoInfo.partNo);
-			//触发回车事件
+			Ext.getCmp("acPnDesc").setValue(action.result.data.vendorPartNoInfo.pnDesc);
 		});
 	}
 	
