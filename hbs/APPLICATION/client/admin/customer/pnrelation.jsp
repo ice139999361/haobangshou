@@ -29,6 +29,7 @@
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
 				    				<hidden name="custPartNoInfo.seqId" />
+				    				<hidden name="custPartNoInfo.state" />
 				    				<hidden name="custPartNoInfo.pnDesc" id="acPnDescHidden" />
 								</layoutpanel>
 				    		</listpanel>
