@@ -14,7 +14,7 @@ HBSConvertHelper.init(function() {
 		backBtn.on("click", HBSConvertHelper.defaultCloseTab);
 	
 		// 组装需要的参数
-		var params = ["staff.staffId=", urlPs.staffId].join("");
+		var params = ["role.roleId=", urlPs.roleId].join("");
 		
 		// 加载数据
 		ExtConvertHelper.loadForm("form", "/auth/user!getInfo.action", params);
