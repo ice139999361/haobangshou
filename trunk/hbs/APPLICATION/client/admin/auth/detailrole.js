@@ -17,7 +17,11 @@ HBSConvertHelper.init(function() {
 		var params = ["role.roleId=", urlPs.roleId].join("");
 		
 		// 加载数据
-		ExtConvertHelper.loadForm("form", "/auth/user!getInfo.action", params);
+		ExtConvertHelper.loadForm("form", "/auth/role!getInfo.action", params, function(form, action) {
+			Ext.each(action.result.data.role.resources, function(item) {
+				ExtConvertHelper.setCheckValues("r_" + item.resourceId, item.operations, "a_")
+			});
+		});
 		
 		Ext.each(Ext.getCmp("checkboxgrouppanel").findByType("checkboxgroup"), function(item) {
 			item.disable();

@@ -52,7 +52,11 @@ HBSConvertHelper.init(function() {
 		// 组装需要的参数
 		var params = ["role.roleId=", urlPs.roleId].join("");
 		// 加载数据
-		ExtConvertHelper.loadForm("form", "/auth/role!getInfo.action", params);
+		ExtConvertHelper.loadForm("form", "/auth/role!getInfo.action", params, function(form, action) {
+			Ext.each(action.result.data.role.resources, function(item) {
+				ExtConvertHelper.setCheckValues("r_" + item.resourceId, item.operations, "a_")
+			});
+		});
 	}
 	
 	// 根据不同的操作类型，做出不同的处理
