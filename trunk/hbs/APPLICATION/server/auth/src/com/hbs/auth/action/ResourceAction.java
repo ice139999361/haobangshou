@@ -132,12 +132,13 @@ public class ResourceAction extends BaseAction {
 			*/
 			
 			///*
-			if(!SUCCESS.equals(doMenu())){
-				return ERROR;
-			}
+//			if(!SUCCESS.equals(doMenu())){
+//				return ERROR;
+//			}
 			ActionMgr amgr = (ActionMgr)getBean(AuthConstants.ACTION_MANAGER_NAME);
-			List<Resource> menulist = (List<Resource>)this.getResult().get("menu");
-			this.getResult().remove("menu");
+//			List<Resource> menulist = (List<Resource>)this.getResult().get("menu");
+			List<Resource> menulist =getAllListResource();
+//			this.getResult().remove("menu");
 			List<Map<String, Object>> list = new Vector<Map<String, Object>>();
 			for(Resource r1 : menulist){
 				Map<String, Object> m1 = new HashMap<String, Object>();
@@ -279,5 +280,85 @@ public class ResourceAction extends BaseAction {
 			setErrorReason("内部错误");
 			return ERROR;
 		}
+		
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	private List<Resource> getAllListResource(){
+		List<Resource> list2 = new Vector<Resource>();
+		try {			
+			HashMap<Integer, Resource> idmap = new HashMap<Integer, Resource>();
+			Resource temp = new Resource();
+			List<Resource> list = getRMgr().listResource(temp);			
+			if(list.size()>0)
+			for(Resource res : list) {
+				if(res == null || res.getResourceId() == null)
+					continue;
+				
+				list2.add(res);
+				idmap.put(res.getResourceId(), res);				
+			}
+			
+			// 按照parent、id排序
+			if(list2.size() > 0)
+			Collections.sort(list2, new Comparator<Resource>(){
+				private int getParent(Resource res) {
+					try{
+						return res.getParent().intValue();
+						//return 0;
+					}catch(Exception e){
+						return 0;
+					}
+				}
+				private int getId(Resource res){
+					try{
+						return res.getResourceId().intValue();
+					}catch(Exception e){
+						return 0;
+					}
+				}
+				public int compare(Resource o1, Resource o2) {
+					if(o1 == null) return -1;
+					if(o2 == null) return 1;
+					int i = getParent(o1) - getParent(o2);
+					if(i == 0)
+						return getId(o1) - getId(o2);
+					else
+						return i;
+				}
+				
+			});
+			
+			// 整形
+			if(list2.size() > 0)
+			for(Resource res : list2){
+				Integer i = res.getParent();
+				if(i == null || i.equals(0))
+					continue;
+				List<Resource> sublist = (List<Resource>)idmap.get(i).getField(childrenFieldName);
+				if(sublist == null) {
+					sublist = new Vector<Resource>();
+					idmap.get(i).setField(childrenFieldName, sublist);
+				}
+				sublist.add(res);
+				//list2.remove(res); // 不能删除，否则在下一个for时会出异常
+			}
+			
+			// 设置isLeaf
+			if(list2.size() > 0)
+			for(Iterator<Resource> it = list2.iterator();it.hasNext();){
+				Resource res = it.next();
+				List<Resource> sublist = (List<Resource>)res.getField(childrenFieldName);
+				res.setField("isLeaf", sublist == null || sublist.size() == 0);
+				if(res.getParent() == null || !res.getParent().equals(0))
+					it.remove();
+			}	
+		} catch(Exception e) {
+			logger.error("catch Exception in doGetAllRes", e);
+			
+			
+		}
+		return list2;
 	}
 }
