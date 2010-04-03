@@ -56,6 +56,12 @@ HBSConvertHelper.init(function() {
 		
 		for(var i = 0 ; i < view.ds.getCount() ; i++) {
 			// 获取客户简称所在的列
+			var commCode_cell = view.getCell(i, view.grid.getColumnIndexById("commCode"));
+			// 将需要的链接渲染到此列
+			HBSConvertHelper.renderATag2Cell(commCode_cell.innerText, "/customer/detailpnrelation.jsp?pageType=query&seqId="+view.ds.getAt(i).get("seqId"), "open", commCode_cell);
+		
+		
+			// 获取客户简称所在的列
 			var custPartNo_cell = view.getCell(i, view.grid.getColumnIndexById("custPartNo"));
 			// 获取操作列
 			var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));
