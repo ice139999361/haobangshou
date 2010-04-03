@@ -310,5 +310,20 @@
      	<action name="customerInfoCw!unlock" method="doUnlock" 
     			class="com.hbs.customerinfo.action.CustomerInfoCwNormalAction">
 		</action>
+		
+		
+		<!-- ********************************************* -->
+		<!-- 
+  	/**
+  	 * 获取物料的历史价格变动，变通做法，获取操作历史记录
+  	 * @action.input custPartNoInfo.* partNo custPartNo commCode
+  	 * @action.result list	List<OperLog>
+  	 * @return
+  	 */
+		 -->
+     	<action name="custPartNoInfo!getPriceChange" method="doGetPriceChange" 
+    			class="com.hbs.customerinfo.action.CustPartNoInfoNormalAction">
+		</action>
+	
     </package>
 </struts>

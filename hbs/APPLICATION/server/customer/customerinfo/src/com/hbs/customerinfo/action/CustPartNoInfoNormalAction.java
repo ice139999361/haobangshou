@@ -277,6 +277,34 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 			return ERROR;
    	}
    }
+  
+
+  	/**
+  	 * 获取物料的历史价格变动，变通做法，获取操作历史记录
+  	 * @action.input custPartNoInfo.* partNo custPartNo commCode
+  	 * @action.result list	List<OperLog>
+  	 * @return
+  	 */
+  	public String doGetPriceChange(){
+  		try {
+	   		CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)getBean(custPartNoInfoMgrName);
+	   		if(custPartNoInfo == null || custPartNoInfo.getSeqId() == null || StringUtils.isEmpty(custPartNoInfo.getCustPartNo())) {
+	   			logger.info("参数错误！");
+					setErrorReason("参数错误！");
+					return ERROR;
+	   		}
+	   		if(StringUtils.isEmpty(custPartNoInfo.getState()))
+	   			custPartNoInfo.setState("0");
+	   		
+	   		setResult("list", mgr.getPartNoChange(custPartNoInfo));
+	   		return SUCCESS;
+  		} catch(Exception e) {
+  			logger.error("catch Exception in doGetInfo.", e);
+			setErrorReason("内部错误");
+			return ERROR;
+  		}
+  	}
+  	
 	/**
 	 * 设置STAFF信息为当前用户信息
 	 * @param setName 是否设置用户名。为true时设置staffName为当前用户的staffName；为false时设置staffName为null。

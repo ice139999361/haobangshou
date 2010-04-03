@@ -93,6 +93,7 @@ public class ResourceAction extends BaseAction {
 	 * @action.result count ÊýÁ¿
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public String doList2() {
 		try {
 			/*
