@@ -52,6 +52,16 @@
 		<action name="partNo!save" method="doSave" 
     			class="com.hbs.product.action.ProductAction">
 		</action>
+		<!-- 
+	/**
+	 * 检查编码
+	 * @action.input value
+	 * @return
+	 */
+		 -->
+		<action name="partNo!checkPartNo" method="doCheckPartNo" 
+    			class="com.hbs.product.action.ProductAction">
+		</action>
 		
 		
 		<!--
