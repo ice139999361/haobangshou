@@ -69,10 +69,25 @@ HBSConvertHelper.init(function() {
 		
 		// 组装需要的参数
 		var params = ["partNo.partNo=", urlPs.partNo].join("");
+		//
+		//Ext.getCmp("cmbClsCode").tree.getLoader().load()
+		//Ext.getCmp("cmbClsCode").tree.fireEvent("click");
+		//Ext.getCmp("cmbClsCode").fireEvent("click", Ext.getCmp("cmbClsCode"));
+		//Ext.getCmp("cmbClsCode").expand();
+		//alert(Ext.getDom("cmbClsCode").click())
+		
 		// 加载数据
-		ExtConvertHelper.loadForm("form", "/partNo/partNo!get.action", params);
+		ExtConvertHelper.loadForm("form", "/partNo/partNo!get.action", params, function(form, action) {
+			//alert(action.result.data.partNo.clsCode)
+			//Ext.getCmp("cmbClsCode").setPassValue(action.result.data.partNo.clsCode);
+			
+			Ext.getCmp("cmbClsCode").setInitValue(action.result.data.partNo.clsCode);
+			
+		});
 		// 设置客户编码的编辑框为只读	；同时不到后台校验
 		ExtConvertHelper.setItemsReadOnly("partNo", true);
+		
+		setTimeout("Ext.getCmp('cmbClsCode').setPassValue('5')", 5000)
 	}
 	
 	// 根据不同的操作类型，做出不同的处理
