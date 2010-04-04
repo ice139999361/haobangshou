@@ -3,7 +3,9 @@ package com.hbs.domain.product.pojo;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.domain.common.pojo.base.BaseDomain;
+import com.hbs.domain.product.dao.ProductClassDao;
 
 /**
  * CompanyPartNo对象,扩展BaseDomain,支持分页,排序.
@@ -93,7 +95,17 @@ public class CompanyPartNo extends BaseDomain{
     public String getClsCode() {
         return this.clsCode;
     }	
-  
+    public String getClsCodeDesc(){
+    	String desc ="";
+    	try{
+    		ProductClassDao pcDao = (ProductClassDao)BeanLocator.getInstance().getBean("productClassDao");
+    		ProductClass pclass= pcDao.findProductClass(this.clsCode);
+    		if(null != pclass){
+    			desc = pclass.getClsDesc();
+    		}
+    	}catch(Exception e){}
+    	return desc;
+    }
     public void setClsCode(String clsCode) {
         this.clsCode = clsCode;
     }

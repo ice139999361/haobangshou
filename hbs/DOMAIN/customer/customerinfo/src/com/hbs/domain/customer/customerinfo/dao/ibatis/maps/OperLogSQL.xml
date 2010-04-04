@@ -80,14 +80,14 @@
 			<isNotEmpty prepend="and" property="operKey">
 				OPER_KEY = #operKey#
 			</isNotEmpty>
-         <!--    <isEmpty prepend="order by" property="sort">
+          <isEmpty prepend="order by" property="sort">
                    <![CDATA[
-                   	ORDER BY OPER_TIME DESC
+                   	OPER_TIME DESC
                    ]]>
             </isEmpty>
-          -->   
+          
 		</dynamic>
-		<![CDATA[
+		<![CDATA[		   
       		LIMIT #start# ,#end#
 		]]>
 </select>

@@ -82,7 +82,7 @@
             </isNotEmpty>
             <isEmpty prepend="order by" property="sort">
                    <![CDATA[
-                   	ORDER BY OPER_TIME DESC
+                   	 OPER_TIME DESC
                    ]]>
             </isEmpty>
             
