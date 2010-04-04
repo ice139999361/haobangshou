@@ -10,9 +10,14 @@ import org.apache.log4j.Logger;
 
 import com.hbs.common.action.FieldErr;
 import com.hbs.common.action.base.BaseAction;
-import com.hbs.common.springhelper.BeanLocator;
+import com.hbs.customerinfo.action.CustPartNoInfoNormalAction;
+import com.hbs.customerinfo.manager.CustPartNoInfoMgr;
+import com.hbs.domain.customer.customerinfo.pojo.CustPartNoInfo;
 import com.hbs.domain.product.pojo.CompanyPartNo;
+import com.hbs.domain.vendor.vendorinfo.pojo.VendorPartNoInfo;
 import com.hbs.product.manager.CompanyPartNoMgr;
+import com.hbs.vendorinfo.action.VendorPartNoInfoNormalAction;
+import com.hbs.vendorinfo.manager.VendorPartNoInfoMgr;
 
 /**
  * 本公司物料Action
@@ -55,7 +60,7 @@ public class ProductAction extends BaseAction {
 			if(partNo == null)
 				partNo = new CompanyPartNo();
 			setPagination(partNo);
-			CompanyPartNoMgr mgr = (CompanyPartNoMgr) BeanLocator.getInstance().getBean(companyPartNoMgrName);
+			CompanyPartNoMgr mgr = (CompanyPartNoMgr) getBean(companyPartNoMgrName);
 			List<CompanyPartNo> list = mgr.getCompanyPartNoList(partNo);
 			setResult("list", list);
 			setTotalCount(mgr.getCompanyPartNoListCount(partNo));
@@ -85,7 +90,7 @@ public class ProductAction extends BaseAction {
 				logger.info("参数错误！");
 				return ERROR;
 			}
-			CompanyPartNoMgr mgr = (CompanyPartNoMgr) BeanLocator.getInstance().getBean(companyPartNoMgrName);
+			CompanyPartNoMgr mgr = (CompanyPartNoMgr) getBean(companyPartNoMgrName);
 			partNo = mgr.getCompanyPartNo(partNo.getPartNo());
 			setResult("partNo", partNo);
 			return SUCCESS;
@@ -115,7 +120,7 @@ public class ProductAction extends BaseAction {
 				return ERROR;
 			}
 
-			CompanyPartNoMgr mgr = (CompanyPartNoMgr)BeanLocator.getInstance().getBean(companyPartNoMgrName);
+			CompanyPartNoMgr mgr = (CompanyPartNoMgr)getBean(companyPartNoMgrName);
 			CompanyPartNo partNo2 = mgr.getCompanyPartNo(partNo.getPartNo());
 			int i;
 			if(partNo2 == null)
@@ -166,6 +171,46 @@ public class ProductAction extends BaseAction {
 			}
 		}catch(Exception e){
 			logger.error("catch Exception in doCheckCommCode.", e);
+			setErrorReason("内部错误");
+			return ERROR;	
+		}		
+	}
+	
+	/**
+	 * 删除本公司物料信息
+	 * @action.input partNo.partNo
+	 * @return
+	 */
+	public String doDelete(){
+		try{
+			if(partNo == null || StringUtils.isEmpty(partNo.getPartNo())){
+				setErrorReason("参数错误！");
+				logger.info("参数错误！");
+				return ERROR;
+			}
+			CustPartNoInfoMgr custMgr = (CustPartNoInfoMgr)getBean(CustPartNoInfoNormalAction.custPartNoInfoMgrName);
+			CustPartNoInfo custPartNoInfo = new CustPartNoInfo();
+			custPartNoInfo.setPartNo(partNo.getPartNo());
+			if(custMgr.listCustPartNoInfoCount(custPartNoInfo) > 0){
+				String s = "存在客户物料关联，不能删除！";
+				setErrorReason(s);
+				logger.info(s);
+				return ERROR;
+			}
+			VendorPartNoInfoMgr vendorMgr = (VendorPartNoInfoMgr)getBean(VendorPartNoInfoNormalAction.vendorPartNoInfoMgrName);
+			VendorPartNoInfo vendorPartNoInfo = new VendorPartNoInfo();
+			vendorPartNoInfo.setPartNo(partNo.getPartNo());
+			if(vendorMgr.listVendorPartNoInfoCount(vendorPartNoInfo) > 0){
+				String s = "存在供应商物料关联，不能删除！";
+				setErrorReason(s);
+				logger.info(s);
+				return ERROR;
+			}
+			CompanyPartNoMgr mgr = (CompanyPartNoMgr) getBean(companyPartNoMgrName);
+			mgr.deleteComPanyPartNo(partNo.getPartNo());
+			return SUCCESS;
+		}catch(Exception e){
+			logger.error("catch Exception in doDelete.", e);
 			setErrorReason("内部错误");
 			return ERROR;	
 		}		

@@ -62,7 +62,17 @@
 		<action name="partNo!checkPartNo" method="doCheckPartNo" 
     			class="com.hbs.product.action.ProductAction">
 		</action>
-		
+		<!-- 
+	/**
+	 * 删除本公司物料信息
+	 * @action.input partNo.partNo
+	 * @return
+	 */
+		 -->
+		<action name="partNo!del" method="doDelete" 
+    			class="com.hbs.product.action.ProductAction">
+		</action>
+			
 		
 		<!--
 	/**

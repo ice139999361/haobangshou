@@ -26,7 +26,7 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 	/**
 	 * ManagerÃû
 	 */
-	static final String custPartNoInfoMgrName = "custPartNoInfoMgr";
+	public static final String custPartNoInfoMgrName = "custPartNoInfoMgr";
 		
     /**
      * logger.
