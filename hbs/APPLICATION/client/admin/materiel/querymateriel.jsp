@@ -36,7 +36,7 @@
 				    			<column header="含税价格"   dataIndex="taxPrice"    />
 				    			<column header="价格"       dataIndex="price"       />
 				    			<column header="所属类别"   dataIndex="clsCodeDesc" />
-				    			<column header="物料描述"   dataIndex="pnDesc"     id="cpnDesc"  />
+				    			<column header="物料描述"   dataIndex="pnDesc"      id="cpnDesc"  />
 				    			<column header="操作"       dataIndex=""            id="operator" width="180" />
 				    		</columns>
 				    	</complexgrid>
