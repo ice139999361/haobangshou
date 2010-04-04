@@ -229,7 +229,7 @@
                     "text": "查询库存",
                     "menuOrder": "10000",
                     "leaf": "true",
-                    "url": "/warehouse/querywarehousestore.jsp?roleType=cgm"
+                    "url": "/warehouse/querywarehousestore.jsp"
                 },
                 {
                     "id": "ckrk",
@@ -243,7 +243,7 @@
                     "text": "入库单查询",
                     "menuOrder": "30000",
                     "leaf": "true",
-                    "url": "/vendor/auditpnrelation.jsp"
+                    "url": "/warehouse/querywarehousein.jsp?roleType=warehouse"
                 },
                 {
                     "id": "ckck",
@@ -257,7 +257,7 @@
                     "text": "出库单查询",
                     "menuOrder": "50000",
                     "leaf": "true",
-                    "url": "/vendor/pnquery.jsp?roleType=cgm"
+                    "url": "/vendor/pnquery.jsp"
                 }
             ]
         },{
@@ -322,7 +322,7 @@
                     "text": "入库单查询",
                     "menuOrder": "80000",
                     "leaf": "true",
-                    "url": "/aaa.jsp"
+                    "url": "/warehouse/querywarehousein.jsp?roleType=finance"
                 },
                 {
                     "id": "cwckdcx",
