@@ -19,7 +19,7 @@
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="物料信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<textfield fieldLabel="物料编码"   name="partNo.partNo"            labelStyle="width:150" />
+				    				<textfield fieldLabel="物料编码"   name="partNo.partNo"            labelStyle="width:150" vtype="commCheck" checkUrl="/customerInfo/customerInfo!checkCommCode.action" allowBlank="false" />
 				    				<textfield fieldLabel="含税价格"   name="partNo.taxPrice"          labelStyle="width:150" />
 				    					
 				    				<combotree fieldLabel="所属类别"   passName="partNo.clsCode"       labelStyle="width:150" emptyText="请选择" width="122" listWidth="200" dataUrl="/partNo/pClass!all.action" root="data.list" id="cmbClsCode" />
