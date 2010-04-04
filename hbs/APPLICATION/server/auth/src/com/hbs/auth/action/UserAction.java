@@ -161,6 +161,8 @@ public class UserAction extends BaseAction  {
 			account = getAMgr().findAccountById(staff.getStaffId().toString());
 			if(account != null)
 				getAMgr().deleteAccount(account.getAccount());
+			StaffRoleMgr urMgr = (StaffRoleMgr)getBean(AuthConstants.STAFF_ROLE_MANAGER_NAME);
+			urMgr.deleteUserRole(staff.getStaffId().toString());
 			getSMgr().deleteStaff(staff.getStaffId().toString());
 			return SUCCESS;
 		} catch(Exception e) {
