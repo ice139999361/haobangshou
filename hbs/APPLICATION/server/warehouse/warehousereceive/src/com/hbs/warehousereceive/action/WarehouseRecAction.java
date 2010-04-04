@@ -70,10 +70,37 @@ public class WarehouseRecAction extends WarehouseRecBaseAction {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public String doSave() {
 		try {
 			logger.debug("begin doSave");
-			// TODO：doSave
+			if (warehouseRec == null) {
+				logger.info("参数错误！");
+				setErrorReason("参数错误！");
+				return ERROR;
+			}
+			if(StringUtils.isEmpty(warehouseRec.getState()) || warehouseRec.getState().equals(WareHouseConstants.WAREHOUSE_REC_INFO_01))
+				warehouseRec.setState(WareHouseConstants.WAREHOUSE_REC_INFO_02);
+			if(StringUtils.isEmpty(warehouseRec.getOperId()))
+				setMyId(true);
+			Map otherData = new HashMap();
+			
+			WarehouseRecUtil.processListData(warehouseRec, this.getHttpServletRequest(), otherData);
+			List<FieldErr> errs = WarehouseRecUtil.checkInputFields(warehouseRec, otherData);
+			if (!errs.isEmpty()) {
+				String s = FieldErr.formFieldsErrString(errs);
+				logger.info(s);
+				setErrorReason(s);
+				return ERROR;
+			}
+			int i = getMgr().corfirmWareHouseRecInfo(warehouseRec, null);
+			if(i != 0) {
+				logger.info("保存失败！");
+				setErrorReason("保存失败！");
+				return ERROR;
+			}
+			
+			// DONE：doSave
 			logger.debug("end doSave");
 			return SUCCESS;
 		} catch(Exception e) {
