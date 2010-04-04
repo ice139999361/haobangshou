@@ -5,6 +5,7 @@ package com.hbs.product.action;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.action.FieldErr;
@@ -78,7 +79,7 @@ public class ProductAction extends BaseAction {
 	public String doGet()
 	{
 		try{
-			if(partNo == null || partNo.getPartNo() == null || partNo.getPartNo().length() == 0)
+			if(partNo == null || StringUtils.isEmpty(partNo.getPartNo()))
 			{
 				setErrorReason("参数错误！");
 				logger.info("参数错误！");
@@ -138,5 +139,35 @@ public class ProductAction extends BaseAction {
 			return ERROR;
     	}
 
+	}
+	
+	/**
+	 * 检查编码
+	 * @action.input value
+	 * @return
+	 */
+	public String doCheckPartNo() {
+		try{
+			String partNoStr = this.getHttpServletRequest().getParameter("value");
+			if(StringUtils.isEmpty(partNoStr))
+			{
+				setErrorReason("参数错误！");
+				logger.info("参数错误！");
+				return ERROR;
+			}
+			CompanyPartNoMgr mgr = (CompanyPartNoMgr) getBean(companyPartNoMgrName);
+			partNo = mgr.getCompanyPartNo(partNoStr);
+			if(partNo == null)
+				return SUCCESS;
+			else{
+				logger.debug("编码重复！");
+				setErrorReason("编码重复！");
+				return ERROR;
+			}
+		}catch(Exception e){
+			logger.error("catch Exception in doCheckCommCode.", e);
+			setErrorReason("内部错误");
+			return ERROR;	
+		}		
 	}
 }
