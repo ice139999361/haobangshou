@@ -51,7 +51,7 @@
 				    			</layoutpanel>
 				    		</listpanel>
 				    		
-				    		<listpanel frame="true" title="结算信息" collapsible="true" titleCollapse="true">
+				    		<listpanel frame="true" title="供应商结算信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
 				    				<label fieldLabel="结算类型"               name="vendorInfo.settlementDesc"            labelStyle="width:150" paramsValue="SETTLEMENT_TYPE" emptyText="请选择" />
 				    				<label fieldLabel="结算币种"               name="vendorInfo.currencyDesc"                  labelStyle="width:150" paramsValue="CURRENCY"        emptyText="请选择" />	
@@ -74,7 +74,7 @@
 				    			</layoutpanel>
 				    		</listpanel>
 				    		
-				    		<complexgrid id="contactgrid" title="联系人信息" itemsFun="contactFun" itemsAlign="after" frame="true" height="200" url="1" editorFlag="false">
+				    		<complexgrid id="contactgrid" title="供应商联系人信息" itemsFun="contactFun" itemsAlign="after" frame="true" height="200" url="1" editorFlag="false">
 				    			<fields>
 				    				<field name="isPrimary" />
 				    			</fields>
@@ -86,7 +86,7 @@
 				    			<submitFields value="seqId,conName,conDuty,conTel,conMobile,conFax,conMail,conQq,conMsn,conOther,isPrimary" />
 				    		</complexgrid>
 				    		
-				    		<complexgrid id="consigneegrid" title="收货人信息" itemsFun="contactFun" itemsAlign="after" frame="true" height="200" url="1" editorFlag="false">
+				    		<complexgrid id="consigneegrid" title="供应商收货人信息" itemsFun="contactFun" itemsAlign="after" frame="true" height="200" url="1" editorFlag="false">
 				    			<fields>
 				    				<field name="conAddress" />
 				    				<field name="conZip" />
@@ -102,7 +102,7 @@
 				    			<submitFields value="seqId,conName,conDuty,conTel,conMobile,conFax,conMail,conQq,conMsn,conOther,conAddress,conZip,isPrimary" />
 				    		</complexgrid>
 				    		
-				    		<complexgrid id="custbankgrid" title="客户银行信息" itemsFun="custbankFun" frame="true" height="200" url="1" editorFlag="false"/>
+				    		<complexgrid id="custbankgrid" title="供应商银行信息" itemsFun="custbankFun" frame="true" height="200" url="1" editorFlag="false"/>
 				    			
 				    		<auditpanel id="auditPanel" />
 				    			
