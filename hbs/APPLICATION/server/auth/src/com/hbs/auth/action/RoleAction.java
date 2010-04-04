@@ -21,6 +21,7 @@ import com.hbs.common.action.base.BaseAction;
 import com.hbs.domain.auth.pojo.Resource;
 import com.hbs.domain.auth.pojo.Role;
 import com.hbs.domain.auth.pojo.RoleResource;
+import com.hbs.domain.auth.pojo.UserRole;
 
 @SuppressWarnings("serial")
 public class RoleAction extends BaseAction {
@@ -269,8 +270,16 @@ public class RoleAction extends BaseAction {
 				setErrorReason("参数错误！");
 				return ERROR;
 			}
-			getRrMgr().deleteRoleResource(role.getRoleId().toString());
 			StaffRoleMgr srMgr = (StaffRoleMgr)getBean(AuthConstants.STAFF_ROLE_MANAGER_NAME);
+			UserRole ur = new UserRole();
+			ur.setRoleId(role.getRoleId());
+			if(srMgr.listUserRoleCount(ur) > 0){
+				String s = "角色正在使用中，不能删除！";
+				logger.info(s + " roleId = " + role.getRoleId());
+				setErrorReason(s);
+				return ERROR;
+			}
+			getRrMgr().deleteRoleResource(role.getRoleId().toString());
 			getMgr().deleteRole(role.getRoleId().toString());
 			return SUCCESS;
 		} catch(Exception e) {
