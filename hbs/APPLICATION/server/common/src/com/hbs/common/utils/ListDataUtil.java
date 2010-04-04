@@ -7,10 +7,15 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 /**
  * 处理列表数据
@@ -25,6 +30,10 @@ public class ListDataUtil {
      * logger.
      */
     private static final Logger logger = Logger.getLogger(ListDataUtil.class);
+    /**
+     * 日期格式 yyyy-MM-dd
+     */
+	public static final String DATEFORMAT = "yyyy-MM-dd";
 
     /**
 	 * 将一组数据写入对象列表中
@@ -121,8 +130,16 @@ public class ListDataUtil {
 							}
 							//TODO:此处可能还需要修改，特别是日期型的数据，需要转换格式，否则错误
 							Class typeClass = fd.getType();
-							Constructor con = typeClass.getConstructor(String.class);
-							fd.set(o, con.newInstance(ar[i]));
+							if(typeClass.equals(Date.class)){
+								DateTimeFormatter fmt = DateTimeFormat.forPattern(DATEFORMAT);
+								DateTime dt = fmt.parseDateTime(ar[i]);
+								Calendar c = Calendar.getInstance();
+								c.set(dt.getYear(), dt.getMonthOfYear() - 1, dt.getDayOfMonth());
+								fd.set(o, c.getTime());
+							}else{
+								Constructor con = typeClass.getConstructor(String.class);
+								fd.set(o, con.newInstance(ar[i]));
+							}
 						} catch (Exception e) {
 							int line = -1;
 							for(StackTraceElement s : e.getStackTrace()){
