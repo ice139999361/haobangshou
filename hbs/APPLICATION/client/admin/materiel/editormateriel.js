@@ -18,7 +18,7 @@ HBSConvertHelper.init(function() {
 	 */
 	function submitData(url) {
 		// 验证 form 内容是符满足要求
-		//if(!ExtConvertHelper.isFormValid("form")) return;
+		if(!ExtConvertHelper.isFormValid("form")) return;
 		
 		// 提交数据
 		ExtConvertHelper.submitForm("form", url, null, function(form, action) {
