@@ -26,7 +26,7 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
 	/**
 	 * ManagerÃû
 	 */
-	static final String vendorPartNoInfoMgrName = "vendorPartNoInfoMgr";
+	public static final String vendorPartNoInfoMgrName = "vendorPartNoInfoMgr";
 		
     /**
      * logger.
