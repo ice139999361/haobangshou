@@ -18,16 +18,18 @@ import com.hbs.domain.warehouse.pojo.WarehouseRecInfo;
 public class WarehouseRecUtil {
 
 	public static boolean checkKeyFields(WarehouseRecInfo warehouseRec) {
-		// TODO Auto-generated method stub
+		// TODO:WarehouseRecUtil.checkKeyFields
 		return false;
 	}
 
+	@SuppressWarnings("unchecked")
 	public static void processListData(WarehouseRecInfo warehouseRec,
 			HttpServletRequest httpServletRequest, Map otherData) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	public static List<FieldErr> checkInputFields(
 			WarehouseRecInfo warehouseRec, Map otherData) {
 		// TODO Auto-generated method stub
