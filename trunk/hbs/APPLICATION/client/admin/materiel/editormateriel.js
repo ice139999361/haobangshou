@@ -71,6 +71,8 @@ HBSConvertHelper.init(function() {
 		var params = ["partNo.partNo=", urlPs.partNo].join("");
 		// 加载数据
 		ExtConvertHelper.loadForm("form", "/custOrder/custOrder!getInfo.action", params);
+		// 设置客户编码的编辑框为只读	；同时不到后台校验
+		ExtConvertHelper.setItemsReadOnly("partNo", true);
 	}
 	
 	// 根据不同的操作类型，做出不同的处理
