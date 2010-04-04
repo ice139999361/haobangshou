@@ -112,7 +112,18 @@ HBSConvertHelper.init(function() {
 	
 	// 修改页面的处理逻辑
 	function updateInitFun() {
+		// 更改页签标题
+		HBSConvertHelper.setDocumentTitle("出库修改");
+		// 隐藏不需要的控件
+		if(urlPs.state != 1) ExtConvertHelper.hideItems("saveBtn");
 		
+		// 组装需要的参数
+		var params = ["vendorInfo.baseSeqId=", urlPs.baseSeqId].join("");
+		
+		// 加载数据
+		ExtConvertHelper.loadForm("form", "/vendorInfo/vendorInfo!getInfo.action", params, function(form, action) {
+				Ext.getCmp("warehousegrid").addData(action.result.data.vendorInfo.listBankInfo);
+		});
 	}
 	
 	// 根据不同的操作类型，做出不同的处理
