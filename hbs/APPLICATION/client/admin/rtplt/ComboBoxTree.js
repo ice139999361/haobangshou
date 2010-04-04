@@ -59,12 +59,18 @@ clearValue : function() {
 }, 
 
 
-setPassValue: function(passvalue){ 
+setPassValue: function(passvalue){ 	
+	//alert(this.tree.getLoader().load())
 	if (this.passField) this.passField.value = passvalue;
 	var node = this.tree.getNodeById(passvalue);
 	if(node) this.setValue(node.text);
 	// 选中树节点后的触发事件 
 	this.fireEvent('treeselected', node); 
+},
+setInitValue: function(value) {
+	this.setValue(value);
+	this.getEl().dom.click();
+	this.getEl().dom.click();
 },
 getPassValue: function() {
 	return this.passField.value;
@@ -112,6 +118,12 @@ initComponent : function() {
 	
 	this.addEvents('treeselected'); 
 	// this.on('treeselected',this.onTreeSelected,this); 
+	
+	this.tree.getLoader()._cmp = this;
+	this.tree.getLoader().on("load", function(tl, node, response) {
+		node.expandChildNodes(true);
+	});
+	
 }, 
 
 
