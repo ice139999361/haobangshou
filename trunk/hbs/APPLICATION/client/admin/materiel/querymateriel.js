@@ -10,7 +10,7 @@ HBSConvertHelper.init(function() {
 		// 修改按钮触发事件
 		var updateBtnFun = function() {
 			// 要访问的 url 地址
-			var url = ["/materiel/editormateriel.jsp?editorType=update&partNo=", this.config.get("cpartNo")].join("");
+			var url = ["/materiel/editormateriel.jsp?editorType=update&partNo=", this.config.get("partNo")].join("");
 			// 打开指定页面
 			HBSConvertHelper.openNewWin(url);
 		};
@@ -20,7 +20,7 @@ HBSConvertHelper.init(function() {
 			Ext.Msg.confirm("提示", "您要执行的是删除操作，请确认是否继续？", function(btn) {
 				if(btn == "no") return;
 				
-				ExtConvertHelper.request("/success.action?partNo=" + this.config.get("cpartNo"), null, function() {
+				ExtConvertHelper.request("/success.action?partNo=" + this.config.get("partNo"), null, function() {
 					HBSConvertHelper.refreshGrid("querygrid");
 				});
 			}, this);
