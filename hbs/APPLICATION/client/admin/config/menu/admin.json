@@ -377,7 +377,13 @@
                     "text": "本公司物料录入",
                     "menuOrder": "10000",
                     "leaf": "true",
-                    "url": "/materiel/editormateriel.jsp"
+                    "url": "/materiel/editormateriel.jsp?editorType=add"
+                },{
+                    "id": "sabgswlcx",
+                    "text": "本公司物料查询",
+                    "menuOrder": "20000",
+                    "leaf": "true",
+                    "url": "/materiel/querymateriel.jsp"
                 }
             ]
         },
