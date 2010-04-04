@@ -32,22 +32,47 @@ HBSConvertHelper.init(function() {
 	
 	// 当新增按钮被单击时
 	addBtn.on("click", function(){
-		submitData("/partNo/partNo!save.action");
 		submitSuccessPro = function() {
 			var cmbClsCode = Ext.getCmp("cmbClsCode");
 			var _passValue = cmbClsCode.getPassValue();
 			Ext.getCmp("form").getForm().reset();
 			cmbClsCode.setPassValue(_passValue);
 		};
+		submitData("/partNo/partNo!save.action");
 	});
 	
 	// 当提交按钮被单击时
 	submitBtn.on("click", function() {
-		submitData("/partNo/partNo!save.action");
 		submitSuccessPro = HBSConvertHelper.defaultCloseTab;
+		submitData("/partNo/partNo!save.action");
 	});
 	
 	// 当单机取消按钮时，调用默认的关闭窗口方法
 	backBtn.on("click", HBSConvertHelper.defaultCloseTab);
 	
+	
+	// -------------------------------------- 页面操作逻辑处理
+	
+	// 新增页面的处理逻辑
+	function addInitFun() {
+		// 更改页签标题
+		HBSConvertHelper.setDocumentTitle("本公司物料录入");
+		
+	}
+	
+	// 修改页面的处理逻辑
+	function updateInitFun() {
+		// 更改页签标题
+		HBSConvertHelper.setDocumentTitle("本公司物料修改");
+		// 隐藏新增按钮
+		ExtConvertHelper.hideItems("addBtn");
+		
+		// 组装需要的参数
+		var params = ["partNo.partNo=", urlPs.partNo].join("");
+		// 加载数据
+		ExtConvertHelper.loadForm("form", "/custOrder/custOrder!getInfo.action", params);
+	}
+	
+	// 根据不同的操作类型，做出不同的处理
+	eval(urlPs.editorType + "InitFun")();
 });
