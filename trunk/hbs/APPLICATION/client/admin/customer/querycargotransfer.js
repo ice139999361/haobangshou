@@ -1,8 +1,6 @@
 HBSConvertHelper.init(function() {
 	// -------------------------------------- 获取需要持久用到的对象
 	
-	// 获取新增按钮
-	var addBtn    = Ext.getCmp("addBtn");
 	// 获取表格
 	var querygrid = Ext.getCmp("querygrid");
 	
@@ -32,12 +30,14 @@ HBSConvertHelper.init(function() {
 				// 将需要的链接渲染到此列
 				HBSConvertHelper.renderATag2Cell(commCode_cell.innerText, "/customer/detailcargotransfer.jsp?pageType=query&baseSeqId=" + record.get("baseSeqId"), "open", commCode_cell);
 			
-				// 获取操作列
-				var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));
-				// 创建操作按钮
-				var operatorBtn = HBSConvertHelper.renderButton2Cell(["审批"], operator_cell, record);
-				// 添加审批按钮事件
-				operatorBtn.on("click", auditBtnFun);
+				if(view.grid.getColumnIndexById("operator") != -1) {
+					// 获取操作列
+					var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));
+					// 创建操作按钮
+					var operatorBtn = HBSConvertHelper.renderButton2Cell(["审批"], operator_cell, record);
+					// 添加审批按钮事件
+					operatorBtn.on("click", auditBtnFun);
+				}
 			}
 		});
 	}())
