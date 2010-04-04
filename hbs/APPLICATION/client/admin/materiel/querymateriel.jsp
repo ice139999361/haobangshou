@@ -22,7 +22,7 @@
 			    			</layoutpanel>
 			    		</queryform>
 			    	
-				    	<complexgrid id="querygrid" title="本公司物料列表" frame="true" page="true" autoExpandColumn="cpnDesc" root="data.list" url="/customerInfo/custPartNoInfoMgr!list.action" >
+				    	<complexgrid id="querygrid" title="本公司物料列表" frame="true" page="true" autoExpandColumn="cpnDesc" root="data.list" url="/partNo/partNo!list.action" >
 				    		<fields>
 				    			<field name="partNo"   />
 				    			<field name="taxPrice" />
@@ -36,7 +36,7 @@
 				    			<column header="含税价格"   dataIndex="taxPrice"    />
 				    			<column header="价格"       dataIndex="price"       />
 				    			<column header="所属类别"   dataIndex="clsCodeDesc" />
-				    			<column header="物料描述"   dataIndex="cpnDesc"     id="cpnDesc"  />
+				    			<column header="物料描述"   dataIndex="pnDesc"     id="cpnDesc"  />
 				    			<column header="操作"       dataIndex=""            id="operator" width="180" />
 				    		</columns>
 				    	</complexgrid>
