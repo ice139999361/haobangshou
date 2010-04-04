@@ -15,6 +15,7 @@ import com.hbs.auth.contants.AuthConstants;
 import com.hbs.auth.manager.ResourceMgr;
 import com.hbs.auth.manager.RoleMgr;
 import com.hbs.auth.manager.RoleResourceMgr;
+import com.hbs.auth.manager.StaffRoleMgr;
 import com.hbs.common.action.FieldErr;
 import com.hbs.common.action.base.BaseAction;
 import com.hbs.domain.auth.pojo.Resource;
@@ -269,6 +270,7 @@ public class RoleAction extends BaseAction {
 				return ERROR;
 			}
 			getRrMgr().deleteRoleResource(role.getRoleId().toString());
+			StaffRoleMgr srMgr = (StaffRoleMgr)getBean(AuthConstants.STAFF_ROLE_MANAGER_NAME);
 			getMgr().deleteRole(role.getRoleId().toString());
 			return SUCCESS;
 		} catch(Exception e) {
