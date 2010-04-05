@@ -1,0 +1,9 @@
+初始化脚本执行顺序：
+执行：
+ ALTER TABLE `resource`
+  CHANGE COLUMN `ACTIONS_ID` `ACTIONS_ID` int(11) NULL DEFAULT NULL COMMENT '该资源页面的所有操作ID（FK->ACTION.ACTIONS_ID)';
+
+1.执行action.sql
+2.执行resource.sql
+3.执行role.sql
+4.执行role_resource.sql
