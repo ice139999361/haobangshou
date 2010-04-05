@@ -33,6 +33,10 @@
      	<action name="vendorInfo!save" method="doSave" 
     			class="com.hbs.vendorinfo.action.VendorInfoNormalAction">
 		</action>
+		<!-- 非采购的下拉列表框使用 -->
+		<action name="vendorInfo!listDict" method="doListDict" 
+    			class="com.hbs.vendorinfo.action.VendorInfoNormalAction">
+		</action>
 		<!-- 
 	/**
 	 * 删除审批不通过的数据

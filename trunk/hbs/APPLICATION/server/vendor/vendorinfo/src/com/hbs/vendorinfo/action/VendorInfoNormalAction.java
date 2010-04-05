@@ -83,7 +83,33 @@ public class VendorInfoNormalAction extends BaseAction {
 			return ERROR;
 		}
 	}
-
+	/**
+	 * 非采购的下拉框使用
+	 * @return
+	 */
+	public String doListDict() {
+		try {
+			if (logger.isDebugEnabled())
+				logger.debug("begin doListDict");
+			if (vendorInfo == null) {
+				vendorInfo = new VendorInfo();
+				vendorInfo.setState("0");
+			}else{
+				vendorInfo.setState("0");
+			}			
+			VendorInfoMgr mgr = (VendorInfoMgr)getBean(vendorInfoMgrName);
+			setResult("list", mgr.getVendorInfoList(vendorInfo));
+			
+			if (logger.isDebugEnabled())
+				logger.debug("end doListDict");
+			return SUCCESS;
+		} catch (Exception e) {
+			logger.error("catch Exception in doList.", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+	}
+	
 	/**
 	 * 临时保存供应商信息
 	 * @action.input vendorInfo.*
