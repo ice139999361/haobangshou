@@ -52,7 +52,8 @@ var ExtConvertHelper = {
 				waitMsg: '请等待：正在提交请求',
 				scope: scope,
 				success: success ? success : function(){},
-				failure: failure ? failure : function(form, action){
+				failure: failure ? failure : function(response, opts){
+																			 var action = Ext.util.JSON.decode(response.responseText);
 																			 var message = ExtConvertHelper.getMessageInfo(action, "请求失败：服务器异常");
 																			 Ext.Msg.alert("提示", message);
 																		 }
@@ -67,6 +68,15 @@ var ExtConvertHelper = {
 			conn.send(null);
 			// 返回数据
 			return Ext.util.JSON.decode(conn.responseText);
+	 }
+	,defaultDeleteFun: function(response, opts) {
+			var action = Ext.util.JSON.decode(response.responseText);
+			if(action.success === true) {
+				HBSConvertHelper.refreshGrid("querygrid");
+			} else {
+				var message = ExtConvertHelper.getMessageInfo(action, "请求失败：服务器异常");
+				Ext.Msg.alert("提示", message);
+			}
 	 }
 	,createXhrObject: function() {
 			var http;   
@@ -182,7 +192,7 @@ var ExtConvertHelper = {
 	 }
 	 // 获取需要的提示
 	,getMessageInfo: function(action, msg) {
-		 	return action.result && action.result.data ? action.result.data.msg : msg;
+		 	return action.result && action.result.data ? action.result.data.msg : (action.data ? action.data.msg : msg);
 	 }
 	,getATagString: function(text, url) {
 			var sb = new StringBuilder;
