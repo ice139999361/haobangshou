@@ -23,7 +23,7 @@ var querygridFun = function() {
 	
 	cgh.appendColumn({header: "入库单号", dataIndex: "recPoNo", id: "crecpono"});
 	cgh.appendColumn({header: "供应商"	, dataIndex: "vendorCode"});
-	cgh.appendColumn({header: "入库日期", dataIndex: "applyDate"});
+	cgh.appendColumn({header: "入库日期", dataIndex: "applyDate", renderer: FormatUtil.dateRenderer});
 	cgh.appendColumn({header: "入库仓库", dataIndex: "houseTypeDesc"});
 	cgh.appendColumn({header: "操作人"  , dataIndex: "operStaff"});
 	cgh.appendColumn({header: "结算方式", dataIndex: "settlementTypeDesc"});
