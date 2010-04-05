@@ -26,22 +26,28 @@ HBSConvertHelper.init(function() {
 		
 		//alert(this.ds.getCount())
 		for(var i = 0 ; i < view.ds.getCount() ; i++) {
+			// 获取数据容器
+			var record = view.ds.getAt(i);
 			// 获取客户简称所在的列
 			var crecpono_cell = view.getCell(i, view.grid.getColumnIndexById("crecpono"));
 			// 将需要的链接渲染到此列
-			HBSConvertHelper.renderATag2Cell(crecpono_cell.innerText, "/warehouse/detailwarehousein.jsp?pageType=query&partNo="+view.ds.getAt(i).get("cpartNo"), "open", crecpono_cell);
+			HBSConvertHelper.renderATag2Cell(crecpono_cell.innerText, "/warehouse/detailwarehousein.jsp?pageType=query&partNo=" + record.get("cpartNo"), "open", crecpono_cell);
 			
 			
 			if(view.grid.getColumnIndexById("operator") != -1) {
 				// 获取操作列
 				var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));
 				
-				// 创建按钮到操作列
-				var operatorBtn = HBSConvertHelper.renderButton2Cell(["删除", "修改"], operator_cell, view.ds.getAt(i));
-				// 删除按钮的单击事件
-				operatorBtn.get(0).on("click", deleteBtnFun);
-				// 修改按钮的单击事件
-				operatorBtn.get(1).on("click", updateBtnFun);
+				switch(record.get("state")) {
+					case "01":
+						// 创建按钮到操作列
+						var operatorBtn = HBSConvertHelper.renderButton2Cell(["删除", "修改"], operator_cell, view.ds.getAt(i));
+						// 删除按钮的单击事件
+						operatorBtn.get(0).on("click", deleteBtnFun);
+						// 修改按钮的单击事件
+						operatorBtn.get(1).on("click", updateBtnFun);
+						break;
+				}
 			}
 		}
 	});
