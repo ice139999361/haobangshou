@@ -35,7 +35,7 @@ public class LoginAction extends BaseAction {
 				if (logger.isInfoEnabled()) {
 					logger.info("Login name / password can not be null!");
 				}
-				setErrorReason("login name/password can not be null");
+				setErrorReason("登录的用户名或密码不能为空!");
 				return ERROR;
 			} else {
 				LoginMgr loginMgr = (LoginMgr)getBean(AuthConstants.LOGIN_MANAGER_NAME);
@@ -46,7 +46,7 @@ public class LoginAction extends BaseAction {
 					return SUCCESS;
 				} else {
 					logger.error("invalidate user:" + userAccount);
-					setErrorReason("Please input correct user name/password.");
+					setErrorReason("请输入正确的用户名和密码！");
 					return ERROR;
 				}
 			}			
