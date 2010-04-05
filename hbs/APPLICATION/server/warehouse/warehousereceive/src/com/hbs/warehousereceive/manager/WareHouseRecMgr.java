@@ -101,15 +101,23 @@ public class WareHouseRecMgr {
 		if(null != existInfo){//存在
 			String state = existInfo.getState();
 			if(state.equals(WareHouseConstants.WAREHOUSE_REC_INFO_01)){//可以取消
-				whrInfo.setState(WareHouseConstants.WAREHOUSE_REC_INFO_03);
-				whrInfoDao.updateWarehouseRecInfoByState(whrInfo);
-				WareHouseLogUtils.operLog(whrInfo.getOperId(), whrInfo.getOperStaff(), "取消", "供应商物料入库", whrInfo.getLogKey(), null, content);
+				existInfo.setState(WareHouseConstants.WAREHOUSE_REC_INFO_03);
+				existInfo.setOperId(whrInfo.getOperId());
+				existInfo.setOperStaff(whrInfo.getOperStaff());
+				whrInfoDao.updateWarehouseRecInfoByState(existInfo);
+				WareHouseLogUtils.operLog(existInfo.getOperId(), existInfo.getOperStaff(), "取消", "供应商物料入库", existInfo.getLogKey(), null, content);
 				
 				//入库单明细
 				List<WarehouseRecDetail> detailList = whrInfo.getDetailList();
+				WareHouseRecDetailMgr detailMgr = (WareHouseRecDetailMgr)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_REC_DETAILMGR);
+				if(null == detailList){//入库单明细处理，前台有可能没有传列表数据，获取
+					WarehouseRecDetail detail = new WarehouseRecDetail();
+					detail.setRecPoNo(whrInfo.getRecPoNo());
+					detail.setVendorCode(whrInfo.getVendorCode());
+					detailList = detailMgr.getWarehouseRecDetailList(detail);
+				}
 				if(null != detailList && detailList.size() >0){//入库单明细处理
-					logger.debug("取消入库单信息，入库单下存在入库单明细，取消入库单明细，数量为：" + detailList.size());
-					WareHouseRecDetailMgr detailMgr = (WareHouseRecDetailMgr)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_REC_DETAILMGR);
+					logger.debug("取消入库单信息，入库单下存在入库单明细，取消入库单明细，数量为：" + detailList.size());					
 					detailMgr.cancelWareHouseRecDetailList(detailList, true, content);
 				}
 			}else{//状态不正确，不能取消

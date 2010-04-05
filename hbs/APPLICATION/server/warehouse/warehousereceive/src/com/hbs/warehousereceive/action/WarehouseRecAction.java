@@ -173,6 +173,8 @@ public class WarehouseRecAction extends WarehouseRecBaseAction {
 				setErrorReason("²ÎÊýÎª¿Õ£¡");
 				return ERROR;
 			}
+			warehouseRec.setOperId(getLoginStaff().getStaffId().toString());
+			warehouseRec.setOperStaff(getLoginStaff().getStaffName());
 			int i = getMgr().cancelWareHouseRecInfo(warehouseRec, this.getHttpServletRequest().getParameter("memo"));
 			if(i != 0){
 				String s;

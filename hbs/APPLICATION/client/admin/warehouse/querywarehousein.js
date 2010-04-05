@@ -10,7 +10,7 @@ HBSConvertHelper.init(function() {
 		// 修改按钮触发事件
 		var updateBtnFun = function() {
 			// 要访问的 url 地址
-			var url = ["/warehouse/editorwarehousein.jsp?editorType=update&partNo=", this.config.get("partNo")].join("");
+			var url = ["/warehouse/editorwarehousein.jsp?editorType=update&warehouseRec.recPoNo=", this.config.get("recPoNo"), "&warehouseRec.vendorCode=", this.config.get("vendorCode")].join("");
 			// 打开指定页面
 			HBSConvertHelper.openNewWin(url);
 		};
@@ -31,7 +31,7 @@ HBSConvertHelper.init(function() {
 			// 获取客户简称所在的列
 			var crecpono_cell = view.getCell(i, view.grid.getColumnIndexById("crecpono"));
 			// 将需要的链接渲染到此列
-			HBSConvertHelper.renderATag2Cell(crecpono_cell.innerText, "/warehouse/detailwarehousein.jsp?pageType=query&partNo=" + record.get("cpartNo"), "open", crecpono_cell);
+			HBSConvertHelper.renderATag2Cell(crecpono_cell.innerText, "/warehouse/detailwarehousein.jsp?pageType=query&warehouseRec.recPoNo="+view.ds.getAt(i).get("recPoNo") + "&warehouseRec.vendorCode=" + view.ds.getAt(i).get("vendorCode"), "open", crecpono_cell);
 			
 			
 			if(view.grid.getColumnIndexById("operator") != -1) {
