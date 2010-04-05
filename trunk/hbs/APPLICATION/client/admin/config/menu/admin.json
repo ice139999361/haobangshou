@@ -257,7 +257,7 @@
                     "text": "出库单查询",
                     "menuOrder": "50000",
                     "leaf": "true",
-                    "url": "/vendor/pnquery.jsp"
+                    "url": "/warehouse/querywarehouseout.jsp?roleType=warehouse"
                 }
             ]
         },{
@@ -329,7 +329,7 @@
                     "text": "出库单查询",
                     "menuOrder": "90000",
                     "leaf": "true",
-                    "url": "/aaa.jsp"
+                    "url": "/warehouse/querywarehouseout.jsp?roleType=finance"
                 },
                 {
                     "id": "cwkhfpcx",
