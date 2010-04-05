@@ -20,9 +20,7 @@ HBSConvertHelper.init(function() {
 			Ext.Msg.confirm("提示", "您要执行的是删除操作，请确认是否继续？", function(btn) {
 				if(btn == "no") return;
 				
-				ExtConvertHelper.request("/partNo/partNo!del.action?partNo.partNo=" + this.config.get("partNo"), null, function() {
-					HBSConvertHelper.refreshGrid("querygrid");
-				});
+				ExtConvertHelper.request("/partNo/partNo!del.action?partNo.partNo=" + this.config.get("partNo"), null, ExtConvertHelper.defaultDeleteFun);
 			}, this);
 		}
 		
