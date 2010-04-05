@@ -20,15 +20,15 @@
 			    			<layoutpanel columnNum="3">
 			    				<textfield fieldLabel="入库单号"   name="warehouseRec.recPoNo"  />	
 			    				<autocomplete fieldLabel="供应商" url="/vendorInfo/vendorInfo!listDict.action"  displayField="commCode"  valueField="commCode" queryParam="vendorInfo.commCode"     name="warehouseRec.vendorCode" />
-			    				<dictcombo    fieldLabel="入库仓库"           hiddenName=""    paramsValue="WAREHOUSE_TYPE"     showText="请选择" />
+			    				<dictcombo    fieldLabel="入库仓库"           hiddenName="warehouseRec.houseType"    paramsValue="WAREHOUSE_TYPE"     showText="请选择" />
 			    			</layoutpanel>
 			    			<layoutpanel columnNum="6:.11,.05,.15,.05,.18,.3">
 			    				<label     fieldLabel="入库日期" />
 			    				<label     fieldLabel="从"       labelSeparator=""/>
-			    				<datefield hideLabel="true"      name=""          format="Y-m-d"  width="120" />
+			    				<datefield hideLabel="true"      name="warehouseRec.dynamicFields.beginApplyDate"          format="Y-m-d"  width="120" />
 			    				<label     fieldLabel="到"       labelSeparator=""/>
-			    				<datefield hideLabel="true"      name=""          format="Y-m-d"  width="120" />
-			    				<dictcombo    fieldLabel="入库单状态"           hiddenName=""    paramsValue="WAREHOUSE_IN_STATE"     showText="请选择" />
+			    				<datefield hideLabel="true"      name="warehouseRec.dynamicFields.endApplyDate"          format="Y-m-d"  width="120" />
+			    				<dictcombo    fieldLabel="入库单状态"           hiddenName="warehouseRec.state"    paramsValue="WAREHOUSE_IN_STATE"     showText="请选择" />
 			    			</layoutpanel>
 			    		</queryform>
 			    	
