@@ -18,9 +18,9 @@
 			    	<!-- service ext ui.  begin. -->
 			    		<queryform gridId="querygrid" exportId="exportBtn">
 			    			<layoutpanel columnNum="3">
-			    				<textfield fieldLabel="入库单号"   name="partNo.partNo"  />	
-			    				<autocomplete fieldLabel="供应商" url="/customerInfo/customerInfo!list.action"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"     name="custInfo.commCode" />
-			    				<dictcombo    fieldLabel="入库仓库"           hiddenName=""    paramsValue="COMPANY_BRANCH"     showText="请选择" />
+			    				<textfield fieldLabel="入库单号"   name="warehouseRec.recPoNo"  />	
+			    				<autocomplete fieldLabel="供应商" url="/vendorInfo/vendorInfo!listDict.action"  displayField="commCode"  valueField="commCode" queryParam="vendorInfo.commCode"     name="warehouseRec.vendorCode" />
+			    				<dictcombo    fieldLabel="入库仓库"           hiddenName=""    paramsValue="WAREHOUSE_TYPE"     showText="请选择" />
 			    			</layoutpanel>
 			    			<layoutpanel columnNum="6:.11,.05,.15,.05,.18,.3">
 			    				<label     fieldLabel="入库日期" />
@@ -28,11 +28,11 @@
 			    				<datefield hideLabel="true"      name=""          format="Y-m-d"  width="120" />
 			    				<label     fieldLabel="到"       labelSeparator=""/>
 			    				<datefield hideLabel="true"      name=""          format="Y-m-d"  width="120" />
-			    				<dictcombo    fieldLabel="入库单状态"           hiddenName=""    paramsValue="COMPANY_BRANCH"     showText="请选择" />
+			    				<dictcombo    fieldLabel="入库单状态"           hiddenName=""    paramsValue="WAREHOUSE_IN_STATE"     showText="请选择" />
 			    			</layoutpanel>
 			    		</queryform>
 			    	
-				    	<complexgrid id="querygrid" title="入库单列表" frame="true" page="true" root="data.list" url="/partNo/partNo!list.action" itemsFun="querygridFun" />
+				    	<complexgrid id="querygrid" title="入库单列表" frame="true" page="true" root="data.list" url="/warehouseRec/warehouseRec!list.action" itemsFun="querygridFun" />
 			    	<!-- service ext ui.  end. -->
 			    	</items>
 			    </panel>
