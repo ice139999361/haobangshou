@@ -115,23 +115,27 @@ HBSConvertHelper.init(function() {
 	});
 	*/
 
-	/*
-	Ext.getCmp("acCommCode").setProcessConfig("/customerInfo/customerInfo!getInfo.action?custInfo.state=0", "custInfo.commCode", null, function(action){
+	Ext.getCmp("acCommCode").setProcessConfig("/vendorInfo/vendorInfo!getInfo.action?vendorInfo.state=0", "vendorInfo.commCode", null, function(action){
 		if(!action.success)
 			return;
-		Ext.getCmp("acCompanyBranch").setValue(action.data.custInfo.companyBranchDesc);
-		Ext.getCmp("acShortName").setValue(action.data.custInfo.shortName);
-		Ext.getCmp("acSettlementType").setValue(action.data.custInfo.settlementDesc);
-
+		Ext.getCmp("acCompanyBranch").setValue(action.data.vendorInfo.companyBranchDesc);
+		Ext.getCmp("acShortName").setValue(action.data.vendorInfo.shortName);
+		Ext.getCmp("acSettlementType").setValue(action.data.vendorInfo.settlementDesc);
+		
 		var o = this.getValue();
-		var list = Ext.getCmp("acContactList");
-		list.store.baseParams["custInfo.commCode"] = o;
-		list.store.baseParams["custInfo.state"] = "0";
-		list = Ext.getCmp("acConsigneeList");
-		list.store.baseParams["custInfo.commCode"] = o;
-		list.store.baseParams["custInfo.state"] = "0";
+		Ext.getCmp("acVendorCode").setValue(o);
+		
+		Ext.each(action.data.vendorInfo.dynamicFields.contactlist, function(item) {
+			// TODO:选取第一个业务员联系人（职务=业务员）
+			Ext.getCmp("acConName").setValue(item.conName);
+			Ext.getCmp("acConFax").setValue(item.conFax);
+			Ext.getCmp("acConTel").setValue(item.conTel);
+			
+			return false;
+		});
 	});
 	
+	/*
 	
 	Ext.getCmp("acContactList").on("select", function() {
 		if(this.selectedIndex < 0)

@@ -164,14 +164,12 @@ public class CustOrderUtil {
 		if(null == custOrder.getOderTime())
 			list.add(new FieldErr("OrderTime","OrderTime没有填写"));
 		
-		/*
-		//DONE:选择联系人，这些信息都从前台传来，不需要在此设置
+
 		if(StringUtils.isEmpty(custOrder.getConName()))
 			list.add(new FieldErr("ConName", "ConName没有填写"));
 		
 		if(StringUtils.isEmpty(custOrder.getReceiveName()))
 			list.add(new FieldErr("ReceiveName", "ReceiveName没有填写"));
-		 */
 		
 		List<CustOrderDetail> details = custOrder.getOrderDetailList();
 		if(null != details && details.size() > 0) {
@@ -179,7 +177,8 @@ public class CustOrderUtil {
 				if(StringUtils.isEmpty(info.getPartNo()))
 					list.add(new FieldErr("PartNo", "PartNo没有填写"));
 				else {
-					// TODO:复制价格等数据
+					/*
+					// DONE:复制价格等数据，这些信息都从前台传来，不需要在此设置
 					if( null == info.getCprice() && StringUtils.isNotEmpty(info.getCpartNo())) {
 						CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)BeanLocator.getInstance().getBean("custPartNoInfoMgr");
 						CustPartNoInfo custPartNoInfo = new CustPartNoInfo();
@@ -203,20 +202,34 @@ public class CustOrderUtil {
 							list.add(new FieldErr("CpartNo", "客户型号无法找到"));
 						}
 					}
+					*/
 				}
+				if(info.getCprice() == null)
+					list.add(new FieldErr("Cprice", "Cprice没有填写"));
+				if(info.getCpriceTax() == null)
+					list.add(new FieldErr("CpriceTax", "CpriceTax没有填写"));
 				if(StringUtils.isEmpty(info.getCpartNo()))
 					list.add(new FieldErr("CPartNo", "CPartNo没有填写"));
+				
 				if(StringUtils.isEmpty(info.getIsTax()))
 					list.add(new FieldErr("IsTax", "IsTax没有填写"));
+				else{
+					if(!info.getCpriceTax().equals(0) && info.getIsTax().equals("0"))
+						list.add(new FieldErr("IsTax", "IsTax错误"));
+				}
 				Integer money = info.getAmount();
 				if(null == money)
 					list.add(new FieldErr("Amount", "Amount没有填写"));
+				/*
 				else
 					try {
 						info.setMoney(info.getCprice().multiply(new BigDecimal(money.intValue())));
 					} catch (Exception e) {
 						info.setMoney(new BigDecimal(money.intValue()));
 					}
+				*/
+				if(info.getMoney() == null)
+					list.add(new FieldErr("Money", "Money没有填写"));
 			}
 		}
 		//DONE:CustOrderUtil.checkInputFields

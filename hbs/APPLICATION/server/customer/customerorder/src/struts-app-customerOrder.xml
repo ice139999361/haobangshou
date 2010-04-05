@@ -39,7 +39,7 @@
 	 * @return
 	 */
 		 -->
-    	<action name="custOrder!commit" method="doCommit" 
+    	<action name="custOrder!save" method="doCommit" 
     			class="com.hbs.customerorder.action.CustOrderScNormalAction">
 		</action>
 		<!-- 
