@@ -73,17 +73,17 @@ public class WarehouseRecInfo extends BaseDomain{
     /**
      * 收货单（入库单）状态.
      */
-    private String state="01";
+    private String state;
     
     /**
      * 活动状态.
      */
-    private String activeState="ACTIVE";
+    private String activeState;
     
     /**
      * 财务结算状态0----未对账1---已对账.
      */
-    private String financeState ="0";
+    private String financeState;
     
     /**
      * 供应商订单类型0----入库单1---退货单.

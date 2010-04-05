@@ -135,11 +135,11 @@ public class WarehouseRecDetail extends BaseDomain{
     /**
      * 业务状态
      */
-    private String state="01";
+    private String state;
     /**
      * 活动状态
      */
-    private String activeState="ACTIVE";
+    private String activeState;
     /**
      * 财务调整的账期
      */
