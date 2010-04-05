@@ -14,7 +14,7 @@ HBSConvertHelper.init(function() {
 		backBtn.on("click", HBSConvertHelper.defaultCloseTab);
 		
 		// 组装需要的参数
-		var params = ["vendorPartNoInfo.seqId=", urlPs.seqId].join("");
+		var params = ["partNo.partNo=", urlPs.partNo].join("");
 		
 		// 加载数据
 		ExtConvertHelper.loadForm("form", "/vendorInfo/vendorPartNoInfo!getInfo.action", params);
