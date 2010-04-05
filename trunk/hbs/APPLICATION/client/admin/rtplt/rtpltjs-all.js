@@ -28,5 +28,6 @@ document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt
 document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/ComplexGrid.js"><\/script>');
 document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/CheckBoxGroupPanel.js"><\/script>');
 document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/ExportButton.js"><\/script>');
+document.writeln('<script type="text/javascript" src="' + CONTEXT_PATH + '/rtplt/Format.js"><\/script>');
 
 
