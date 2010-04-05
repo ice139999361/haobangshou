@@ -18,7 +18,7 @@ HBSConvertHelper.init(function() {
 		
 		// 加载数据
 		ExtConvertHelper.loadForm("form", "/vendorInfo/vendorPartNoInfo!getInfo.action", params, function(form, action) {
-			Ext.getCmp("warehousegrid").addData(action.result.data.vendorInfo.listBankInfo);
+			//Ext.getCmp("warehousegrid").addData(action.result.data.vendorInfo.listBankInfo);
 		});
 	}())
 });

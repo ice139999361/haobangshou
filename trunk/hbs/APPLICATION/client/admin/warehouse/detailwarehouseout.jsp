@@ -54,4 +54,4 @@
 	</xmp>
 </body>
 </html>
-<script type="text/javascript" src="<%=contextPath %>/warehouse/editorwarehouseout.js"></script>
+<script type="text/javascript" src="<%=contextPath %>/warehouse/detailwarehouseout.js"></script>
