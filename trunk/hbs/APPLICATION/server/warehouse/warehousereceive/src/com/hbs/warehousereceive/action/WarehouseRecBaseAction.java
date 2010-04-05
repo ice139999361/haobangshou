@@ -91,31 +91,40 @@ public abstract class WarehouseRecBaseAction extends BaseAction {
 	public String doGetInfo() {
 		try{
 			logger.debug("begin doGetInfo");
-			if(WarehouseRecUtil.checkKeyFields(warehouseRec)) {
-				logger.debug("参数为空！");
-				setErrorReason("参数为空！");
-				return ERROR;
-			}
-			WareHouseRecMgr mgr = getMgr();
-			
-			warehouseRec = mgr.getWarehouseRecInfo(warehouseRec, true);
-			if(warehouseRec == null || StringUtils.isEmpty(warehouseRec.getOperId())) {
-				logger.debug("没有找到");
-				setErrorReason("没有找到");
-				return ERROR;
-			}else if(!getIsManager() && !warehouseRec.getOperId().equals(getLoginStaff().getStaffId().toString())) {
-				logger.debug("权限错误");
-				setErrorReason("权限错误");
-				return ERROR;
-			}
+			boolean success = getWarehouseRecByKey(true);
 			setResult("warehouseRec", warehouseRec);
 			logger.debug("end doGetInfo");
-			return SUCCESS;
+			return success ? SUCCESS : ERROR;
 		}catch(Exception e) {
 			logger.error("catch Exception in doGetInfo", e);
 			setErrorReason("内部错误");
 			return ERROR;
 		}
+	}
+
+	/**
+	 * 根据关键字段获取信息
+	 * @throws Exception
+	 */
+	protected boolean getWarehouseRecByKey(boolean isDetail) throws Exception {
+		if(WarehouseRecUtil.checkKeyFields(warehouseRec)) {
+			logger.debug("参数为空！");
+			setErrorReason("参数为空！");
+			return false;
+		}
+		WareHouseRecMgr mgr = getMgr();
+		
+		warehouseRec = mgr.getWarehouseRecInfo(warehouseRec, isDetail);
+		if(warehouseRec == null || StringUtils.isEmpty(warehouseRec.getOperId())) {
+			logger.debug("没有找到");
+			setErrorReason("没有找到");
+			return false;
+		}else if(!getIsManager() && !warehouseRec.getOperId().equals(getLoginStaff().getStaffId().toString())) {
+			logger.debug("权限错误");
+			setErrorReason("权限错误");
+			return false;
+		}
+		return true;
 	}
 
 	protected void setMyId(boolean setName) throws Exception {

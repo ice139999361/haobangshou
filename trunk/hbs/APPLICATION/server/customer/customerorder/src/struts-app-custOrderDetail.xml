@@ -103,6 +103,18 @@
     	<action name="orderDetailCg!checkOperSeqId" method="doCheckOperSeqId" 
     			class="com.hbs.customerorder.action.detail.CustOrderDetailCgNormalAction">
 		</action>
+		<!-- 
+	/**
+	 * 查询客户订单详情
+	 * @action.input orderDetail.*
+	 * @action.result list List<CustOrderDetail>
+	 * @action.result count 总数
+	 * @return
+	 */
+		 -->
+    	<action name="orderDetailCg!list" method="doList" 
+    			class="com.hbs.customerorder.action.detail.CustOrderDetailCgNormalAction">
+		</action>
 
 
 		<!-- 财务普通用户 ***************************************************-->

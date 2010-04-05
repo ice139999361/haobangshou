@@ -70,7 +70,7 @@ public class CustOrderScNormalAction extends BaseAction {
 			if(StringUtils.isEmpty(custOrder.getPoNoType()))
 				custOrder.setPoNoType("0");
 			
-			custOrder.setState("1");
+			custOrder.setState(CustOrderConstants.ORDER_STATE_01);
 			if(custOrder.getFristCreateTime() == null)
 				custOrder.setFristCreateTime(new Date());
 			if(StringUtils.isEmpty(custOrder.getStaffId()))

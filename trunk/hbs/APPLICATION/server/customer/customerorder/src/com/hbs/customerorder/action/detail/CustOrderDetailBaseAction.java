@@ -85,4 +85,27 @@ public class CustOrderDetailBaseAction extends BaseAction {
 		} else
 			return true;
 	}
+	
+	/**
+	 * 查询客户订单详情
+	 * @action.input orderDetail.*
+	 * @action.result list List<CustOrderDetail>
+	 * @action.result count 总数
+	 * @return
+	 */
+	public String doList() {
+		try{
+			if(orderDetail == null)
+				orderDetail = new CustOrderDetail();
+			setPagination(orderDetail);
+			setTotalCount(mgr.listCustOrderDetailCount(orderDetail));
+			setResult("list", mgr.listCustOrderDetail(orderDetail));
+			setResult("count", getTotalCount());
+			return SUCCESS;
+		}catch(Exception e) {
+			logger.error("catch Exception in doList", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+	}
 }

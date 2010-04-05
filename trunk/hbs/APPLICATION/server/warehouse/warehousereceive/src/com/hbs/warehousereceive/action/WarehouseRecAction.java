@@ -3,6 +3,7 @@
  */
 package com.hbs.warehousereceive.action;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,11 @@ public class WarehouseRecAction extends WarehouseRecBaseAction {
 		return "cknormal";
 	}
 
+	/**
+	 * 临时保存
+	 * @action.input	warehouseRec.*
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public String doSaveTemp() {
 		try {
@@ -44,6 +50,10 @@ public class WarehouseRecAction extends WarehouseRecBaseAction {
 			warehouseRec.setState(WareHouseConstants.WAREHOUSE_REC_INFO_01);
 			if(StringUtils.isEmpty(warehouseRec.getOperId()))
 				setMyId(true);
+			if(warehouseRec.getOperTime() == null)
+				warehouseRec.setOperTime(new Date());
+			if(StringUtils.isEmpty(warehouseRec.getPoNoType()))
+				warehouseRec.setPoNoType("0");
 			
 			Map otherData = new HashMap();
 			
@@ -70,6 +80,11 @@ public class WarehouseRecAction extends WarehouseRecBaseAction {
 		}
 	}
 	
+	/**
+	 * 提交
+	 * @action.input	warehouseRec.*
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public String doSave() {
 		try {
@@ -83,6 +98,11 @@ public class WarehouseRecAction extends WarehouseRecBaseAction {
 				warehouseRec.setState(WareHouseConstants.WAREHOUSE_REC_INFO_02);
 			if(StringUtils.isEmpty(warehouseRec.getOperId()))
 				setMyId(true);
+			if(warehouseRec.getOperTime() == null)
+				warehouseRec.setOperTime(new Date());
+			if(StringUtils.isEmpty(warehouseRec.getPoNoType()))
+				warehouseRec.setPoNoType("0");
+
 			Map otherData = new HashMap();
 			
 			WarehouseRecUtil.processListData(warehouseRec, this.getHttpServletRequest(), otherData);
@@ -109,4 +129,79 @@ public class WarehouseRecAction extends WarehouseRecBaseAction {
 			return ERROR;
 		}
 	}
+	
+	/**
+	 * 切换ActiveState
+	 * @action.input warehouseRec.*
+	 * @action.input memo
+	 * @return
+	 */
+	public String doControlActiveState() {
+		try {
+			logger.debug("begin doActiveState");
+			if(getWarehouseRecByKey(true)){
+				int i = getMgr().controlActiveState(warehouseRec, this.getHttpServletRequest().getParameter("memo"));
+				if(i != 0){
+					String s = "暂停、激活失败！";
+					logger.error(s + " ret=" + i);
+					setErrorReason(s);
+					return ERROR;
+				}
+			}else{
+				return ERROR;
+			}	
+			logger.debug("end doActiveState");
+			return SUCCESS;
+		} catch(Exception e) {
+			logger.error("catch Exception in doActiveState", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+	}
+	
+	/**
+	 * 取消入库单
+	 * @action.input warehouseRec.*
+	 * @action.input memo
+	 * @return
+	 */
+	public String doCancel() {
+		try {
+			logger.debug("begin doCancel");
+			if(!WarehouseRecUtil.checkKeyFields(warehouseRec)){
+				logger.debug("参数为空！");
+				setErrorReason("参数为空！");
+				return ERROR;
+			}
+			int i = getMgr().cancelWareHouseRecInfo(warehouseRec, this.getHttpServletRequest().getParameter("memo"));
+			if(i != 0){
+				String s;
+				switch(i){
+				case -1:
+					s = "状态错误，取消失败！";
+					logger.error(s);
+					setErrorReason(s);
+					break;
+				case -2:
+					s = "参数错误！";
+					logger.error(s);
+					setErrorReason(s);
+					break;
+				default:
+					s = "取消失败！";
+					logger.error(s + " ret=" + i);
+					setErrorReason(s);
+					break;
+				}
+				return ERROR;
+			}
+			logger.debug("end doCancel");
+			return SUCCESS;
+		} catch(Exception e) {
+			logger.error("catch Exception in doCancel", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+	}
+	
 }

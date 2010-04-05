@@ -128,7 +128,7 @@ public class ListDataUtil {
 							if(!(Modifier.isPublic(fd.getModifiers()))){//非公共属性
 								fd.setAccessible(true);
 							}
-							//TODO:此处可能还需要修改，特别是日期型的数据，需要转换格式，否则错误
+							//TODO:此处可能还需要修改，目前可以处理的格式有String、Number、Date
 							Class typeClass = fd.getType();
 							if(typeClass.equals(Date.class)){
 								DateTimeFormatter fmt = DateTimeFormat.forPattern(DATEFORMAT);
@@ -137,13 +137,16 @@ public class ListDataUtil {
 								c.set(dt.getYear(), dt.getMonthOfYear() - 1, dt.getDayOfMonth());
 								fd.set(o, c.getTime());
 							}else{
+								// 一般类型处理方法，包括字符串、数值
 								Constructor con = typeClass.getConstructor(String.class);
 								fd.set(o, con.newInstance(ar[i]));
 							}
 						} catch (Exception e) {
+							// 获取出错行号
 							int line = -1;
+							final String className = ListDataUtil.class.getName();
 							for(StackTraceElement s : e.getStackTrace()){
-								if(s.getClassName().equals(ListDataUtil.class.getName())){
+								if(className.equals(s.getClassName())){
 									line = s.getLineNumber();
 									break;
 								}
