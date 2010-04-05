@@ -29,9 +29,9 @@ HBSConvertHelper.init(function() {
 		//alert(this.ds.getCount())
 		for(var i = 0 ; i < view.ds.getCount() ; i++) {
 			// 获取客户简称所在的列
-			var cpartNo_cell = view.getCell(i, view.grid.getColumnIndexById("cpartNo"));
+			var crecpono_cell = view.getCell(i, view.grid.getColumnIndexById("crecpono"));
 			// 将需要的链接渲染到此列
-			//HBSConvertHelper.renderATag2Cell(cpartNo_cell.innerText, "/materiel/detailmateriel.jsp?pageType=query&partNo="+view.ds.getAt(i).get("cpartNo"), "open", cpartNo_cell);
+			HBSConvertHelper.renderATag2Cell(crecpono_cell.innerText, "/warehouse/detailwarehousein.jsp?pageType=query&partNo="+view.ds.getAt(i).get("cpartNo"), "open", crecpono_cell);
 			
 			
 			if(view.grid.getColumnIndexById("operator") != -1) {

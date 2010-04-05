@@ -10,7 +10,7 @@ var querygridFun = function() {
 	cgh.appendField("l7");
 	cgh.appendField("l8");
 	
-	cgh.appendColumn({header: "入库单号", dataIndex: "l1"});
+	cgh.appendColumn({header: "入库单号", dataIndex: "l1", id: "crecpono"});
 	cgh.appendColumn({header: "供应商"	, dataIndex: "l2"});
 	cgh.appendColumn({header: "入库日期", dataIndex: "l2"});
 	cgh.appendColumn({header: "入库仓库", dataIndex: "l4"});
