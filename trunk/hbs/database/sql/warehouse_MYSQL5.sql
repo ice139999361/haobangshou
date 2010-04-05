@@ -120,21 +120,22 @@ CREATE TABLE `t_warehouse_receive` (
   `REC_PO_NO` varchar(32) NOT NULL COMMENT '供应商入库单号（供应商送货单号）',
   `C_CODE` varchar(32) NOT NULL COMMENT '供应商编码',
   `SHORT_NAME` varchar(64) NOT NULL COMMENT '供应商简称',
-  `PO_NO_DATE` date default NULL COMMENT '供应商单据日期',
+  `PO_NO_DATE` date DEFAULT NULL COMMENT '供应商单据日期',
   `ARRAY_DATE` date NOT NULL COMMENT '货物到达日期',
   `HOUSE_TYPE` varchar(32) NOT NULL COMMENT '仓库位置',
-  `OPER_ID` varchar(20) default NULL COMMENT '操作人ID',
+  `OPER_ID` varchar(20) DEFAULT NULL COMMENT '操作人ID',
   `OPER_STAFF` varchar(32) NOT NULL COMMENT '操作员',
-  `OPER_TIME` datetime default NULL COMMENT '操作时间',
+  `OPER_TIME` datetime DEFAULT NULL COMMENT '操作时间',
   `RECEIVE_DESC` varchar(256) NOT NULL COMMENT '收货单备注',
-  `PERIOD` varchar(8) default NULL COMMENT '所属账期',
-  `STATE` varchar(8) default NULL COMMENT '收货单（入库单）状态  01---仓管创建入库单（临时保存入库单，其他人无法查看）  02---仓管确认入库单（入库数据证实确认，其他人可以查看）  03---仓管取消入库单（需要在确认入库单之前操作，确认的入库单不能操作)  00---关闭入库单  31---财务确认付款',
-  `ACTIVE_STATE` varchar(8) default NULL COMMENT '活动状态  PAUSE---仓管暂停入库单（暂停状态，入库单的业务状态停留在当前，除仓管外，不能激活入库单）  ACTIVE---仓管激活入库单（激活暂停的入库单，仓管操作）  ',
-  `FINANCE_STATE` varchar(2) default NULL COMMENT '财务结算状态  0----未对账  1---已对账',
+  `PERIOD` varchar(8) DEFAULT NULL COMMENT '所属账期',
+  `STATE` varchar(8) NOT NULL DEFAULT '01' COMMENT '收货单（入库单）状态  01---仓管创建入库单（临时保存入库单，其他人无法查看）  02---仓管确认入库单（入库数据证实确认，其他人可以查看）  03---仓管取消入库单（需要在确认入库单之前操作，确认的入库单不能操作)  00---关闭入库单  31---财务确认付款',
+  `ACTIVE_STATE` varchar(8) NOT NULL DEFAULT 'ACTIVE' COMMENT '活动状态  PAUSE---仓管暂停入库单（暂停状态，入库单的业务状态停留在当前，除仓管外，不能激活入库单）  ACTIVE---仓管激活入库单（激活暂停的入库单，仓管操作）',
+  `FINANCE_STATE` varchar(2) NOT NULL DEFAULT '0' COMMENT '财务结算状态  0----未对账  1---已对账',
   `PO_NO_TYPE` varchar(2) NOT NULL COMMENT '供应商订单类型  0----入库单  1---退货单',
-  `SETTLEMENT_TYPE` varchar(8) default NULL COMMENT '结算方式',
-  PRIMARY KEY  (`REC_PO_NO`)
+  `SETTLEMENT_TYPE` varchar(8) DEFAULT NULL COMMENT '结算方式',
+  PRIMARY KEY (`REC_PO_NO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='入库单或收货单';
+
 
 
 #
