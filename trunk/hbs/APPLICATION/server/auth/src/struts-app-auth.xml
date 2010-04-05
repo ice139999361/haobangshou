@@ -20,13 +20,14 @@
 			</result>
         </global-results>
 
-		<!-- 登录 -->
+		<!-- 登录  小徐已经自动跳转，返回成功就ok-->
 		<action name="login!login" method="doLogin" 
     			class="com.hbs.auth.action.LoginAction">
-    		<result name="success" type="redirect">
+    	<!--  	<result name="success" type="redirect">
     			<param name="location">/hbs/portal/main.jsp</param>
     			<param name="prependServletContext">false</param>
-    		</result>
+    		</result> 
+    	-->
 		</action>
 		<!-- 
 	/**
