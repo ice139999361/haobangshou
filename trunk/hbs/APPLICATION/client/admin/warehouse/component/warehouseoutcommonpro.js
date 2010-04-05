@@ -19,7 +19,7 @@ var warehousegridFun = function() {
 	cgh.appendColumn({header: "已出库数量"        , dataIndex: "l7"});
 	cgh.appendColumn({header: "本次出库数量"      , dataIndex: "l7", xtype: "textfield"});
 	cgh.appendColumn({header: "出库备注"          , dataIndex: "l8", xtype: "textfield"});
-	cgh.appendColumn({header: "操作"              , dataIndex: ""  , id: "operator"});
+	if(urlPs.pageType != "query") cgh.appendColumn({header: "操作"              , dataIndex: ""  , id: "operator"});
 
 
 	cgh.setSubmitFields("l1,l2,l3,l4,l5,l6,l7,l8");

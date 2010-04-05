@@ -32,7 +32,6 @@
 				    				<textfield    fieldLabel="传真"       name=""        labelStyle="width:150"  />
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
-				    				<textfield    fieldLabel="备注"           name=""        labelStyle="width:150" width="600" />
 				    				<textarea     fieldLabel="备注"           name=""        labelStyle="width:150" width="600" />
 				    			</layoutpanel>	
 				    		</listpanel>
