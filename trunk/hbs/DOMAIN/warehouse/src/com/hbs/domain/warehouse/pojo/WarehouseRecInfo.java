@@ -106,7 +106,7 @@ public class WarehouseRecInfo extends BaseDomain{
      * @return
      */
     public String getSettlementTypeDesc(){
-    	String retStr ="未定义";
+    	String retStr ="未定义状态【" + getSettlementType() +"】";
     	ConfigEncode ceParam = new ConfigEncode();
     	ceParam.setEncodeKey(getSettlementType());
     	ceParam.setEncodeType("SETTLEMENT_TYPE");
@@ -183,6 +183,21 @@ public class WarehouseRecInfo extends BaseDomain{
         return this.houseType;
     }	
   
+    /**
+     * 获取仓库类型描述
+     * @return
+     */
+    public String getHouseTypeDesc(){
+    	String retStr ="未定义状态【" + getHouseType() +"】";
+    	ConfigEncode ceParam = new ConfigEncode();
+    	ceParam.setEncodeKey(getHouseType());
+    	ceParam.setEncodeType("WAREHOUSE_TYPE");
+    	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
+    	if(null != cEncode){
+    		retStr = cEncode.getEncodeValue();
+    	}
+    	return retStr;
+    }
     public void setHouseType(String houseType) {
         this.houseType = houseType;
     }
@@ -231,6 +246,21 @@ public class WarehouseRecInfo extends BaseDomain{
         return this.state;
     }	
   
+    /**
+     * 获取结算方式描述
+     * @return
+     */
+    public String getStateDesc(){
+    	String retStr ="未定义状态【" + getState() +"】";
+    	ConfigEncode ceParam = new ConfigEncode();
+    	ceParam.setEncodeKey(getState());
+    	ceParam.setEncodeType("WAREHOUSE_IN_STATE");
+    	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
+    	if(null != cEncode){
+    		retStr = cEncode.getEncodeValue();
+    	}
+    	return retStr;
+    }
     public void setState(String state) {
         this.state = state;
     }
@@ -247,6 +277,7 @@ public class WarehouseRecInfo extends BaseDomain{
         return this.financeState;
     }	
   
+   
     public void setFinanceState(String financeState) {
         this.financeState = financeState;
     }
