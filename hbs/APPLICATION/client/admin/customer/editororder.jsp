@@ -26,7 +26,7 @@
 				    					
 				    				
 				    				<autocomplete fieldLabel="客户简称"           name="custOrder.shortName"	id="acShortName"                       labelStyle="width:150"/>
-				    				<datefield    fieldLabel="客户订单日期"       name="custOrder.oderTime" 	format="Y-m-d"                       labelStyle="width:150"/>
+				    				<datefield    fieldLabel="客户订单日期"       name="custOrder.oderTime" 	format="Y-m-d"                       labelStyle="width:150" id="acOderTime"/>
 				    				<label        fieldLabel="结算类型"           id="acSettlementType"                        labelStyle="width:150"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">

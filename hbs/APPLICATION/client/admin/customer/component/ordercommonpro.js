@@ -1,7 +1,8 @@
 var amountRenderer = function(value, metadata, record) {
 	if(value) {
-		
-		record.set("money", Math.FloatMul(value, record.get("cprice")));
+		try{
+			record.set("money", Math.FloatMul(value, record.get("cprice")));
+		} catch(e) {}
 	}
 	return value;
 }
@@ -44,7 +45,7 @@ var ordergridFun = function() {
 	cgh.appendColumn({header: "是否含税交易<font color=red>*</font>", dataIndex: "isTax" , xtype: "dictcombo"  , paramsValue: "IS_TAX", id: "cisTax"});
 	cgh.appendColumn({header: "数量<font color=red>*</font>"	      , dataIndex: "amount", xtype: "numberfield", renderer: "amountRenderer"});
 	cgh.appendColumn({header: "金额", dataIndex: "money"});
-	cgh.appendColumn({header: "交货日期<font color=red>*</font>", dataIndex: "orgDeliveryDate", xtype: "datefield", format: "Y-m-d"});
+	cgh.appendColumn({header: "交货日期<font color=red>*</font>", dataIndex: "orgDeliveryDate", xtype: "datefield", format: "Y-m-d", renderer: FormatUtil.dateRenderer});
 	cgh.appendColumn({header: "特殊备注<font color=red>*</font>"		, dataIndex: "specDesc", xtype: "textfield"});
 	cgh.appendColumn({header: "备注<font color=red>*</font>"		, dataIndex: "commDesc", xtype: "textfield"});
 
