@@ -47,6 +47,7 @@ public class VendorOrderUtil {
 		return true;
 	}
 
+	@SuppressWarnings("unchecked")
 	public static List<FieldErr> checkInputFields(VendorOrder vendorOrder,
 			Map otherData) 
 	{
