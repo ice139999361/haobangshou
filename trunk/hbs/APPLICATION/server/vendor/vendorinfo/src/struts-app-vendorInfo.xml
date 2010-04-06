@@ -20,7 +20,7 @@
 			</result>
         </global-results>
 
-		<!-- 普通用户客户信息 -->
+		<!-- 普通用户供应商信息 -->
      	<action name="vendorInfo!list" method="doList" 
     			class="com.hbs.vendorinfo.action.VendorInfoNormalAction">
 		</action>
@@ -94,7 +94,7 @@
 		
 <!-- *************************************************************** -->
 
-		<!-- 经理用户客户信息 -->
+		<!-- 经理用户供应商信息 -->
      	<action name="vendorInfoMgr!list" method="doList" 
     			class="com.hbs.vendorinfo.action.VendorInfoManagerAction">
 		</action>
@@ -156,7 +156,7 @@
 <!-- *************************************************************** -->		
 <!-- *************************************************************** -->		
 
-		<!-- 普通用户客户物料信息 -->
+		<!-- 普通用户供应商物料信息 -->
  		<!-- list已经返回了物料关系的所有信息，所以不另外做doGet了 -->
      	<action name="vendorPartNoInfo!list" method="doList" 
     			class="com.hbs.vendorinfo.action.VendorPartNoInfoNormalAction">
@@ -167,9 +167,17 @@
      	<action name="vendorPartNoInfo!getInfo" method="doGetInfo" 
     			class="com.hbs.vendorinfo.action.VendorPartNoInfoNormalAction">
 		</action>
+		<!-- add by xyf 供应商订单详情使用 -->
+		<action name="vendorPartNoInfo!getInfoDict" method="doGetInfoDict" 
+    			class="com.hbs.vendorinfo.action.VendorPartNoInfoNormalAction">
+		</action>
+		<action name="vendorPartNoInfo!getListDict" method="doListDict" 
+    			class="com.hbs.vendorinfo.action.VendorPartNoInfoNormalAction">
+		</action>
+		<!-- end 供应商订单详情使用 -->
 
 <!-- *************************************************************** -->
-		<!-- 经理用户客户物料信息 -->
+		<!-- 经理用户供应商物料信息 -->
 
      	<action name="vendorPartNoInfoMgr!getInfo" method="doGetInfo" 
     			class="com.hbs.vendorinfo.action.VendorPartNoInfoManagerAction"> 
@@ -188,7 +196,7 @@
 		</action>
 		
 <!-- *************************************************************** -->
-		<!-- 财务用户客户信息 -->
+		<!-- 财务用户供应商信息 -->
      	<action name="vendorInfoCw!list" method="doList" 
     			class="com.hbs.vendorinfo.action.VendorInfoCwNormalAction">
 		</action>

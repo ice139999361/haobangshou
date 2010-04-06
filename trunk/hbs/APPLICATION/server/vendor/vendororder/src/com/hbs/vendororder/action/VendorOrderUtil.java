@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -37,6 +38,7 @@ public class VendorOrderUtil {
 		VendorInfoMgr mgr = (VendorInfoMgr)BeanLocator.getInstance().getBean(VendorInfoNormalAction.vendorInfoMgrName);
 		VendorInfo vInfo = new VendorInfo();
 		vInfo.setCommCode(commCode);
+		vInfo.setState("0");
 		vInfo = mgr.getVendorInfo(vInfo, true);
 		if(vInfo == null)
 			return false;
@@ -48,8 +50,23 @@ public class VendorOrderUtil {
 	public static List<FieldErr> checkInputFields(VendorOrder vendorOrder,
 			Map otherData) 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		VendorInfo vInfo = (VendorInfo)otherData.get("vendorInfo");
+		
+		List<FieldErr> errs = new Vector<FieldErr>();
+		if(StringUtils.isEmpty(vendorOrder.getCommCode()))
+			errs.add(new FieldErr("CommCode", "CommCode没有填写"));
+		if(StringUtils.isEmpty(vendorOrder.getConName()))
+			errs.add(new FieldErr("ConName", "ConName没有填写"));
+		if(StringUtils.isEmpty(vendorOrder.getReceiveName()))
+			errs.add(new FieldErr("ReceiveName", "ReceiveName没有填写"));
+		if(StringUtils.isEmpty(vendorOrder.getSettlementType()))
+			errs.add(new FieldErr("SettlementType", "SettlementType没有填写"));
+		if(StringUtils.isEmpty(vendorOrder.getIsShowPrice()))
+			errs.add(new FieldErr("IsShowPrice", "IsShowPrice没有填写"));
+		
+		
+		// TODO:VendorOrderUtil.checkInputFields
+		return errs;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -63,17 +80,30 @@ public class VendorOrderUtil {
 				CustomerInfoUtil.splitter);
 			
 			String commCode = vendorOrder.getCommCode();
+			VendorInfo vInfo = (VendorInfo)otherData.get("vendorInfo");
 			String state = vendorOrder.getState();
 			String poNo = vendorOrder.getPoNo();
 			String poNoType = vendorOrder.getPoNoType();
-			String shortName = vendorOrder.getShortName();
 			String staffId = vendorOrder.getStaffId();
 			String staffName = vendorOrder.getStaffName();
+			String shortName = vendorOrder.getShortName();
 			String settlementType = vendorOrder.getSettlementType();
-			VendorInfo vInfo = (VendorInfo)otherData.get("vendorInfo");
+			String isShowPrice = vendorOrder.getIsShowPrice();
 			BigDecimal taxRate = null;
 			if(vInfo != null) {
 				taxRate = vInfo.getTaxRate();
+				if(StringUtils.isEmpty(shortName)){
+						shortName = vInfo.getShortName();
+						vendorOrder.setShortName(shortName);
+				}
+				if(StringUtils.isEmpty(settlementType)){
+					settlementType = vInfo.getSettlementType();
+					vendorOrder.setSettlementType(settlementType);
+				}
+				if(StringUtils.isEmpty(isShowPrice)){
+					isShowPrice = vInfo.getIsShowPrice();
+					vendorOrder.setIsShowPrice(isShowPrice);
+				}
 			}
 			
 			Iterator<VendorOrderDetail> it = list.iterator();
