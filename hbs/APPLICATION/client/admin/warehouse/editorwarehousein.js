@@ -118,11 +118,11 @@ HBSConvertHelper.init(function() {
 		if(urlPs.state != 1) ExtConvertHelper.hideItems("saveBtn");
 		
 		// 组装需要的参数
-		var params = ["vendorInfo.baseSeqId=", urlPs.baseSeqId].join("");
+		var params = ["warehouseRec.recPoNo=", urlPs["warehouseRec.recPoNo"],"&warehouseRec.vendorCode=" , urlPs["warehouseRec.vendorCode"]].join("");
 		
 		// 加载数据
-		ExtConvertHelper.loadForm("form", "/vendorInfo/vendorInfo!getInfo.action", params, function(form, action) {
-				Ext.getCmp("warehousegrid").addData(action.result.data.vendorInfo.listBankInfo);
+		ExtConvertHelper.loadForm("form", "/warehouseRec/warehouseRec!getInfo.action", params, function(form, action) {
+			Ext.getCmp("warehousegrid").addData(action.result.data.warehouseRec.detailList);
 		});
 	}
 	
