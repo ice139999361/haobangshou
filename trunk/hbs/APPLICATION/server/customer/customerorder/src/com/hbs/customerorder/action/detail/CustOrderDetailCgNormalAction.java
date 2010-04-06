@@ -211,10 +211,7 @@ public class CustOrderDetailCgNormalAction extends CustOrderDetailBaseAction {
 				setErrorReason("²ÎÊýÎª¿Õ£¡");
 				return ERROR;
 			}
-			List<String> stateList = new Vector<String>();
-			stateList.add("20");
-			stateList.add("21");
-			orderDetail.setField("stateList", stateList);
+			orderDetail.setField("stateList", "'20','21'");
 			List<CustOrderDetail> list = mgr.listCustOrderDetail(orderDetail); 
 			
 			for(Iterator<CustOrderDetail> it = list.iterator(); it.hasNext();) {
