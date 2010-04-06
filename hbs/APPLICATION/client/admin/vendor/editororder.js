@@ -128,6 +128,10 @@ HBSConvertHelper.init(function() {
 		Ext.getCmp("acShortName").setValue(action.data.vendorInfo.shortName);
 		Ext.getCmp("acSettlementType").setValue(action.data.vendorInfo.settlementDesc);
 		
+		// 给需要的隐藏域赋值
+		Ext.getCmp("hidIsShowPrice").setValue("");
+		Ext.getCmp("hidSettlementType").setValue("");
+		
 		var o = this.getValue();
 		Ext.getCmp("acVendorCode").setValue(o);
 		
