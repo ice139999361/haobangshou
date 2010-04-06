@@ -36,8 +36,8 @@
 				    						
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
-				    				<hidden name="" id="hidIsShowPrice" />
-				    				<hidden name="" id="hidSettlementType" />
+				    				<hidden name="vendorOrder.isShowPrice" id="hidIsShowPrice" />
+				    				<hidden name="vendorOrder.settlementType" id="hidSettlementType" />
 				    			</layoutpanel>
 				    		</listpanel>
 			    		</items></form>
