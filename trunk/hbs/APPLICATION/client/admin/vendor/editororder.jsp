@@ -35,6 +35,10 @@
 				    				<label        fieldLabel="联系电话" id="acConTel"                                labelStyle="width:150"/>
 				    						
 				    			</layoutpanel>
+				    			<layoutpanel columnNum="1">
+				    				<hidden name="" id="hidIsShowPrice" />
+				    				<hidden name="" id="hidSettlementType" />
+				    			</layoutpanel>
 				    		</listpanel>
 			    		</items></form>
 			    		
