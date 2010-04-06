@@ -20,16 +20,16 @@
 							<form id="form"><items>
 				    		<listpanel frame="true" title="入库基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<label    fieldLabel="入库单号"       name=""        labelStyle="width:150"      />
-				    				<label    fieldLabel="供应商单据日期" name=""        labelStyle="width:150" />
-				    				<label    fieldLabel="供应商"         name="custInfo.commCode"       labelStyle="width:150"  />
+				    				<label    fieldLabel="入库单号"       name="warehouseRec.recPoNo"        labelStyle="width:150"      />
+				    				<label    fieldLabel="供应商单据日期" name="warehouseRec.poNoDate"        labelStyle="width:150" />
+				    				<label    fieldLabel="供应商"         name="warehouseRec.vendorCode"       labelStyle="width:150"  />
 				    				
-				    				<label    fieldLabel="入库日期"  	    name=""        labelStyle="width:150"     />
-				    				<label    fieldLabel="到货日期"  	    name=""        labelStyle="width:150"     />
-				    				<label    fieldLabel="仓库"           name=""        labelStyle="width:150"    />
+				    				<label    fieldLabel="入库日期"  	    name="warehouseRec.operTime"        labelStyle="width:150"     />
+				    				<label    fieldLabel="到货日期"  	    name="warehouseRec.applyDate"        labelStyle="width:150"     />
+				    				<label    fieldLabel="仓库"           name="warehouseRec.houseTypeDesc"        labelStyle="width:150"    />
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
-				    				<label     fieldLabel="备注"           name=""        labelStyle="width:150" />
+				    				<label     fieldLabel="备注"           name="warehouseRec.receiveDesc"        labelStyle="width:150" />
 				    			</layoutpanel>	
 				    		</listpanel>
 			    		</items></form>
