@@ -28,12 +28,19 @@ public class WarehouseRecUtil {
 	private static final String detailListName = "orderlist";
 	private static final String detailListFields = "orderlistFields";
 
-	public static boolean checkKeyFields(WarehouseRecInfo warehouseRec) {
-		if(warehouseRec == null 
-				|| StringUtils.isEmpty(warehouseRec.getVendorCode())
-				|| StringUtils.isEmpty(warehouseRec.getRecPoNo()))
-			return false;
-		return true;
+	public static boolean checkKeyFields(WarehouseRecInfo warehouse) {
+		boolean ret = false;		
+		logger.debug(warehouse == null 
+				|| StringUtils.isEmpty(warehouse.getVendorCode())
+				|| StringUtils.isEmpty(warehouse.getRecPoNo()));
+		if(warehouse == null 
+				|| StringUtils.isEmpty(warehouse.getVendorCode())
+				|| StringUtils.isEmpty(warehouse.getRecPoNo())){
+			ret = true;
+		}
+		
+		logger.debug("ret =" + ret);
+		return ret;
 		// DONE:WarehouseRecUtil.checkKeyFields
 	}
 

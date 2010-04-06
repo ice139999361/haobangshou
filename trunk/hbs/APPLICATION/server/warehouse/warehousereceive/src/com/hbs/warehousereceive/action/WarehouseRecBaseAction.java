@@ -107,7 +107,10 @@ public abstract class WarehouseRecBaseAction extends BaseAction {
 	 * @throws Exception
 	 */
 	protected boolean getWarehouseRecByKey(boolean isDetail) throws Exception {
-		if(WarehouseRecUtil.checkKeyFields(warehouseRec)) {
+		boolean isTrue = WarehouseRecUtil.checkKeyFields(warehouseRec);
+		logger.debug("isTrue =" + isTrue);
+		if(isTrue) {
+			logger.debug(warehouseRec.toString());
 			logger.debug("参数为空！");
 			setErrorReason("参数为空！");
 			return false;
@@ -117,7 +120,7 @@ public abstract class WarehouseRecBaseAction extends BaseAction {
 		warehouseRec = mgr.getWarehouseRecInfo(warehouseRec, isDetail);
 		if(warehouseRec == null || StringUtils.isEmpty(warehouseRec.getOperId())) {
 			logger.debug("没有找到");
-			setErrorReason("没有找到");
+			setErrorReason("没有查询到相应的供应商订单记录！");
 			return false;
 		}else if(!getIsManager() && !warehouseRec.getOperId().equals(getLoginStaff().getStaffId().toString())) {
 			logger.debug("权限错误");

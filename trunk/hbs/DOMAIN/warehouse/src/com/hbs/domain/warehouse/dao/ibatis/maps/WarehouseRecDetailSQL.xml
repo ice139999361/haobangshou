@@ -395,13 +395,13 @@
 			<isNotEmpty prepend="and" property = "staffName">
 				STAFF_NAME = #staffName#
 			</isNotEmpty>
-			<isNotEmpty prepend="," property="state">
+			<isNotEmpty prepend="and" property="state">
 		            STATE = #state#
 			</isNotEmpty>
-			<isNotEmpty prepend="," property="activeState">
+			<isNotEmpty prepend="and" property="activeState">
 		            ACTIVE_STATE = #activeState#
 			</isNotEmpty>
-			<isNotEmpty prepend="," property="financePeriod">
+			<isNotEmpty prepend="and" property="financePeriod">
 		            FINANCE_PERIOD = #financePeriod#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "specDesc">
@@ -501,13 +501,13 @@
 			<isNotEmpty prepend="and" property = "staffName">
 				STAFF_NAME = #staffName#
 			</isNotEmpty>
-			<isNotEmpty prepend="," property="state">
+			<isNotEmpty prepend="and" property="state">
 		            STATE = #state#
 			</isNotEmpty>
-			<isNotEmpty prepend="," property="activeState">
+			<isNotEmpty prepend="and" property="activeState">
 		            ACTIVE_STATE = #activeState#
 			</isNotEmpty>
-			<isNotEmpty prepend="," property="financePeriod">
+			<isNotEmpty prepend="and" property="financePeriod">
 		            FINANCE_PERIOD = #financePeriod#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "specDesc">
