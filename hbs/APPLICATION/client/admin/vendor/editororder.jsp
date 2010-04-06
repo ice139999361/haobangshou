@@ -22,7 +22,7 @@
 				    			<layoutpanel columnNum="3:.3,.2,.5">
 				    				<autocomplete    fieldLabel="供应商"	url="/vendorInfo/vendorInfo!list.action"  displayField="commCode"  valueField="commCode" queryParam="vendorInfo.commCode" id="acCommCode"          name="vendorOrder.commCode"       labelStyle="width:150" />
 				    				<button       text="查询客户订单" id="sxkhddBtn" />
-				    				<textfield    fieldLabel="订单编号"         name="custOrder.poNo"          readOnly="true"  emptyText="提交或保存后自动生成编号"            labelStyle="width:150"/>
+				    				<textfield    fieldLabel="订单编号"         name="custOrder.poNo"          readOnly="true"             labelStyle="width:150"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="2">
 				    				<label        fieldLabel="开单日期"                                 labelStyle="width:150"/>

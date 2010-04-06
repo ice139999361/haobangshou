@@ -40,6 +40,28 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
     //VendorInfo vendorInfo;
     
     /**
+     * 供应商物料编号
+     */
+    private String cpartNo;
+    /**
+     * 本公司物料编号
+     */
+    private String partNo;
+    
+    public String getCpartNo() {
+		return cpartNo;
+	}
+	public void setCpartNo(String cpartNo) {
+		this.cpartNo = cpartNo;
+	}
+	public String getPartNo() {
+		return partNo;
+	}
+	public void setPartNo(String partNo) {
+		this.partNo = partNo;
+	}
+
+	/**
      * 查询供应商物料关系，判断了用户是否可以查看。
  	 * @action.input vendorPartNoInfo.commCode + vendorPartNoInfo.查询条件
 	 * @action.result list：列表 count：总数
@@ -126,7 +148,7 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
     }
     
     /**
-     * 获取客户物料关系
+     * 获取供应商物料关系
      * @action.input	vendorPartNoInfo.seqId
      * @action.result	vendorPartNoInfo.*
      * @return
@@ -168,7 +190,95 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
 			return ERROR;
     	}
     }
+ 
+   /**
+    * 获取供应商物料关系 add by xyf
+    * @action.input	  供应商物料编号或本公司物料编号
+    * @action.result	vendorPartNoInfo.*
+    * @return
+    */
+  public String doGetInfoDict() {
+   	try {
+   		
+   		if(cpartNo == null && partNo == null) {
+   			logger.info("doGetInfoDict() ，无输入参数无法获取！");
+				setErrorReason("无法获取供应商物料关系对照！");
+				return ERROR;
+   		}else{
+   			logger.debug("doGetInfoDict(),输入的参数为：partno=" + partNo +" cpartno=" + cpartNo);
+   		}
+   		VendorPartNoInfo cPartNoInfo = new VendorPartNoInfo();
+   		cPartNoInfo.setCustPartNo(cpartNo);
+   		cPartNoInfo.setPartNo(partNo);
+   		cPartNoInfo.setState("0");
+   		VendorPartNoInfoMgr mgr = (VendorPartNoInfoMgr)getBean(vendorPartNoInfoMgrName);
+   		vendorPartNoInfo = mgr.getVendorPartNoInfoByBizKey(cPartNoInfo);   		
+   		setResult("vendorPartNoInfo", vendorPartNoInfo);
+   		return SUCCESS;
+   	} catch(Exception e) {
+   		logger.error("catch Exception in doGetInfo.", e);
+			setErrorReason("内部错误");
+			return ERROR;
+   	}
+   }
     
+  public String doListDict() {
+	   	try {
+	   		
+	   		if(cpartNo == null && partNo == null) {
+	   			logger.info("doListDict() ，无输入参数无法获取！");
+					setErrorReason("无法获取供应商物料关系对照！");
+					return ERROR;
+	   		}else{
+	   			logger.debug("doListDict(),输入的参数为：partno=" + partNo +"cpartno=" + cpartNo);
+	   		}
+	   		VendorPartNoInfo cPartNoInfo = new VendorPartNoInfo();
+	   		cPartNoInfo.setCustPartNo(cpartNo);
+	   		cPartNoInfo.setPartNo(partNo);
+	   		cPartNoInfo.setState("0");
+	   		
+	   		VendorPartNoInfoMgr mgr = (VendorPartNoInfoMgr)getBean(vendorPartNoInfoMgrName);
+			setResult("list", mgr.listVendorPartNoInfo(cPartNoInfo));
+			//setTotalCount(mgr.listCustPartNoInfoCount(cPartNoInfo));
+			//setResult("count", getTotalCount());
+	   		return SUCCESS;
+	   	} catch(Exception e) {
+	   		logger.error("catch Exception in doListDict.", e);
+				setErrorReason("内部错误");
+				return ERROR;
+	   	}
+	   }
+   /**
+    * 获取供应商物料关系
+    * @action.input	vendorPartNoInfo.commCode + vendorPartNoInfo.custPartNo + vendorPartNoInfo.state，如果state没有填写，则默认state=0
+    * @action.result	vendorPartNoInfo.*
+    * @return
+    */
+  public String doGetInfoByBizKey() {
+   	try {
+   		VendorPartNoInfoMgr mgr = (VendorPartNoInfoMgr)getBean(vendorPartNoInfoMgrName);
+   		if(vendorPartNoInfo == null || vendorPartNoInfo.getSeqId() == null || StringUtils.isEmpty(vendorPartNoInfo.getCustPartNo())) {
+   			logger.info("参数错误！");
+				setErrorReason("参数错误！");
+				return ERROR;
+   		}
+   		if(StringUtils.isEmpty(vendorPartNoInfo.getState()))
+   			vendorPartNoInfo.setState("0");
+   		
+   		vendorPartNoInfo = mgr.getVendorPartNoInfoByBizKey(vendorPartNoInfo);
+   		
+   		if(!checkCommonFields())
+   			return ERROR;;
+   				
+   		setResult("vendorPartNoInfo", vendorPartNoInfo);
+   		return SUCCESS;
+   	} catch(Exception e) {
+   		logger.error("catch Exception in doGetInfo.", e);
+			setErrorReason("内部错误");
+			return ERROR;
+   	}
+   }
+  
  	/**
  	 * 获取物料的历史价格变动，变通做法，获取操作历史记录
  	 * @action.input vendorPartNoInfo.* partNo custPartNo commCode
