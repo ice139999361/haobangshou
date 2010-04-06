@@ -168,6 +168,10 @@ HBSConvertHelper.init(function() {
 		// 加载数据
 		ExtConvertHelper.loadForm("form", "/custOrder/custOrder!getInfo.action", params, function(form, action) {
 				Ext.getCmp("ordergrid").addData(action.result.data.custOrder.orderDetailList);
+			  Ext.getCmp("acOderTime").setValue(FormatUtil.data2string(action.result.data.custOrder.oderTime));
+				Ext.getCmp("acCommCode").fireEvent("select");
+				Ext.getCmp("acContactList").fireEvent("select");
+				Ext.getCmp("acConsigneeList").fireEvent("select");
 		});
 		
 		// 提交完成后的操作
