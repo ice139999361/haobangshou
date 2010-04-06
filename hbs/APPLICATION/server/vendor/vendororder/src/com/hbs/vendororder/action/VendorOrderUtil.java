@@ -57,8 +57,12 @@ public class VendorOrderUtil {
 			errs.add(new FieldErr("CommCode", "CommCode没有填写"));
 		if(StringUtils.isEmpty(vendorOrder.getConName()))
 			errs.add(new FieldErr("ConName", "ConName没有填写"));
+		if(StringUtils.isEmpty(vendorOrder.getConTel()))
+			errs.add(new FieldErr("ConTel", "ConTel没有填写"));
 		if(StringUtils.isEmpty(vendorOrder.getReceiveName()))
 			errs.add(new FieldErr("ReceiveName", "ReceiveName没有填写"));
+		if(StringUtils.isEmpty(vendorOrder.getReceiveAddress()))
+			errs.add(new FieldErr("ReceiveAddress", "ReceiveAddress没有填写"));
 		if(StringUtils.isEmpty(vendorOrder.getSettlementType()))
 			errs.add(new FieldErr("SettlementType", "SettlementType没有填写"));
 		if(StringUtils.isEmpty(vendorOrder.getIsShowPrice()))

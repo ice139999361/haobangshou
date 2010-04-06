@@ -46,7 +46,7 @@ var ordergridFun = function() {
 	//cgh.appendColumn({header: "税率"	      , dataIndex: "cpriceTax"});
 	//cgh.appendColumn({header: "是否含税交易", dataIndex: "isTax" , xtype: "dictcombo"  , paramsValue: "IS_TAX"});
 	cgh.appendColumn({header: "税率"	    , dataIndex: "cpriceTax", renderer: "cpriceTaxRenderer"});
-	cgh.appendColumn({header: "是否含税交易<font color=red>*</font>", dataIndex: "isTax" , xtype: "dictcombo"  , paramsValue: "IS_TAX_DEALER", id: "cisTax"});
+	cgh.appendColumn({header: "是否含税交易<font color=red>*</font>", dataIndex: "isTax" , xtype: "dictcombo"  , paramsValue: "IS_TAX", id: "cisTax"});
 	cgh.appendColumn({header: "数量<font color=red>*</font>"	      , dataIndex: "amount", xtype: "numberfield", renderer: "amountRenderer"});
 	//cgh.appendColumn({header: "数量"	      , dataIndex: "amount", xtype: "numberfield", renderer: "amountRenderer"});
 	cgh.appendColumn({header: "金额"        , dataIndex: "money"});
