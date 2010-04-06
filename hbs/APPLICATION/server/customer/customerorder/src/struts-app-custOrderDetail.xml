@@ -93,7 +93,7 @@
 		<!-- 
 	/**
 	 * 下供应商订单时，用于将客户订单详情按照供应商编码分割
-	 * @action.input	operSeqId	待分割的客户订单详情id，多个值
+	 * @action.input	operSeqId	待分割的客户订单详情id，以,分割
 	 * @action.result	commCode	供应商编码，可能不出现
 	 * @action.result	list	客户订单详情列表 List<CustOrderDetail>
 	 * @action.result	leftOperSeqId	剩余的客户订单详情id List<String>
@@ -101,6 +101,18 @@
 	 */
 		 -->
     	<action name="orderDetailCg!checkOperSeqId" method="doCheckOperSeqId" 
+    			class="com.hbs.customerorder.action.detail.CustOrderDetailCgNormalAction">
+		</action>
+		<!-- 
+	/**
+	 * 根据供应商编码查询需备货的客户订单详情
+	 * @action.input orderDetail.vendorCode
+	 * @action.input orderDetail.*
+	 * @action.result list List<CustOrderDetail>
+	 * @return
+	 */
+		 -->
+    	<action name="orderDetailCg!listStockupByVendor" method="doListStockupByVendor" 
     			class="com.hbs.customerorder.action.detail.CustOrderDetailCgNormalAction">
 		</action>
 		<!-- 

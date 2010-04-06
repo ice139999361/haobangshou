@@ -1,5 +1,6 @@
 package com.hbs.customerorder.action.detail;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
@@ -136,7 +137,7 @@ public class CustOrderDetailCgNormalAction extends CustOrderDetailBaseAction {
 	
 	/**
 	 * 下供应商订单时，用于将客户订单详情按照供应商编码分割
-	 * @action.input	operSeqId	待分割的客户订单详情id，多个值
+	 * @action.input	operSeqId	待分割的客户订单详情id，以,分割
 	 * @action.result	commCode	供应商编码，可能不出现
 	 * @action.result	list	客户订单详情列表 List<CustOrderDetail>
 	 * @action.result	leftOperSeqId	剩余的客户订单详情id List<String>
@@ -147,7 +148,7 @@ public class CustOrderDetailCgNormalAction extends CustOrderDetailBaseAction {
 			String commCode = null;
 			List<String> left = new Vector<String>();
 			List<CustOrderDetail> details = new Vector<CustOrderDetail>();
-			String[] ids = this.getHttpServletRequest().getParameterValues("operSeqId");
+			String[] ids = this.getHttpServletRequest().getParameter("operSeqId").split(",");
 			CustOrderDetail orderDetail2;
 			for(String id : ids) {
 				if(StringUtils.isEmpty(id))
@@ -196,6 +197,42 @@ public class CustOrderDetailCgNormalAction extends CustOrderDetailBaseAction {
 		}
 	}
 	
+	/**
+	 * 根据供应商编码查询需备货的客户订单详情
+	 * @action.input orderDetail.vendorCode
+	 * @action.input orderDetail.*
+	 * @action.result list List<CustOrderDetail>
+	 * @return
+	 */
+	public String doListStockupByVendor() {
+		try {
+			if(orderDetail == null || StringUtils.isEmpty(orderDetail.getVendorCode())){
+				logger.debug("参数为空！");
+				setErrorReason("参数为空！");
+				return ERROR;
+			}
+			List<String> stateList = new Vector<String>();
+			stateList.add("20");
+			stateList.add("21");
+			orderDetail.setField("stateList", stateList);
+			List<CustOrderDetail> list = mgr.listCustOrderDetail(orderDetail); 
+			
+			for(Iterator<CustOrderDetail> it = list.iterator(); it.hasNext();) {
+				CustOrderDetail o = it.next();
+				if((o.getAmount() - isNull(o.getLockAmount(),0) - isNull(o.getDeliveryAmount(),0)) <= (0))
+					it.remove();
+			}
+			setResult("list", list);
+			// DONE:CustOrderCgNormalAction.doListByVendor
+			return SUCCESS;
+		} catch (Exception e) {
+			logger.error("catch Exception in doListStockupByVendor", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+	}
+	
+
 	/**
 	 * 如果i为null，则返回v；否则返回i
 	 * @param i	带判断的Integer

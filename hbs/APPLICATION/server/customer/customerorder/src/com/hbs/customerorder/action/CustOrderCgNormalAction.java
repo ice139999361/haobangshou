@@ -3,6 +3,7 @@
  */
 package com.hbs.customerorder.action;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
@@ -52,6 +53,7 @@ public class CustOrderCgNormalAction extends BaseAction {
 	 * @action.result list List<CustOrderDetail>
 	 * @return
 	 */
+	@Deprecated
 	public String doListStockupByVendor() {
 		try {
 			if(custOrder == null || StringUtils.isEmpty(custOrder.getVendorCode())){
@@ -67,9 +69,10 @@ public class CustOrderCgNormalAction extends BaseAction {
 			stateList.add("21");
 			orderDetail.setField("stateList", stateList);
 			List<CustOrderDetail> list = mgr.listCustOrderDetail(orderDetail); 
-			for(CustOrderDetail o : list) {
+			for(Iterator<CustOrderDetail> it = list.iterator(); it.hasNext(); ) {
+				CustOrderDetail o = it.next();
 				if((o.getAmount() - isNull(o.getLockAmount(),0) - isNull(o.getDeliveryAmount(),0)) <= (0))
-					list.remove(o);
+					it.remove();
 			}
 			setResult("list", list);
 			// DONE:CustOrderCgNormalAction.doListByVendor
@@ -81,7 +84,13 @@ public class CustOrderCgNormalAction extends BaseAction {
 		}
 	}
 	
-	private Integer isNull(Integer i, int v) {
+	/**
+	 * 如果i为null，则返回v；否则返回i
+	 * @param i	带判断的Integer
+	 * @param v 缺省返回值
+	 * @return 如果i为null，则返回v；否则返回i
+	 */
+	private static Integer isNull(Integer i, int v) {
 		if(i == null)
 			return v;
 		else

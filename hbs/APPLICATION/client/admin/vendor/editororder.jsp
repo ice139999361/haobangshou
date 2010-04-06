@@ -70,7 +70,7 @@
 	    			</layoutpanel>
 	    		</queryform>
 	    		
-	    		<complexgrid id="querygrid" buttonAlign="center" title="订单详情" itemsFun="orderquerygridFun"  frame="true" height="300" url="/custOrderDetail/orderDetailCg!list.action" page="true" root="data.list">
+	    		<complexgrid id="querygrid" buttonAlign="center" title="订单详情" itemsFun="orderquerygridFun"  frame="true" height="300" url="/custOrderDetail/orderDetailCg!listStockupByVendor.action" page="true" root="data.list">
 	    			<buttons>
 	    				<button text="确定" id="wokBtn" />
 	    				<button text="取消" id="wbackBtn"   />
