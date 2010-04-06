@@ -41,7 +41,7 @@ var ordergridFun = function() {
 	cgh.appendColumn({header: "描述"	, dataIndex: "pnDesc"});
 	cgh.appendColumn({header: "单价"			, dataIndex: "cprice"});
 	cgh.appendColumn({header: "税率"	    , dataIndex: "cpriceTax", renderer: "cpriceTaxRenderer"});
-	cgh.appendColumn({header: "是否含税交易<font color=red>*</font>", dataIndex: "isTax" , xtype: "dictcombo"  , paramsValue: "IS_TAX_DEALER", id: "cisTax"});
+	cgh.appendColumn({header: "是否含税交易<font color=red>*</font>", dataIndex: "isTax" , xtype: "dictcombo"  , paramsValue: "IS_TAX", id: "cisTax"});
 	cgh.appendColumn({header: "数量<font color=red>*</font>"	      , dataIndex: "amount", xtype: "numberfield", renderer: "amountRenderer"});
 	cgh.appendColumn({header: "金额", dataIndex: "money"});
 	cgh.appendColumn({header: "交货日期<font color=red>*</font>", dataIndex: "orgDeliveryDate", xtype: "datefield", format: "Y-m-d"});
