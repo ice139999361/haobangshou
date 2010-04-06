@@ -386,7 +386,7 @@ public class CustomerOrder extends BaseDomain{
     	String retStr ="Œ¥∂®“Â(" + getState() + ")";
     	ConfigEncode ceParam = new ConfigEncode();
     	ceParam.setEncodeKey(getState());
-    	ceParam.setEncodeType("CUST_ORDER_TYPE");
+    	ceParam.setEncodeType("CUST_ORDER_STATE");
     	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
     	if(null != cEncode){
     		retStr = cEncode.getEncodeValue();
