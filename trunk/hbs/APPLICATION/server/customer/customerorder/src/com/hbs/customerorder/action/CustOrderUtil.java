@@ -167,9 +167,13 @@ public class CustOrderUtil {
 
 		if(StringUtils.isEmpty(custOrder.getConName()))
 			list.add(new FieldErr("ConName", "ConName没有填写"));
+		if(StringUtils.isEmpty(custOrder.getConTel()))
+			list.add(new FieldErr("ConTel", "ConTel没有填写"));
 		
 		if(StringUtils.isEmpty(custOrder.getReceiveName()))
 			list.add(new FieldErr("ReceiveName", "ReceiveName没有填写"));
+		if(StringUtils.isEmpty(custOrder.getReceiveAddress()))
+			list.add(new FieldErr("ReceiveAddress", "ReceiveAddress没有填写"));
 		
 		List<CustOrderDetail> details = custOrder.getOrderDetailList();
 		if(null != details && details.size() > 0) {
