@@ -126,7 +126,7 @@ HBSConvertHelper.init(function() {
 		Ext.getCmp("acVendorCode").setValue(o);
 		
 		Ext.each(action.data.vendorInfo.dynamicFields.contactlist, function(item) {
-			// TODO:选取第一个业务员联系人（职务=业务员）
+			// TODO:选取第一个业务员联系人（职务=业务*）
 			Ext.getCmp("acConName").setValue(item.conName);
 			Ext.getCmp("acConFax").setValue(item.conFax);
 			Ext.getCmp("acConTel").setValue(item.conTel);
