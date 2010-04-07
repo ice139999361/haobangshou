@@ -20,9 +20,9 @@
 							<form id="form"><items>
 				    		<listpanel frame="true" title="入库基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<textfield    fieldLabel="入库单号"       name="warehouseRec.recPoNo"        labelStyle="width:150"     emptyText="供应商的送货单号" />
+				    				<textfield    fieldLabel="入库单号"       id="txtRecPoNo" name="warehouseRec.recPoNo"        labelStyle="width:150"     emptyText="供应商的送货单号" />
 				    				<datefield    fieldLabel="供应商单据日期" name="warehouseRec.poNoDate"    id="acPoNoDate"    labelStyle="width:150"     emptyText="送货单的日期" format="Y-m-d" />
-				    				<label    fieldLabel="供应商"         name="warehouseRec.vendorCode"       labelStyle="width:150"  />
+				    				<textfield    fieldLabel="供应商"      id="txtVendorCode"   name="warehouseRec.vendorCode"       labelStyle="width:150"  />
 				    				<!--<autocomplete fieldLabel="供应商" url="/customerInfo/customerInfo!list.action"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"     name="custInfo.commCode"       labelStyle="width:150" allowBlank="false" id="acCommCode" />
 				    				 -->
 				    				
@@ -35,11 +35,26 @@
 				    			<layoutpanel columnNum="1">
 				    				<textarea     fieldLabel="备注"           name="warehouseRec.receiveDesc"        labelStyle="width:150" width="600" />
 				    			</layoutpanel>	
+				    			<layoutpanel columnNum="1">				    				
+				    				<hidden name="warehouseRec.shortName" />
+				    				<hidden name="warehouseRec.settlementType" />
+				    				<hidden name="warehouseRec.poNoType" />						    							    				
+				    			</layoutpanel>
 				    		</listpanel>
 			    		</items></form>
 			    		
-			    		<complexgrid id="warehousegrid" frame="true" height="200" deftbar="false" url="1" title="入库详情" itemsFun="warehousegridFun" />
-			    		
+			    		<complexgrid id="warehousegrid" frame="true" height="200" deftbar="false" url="1" title="入库详情" itemsFun="warehousegridFun" >
+				    		<fields>
+				    				<field name="taxRate" />
+				    				<field name="isTax" />	
+				    				<field name="priceTax" />
+				    				<field name="price" />	
+				    				<field name="rltPoNo" />
+				    				<field name="recDetailSeqId" />
+				    				<field name="poNoType" />			
+				    				<field name="activeState" />		    							    					    				
+				    		</fields>				    		
+			    		</complexgrid>
 			    		<panel buttonAlign="center">
 			    			<buttons>
 			    				<button text="添加入库详情" id="addInfoBtn" />

@@ -28,7 +28,7 @@ HBSConvertHelper.init(function() {
 		//if(!ExtConvertHelper.isFormValid("form")) return;
 		
 		// 获取（客户联系人信息、客户收货人信息、客户银行信息）表格中的提交数据
-		var girdData = HBSConvertHelper.getGridSubmitData("warehousegrid", "warehouselist");
+		var girdData = HBSConvertHelper.getGridSubmitData("warehousegrid", "orderlist");
 		
 		// 提交数据
 		ExtConvertHelper.submitForm("form", url, girdData, function(form, action) {
@@ -43,12 +43,12 @@ HBSConvertHelper.init(function() {
 	(function() {
 		// 当提交按钮被单击时
 		submitBtn.on("click", function() {
-			submitData("/warehouse/warehouseRec!save.action");
+			submitData("/warehouseRec/warehouseRec!commit.action");
 		});
 		
 		// 当保存按钮被单击时
 		saveBtn.on("click", function() {
-			submitData("/warehouse/warehouseRec!saveTemp.action");
+			submitData("/warehouseRec/warehouseRec!saveTemp.action");
 		});
 		
 		// 当单机取消按钮时，调用默认的关闭窗口方法
@@ -125,6 +125,12 @@ HBSConvertHelper.init(function() {
 			Ext.getCmp("acOperTime").setValue(FormatUtil.data2string(warehouseRec.operTime));
 			Ext.getCmp("acPoNoDate").setValue(FormatUtil.data2string(warehouseRec.poNoDate));
 			Ext.getCmp("acApplyDate").setValue(FormatUtil.data2string(warehouseRec.applyDate));
+			Ext.getDom("txtVendorCode").readOnly = true;
+			Ext.getCmp("txtVendorCode").vType="";
+			Ext.getCmp("txtVendorCode").allowBlank=true;
+			Ext.getDom("txtRecPoNo").readOnly = true;
+			Ext.getCmp("txtRecPoNo").vType="";
+			Ext.getCmp("txtRecPoNo").allowBlank=true;
 			
 			// 隐藏不需要的控件
 			if(warehouseRec.state != "01") ExtConvertHelper.hideItems("saveBtn");

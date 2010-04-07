@@ -18,6 +18,10 @@ HBSConvertHelper.init(function() {
 		
 		// 加载数据
 		ExtConvertHelper.loadForm("form", "/warehouseRec/warehouseRec!getInfo.action", params, function(form, action) {
+			var warehouseRec = action.result.data.warehouseRec;			
+			Ext.getCmp("acOperTime").setValue(FormatUtil.data2string(warehouseRec.operTime));
+			Ext.getCmp("acPoNoDate").setValue(FormatUtil.data2string(warehouseRec.poNoDate));
+			Ext.getCmp("acApplyDate").setValue(FormatUtil.data2string(warehouseRec.applyDate));
 			Ext.getCmp("warehousegrid").addData(action.result.data.warehouseRec.detailList);
 		});
 	}())

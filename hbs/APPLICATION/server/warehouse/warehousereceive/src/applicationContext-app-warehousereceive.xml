@@ -8,13 +8,13 @@
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd 
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd" >
        
-    <aop:config proxy-target-class="true">
-		<aop:advisor
-			pointcut="execution(* com.hbs.warehousesend.manager.*.*(..))"
-			advice-ref="txWarehouseRecAdvice" />
+    <aop:config proxy-target-class="true">		
 		<aop:advisor
 			pointcut="execution(* com.hbs.warehouse.manager.*.*(..))"
-			advice-ref="txWarehouseRecAdvice" />			
+			advice-ref="txWarehouseRecAdvice" />	
+		<aop:advisor
+			pointcut="execution(* com.hbs.warehousereceive.manager.*.*(..))"
+			advice-ref="txWarehouseRecAdvice" />				
 	</aop:config>
 	
 
