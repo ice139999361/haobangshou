@@ -42,6 +42,6 @@ var warehousegridFun = function() {
 	if(urlPs.pageType != "query") cgh.appendColumn({header: "操作"             , dataIndex: ""  , id: "operator"});
 
 
-	cgh.setSubmitFields("l1,l2,l3,l4,l5,l6,l7,l8");
+	cgh.setSubmitFields("recPoNo,partNo,cpartNo,pnDesc,specDesc,amount");
 	return cgh;
 };
