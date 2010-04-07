@@ -114,15 +114,20 @@ HBSConvertHelper.init(function() {
 	function updateInitFun() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("入库修改");
-		// 隐藏不需要的控件
-		if(urlPs.state != 1) ExtConvertHelper.hideItems("saveBtn");
 		
 		// 组装需要的参数
 		var params = ["warehouseRec.recPoNo=", urlPs["warehouseRec.recPoNo"],"&warehouseRec.vendorCode=" , urlPs["warehouseRec.vendorCode"]].join("");
 		
 		// 加载数据
 		ExtConvertHelper.loadForm("form", "/warehouseRec/warehouseRec!getInfo.action", params, function(form, action) {
-			Ext.getCmp("warehousegrid").addData(action.result.data.warehouseRec.detailList);
+			var warehouseRec = action.result.data.warehouseRec;
+			Ext.getCmp("warehousegrid").addData(warehouseRec.detailList);
+			Ext.getCmp("acOperTime").setValue(FormatUtil.data2string(warehouseRec.operTime));
+			Ext.getCmp("acPoNoDate").setValue(FormatUtil.data2string(warehouseRec.poNoDate));
+			Ext.getCmp("acApplyDate").setValue(FormatUtil.data2string(warehouseRec.applyDate));
+			
+			// 隐藏不需要的控件
+			if(warehouseRec.state != "01") ExtConvertHelper.hideItems("saveBtn");
 		});
 	}
 	
