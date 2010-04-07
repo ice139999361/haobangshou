@@ -37,11 +37,10 @@ var warehousegridFun = function() {
 	cgh.appendColumn({header: "特殊备注（批次）" , dataIndex: "specDesc"});
 	//cgh.appendColumn({header: "采购数量"         , dataIndex: "amount"});
 	//cgh.appendColumn({header: "已入库数量"       , dataIndex: "l6"});
-	cgh.appendColumn({header: "本次入库数量"     , dataIndex: "amount", xtype: "textfield"});
-	//cgh.appendColumn({header: "入库备注"         , dataIndex: "l8", xtype: "textfield"});
+	cgh.appendColumn({header: "本次入库数量"     , dataIndex: "amount", xtype: "textfield"});	
 	if(urlPs.pageType != "query") cgh.appendColumn({header: "操作"             , dataIndex: ""  , id: "operator"});
 
 
-	cgh.setSubmitFields("recPoNo,partNo,cpartNo,pnDesc,specDesc,amount");
+	cgh.setSubmitFields("recPoNo,partNo,cpartNo,pnDesc,specDesc,amount,taxRate,isTax,price,priceTax,rltPoNo,settlementType,specDesc,recDetailSeqId,poNoType,activeState");
 	return cgh;
 };

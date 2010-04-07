@@ -21,7 +21,7 @@ public class WareHouseLogUtils {
 	 * 记录操作日志
 	 * @param log	
 	 */
-	public static void operLog(OperLog log){
+	public static void operLog(OperLog log)throws Exception{
 		LogUtils.operLog(WAREHOUSE_OPERLOG_DAO, log);
 	}
 	
@@ -35,7 +35,7 @@ public class WareHouseLogUtils {
 	 * @param operContent
 	 * @param memo
 	 */
-	public static void operLog(String staffId,String staffName,String operType,String OperObject,String operKey,String operContent,String memo){
+	public static void operLog(String staffId,String staffName,String operType,String OperObject,String operKey,String operContent,String memo)throws Exception{
 		OperLog log = new OperLog();
 		log.setStaffId(staffId);
 		log.setStaffName(staffName);
