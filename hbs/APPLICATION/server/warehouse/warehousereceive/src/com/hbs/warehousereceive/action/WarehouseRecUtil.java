@@ -29,14 +29,14 @@ public class WarehouseRecUtil {
 	private static final String detailListFields = "orderlistFields";
 
 	public static boolean checkKeyFields(WarehouseRecInfo warehouse) {
-		boolean ret = false;		
+		boolean ret = true;		
 		logger.debug(warehouse == null 
 				|| StringUtils.isEmpty(warehouse.getVendorCode())
 				|| StringUtils.isEmpty(warehouse.getRecPoNo()));
 		if(warehouse == null 
 				|| StringUtils.isEmpty(warehouse.getVendorCode())
 				|| StringUtils.isEmpty(warehouse.getRecPoNo())){
-			ret = true;
+			ret = false;
 		}
 		
 		logger.debug("ret =" + ret);

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="app-warehouseSend" namespace="/warehouseSend" extends="json-default">
+		
+		<global-results>
+			<result name="error" type="json">
+			    <param name="includeProperties">
+                 	success,errorReason.*
+                </param>
+            </result>
+ 			<result name="success" type="json">
+				<param name="includeProperties">
+                	success, result.*
+                </param>
+			</result>
+        </global-results>
+
+		<!-- 仓库普通用户 ***************************************************-->
+		<!-- 
+	/**
+	 * 临时保存
+	 * @action.input	warehouseSend.*
+	 * @return
+	 */
+		 -->
+    	<action name="warehouseSend!saveTemp" method="doSaveTemp" 
+    			class="com.hbs.warehousesend.action.WarehouseSendAction">
+		</action>
+		<!-- 
+	/**
+	 * 提交
+	 * @action.input	warehouseSend.*
+	 * @return
+	 */
+		 -->
+    	<action name="warehouseSend!commit" method="doSave" 
+    			class="com.hbs.warehousesend.action.WarehouseSendAction">
+		</action>
+		<!-- 
+	/**
+	 * 查询
+	 * @action.input warehouseSend.查询条件
+	 * @action.result list：列表 count：总数
+	 * @return
+	 */
+		 -->
+    	<action name="warehouseSend!list" method="doList" 
+    			class="com.hbs.warehousesend.action.WarehouseSendAction">
+		</action>
+		<!-- 
+	/**
+	 * 获取出库单信息
+	 * @action.input warehouseSend.sendPoNo + warehouseSend.custCode
+	 * @action.result warehouseSend.*
+	 * @return
+	 */
+		 -->
+    	<action name="warehouseSend!getInfo" method="doGetInfo" 
+    			class="com.hbs.warehousesend.action.WarehouseSendAction">
+		</action>
+		<!-- 
+	/**
+	 * 切换ActiveState
+	 * @action.input warehouseSend.*
+	 * @action.input memo
+	 * @return
+	 */
+		 -->
+    	<action name="warehouseSend!controlActiveState" method="doControlActiveState" 
+    			class="com.hbs.warehousesend.action.WarehouseSendAction">
+		</action>
+		<!-- 
+	/**
+	 * 取消出库单
+	 * @action.input warehouseSend.*
+	 * @action.input memo
+	 * @return
+	 */
+		 -->
+    	<action name="warehouseSend!cancel" method="doCancel" 
+    			class="com.hbs.warehousesend.action.WarehouseSendAction">
+		</action>
+        
+        		
+	</package>
+</struts>
+        
