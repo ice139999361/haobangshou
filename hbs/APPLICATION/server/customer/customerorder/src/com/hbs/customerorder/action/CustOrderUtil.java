@@ -19,9 +19,7 @@ import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.common.utils.ListDataUtil;
 import com.hbs.customerinfo.action.CustomerInfoUtil;
 import com.hbs.customerinfo.constants.CustInfoConstants;
-import com.hbs.customerinfo.manager.CustPartNoInfoMgr;
 import com.hbs.customerinfo.manager.CustomerInfoMgr;
-import com.hbs.domain.customer.customerinfo.pojo.CustPartNoInfo;
 import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
 import com.hbs.domain.customer.order.pojo.CustOrderDetail;
 import com.hbs.domain.customer.order.pojo.CustomerOrder;
@@ -247,8 +245,10 @@ public class CustOrderUtil {
 		
 		try
 		{
+			@SuppressWarnings("unused")
 			String s;
-			// TODO:CustOrderUtil.checkSelectFields
+			// DONE:CustOrderUtil.checkSelectFields
+			@SuppressWarnings("unused")
 			int i;
 
 		}
