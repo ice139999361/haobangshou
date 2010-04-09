@@ -109,7 +109,7 @@ public abstract class WarehouseRecBaseAction extends BaseAction {
 	protected boolean getWarehouseRecByKey(boolean isDetail) throws Exception {
 		boolean isTrue = WarehouseRecUtil.checkKeyFields(warehouseRec);
 		logger.debug("isTrue =" + isTrue);
-		if(isTrue) {
+		if(!isTrue) {
 			logger.debug(warehouseRec.toString());
 			logger.debug("参数为空！");
 			setErrorReason("参数为空！");
