@@ -40,13 +40,6 @@ public abstract class InvoiceBaseAction extends BaseAction {
 	protected abstract InvoiceInfo getInvoiceByIdAbstract() throws Exception;
 	
 	/**
-	 * 根据关键字段获取发票信息，调用适当的mgr
-	 * @return
-	 * @throws Exception
-	 */
-	protected abstract InvoiceInfo getInvoiceByKeyAbstract() throws Exception;
-
-	/**
 	 * 查询发票，调用适当的mgr
 	 * @throws Exception
 	 */
@@ -106,11 +99,27 @@ public abstract class InvoiceBaseAction extends BaseAction {
 		if(invoice.getInvoiceSeqId() != null)
 			invoice2 = getInvoiceByIdAbstract();
 		else
-			invoice2 = getInvoiceByKeyAbstract();
+			invoice2 = getInvoiceByKey();
 		
 		return invoice2;
 	}
 	
+	/**
+	 * 根据关键字段获取发票信息，调用适当的mgr
+	 * @return
+	 * @throws Exception
+	 */
+	protected InvoiceInfo getInvoiceByKey() throws Exception {
+		List<InvoiceInfo> list = listInvoiceAbstract();
+		if(list == null || list.size() <= 1){
+			getLogger().info("没有找到");
+			setErrorReason("没有找到");
+			return null;
+		}
+		invoice = list.get(0);
+		return getInvoiceByIdAbstract();
+	}
+
 	/**
 	 * 获取发票信息
 	 * @action.input invoice.*
@@ -168,6 +177,7 @@ public abstract class InvoiceBaseAction extends BaseAction {
 
 	/**
 	 * 保存
+	 * @action.input invoice.*
 	 * @return
 	 */
 	public String doSave() {
@@ -192,14 +202,21 @@ public abstract class InvoiceBaseAction extends BaseAction {
 			}
 			
 			int i;
-			if(invoice.getInvoiceSeqId() == null)
+			if(invoice.getInvoiceSeqId() == null){
 				i = saveInvoiceAbstract();
-			else
+				if(i > 0){
+					invoice.setInvoiceSeqId(i);
+					setResult("seqId", i);
+					i = 0;
+				}else if(i == 0)
+					i = -999;
+			}else
 				i = updateInvoiceAbstract();
 			
 			if(i != 0) {
-				getLogger().info("保存失败！");
-				setErrorReason("保存失败！");
+				String s = "保存失败！";
+				getLogger().info(s + " i=" + i);
+				setErrorReason(s);
 				return ERROR;
 			}
 			
@@ -213,6 +230,11 @@ public abstract class InvoiceBaseAction extends BaseAction {
 		}		
 	}
 	
+	/**
+	 * 删除发票
+	 * @action.input invoice.*
+	 * @return
+	 */
 	public String doDelete() {
 		try{
 			if(!InvoiceUtil.checkKeyFields(invoice)){

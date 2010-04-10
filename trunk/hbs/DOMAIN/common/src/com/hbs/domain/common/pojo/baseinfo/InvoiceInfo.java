@@ -46,12 +46,12 @@ public class InvoiceInfo extends BaseDomain{
     /**
      * 客户编码.
      */
-    private Date ccode;
+    private String ccode;
     
     /**
      * 简称.
      */
-    private Date shortName;
+    private String shortName;
     
     /**
      * 物料编号.
@@ -143,19 +143,19 @@ public class InvoiceInfo extends BaseDomain{
         this.poNoDate = poNoDate;
     }
     
-    public Date getCcode() {
+    public String getCcode() {
         return this.ccode;
     }	
   
-    public void setCcode(Date ccode) {
+    public void setCcode(String ccode) {
         this.ccode = ccode;
     }
     
-    public Date getShortName() {
+    public String getShortName() {
         return this.shortName;
     }	
   
-    public void setShortName(Date shortName) {
+    public void setShortName(String shortName) {
         this.shortName = shortName;
     }
     
