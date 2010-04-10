@@ -34,20 +34,6 @@ public class InvoiceRecAction extends InvoiceBaseAction {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.hbs.invoice.action.InvoiceBaseAction#getInvoiceByKeyAbstract()
-	 */
-	@Override
-	protected InvoiceInfo getInvoiceByKeyAbstract() throws Exception {
-		List<InvoiceInfo> list = mgr.getRecInvoiceList(invoice);
-		if(list == null || list.size() <= 1){
-			logger.info("没有找到");
-			setErrorReason("没有找到");
-			return null;
-		}
-		return mgr.getRecInvoice(list.get(0).getInvoiceSeqId().toString());
-	}
-
-	/* (non-Javadoc)
 	 * @see com.hbs.invoice.action.InvoiceBaseAction#getIsManager()
 	 */
 	@Override

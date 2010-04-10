@@ -18,6 +18,7 @@ import com.hbs.domain.common.pojo.baseinfo.InvoiceInfo;
  *
  */
 public class InvoiceUtil {
+	@SuppressWarnings("unused")
 	private static final Logger logger = Logger.getLogger(InvoiceUtil.class);
 	
 	public static boolean checkKeyFields(InvoiceInfo invoice) {

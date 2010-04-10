@@ -41,5 +41,102 @@
     	<action name="periodSpec!getInfo" method="doGetInfo" 
     			class="com.hbs.invoice.action.PeriodSpecMemoAction">
 		</action>
+		
+		
+		<!-- 收货发票************************************************** -->
+		
+		<!-- 
+	/**
+	 * 获取发票信息
+	 * @action.input invoice.*
+	 * @action.result invoice.*
+	 * @return
+	 */
+		 -->
+    	<action name="RecInvoice!getInfo" method="doGetInfo" 
+    			class="com.hbs.invoice.action.InvoiceRecAction">
+		</action>
+		<!-- 
+	/**
+	 * 查询
+	 * @action.input invoice.查询条件
+	 * @action.result list：列表 count：总数
+	 * @return
+	 */
+		 -->
+    	<action name="RecInvoice!list" method="doList" 
+    			class="com.hbs.invoice.action.InvoiceRecAction">
+		</action>
+		<!-- 
+	/**
+	 * 保存
+	 * @action.input invoice.*
+	 * @return
+	 */
+		 -->
+    	<action name="RecInvoice!save" method="doSave" 
+    			class="com.hbs.invoice.action.InvoiceRecAction">
+		</action>
+		<!-- 
+	/**
+	 * 删除发票
+	 * @action.input invoice.*
+	 * @return
+	 */
+		 -->
+    	<action name="RecInvoice!del" method="doDelete" 
+    			class="com.hbs.invoice.action.InvoiceRecAction">
+		</action>
+		
+
+
+
+
+
+		<!-- 发货发票************************************************** -->
+		
+		<!-- 
+	/**
+	 * 获取发票信息
+	 * @action.input invoice.*
+	 * @action.result invoice.*
+	 * @return
+	 */
+		 -->
+    	<action name="SendInvoice!getInfo" method="doGetInfo" 
+    			class="com.hbs.invoice.action.InvoiceSendAction">
+		</action>
+		<!-- 
+	/**
+	 * 查询
+	 * @action.input invoice.查询条件
+	 * @action.result list：列表 count：总数
+	 * @return
+	 */
+		 -->
+    	<action name="SendInvoice!list" method="doList" 
+    			class="com.hbs.invoice.action.InvoiceSendAction">
+		</action>
+		<!-- 
+	/**
+	 * 保存
+	 * @action.input invoice.*
+	 * @return
+	 */
+		 -->
+    	<action name="SendInvoice!save" method="doSave" 
+    			class="com.hbs.invoice.action.InvoiceSendAction">
+		</action>
+		<!-- 
+	/**
+	 * 删除发票
+	 * @action.input invoice.*
+	 * @return
+	 */
+		 -->
+    	<action name="SendInvoice!del" method="doDelete" 
+    			class="com.hbs.invoice.action.InvoiceSendAction">
+		</action>
+
 	</package>
 </struts>
