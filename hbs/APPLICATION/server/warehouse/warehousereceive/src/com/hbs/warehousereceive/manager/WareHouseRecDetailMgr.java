@@ -57,8 +57,11 @@ public class WareHouseRecDetailMgr {
 		String st =detail.getState();
 		if(st.equals(WareHouseConstants.WAREHOUSE_REC_INFO_01)){
 			logger.debug("保存供应商入库物料明细，传入的参数为:" + detail.toString());
-		}else{
+		}else if(st.equals(WareHouseConstants.WAREHOUSE_REC_INFO_02)){
 			logger.debug("确认供应商入库物料明细，传入的参数为:" + detail.toString());
+		}else{
+			logger.debug("确认供应商入库物料明细,状态为取消，不做处理，传入的参数为:" + detail.toString());
+			return ret;
 		}
 		WarehouseRecDetailDao detailDao = (WarehouseRecDetailDao)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_REC_DETAIL_DAO);
 		//计算金额
@@ -307,9 +310,9 @@ public class WareHouseRecDetailMgr {
 			String state = existDetail.getState();
 			logger.debug("数据库中存在入库单明细，明细状态为：" + state);
 			if(state.equals(WareHouseConstants.WAREHOUSE_REC_INFO_01)){//为临时状态，可以取消
-				detail.setState(WareHouseConstants.WAREHOUSE_REC_INFO_03);
-				detailDao.updateWarehouseRecDetailByState(detail);
-				WareHouseLogUtils.operLog(detail.getStaffId(), detail.getStaffName(), "取消", "入库单明细", detail.getLogKey(), null, content);
+				existDetail.setState(WareHouseConstants.WAREHOUSE_REC_INFO_03);
+				detailDao.updateWarehouseRecDetailByState(existDetail);
+				WareHouseLogUtils.operLog(existDetail.getStaffId(), existDetail.getStaffName(), "取消", "入库单明细", existDetail.getLogKey(), null, content);
 			}else{//非临时状态，不能取消
 				logger.debug("数据库中存在入库单明细，明细状态已经为非临时状态，不能做取消操作！");
 				ret =-1;

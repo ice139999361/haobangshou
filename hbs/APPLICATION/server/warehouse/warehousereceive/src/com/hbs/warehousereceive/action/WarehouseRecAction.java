@@ -12,6 +12,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.action.FieldErr;
+import com.hbs.domain.warehouse.pojo.WarehouseRecDetail;
 import com.hbs.warehouse.common.constants.WareHouseConstants;
 
 /**
@@ -30,6 +31,15 @@ public class WarehouseRecAction extends WarehouseRecBaseAction {
 	@Override
 	public String getRoleName() {
 		return "cknormal";
+	}
+	private Integer recDetailSeqId;
+	
+	public Integer getRecDetailSeqId() {
+		return recDetailSeqId;
+	}
+
+	public void setRecDetailSeqId(Integer recDetailSeqId) {
+		this.recDetailSeqId = recDetailSeqId;
 	}
 
 	/**
@@ -203,6 +213,54 @@ public class WarehouseRecAction extends WarehouseRecBaseAction {
 			setErrorReason("内部错误");
 			return ERROR;
 		}
+		
+		
 	}
 	
+	
+	public String doCancelDetail() {
+		try {
+			logger.debug("begin doCancelDetail");
+			
+			if(null == this.recDetailSeqId){
+				logger.debug("参数为空！");
+				setErrorReason("参数为空！");
+				return ERROR;				
+			}else{
+				WarehouseRecDetail detail =new  WarehouseRecDetail();
+				detail.setRecDetailSeqId(this.recDetailSeqId);
+				int i = getMgrDetail().cancelWareHouseRecDetail(detail, false,  this.getHttpServletRequest().getParameter("memo"));
+				if(i != 0){
+					String s;
+					switch(i){
+					case -1:
+						s = "状态错误，取消失败！";
+						logger.error(s);
+						setErrorReason(s);
+						break;
+					case -2:
+						s = "参数错误！";
+						logger.error(s);
+						setErrorReason(s);
+						break;
+					default:
+						s = "取消失败！";
+						logger.error(s + " ret=" + i);
+						setErrorReason(s);
+						break;
+					}
+					return ERROR;
+				}
+				logger.debug("end doCancelDetail");
+				return SUCCESS;
+			}			
+			
+		} catch(Exception e) {
+			logger.error("catch Exception in doCancelDetail", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+		
+		
+	}
 }
