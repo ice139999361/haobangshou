@@ -30,7 +30,7 @@ var ExtConvertHelper = {
 			});
 	 }
 	,loadForm: function(formId, url, params, success, failure) {
-
+			formId = formId || this.getHiddenForm().id;
 			Ext.getCmp(formId).getForm().load({
 				url: SERVER_PATH + url,
 				params: this._processParams(params),
