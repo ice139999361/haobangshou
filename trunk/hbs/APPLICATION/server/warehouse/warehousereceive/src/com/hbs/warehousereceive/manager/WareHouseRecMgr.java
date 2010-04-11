@@ -73,7 +73,12 @@ public class WareHouseRecMgr {
 					logger.debug("确认入库单信息，入库单下存在入库单明细，确认入库单明细，数量为：" + detailList.size());
 				}
 				for(WarehouseRecDetail detail : detailList){
-					detail.setState(whrInfo.getState());
+					String state = detail.getState();
+					if(state != null && state.equals(WareHouseConstants.WAREHOUSE_REC_INFO_03)){
+						logger.debug("入库单明细的状态为取消，本条入库单明细不处理" + detail.toString());
+					}else{
+						detail.setState(whrInfo.getState());
+					}
 				}
 				WareHouseRecDetailMgr detailMgr = (WareHouseRecDetailMgr)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_REC_DETAILMGR);
 				detailMgr.saveWareHouseRecDetailList(detailList, true, content);

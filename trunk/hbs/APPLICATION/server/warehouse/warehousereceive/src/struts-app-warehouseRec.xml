@@ -84,6 +84,10 @@
     	<action name="warehouseRec!cancel" method="doCancel" 
     			class="com.hbs.warehousereceive.action.WarehouseRecAction">
 		</action>
+		
+		<action name="warehouseRec!cancelDetail" method="doCancelDetail" 
+    			class="com.hbs.warehousereceive.action.WarehouseRecAction">
+		</action>
         
         		
 	</package>

@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import com.hbs.common.action.JianQuanUtil;
 import com.hbs.common.action.base.BaseAction;
 import com.hbs.domain.warehouse.pojo.WarehouseRecInfo;
+import com.hbs.warehousereceive.manager.WareHouseRecDetailMgr;
 import com.hbs.warehousereceive.manager.WareHouseRecMgr;
 
 /**
@@ -25,6 +26,8 @@ public abstract class WarehouseRecBaseAction extends BaseAction {
 	private static final Logger logger = Logger.getLogger(WarehouseRecBaseAction.class);
 
 	public static final String WAREHOUSE_REC_MGR = "wareHouseRecMgr";
+	
+	public static final String WAREHOUSE_REC_DETAIL_MGR ="wareHouseRecDetailMgr";
 	
 	WarehouseRecInfo warehouseRec;
 
@@ -50,6 +53,10 @@ public abstract class WarehouseRecBaseAction extends BaseAction {
 	
 	protected WareHouseRecMgr getMgr() {
 		return (WareHouseRecMgr)getBean(WAREHOUSE_REC_MGR);
+	}
+	
+	WareHouseRecDetailMgr getMgrDetail(){
+		return (WareHouseRecDetailMgr)getBean(WAREHOUSE_REC_DETAIL_MGR);
 	}
 	
 	/**
