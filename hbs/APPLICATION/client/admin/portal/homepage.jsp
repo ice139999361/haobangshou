@@ -22,9 +22,9 @@
 			    				
 			    				<panel columnWidth=".9" style="padding:10px 0 10px 10px">
 			    					<items>
-			    						<complexgrid frame="true" collapsible="true" titleCollapse="true" title="处理代办" id="waitmustgrid" autoExpandColumn="comments" root="data.waitMust" itemsFun="waitgridFun" url="1" height="230"/>
+			    						<complexgrid frame="true" collapsible="true" titleCollapse="true" title="待处理代办" id="waitmustgrid" autoExpandColumn="comments" root="data.waitMust" itemsFun="waitgridFun" url="1" height="230"/>
 			    							
-			    						<complexgrid frame="true" collapsible="true" titleCollapse="true" title="提醒待办" id="waitremindergrid" autoExpandColumn="comments" root="data.waitMust" itemsFun="waitgridFun" url="1" height="230"/>
+			    						<complexgrid frame="true" collapsible="true" titleCollapse="true" title="提醒待办" id="waitremindergrid" autoExpandColumn="comments" root="data.waitReminder" itemsFun="waitgridFun" url="1" height="230"/>
 			    					</items>
 			    				</panel>
 			    				
@@ -47,8 +47,10 @@ var waitgridFun = function() {
 	cgh.appendField("businessType");
 	cgh.appendField("comments");
 	cgh.appendField("url");
+	cgh.appendField("createTime");
 			    							
 	cgh.appendColumn({header: "代办类型"      , dataIndex: "businessType"});
+	cgh.appendColumn({header: "代办时间"      , dataIndex: "createTime" , id: "txtCreateTime"});
 	cgh.appendColumn({header: "代办描述"      , dataIndex: "comments", id: "comments"});
 	return cgh;
 };
@@ -67,17 +69,17 @@ HBSConvertHelper.init(function() {
 	// 加载数据
 	function fillingData() {
 		//ExtConvertHelper.loadForm(null, "/common/waitaction.action", null, function(form, action) {
-		ExtConvertHelper.request("/common/waitaction.action", null, function(response, opts) {
+		ExtConvertHelper.request("/common/waitTask!listWaitTaskInfo.action", null, function(response, opts) {
 			var jsonData = Ext.util.JSON.decode(response.responseText);
-			if(jsonData.success === false) return;
-			
+			if(jsonData.success === false) return;			
 			Ext.getCmp("waitmustgrid").store.removeAll();
 			Ext.getCmp("waitremindergrid").store.removeAll();
 			Ext.getCmp("waitmustgrid").addData(jsonData.data.waitMust);
 			Ext.getCmp("waitremindergrid").addData(jsonData.data.waitReminder);
+			
 		});
 		
-		setTimeout(fillingData, 10000);
+		setTimeout(fillingData, 120000);
 	}
 	
 	
