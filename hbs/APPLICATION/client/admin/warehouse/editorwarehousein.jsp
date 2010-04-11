@@ -52,7 +52,8 @@
 				    				<field name="rltPoNo" />
 				    				<field name="recDetailSeqId" />
 				    				<field name="poNoType" />			
-				    				<field name="activeState" />		    							    					    				
+				    				<field name="activeState" />
+				    				<field name="state" />		    							    					    				
 				    		</fields>				    		
 			    		</complexgrid>
 			    		<panel buttonAlign="center">
