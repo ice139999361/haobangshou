@@ -22,9 +22,9 @@
 			    				
 			    				<panel columnWidth=".9" style="padding:10px 0 10px 10px">
 			    					<items>
-			    						<complexgrid frame="true" collapsible="true" titleCollapse="true" title="处理代办" id="waitmustgrid" autoExpandColumn="comments" root="data.waitMust" itemsFun="waitgridFun" url="1" height="200"/>
+			    						<complexgrid frame="true" collapsible="true" titleCollapse="true" title="处理代办" id="waitmustgrid" autoExpandColumn="comments" root="data.waitMust" itemsFun="waitgridFun" url="1" height="230"/>
 			    							
-			    						<complexgrid frame="true" collapsible="true" titleCollapse="true" title="提醒待办" id="waitremindergrid" autoExpandColumn="comments" root="data.waitMust" itemsFun="waitgridFun" url="1" height="200"/>
+			    						<complexgrid frame="true" collapsible="true" titleCollapse="true" title="提醒待办" id="waitremindergrid" autoExpandColumn="comments" root="data.waitMust" itemsFun="waitgridFun" url="1" height="230"/>
 			    					</items>
 			    				</panel>
 			    				
@@ -41,17 +41,17 @@
 </html>
 <script type="text/javascript">
 	
-	var waitgridFun = function() {
-		var cgh = new ComplexGridHelper;
-		
-		cgh.appendField("businessType");
-		cgh.appendField("comments");
-		cgh.appendField("url");
-				    							
-		cgh.appendColumn({header: "代办类型"      , dataIndex: "businessType"});
-		cgh.appendColumn({header: "代办描述"      , dataIndex: "comments", id: "comments"});
-		return cgh;
-	};
+var waitgridFun = function() {
+	var cgh = new ComplexGridHelper;
+	
+	cgh.appendField("businessType");
+	cgh.appendField("comments");
+	cgh.appendField("url");
+			    							
+	cgh.appendColumn({header: "代办类型"      , dataIndex: "businessType"});
+	cgh.appendColumn({header: "代办描述"      , dataIndex: "comments", id: "comments"});
+	return cgh;
+};
 
 	
 HBSConvertHelper.init(function() {
