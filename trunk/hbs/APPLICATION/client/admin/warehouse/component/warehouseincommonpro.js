@@ -28,6 +28,8 @@ var warehousegridFun = function() {
 	cgh.appendField("staffName");
 	cgh.appendField("taxRate");
 	cgh.appendField("vendorCode");
+	cgh.appendField("state");
+	cgh.appendField("stateDesc");
 	
 			    							
 	cgh.appendColumn({header: "采购单号"         , dataIndex: "recPoNo"});
@@ -38,9 +40,10 @@ var warehousegridFun = function() {
 	//cgh.appendColumn({header: "采购数量"         , dataIndex: "amount"});
 	//cgh.appendColumn({header: "已入库数量"       , dataIndex: "l6"});
 	cgh.appendColumn({header: "本次入库数量"     , dataIndex: "amount", xtype: "textfield"});	
+	cgh.appendColumn({header: "明细状态"     , dataIndex: "stateDesc"});	
 	if(urlPs.pageType != "query") cgh.appendColumn({header: "操作"             , dataIndex: ""  , id: "operator"});
 
 
-	cgh.setSubmitFields("recPoNo,partNo,cpartNo,pnDesc,specDesc,amount,taxRate,isTax,price,priceTax,rltPoNo,settlementType,specDesc,recDetailSeqId,poNoType,activeState");
+	cgh.setSubmitFields("recPoNo,partNo,cpartNo,pnDesc,specDesc,amount,taxRate,isTax,price,priceTax,rltPoNo,settlementType,specDesc,recDetailSeqId,poNoType,activeState,state");
 	return cgh;
 };

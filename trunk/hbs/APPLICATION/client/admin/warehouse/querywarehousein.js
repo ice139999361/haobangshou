@@ -17,10 +17,10 @@ HBSConvertHelper.init(function() {
 		
 		// 删除按钮触发事件
 		var deleteBtnFun = function() {
-			Ext.Msg.confirm("提示", "您要执行的是删除操作，请确认是否继续？", function(btn) {
+			Ext.Msg.confirm("提示", "您要执行的是取消入库单及入库单明细操作，请确认是否继续？", function(btn) {
 				if(btn == "no") return;
 				
-				ExtConvertHelper.request("/success.action?partNo=" + this.config.get("partNo"), null, ExtConvertHelper.defaultDeleteFun);
+				ExtConvertHelper.request("/warehouseRec/warehouseRec!cancel.action?warehouseRec.recPoNo=" + this.config.get("recPoNo") + "&warehouseRec.vendorCode=" + this.config.get("vendorCode"), null, ExtConvertHelper.defaultDeleteFun);
 			}, this);
 		}
 		
