@@ -60,7 +60,7 @@ public abstract class AdjustBaseAction extends BaseAction {
 			setResult("list", mgr.getAdjustInfoList(adjustInfo));
 			setTotalCount(mgr.getAdjustInfoListCount(adjustInfo));
 			setResult("count", getTotalCount());
-			setResult("jq", JianQuanUtil.getJQ(JianQuanUtil.TypeAdjustState, getRoleName()));
+			//setResult("jq", JianQuanUtil.getJQ(JianQuanUtil.TypeAdjustState, getRoleName()));
 			logger.debug("end doList");
 			return SUCCESS;
 		} catch(Exception e) {
