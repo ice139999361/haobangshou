@@ -89,6 +89,17 @@ HBSConvertHelper.init(function() {
 				}
 			}
 		})
+		
+		warehousegrid.getSelectionModel().on("beforerowselect", function(sm, rowIndex, keepExisting, record) {
+			switch(record.get("state")) {
+				case "02":
+				case "03":
+					warehousegrid.getColumnById("cisTax").editable = false;
+					break;
+				default:
+					warehousegrid.getColumnById("cisTax").editable = true;
+			}
+		});
 	}())
 	
 	// -------------------------------------- 页面操作逻辑处理
