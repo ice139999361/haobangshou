@@ -43,19 +43,8 @@
 				    		</listpanel>
 			    		</items></form>
 			    		
-			    		<complexgrid id="warehousegrid" frame="true" height="200" deftbar="false" url="1" title="入库详情" itemsFun="warehousegridFun" >
-				    		<fields>
-				    				<field name="taxRate" />
-				    				<field name="isTax" />	
-				    				<field name="priceTax" />
-				    				<field name="price" />	
-				    				<field name="rltPoNo" />
-				    				<field name="recDetailSeqId" />
-				    				<field name="poNoType" />			
-				    				<field name="activeState" />
-				    				<field name="state" />		    							    					    				
-				    		</fields>				    		
-			    		</complexgrid>
+			    		<complexgrid id="warehousegrid" frame="true" height="200" deftbar="false" url="1" title="入库详情" itemsFun="warehousegridFun" />
+
 			    		<panel buttonAlign="center">
 			    			<buttons>
 			    				<button text="添加入库详情" id="addInfoBtn" />
@@ -92,6 +81,9 @@
 	    				<field name="specDesc" />
 	    				<field name="amount" />
 	    				<field name="deliveryAmount" />	    			
+	    					
+	    				<!-- 转换字段，自动填充 -->
+	    				<field name="recPoNo" mapping="poNo" />	    				
 	    			</fields>
 	    			<columns>
 	    				<column header=""                   isCheck="true" />
