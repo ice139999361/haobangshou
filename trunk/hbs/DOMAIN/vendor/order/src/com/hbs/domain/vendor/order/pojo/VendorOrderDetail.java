@@ -390,7 +390,17 @@ public class VendorOrderDetail extends BaseDomain{
     public String getState() {
         return this.state;
     }	
-  
+    public String getStateDesc() {
+    	String retStr ="Œ¥∂®“Â";
+    	ConfigEncode ceParam = new ConfigEncode();
+    	ceParam.setEncodeKey(getState());
+    	ceParam.setEncodeType("VENDOR_ORDER_DETAIL_STATE");
+    	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
+    	if(null != cEncode){
+    		retStr = cEncode.getEncodeValue();
+    	}
+    	return retStr;
+    }
     public void setState(String state) {
         this.state = state;
     }
@@ -437,17 +447,17 @@ public class VendorOrderDetail extends BaseDomain{
 		sb.append("cpartNo=").append(this.cpartNo).append(" ");
 		sb.append("partNo=").append(this.partNo).append(" ");
 		sb.append("pnDesc=").append(this.pnDesc).append(" ");
-		sb.append("cprice=").append(this.cprice.floatValue()).append(" ");
+		sb.append("cprice=").append(this.cprice == null ? null : this.cprice.floatValue()).append(" ");
 		sb.append("cpriceTax=").append(this.cpriceTax != null ? this.cpriceTax.floatValue() : " ").append(" ");
 		sb.append("isTax=").append(this.isTax).append(" ");
-		sb.append("taxRate=").append(this.taxRate.floatValue()).append(" ");
+		sb.append("taxRate=").append(this.taxRate == null ? null : this.taxRate.floatValue()).append(" ");
 		sb.append("specDesc=").append(this.specDesc).append(" ");
 		sb.append("commDesc=").append(this.commDesc).append(" ");
 		sb.append("amount=").append(this.amount).append(" ");
-		sb.append("money=").append(this.money.floatValue()).append(" ");
+		sb.append("money=").append(this.money == null ? null : this.money.floatValue()).append(" ");
 		sb.append("deliveryAmount=").append(this.deliveryAmount).append(" ");
-		sb.append("orgDeliveryDate=").append(DateUtils.getFormatDate(this.orgDeliveryDate,null)).append(" ");
-		sb.append("verDeliveryDate=").append(DateUtils.getFormatDate(this.verDeliveryDate,null)).append(" ");
+		sb.append("orgDeliveryDate=").append(this.orgDeliveryDate == null ? null : DateUtils.getFormatDate(this.orgDeliveryDate,null)).append(" ");
+		sb.append("verDeliveryDate=").append(this.verDeliveryDate == null ? null : DateUtils.getFormatDate(this.verDeliveryDate,null)).append(" ");
 		sb.append("period=").append(this.period).append(" ");
 		sb.append("rltOrderPoNo=").append(this.rltOrderPoNo).append(" ");
 		sb.append("state=").append(this.state).append(" ");

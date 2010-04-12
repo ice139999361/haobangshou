@@ -3,13 +3,16 @@
  */
 package com.hbs.vendororder.action;
 
+
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.action.JianQuanUtil;
 import com.hbs.common.action.base.BaseAction;
-import com.hbs.customerorder.constants.CustOrderConstants;
+
 import com.hbs.domain.vendor.order.pojo.VendorOrder;
+
 import com.hbs.vendororder.manager.VendorOrderMgr;
 
 /**
@@ -28,6 +31,8 @@ public abstract class VendorOrderBaseAction extends BaseAction {
 	public static final String VENDOR_ORDER_MGR = "vendorOrderMgr";
 	
 	VendorOrder vendorOrder;
+	
+	
 
 	/**
 	 * @return the vendorOrder
@@ -71,7 +76,7 @@ public abstract class VendorOrderBaseAction extends BaseAction {
 			else
 				setMyId(false);
 			setPagination(vendorOrder);
-			VendorOrderMgr mgr = (VendorOrderMgr)getBean(CustOrderConstants.CUSTORDERMGR);
+			VendorOrderMgr mgr = (VendorOrderMgr)getBean(VENDOR_ORDER_MGR);
 			setResult("list", mgr.getVendorOrderList(vendorOrder));
 			setTotalCount(mgr.getVendorOrderCount(vendorOrder));
 			setResult("count", getTotalCount());
@@ -84,7 +89,7 @@ public abstract class VendorOrderBaseAction extends BaseAction {
 			return ERROR;
 		}
 	}
-
+	
 	/**
 	 * 获取供应商订单信息
 	 * @action.input vendorOrder.commCode + vendorOrder.poNo

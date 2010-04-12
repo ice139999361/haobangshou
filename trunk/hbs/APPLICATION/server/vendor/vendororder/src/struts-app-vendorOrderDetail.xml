@@ -41,6 +41,12 @@
     	<action name="orderDetailCg!controlActiveState" method="doControlActiveState" 
     			class="com.hbs.vendororder.action.detail.VendorOrderDetailCgNormalAction">
 		</action>
+		
+		<!--  在入库单选择供应商采购单的时候使用 
+		 -->
+		<action name="orderDetail!listDetail" method="doListDetail" 
+    			class="com.hbs.vendororder.action.detail.VendorOrderDetailCgNormalAction">
+		</action>
 
 	</package>
 </struts>	

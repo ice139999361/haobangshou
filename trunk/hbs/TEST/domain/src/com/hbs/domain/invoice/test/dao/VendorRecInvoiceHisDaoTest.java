@@ -32,8 +32,8 @@ public class VendorRecInvoiceHisDaoTest extends AbstractTransactionalDataSourceS
         invoiceInfo.setCreateTime(new Date());
         invoiceInfo.setPoNo("1");
        // invoiceInfo.setPO_NO_DATE("1");
-        invoiceInfo.setCcode(new Date());
-        invoiceInfo.setShortName(new Date());
+        //invoiceInfo.setCcode(new Date());
+        //invoiceInfo.setShortName(new Date());
         invoiceInfo.setPartNo("1");
         invoiceInfo.setCpartNo("1");
         invoiceInfo.setPnDesc("1");
@@ -74,8 +74,8 @@ public class VendorRecInvoiceHisDaoTest extends AbstractTransactionalDataSourceS
         invoiceInfo.setCreateTime(new Date());
         invoiceInfo.setPoNo("1");
        // invoiceInfo.setPO_NO_DATE("1");
-        invoiceInfo.setCcode(new Date());
-        invoiceInfo.setShortName(new Date());
+        //invoiceInfo.setCcode(new Date());
+        //invoiceInfo.setShortName(new Date());
         invoiceInfo.setPartNo("1");
         invoiceInfo.setCpartNo("1");
         invoiceInfo.setPnDesc("1");

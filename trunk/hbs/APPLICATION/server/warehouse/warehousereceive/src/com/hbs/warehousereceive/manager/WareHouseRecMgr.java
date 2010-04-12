@@ -74,10 +74,14 @@ public class WareHouseRecMgr {
 				}
 				for(WarehouseRecDetail detail : detailList){
 					String state = detail.getState();
+					String financestate = detail.getFinanceState();
 					if(state != null && state.equals(WareHouseConstants.WAREHOUSE_REC_INFO_03)){
 						logger.debug("入库单明细的状态为取消，本条入库单明细不处理" + detail.toString());
 					}else{
 						detail.setState(whrInfo.getState());
+					}
+					if(null == financestate){
+						detail.setFinanceState("0");
 					}
 				}
 				WareHouseRecDetailMgr detailMgr = (WareHouseRecDetailMgr)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_REC_DETAILMGR);
