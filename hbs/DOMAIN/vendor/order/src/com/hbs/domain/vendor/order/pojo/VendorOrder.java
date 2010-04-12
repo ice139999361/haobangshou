@@ -226,7 +226,7 @@ public class VendorOrder extends BaseDomain{
     	ceParam.setEncodeType("COMPANY_BRANCH");
     	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
     	if(null != cEncode){
-    		retStr = cEncode.getEncodeDesc();
+    		retStr = cEncode.getEncodeValue();
     	}
     	return retStr;
     }
@@ -250,7 +250,7 @@ public class VendorOrder extends BaseDomain{
     	ceParam.setEncodeType("SETTLEMENT_TYPE");
     	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
     	if(null != cEncode){
-    		retStr = cEncode.getEncodeDesc();
+    		retStr = cEncode.getEncodeValue();
     	}
     	return retStr;
     }
@@ -322,7 +322,7 @@ public class VendorOrder extends BaseDomain{
     	ceParam.setEncodeType("IS_SHOW_PRICE");
     	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
     	if(null != cEncode){
-    		retStr = cEncode.getEncodeDesc();
+    		retStr = cEncode.getEncodeValue();
     	}
     	return retStr;
     }
