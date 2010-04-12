@@ -84,7 +84,6 @@ HBSConvertHelper.init(function() {
 			// 删除按钮触发事件
 				var deleteBtnFun = function() {
 				var seqid =this.config.get("recDetailSeqId");
-				alert(seqid);
 				if(seqid > 0){
 					Ext.Msg.confirm("提示", "您要执行的是入库单明细取消，请确认是否继续？", function(btn) {
 					if(btn == "no") return;
