@@ -80,10 +80,22 @@
 	    				<field name="pnDesc" />
 	    				<field name="specDesc" />
 	    				<field name="amount" />
-	    				<field name="deliveryAmount" />	    			
+	    				<field name="deliveryAmount" />	
+	    				<field name="taxRate" />	
+	    				<field name="isTax" />	
+	    				<field name="cprice" />
+	    				<field name="cpriceTax" />
+	    				<field name="settlementType" />
+	    				<field name="specDesc" />	
+	    				<field name="poNoType" />		
+	    				<field name="activeState" />    							    			
+	    				<field name="stateDesc" />	
 	    					
 	    				<!-- 转换字段，自动填充 -->
-	    				<field name="recPoNo" mapping="poNo" />	    				
+	    				<field name="rltPoNo" mapping="poNo" />	
+	    				<field name="price" mapping="cprice" />
+	    				<field name="priceTax" mapping="cpriceTax" />	
+	    					<field name="cgstate" mapping="stateDesc" />    				
 	    			</fields>
 	    			<columns>
 	    				<column header=""                   isCheck="true" />
@@ -94,6 +106,7 @@
 	    				<column header="特殊备注（批次）"   dataIndex="specDesc" />
 	    				<column header="采购数量"           dataIndex="amount" />
 	    				<column header="已入库数量"         dataIndex="deliveryAmount" />
+	    				<column header="明细状态"         dataIndex="stateDesc" />
 	    			</columns>
 	    			<buttons>
 	    				<button text="确定" id="wokBtn" />
