@@ -70,40 +70,38 @@
 			    </panel>
 			  </items>
 			</viewport>
-			<window id="selectWindow" title="查询客户订单" width="900" closeAction="hide">
+			<window id="selectWindow" title="查询供应商采购单" width="900" closeAction="hide">
 				<items>
 					<queryform gridId="querygrid">
 	    			<layoutpanel columnNum="3">
-	    				<textfield fieldLabel="客户编码"           name="custOrder.commCode"  />
-	    				<textfield fieldLabel="客户 P/N"           name="" />
-	    				<textfield fieldLabel="客户订单号"         name="custOrder.poNo"  />
+	    				<textfield fieldLabel="供应商编码"           name="orderDetail.commCode"  />
+	    				<textfield fieldLabel="供应商 P/N"           name="orderDetail.cpartNo" />
+	    				<textfield fieldLabel="供应商PO/N"           name="orderDetail.poNo"  />
 	    					
-	    				<textfield fieldLabel="公司 P/N"         name="" />
-	    				<textfield fieldLabel="特殊备注"           name="" />
+	    				<textfield fieldLabel="公司 P/N"             name="orderDetail.partNo" />
+	    				<textfield fieldLabel="特殊备注"             name="orderDetail.specDesc" />
 	    			</layoutpanel>
 	    		</queryform>
 	    		
-	    		<complexgrid id="querygrid" buttonAlign="center" title="订单详情" frame="true" height="300" url="/custOrder/custOrderScMgr!list.action" page="true" root="data.list">
+	    		<complexgrid id="querygrid" buttonAlign="center" title="订单详情" frame="true" height="300" url="/vendorOrderDetail/orderDetail!listDetail.action" page="true" root="data.list">
 	    			<fields>
-	    				<field name="l1" />
-	    				<field name="l2" />
-	    				<field name="l3" />
-	    				<field name="l4" />
-	    				<field name="l5" />
-	    				<field name="l6" />
-	    				<field name="l7" />
-	    				<field name="l8" />
-	    				<field name="l9" />
+	    				<field name="poNo" />
+	    				<field name="partNo" />
+	    				<field name="cpartNo" />
+	    				<field name="pnDesc" />
+	    				<field name="specDesc" />
+	    				<field name="amount" />
+	    				<field name="deliveryAmount" />	    			
 	    			</fields>
 	    			<columns>
 	    				<column header=""                   isCheck="true" />
-	    				<column header="采购单号"           dataIndex="l1" />
-	    				<column header="公司 P/N"           dataIndex="l2" />
-	    				<column header="供应商 P/N"         dataIndex="l3" />
-	    				<column header="物料描述"           dataIndex="l4" />
-	    				<column header="特殊备注（批次）"   dataIndex="l5" />
-	    				<column header="采购数量"           dataIndex="l6" />
-	    				<column header="已入库数量"         dataIndex="l7" />
+	    				<column header="采购单号"           dataIndex="poNo" />
+	    				<column header="公司 P/N"           dataIndex="partNo" />
+	    				<column header="供应商 P/N"         dataIndex="cpartNo" />
+	    				<column header="物料描述"           dataIndex="pnDesc" />
+	    				<column header="特殊备注（批次）"   dataIndex="specDesc" />
+	    				<column header="采购数量"           dataIndex="amount" />
+	    				<column header="已入库数量"         dataIndex="deliveryAmount" />
 	    			</columns>
 	    			<buttons>
 	    				<button text="确定" id="wokBtn" />
