@@ -20,7 +20,7 @@
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="供应商基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<label fieldLabel="供应商编码"             name="vendorInfo.vendorCode"           labelStyle="width:150" />
+				    				<label fieldLabel="供应商编码"             name="vendorInfo.commCode"           labelStyle="width:150" />
 				    				<label fieldLabel="中文名称"               name="vendorInfo.allName"              labelStyle="width:150" />
 				    				<label fieldLabel="供应商简称"             name="vendorInfo.shortName"            labelStyle="width:150" allowBlank="false"/>
 				    				<label fieldLabel="公司地址"               name="vendorInfo.address"              labelStyle="width:150" />
