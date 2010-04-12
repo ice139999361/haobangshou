@@ -70,7 +70,7 @@ HBSConvertHelper.init(function() {
 							ExtConvertHelper.request("/warehouseRec/warehouseRec!cancelDetail.action?recDetailSeqId=" + this.config.get("recDetailSeqId"), null, ExtConvertHelper.defaultDeleteFun);
 						}, this);
 		        	}else{
-			       	Ext.Msg.confirm("提示", "您要执行的是入库单明细操作，本条明显还没有保存，请确认是否继续删除？", function(btn) {
+			       	Ext.Msg.confirm("提示", "您要执行的是入库单明细操作，本条明细还没有保存，请确认是否继续删除？", function(btn) {
 									if(btn == "no") return;	
 			        		warehousegrid.store.remove(this.config);
 			        	}, this);
