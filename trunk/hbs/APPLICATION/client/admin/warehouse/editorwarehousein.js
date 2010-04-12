@@ -1,4 +1,4 @@
-
+﻿
 HBSConvertHelper.init(function() {
 	// -------------------------------------- 获取需要持久用到的对象
 	
@@ -82,12 +82,20 @@ HBSConvertHelper.init(function() {
 
 		warehousegrid.getView().on("refresh", function(view) {
 			// 删除按钮触发事件
-			var deleteBtnFun = function() {
-				Ext.Msg.confirm("提示", "您要执行的是入库单明细操作，请确认是否继续？", function(btn) {
-				if(btn == "no") return;
-				
-				ExtConvertHelper.request("/warehouseRec/warehouseRec!cancelDetail.action?recDetailSeqId=" + this.config.get("recDetailSeqId"), null, ExtConvertHelper.defaultDeleteFun);
-			}, this);
+				var deleteBtnFun = function() {
+				var seqid =this.config.get("recDetailSeqId");
+				if(seqid > 0){
+					Ext.Msg.confirm("提示", "您要执行的是入库单明细取消，请确认是否继续？", function(btn) {
+					if(btn == "no") return;
+					
+							ExtConvertHelper.request("/warehouseRec/warehouseRec!cancelDetail.action?recDetailSeqId=" + this.config.get("recDetailSeqId"), null, ExtConvertHelper.defaultDeleteFun);
+						}, this);
+		        	}else{
+			        	Ext.Msg.confirm("提示", "您要执行的是入库单明细操作，本条明显还没有保存，请确认是否继续删除？", function(btn) {
+					if(btn == "no") return;	
+			        		warehousegrid.store.remove(this.config);
+			        	}
+		        	}
 				//warehousegrid.store.remove(this.config);
 			};
 		
