@@ -58,27 +58,6 @@ HBSConvertHelper.init(function() {
 			selectWindow.show();
 			HBSConvertHelper.refreshGrid("querygrid");
 		});
-		
-		/*
-		// 获取表格的列模型
-		var cm = warehousegrid.getColumnModel();
-		
-		// 输入客户P/N或本公司P/N时，自动填写名称、描述、单价、税率
-		var warehouseacfun = function(action){
-			if(!action.success)
-				return;
-				
-			var sm = warehousegrid.getSelectionModel();
-			sm.getSelected().set("l4"   , "描述");
-			sm.getSelected().set("l5"   , "订单数量");
-		};
-		
-		// 获取GLE编码控件并加载事件
-		cm.getColumnById("cglecode").editor.setProcessConfig("/customerInfo/customerInfo!list.action", "custInfo.commCode", null, warehouseacfun);
-		
-		// 获取供应商编码控件并加载事件
-		cm.getColumnById("ccommcode").editor.setProcessConfig("/customerInfo/customerInfo!list.action", "custInfo.commCode", null, warehouseacfun);
-		*/
 
 		warehousegrid.getView().on("refresh", function(view) {
 			// 删除按钮触发事件
