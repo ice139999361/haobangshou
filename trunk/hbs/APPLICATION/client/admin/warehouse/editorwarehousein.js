@@ -158,12 +158,23 @@ HBSConvertHelper.init(function() {
 			var querygrid = Ext.getCmp("querygrid");
 			// 获取选择的数据集
 			var records = querygrid.getSelectionModel().getSelections();
+			
+			// 缓存数据
+			var oldRecords = {};
+			warehousegrid.store.each(function() {
+				oldRecords[this.get("rltPoNo")] = true;
+			});
+			
+			var newRecords = [];
 			// 添加标示
 			Ext.each(records, function(record) {
-				record.selectType = "window";
+				if(!oldRecords[record.get("rltPoNo")]) {
+					record.selectType = "window";
+					newRecords.push(record);
+				}
 			});
 			// 添加选择的数据至订单详情表格
-			warehousegrid.store.add(records);
+			warehousegrid.store.add(newRecords);
 			// 刷新表格
 			setTimeout(function() {	warehousegrid.getView().refresh() }, 0);
 			// 隐藏 window 控件

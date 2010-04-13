@@ -92,10 +92,10 @@
 	    				<field name="stateDesc" />	
 	    					
 	    				<!-- 转换字段，自动填充 -->
-	    				<field name="rltPoNo" mapping="poNo" />	
-	    				<field name="price" mapping="cprice" />
+	    				<field name="rltPoNo"  mapping="poNo" />	
+	    				<field name="price"    mapping="cprice" />
 	    				<field name="priceTax" mapping="cpriceTax" />	
-	    					<field name="cgstate" mapping="stateDesc" />    				
+	    				<field name="cgstate"  mapping="stateDesc" />    				
 	    			</fields>
 	    			<columns>
 	    				<column header=""                   isCheck="true" />
