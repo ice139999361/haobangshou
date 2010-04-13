@@ -24,7 +24,7 @@ public interface WareHouseConstants {
 	
 	public static final String  CUST_ORDER_DETAILMGR ="custOrderDetailMgr";
 	
-	public static final String WAREHOUSE_INFO_MGR ="WarehouseMgr";
+	public static final String WAREHOUSE_INFO_MGR ="warehouseMgr";
 	
 	public static final String WAREHOUSE_REC_ACTIVE="ACTIVE";
 	public static final String WAREHOUSE_REC_PAUSE = "PAUSE";

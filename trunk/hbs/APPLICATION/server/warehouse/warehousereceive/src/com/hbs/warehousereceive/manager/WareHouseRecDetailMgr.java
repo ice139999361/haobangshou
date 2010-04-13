@@ -125,6 +125,8 @@ public class WareHouseRecDetailMgr {
 		vOrderDetail.setCpartNo(detail.getCpartNo());
 		//设置本公司的物料编码
 		vOrderDetail.setPartNo(detail.getPartNo());
+		//本次入库数量
+		vOrderDetail.setDeliveryAmount(detail.getAmount());
 		//设置供应商采购单中的特殊备注
 		vOrderDetail.setSpecDesc(detail.getSpecDesc());
 		logger.debug("调用供应商采购单明细管理类，更新已到货数量！设置的参数为：" + vOrderDetail.toString());
@@ -149,12 +151,12 @@ public class WareHouseRecDetailMgr {
 				break;
 			case 2: //常规备货
 				logger.debug("供应商采购单为常规备货订单！");
-				ret = processWarehouseInfo(detail,custCode);
+				ret = processWarehouseInfo(detail,custCode,vPonoType);
 				break;
 				
 			case 3: //特定客户备货				
 				logger.debug("供应商采购单为特定客户备货订单！");
-				ret = processWarehouseInfo(detail,custCode);
+				ret = processWarehouseInfo(detail,custCode,vPonoType);
 				break;
 			default:
 				throw new Exception("入库单对应的供应商采购单的订单类型不正确，无法后续处理！");
@@ -214,6 +216,7 @@ public class WareHouseRecDetailMgr {
 			wInfo.setPartNo(detail.getPartNo());
 			//设置供应商的物料编码
 			wInfo.setCpartNo(detail.getCpartNo());
+			wInfo.setPnDesc(detail.getPnDesc());
 			//设置增加的库存
 			wInfo.setTotalAmount(detail.getAmount());
 			wInfo.setUseAmount(iuseAmount);
@@ -235,21 +238,20 @@ public class WareHouseRecDetailMgr {
 	 * @return
 	 * @throws Exception
 	 */
-	private int processWarehouseInfo(WarehouseRecDetail detail,String custCode) throws Exception{
+	private int processWarehouseInfo(WarehouseRecDetail detail,String custCode,String vPonoType) throws Exception{
 		int ret =0;
 		WareHouseInfo wInfo = new WareHouseInfo();
 		//设置仓库类型，总库还是其他
 		wInfo.setHouseType(detail.getHouseType());
 		//设置仓库用途
-		String vPonoType = detail.getPoNoType();
 		switch(Integer.parseInt(vPonoType)){
 		case 0: //客户供应商采购单
-		case 1: //退货单
+		//case 1: //退货单
 		case 3: //特定客户备货
-			wInfo.setHouseType(WareHouseConstants.WAREHOUSE_USE_TYPE_1);
+			wInfo.setHouseUse(WareHouseConstants.WAREHOUSE_USE_TYPE_1);
 			break;		
 		case 2: //常规备货
-			wInfo.setHouseType(WareHouseConstants.WAREHOUSE_USE_TYPE_2);
+			wInfo.setHouseUse(WareHouseConstants.WAREHOUSE_USE_TYPE_2);
 			break;	
 			
 		default:
@@ -261,9 +263,12 @@ public class WareHouseRecDetailMgr {
 		wInfo.setPartNo(detail.getPartNo());
 		//设置供应商的物料编码
 		wInfo.setCpartNo(detail.getCpartNo());
+		wInfo.setPnDesc(detail.getPnDesc());
 		//设置增加的库存
 		wInfo.setTotalAmount(detail.getAmount());
 		wInfo.setUseAmount(detail.getAmount());
+		//设置锁定数量为0
+		wInfo.setLockAmount(0);
 		//设置客户编码
 		wInfo.setCustCode(custCode);
 		WarehouseMgr whMgr= (WarehouseMgr)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_INFO_MGR);

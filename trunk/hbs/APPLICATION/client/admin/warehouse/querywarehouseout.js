@@ -31,7 +31,7 @@ HBSConvertHelper.init(function() {
 			// 获取客户简称所在的列
 			var csendpono_cell = view.getCell(i, view.grid.getColumnIndexById("csendpono"));
 			// 将需要的链接渲染到此列
-			HBSConvertHelper.renderATag2Cell(csendpono_cell.innerText, "/warehouse/detailwarehouseout.jsp?pageType=query&partNo=" + record.get("cpartNo"), "open", csendpono_cell);
+			HBSConvertHelper.renderATag2Cell(csendpono_cell.innerText, "/warehouse/detailwarehouseout.jsp?pageType=query&warehouseSend.sendPoNo=" + view.ds.getAt(i).get("sendPoNo")+ "&warehouseSend.custCode=" + view.ds.getAt(i).get("custCode")+ "&warehouseSend.poNoType=" + view.ds.getAt(i).get("poNoType"), "open", csendpono_cell);
 			
 			
 			if(view.grid.getColumnIndexById("operator") != -1) {

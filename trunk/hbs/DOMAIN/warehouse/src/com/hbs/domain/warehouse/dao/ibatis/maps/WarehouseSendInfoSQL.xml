@@ -175,7 +175,7 @@
     WHERE SEND_PO_NO = #sendPoNo# AND C_CODE=#custCode#
 </update> 
 
-<select id="WarehouseSendInfo_findWarehouseSendInfo" resultMap="warehouseSendInfo_result" parameterClass="string">
+<select id="WarehouseSendInfo_findWarehouseSendInfo" resultMap="warehouseSendInfo_result" parameterClass="warehouseSendInfo">
 <![CDATA[
     SELECT
             SEND_PO_NO, 

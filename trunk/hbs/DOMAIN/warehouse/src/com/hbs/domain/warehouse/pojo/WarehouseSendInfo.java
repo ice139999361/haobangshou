@@ -224,6 +224,18 @@ public class WarehouseSendInfo extends BaseDomain{
     public String getHouseType() {
         return this.houseType;
     }	
+    
+    public String getHouseTypeDesc() {
+    	String retStr ="未定义";
+    	ConfigEncode ceParam = new ConfigEncode();
+    	ceParam.setEncodeKey(getSettlementType());
+    	ceParam.setEncodeType("WAREHOUSE_TYPE");
+    	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
+    	if(null != cEncode){
+    		retStr = cEncode.getEncodeValue();
+    	}
+    	return retStr;
+    }
   
     public void setHouseType(String houseType) {
         this.houseType = houseType;
@@ -295,6 +307,18 @@ public class WarehouseSendInfo extends BaseDomain{
     
     public String getState() {
         return this.state;
+    }
+    
+    public String getStateDesc() {
+    	String retStr ="未定义状态【" + getState() +"】";
+    	ConfigEncode ceParam = new ConfigEncode();
+    	ceParam.setEncodeKey(getState());
+    	ceParam.setEncodeType("WAREHOUSE_OUT_STATE");
+    	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
+    	if(null != cEncode){
+    		retStr = cEncode.getEncodeValue();
+    	}
+    	return retStr;
     }	
   
     public void setState(String state) {

@@ -403,10 +403,10 @@
 			<isNotEmpty prepend="and" property = "sendPoNo">
 				SEND_PO_NO = #sendPoNo#
 			</isNotEmpty>
-			<isNotEmpty prepend="," property="custCode">
+			<isNotEmpty prepend="and" property="custCode">
 		            C_CODE = #custCode#
 			</isNotEmpty>
-			<isNotEmpty prepend="," property="shortName">
+			<isNotEmpty prepend="and" property="shortName">
 		            SHORT_NAME = #shortName#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "partNo">
