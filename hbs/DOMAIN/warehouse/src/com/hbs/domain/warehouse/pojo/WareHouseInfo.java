@@ -73,12 +73,12 @@ public class WareHouseInfo extends BaseDomain{
     /**
      * 最大库存数，0表示无限制.
      */
-    private Integer maxAmount;
+    private Integer maxAmount = 0;
     
     /**
      * 最小库存数，缺省为0.
      */
-    private Integer minAmount;
+    private Integer minAmount =0;
     
     /**
      * 库存状态0---有可用库存 1---无可用库存.

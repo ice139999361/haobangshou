@@ -14,11 +14,12 @@ HBSConvertHelper.init(function() {
 		backBtn.on("click", HBSConvertHelper.defaultCloseTab);
 		
 		// 组装需要的参数
-		var params = ["warehouseRec.recPoNo=", urlPs.warehouseRec.recPoNo,"warehouseRec.vendorCode=" , urlPs.warehouseRec.vendorCode].join("");
+	var params = ["warehouseSend.sendPoNo=", urlPs["warehouseSend.sendPoNo"],"&warehouseSend.custCode=" , urlPs["warehouseSend.custCode"],"&warehouseSend.poNoType=" , urlPs["warehouseSend.poNoType"]].join("");
 		
 		// 加载数据
-		ExtConvertHelper.loadForm("form", "/warehouseRec/warehouseRec!getInfo.action", params, function(form, action) {
-			//Ext.getCmp("warehousegrid").addData(action.result.data.vendorInfo.listBankInfo);
+		ExtConvertHelper.loadForm("form", "/warehouseSend/warehouseSend!getInfo.action", params, function(form, action) {
+			Ext.getCmp("acCreateDate").setValue(FormatUtil.data2string(warehouseSend.createDate));
+			Ext.getCmp("warehousegrid").addData(action.result.data.warehouseSend.detailList);
 		});
 	}())
 });

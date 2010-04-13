@@ -28,11 +28,13 @@ public abstract class WarehouseSendBaseAction extends BaseAction {
 	
 	WarehouseSendInfo warehouseSend;
 
-	public WarehouseSendInfo getWarehouseRec() {
+	
+
+	public WarehouseSendInfo getWarehouseSend() {
 		return warehouseSend;
 	}
 
-	public void setWarehouseRec(WarehouseSendInfo warehouseSend) {
+	public void setWarehouseSend(WarehouseSendInfo warehouseSend) {
 		this.warehouseSend = warehouseSend;
 	}
 

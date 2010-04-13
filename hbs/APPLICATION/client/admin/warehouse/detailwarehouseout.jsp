@@ -20,19 +20,19 @@
 							<form id="form"><items>
 				    		<listpanel frame="true" title="出库基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<label    fieldLabel="出库单号"       name=""                   labelStyle="width:150" />
-				    				<label    fieldLabel="对应分公司"     name=""                   labelStyle="width:150" />
-				    				<label    fieldLabel="客户"           name="custInfo.commCode"  labelStyle="width:150" />
-				    				<label    fieldLabel="联系电话"       name=""                   labelStyle="width:150" />
-				    				<label    fieldLabel="邮编"           name=""                   labelStyle="width:150"   />
+				    				<label    fieldLabel="出库单号"       name="warehouseSend.sendPoNo"                   labelStyle="width:150" />
+				    				<label    fieldLabel="对应分公司"     name="warehouseSend.companyBranchDesc"                   labelStyle="width:150" />
+				    				<label    fieldLabel="客户"           name="warehouseSend.custCode"  labelStyle="width:150" />
+				    				<label    fieldLabel="联系电话"       name="warehouseSend.conTel"                   labelStyle="width:150" />
+				    				<label    fieldLabel="邮编"           name="warehouseSend.receiveZip"                   labelStyle="width:150"   />
 				    					
-				    				<label    fieldLabel="出库日期"  	    name=""                   labelStyle="width:150"  />
-				    				<label    fieldLabel="出库仓库"       name=""                   labelStyle="width:150"    />
-				    				<label    fieldLabel="收货人"         name="custInfo.commCode"  labelStyle="width:150" />
-				    				<label    fieldLabel="传真"           name=""                   labelStyle="width:150"  />
+				    				<label    fieldLabel="出库日期"  	    name="warehouseSend.createDate"                   labelStyle="width:150"  format="Y-m-d" id="acCreateDate" />
+				    				<label    fieldLabel="出库仓库"       name="warehouseSend.houseTypeDesc"                   labelStyle="width:150"    />
+				    				<label    fieldLabel="收货人"         name="warehouseSend.receiveName"  labelStyle="width:150" />
+				    				<label    fieldLabel="传真"           name="warehouseSend.conFax"                   labelStyle="width:150"  />
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
-				    				<label     fieldLabel="备注"          name=""                   labelStyle="width:150"  />
+				    				<label     fieldLabel="备注"          name="warehouseSend.sendDesc"                   labelStyle="width:150"  />
 				    			</layoutpanel>	
 				    		</listpanel>
 			    		</items></form>

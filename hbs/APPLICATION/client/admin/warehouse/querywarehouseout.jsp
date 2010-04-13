@@ -18,21 +18,23 @@
 			    	<!-- service ext ui.  begin. -->
 			    		<queryform gridId="querygrid" exportId="exportBtn">
 			    			<layoutpanel columnNum="3">
-			    				<textfield fieldLabel="出库单号"   name="partNo.partNo"  />	
-			    				<autocomplete fieldLabel="客户" url="/customerInfo/customerInfo!list.action"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"     name="custInfo.commCode"    />
-			    				<dictcombo    fieldLabel="出库仓库"           hiddenName=""    paramsValue="COMPANY_BRANCH"     showText="请选择" />
+			    				<textfield fieldLabel="出库单号"   name="warehouseSend.sendPoNo"  />	
+			    				<autocomplete fieldLabel="客户" url="/customerInfo/customerInfo!list.action"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"     name="warehouseSend.custCode"    />
+			    				<dictcombo    fieldLabel="出库仓库"           hiddenName="warehouseSend.houseType"    paramsValue="WAREHOUSE_TYPE"     showText="请选择" />
 			    			</layoutpanel>
 			    			<layoutpanel columnNum="6:.11,.05,.15,.05,.18,.3">
 			    				<label     fieldLabel="出库日期" />
 			    				<label     fieldLabel="从"       labelSeparator=""/>
-			    				<datefield hideLabel="true"      name=""          format="Y-m-d"  width="120" />
+			    				<datefield hideLabel="true"      name="warehouseSend.dynamicFields.beginApplyDate"          format="Y-m-d"  width="120" />
 			    				<label     fieldLabel="到"       labelSeparator=""/>
-			    				<datefield hideLabel="true"      name=""          format="Y-m-d"  width="120" />
-			    				<dictcombo    fieldLabel="出库单状态"           hiddenName=""    paramsValue="COMPANY_BRANCH"     showText="请选择" />
+			    				<datefield hideLabel="true"      name="warehouseSend.dynamicFields.endApplyDate"          format="Y-m-d"  width="120" />
+			    				<dictcombo    fieldLabel="出库单状态"           hiddenName="warehouseSend.state"    paramsValue="WAREHOUSE_OUT_STATE"     showText="请选择" />
 			    			</layoutpanel>
 			    		</queryform>
 			    	
-				    	<complexgrid id="querygrid" title="出库单列表" frame="true" page="true" root="data.list" url="/partNo/partNo!list.action" itemsFun="querygridFun" />
+				    	<complexgrid id="querygrid" title="出库单列表" frame="true" page="true" root="data.list" url="/warehouseSend/warehouseSend!list.action" itemsFun="querygridFun" >
+				    		<field name="poNoType" />
+				    	</complexgrid>
 			    	<!-- service ext ui.  end. -->
 			    	</items>
 			    </panel>
