@@ -50,8 +50,8 @@ var waitgridFun = function() {
 	cgh.appendField("createTime");
 			    							
 	cgh.appendColumn({header: "代办类型"      , dataIndex: "businessType"});
-	cgh.appendColumn({header: "代办时间"      , dataIndex: "createTime" , id: "txtCreateTime"});
-	cgh.appendColumn({header: "代办描述"      , dataIndex: "comments", id: "comments"});
+	cgh.appendColumn({header: "代办时间"      , dataIndex: "createTime"   , width: 130});
+	cgh.appendColumn({header: "代办描述"      , dataIndex: "comments"     , id: "comments"});
 	return cgh;
 };
 
