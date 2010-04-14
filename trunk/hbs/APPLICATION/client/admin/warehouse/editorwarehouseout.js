@@ -112,8 +112,6 @@ HBSConvertHelper.init(function() {
 	function updateInitFun() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("出库修改");
-		// 隐藏不需要的控件
-		if(urlPs.state != 1) ExtConvertHelper.hideItems("saveBtn");
 		// 设置客户编码的编辑框为只读	；同时不到后台校验
 		ExtConvertHelper.setItemsReadOnly("acCommCode", true);
 		
@@ -126,6 +124,21 @@ HBSConvertHelper.init(function() {
 			  Ext.getCmp("acCreateDate").setValue(FormatUtil.data2string(warehouseSend.createDate));
 			  Ext.getCmp("warehousegrid").addData(warehouseSend.detailList);
 			  Ext.getCmp("acCommCode").fireEvent("select");
+			  
+			  switch(warehouseSend.state) {
+			  	// 临时状态
+			  	case "01":
+			  		ExtConvertHelper.hideItems("printBtn");
+			  		break;
+			  	// 正式状态
+			  	case "02":
+			  		ExtConvertHelper.hideItems("addInfoBtn,submitBtn,saveBtn");
+			  		break;
+			  	// 取消状态
+			  	case "03":
+			  		ExtConvertHelper.hideItems("addInfoBtn,submitBtn,saveBtn,printBtn");
+			  		break;
+			  }
 		});
 	}
 	

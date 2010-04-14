@@ -38,6 +38,9 @@
 				    			<layoutpanel columnNum="1">
 				    				<textarea     fieldLabel="备注"           name="warehouseSend.sendDesc"        labelStyle="width:150" width="600" />
 				    			</layoutpanel>	
+				    			<layoutpanel columnNum="1">
+				    				<hidden name="warehouseSend.state " />
+				    			</layoutpanel>
 				    		</listpanel>
 			    		</items></form>
 			    		
