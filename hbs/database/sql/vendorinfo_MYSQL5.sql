@@ -202,14 +202,14 @@ CREATE TABLE `t_vendor_order` (
   `RECEIVE_NAME` varchar(32) DEFAULT NULL COMMENT '收货人',
   `RECEIVE_ADDRESS` varchar(256) DEFAULT NULL COMMENT '收货地址',
   `RECEIVE_ZIP` varchar(16) DEFAULT NULL COMMENT '收货邮编',
-  `OPER_ID` varchar(20) DEFAULT NULL COMMENT '操作人员ID',
-  `OPER_STAFF` varchar(32) DEFAULT NULL COMMENT '录入订单的人',
+  `STAFF_ID` varchar(20) DEFAULT NULL COMMENT '操作人员ID',
+  `STAFF_NAME` varchar(32) DEFAULT NULL COMMENT '录入订单的人',
   `SALES` varchar(32) DEFAULT NULL COMMENT '负责客户的销售人员，对应客户信息的销售人员  负责采购的采购人员，对应供应商的采购人员',
   `IS_SHOW_PRICE` varchar(2) DEFAULT NULL COMMENT '订单是否显示单价（后台根据供应商信息自动处理）',
   `ORDER_TIME` datetime DEFAULT NULL COMMENT '正式形成订单日期（业务员正式提交日期）',
   `PERIOD` varchar(8) DEFAULT NULL COMMENT '订单所属账期',
   `STATE` varchar(8) DEFAULT NULL COMMENT '订单业务状态01---采购创建采购订单（采购临时保存订单，其他人无法查看）02---采购确认采购订单,待收货入库（可以正式走流程，其他人可以查看）03---采购取消采购订单（订单取消，所有订单明细全部取消，对账期订单)04---待交期确认(账期订单)00---关闭采购订单60----部分入库61----全部入库',
-  `ACTIVE_SATE` varchar(8) DEFAULT NULL COMMENT '订单活动状态：  PAUSE---采购暂停订单（暂停状态，订单的业务状态停留在当前，除业务外，不能激活订单）  ACTIVE---采购激活订单（激活暂停的订单，采购操作）',
+  `ACTIVE_STATE` varchar(8) DEFAULT NULL COMMENT '订单活动状态：  PAUSE---采购暂停订单（暂停状态，订单的业务状态停留在当前，除业务外，不能激活订单）  ACTIVE---采购激活订单（激活暂停的订单，采购操作）',
   `CUST_C_CODE` varchar(32) DEFAULT NULL COMMENT '针对0----客户采购单，3-- 特定客户备货有效',
   PRIMARY KEY (`C_CODE`,`PO_NO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='供应商采购单表';
@@ -328,14 +328,14 @@ CREATE TABLE `t_vendor_order_his` (
   `RECEIVE_NAME` varchar(32) DEFAULT NULL COMMENT '收货人',
   `RECEIVE_ADDRESS` varchar(256) DEFAULT NULL COMMENT '收货地址',
   `RECEIVE_ZIP` varchar(16) DEFAULT NULL COMMENT '收货邮编',
-  `OPER_ID` varchar(20) DEFAULT NULL COMMENT '操作人员ID',
-  `OPER_STAFF` varchar(32) DEFAULT NULL COMMENT '录入订单的人',
+  `STAFF_ID` varchar(20) DEFAULT NULL COMMENT '操作人员ID',
+  `STAFF_NAME` varchar(32) DEFAULT NULL COMMENT '录入订单的人',
   `SALES` varchar(32) DEFAULT NULL COMMENT '负责客户的销售人员，对应客户信息的销售人员  负责采购的采购人员，对应供应商的采购人员',
   `IS_SHOW_PRICE` varchar(2) DEFAULT NULL COMMENT '订单是否显示单价（后台根据供应商信息自动处理）',
   `ORDER_TIME` datetime DEFAULT NULL COMMENT '正式形成订单日期（业务员正式提交日期）',
   `PERIOD` varchar(8) DEFAULT NULL COMMENT '订单所属账期',
   `STATE` varchar(8) DEFAULT NULL COMMENT '订单业务状态  01---采购创建采购订单（采购临时保存订单，其他人无法查看）  02---采购确认采购订单（可以正式走流程，其他人可以查看）  03---采购取消采购订单（订单取消，所有订单明细全部取消，对账期订单)  04---采购确认交期(交期确认后，采购单不再修改)  00---关闭采购订单  60----部分入库  61----全部入库',
-  `ACTIVE_SATE` varchar(8) DEFAULT NULL COMMENT '订单活动状态：  PAUSE---采购暂停订单（暂停状态，订单的业务状态停留在当前，除业务外，不能激活订单）  ACTIVE---采购激活订单（激活暂停的订单，采购操作）',
+  `ACTIVE_STATE` varchar(8) DEFAULT NULL COMMENT '订单活动状态：  PAUSE---采购暂停订单（暂停状态，订单的业务状态停留在当前，除业务外，不能激活订单）  ACTIVE---采购激活订单（激活暂停的订单，采购操作）',
   PRIMARY KEY (`C_CODE`,`PO_NO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='供应商采购单历史表';
 
