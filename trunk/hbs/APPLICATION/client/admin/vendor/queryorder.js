@@ -5,14 +5,14 @@ var querygridUrl;
 	switch(urlPs.roleType) {
 		// 采购部采购员
 		case "cgy":
-			querygridUrl = "/custOrder/custOrderScMgr!list.action";
+			querygridUrl = "/vendorOrder/vendorOrder!list.action";
 			break;
 		// 财务
 		case "finance":
-			querygridUrl = "/custOrder/custOrderScMgr!list.action";
+			querygridUrl = "/vendorOrder/vendorOrderCw!list.action";
 			break;
 		case "financemanager":
-			querygridUrl = "/custOrder/custOrderScMgr!list.action";
+			querygridUrl = "/vendorOrder/vendorOrderCwMgr!list.action";
 			break;
 	}
 }())

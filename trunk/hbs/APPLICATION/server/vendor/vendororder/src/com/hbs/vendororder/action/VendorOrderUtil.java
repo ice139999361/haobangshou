@@ -70,6 +70,18 @@ public class VendorOrderUtil {
 		if(StringUtils.isEmpty(vendorOrder.getIsShowPrice()))
 			errs.add(new FieldErr("IsShowPrice", "IsShowPrice没有填写"));
 		
+		for(VendorOrderDetail info : vendorOrder.getVendorOrderDetailList()) {
+			if(info == null)
+				continue;
+			if(StringUtils.isEmpty(info.getCpartNo()))
+				errs.add(new FieldErr("CpartNo", "CpartNo没有填写"));
+			if(StringUtils.isEmpty(info.getPartNo()))
+				errs.add(new FieldErr("PartNo", "PartNo没有填写"));
+			if(info.getAmount() == null)
+				errs.add(new FieldErr("Amount", "Amount没有填写"));
+			if(info.getMoney() == null)
+				errs.add(new FieldErr("Money", "Money没有填写"));
+		}
 		
 		// TODO:VendorOrderUtil.checkInputFields
 		return errs;

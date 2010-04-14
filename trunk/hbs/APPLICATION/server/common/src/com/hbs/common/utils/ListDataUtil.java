@@ -114,7 +114,16 @@ public class ListDataUtil {
 		   // 这种多个字段为空的情况修改，加解析长度
 			int iLength = fieldNames.length +1;
 			String[] ar = values.split(spliter,iLength);
-			logger.debug("解析解析的字段值为：" + ar.toString());
+			if(logger.isDebugEnabled()){
+				StringBuilder sb = new StringBuilder();
+				sb.append("解析解析的字段值为：");
+				sb.append(" ");
+				for(String s : ar){
+					sb.append(s);
+					sb.append(",");
+				}
+				logger.debug(sb.toString());
+			}
 			// 数据列数不能少于给出的字段名数
 			if (ar.length < fieldNames.length){
 				
@@ -160,6 +169,7 @@ public class ListDataUtil {
 						}
 					}
 				}
+				logger.debug("解析结果：" + o.toString());
 			}		
 		
 	}

@@ -29,15 +29,33 @@
 				    				<label        fieldLabel="公司简称" id="acShortName"                                labelStyle="width:150"/>
 				    				<label        fieldLabel="对应分公司" id="acCompanyBranch"                              labelStyle="width:150"/>
 				    				<label        fieldLabel="结算方式" id="acSettlementType"                                labelStyle="width:150"/>
-
+<!--
 				    				<label        fieldLabel="联系人" id="acConName"                                  labelStyle="width:150"/>
 				    				<label        fieldLabel="传真" id="acConFax"                                    labelStyle="width:150"/>
 				    				<label        fieldLabel="联系电话" id="acConTel"                                labelStyle="width:150"/>
-				    						
+-->				    						
 				    			</layoutpanel>
+				    			<layoutpanel columnNum="1">
+				    				<dictcombo    fieldLabel="选择联系人"	id="acContactList"	url="/vendorInfo/vendorInfo!getContactList.action" record="seqId,conName,conTel,conFax"	root="data.list"	valueField="conName"	displayField="conName"	name="vendorOrder.conName"                        labelStyle="width:150"/>
+				    			</layoutpanel>
+				    			<layoutpanel columnNum="2">
+				    				<label        fieldLabel="电话"               name="vendorOrder.conTel"	id="acTel"                        labelStyle="width:150"/>
+				    				<label        fieldLabel="传真"               name="vendorOrder.conFax"	id="acFax"                       labelStyle="width:150"/>
+				    			</layoutpanel>	
+				    			<layoutpanel columnNum="1">
+				    				<dictcombo    fieldLabel="选择收货人"	id="acConsigneeList"	url="/vendorInfo/vendorInfo!getConsigneeList.action" record="seqId,conName,conAddress,conZip"	root="data.list"	valueField="conName"	displayField="conName"	name="vendorOrder.receiveName"                        labelStyle="width:150"/>
+				    			</layoutpanel>
+				    			<layoutpanel columnNum="2">
+				    				<label        fieldLabel="收货地址"           name="vendorOrder.receiveAddress"	id="acAddress"                        labelStyle="width:150"/>
+				    				<label        fieldLabel="邮编"               name="vendorOrder.receiveZip"	id="acZip"                        labelStyle="width:150"/>
+				    			</layoutpanel>	
 				    			<layoutpanel columnNum="1">
 				    				<hidden name="vendorOrder.isShowPrice" id="hidIsShowPrice" />
 				    				<hidden name="vendorOrder.settlementType" id="hidSettlementType" />
+				    				<hidden name="vendorOrder.conTel"	id="acTelHidden" />
+				    				<hidden name="vendorOrder.conFax"	id="acFaxHidden" />
+				    				<hidden name="vendorOrder.receiveAddress"	id="acAddressHidden" />
+				    				<hidden name="vendorOrder.receiveZip"	id="acZipHidden" />
 				    			</layoutpanel>
 				    		</listpanel>
 			    		</items></form>
@@ -57,11 +75,12 @@
 			    </panel>
 			  </items>
 			</viewport>
+			<!-- TODO: 窗口打开时，需要提交查询。现在查询没有将供应商编码传上去，点击查询按钮后，才将供应商编码传上去。 -->
 			<window id="selectWindow" title="查询客户订单" width="900" closeAction="hide">
 				<items>
 					<queryform gridId="querygrid">
 					<layoutpanel columnNum="1">
-						<hidden name="orderDetail.vendorCode" id="acVendorCode" />
+						<textfield fieldLabel="供应商编码" readOnly="true" name="orderDetail.vendorCode" id="acVendorCode" />
 						<hidden name="orderDetail.poNoType" value="0" />
 					</layoutpanel>
 	    			<layoutpanel columnNum="3">
