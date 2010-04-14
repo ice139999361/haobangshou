@@ -33,6 +33,7 @@ var warehousegridFun = function() {
 	cgh.appendField("staffId");
 	cgh.appendField("staffName");
 	cgh.appendField("state");
+	cgh.appendField("stateDesc");
 	cgh.appendField("taxRate");
 	cgh.appendField("vendorCode");
 	cgh.appendField("vendorPoNo");
@@ -46,6 +47,7 @@ var warehousegridFun = function() {
 	//cgh.appendColumn({header: "已出库数量"        , dataIndex: "l7"});
 	cgh.appendColumn({header: "本次出库数量"      , dataIndex: "amount", xtype: "textfield"});
 	cgh.appendColumn({header: "出库备注"          , dataIndex: "commDesc", xtype: "textfield"});
+	cgh.appendColumn({header: "明细状态"  , dataIndex: "stateDesc"});
 	if(urlPs.pageType != "query") cgh.appendColumn({header: "操作"              , dataIndex: ""  , id: "operator"});
 
 
