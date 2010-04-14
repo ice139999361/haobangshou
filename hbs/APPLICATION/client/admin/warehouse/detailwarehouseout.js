@@ -18,8 +18,9 @@ HBSConvertHelper.init(function() {
 		
 		// 加载数据
 		ExtConvertHelper.loadForm("form", "/warehouseSend/warehouseSend!getInfo.action", params, function(form, action) {
+			var warehouseSend = action.result.data.warehouseSend;
 			Ext.getCmp("acCreateDate").setValue(FormatUtil.data2string(warehouseSend.createDate));
-			Ext.getCmp("warehousegrid").addData(action.result.data.warehouseSend.detailList);
+			Ext.getCmp("warehousegrid").addData(warehouseSend.detailList);
 		});
 	}())
 });
