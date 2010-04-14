@@ -10,17 +10,17 @@ HBSConvertHelper.init(function() {
 		// 修改按钮触发事件
 		var updateBtnFun = function() {
 			// 要访问的 url 地址
-			var url = ["/warehouse/editorwarehouseout.jsp?editorType=update&partNo=", this.config.get("partNo")].join("");
+			var url = ["/warehouse/editorwarehouseout.jsp?editorType=update&warehouseSend.sendPoNo=", this.config.get("sendPoNo"), "&warehouseSend.custCode=", this.config.get("custCode"), "&warehouseSend.poNoType=", this.config.get("poNoType")].join("");
 			// 打开指定页面
 			HBSConvertHelper.openNewWin(url);
 		};
 		
 		// 删除按钮触发事件
 		var deleteBtnFun = function() {
-			Ext.Msg.confirm("提示", "您要执行的是删除操作，请确认是否继续？", function(btn) {
+			Ext.Msg.confirm("提示", "您要执行的是取消入库单及入库单明细操作，请确认是否继续？", function(btn) {
 				if(btn == "no") return;
 				
-				ExtConvertHelper.request("/success.action?partNo=" + this.config.get("partNo"), null, ExtConvertHelper.defaultDeleteFun);
+				ExtConvertHelper.request("/warehouseSend/warehouseSend!cancel.action?warehouseSend.sendPoNo=" + this.config.get("sendPoNo") + "&warehouseSend.custCode=" + this.config.get("custCode") + "&warehouseSend.poNoType=" + this.config.get("poNoType"), null, ExtConvertHelper.defaultDeleteFun);
 			}, this);
 		}
 		
