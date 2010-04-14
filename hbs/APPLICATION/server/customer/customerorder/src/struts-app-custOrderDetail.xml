@@ -127,6 +127,17 @@
     	<action name="orderDetailCg!list" method="doList" 
     			class="com.hbs.customerorder.action.detail.CustOrderDetailCgNormalAction">
 		</action>
+		<!-- 
+	/**
+	 * 获取客户订单详情
+	 * @action.input orderDetail.*
+	 * @action.result orderDetail.*
+	 * @return
+	 */
+		 -->
+    	<action name="orderDetailCg!getInfo" method="doGetInfo" 
+    			class="com.hbs.customerorder.action.detail.CustOrderDetailCgNormalAction">
+		</action>
 
 
 		<!-- 财务普通用户 ***************************************************-->

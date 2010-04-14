@@ -83,7 +83,7 @@ HBSConvertHelper.init(function() {
 				return;
 				
 			var sm = ordergrid.getSelectionModel();
-			sm.getSelected().set("pnName"   , action.data.vendorPartNoInfo.pnName);
+			//sm.getSelected().set("pnName"   , action.data.vendorPartNoInfo.pnName);
 			sm.getSelected().set("pnDesc"   , action.data.vendorPartNoInfo.pnDesc);
 			sm.getSelected().set("cprice"   , action.data.vendorPartNoInfo.price);
 			sm.getSelected().set("cpriceTax", action.data.vendorPartNoInfo.priceTax);
@@ -107,20 +107,6 @@ HBSConvertHelper.init(function() {
 	}())
 	
 	
-	
-	/*
-	Ext.getCmp("acContactList").store = new Ext.data.JsonStore({
-		url : "/server/customerInfo/customerInfo!getContactList.action",
-		root : "data.list",
-		fields : ["seqId", "conName", "conTel", "conFax"]
-	});
-	Ext.getCmp("acConsigneeList").store = new Ext.data.JsonStore({
-		url : "/server/customerInfo/customerInfo!getConsigneeList.action",
-		root : "data.list",
-		fields : ["seqId", "conName", "conAddress", "conZip"]
-	});
-	*/
-
 	Ext.getCmp("acCommCode").setProcessConfig("/vendorInfo/vendorInfo!getInfo.action?vendorInfo.state=0", "vendorInfo.commCode", null, function(action){
 		if(!action.success)
 			return;
@@ -134,18 +120,14 @@ HBSConvertHelper.init(function() {
 		
 		var o = this.getValue();
 		Ext.getCmp("acVendorCode").setValue(o);
+		var list = Ext.getCmp("acContactList");
+		list.store.baseParams["vendorInfo.commCode"] = o;
+		list.store.baseParams["vendorInfo.state"] = "0";
+		list = Ext.getCmp("acConsigneeList");
+		list.store.baseParams["vendorInfo.commCode"] = o;
+		list.store.baseParams["vendorInfo.state"] = "0";
 		
-		Ext.each(action.data.vendorInfo.dynamicFields.contactlist, function(item) {
-			// TODO:选取第一个业务员联系人（职务=业务*）
-			Ext.getCmp("acConName").setValue(item.conName);
-			Ext.getCmp("acConFax").setValue(item.conFax);
-			Ext.getCmp("acConTel").setValue(item.conTel);
-			
-			return false;
-		});
 	});
-	
-	/*
 	
 	Ext.getCmp("acContactList").on("select", function() {
 		if(this.selectedIndex < 0)
@@ -170,7 +152,6 @@ HBSConvertHelper.init(function() {
 		Ext.getCmp("acZip").setValue(o);
 		Ext.getCmp("acZipHidden").setValue(o);
 	});
-	*/
 	
 	// -------------------------------------- 页面操作逻辑处理
 	
@@ -197,11 +178,11 @@ HBSConvertHelper.init(function() {
 		if(urlPs.state != "01") ExtConvertHelper.hideItems("saveBtn");
 		
 		// 组装需要的参数
-		var params = ["custOrder.commCode=", urlPs.commCode, "&custOrder.poNo=", urlPs.poNo, "&custOrder.poNoType=", urlPs.poNoType].join("");
+		var params = ["vendorOrder.commCode=", urlPs.commCode, "&vendorOrder.poNo=", urlPs.poNo, "&vendorOrder.poNoType=", urlPs.poNoType].join("");
 		
 		// 加载数据
-		ExtConvertHelper.loadForm("form", "/custOrder/custOrder!getInfo.action", params, function(form, action) {
-				Ext.getCmp("ordergrid").addData(action.result.data.custOrder.orderlist);
+		ExtConvertHelper.loadForm("form", "/vendorOrder/vendorOrder!getInfo.action", params, function(form, action) {
+				Ext.getCmp("ordergrid").addData(action.result.data.vendorOrder.orderlist);
 		});
 		
 		// 提交完成后的操作

@@ -3,6 +3,8 @@
  */
 package com.hbs.customerorder.action.detail;
 
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -104,6 +106,32 @@ public class CustOrderDetailBaseAction extends BaseAction {
 			return SUCCESS;
 		}catch(Exception e) {
 			logger.error("catch Exception in doList", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+	}
+	
+	public String doGetInfo() {
+		try{
+			if(orderDetail == null){
+				String s = "参数错误！";
+				setErrorReason(s);
+				logger.info(s);
+				return ERROR;
+			}
+			setPagination(orderDetail);
+
+			List<CustOrderDetail> list = mgr.listCustOrderDetail(orderDetail);
+			if(list == null || list.size() <= 0){
+				String s = "无法找到相应数据！";
+				setErrorReason(s);
+				logger.info(s);
+				return ERROR;
+			}
+			setResult("orderDetail", list.get(0));
+			return SUCCESS;
+		}catch(Exception e) {
+			logger.error("catch Exception in doGetInfo", e);
 			setErrorReason("内部错误");
 			return ERROR;
 		}
