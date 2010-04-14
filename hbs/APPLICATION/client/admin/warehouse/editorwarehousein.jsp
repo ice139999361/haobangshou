@@ -32,6 +32,9 @@
 				    				<dictcombo    fieldLabel="仓库"           hiddenName="warehouseRec.houseType"  labelStyle="width:150"     paramsValue="COMPANY_BRANCH"     emptyText="请选择" />
 				    				
 				    			</layoutpanel>
+								<layoutpanel columnNum="1">
+				    				<textarea     fieldLabel="收货地址"           name="warehouseSend.receiveAddress"        labelStyle="width:150" width="600" height="25"/>
+				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
 				    				<textarea     fieldLabel="备注"           name="warehouseRec.receiveDesc"        labelStyle="width:150" width="600" />
 				    			</layoutpanel>	

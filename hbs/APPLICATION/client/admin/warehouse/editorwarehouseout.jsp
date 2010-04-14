@@ -26,13 +26,17 @@
 				    				<textfield    fieldLabel="联系电话"       name="warehouseSend.conTel"        labelStyle="width:150" />
 				    				<textfield    fieldLabel="邮编"       name="warehouseSend.receiveZip"        labelStyle="width:150"   />
 				    					
-				    				<datefield    fieldLabel="出库日期"  	    name="warehouseSend.createDate"        labelStyle="width:150"     format="Y-m-d" />
+				    				<datefield    fieldLabel="出库日期"  	    name="warehouseSend.createDate"        labelStyle="width:150"   id="acCreateDate"  format="Y-m-d" />
 				    				<dictcombo    fieldLabel="出库仓库"           hiddenName="warehouseSend.houseType"  labelStyle="width:150"     paramsValue="WAREHOUSE_TYPE"     emptyText="请选择" />
-				    				<autocomplete fieldLabel="收货人" url="/customerInfo/customerInfo!list.action"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"     name="custInfo.commCode"       labelStyle="width:150" allowBlank="false" />
-				    				<textfield    fieldLabel="传真"       name=""        labelStyle="width:150"  />
+				    				<autocomplete fieldLabel="收货人" url="/customerInfo/customerInfo!list.action"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"     name="warehouseSend.receiveName"       labelStyle="width:150" allowBlank="false" />
+				    				
+				    				<textfield    fieldLabel="传真"       name="warehouseSend.conFax"        labelStyle="width:150"  />
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
-				    				<textarea     fieldLabel="备注"           name=""        labelStyle="width:150" width="600" />
+				    				<textarea     fieldLabel="收货地址"           name="warehouseSend.receiveAddress"        labelStyle="width:150" width="600" height="25"/>
+				    			</layoutpanel>
+				    			<layoutpanel columnNum="1">
+				    				<textarea     fieldLabel="备注"           name="warehouseSend.sendDesc"        labelStyle="width:150" width="600" />
 				    			</layoutpanel>	
 				    		</listpanel>
 			    		</items></form>
