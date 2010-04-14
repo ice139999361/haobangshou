@@ -20,6 +20,7 @@ import com.hbs.domain.vendor.order.pojo.VendorOrderDetail;
 import com.hbs.domain.vendor.vendorinfo.pojo.VendorInfo;
 import com.hbs.vendorinfo.action.VendorInfoNormalAction;
 import com.hbs.vendorinfo.manager.VendorInfoMgr;
+import com.hbs.vendororder.constants.VendorOrderConstants;
 
 public class VendorOrderUtil {
 	private static final String detailListName = "orderlist";
@@ -121,7 +122,22 @@ public class VendorOrderUtil {
 				info.setCommCode(commCode);
 				info.setState(state);
 				info.setPoNo(poNo);
-				// TODO:根据详情数据设置poNoType
+				if(VendorOrderConstants.VENDOR_PO_NO_TYPE_1.equals(poNoType)){
+					//退货
+					info.setPoNoType(poNoType);
+				}else{
+					String newtype;
+					if(StringUtils.isEmpty(info.getRltOrderPoNo())){
+						if(StringUtils.isEmpty(info.getCustCcode()))
+							newtype = VendorOrderConstants.VENDOR_PO_NO_TYPE_2;
+						else
+							newtype = VendorOrderConstants.VENDOR_PO_NO_TYPE_3;
+					}else{
+						newtype = VendorOrderConstants.VENDOR_PO_NO_TYPE_0;
+					}
+					info.setPoNoType(newtype);
+				}
+				// DONE:根据详情数据设置poNoType
 				//info.setPoNoType(poNoType);
 				info.setShortName(shortName);
 				info.setStaffId(staffId);

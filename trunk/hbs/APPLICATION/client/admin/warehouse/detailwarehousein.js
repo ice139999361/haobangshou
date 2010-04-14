@@ -14,7 +14,7 @@ HBSConvertHelper.init(function() {
 		backBtn.on("click", HBSConvertHelper.defaultCloseTab);
 		
 		// 组装需要的参数
-		var params = ["warehouseRec.recPoNo=", urlPs["warehouseRec.recPoNo"],"&warehouseRec.vendorCode=" , urlPs["warehouseRec.vendorCode"]",&warehouseRec.poNoType=" , urlPs["warehouseRec.poNoType"]].join("");
+		var params = ["warehouseRec.recPoNo=", urlPs["warehouseRec.recPoNo"], "&warehouseRec.vendorCode=", urlPs["warehouseRec.vendorCode"], "&warehouseRec.poNoType=" , urlPs["warehouseRec.poNoType"]].join("");
 		
 		// 加载数据
 		ExtConvertHelper.loadForm("form", "/warehouseRec/warehouseRec!getInfo.action", params, function(form, action) {
