@@ -72,6 +72,11 @@ HBSConvertHelper.init(function() {
 			// 设置收货地址
 			Ext.getCmp("treceiveAddress").setValue(action.data.custInfo.settlementDesc);
 		});
+		
+		Ext.getCmp("acCommCode").on("select", function() {
+			Ext.getCmp("areceiveName").setParam("custCode", this.getValue());
+			Ext.getCmp("areceiveName").store.load();
+		});
 
 		warehousegrid.getView().on("refresh", function(view) {
 			// 删除按钮触发事件
@@ -109,6 +114,8 @@ HBSConvertHelper.init(function() {
 		HBSConvertHelper.setDocumentTitle("出库修改");
 		// 隐藏不需要的控件
 		if(urlPs.state != 1) ExtConvertHelper.hideItems("saveBtn");
+		// 设置客户编码的编辑框为只读	；同时不到后台校验
+		ExtConvertHelper.setItemsReadOnly("acCommCode", true);
 		
 		// 组装需要的参数
 		var params = ["warehouseSend.sendPoNo=", urlPs["warehouseSend.sendPoNo"],"&warehouseSend.custCode=" , urlPs["warehouseSend.custCode"],"&warehouseSend.poNoType=", urlPs["warehouseSend.poNoType"]].join("");
@@ -118,6 +125,7 @@ HBSConvertHelper.init(function() {
 				var warehouseSend = action.result.data.warehouseSend;
 			  Ext.getCmp("acCreateDate").setValue(FormatUtil.data2string(warehouseSend.createDate));
 			  Ext.getCmp("warehousegrid").addData(warehouseSend.detailList);
+			  Ext.getCmp("acCommCode").fireEvent("select");
 		});
 	}
 	
