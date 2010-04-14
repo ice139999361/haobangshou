@@ -28,7 +28,7 @@
 				    					
 				    				<datefield    fieldLabel="出库日期"  	    name="warehouseSend.createDate"        labelStyle="width:150"   id="acCreateDate"  format="Y-m-d" />
 				    				<dictcombo    fieldLabel="出库仓库"           hiddenName="warehouseSend.houseType"  labelStyle="width:150"     paramsValue="WAREHOUSE_TYPE"     emptyText="请选择" />				    				
-				    				<dictcombo fieldLabel="收货人" url="/customerInfo/custContactInfo!listContactInfo.action"  displayField="conName"  valueField="seqId" queryParam="custCode"     name="warehouseSend.receiveName"       labelStyle="width:150" allowBlank="false" id="areceiveName" />
+				    				<dictcombo fieldLabel="收货人" url="/customerInfo/custContactInfo!listContactInfo.action"  displayField="conName"  valueField="seqId"  root="data.contactInfoList"  name="warehouseSend.receiveName"       labelStyle="width:150" allowBlank="false" id="areceiveName" />
 				    				
 				    				<textfield    fieldLabel="传真"       name="warehouseSend.conFax"        labelStyle="width:150" id="tconFax" />
 				    			</layoutpanel>

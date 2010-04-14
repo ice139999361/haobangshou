@@ -64,16 +64,16 @@ HBSConvertHelper.init(function() {
 			if(!action.success) return;
 			
 			// 设置联系电话
-			Ext.getCmp("tconTel").setValue(action.data.custInfo.companyBranchDesc);
+			Ext.getCmp("tconTel").setValue(action.data.contactInfo.conTel);
 			// 设置邮编
-			Ext.getCmp("treceiveZip").setValue(action.data.custInfo.shortName);
+			Ext.getCmp("treceiveZip").setValue(action.data.contactInfo.conZip);
 			// 设置传真
-			Ext.getCmp("tconFax").setValue(action.data.custInfo.settlementDesc);
+			Ext.getCmp("tconFax").setValue(action.data.contactInfo.conFax);
 			// 设置收货地址
-			Ext.getCmp("treceiveAddress").setValue(action.data.custInfo.settlementDesc);
+			Ext.getCmp("treceiveAddress").setValue(action.data.contactInfo.conAddress);
 		});
 		
-		Ext.getCmp("acCommCode").on("select", function() {
+		Ext.getCmp("acCommCode").on("select", function() {			
 			Ext.getCmp("areceiveName").setParam("custCode", this.getValue());
 			Ext.getCmp("areceiveName").store.load();
 		});
