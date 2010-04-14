@@ -58,6 +58,20 @@ HBSConvertHelper.init(function() {
 			selectWindow.show();
 			HBSConvertHelper.refreshGrid("querygrid");
 		});
+		
+		// 根据收货人自动填充 联系电话，邮编，收货地址，传真
+		Ext.getCmp("areceiveName").setProcessConfig("/customerInfo/customerInfo!getInfo.action?custInfo.state=0", "custInfo.commCode", null, function(action){
+			if(!action.success) return;
+			
+			// 设置联系电话
+			Ext.getCmp("tconTel").setValue(action.data.custInfo.companyBranchDesc);
+			// 设置邮编
+			Ext.getCmp("treceiveZip").setValue(action.data.custInfo.shortName);
+			// 设置传真
+			Ext.getCmp("tconFax").setValue(action.data.custInfo.settlementDesc);
+			// 设置收货地址
+			Ext.getCmp("treceiveAddress").setValue(action.data.custInfo.settlementDesc);
+		});
 
 		warehousegrid.getView().on("refresh", function(view) {
 			// 删除按钮触发事件
