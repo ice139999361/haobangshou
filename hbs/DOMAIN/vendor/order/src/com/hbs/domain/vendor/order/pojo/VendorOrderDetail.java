@@ -208,7 +208,7 @@ public class VendorOrderDetail extends BaseDomain{
     	ceParam.setEncodeType("SETTLEMENT_TYPE");
     	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
     	if(null != cEncode){
-    		retStr = cEncode.getEncodeDesc();
+    		retStr = cEncode.getEncodeValue();
     	}
     	return retStr;
     }
