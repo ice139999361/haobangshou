@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+
+<body>
+<table width="90%" border="1">
+  <tr>
+    <th scope="col">客户编码</th>
+    <th scope="col">客户型号</th>
+    <th scope="col">描述</th>
+    <th scope="col">数量</th>
+    <th scope="col">本客户锁定数量</th>
+    <th scope="col">通用锁定数量</th>
+    <th scope="col">需备货数量</th>
+    <th scope="col">&nbsp;</th>
+    <th scope="col">&nbsp;</th>
+    <th scope="col">&nbsp;</th>
+    <th scope="col">&nbsp;</th>
+    <th scope="col">&nbsp;</th>
+  </tr>
+  <tr>
+    <td>GC0001</td>
+    <td>xx</td>
+    <td>xx</td>
+    <td>100</td>
+    <td>0</td>
+    <td>0</td>
+    <td>100</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<table width="90%" border="1">
+  <tr>
+    <th width="26%">本客户库存</th>
+    <td width="8%">100</td>
+    <td width="23%"><input type="text" name="textfield" id="textfield" /></td>
+    <td width="40%"><input type="button" name="button" id="button" value="锁定" /></td>
+    <td width="3%">&nbsp;</td>
+  </tr>
+  <tr>
+    <th>通用库存</th>
+    <td>100</td>
+    <td><input type="text" name="textfield2" id="textfield2" /></td>
+    <td><input type="button" name="button2" id="button2" value="锁定" /></td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<p>、</p>
+<table width="90%" border="1">
+  <tr>
+    <th>客户编码</th>
+    <th>可用数量</th>
+    <th>操作</th>
+    <th>&nbsp;</th>
+    <th>&nbsp;</th>
+  </tr>
+  <tr>
+    <td>GC0002</td>
+    <td>xx</td>
+    <td><input type="button" name="button3" id="button3" value="调货" /></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>GC0003</td>
+    <td>xx</td>
+    <td><input type="button" name="button4" id="button4" value="调货" /></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>GC0004</td>
+    <td>xx</td>
+    <td><input type="button" name="button5" id="button5" value="调货" /></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>GC0006</td>
+    <td>xx</td>
+    <td><input type="button" name="button6" id="button6" value="调货" /></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<hr />
+<p>第一个表格只有一行，根据url参数获取客户订单详情信息。</p>
+<p>下两个表格的信息都来自/custOrderDetail/orderDetailCg!getStockInfo.action。</p>
+<p>第二个表格只有两行，显示自己的可用库存，数据分别来自self.useAmount和common.useAmount。两个输入框输入数字，不能大于左边的值。</p>
+<p>第三个表格有多行，数据来自otherList，这是个可枚举的，客户编码对应custCode，可用数量对应useAmount。</p>
+</body>
+</html>
