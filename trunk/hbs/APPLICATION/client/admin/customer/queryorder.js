@@ -158,7 +158,15 @@ HBSConvertHelper.init(function() {
 					// 添加处理按钮事件
 					operatorBtn.get(0).on("click", processBtnFun);
 					// 添加查看库存按钮事件
-					operatorBtn.get(1).on("click", function(){});
+					operatorBtn.get(1).on("click", function(){
+						// 要访问的 url 地址
+						var url = ["/customer/detailstockinfo.jsp?commCode=", this.config.get("commCode")
+									, "&poNo=", this.config.get("poNo")
+									, "&poNoType=", this.config.get("poNoType")
+									, "&state=", this.config.get("state")].join("");
+						// 打开指定页面
+						HBSConvertHelper.openNewWin(url);
+					});
 					// 添加采购交期按钮事件
 					operatorBtn.get(2).on("click", function() {
 						Ext.Msg.prompt("提示", "请输入供应商回复交期", function(btn, value) {
