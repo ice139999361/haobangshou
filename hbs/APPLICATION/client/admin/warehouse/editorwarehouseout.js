@@ -60,7 +60,7 @@ HBSConvertHelper.init(function() {
 		});
 		
 		// 根据收货人自动填充 联系电话，邮编，收货地址，传真
-		Ext.getCmp("areceiveName").setProcessConfig("/customerInfo/customerInfo!getInfo.action?custInfo.state=0", "custInfo.commCode", null, function(action){
+		Ext.getCmp("areceiveName").setProcessConfig("/customerInfo/custContactInfo!getContactInfo.action", "seqId", null, function(action){
 			if(!action.success) return;
 			
 			// 设置联系电话

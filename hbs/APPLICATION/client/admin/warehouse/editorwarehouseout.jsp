@@ -22,13 +22,13 @@
 				    			<layoutpanel columnNum="2">
 				    				<textfield    fieldLabel="出库单号"       name="warehouseSend.sendPoNo"        labelStyle="width:150" />
 				    				<dictcombo    fieldLabel="对应分公司"           hiddenName="warehouseSend.companyBranch"  labelStyle="width:150"     paramsValue="COMPANY_BRANCH"     emptyText="请选择" />
-				    				<autocomplete fieldLabel="收货人" url="/customerInfo/customerInfo!list.action"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"     name="warehouseSend.receiveName"       labelStyle="width:150" allowBlank="false" id="areceiveName" />
+				    				<dictcombo fieldLabel="收货人" url="/customerInfo/custContactInfo!listContactInfo.action"  displayField="conName"  valueField="seqId" queryParam="custCode"     name="warehouseSend.receiveName"       labelStyle="width:150" allowBlank="false" id="areceiveName" />
 				    				<textfield    fieldLabel="联系电话"       name="warehouseSend.conTel"        labelStyle="width:150" id="tconTel" />
 				    				<textfield    fieldLabel="邮编"       name="warehouseSend.receiveZip"        labelStyle="width:150" id="treceiveZip"  />
 				    					
 				    				<datefield    fieldLabel="出库日期"  	    name="warehouseSend.createDate"        labelStyle="width:150"   id="acCreateDate"  format="Y-m-d" />
 				    				<dictcombo    fieldLabel="出库仓库"           hiddenName="warehouseSend.houseType"  labelStyle="width:150"     paramsValue="WAREHOUSE_TYPE"     emptyText="请选择" />
-				    				<autocomplete fieldLabel="客户" url="/customerInfo/customerInfo!list.action"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"     name="warehouseSend.custCode"       labelStyle="width:150" allowBlank="false" />
+				    				<textfield fieldLabel="客户"              name="warehouseSend.custCode"       labelStyle="width:150" allowBlank="false" />
 				    				
 				    				<textfield    fieldLabel="传真"       name="warehouseSend.conFax"        labelStyle="width:150" id="tconFax" />
 				    			</layoutpanel>
