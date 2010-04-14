@@ -235,7 +235,10 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "conType">
 				CON_TYPE = #conType#
-			</isNotEmpty>			
+			</isNotEmpty>	
+			<isNotEmpty prepend="and" property = "conName">
+				CON_NAME like '%$conName$%'
+			</isNotEmpty>		
 		</dynamic>
 </select>
 

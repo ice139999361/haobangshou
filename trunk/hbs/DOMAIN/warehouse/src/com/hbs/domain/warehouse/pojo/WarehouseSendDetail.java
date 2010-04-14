@@ -487,10 +487,24 @@ public class WarehouseSendDetail extends BaseDomain{
 	public String getState() {
         return this.state;
     }	
+	
+	public String getStateDesc() {
+		String retStr ="Î´¶¨Òå×´Ì¬¡¾" + getState() +"¡¿";
+    	ConfigEncode ceParam = new ConfigEncode();
+    	ceParam.setEncodeKey(getState());
+    	ceParam.setEncodeType("WAREHOUSE_OUT_DETAIL_STATE");
+    	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
+    	if(null != cEncode){
+    		retStr = cEncode.getEncodeValue();
+    	}
+    	return retStr;
+    }
   
     public void setState(String state) {
         this.state = state;
     }
+    
+    
     
     public String getActiveState() {
         return this.activeState;

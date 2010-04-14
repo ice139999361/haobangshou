@@ -325,5 +325,15 @@
     			class="com.hbs.customerinfo.action.CustPartNoInfoNormalAction">
 		</action>
 	
+	<!-- 
+	    客户订单出库，选择联系人
+	 -->
+	<action name="custContactInfo!getContactInfo" method="doGetContactInfo" 
+    			class="com.hbs.customerinfo.action.CustContactInfoAction">
+	</action>
+	
+	<action name="custContactInfo!listContactInfo" method="doListContactInfo" 
+    			class="com.hbs.customerinfo.action.CustContactInfoAction">
+	</action>
     </package>
 </struts>
