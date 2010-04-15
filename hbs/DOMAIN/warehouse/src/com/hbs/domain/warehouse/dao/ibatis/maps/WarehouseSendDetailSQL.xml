@@ -126,28 +126,36 @@
 </delete>    
 
 <update id="WarehouseSendDetail_updateWarehouseSendDetailByState" parameterClass="warehouseSendDetail">
+    <![CDATA[
     UPDATE T_WAREHOUSE_SEND_DETAIL
-    	STATE = #state#
+    	SET STATE = #state#
     WHERE SEND_DETAIL_SEQID = #sendSeqId#
+    ]]>
 </update>
 
 <update id="WarehouseSendDetail_updateWarehouseSendDetailByActiveState" parameterClass="warehouseSendDetail">
+	<![CDATA[
     UPDATE T_WAREHOUSE_SEND_DETAIL
-    	ACTIVE_STATE = #activeState#
+    	SET ACTIVE_STATE = #activeState#
     WHERE SEND_DETAIL_SEQID = #sendSeqId#
+    ]]>
 </update>
 
 <update id="WarehouseSendDetail_updateWarehouseSendDetailByFinanceState" parameterClass="warehouseSendDetail">
+    <![CDATA[
     UPDATE T_WAREHOUSE_SEND_DETAIL
-    	FINANCE_STATE = #financeState#
+    	SET FINANCE_STATE = #financeState#
     WHERE SEND_DETAIL_SEQID = #sendSeqId#
+    ]]>
 </update>
 
 
 <update id="WarehouseSendDetail_updateWarehouseSendDetailByFinancePeriod" parameterClass="warehouseSendDetail">
+    <![CDATA[
     UPDATE T_WAREHOUSE_SEND_DETAIL
-    	FINANCE_PERIOD = #financePeriod#
+      SET FINANCE_PERIOD = #financePeriod#
     WHERE SEND_DETAIL_SEQID = #sendSeqId#
+     ]]>
 </update>
 
 
@@ -302,7 +310,7 @@
             SPEC_DESC, 
             IS_TAX, 
             C_PRICE,
-            C_PRICE_FEE, 
+            C_PRICE_TAX, 
             TAX_RATE, 
             IS_SHOW_PRICE, 
             RLT_PO_NO, 

@@ -8,11 +8,14 @@ package com.hbs.warehousesend.manager;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.common.utils.OrderCalUtils;
+import com.hbs.customerinfo.manager.CustomerInfoMgr;
 import com.hbs.customerorder.manager.CustOrderDetailMgr;
+import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
 import com.hbs.domain.customer.order.pojo.CustOrderDetail;
 
 import com.hbs.domain.warehouse.dao.WarehouseSendDetailDao;
@@ -61,10 +64,20 @@ public class WareHouseSendDetailMgr {
 		detail.setCurMoney(OrderCalUtils.calOrderMoney(detail.getPrice(), detail.getIsTax(), detail.getTaxRate(),detail.getPriceTax(),detail.getContactFee(), detail.getAmount()));
 		//设置账期
 		String period = detail.getPeriod();
-		if(period == null){
+		if(StringUtils.isEmpty(period)){
 			WarehouseSendHelper helper =(WarehouseSendHelper)BeanLocator.getInstance().getBean(WareHouseConstants.PRE_SPRING_SEND + detail.getPoNoType() + detail.getSettlementType());
 			detail.setPeriod(helper.getPeriod(detail));
 			detail.setFinancePeriod(detail.getPeriod());				
+		}
+		if(StringUtils.isEmpty(detail.getIsShowPrice())){
+			CustomerInfoMgr custMgr = (CustomerInfoMgr)BeanLocator.getInstance().getBean("customerInfoMgr");
+			CustomerInfo cInfo = new CustomerInfo();
+			cInfo.setCommCode(detail.getCustCode());
+			cInfo.setState("0");
+			cInfo = custMgr.getCustomerInfo(cInfo, false);
+			if(cInfo != null){
+				detail.setIsShowPrice(cInfo.getIsShowPrice());
+			}
 		}
 		WarehouseSendDetailDao detailDao = (WarehouseSendDetailDao)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_SEND_DETAIL_DAO);
 		//查询出库单明细,判断是否存在
@@ -235,9 +248,9 @@ public class WareHouseSendDetailMgr {
 			String state = existDetail.getState();
 			logger.debug("数据库中存在出库单明细，明细状态为：" + state);
 			if(state.equals(WareHouseConstants.WAREHOUSE_SEND_INFO_01)){//为临时状态，可以取消
-				detail.setState(WareHouseConstants.WAREHOUSE_SEND_INFO_03);
-				detailDao.updateWarehouseSendDetailByState(detail);
-				WareHouseLogUtils.operLog(detail.getStaffId(), detail.getStaffName(), "取消", "出库单明细", detail.getLogKey(), null, content);
+				existDetail.setState(WareHouseConstants.WAREHOUSE_SEND_INFO_03);
+				detailDao.updateWarehouseSendDetailByState(existDetail);
+				WareHouseLogUtils.operLog(existDetail.getStaffId(), existDetail.getStaffName(), "取消", "出库单明细", existDetail.getLogKey(), null, content);
 			}else{//非临时状态，不能取消
 				logger.debug("数据库中存在出库单明细，明细状态已经为非临时状态，不能做取消操作！");
 				ret =-1;

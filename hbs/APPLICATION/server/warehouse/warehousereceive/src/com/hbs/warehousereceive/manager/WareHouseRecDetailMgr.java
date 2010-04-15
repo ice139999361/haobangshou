@@ -8,6 +8,7 @@ package com.hbs.warehousereceive.manager;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.springhelper.BeanLocator;
@@ -68,7 +69,7 @@ public class WareHouseRecDetailMgr {
 		detail.setCurrMoney(OrderCalUtils.calOrderMoney(detail.getPrice(), detail.getIsTax(), detail.getTaxRate(),detail.getPriceTax(),null, detail.getAmount()));
 		//…Ë÷√’À∆⁄
 		String period = detail.getPeriod();
-		if(period == null){
+		if(StringUtils.isEmpty(period)){
 			WarehouseHelper helper =(WarehouseHelper)BeanLocator.getInstance().getBean(WareHouseConstants.PRE_SPRING + detail.getPoNoType() + detail.getSettlementType());
 			detail.setPeriod(helper.getPeriod(detail));
 			detail.setFinancePeriod(detail.getPeriod());				

@@ -209,7 +209,7 @@
 <update id="CustOrderDetail_updateCustOrderDetailAmount" parameterClass="custOrderDetail">
 	
 	UPDATE T_CUST_ORDER_DETAIL
-	    SET PO_NO = #poNo#,
+	    SET PO_NO = #poNo# 
 	    
 	 <isNotEmpty prepend="," property="state">
             STATE = #state#
@@ -254,7 +254,7 @@
 				<isNotEmpty prepend="and" property = "partNo">
 					PART_NO = #partNo#
 				</isNotEmpty>
-				<isNotEmpty prepend="," property="specDesc">
+				<isNotEmpty prepend="and" property="specDesc">
 			            SPEC_DESC = #specDesc#
 				</isNotEmpty>
 				<isNotEmpty prepend = "and" property = "dynamicFields.state" >
