@@ -55,8 +55,14 @@ HBSConvertHelper.init(function() {
 		backBtn.on("click", HBSConvertHelper.defaultCloseTab);
 		
 		Ext.getCmp("sxkhddBtn").on("click", function() {
-			selectWindow.show();
-			HBSConvertHelper.refreshGrid("querygrid");
+			var commcode = Ext.getCmp("acCommCode").getValue();
+			if(commcode) {
+				Ext.getCmp("acVendorCode").setValue(commcode);
+				selectWindow.show();
+				Ext.getCmp("selectform").buttons[0].fireEvent("click");
+			} else {
+				Ext.Msg.alert("提示", "请先填写正确的供应商。");
+			}
 		});
 		
 		ordergrid.getSelectionModel().on("beforerowselect", function(sm, rowIndex, keepExisting, record) {
