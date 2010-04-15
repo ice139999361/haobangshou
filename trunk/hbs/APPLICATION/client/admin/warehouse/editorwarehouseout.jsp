@@ -39,14 +39,14 @@
 				    				<textarea     fieldLabel="备注"           name="warehouseSend.sendDesc"        labelStyle="width:150" width="600" />
 				    			</layoutpanel>	
 				    			<layoutpanel columnNum="1">
-				    				<hidden name="warehouseSend.state " />
-				    				<hidden name="warehouseSend.financeState " />
-				    				<hidden name="warehouseSend.activeState " />
-				    				<hidden name="warehouseSend.operId " />
-				    				<hidden name="warehouseSend.operStaff " />
-				    				<hidden name="warehouseSend.poNoType " />
-				    				<hidden name="warehouseSend.settlementType " />
-				    				<hidden name="warehouseSend.shortName " />				    				
+				    				<hidden name="warehouseSend.state" />
+				    				<hidden name="warehouseSend.financeState" />
+				    				<hidden name="warehouseSend.activeState" />
+				    				<hidden name="warehouseSend.operId" />
+				    				<hidden name="warehouseSend.operStaff" />
+				    				<hidden name="warehouseSend.poNoType" />
+				    				<hidden name="warehouseSend.settlementType" />
+				    				<hidden name="warehouseSend.shortName" />				    				
 				    			</layoutpanel>
 				    		</listpanel>
 			    		</items></form>
@@ -55,7 +55,7 @@
 			    		
 			    		<panel buttonAlign="center">
 			    			<buttons>
-			    				<button text="添加入库详情" id="addInfoBtn" />
+			    				<button text="添加出库详情" id="addInfoBtn" />
 			    				<button text="提交"         id="submitBtn" />
 			    				<button text="保存"         id="saveBtn"   />
 			    				<button text="打印"         id="printBtn" />
@@ -119,8 +119,11 @@
 	    				<!-- 转换字段，自动填充 -->
 	    				<field name="rltPoNo"  mapping="poNo" />	
 	    				<field name="price"    mapping="cprice" />
-	    				<field name="priceTax" mapping="cpriceTax" />	
-	    				<field name="cgstate"  mapping="stateDesc" />   
+	    				<field name="priceTax" mapping="cpriceTax" />
+	    				<field name="custPartNo"  mapping="cpartNo" /> 
+	    				<field name="custCode"  mapping="commCode" />
+	    				<field name="commAmount"  mapping="commLockAmount" />
+	    				<field name="selfAmount"  mapping="selfLockAmount" />
 	    			</fields>
 	    			<columns>
 	    				<column header=""                   isCheck="true" />
@@ -131,6 +134,10 @@
 	    				<column header="特殊备注（批次）"   dataIndex="specDesc" />
 	    				<column header="订单数量"           dataIndex="amount" />
 	    				<column header="已出库数量"         dataIndex="deliveryAmount" />
+	    				<column header="本客户已出库数量"         dataIndex="selfDeliveryAmount" />
+	    				<column header="通用库存已出库数量"         dataIndex="commDeliveryAmount" />
+	    				<column header="本客户锁定数量"         dataIndex="selfLockAmount" />
+	    				<column header="通用库存锁定数量"         dataIndex="commLockAmount" />
 	    				<column header="明细状态"         dataIndex="stateDesc" />
 	    			</columns>
 	    			<buttons>
