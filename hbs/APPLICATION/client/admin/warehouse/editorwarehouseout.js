@@ -25,7 +25,7 @@ HBSConvertHelper.init(function() {
 		//if(!ExtConvertHelper.isFormValid("form")) return;
 		
 		// 获取（客户联系人信息、客户收货人信息、客户银行信息）表格中的提交数据
-		var girdData = HBSConvertHelper.getGridSubmitData("warehousegrid", "warehouselist");
+		var girdData = HBSConvertHelper.getGridSubmitData("warehousegrid", "orderlist");
 		
 		// 提交数据
 		ExtConvertHelper.submitForm("form", url, girdData, function(form, action) {
@@ -91,6 +91,7 @@ HBSConvertHelper.init(function() {
 					
 							ExtConvertHelper.request("/warehouseSend/warehouseSend!cancelDetail.action?sendSeqId=" + this.config.get("sendSeqId"), null, ExtConvertHelper.defaultDeleteFun);
 						}, this);
+						
 		        	}else{
 			       	Ext.Msg.confirm("提示", "您要执行的是出库单明细操作，本条明细还没有保存，请确认是否继续删除？", function(btn) {
 									if(btn == "no") return;	
