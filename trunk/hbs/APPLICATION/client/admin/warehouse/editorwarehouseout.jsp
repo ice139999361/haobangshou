@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/common/includejs.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
@@ -27,7 +27,7 @@
 				    				<textfield    fieldLabel="邮编"       name="warehouseSend.receiveZip"        labelStyle="width:150" id="treceiveZip"  />
 				    					
 				    				<datefield    fieldLabel="出库日期"  	    name="warehouseSend.createDate"        labelStyle="width:150"   id="acCreateDate"  format="Y-m-d" />
-				    				<dictcombo    fieldLabel="出库仓库"           hiddenName="warehouseSend.houseType"  labelStyle="width:150"     paramsValue="WAREHOUSE_TYPE"     emptyText="请选择" />				    				
+				    				<dictcombo    fieldLabel="出库仓库"           hiddenName="warehouseSend.houseType"  labelStyle="width:150"     paramsValue="WAREHOUSE_TYPE"     emptyText="请选择" id="acHouseType"/>				    				
 				    				<dictcombo fieldLabel="收货人" url="/customerInfo/custContactInfo!listContactInfo.action"  displayField="conName"  valueField="seqId"  root="data.contactInfoList"  name="warehouseSend.receiveName"       labelStyle="width:150" allowBlank="false" id="areceiveName" />
 				    				
 				    				<textfield    fieldLabel="传真"       name="warehouseSend.conFax"        labelStyle="width:150" id="tconFax" />
@@ -40,6 +40,13 @@
 				    			</layoutpanel>	
 				    			<layoutpanel columnNum="1">
 				    				<hidden name="warehouseSend.state " />
+				    				<hidden name="warehouseSend.financeState " />
+				    				<hidden name="warehouseSend.activeState " />
+				    				<hidden name="warehouseSend.operId " />
+				    				<hidden name="warehouseSend.operStaff " />
+				    				<hidden name="warehouseSend.poNoType " />
+				    				<hidden name="warehouseSend.settlementType " />
+				    				<hidden name="warehouseSend.shortName " />				    				
 				    			</layoutpanel>
 				    		</listpanel>
 			    		</items></form>
@@ -65,36 +72,66 @@
 				<items>
 					<queryform gridId="querygrid">
 	    			<layoutpanel columnNum="3">
-	    				<textfield fieldLabel="客户编码"                   name="custOrder.commCode"  />
-	    				<textfield fieldLabel="订单号"                     name="" />
-	    				<textfield fieldLabel="客户物料编码"               name="custOrder.poNo"  />
+	    				<textfield fieldLabel="客户编码"                   name="orderDetail.commCode"  />
+	    				<textfield fieldLabel="客户订单号"                     name="orderDetail.poNo" />
+	    				<textfield fieldLabel="客户物料编码"               name="orderDetail.cpartNo"  />
 	    					
-	    				<textfield fieldLabel="公司物料编码"               name="" />
-	    				<textfield fieldLabel="特殊备注（批次）"           name="" />
+	    				<textfield fieldLabel="公司物料编码"               name="orderDetail.partNo" />
+	    				<textfield fieldLabel="特殊备注（批次）"           name="orderDetail.specDesc" />
 	    			</layoutpanel>
 	    		</queryform>
 	    		
-	    		<complexgrid id="querygrid" buttonAlign="center" title="订单详情" frame="true" height="300" url="/custOrder/custOrderScMgr!list.action" page="true" root="data.list">
+	    		<complexgrid id="querygrid" buttonAlign="center" title="客户订单详情" frame="true" height="300" url="/custOrderDetail/orderDetail!listDetail.action" page="true" root="data.list">
 	    			<fields>
-	    				<field name="l1" />
-	    				<field name="l2" />
-	    				<field name="l3" />
-	    				<field name="l4" />
-	    				<field name="l5" />
-	    				<field name="l6" />
-	    				<field name="l7" />
-	    				<field name="l8" />
-	    				<field name="l9" />
+	    				<field name="commCode" />
+	    				<field name="shortName" />
+	    				<field name="poNoType" />
+	    				<field name="settlementType" />
+	    				<field name="poNo" />
+	    				<field name="cpartNo" />
+	    				<field name="partNo" />
+	    				<field name="pnDesc" />
+	    				<field name="cprice" />
+	    				<field name="cpriceTax" />
+	    				<field name="isTax" />
+	    				<field name="taxRate" />
+	    				<field name="specDesc" />
+	    				<field name="commDesc" />
+	    				<field name="amount" />
+	    				<field name="money" />
+	    				<field name="deliveryAmount" />
+	    				<field name="selfDeliveryAmount" />
+	    				<field name="commDeliveryAmount" />
+	    				<field name="deliveryHouseType" />
+	    				<field name="lockAmount" />
+	    				<field name="selfLockAmount" />
+	    				<field name="commLockAmount" />
+	    				<field name="orgDeliveryDate" />
+	    				<field name="preDeliveryDate" />
+	    				<field name="verDeliveryDate" />
+	    				<field name="period" />
+	    				<field name="rltOrderPoNo" />
+	    				<field name="vendorCode" />	    				
+	    				<field name="stateDesc" />	    				
+	    				<field name="contactFee" />
+	    				
+	    				
+	    				<!-- 转换字段，自动填充 -->
+	    				<field name="rltPoNo"  mapping="poNo" />	
+	    				<field name="price"    mapping="cprice" />
+	    				<field name="priceTax" mapping="cpriceTax" />	
+	    				<field name="cgstate"  mapping="stateDesc" />   
 	    			</fields>
 	    			<columns>
 	    				<column header=""                   isCheck="true" />
-	    				<column header="订单号"             dataIndex="l1" />
-	    				<column header="公司 P/N"           dataIndex="l2" />
-	    				<column header="客户 P/N"           dataIndex="l3" />
-	    				<column header="物料描述"           dataIndex="l4" />
-	    				<column header="特殊备注（批次）"   dataIndex="l5" />
-	    				<column header="订单数量"           dataIndex="l6" />
-	    				<column header="已出库数量"         dataIndex="l7" />
+	    				<column header="客户订单号"         dataIndex="poNo" />
+	    				<column header="公司 P/N"           dataIndex="partNo" />
+	    				<column header="客户 P/N"           dataIndex="cpartNo" />
+	    				<column header="物料描述"           dataIndex="pnDesc" />
+	    				<column header="特殊备注（批次）"   dataIndex="specDesc" />
+	    				<column header="订单数量"           dataIndex="amount" />
+	    				<column header="已出库数量"         dataIndex="deliveryAmount" />
+	    				<column header="明细状态"         dataIndex="stateDesc" />
 	    			</columns>
 	    			<buttons>
 	    				<button text="确定" id="wokBtn" />

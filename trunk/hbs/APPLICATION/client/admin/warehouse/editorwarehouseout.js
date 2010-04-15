@@ -1,4 +1,4 @@
-
+﻿
 HBSConvertHelper.init(function() {
 	// -------------------------------------- 获取需要持久用到的对象
 	
@@ -43,12 +43,12 @@ HBSConvertHelper.init(function() {
 	(function() {
 		// 当提交按钮被单击时
 		submitBtn.on("click", function() {
-			submitData("/warehouse/warehouseRec!save.action");
+			submitData("/warehouseSend/warehouseSend!commit.action");
 		});
 		
 		// 当保存按钮被单击时
 		saveBtn.on("click", function() {
-			submitData("/warehouse/warehouseRec!saveTemp.action");
+			submitData("/warehouseSend/warehouseSend!saveTemp.action");
 		});
 		
 		// 当单机取消按钮时，调用默认的关闭窗口方法
@@ -81,9 +81,24 @@ HBSConvertHelper.init(function() {
 		warehousegrid.getView().on("refresh", function(view) {
 			// 删除按钮触发事件
 			var deleteBtnFun = function() {
-				warehousegrid.store.remove(this.config);
+				
+				var seqid =this.config.get("sendSeqId");
+				
+				
+				if(seqid > 0){
+					Ext.Msg.confirm("提示", "您要执行的是出库单明细取消，请确认是否继续？", function(btn) {
+					if(btn == "no") return;
+					
+							ExtConvertHelper.request("/warehouseSend/warehouseSend!cancelDetail.action?sendSeqId=" + this.config.get("sendSeqId"), null, ExtConvertHelper.defaultDeleteFun);
+						}, this);
+		        	}else{
+			       	Ext.Msg.confirm("提示", "您要执行的是出库单明细操作，本条明细还没有保存，请确认是否继续删除？", function(btn) {
+									if(btn == "no") return;	
+			        		warehousegrid.store.remove(this.config);
+			        	}, this);
+		        	}
+				//warehousegrid.store.remove(this.config);
 			};
-		
 			for(var i = 0 ; i < view.ds.getCount() ; i++) {
 				// 获取操作列
 				var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));
@@ -113,8 +128,8 @@ HBSConvertHelper.init(function() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("出库修改");
 		// 设置客户编码的编辑框为只读	；同时不到后台校验
-		ExtConvertHelper.setItemsReadOnly("acCommCode", true);
-		
+		ExtConvertHelper.setItemsReadOnly("acCommCode", true);		
+		ExtConvertHelper.setItemsReadOnly("acHouseType", true);
 		// 组装需要的参数
 		var params = ["warehouseSend.sendPoNo=", urlPs["warehouseSend.sendPoNo"],"&warehouseSend.custCode=" , urlPs["warehouseSend.custCode"],"&warehouseSend.poNoType=", urlPs["warehouseSend.poNoType"]].join("");
 		

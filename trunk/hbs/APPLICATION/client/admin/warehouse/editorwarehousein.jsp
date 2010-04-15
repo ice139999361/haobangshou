@@ -42,7 +42,12 @@
 				    			<layoutpanel columnNum="1">				    				
 				    				<hidden name="warehouseRec.shortName" />
 				    				<hidden name="warehouseRec.settlementType" />
-				    				<hidden name="warehouseRec.poNoType" />						    							    				
+				    				<hidden name="warehouseRec.poNoType" />	
+									<hidden name="warehouseRec.activeState" />	
+									<hidden name="warehouseRec.state" />	
+									<hidden name="warehouseRec.operId" />	
+									<hidden name="warehouseRec.operStaff" />	
+									<hidden name="warehouseRec.financeState" />	
 				    			</layoutpanel>
 				    		</listpanel>
 			    		</items></form>
@@ -76,7 +81,7 @@
 	    			</layoutpanel>
 	    		</queryform>
 	    		
-	    		<complexgrid id="querygrid" buttonAlign="center" title="订单详情" frame="true" height="300" url="/vendorOrderDetail/orderDetail!listDetail.action" page="true" root="data.list">
+	    		<complexgrid id="querygrid" buttonAlign="center" title="供应商订单详情" frame="true" height="300" url="/vendorOrderDetail/orderDetail!listDetail.action" page="true" root="data.list">
 	    			<fields>
 	    				<field name="poNo" />
 	    				<field name="partNo" />
