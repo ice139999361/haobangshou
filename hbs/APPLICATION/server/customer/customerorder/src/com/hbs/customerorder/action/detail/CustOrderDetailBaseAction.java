@@ -136,4 +136,37 @@ public class CustOrderDetailBaseAction extends BaseAction {
 			return ERROR;
 		}
 	}
+	
+	/**
+	 * 获取客户订单详情列表，供出库库单选择客户订单详情使用
+	 * @return
+	 */
+	public String doListDetail(){
+		try {
+			logger.debug("begin doListDetail");
+			if(orderDetail == null){
+				logger.error("无法查询，输入的条件为空！");
+				setErrorReason("无法查询，输入的条件为空！");
+				return ERROR;
+			}else{
+				//需要追加状态条件
+				orderDetail.setActiveState("ACTIVE");
+			
+				orderDetail.setField("state", "'70','61'");//或备齐或部分发货
+				orderDetail.setField("notPoNoType", "'1'");
+				logger.debug("doListDetail 输入的条件为" + orderDetail.toString());
+			}			
+			
+			setResult("list", mgr.listCustOrderDetail(orderDetail));
+			setTotalCount(mgr.listCustOrderDetailCount(orderDetail));
+			setResult("count", getTotalCount());
+			
+			logger.debug("end doListDetail");
+			return SUCCESS;
+		} catch(Exception e) {
+			logger.error("catch Exception in doList", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+	}
 }

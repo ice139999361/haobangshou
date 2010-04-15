@@ -9,6 +9,8 @@ import org.apache.log4j.Logger;
 import com.hbs.common.action.JianQuanUtil;
 import com.hbs.common.action.base.BaseAction;
 import com.hbs.domain.warehouse.pojo.WarehouseSendInfo;
+
+import com.hbs.warehousesend.manager.WareHouseSendDetailMgr;
 import com.hbs.warehousesend.manager.WareHouseSendMgr;
 
 /**
@@ -25,6 +27,12 @@ public abstract class WarehouseSendBaseAction extends BaseAction {
 	private static final Logger logger = Logger.getLogger(WarehouseSendBaseAction.class);
 
 	public static final String WAREHOUSE_SEND_MGR = "wareHouseSendMgr";
+	
+	public static final String WAREHOUSE_SEND_DETAIL_MGR ="wareHouseSendDetailMgr";
+	
+	WareHouseSendDetailMgr getMgrDetail(){
+		return (WareHouseSendDetailMgr)getBean(WAREHOUSE_SEND_DETAIL_MGR);
+	}
 	
 	WarehouseSendInfo warehouseSend;
 

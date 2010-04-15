@@ -217,7 +217,10 @@ public class WarehouseRecAction extends WarehouseRecBaseAction {
 		
 	}
 	
-	
+	/**
+	 * 取消入库单明细操作
+	 * @return
+	 */
 	public String doCancelDetail() {
 		try {
 			logger.debug("begin doCancelDetail");
