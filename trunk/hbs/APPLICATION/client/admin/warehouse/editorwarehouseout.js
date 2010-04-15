@@ -102,10 +102,12 @@ HBSConvertHelper.init(function() {
 			for(var i = 0 ; i < view.ds.getCount() ; i++) {
 				// 获取操作列
 				var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));
-				// 创建按钮到操作列
-				var operatorBtn = HBSConvertHelper.renderButton2Cell(["删除"], operator_cell, view.ds.getAt(i));
-				// 删除按钮的单击事件
-				operatorBtn.on("click", deleteBtnFun);
+				if(view.ds.getAt(i).get("state") != "03" && view.ds.getAt(i).get("state") != "02") {
+					// 创建按钮到操作列
+					var operatorBtn = HBSConvertHelper.renderButton2Cell(["删除"], operator_cell, view.ds.getAt(i));
+					// 删除按钮的单击事件
+					operatorBtn.on("click", deleteBtnFun);
+			}
 			}
 		})
 	}())
