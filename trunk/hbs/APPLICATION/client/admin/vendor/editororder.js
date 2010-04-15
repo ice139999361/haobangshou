@@ -189,6 +189,9 @@ HBSConvertHelper.init(function() {
 		// 加载数据
 		ExtConvertHelper.loadForm("form", "/vendorOrder/vendorOrder!getInfo.action", params, function(form, action) {
 				Ext.getCmp("ordergrid").addData(action.result.data.vendorOrder.orderlist);
+				Ext.getCmp("acCommCode").fireEvent("select");
+				Ext.getCmp("acContactList").fireEvent("select");
+				Ext.getCmp("acConsigneeList").fireEvent("select");
 		});
 		
 		// 提交完成后的操作
