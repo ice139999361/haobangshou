@@ -128,14 +128,23 @@ public class WareHouseSendMgr {
 		if(null != existInfo){//存在出库单
 			String state = existInfo.getState();
 			if(state.equals(WareHouseConstants.WAREHOUSE_SEND_INFO_01)){//临时状态可以取消
-				sendInfo.setState(WareHouseConstants.WAREHOUSE_SEND_INFO_03);
-				whInfoDao.updateWarehouseSendInfoByState(sendInfo);
-				WareHouseLogUtils.operLog(sendInfo.getOperId(), sendInfo.getOperStaff(),"取消", "客户物料出库", sendInfo.getLogKey(), null, content);
+				existInfo.setState(WareHouseConstants.WAREHOUSE_SEND_INFO_03);
+				existInfo.setOperId(sendInfo.getOperId());
+				existInfo.setOperStaff(sendInfo.getOperStaff());
+				whInfoDao.updateWarehouseSendInfoByState(existInfo);
+				WareHouseLogUtils.operLog(existInfo.getOperId(), existInfo.getOperStaff(),"取消", "客户物料出库", existInfo.getLogKey(), null, content);
 				//处理该出库单下的明细
 				List<WarehouseSendDetail> detailList = sendInfo.getDetailList();
+				WareHouseSendDetailMgr detailMgr = (WareHouseSendDetailMgr)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_SEND_DETAILMGR);
+				if(null == detailList){ //前台可能没有传明细，需要后台查询
+					WarehouseSendDetail detail = new WarehouseSendDetail();
+					detail.setSendPoNo(sendInfo.getSendPoNo());
+					detail.setCustCode(sendInfo.getCustCode());
+					detailList = detailMgr.listWarehouseSendDetail(detail);
+				}
 				if(null != detailList && detailList.size() >0){
 					logger.debug("取消出库单信息，出库单下存在出库单明细，取消出库单明细，数量为：" + detailList.size());
-					WareHouseSendDetailMgr detailMgr = (WareHouseSendDetailMgr)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_SEND_DETAILMGR);
+					
 					detailMgr.cancelWareHouseSendDetailList(detailList, true, content);
 				}
 			}else{//非临时状态，不能取消

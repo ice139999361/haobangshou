@@ -3,6 +3,8 @@ package com.hbs.domain.vendor.order.pojo;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.hbs.domain.common.pojo.ConfigEncode;
 import com.hbs.domain.common.pojo.base.BaseDomain;
 import com.hbs.common.manager.configencode.ConfigEncodeMgr;
@@ -222,11 +224,15 @@ public class VendorOrder extends BaseDomain{
     public String getCompanyBranchDesc(){
     	String retStr ="Œ¥∂®“Â";
     	ConfigEncode ceParam = new ConfigEncode();
-    	ceParam.setEncodeKey(getCompanyBranch());
-    	ceParam.setEncodeType("COMPANY_BRANCH");
-    	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
-    	if(null != cEncode){
-    		retStr = cEncode.getEncodeValue();
+    	if(StringUtils.isEmpty(getCompanyBranch())){
+    		retStr ="ø’÷µ";
+    	}else{
+	    	ceParam.setEncodeKey(getCompanyBranch());
+	    	ceParam.setEncodeType("COMPANY_BRANCH");
+	    	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
+	    	if(null != cEncode){
+	    		retStr = cEncode.getEncodeValue();
+	    	}
     	}
     	return retStr;
     }

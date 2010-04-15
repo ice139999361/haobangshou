@@ -4,6 +4,7 @@
 package com.hbs.warehousesend.action;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -72,6 +73,20 @@ public class WarehouseSendUtil {
 				detail.setPoNoType(poNoType);
 				detail.setStaffId(staffId);
 				detail.setStaffName(staffName);
+				if(detail.getCreateTime()== null){
+					detail.setCreateTime(new Date());
+				}
+				if(detail.getSendSeqId() == null){
+					detail.setActiveState("ACTIVE");
+					detail.setFinanceState("0");
+				}
+				if(detail.getCommAmount() == null){
+					detail.setCommAmount(0);
+				}
+				if(detail.getSelfAmount() == null){
+					detail.setSelfAmount(0);
+				}
+				detail.setAmount(detail.getCommAmount() + detail.getSelfAmount());
 			}
 		} catch (Exception e) {
 			logger.info("processListData´¦ÀídetailList³ö´í", e);
