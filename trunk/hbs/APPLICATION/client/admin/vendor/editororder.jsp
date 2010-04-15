@@ -78,9 +78,9 @@
 			<!-- TODO: 窗口打开时，需要提交查询。现在查询没有将供应商编码传上去，点击查询按钮后，才将供应商编码传上去。 -->
 			<window id="selectWindow" title="查询客户订单" width="900" closeAction="hide">
 				<items>
-					<queryform gridId="querygrid">
+					<queryform gridId="querygrid" id="selectform">
 					<layoutpanel columnNum="1">
-						<textfield fieldLabel="供应商编码" readOnly="true" name="orderDetail.vendorCode" id="acVendorCode" />
+						<hidden name="orderDetail.vendorCode" id="acVendorCode" />
 						<hidden name="orderDetail.poNoType" value="0" />
 					</layoutpanel>
 	    			<layoutpanel columnNum="3">
