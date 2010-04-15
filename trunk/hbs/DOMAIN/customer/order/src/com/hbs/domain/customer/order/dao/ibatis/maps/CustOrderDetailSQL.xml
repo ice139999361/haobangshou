@@ -627,6 +627,16 @@
 					SETTLEMENT_TYPE IN($dynamicFields.settlementTypeList$)
 				]]>
 			</isNotEmpty>
+			<isNotEmpty prepend = "and" property = "dynamicFields.state" >
+						<![CDATA[ 
+						  STATE IN( $dynamicFields.state$)
+						]]> 
+			</isNotEmpty>
+			<isNotEmpty prepend = "and" property = "dynamicFields.notPoNoType" >
+						<![CDATA[ 
+						  PO_NO_TYPE !=  $dynamicFields.notPoNoType$
+						]]> 
+			</isNotEmpty>
 			<isNotEmpty prepend="order by" property="sort">
                    $sort$
             </isNotEmpty>
@@ -697,6 +707,22 @@
 				<![CDATA[	
 					STATE IN($dynamicFields.stateList$)
 				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.settlementTypeList">
+				<![CDATA[	
+					SETTLEMENT_TYPE IN($dynamicFields.settlementTypeList$)
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend = "and" property = "dynamicFields.state" >
+						<![CDATA[ 
+						  STATE IN( $dynamicFields.state$)
+						]]> 
+			</isNotEmpty>
+			<isNotEmpty prepend = "and" property = "dynamicFields.notPoNoType" >
+						<![CDATA[ 
+						  PO_NO_TYPE !=  $dynamicFields.notPoNoType$
+						]]> 
 			</isNotEmpty>
 		</dynamic>
 </select>

@@ -84,7 +84,11 @@
     	<action name="warehouseSend!cancel" method="doCancel" 
     			class="com.hbs.warehousesend.action.WarehouseSendAction">
 		</action>
-        
+       
+		<!-- 取消出库单明细 -->
+		<action name="warehouseSend!cancelDetail" method="doCancelDetail" 
+    			class="com.hbs.warehousesend.action.WarehouseSendAction">
+		</action> 
         		
 	</package>
 </struts>

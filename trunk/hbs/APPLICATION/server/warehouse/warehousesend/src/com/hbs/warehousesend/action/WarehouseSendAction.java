@@ -12,6 +12,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.action.FieldErr;
+
+import com.hbs.domain.warehouse.pojo.WarehouseSendDetail;
 import com.hbs.warehouse.common.constants.WareHouseConstants;
 
 /**
@@ -30,6 +32,22 @@ public class WarehouseSendAction extends WarehouseSendBaseAction {
 	@Override
 	public String getRoleName() {
 		return "cknormal";
+	}
+
+	private Integer sendSeqId;
+	
+	/**
+	 * @return the sendSeqId
+	 */
+	public Integer getSendSeqId() {
+		return sendSeqId;
+	}
+
+	/**
+	 * @param sendSeqId the sendSeqId to set
+	 */
+	public void setSendSeqId(Integer sendSeqId) {
+		this.sendSeqId = sendSeqId;
 	}
 
 	/**
@@ -205,4 +223,53 @@ public class WarehouseSendAction extends WarehouseSendBaseAction {
 		}
 	}
 	
+	/**
+	 * 取消出库单明细操作
+	 * @return
+	 */
+	public String doCancelDetail() {
+		try {
+			logger.debug("begin doCancelDetail");
+			
+			if(null == this.sendSeqId){
+				logger.debug("参数为空！");
+				setErrorReason("参数为空！");
+				return ERROR;				
+			}else{
+				WarehouseSendDetail detail =new  WarehouseSendDetail();
+				detail.setSendSeqId(sendSeqId);
+				int i = getMgrDetail().cancelWareHouseSendDetail(detail,  false,  this.getHttpServletRequest().getParameter("memo"));
+				if(i != 0){
+					String s;
+					switch(i){
+					case -1:
+						s = "状态错误，取消失败！";
+						logger.error(s);
+						setErrorReason(s);
+						break;
+					case -2:
+						s = "参数错误！";
+						logger.error(s);
+						setErrorReason(s);
+						break;
+					default:
+						s = "取消失败！";
+						logger.error(s + " ret=" + i);
+						setErrorReason(s);
+						break;
+					}
+					return ERROR;
+				}
+				logger.debug("end doCancelDetail");
+				return SUCCESS;
+			}			
+			
+		} catch(Exception e) {
+			logger.error("catch Exception in doCancelDetail", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+		
+		
+	}
 }

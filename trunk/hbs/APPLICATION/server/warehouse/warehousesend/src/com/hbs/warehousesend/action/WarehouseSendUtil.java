@@ -86,8 +86,9 @@ public class WarehouseSendUtil {
 		
 		if(StringUtils.isEmpty(warehouseSend.getCustCode()))
 			list.add(new FieldErr("CustCode","CustCode没有填写"));
-		if(StringUtils.isEmpty(warehouseSend.getSendPoNo()))
-			list.add(new FieldErr("SendPoNo","SendPoNo没有填写"));
+		//新的出库单可能存在没有出货单号，出货单号由后台产生的
+//		if(StringUtils.isEmpty(warehouseSend.getSendPoNo()))
+//			list.add(new FieldErr("SendPoNo","SendPoNo没有填写"));
 		if(StringUtils.isEmpty(warehouseSend.getShortName()))
 			list.add(new FieldErr("ShortName","ShortName没有填写"));
 		if(warehouseSend.getCreateDate() == null)

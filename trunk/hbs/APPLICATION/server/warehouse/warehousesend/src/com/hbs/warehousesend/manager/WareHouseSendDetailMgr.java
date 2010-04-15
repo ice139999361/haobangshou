@@ -51,8 +51,11 @@ public class WareHouseSendDetailMgr {
 		String st =detail.getState();
 		if(st.equals(WareHouseConstants.WAREHOUSE_SEND_INFO_01)){
 			logger.debug("保存客户出库库物料明细，传入的参数为:" + detail.toString());
-		}else{
+		}else if(st.equals(WareHouseConstants.WAREHOUSE_REC_INFO_02)){
 			logger.debug("确认客户出库物料明细，传入的参数为:" + detail.toString());
+		}else{
+			logger.debug("确认供应商出库物料明细,状态为取消，不做处理，传入的参数为:" + detail.toString());
+			return ret;
 		}
 		//计算明细的出库金额
 		detail.setCurMoney(OrderCalUtils.calOrderMoney(detail.getPrice(), detail.getIsTax(), detail.getTaxRate(),detail.getPriceTax(),detail.getContactFee(), detail.getAmount()));

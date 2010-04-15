@@ -84,7 +84,7 @@
     	<action name="warehouseRec!cancel" method="doCancel" 
     			class="com.hbs.warehousereceive.action.WarehouseRecAction">
 		</action>
-		
+		<!--取消入库单明细 -->
 		<action name="warehouseRec!cancelDetail" method="doCancelDetail" 
     			class="com.hbs.warehousereceive.action.WarehouseRecAction">
 		</action>

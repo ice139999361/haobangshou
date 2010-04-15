@@ -189,5 +189,10 @@
     			class="com.hbs.customerorder.action.detail.CustOrderDetailCwMangagerAction">
 		</action>
 
+		<!--  在出库单选择客户订单的时候使用 
+		 -->
+		<action name="orderDetail!listDetail" method="doListDetail"  
+    			class="com.hbs.customerorder.action.detail.CustOrderDetailBaseAction">
+		</action>
 	</package>
 </struts>	

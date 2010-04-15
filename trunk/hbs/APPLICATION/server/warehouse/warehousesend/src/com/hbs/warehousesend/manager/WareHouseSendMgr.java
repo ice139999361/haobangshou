@@ -88,7 +88,17 @@ public class WareHouseSendMgr {
 					logger.debug("确认出库单信息，出库单下存在出库单明细，确认出库单明细，数量为：" + detailList.size());
 				}
 				for(WarehouseSendDetail detail : detailList){
-					detail.setState(sendInfo.getState());
+					String state = detail.getState();
+					String financestate = detail.getFinanceState();
+					if(state != null && state.equals(WareHouseConstants.WAREHOUSE_REC_INFO_03)){
+						logger.debug("出库库单明细的状态为取消，本条出库库单明细不处理" + detail.toString());
+					}else{
+						detail.setState(sendInfo.getState());
+					}
+					if(null == financestate){
+						detail.setFinanceState("0");
+					}
+					
 					if(StringUtils.isEmpty(detail.getSendPoNo())){
 						detail.setSendPoNo(sendInfo.getSendPoNo());
 					}
