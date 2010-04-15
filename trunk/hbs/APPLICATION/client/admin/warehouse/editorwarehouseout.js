@@ -16,9 +16,6 @@ HBSConvertHelper.init(function() {
 	
 	// -------------------------------------- 应用逻辑处理
 	
-	// 提交操作成功后要做的事情
-	var submitSuccessPro;
-	
 	/**
 	 * 提交数据
 	 * @param url  (String) 提交的url
@@ -36,7 +33,10 @@ HBSConvertHelper.init(function() {
 			var msg = ExtConvertHelper.getMessageInfo(action, "操作成功！");
 			
 			// 弹出提示框给用户
-			Ext.Msg.alert("提示", msg, submitSuccessPro);
+			Ext.Msg.alert("提示", msg, function() {
+				// 用户单击后重载此页面
+				location.reload();
+			});
 		});
 	}
 	
@@ -117,12 +117,6 @@ HBSConvertHelper.init(function() {
 	function addInitFun() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("出库");
-		
-		// 提交完成后的操作
-		submitSuccessPro = function() {
-			// 用户单击后重载此页面
-			location.reload();
-		}
 	}
 	
 	// 修改页面的处理逻辑
