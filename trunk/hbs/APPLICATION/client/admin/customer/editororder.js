@@ -98,6 +98,12 @@ HBSConvertHelper.init(function() {
 	});
 	*/
 
+	function afterListLoad(){
+		if(this.getCount() > 0 && this.list && this.list.getValue()){
+			this.list.fireEvent("select");
+		}
+	}
+	
 	Ext.getCmp("acCommCode").setProcessConfig("/customerInfo/customerInfo!getInfo.action?custInfo.state=0", "custInfo.commCode", null, function(action){
 		if(!action.success)
 			return;
@@ -109,14 +115,31 @@ HBSConvertHelper.init(function() {
 		var list = Ext.getCmp("acContactList");
 		list.store.baseParams["custInfo.commCode"] = o;
 		list.store.baseParams["custInfo.state"] = "0";
+		if(list.getValue()){
+			list.store.list = list;
+			list.store.on("load", afterListLoad);
+			list.store.load();
+		}
 		list = Ext.getCmp("acConsigneeList");
 		list.store.baseParams["custInfo.commCode"] = o;
 		list.store.baseParams["custInfo.state"] = "0";
+		if(list.getValue()){
+			list.store.list = list;
+			list.store.on("load", afterListLoad);
+			list.store.load();
+		}
 	});
 	
 	Ext.getCmp("acContactList").on("select", function() {
-		if(this.selectedIndex < 0)
-			return;
+		if(this.selectedIndex < 0){
+			var val = this.getValue();
+			if(val){
+				// 根据val设置selectedIndex
+				this.selectedIndex = this.store.findExact("conName", val);
+			}
+			if(this.selectedIndex < 0)
+				return;
+		}
 		var data = this.store.getAt(this.selectedIndex);
 		var o = data.get("conTel");
 		Ext.getCmp("acTel").setValue(o);
@@ -127,8 +150,15 @@ HBSConvertHelper.init(function() {
 	});
 	
 	Ext.getCmp("acConsigneeList").on("select", function() {
-		if(this.selectedIndex < 0)
-			return;
+		if(this.selectedIndex < 0){
+			var val = this.getValue();
+			if(val){
+				// 根据val设置selectedIndex
+				this.selectedIndex = this.store.findExact("conName", val);
+			}
+			if(this.selectedIndex < 0)
+				return;
+		}
 		var data = this.store.getAt(this.selectedIndex);
 		var o = data.get("conAddress");
 		Ext.getCmp("acAddress").setValue(o);
@@ -170,8 +200,8 @@ HBSConvertHelper.init(function() {
 				Ext.getCmp("ordergrid").addData(action.result.data.custOrder.orderDetailList);
 			  Ext.getCmp("acOderTime").setValue(FormatUtil.data2string(action.result.data.custOrder.oderTime));
 				Ext.getCmp("acCommCode").fireEvent("select");
-				Ext.getCmp("acContactList").fireEvent("select");
-				Ext.getCmp("acConsigneeList").fireEvent("select");
+				//Ext.getCmp("acContactList").fireEvent("select");
+				//Ext.getCmp("acConsigneeList").fireEvent("select");
 		});
 		
 		// 提交完成后的操作
