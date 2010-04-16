@@ -18,39 +18,39 @@
 			    	<!-- service ext ui.  begin. -->
 			    		<queryform gridId="querygrid" exportId="exportBtn">
 			    			<layoutpanel columnNum="3">
-			    				<dictcombo fieldLabel="仓库类型"         hiddenName="custInfo.companyBranch"  paramsValue="COMPANY_BRANCH"  showText="请选择" />
-			    				<dictcombo fieldLabel="用途"             hiddenName="custInfo.companyBranch"  paramsValue="COMPANY_BRANCH"  showText="请选择" />
+			    				<dictcombo fieldLabel="仓库类型"         hiddenName="vInfo.houseType"  paramsValue="WAREHOUSE_TYPE"  showText="请选择" />
+			    				<dictcombo fieldLabel="用途"             hiddenName="vInfo.houseUse"  paramsValue="WAREHOUSE_USE"  showText="请选择" />
 			    					
-			    				<textfield fieldLabel="公司物料编码"     name="custOrder.commCode"  />
-			    				<datefield fieldLabel="供应商编码"       name="" format="Y-m"/>
+			    				<textfield fieldLabel="公司物料编码"     name="vInfo.partNo"  />
+			    				<textfield fieldLabel="供应商编码"       name="vInfo.vendorCode" />
 			    				
-			    				<textfield fieldLabel="供应商物料编码"   name="custOrder.poNo"  />	
-			    				<datefield fieldLabel="客户编码"         name="" format="Y-m"/>
+			    				<textfield fieldLabel="供应商物料编码"   name="custOrder.cpartNo"  />	
+			    				<textfield fieldLabel="客户编码"         name="vInfo.custCode" />
 			    			</layoutpanel>
 			    		</queryform>
 			    	
 				    	<complexgrid id="querygrid" title="库存列表" frame="true" page="true" root="data.list">
 				    		<fields>
-				    			<field name="l1" />
-				    			<field name="l2" />
-				    			<field name="l3" />
-				    			<field name="l4" />
-				    			<field name="l5" />
-				    			<field name="l6" />
-				    			<field name="l7" />
-				    			<field name="l8" />
-				    			<field name="l9" />
+				    			<field name="houseTypeDesc" />
+				    			<field name="houseUseDesc" />
+				    			<field name="partNo" />
+				    			<field name="vendorCode" />
+				    			<field name="cpartNo" />
+				    			<field name="custCode" />
+				    			<field name="pnDesc" />
+				    			<field name="totalAmount" />
+				    			<field name="useAmount" />
 				    		</fields>
 				    		<columns>
-				    			<column header="仓库类型"   dataIndex="l1" />
-				    			<column header="用途"       dataIndex="l2" />
-				    			<column header="GLE P/N"    dataIndex="l3" />
-				    			<column header="供应商编码" dataIndex="l4" />
-				    			<column header="供应商 P/N" dataIndex="l5" />
-				    			<column header="客户编码"   dataIndex="l6" />
-				    			<column header="物料描述"   dataIndex="l7" />
-				    			<column header="库存数量"   dataIndex="l8" />
-				    			<column header="可用数量"   dataIndex="l9" />
+				    			<column header="仓库类型"   dataIndex="houseTypeDesc" />
+				    			<column header="用途"       dataIndex="houseUseDesc" />
+				    			<column header="GLE P/N"    dataIndex="partNo" />
+				    			<column header="供应商编码" dataIndex="vendorCode" />
+				    			<column header="供应商 P/N" dataIndex="cpartNo" />
+				    			<column header="客户编码"   dataIndex="custCode" />
+				    			<column header="物料描述"   dataIndex="pnDesc" />
+				    			<column header="库存数量"   dataIndex="totalAmount" />
+				    			<column header="可用数量"   dataIndex="useAmount" />
 				    		</columns>
 				    	</complexgrid>
 

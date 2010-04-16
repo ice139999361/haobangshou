@@ -1,4 +1,4 @@
-var querygridUrl = "/custOrder/custOrderScMgr!list.action?xxx=" + urlPs.xxx;
+var querygridUrl = "/warehouse/warehouse!list.action;
 HBSConvertHelper.init(function() {
 
 });
