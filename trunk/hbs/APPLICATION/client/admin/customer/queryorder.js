@@ -80,7 +80,7 @@ HBSConvertHelper.init(function() {
 			// 打开查看历史记录页面
 			HBSConvertHelper.open("/complex/detailhistory.jsp", 800, 500, {gridurl: ["/vendorInfo/vendorPartNoInfoMgr!list.action?custOrder.poNo=", record.get("poNo"), "&custOrder.commCode=", record.get("commCode")].join("")})
 		}
-		
+		/*
 		// 查看库存按钮触发事件
 		var querystoreBtnFun = function(){
 			// 要访问的 url 地址
@@ -91,7 +91,7 @@ HBSConvertHelper.init(function() {
 			// 打开指定页面
 			HBSConvertHelper.openNewWin(url);
 		}
-		
+		*/
 		
 		// 获取 roleType 
 		var roleType = urlPs.roleType;
@@ -165,13 +165,12 @@ HBSConvertHelper.init(function() {
 				// 待采购确认交期（对账期订单有效，采购修改交期，状态变为此状态）
 				case "20":
 					// 创建操作按钮
-					var operatorBtn = HBSConvertHelper.renderButton2Cell(["处理", "查看库存", "采购交期"], operator_cell, record);
+					//var operatorBtn = HBSConvertHelper.renderButton2Cell(["处理", "查看库存", "采购交期"], operator_cell, record);
+					var operatorBtn = HBSConvertHelper.renderButton2Cell(["处理", "采购交期"], operator_cell, record);
 					// 添加处理按钮事件
 					operatorBtn.get(0).on("click", processBtnFun);
-					// 添加查看库存按钮事件
-					operatorBtn.get(1).on("click", querystoreBtnFun);
 					// 添加采购交期按钮事件
-					operatorBtn.get(2).on("click", function() {
+					operatorBtn.get(1).on("click", function() {
 						Ext.Msg.prompt("提示", "请输入供应商回复交期", function(btn, value) {
 							if(btn == "no") return;
 							// 要访问的 url 地址
@@ -189,11 +188,12 @@ HBSConvertHelper.init(function() {
 				// 采购备货中
 				case "21":
 					// 创建操作按钮
-					var operatorBtn = HBSConvertHelper.renderButton2Cell(["处理", "查看库存"], operator_cell, record);
+					//var operatorBtn = HBSConvertHelper.renderButton2Cell(["处理", "查看库存"], operator_cell, record);
+					var operatorBtn = HBSConvertHelper.renderButton2Cell(["处理"], operator_cell, record);
 					// 添加处理按钮事件
-					operatorBtn.get(0).on("click", processBtnFun);
+					operatorBtn.on("click", processBtnFun);
 					// 添加查看库存按钮事件
-					operatorBtn.get(1).on("click", querystoreBtnFun);
+					//operatorBtn.get(1).on("click", querystoreBtnFun);
 					break;
 			}
 			
