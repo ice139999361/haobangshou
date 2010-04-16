@@ -66,6 +66,8 @@ public class WareHouseSendPrintAction extends BaseAction {
 					setResult("isShowPrice" , custInfo.getIsShowPrice());
 					setResult("isShowPriceDesc" , custInfo.getIsShowPriceDesc());
 					setResult("sales" ,custInfo.getStaffName());
+					setResult("custName" ,custInfo.getAllName());
+					setResult("currency" ,custInfo.getCurrencyDesc());
 					setResult("department","ÊÐ³¡²¿");
 					ret = SUCCESS;
 				}
@@ -93,6 +95,7 @@ public class WareHouseSendPrintAction extends BaseAction {
 		}else{
 			warehouseSend.setState("02");
 			warehouseSend.setActiveState("ACTIVE");
+			warehouseSend.setSort("SEND_DETAIL_SEQID");
 		}
 		WareHouseSendMgr mgr = getMgr();
 		
@@ -101,10 +104,13 @@ public class WareHouseSendPrintAction extends BaseAction {
 			List<WarehouseSendDetail> detailList = new ArrayList<WarehouseSendDetail>();
 			List<WarehouseSendDetail> existList = warehouseSendf.getDetailList();
 			if(null != existList && existList.size()>0){
+				int seqid =1;
 				for(WarehouseSendDetail detail : existList){
 					String state = detail.getState();
 					if(null != state && state.equals("02")){
+						detail.setSendSeqId(seqid);
 						detailList.add(detail);
+						seqid++;
 					}
 				}
 				if(detailList.size() >0){

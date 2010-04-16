@@ -222,14 +222,15 @@
 	ExtConvertHelper.request("/warehouseSend/warehouseSend!print.action", params, function(response, opts) {
 		var jsonData = Ext.util.JSON.decode(response.responseText);
 		if(jsonData.success === false) return;
-		
+		var currency = jsonData.data.currency;
+		alert(currency);
 		var templateStr = ['<tr>'
 		,'<td align="center" class="xl10418762" style="font-size:10px">{sendSeqId}</td>'
     ,'<td align="center" class="xl10418762" style="font-size:10px">{rltPoNo}</td>'
     ,'<td align="center" class="xl10418762" style="font-size:10px">{partNo}</td>'
     ,'<td align="center" class="xl10418762" style="font-size:10px">{custPartNo}</td>'
     ,'<td align="center" class="xl10418762" style="font-size:10px">{amount}</td>'
-    ,'<td align="center" class="xl10418762" style="font-size:10px">{period}</td>'
+    ,'<td align="center" class="xl10418762" style="font-size:10px">{currency}</td>'
     ,'<td align="center" class="xl10418762" style="font-size:10px">{price}</td>'
     ,'<td align="center" class="xl10418762" style="font-size:10px">{taxRate}</td>'
     ,'<td align="center" class="xl10418762" style="font-size:10px">{curMoney}</td>'
@@ -239,13 +240,15 @@
     
     // 数量统计 金额统计
 		var quantity = amount = 0;
-		Ext.each(jsonData.data.warehouseSend.detailList, function(item) {
-			alert(jsonData.data.isShowPrice);
-			if(jsonData.data.isShowPrice === 0) {
+		Ext.each(jsonData.data.warehouseSend.detailList, function(item) {			
+			if(jsonData.data.isShowPrice == 0) {
 				item.price = "&nbsp;";
 				item.taxRate = "&nbsp;";
-
       }
+      if(item.specDesc == null){
+      	item.specDesc = "&nbsp;";
+      }
+      item.currency=currency;
 			template.insertBefore(Ext.get("totaltr"), item);
 			// 数量
 			quantity += +item.amount;
