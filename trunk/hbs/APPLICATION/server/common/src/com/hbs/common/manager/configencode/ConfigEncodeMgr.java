@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.springhelper.BeanLocator;
@@ -78,20 +79,24 @@ public class ConfigEncodeMgr {
 //		ConfigEncode ret_ConfigEncode = configEncodeDao.findConfigEncode(ceParam);
 		String encodeType = ceParam.getEncodeType();
 		String encodeKey = ceParam.getEncodeKey();
-		if(null != cacheMap){
-			List<ConfigEncode> list = cacheMap.get(encodeType);
-			if(null != list){
-				for( ConfigEncode code : list){
-					if(encodeKey.equals(code.getEncodeKey())){
-						ret_ConfigEncode = code;
-						break;
+		if(!(StringUtils.isEmpty(encodeType) || StringUtils.isEmpty(encodeKey))){
+			
+		
+			if(null != cacheMap){
+				List<ConfigEncode> list = cacheMap.get(encodeType);
+				if(null != list){
+					for( ConfigEncode code : list){
+						if(encodeKey.equals(code.getEncodeKey())){
+							ret_ConfigEncode = code;
+							break;
+						}
 					}
+				}else{
+					logger.info("getConfigEncode(ConfigEncode ceParam) 失败,字典表无配置项，输入的参数为：" + ceParam.toString());
 				}
 			}else{
-				logger.info("getConfigEncode(ConfigEncode ceParam) 失败,字典表无配置项，输入的参数为：" + ceParam.toString());
+				logger.info("getConfigEncode(ConfigEncode ceParam) 失败,缓存为null，输入的参数为：" + ceParam.toString());
 			}
-		}else{
-			logger.info("getConfigEncode(ConfigEncode ceParam) 失败,缓存为null，输入的参数为：" + ceParam.toString());
 		}
 		return ret_ConfigEncode;
 	}

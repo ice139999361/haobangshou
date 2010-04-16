@@ -17,6 +17,6 @@ HBSConvertHelper.init(function() {
 		var params = ["vendorPartNoInfo.seqId=", urlPs.seqId].join("");
 		
 		// 加载数据
-		ExtConvertHelper.loadForm("form", "/vendorInfo/vendorPartNoInfo!getInfo.action", params);
+		ExtConvertHelper.loadForm("form", "/invoice/SendInvoice!getInfo.action", params);
 	}())
 });

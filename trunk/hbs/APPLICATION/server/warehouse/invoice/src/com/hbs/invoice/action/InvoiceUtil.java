@@ -26,11 +26,11 @@ public class InvoiceUtil {
 			return false;
 		if(invoice.getInvoiceSeqId() != null)
 			return true;
-		if(StringUtils.isEmpty(invoice.getCcode())
-				|| StringUtils.isEmpty(invoice.getPoNo())
-				|| StringUtils.isEmpty(invoice.getCpartNo())){
-			return false;
-		}
+//		if(StringUtils.isEmpty(invoice.getCcode())
+//				|| StringUtils.isEmpty(invoice.getPoNo())
+//				|| StringUtils.isEmpty(invoice.getCpartNo())){
+//			return false;
+//		}
 		
 		return true;
 	}

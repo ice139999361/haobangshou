@@ -1,5 +1,7 @@
 package com.hbs.domain.warehouse.pojo;
 
+import com.hbs.common.manager.configencode.ConfigEncodeMgr;
+import com.hbs.domain.common.pojo.ConfigEncode;
 import com.hbs.domain.common.pojo.base.BaseDomain;
 
 
@@ -97,7 +99,20 @@ public class WareHouseInfo extends BaseDomain{
     
     public String getHouseType() {
         return this.houseType;
-    }	
+    }
+    
+    public String getHouseTypeDesc() {
+    	String retStr ="未定义状态【" + getHouseType() +"】";
+    	
+    	ConfigEncode ceParam = new ConfigEncode();
+    	ceParam.setEncodeKey(getHouseType());
+    	ceParam.setEncodeType("WAREHOUSE_TYPE");
+    	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
+    	if(null != cEncode){
+    		retStr = cEncode.getEncodeValue();
+    	}
+    	return retStr;
+    }
   
     public void setHouseType(String houseType) {
         this.houseType = houseType;
@@ -107,6 +122,18 @@ public class WareHouseInfo extends BaseDomain{
         return this.houseUse;
     }	
   
+    public String getHouseUseDesc() {
+    	String retStr ="未定义状态【" + getHouseUse() +"】";
+    	
+    	ConfigEncode ceParam = new ConfigEncode();
+    	ceParam.setEncodeKey(getHouseUse());
+    	ceParam.setEncodeType("WAREHOUSE_USE");
+    	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
+    	if(null != cEncode){
+    		retStr = cEncode.getEncodeValue();
+    	}
+    	return retStr;
+    }
     public void setHouseUse(String houseUse) {
         this.houseUse = houseUse;
     }

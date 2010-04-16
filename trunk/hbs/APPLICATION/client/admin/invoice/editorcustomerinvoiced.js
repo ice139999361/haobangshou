@@ -5,7 +5,7 @@ HBSConvertHelper.init(function() {
 	// 获取提交按钮
 	var submitBtn 	 = Ext.getCmp("submitBtn");
 	// 获取保存按钮
-	var saveBtn 	   = Ext.getCmp("saveBtn");
+	//var saveBtn 	   = Ext.getCmp("saveBtn");
 	// 获取返回按钮
 	var backBtn 		 = Ext.getCmp("backBtn");
 	
@@ -40,9 +40,9 @@ HBSConvertHelper.init(function() {
 		});
 		
 		// 当保存按钮被单击时
-		saveBtn.on("click", function() {
-			submitData("/customerOrder/customerOrder!saveTemp.action");
-		});
+		//saveBtn.on("click", function() {
+		//	submitData("/customerOrder/customerOrder!saveTemp.action");
+		//});
 		
 		// 当单机取消按钮时，调用默认的关闭窗口方法
 		backBtn.on("click", HBSConvertHelper.defaultCloseTab);
@@ -71,14 +71,14 @@ HBSConvertHelper.init(function() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("客户发票修改");
 		// 隐藏不需要的控件
-		if(urlPs.state != "01") ExtConvertHelper.hideItems("saveBtn");
+		//if(urlPs.state != "01") ExtConvertHelper.hideItems("saveBtn");
 		
 		// 组装需要的参数
-		var params = ["custOrder.commCode=", urlPs.commCode, "&custOrder.poNo=", urlPs.poNo, "&custOrder.poNoType=", urlPs.poNoType].join("");
+		var params = ["invoice.invoiceSeqId=", urlPs.["invoice.invoiceSeqId"]].join("");
 		
 		// 加载数据
-		ExtConvertHelper.loadForm("form", "/custOrder/custOrder!getInfo.action", params, function(form, action) {
-				Ext.getCmp("ordergrid").addData(action.result.data.custOrder.orderlist);
+		ExtConvertHelper.loadForm("form", "/invoice/SendInvoice!getInfo.action", params, function(form, action) {
+				//Ext.getCmp("ordergrid").addData(action.result.data.custOrder.orderlist);
 		});
 		
 		// 提交完成后的操作
