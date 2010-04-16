@@ -1,0 +1,47 @@
+﻿{
+    "data": {
+        "xx": "dsfsdfsfdsf",
+        "vctitle": "2010年03月份对帐单(02月26日-03月26日)",
+        "cuname": "深圳市格莱尔电子有限公司",
+        "list": [
+            {
+                "chrq": "2010-2-24",
+                "shdh": "GS100425245",
+                "gleddh": "PO1001-005",
+                "wlmc": "电感",
+                "gysxh": "LC004R7DM2",
+                "glexh": "ELJPA4R7MF",
+                "slpcs": "6000",
+                "sl": "17%",
+                "dj": "0.35",
+                "je": "2100",
+                "bz": "&nbsp;"
+            },{
+                "chrq": "2010-2-24",
+                "shdh": "GS100425245",
+                "gleddh": "PO1001-005",
+                "wlmc": "电感",
+                "gysxh": "LC004R7DM2",
+                "glexh": "ELJPA4R7MF",
+                "slpcs": "6000",
+                "sl": "17%",
+                "dj": "0.35",
+                "je": "2100",
+                "bz": "&nbsp;"
+            },{
+                "chrq": "2010-2-24",
+                "shdh": "GS100425245",
+                "gleddh": "PO1001-005",
+                "wlmc": "电感",
+                "gysxh": "LC004R7DM2",
+                "glexh": "ELJPA4R7MF",
+                "slpcs": "6000",
+                "sl": "17%",
+                "dj": "0.35",
+                "je": "2100",
+                "bz": "&nbsp;"
+            }
+        ]
+    },
+    "success": true
+}
