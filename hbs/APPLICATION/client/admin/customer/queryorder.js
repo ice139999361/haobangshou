@@ -247,7 +247,7 @@ HBSConvertHelper.init(function() {
 			// 获取操作列
 			var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));
 			// 将需要的链接渲染到此列
-			HBSConvertHelper.renderATag2Cell(poNo_cell.innerText, "/customer/detailorder.jsp?pageType=query&poNo=" + record.get("poNo") + "&commCode=" + record.get("commCode") + "&poNoType=" + record.get("poNoType"), "open", poNo_cell);
+			HBSConvertHelper.renderATag2Cell(poNo_cell.innerText, "/customer/detailorder.jsp?pageType=query&roleType=" + urlPs.roleType + "&poNo=" + record.get("poNo") + "&commCode=" + record.get("commCode") + "&poNoType=" + record.get("poNoType"), "open", poNo_cell);
 			
 			switch(roleType) {
 				// 市场业务员的处理方法

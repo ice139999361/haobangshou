@@ -17,43 +17,43 @@
 			    	<!-- service ext ui.  begin. -->
 			    	
 			    		<form id="form"><items>
-			    			<complexgrid id="customerstoregrid" title="客户库存信息" frame="true" height="100" url="/custOrder/custOrderScMgr!list.action" root="data.list">
+			    			<complexgrid id="orderdetailgrid" title="客户订单详情信息" frame="true" height="100" url="/custOrder/custOrderScMgr!list.action" root="data.list">
 				    			<fields>
 				    				<field name="commCode" />
-				    				<field name="cpartno" />
-				    				<field name="l3" />
-				    				<field name="l4" />
-				    				<field name="l5" />
-				    				<field name="l6" />
-				    				<field name="l7" />
-				    				<field name="l8" />
-				    				<field name="l9" />
+				    				<field name="cpartNo" />
+				    				<field name="pnDesc" />
+				    				<field name="amount" />
+				    				<field name="deliveryAmount" />
+				    				<field name="selfLockAmount" />
+				    				<field name="commLockAmount" />
+				    				<field name="needAmount" />
 				    			</fields>
 				    			<columns>
 				    				<column header="客户编码"           dataIndex="commCode" />
-				    				<column header="客户型号"           dataIndex="cpartno" />
-				    				<column header="描述"               dataIndex="l3" />
-				    				<column header="数量"               dataIndex="l4" />
-				    				<column header="本客户锁定数量"     dataIndex="l5" />
-				    				<column header="通用锁定数量"       dataIndex="l6" />
-				    				<column header="需备货数量"         dataIndex="l7" />
+				    				<column header="客户型号"           dataIndex="cpartNo" />
+				    				<column header="描述"               dataIndex="pnDesc" />
+				    				<column header="数量"               dataIndex="amount" />
+				    				<column header="已发送数量"               dataIndex="deliveryAmount" />
+				    				<column header="本客户锁定数量"     dataIndex="selfLockAmount" />
+				    				<column header="通用锁定数量"       dataIndex="commLockAmount" />
+				    				<column header="需备货数量"         dataIndex="needAmount" />
 				    			</columns>
 				    		</complexgrid>
 	    		
 				    		<listpanel frame="true" title="库存操作" collapsible="true" titleCollapse="true">
-				    			<layoutpanel columnNum="3:.2,.15,">
-				    				<label fieldLabel="本客户库存"           name="custOrder.receiveAddress" id="selfstore" />
-				    				<label fieldLabel="通用库存"             name="custOrder.receiveZip"	   id="commstore" />
+				    			<layoutpanel columnNum="2:.2,.15,">
+				    				<label fieldLabel="本客户库存"           name="self.useAmount" id="selfstore" />
+				    				<label fieldLabel="通用库存"             name="common.useAmount"	   id="commstore" />
 				    				
-				    				<textfield hideLabel="true" name="self.useAmount"   id="tsuserAmount" relate="selfstore|;&lt;=|;必须小于等于本客户库存量" vtype="commCheck" />
-				    				<textfield hideLabel="true" name="common.useAmount" id="tcuserAmount" relate="commstore|;&lt;=|;必须小于等于通用库存量"   vtype="commCheck" />
-				    					
-				    				<button text="锁定" minWidth="80" id="sstockBtn" url="/success.action" cmpt="tsuserAmount" />
-				    				<button text="锁定" minWidth="80" id="cstockBtn" url="/success.action" cmpt="tcuserAmount" />
+				    				<textfield hideLabel="true" name="self.lockAmount"   id="tsuserAmount" relate="selfstore|;&lt;=|;必须小于等于本客户库存量" vtype="commCheck" />
+				    				<textfield hideLabel="true" name="common.lockAmount" id="tcuserAmount" relate="commstore|;&lt;=|;必须小于等于通用库存量"   vtype="commCheck" />
+				    			</layoutpanel>
+				    			<layoutpanel columnNum="1" buttonAlign="center">
+				    					<button text="锁定" minWidth="80" id="sstockBtn" url="/custOrderDetail/orderDetailCg!lockAmount.action" />
 				    			</layoutpanel>	
 				    		</listpanel>
 				    		   
-				    		<complexgrid id="storeinfogrid" title="详细信息" frame="true" height="100" url="/custOrder/custOrderScMgr!list.action" root="data.list">
+				    		<complexgrid id="storeinfogrid" title="其他客户库存" frame="true" height="100" url="/custOrder/custOrderScMgr!list.action" root="data.list">
 				    			<fields>
 				    				<field name="custCode" />
 				    				<field name="useAmount" />

@@ -56,21 +56,30 @@ HBSConvertHelper.init(function() {
 		
 		Ext.getCmp("custbankgrid").getView().on("refresh", function(view) {
 			for(var i = 0 ; i < view.ds.getCount() ; i++) {
+				// 获取数据容器
+				var record = view.ds.getAt(i);
 				// 操作列如果存在
 				if(view.grid.getColumnIndexById("operator") != -1) {
 					// 获取操作列
 					var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));
-					// 创建按钮到操作列
-					var operatorBtn = HBSConvertHelper.renderButton2Cell(["查看库存"], operator_cell, view.ds.getAt(i));
-					// 添加处理按钮事件
-					operatorBtn.on("click", function(){
-						// 要访问的 url 地址
-						var url = ["/customer/detailstockinfo.jsp?operSeqId=", this.config.get("operSeqId")
-									, "&cpartNo=", this.config.get("cpartNo")
-									, "&partNo=", this.config.get("partNo")].join("");
-						// 打开指定页面
-						HBSConvertHelper.openNewWin(url);
-					});
+					switch(urlPs.roleType){
+					case "cgy":
+						//alert("state= " + record.get("state"));
+						if(record.get("state") == "20" || record.get("state") == "21"){
+							// 创建按钮到操作列
+							var operatorBtn = HBSConvertHelper.renderButton2Cell(["查看库存"], operator_cell, view.ds.getAt(i));
+							// 添加处理按钮事件
+							operatorBtn.on("click", function(){
+								// 要访问的 url 地址
+								var url = ["/customer/detailstockinfo.jsp?operSeqId=", this.config.get("operSeqId")
+											, "&cpartNo=", this.config.get("cpartNo")
+											, "&partNo=", this.config.get("partNo")].join("");
+								// 打开指定页面
+								HBSConvertHelper.openNewWin(url);
+							});
+						} 
+						break;
+					}
 				}
 			}
 		});

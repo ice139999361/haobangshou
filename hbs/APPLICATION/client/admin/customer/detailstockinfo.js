@@ -1,11 +1,14 @@
 HBSConvertHelper.init(function() {
 	// 组织参数
+	/*
 	var params = {
 		 commCode : urlPs.commCode
 		,poNoType : urlPs.poNoType
 		,state    : urlPs.state
 		,poNo     : urlPs.poNo
 	};
+	*/
+	var params = {"orderDetail.operSeqId": urlPs.operSeqId};
 	
 	(function() {
 		// 取消按钮
@@ -16,12 +19,17 @@ HBSConvertHelper.init(function() {
 			// 验证 form 内容是符满足要求
 			if(!ExtConvertHelper.isFormValid("form")) return;
 			
+			/*
 			var cmp = Ext.getCmp(this.cmpt);
 			var _parms = Ext.apply({}, params);
 			_parms[cmp.name] = cmp.getValue();
+			*/
+			//var _parms = Ext.apply({}, params);
+			//_parms["self.lockAmount"] = Ext.getCmp("tsuserAmount").getValue();
+			//_parms["common.lockAmount"] = Ext.getCmp("tcuserAmount").getValue();
 			
 			// 提交数据
-			ExtConvertHelper.submitForm(null, this.url, _parms, function(form, action) {
+			ExtConvertHelper.submitForm("form", this.url, params, function(form, action) {
 				// 获取成功后的提示信息
 				var msg = ExtConvertHelper.getMessageInfo(action, "操作成功！");
 				
@@ -33,7 +41,8 @@ HBSConvertHelper.init(function() {
 		// 本客户库存
 		Ext.getCmp("sstockBtn").on("click", stockFun);
 		// 通用库存
-		Ext.getCmp("cstockBtn").on("click", stockFun);
+		//Ext.getCmp("cstockBtn").on("click", stockFun);
+		
 		// 详细信息
 		Ext.getCmp("storeinfogrid").getView().on("refresh", function(view) {
 			for(var i = 0 ; i < view.ds.getCount() ; i++) {
@@ -64,18 +73,15 @@ HBSConvertHelper.init(function() {
 				});
 			}
 		});
-		
-		/*
-		// 加载数据
-		ExtConvertHelper.loadForm("form", "/custOrder/custOrder!getInfo.action", params, function(form, action) {
-			Ext.getCmp("customerstoregrid").addData(action.result.data.custOrder.orderDetailList);
-		});
-		*/
-		
+				
+		ExtConvertHelper.request("/custOrderDetail/orderDetailCg!list.action", params, function(response, options) {
+			var action = Ext.util.JSON.decode(response.responseText);
+			Ext.getCmp("orderdetailgrid").addData(action.data.list);
+    	});
+
 		// 加载数据
 		ExtConvertHelper.loadForm("form", "/custOrderDetail/orderDetailCg!getStockInfo.action", params, function(form, action) {
-			//Ext.getCmp("customerstoregrid").addData(action.result.data.custOrder.orderDetailList);
-			Ext.getCmp("storeinfogrid").addData(action.result.data.custOrder.orderDetailList);
+			Ext.getCmp("storeinfogrid").addData(action.result.data.otherList);
 		});
 		
 	}())

@@ -138,6 +138,18 @@
     	<action name="orderDetailCg!getInfo" method="doGetInfo" 
     			class="com.hbs.customerorder.action.detail.CustOrderDetailCgNormalAction">
 		</action>
+		<!-- 
+	/**
+	 * 锁定库存
+	 * @action.input orderDetail.* key
+	 * @action.input self.lockAmount	本次操作本客户库存锁定数量
+	 * @action.input common.lockAmount	本次操作通用库存锁定数量
+	 * @return
+	 */
+		 -->
+    	<action name="orderDetailCg!lockAmount" method="doLockAmount" 
+    			class="com.hbs.customerorder.action.detail.CustOrderDetailCgNormalAction">
+		</action>
 
 
 		<!-- 财务普通用户 ***************************************************-->
