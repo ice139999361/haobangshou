@@ -53,6 +53,27 @@ HBSConvertHelper.init(function() {
 		historyBtn.on("click", function() {
 			HBSConvertHelper.open("/complex/detailhistory.jsp", 800, 500, {gridurl: ["/vendorInfo/vendorPartNoInfoMgr!list.action?", params].join("")})
 		});
+		
+		Ext.getCmp("custbankgrid").getView().on("refresh", function(view) {
+			for(var i = 0 ; i < view.ds.getCount() ; i++) {
+				// 操作列如果存在
+				if(view.grid.getColumnIndexById("operator") != -1) {
+					// 获取操作列
+					var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));
+					// 创建按钮到操作列
+					var operatorBtn = HBSConvertHelper.renderButton2Cell(["查看库存"], operator_cell, view.ds.getAt(i));
+					// 添加处理按钮事件
+					operatorBtn.on("click", function(){
+						// 要访问的 url 地址
+						var url = ["/customer/detailstockinfo.jsp?operSeqId=", this.config.get("operSeqId")
+									, "&cpartNo=", this.config.get("cpartNo")
+									, "&partNo=", this.config.get("partNo")].join("");
+						// 打开指定页面
+						HBSConvertHelper.openNewWin(url);
+					});
+				}
+			}
+		});
 	
 		// 加载数据
 		ExtConvertHelper.loadForm("form", "/custOrder/custOrder!getInfo.action", params, function(form, action) {
