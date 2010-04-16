@@ -34,8 +34,7 @@ HBSConvertHelper.init(function() {
 		ExtConvertHelper.submitForm("form", url, girdData, function(form, action) {
 			// 获取成功后的提示信息
 			var msg = ExtConvertHelper.getMessageInfo(action, "操作成功！");
-			//alert(action.result.data.poNo);
-			if(action.result.data.poNo){
+			if(action && action.result && action.result.data && action.result.data.poNo){
 				msg += " 订单编号：" + action.result.data.poNo;
 			}
 			// 弹出提示框给用户
@@ -132,6 +131,7 @@ HBSConvertHelper.init(function() {
 		Ext.getCmp("hidIsShowPrice").setValue(action.data.vendorInfo.isShowPrice);
 		Ext.getCmp("hidSettlementType").setValue(action.data.vendorInfo.settlementType);
 		Ext.getCmp("hidCompanyBranch").setValue(action.data.vendorInfo.companyBranch);
+		Ext.getCmp("hidShortName").setValue(action.data.vendorInfo.shortName);
 		
 		var o = this.getValue();
 		Ext.getCmp("acVendorCode").setValue(o);

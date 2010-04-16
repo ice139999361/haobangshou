@@ -57,6 +57,11 @@
 				    				<hidden name="vendorOrder.conFax"	id="acFaxHidden" />
 				    				<hidden name="vendorOrder.receiveAddress"	id="acAddressHidden" />
 				    				<hidden name="vendorOrder.receiveZip"	id="acZipHidden" />
+				    				<hidden name="vendorOrder.state" />
+				    				<hidden name="vendorOrder.poNoType" />
+				    				<hidden name="vendorOrder.activeState" />
+				    				<hidden name="vendorOrder.period" />
+				    				<hidden name="vendorOrder.shortName" id="hidShortName" />
 				    			</layoutpanel>
 				    		</listpanel>
 			    		</items></form>

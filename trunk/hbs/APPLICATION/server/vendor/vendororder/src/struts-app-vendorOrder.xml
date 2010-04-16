@@ -59,7 +59,36 @@
     	<action name="vendorOrder!controlActiveState" method="doControlActiveState" 
     			class="com.hbs.vendororder.action.VendorOrderCgNormalAction">
 		</action>
+		<!-- 
+	/**
+	 * 取消数据
+	 * @action.input vendorOrder.*
+	 * @action.input memo
+	 * @return
+	 */
+		 -->
+    	<action name="vendorOrder!cancel" method="doCancel" 
+    			class="com.hbs.vendororder.action.VendorOrderCgNormalAction">
+		</action>
 
 
+
+		<!-- 采购经理用户 ***************************************************-->
+    	<action name="vendorOrderCgMgr!list" method="doList" 
+    			class="com.hbs.vendororder.action.VendorOrderCgManagerAction">
+		</action>
+    	<action name="vendorOrderCgMgr!getInfo" method="doGetInfo" 
+    			class="com.hbs.vendororder.action.VendorOrderCgManagerAction">
+		</action>
+
+
+
+		<!-- 财务普通用户 ***************************************************-->
+    	<action name="vendorOrderCw!list" method="doList" 
+    			class="com.hbs.vendororder.action.VendorOrderCwNormalAction">
+		</action>
+    	<action name="vendorOrderCw!getInfo" method="doGetInfo" 
+    			class="com.hbs.vendororder.action.VendorOrderCwNormalAction">
+		</action>
 	</package>
 </struts>
