@@ -14,7 +14,7 @@ HBSConvertHelper.init(function() {
 		backBtn.on("click", HBSConvertHelper.defaultCloseTab);
 		
 		Ext.getCmp("printBtn").on("click", function() {
-			open(CONTEXT_PATH + "/print/shd.jsp" + location.search, null, "location=0")
+			open(CONTEXT_PATH + "/print/shd.jsp" + location.search, null, ["location=0,width=", screen.availWidth, ",height=", screen.availHeight].join(""))
 		});
 		
 		// 组装需要的参数
