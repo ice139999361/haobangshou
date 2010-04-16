@@ -192,10 +192,7 @@ var ExtConvertHelper = {
 	 }
 	 // 获取需要的提示
 	,getMessageInfo: function(action, msg) {
-			var m = action.result && action.result.data ? action.result.data.msg : (action.data ? action.data.msg : msg);
-			if(!m)
-				m = msg;
-		 	return m;
+			return action.result && action.result.data ? action.result.data.msg : (action.data && action.data.msg ? action.data.msg : msg);
 	 }
 	,getATagString: function(text, url) {
 			var sb = new StringBuilder;
