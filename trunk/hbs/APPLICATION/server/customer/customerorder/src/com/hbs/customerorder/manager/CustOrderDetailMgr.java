@@ -20,6 +20,7 @@ import com.hbs.common.springhelper.BeanLocator;
 
 import com.hbs.common.utils.DateUtils;
 import com.hbs.common.utils.ExpireTimeUtil;
+import com.hbs.common.utils.IntegerUtils;
 import com.hbs.common.utils.OrderCalUtils;
 import com.hbs.customer.common.utils.CustLogUtils;
 import com.hbs.customerorder.constants.CustOrderConstants;
@@ -359,15 +360,15 @@ public class CustOrderDetailMgr {
 		CustOrderDetail  existDetail = findCustOrderDetailByBizKey(orderDetail);
 		if(existDetail != null){//客户订单明细存在，执行库存锁定操作
 			logger.debug("客户订单明细锁定物料锁定操作,查询客户订单明细为：" + existDetail.toString());
-			int iAmount = existDetail.getAmount();  //订单数量
-			int iLockAmount = existDetail.getLockAmount(); //锁定总数量
-			int iselLock = existDetail.getSelfLockAmount(); //客户备货锁定数量
-			int icommLock = existDetail.getCommLockAmount();//常规备货锁定数量
-			int idelivery = existDetail.getDeliveryAmount();//已经发货的数量
+			int iAmount = IntegerUtils.intValue(existDetail.getAmount());  //订单数量
+			int iLockAmount = IntegerUtils.intValue(existDetail.getLockAmount()); //锁定总数量
+			int iselLock = IntegerUtils.intValue(existDetail.getSelfLockAmount()); //客户备货锁定数量
+			int icommLock = IntegerUtils.intValue(existDetail.getCommLockAmount());//常规备货锁定数量
+			int idelivery = IntegerUtils.intValue(existDetail.getDeliveryAmount());//已经发货的数量
 			//本次本客户库存锁定数量
-			int oselfLock = (orderDetail.getSelfLockAmount() == null ? 0 : orderDetail.getSelfLockAmount().intValue());
+			int oselfLock = IntegerUtils.intValue(orderDetail.getSelfLockAmount());
 			//本次通用库存锁定数量
-			int ocommLock = (orderDetail.getCommLockAmount()== null ? 0 :orderDetail.getCommLockAmount().intValue());
+			int ocommLock = IntegerUtils.intValue(orderDetail.getCommLockAmount());
 			
 			int isavelockAmount = iLockAmount + oselfLock + ocommLock;
 			if(isavelockAmount + idelivery > iAmount){//锁定的数量  + 已发货数量大于订单明细订货数量
