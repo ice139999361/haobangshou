@@ -243,28 +243,28 @@ function isPassRelateVerify(val, cmp, vText) {
 	// 针对于符合进行判断
 	switch(vconfig[1]) {
 		case ">":
-			verifyResult = (val > rval);
+			verifyResult = (+val > rval);
 			break;
 		case "<":
-			verifyResult = (val < rval);
+			verifyResult = (+val < rval);
 			break;
 		case "==":
-			verifyResult = (val == rval);
+			verifyResult = (+val == rval);
 			break;
 		case "<=":
-			verifyResult = (val <= rval);
+			verifyResult = (+val <= rval);
 			break;
 		case ">=":
-			verifyResult = (val >= rval);
+			verifyResult = (+val >= rval);
 			break;
 		case "===":
-			verifyResult = (val === rval);
+			verifyResult = (+val === rval);
 			break;
 		case "&&":
-			verifyResult = (val && rval);
+			verifyResult = (+val && rval);
 			break;
 		case "||":
-			verifyResult = (val || rval);
+			verifyResult = (+val || rval);
 			break;
 	}
 	
