@@ -3,5 +3,6 @@
 <title>打印</title>
 <script>
 	//open(CONTEXT_PATH + "/print/" + urlPs.pageType + ".html", null, "width="+ screen.availWidth + ";height=" + screen.availHeight);
-	open(CONTEXT_PATH + "/print/" + urlPs.pageType + ".html");
+	//open(CONTEXT_PATH + "/print/" + urlPs.pageType + ".html");
+	open(CONTEXT_PATH + "/print/" + urlPs.pageType + ".jsp");
 </script>
