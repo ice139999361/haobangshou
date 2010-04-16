@@ -217,31 +217,41 @@
 </div></body>
 </html>
 <script>
-	ExtConvertHelper.request("/common/cgdd!list.action", null, function(response, opts) {
+	var params = ["warehouseSend.sendPoNo=", urlPs["warehouseSend.sendPoNo"],"&warehouseSend.custCode=" , urlPs["warehouseSend.custCode"],"&warehouseSend.poNoType=" , urlPs["warehouseSend.poNoType"]].join("");
+
+	ExtConvertHelper.request("/warehouseSend/warehouseSend!print.action", params, function(response, opts) {
 		var jsonData = Ext.util.JSON.decode(response.responseText);
 		if(jsonData.success === false) return;
+		
 		var templateStr = ['<tr>'
-		,'<td align="center" class="xl10418762" style="font-size:9px">{xh}</td>'
-    ,'<td align="center" class="xl10418762" style="font-size:9px">{glexh}</td>'
-    ,'<td align="center" class="xl10418762" style="font-size:9px">{gysxh}</td>'
-    ,'<td align="center" class="xl10418762" style="font-size:9px">{ms}</td>'
-    ,'<td align="center" class="xl10418762" style="font-size:9px">{slpcs}</td>'
-    ,'<td align="center" class="xl10418762" style="font-size:9px">{bb}</td>'
-    ,'<td align="center" class="xl10418762" style="font-size:9px">{dj}</td>'
-    ,'<td align="center" class="xl10418762" style="font-size:9px">{sl}</td>'
-    ,'<td align="center" class="xl10418762" style="font-size:9px">{je}</td>'
-    ,'<td align="center" class="xl10418762" style="font-size:9px">{jhrq}</td>'
+		,'<td align="center" class="xl10418762" style="font-size:10px">{sendSeqId}</td>'
+    ,'<td align="center" class="xl10418762" style="font-size:10px">{rltPoNo}</td>'
+    ,'<td align="center" class="xl10418762" style="font-size:10px">{partNo}</td>'
+    ,'<td align="center" class="xl10418762" style="font-size:10px">{custPartNo}</td>'
+    ,'<td align="center" class="xl10418762" style="font-size:10px">{amount}</td>'
+    ,'<td align="center" class="xl10418762" style="font-size:10px">{period}</td>'
+    ,'<td align="center" class="xl10418762" style="font-size:10px">{price}</td>'
+    ,'<td align="center" class="xl10418762" style="font-size:10px">{taxRate}</td>'
+    ,'<td align="center" class="xl10418762" style="font-size:10px">{curMoney}</td>'
+    ,'<td align="center" class="xl10418762" style="font-size:10px">{specDesc}</td>'
     ,'</tr>'].join("");
     var template = Ext.DomHelper.createTemplate(templateStr);
     
     // 数量统计 金额统计
 		var quantity = amount = 0;
-		Ext.each(jsonData.data.list, function(item) {
+		Ext.each(jsonData.data.warehouseSend.detailList, function(item) {
+			alert(jsonData.data.isShowPrice);
+			if(jsonData.data.isShowPrice === 0) {
+				item.price = "&nbsp;";
+				item.taxRate = "&nbsp;";
+
+      }
 			template.insertBefore(Ext.get("totaltr"), item);
 			// 数量
-			quantity += +item.slpcs;
+			quantity += +item.amount;
 			// 税率
-			amount   += +item.je;
+			amount   += +item.curMoney;
+			
 		});
 		
 		// 填充数量/PCS
@@ -252,25 +262,26 @@
 		
 		var info = jsonData.data;
 		// 送货日期
-		Ext.DomQuery.select("#shrq")[0].innerHTML = info.xx;
+		var dataformat = FormatUtil.data2string(info.warehouseSend.createDate);
+		Ext.DomQuery.select("#shrq")[0].innerHTML = dataformat;
 		// 客户名称
-		Ext.DomQuery.select("#cuname")[0].innerHTML = info.xx;
+		Ext.DomQuery.select("#cuname")[0].innerHTML = info.custName;
 		// 联系电话
-		Ext.DomQuery.select("#culxdh")[0].innerHTML = info.xx;
+		Ext.DomQuery.select("#culxdh")[0].innerHTML = info.warehouseSend.conTel;
 		// 联系人
-		Ext.DomQuery.select("#culxr")[0].innerHTML = info.xx;
+		Ext.DomQuery.select("#culxr")[0].innerHTML = info.warehouseSend.receiveName;
 		// 送货地址1
-		Ext.DomQuery.select("#cuaddress1")[0].innerHTML = info.vcaddress;
+		Ext.DomQuery.select("#cuaddress1")[0].innerHTML = info.warehouseSend.receiveAddress;
 		// 送货地址2
-		Ext.DomQuery.select("#cuaddress2")[0].innerHTML = info.vcaddress;
+		//Ext.DomQuery.select("#cuaddress2")[0].innerHTML = info.vcaddress;
 		
 		// 送货单号
-		Ext.DomQuery.select("#shdh")[0].innerHTML = "联系人: " + info.vccontact;
+		Ext.DomQuery.select("#shdh")[0].innerHTML = info.warehouseSend.sendPoNo;
 		// 发票号
-		Ext.DomQuery.select("#fph")[0].innerHTML = "联系人: " + info.shipto;
+		//Ext.DomQuery.select("#fph")[0].innerHTML = info.warehouseSend.;
 		// 业务员
-		Ext.DomQuery.select("#ywy")[0].innerHTML = info.operatorpe;
+		Ext.DomQuery.select("#ywy")[0].innerHTML = info.sales;
 		// 销售部门
-		Ext.DomQuery.select("#xsbm")[0].innerHTML = info.operatorpe;
+		Ext.DomQuery.select("#xsbm")[0].innerHTML = info.department;
 	});
 </script>
