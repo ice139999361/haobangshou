@@ -49,7 +49,7 @@ public class VendorOrderMgr {
 			vOrder.setPoNo(SysSequenceMgr.getPoNo(SysSequenceMgr.V_ORDER_PONO));
 			String period = vOrder.getPeriod();
 			//新订单，计算账期
-			if(null == period){
+			if(StringUtils.isEmpty(period)){
 				VendorOrderState orderState =(VendorOrderState)BeanLocator.getInstance().getBean(VendorOrderConstants.PRE_SPRING + vOrder.getPoNoType() + vOrder.getSettlementType());
 				vOrder.setPeriod(orderState.getPeriod(vOrder));			
 			}

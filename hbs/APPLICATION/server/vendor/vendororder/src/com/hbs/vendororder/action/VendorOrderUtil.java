@@ -72,6 +72,7 @@ public class VendorOrderUtil {
 		if(StringUtils.isEmpty(vendorOrder.getIsShowPrice()))
 			errs.add(new FieldErr("IsShowPrice", "IsShowPriceÃ»ÓÐÌîÐ´"));
 		
+		if(vendorOrder.getVendorOrderDetailList() != null && vendorOrder.getVendorOrderDetailList().size() > 0)
 		for(VendorOrderDetail info : vendorOrder.getVendorOrderDetailList()) {
 			if(info == null)
 				continue;
@@ -98,6 +99,8 @@ public class VendorOrderUtil {
 				request.getParameterValues(detailListName), 
 				request.getParameter(detailListFields).split(CustomerInfoUtil.fieldNameSplitter), 
 				CustomerInfoUtil.splitter);
+			if(list == null || list.size() <= 0)
+				return;
 			
 			String commCode = vendorOrder.getCommCode();
 			VendorInfo vInfo = (VendorInfo)otherData.get("vendorInfo");

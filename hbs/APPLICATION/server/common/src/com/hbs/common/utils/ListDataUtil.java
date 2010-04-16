@@ -59,12 +59,11 @@ public class ListDataUtil {
 	@SuppressWarnings("unchecked")
 	public static List splitIntoList(Class itemClass, String[] values, String[] fieldNames, String spliter)
 	{
-		ArrayList list = null;		
+		ArrayList list = new ArrayList();		
 
 		if (values == null) {
 			logger.info("需要设置对象的值为null,对象为：" + itemClass.getName());
 		} else {
-			list = new ArrayList();
 			int i = 0;
 			try {
 				for (; i < values.length; i++) {
@@ -75,11 +74,11 @@ public class ListDataUtil {
 				}
 
 			} catch (Exception e) {
-				list = null;
+				list = new ArrayList();
 				logger.error("splitIntoList处理数据" + values[i] + "出错" , e);				
 			}
 		}
-		
+		logger.debug("处理完毕，size=" + list.size());
 		return list;
 		
 	}

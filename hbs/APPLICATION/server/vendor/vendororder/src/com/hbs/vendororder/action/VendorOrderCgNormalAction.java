@@ -18,7 +18,7 @@ public class VendorOrderCgNormalAction extends VendorOrderBaseAction {
 	/**
 	 * logger.
 	 */
-	private static final Logger logger = Logger.getLogger(VendorOrderBaseAction.class);
+	private static final Logger logger = Logger.getLogger(VendorOrderCgNormalAction.class);
 
 	@Override
 	protected boolean getIsManager() {
@@ -48,7 +48,8 @@ public class VendorOrderCgNormalAction extends VendorOrderBaseAction {
 			
 			if(StringUtils.isEmpty(vendorOrder.getPoNoType()))
 				vendorOrder.setPoNoType(VendorOrderConstants.VENDOR_PO_NO_TYPE_0);
-			
+			if(StringUtils.isEmpty(vendorOrder.getActiveState()))
+				vendorOrder.setActiveState(VendorOrderConstants.VENDOR_ORDER_ACTIVE_STATE);
 			vendorOrder.setState(VendorOrderConstants.VENDOR_ORDER_STATE_01);
 			if(vendorOrder.getCreateTime() == null)
 				vendorOrder.setCreateTime(new Date());
@@ -174,4 +175,33 @@ public class VendorOrderCgNormalAction extends VendorOrderBaseAction {
 		}
 	}
 
+	/**
+	 * 取消数据
+	 * @action.input vendorOrder.*
+	 * @action.input memo
+	 * @return
+	 */
+	public String doCancel() {
+		try {
+			if(vendorOrder == null
+					|| StringUtils.isEmpty(vendorOrder.getCommCode()) 
+					|| StringUtils.isEmpty(vendorOrder.getPoNo())) {
+				logger.debug("参数为空！");
+				setErrorReason("参数为空！");
+				return ERROR;
+			}
+			VendorOrderMgr mgr = (VendorOrderMgr)getBean(VENDOR_ORDER_MGR);
+			int i = mgr.cancelVendorOrder(vendorOrder, this.getHttpServletRequest().getParameter("memo"));
+			if(i != 0) {
+				logger.error("提交出错！ ret = " + i);
+				setErrorReason("提交出错！");
+				return ERROR;
+			}
+			return SUCCESS;
+		} catch(Exception e) {
+			logger.error("catch Exception in doCancel", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+	}
 }

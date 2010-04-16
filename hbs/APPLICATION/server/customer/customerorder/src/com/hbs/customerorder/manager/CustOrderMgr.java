@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 
@@ -60,7 +61,7 @@ public class CustOrderMgr {
 	public int saveTempCustomerOrder(CustomerOrder cOrder) throws Exception{
 		logger.debug("保存客户订单的临时数据,输入的参数为：" + cOrder.toString());
 		String period = cOrder.getPeriod();
-		if(null == period){
+		if(StringUtils.isEmpty(period)){
 			CustOrderState orderState =(CustOrderState)BeanLocator.getInstance().getBean(PRE_SPRING + cOrder.getPoNoType() + cOrder.getSettlementType());
 			cOrder.setPeriod(orderState.getPeriod(cOrder));			
 		}

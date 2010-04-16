@@ -61,7 +61,8 @@ HBSConvertHelper.init(function() {
 			Ext.Msg.confirm("提示", "您要执行的是取消操作，请确认是否继续？", function(btn) {
 				if(btn == "no") return;
 				
-				ExtConvertHelper.request("/success.action?baseSeqId=" + this.config.get("baseSeqId"), null, ExtConvertHelper.defaultDeleteFun);
+				ExtConvertHelper.request("/vendorOrder/vendorOrder!cancel.action?vendorOrder.commCode="+ this.config.get("commCode")
+						+ "&vendorOrder.poNo="+ this.config.get("poNo"), null, ExtConvertHelper.defaultDeleteFun);
 			}, this);
 		}
 		
@@ -70,7 +71,8 @@ HBSConvertHelper.init(function() {
 			Ext.Msg.confirm("提示", "您要执行的是删除操作，请确认是否继续？", function(btn) {
 				if(btn == "no") return;
 				
-				ExtConvertHelper.request("/success.action?baseSeqId=" + this.config.get("baseSeqId"), null, function() {
+				ExtConvertHelper.request("/vendorOrder/vendorOrder!cancel.action?vendorOrder.commCode="+ this.config.get("commCode")
+						+ "&vendorOrder.poNo="+ this.config.get("poNo"), null, function() {
 					HBSConvertHelper.refreshGrid("querygrid");
 				});
 			}, this);
