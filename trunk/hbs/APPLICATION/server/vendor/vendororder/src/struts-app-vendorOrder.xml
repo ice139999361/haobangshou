@@ -90,5 +90,11 @@
     	<action name="vendorOrderCw!getInfo" method="doGetInfo" 
     			class="com.hbs.vendororder.action.VendorOrderCwNormalAction">
 		</action>
+		
+		 <!-- 供应商采购单打印action 
+     -->
+     <action name="vendorOrder!print" method="doGetInfoPrint" 
+    			class="com.hbs.vendororder.action.VendorOrderPrintAction">
+		</action>
 	</package>
 </struts>

@@ -89,7 +89,12 @@
 		<action name="warehouseSend!cancelDetail" method="doCancelDetail" 
     			class="com.hbs.warehousesend.action.WarehouseSendAction">
 		</action> 
-        		
+        	
+		<!--  打印送货单
+		 -->	
+		 <action name="warehouseSend!print" method="doGetInfoPrint" 
+    			class="com.hbs.warehousesend.action.WareHouseSendPrintAction">
+		</action> 
 	</package>
 </struts>
         
