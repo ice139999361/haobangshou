@@ -1,0 +1,44 @@
+﻿{
+    "data": {
+        "list": [
+            {
+                "activeState": "ACTIVE",
+                "commCode": "GV0001",
+                "companyBranch": "A",
+                "companyBranchDesc": "未定义",
+                "conFax": "A",
+                "conName": "A",
+                "conTel": "A",
+                "createTime": "2009-10-20 00:00:00",
+                "custCcode": "GC0001",
+                "dynamicFields": {},
+                "end": 9999999,
+                "isShowPrice": "0",
+                "isShowPriceDesc": "是",
+                "logKey": "GV0001;GVK0001",
+                "order": null,
+                "orderTime": "2010-03-20 00:00:00",
+                "period": "201003",
+                "poNo": "GVK0001",
+                "poNoType": "2",
+                "receiveAddress": "S",
+                "receiveName": "S",
+                "receiveZip": "S",
+                "sales": "AAA",
+                "settlementType": "1",
+                "settlementTypeDesc": "账期结算",
+                "shortName": "AAA",
+                "sort": null,
+                "staffId": "1",
+                "staffName": "YANGZJ",
+                "start": 0,
+                "state": "61",
+                "stateDesc": "全部入库",
+                "vendorOrderDetailList": null
+            }
+        ],
+        "count": 1,
+        "jq": []
+    },
+    "success": true
+}
