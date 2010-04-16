@@ -1,0 +1,51 @@
+﻿{
+    "data": {
+    		"xx": "dsfsdfsfdsf",
+    		"vcaddress": "广州市今凯电子有限公司",
+    		"vctel":"020-34923382",
+    		"vcphone":"020-34923396",
+    		"vccontact": "鲁小姐",
+    		"shipto": "深圳市前进一路诺铂广场1515-1516室",
+    		"operatorpe": "张  三",
+        "list": [
+            {
+                "xh": 1,
+                "glexh": "GCRH4D28-100NC",
+                "gysxh": "CKRH4D28-100NC",
+                "ms": "10UH",
+                "slpcs": "1000",
+                "bb": "RMB",
+                "dj": "0.25",
+                "sl": "0.17",
+                "je": "2500",
+                "jhrq": "2009-12-26",
+                "bz": "加急!"
+            },{
+                "xh": 2,
+                "glexh": "GCRH4D28-100NC",
+                "gysxh": "CKRH4D28-100NC",
+                "ms": "10UH",
+                "slpcs": "1000",
+                "bb": "RMB",
+                "dj": "0.25",
+                "sl": "0.17",
+                "je": "2500",
+                "jhrq": "2009-12-26",
+                "bz": "加急!"
+            },{
+                "xh": 3,
+                "glexh": "GCRH4D28-100NC",
+                "gysxh": "CKRH4D28-100NC",
+                "ms": "10UH",
+                "slpcs": "1000",
+                "bb": "RMB",
+                "dj": "0.25",
+                "sl": "0.17",
+                "je": "2500",
+                "jhrq": "2009-12-26",
+                "bz": "加急!"
+            }
+        ]
+    },
+    "success": true
+}

@@ -1,0 +1,73 @@
+﻿{
+    "data": {
+        "waitReminder": [
+            {
+                "businessKey": "GV0001",
+                "businessType": "供应商资料",
+                "comments": "user1审批了供应商GV0001(G测试)的资料，审批结果：不同意！",
+                "createTime": "2010-03-19 00:58:39",
+                "expireTime": null,
+                "hmParam": null,
+                "param": null,
+                "roleId": null,
+                "staffId": "1",
+                "staffName": null,
+                "systemName": "vendor",
+                "taskId": "9",
+                "taskType": "0",
+                "url": "/abc.jsp"
+            },
+            {
+                "businessKey": "GLE0001;KH0001;GC0001",
+                "businessType": "客户物料",
+                "comments": "user1审批了客户GC0001的物料KH0001信息，审批结果：同意！",
+                "createTime": "2010-04-03 14:23:23",
+                "expireTime": "2010-04-05 00:00:00",
+                "hmParam": null,
+                "param": null,
+                "roleId": null,
+                "staffId": "1",
+                "staffName": null,
+                "systemName": "customer",
+                "taskId": "18",
+                "taskType": "1",
+                "url": "/abc.jsp"
+            }
+        ],
+        "waitMust": [
+            {
+                "businessKey": "GV0001",
+                "businessType": "供应商资料",
+                "comments": "user1审批了供应商GV0001(G测试)的资料，审批结果：不同意！",
+                "createTime": "2010-03-19 00:58:39",
+                "expireTime": null,
+                "hmParam": null,
+                "param": null,
+                "roleId": null,
+                "staffId": "1",
+                "staffName": null,
+                "systemName": "vendor",
+                "taskId": "9",
+                "taskType": "0",
+                "url": "/abc.jsp"
+            },
+            {
+                "businessKey": "GLE0001;KH0001;GC0001",
+                "businessType": "客户物料",
+                "comments": "user1审批了客户GC0001的物料KH0001信息，审批结果：同意！",
+                "createTime": "2010-04-03 14:23:23",
+                "expireTime": "2010-04-05 00:00:00",
+                "hmParam": null,
+                "param": null,
+                "roleId": null,
+                "staffId": "1",
+                "staffName": null,
+                "systemName": "customer",
+                "taskId": "18",
+                "taskType": "1",
+                "url": "/abc.jsp"
+            }
+        ]
+    },
+    "success": true
+}
