@@ -34,6 +34,8 @@
 				    				<hidden name="custOrder.conFax"	id="acFaxHidden" />
 				    				<hidden name="custOrder.receiveAddress"	id="acAddressHidden" />
 				    				<hidden name="custOrder.receiveZip"	id="acZipHidden" />
+				    				<hidden name="custOrder.period" />
+				    				<hidden name="custOrder.activeState" />
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
 				    				<dictcombo    fieldLabel="选择联系人"	id="acContactList"	url="/customerInfo/customerInfo!getContactList.action" record="seqId,conName,conTel,conFax"	root="data.list"	valueField="conName"	displayField="conName"	name="custOrder.conName"                        labelStyle="width:150"/>

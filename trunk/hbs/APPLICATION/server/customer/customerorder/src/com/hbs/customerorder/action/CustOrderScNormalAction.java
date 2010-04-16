@@ -69,7 +69,8 @@ public class CustOrderScNormalAction extends BaseAction {
 			
 			if(StringUtils.isEmpty(custOrder.getPoNoType()))
 				custOrder.setPoNoType("0");
-			
+			if(StringUtils.isEmpty(custOrder.getActiveState()))
+				custOrder.setActiveState(CustOrderConstants.ORDER_ACTIVE_STATE);
 			custOrder.setState(CustOrderConstants.ORDER_STATE_01);
 			if(custOrder.getFristCreateTime() == null)
 				custOrder.setFristCreateTime(new Date());
@@ -156,6 +157,7 @@ public class CustOrderScNormalAction extends BaseAction {
 					return ERROR;
 				}
 			}
+			setAlertMsg("提交成功！");
 			logger.debug("end doCommit");
 			return ret;
 		}catch(Exception e) {
