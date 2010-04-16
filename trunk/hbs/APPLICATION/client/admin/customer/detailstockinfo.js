@@ -43,8 +43,25 @@ HBSConvertHelper.init(function() {
 				var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));
 				// 创建操作按钮
 				var operatorBtn = HBSConvertHelper.renderButton2Cell(["调货"], operator_cell, record);
-				// 添加审批按钮事件
-				operatorBtn.on("click", function() { alert("调货") });
+				// 添加调货按钮事件
+				operatorBtn.on("click", function() {
+					Ext.Msg.prompt("提示", "请输入调货数量", function(btn, value) {
+						if(btn == "no") return;
+						// 要访问的 url 地址
+						var url = ["/success.action?poNo=", record.get("poNo")
+							,"&commCode="   , record.get("commCode")
+							,"&data="       , value
+						].join("");
+						
+						ExtConvertHelper.request(url, null, function(response, opts) {
+							// HBSConvertHelper.refreshGrid("querygrid");
+							var jsonData = Ext.util.JSON.decode(response.responseText);
+							if(jsonData.success === false) return;			
+							Ext.getCmp("storeinfogrid").store.removeAll();
+							Ext.getCmp("storeinfogrid").addData(action.result.data.custOrder.orderDetailList);
+						});
+					}, this);
+				});
 			}
 		});
 		
