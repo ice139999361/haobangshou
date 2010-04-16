@@ -48,8 +48,11 @@ public class CustOrderDetailBaseAction extends BaseAction {
 	 */
 	protected boolean checkKeyFields() {
 		try {
-			if(orderDetail == null)
+			if(orderDetail == null){
+				logger.info("参数错误");
+				setErrorReason("参数错误");
 				return false;
+			}
 			if(StringUtils.isEmpty(orderDetail.getOperSeqId())) {
 				if(StringUtils.isEmpty(orderDetail.getCommCode()) 
 						|| StringUtils.isEmpty(orderDetail.getCpartNo()) ) {

@@ -92,6 +92,8 @@ public class CustOrderDetailCgNormalAction extends CustOrderDetailBaseAction {
 			boolean foundCommon = false;
 			List<WareHouseInfo> list = new Vector<WareHouseInfo>();
 			for(WareHouseInfo wInfo2 : wmgr.listWareHouseInfo(wInfo)) {
+				if(wInfo2 == null)
+					continue;
 				try{
 					if(!WareHouseConstants.WAREHOUSE_INFO_STATE_0.equals(wInfo2.getState())
 							||wInfo2.getUseAmount().intValue() <= 0
@@ -122,6 +124,8 @@ public class CustOrderDetailCgNormalAction extends CustOrderDetailBaseAction {
 			wInfo.setUseAmount(0);
 			wInfo.setTotalAmount(0);
 			wInfo.setLockAmount(0);
+			// 设置为非null，避免json时抛出异常
+			wInfo.setHouseSeqId(0);
 			if(!foundSelf)
 				setResult("self", wInfo);
 			if(!foundCommon)
@@ -229,6 +233,50 @@ public class CustOrderDetailCgNormalAction extends CustOrderDetailBaseAction {
 		}
 	}
 	
+	/**
+	 * 锁定库存
+	 * @action.input orderDetail.* key
+	 * @action.input self.lockAmount	本次操作本客户库存锁定数量
+	 * @action.input common.lockAmount	本次操作通用库存锁定数量
+	 * @return
+	 */
+	public String doLockAmount(){
+		try {
+			logger.debug("begin doLockAmount");
+			if(!findOrderDetail())
+				return ERROR;
+			try{
+				orderDetail.setSelfLockAmount(Integer.parseInt(this.getHttpServletRequest().getParameter("self.lockAmount")));
+			}catch(Exception e){};
+			try{
+				orderDetail.setCommLockAmount(Integer.parseInt(this.getHttpServletRequest().getParameter("common.lockAmount")));
+			}catch(Exception e){};
+			int i = mgr.lockOrderDetailAmount(orderDetail, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), null);
+			if(i != 0){
+				String s;
+				switch(i){
+				case -1:
+					s = "无法找到客户订单明细";
+					break;
+				case -2:
+					s = "锁定数量大于订单明细订货数量";
+					break;
+				default:
+					s = "锁定错误！";
+					break;
+				}
+				setErrorReason(s);
+				logger.error(s + " ret = " + i);
+				return ERROR;
+			}
+			logger.debug("end doLockAmount");
+			return SUCCESS;
+		} catch (Exception e) {
+			logger.error("catch Exception in doLockAmount", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+	}
 
 	/**
 	 * 如果i为null，则返回v；否则返回i
