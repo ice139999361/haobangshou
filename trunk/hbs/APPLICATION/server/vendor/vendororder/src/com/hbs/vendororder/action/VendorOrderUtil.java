@@ -67,6 +67,8 @@ public class VendorOrderUtil {
 			errs.add(new FieldErr("ReceiveAddress", "ReceiveAddress没有填写"));
 		if(StringUtils.isEmpty(vendorOrder.getSettlementType()))
 			errs.add(new FieldErr("SettlementType", "SettlementType没有填写"));
+		if(StringUtils.isEmpty(vendorOrder.getCompanyBranch()))
+			errs.add(new FieldErr("CompanyBranch", "CompanyBranch没有填写"));
 		if(StringUtils.isEmpty(vendorOrder.getIsShowPrice()))
 			errs.add(new FieldErr("IsShowPrice", "IsShowPrice没有填写"));
 		

@@ -34,9 +34,9 @@ HBSConvertHelper.init(function() {
 		ExtConvertHelper.submitForm("form", url, girdData, function(form, action) {
 			// 获取成功后的提示信息
 			var msg = ExtConvertHelper.getMessageInfo(action, "操作成功！");
-			alert(action.data.poNo);
-			if(action.data.poNo){
-				msg += " 订单编号：" + action.data.poNo;
+			//alert(action.result.data.poNo);
+			if(action.result.data.poNo){
+				msg += " 订单编号：" + action.result.data.poNo;
 			}
 			// 弹出提示框给用户
 			Ext.Msg.alert("提示", msg, submitSuccessPro);
@@ -131,6 +131,7 @@ HBSConvertHelper.init(function() {
 		// 给需要的隐藏域赋值
 		Ext.getCmp("hidIsShowPrice").setValue(action.data.vendorInfo.isShowPrice);
 		Ext.getCmp("hidSettlementType").setValue(action.data.vendorInfo.settlementType);
+		Ext.getCmp("hidCompanyBranch").setValue(action.data.vendorInfo.companyBranch);
 		
 		var o = this.getValue();
 		Ext.getCmp("acVendorCode").setValue(o);
@@ -218,7 +219,7 @@ HBSConvertHelper.init(function() {
 		
 		// 加载数据
 		ExtConvertHelper.loadForm("form", "/vendorOrder/vendorOrder!getInfo.action", params, function(form, action) {
-				Ext.getCmp("ordergrid").addData(action.result.data.vendorOrder.orderlist);
+				Ext.getCmp("ordergrid").addData(action.result.data.vendorOrder.vendorOrderDetailList);
 				Ext.getCmp("acCommCode").fireEvent("select");
 		});
 		
