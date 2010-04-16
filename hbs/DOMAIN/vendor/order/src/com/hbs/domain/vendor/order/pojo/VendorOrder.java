@@ -360,6 +360,24 @@ public class VendorOrder extends BaseDomain{
     public String getState() {
         return this.state;
     }	
+    
+    /**
+     * 获取状态描述
+     * @return
+     */
+    public String getStateDesc(){
+    	String retStr ="未定义(" + getState() +")";
+    	if(StringUtils.isNotEmpty(getState())){
+	    	ConfigEncode ceParam = new ConfigEncode();
+	    	ceParam.setEncodeKey(getState());
+	    	ceParam.setEncodeType("VENDOR_ORDER_STATE");
+	    	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
+	    	if(null != cEncode){
+	    		retStr = cEncode.getEncodeValue();
+	    	}
+    	}
+    	return retStr;
+    }
   
     public void setState(String state) {
         this.state = state;

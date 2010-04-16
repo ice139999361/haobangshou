@@ -22,10 +22,10 @@
 				    			<layoutpanel columnNum="3:.3,.2,.5">
 				    				<autocomplete    fieldLabel="供应商"	url="/vendorInfo/vendorInfo!list.action"  displayField="commCode"  valueField="commCode" queryParam="vendorInfo.commCode" id="acCommCode"          name="vendorOrder.commCode"       labelStyle="width:150" />
 				    				<button       text="查询客户订单" id="sxkhddBtn" />
-				    				<textfield    fieldLabel="订单编号"         name="custOrder.poNo"          readOnly="true"             labelStyle="width:150"/>
+				    				<textfield    fieldLabel="订单编号"         name="vendorOrder.poNo"          readOnly="true"             labelStyle="width:150"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="2">
-				    				<label        fieldLabel="开单日期"                                 labelStyle="width:150"/>
+				    				<textfield        fieldLabel="开单日期" name="vendorOrder.createTime"          readOnly="true"                                labelStyle="width:150"/>
 				    				<label        fieldLabel="公司简称" id="acShortName"                                labelStyle="width:150"/>
 				    				<label        fieldLabel="对应分公司" id="acCompanyBranch"                              labelStyle="width:150"/>
 				    				<label        fieldLabel="结算方式" id="acSettlementType"                                labelStyle="width:150"/>
@@ -52,6 +52,7 @@
 				    			<layoutpanel columnNum="1">
 				    				<hidden name="vendorOrder.isShowPrice" id="hidIsShowPrice" />
 				    				<hidden name="vendorOrder.settlementType" id="hidSettlementType" />
+				    				<hidden name="vendorOrder.companyBranch" id="hidCompanyBranch" />
 				    				<hidden name="vendorOrder.conTel"	id="acTelHidden" />
 				    				<hidden name="vendorOrder.conFax"	id="acFaxHidden" />
 				    				<hidden name="vendorOrder.receiveAddress"	id="acAddressHidden" />
