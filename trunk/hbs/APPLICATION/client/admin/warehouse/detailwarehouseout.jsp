@@ -41,6 +41,7 @@
 			    		
 			    		<panel buttonAlign="center">
 			    			<buttons>
+			    				<button text="打印"         id="printBtn"  hidden="true" />
 			    				<button text="取消"         id="backBtn"   />
 			    			</buttons>
 			    		</panel>
