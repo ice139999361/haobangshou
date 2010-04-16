@@ -81,6 +81,17 @@ HBSConvertHelper.init(function() {
 			HBSConvertHelper.open("/complex/detailhistory.jsp", 800, 500, {gridurl: ["/vendorInfo/vendorPartNoInfoMgr!list.action?custOrder.poNo=", record.get("poNo"), "&custOrder.commCode=", record.get("commCode")].join("")})
 		}
 		
+		// 查看库存按钮触发事件
+		var querystoreBtnFun = function(){
+			// 要访问的 url 地址
+			var url = ["/customer/detailstockinfo.jsp?commCode=", this.config.get("commCode")
+						, "&poNo=", this.config.get("poNo")
+						, "&poNoType=", this.config.get("poNoType")
+						, "&state=", this.config.get("state")].join("");
+			// 打开指定页面
+			HBSConvertHelper.openNewWin(url);
+		}
+		
 		
 		// 获取 roleType 
 		var roleType = urlPs.roleType;
@@ -158,15 +169,7 @@ HBSConvertHelper.init(function() {
 					// 添加处理按钮事件
 					operatorBtn.get(0).on("click", processBtnFun);
 					// 添加查看库存按钮事件
-					operatorBtn.get(1).on("click", function(){
-						// 要访问的 url 地址
-						var url = ["/customer/detailstockinfo.jsp?commCode=", this.config.get("commCode")
-									, "&poNo=", this.config.get("poNo")
-									, "&poNoType=", this.config.get("poNoType")
-									, "&state=", this.config.get("state")].join("");
-						// 打开指定页面
-						HBSConvertHelper.openNewWin(url);
-					});
+					operatorBtn.get(1).on("click", querystoreBtnFun);
 					// 添加采购交期按钮事件
 					operatorBtn.get(2).on("click", function() {
 						Ext.Msg.prompt("提示", "请输入供应商回复交期", function(btn, value) {
@@ -190,7 +193,7 @@ HBSConvertHelper.init(function() {
 					// 添加处理按钮事件
 					operatorBtn.get(0).on("click", processBtnFun);
 					// 添加查看库存按钮事件
-					operatorBtn.get(1).on("click", function(){});
+					operatorBtn.get(1).on("click", querystoreBtnFun);
 					break;
 			}
 			
