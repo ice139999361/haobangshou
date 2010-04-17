@@ -13,8 +13,10 @@ HBSConvertHelper.init(function() {
 	(function() {
 		// 提交按钮的单击事件
 		submitBtn.on("click", function() {
+			var girdData = HBSConvertHelper.getGridSubmitData("querygrid", "invoicelist");
+
 			// 提交数据
-			ExtConvertHelper.submitForm(ExtConvertHelper.getHiddenForm().id, "/success.action", null, function(form, action) {
+			ExtConvertHelper.submitForm(ExtConvertHelper.getHiddenForm().id, "/invoice/SendInvoice!add.action", girdData, function(form, action) {
 				// 获取成功后的提示信息
 				var msg = ExtConvertHelper.getMessageInfo(action, "操作成功！");
 				
