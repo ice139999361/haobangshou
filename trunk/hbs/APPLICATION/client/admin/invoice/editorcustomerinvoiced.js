@@ -36,7 +36,7 @@ HBSConvertHelper.init(function() {
 	(function() {
 		// 当提交按钮被单击时
 		submitBtn.on("click", function() {
-			submitData("/customerOrder/customerOrder!save.action");
+			submitData("/invoice/SendInvoice!save.action");
 		});
 		
 		// 当保存按钮被单击时
@@ -74,7 +74,7 @@ HBSConvertHelper.init(function() {
 		//if(urlPs.state != "01") ExtConvertHelper.hideItems("saveBtn");
 		
 		// 组装需要的参数
-		var params = ["invoice.invoiceSeqId=", urlPs.["invoice.invoiceSeqId"]].join("");
+		var params = ["invoice.invoiceSeqId=", urlPs["invoice.invoiceSeqId"]].join("");
 		
 		// 加载数据
 		ExtConvertHelper.loadForm("form", "/invoice/SendInvoice!getInfo.action", params, function(form, action) {

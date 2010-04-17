@@ -39,23 +39,24 @@ public class InvoiceUtil {
 	public static List<FieldErr> checkInputFields(
 			InvoiceInfo invoice, Map otherData) {
 		List<FieldErr> list = new ArrayList<FieldErr>();
-		
-		if(StringUtils.isEmpty(invoice.getCcode()))
-			list.add(new FieldErr("CCode","CCode没有填写"));
-		if(StringUtils.isEmpty(invoice.getShortName()))
-			list.add(new FieldErr("ShortName","ShortName没有填写"));
-		if(StringUtils.isEmpty(invoice.getPoNo()))
-			list.add(new FieldErr("PoNo","PoNo没有填写"));
-		if(StringUtils.isEmpty(invoice.getCpartNo()))
-			list.add(new FieldErr("CpartNo","CpartNo没有填写"));
-		if(StringUtils.isEmpty(invoice.getPartNo()))
-			list.add(new FieldErr("PartNo","PartNo没有填写"));
-		if(invoice.getCurMoney() == null)
-			list.add(new FieldErr("CurMoney", "CurMoney没有填写"));
-		if(StringUtils.isEmpty(invoice.getInvoiceDesc()))
-			list.add(new FieldErr("InvoiceDesc","InvoiceDesc没有填写"));
-		if(invoice.getCreateTime() == null)
-			list.add(new FieldErr("CreateTime","CreateTime没有填写"));
+		if(null == invoice.getInvoiceSeqId()){
+			if(StringUtils.isEmpty(invoice.getCcode()))
+				list.add(new FieldErr("CCode","CCode没有填写"));
+			if(StringUtils.isEmpty(invoice.getShortName()))
+				list.add(new FieldErr("ShortName","ShortName没有填写"));
+			if(StringUtils.isEmpty(invoice.getPoNo()))
+				list.add(new FieldErr("PoNo","PoNo没有填写"));
+			if(StringUtils.isEmpty(invoice.getCpartNo()))
+				list.add(new FieldErr("CpartNo","CpartNo没有填写"));
+			if(StringUtils.isEmpty(invoice.getPartNo()))
+				list.add(new FieldErr("PartNo","PartNo没有填写"));
+			if(invoice.getCurMoney() == null)
+				list.add(new FieldErr("CurMoney", "CurMoney没有填写"));
+			if(StringUtils.isEmpty(invoice.getInvoiceDesc()))
+				list.add(new FieldErr("InvoiceDesc","InvoiceDesc没有填写"));
+			if(invoice.getCreateTime() == null)
+				list.add(new FieldErr("CreateTime","CreateTime没有填写"));
+		}
 		return list;
 	}
 }

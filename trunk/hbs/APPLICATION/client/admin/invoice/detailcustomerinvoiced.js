@@ -14,7 +14,7 @@ HBSConvertHelper.init(function() {
 		backBtn.on("click", HBSConvertHelper.defaultCloseTab);
 		
 		// 组装需要的参数
-		var params = ["vendorPartNoInfo.seqId=", urlPs.seqId].join("");
+		var params = ["invoice.invoiceSeqId=", urlPs["invoice.invoiceSeqId"]].join("");
 		
 		// 加载数据
 		ExtConvertHelper.loadForm("form", "/invoice/SendInvoice!getInfo.action", params);
