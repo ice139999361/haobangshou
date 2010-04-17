@@ -18,29 +18,44 @@
 			    	<!-- service ext ui.  begin. -->
 			    		
 			
-			    		<queryform gridId="querygrid" itemsFun="queryformFun" />
+			    		<queryform gridId="querygrid" itemsFun="addQueryformFun" />
 
-				    	<complexgrid id="querygrid" title="客户信息列表" frame="true" page="true" root="data.list" url="/custOrder/custOrderScMgr!list.action">
+				    	<complexgrid id="querygrid" title="供应商入库单信息列表" frame="true" page="true" root="data.list" url="/warehouseRec/warehouseRec!listDetail.action">
 				    		<fields>
-				    			<field name="l1" />
-				    			<field name="l2" />
-				    			<field name="l3" />
-				    			<field name="l4" />
-				    			<field name="l5" />
-				    			<field name="l6" />
+				    			<field name="vendorCode" />
+				    			<field name="shortName" />
+				    			<field name="recPoNo" />
+				    			<field name="partNo" />
+				    			<field name="cpartNo" />
+				    			<field name="pnDesc" />
+				    			<field name="specDesc" />
+				    			<field name="amount" />
+				    			<field name="curMoney" />
+				    			<field name="operTime" />				    			
+				    			<field name="currMoney" />
+				    			<field name="leftMoney" />
+				    			<field name="invoiceDesc" />
+				    			
+				    			<!-- 转换字段，自动填充 -->
+			    				<field name="poNo"  mapping="recPoNo" />	
+			    				<field name="poNoDate"    mapping="operTime" />
+			    				<field name="ccode" mapping="vendorCode" />			    				
+			    				<field name="allMoney"  mapping="curMoney" />	
 				    		</fields>
 				    		
 				    		<columns>
-				    			<column header="编码"          dataIndex="l1" />
-				    			<column header="物料编号"      dataIndex="l2" />
-				    			<column header="收货单号"      dataIndex="l2" />
-				    			<column header="送货数量"      dataIndex="l3" />
-				    			<column header="金额"          dataIndex="l5" />
-				    			<column header="本次开票金额"  dataIndex="l6" xtype="textfield" />
-				    			<column header="剩余金额"      dataIndex="l6" xtype="textfield" />
-				    			<column header="发票"          dataIndex="l6" xtype="textfield" />
+				    			<column header="供应商编码"          dataIndex="vendorCode" />
+				    			<column header="物料编号"      dataIndex="partNo" />
+				    			<column header="收货单号"      dataIndex="recPoNo" />
+				    			<column header="送货数量"      dataIndex="amount" />
+				    			<column header="金额"          dataIndex="curMoney" />
+				    			<column header="本次开票金额"  dataIndex="currMoney" xtype="textfield" />
+				    			<column header="剩余金额"      dataIndex="leftMoney" xtype="textfield" />
+				    			<column header="发票"          dataIndex="invoiceDesc" xtype="textfield" />
 				    			<column header="操作"          dataIndex=""   id="operator"     width="120" />
 				    		</columns>
+				    		
+				    		<submitFields value="ccode,partNo,cpartNo,pnDesc,shortName,poNo,specDesc,amount,allMoney,currMoney,leftMoney,invoiceDesc,poNoDate" />
 				    	</complexgrid>
 				    	
 				    	<panel buttonAlign="center">

@@ -22,7 +22,7 @@ HBSConvertHelper.init(function() {
 				Ext.Msg.confirm("提示", "您要执行的是删除操作，请确认是否继续？", function(btn) {
 					if(btn == "no") return;
 					
-					ExtConvertHelper.request("/success.action?baseSeqId=" + this.config.get("baseSeqId"), null, function() {
+					ExtConvertHelper.request("/invoice/RecInvoice!del.action?invoice.invoiceSeqId=" + this.config.get("invoiceSeqId"), null, function() {
 						HBSConvertHelper.refreshGrid("querygrid");
 					});
 				}, this);
@@ -31,10 +31,7 @@ HBSConvertHelper.init(function() {
 			// 修改按钮触发事件
 			var updateBtnFun = function() {
 				// 要访问的 url 地址
-				var url = ["/invoice/editorvendorinvoiced.jsp?editorType=update&commCode=", this.config.get("commCode")
-							, "&poNo=", this.config.get("poNo")
-							, "&poNoType=", this.config.get("poNoType")
-							, "&state=", this.config.get("state")].join("");
+				var url = ["/invoice/editorvendorinvoiced.jsp?editorType=update&invoice.invoiceSeqId=", this.config.get("invoiceSeqId")].join("");
 				// 打开指定页面
 				HBSConvertHelper.openNewWin(url);
 			};
@@ -46,7 +43,7 @@ HBSConvertHelper.init(function() {
 				// 获取编码所在的列
 				var commCode_cell = view.getCell(i, view.grid.getColumnIndexById("commCode"));
 				// 将需要的链接渲染到此列
-				HBSConvertHelper.renderATag2Cell(commCode_cell.innerText, "/invoice/detailvendorinvoiced.jsp?pageType=query&baseSeqId=" + record.get("baseSeqId"), "open", commCode_cell);
+				HBSConvertHelper.renderATag2Cell(commCode_cell.innerText, "/invoice/detailvendorinvoiced.jsp?pageType=query&invoice.invoiceSeqId=" + record.get("invoiceSeqId"), "open", commCode_cell);
 			
 				// 获取操作列
 				var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));

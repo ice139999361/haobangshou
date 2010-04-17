@@ -24,7 +24,7 @@
 			    	
 			    		<queryform gridId="querygrid" itemsFun="queryformFun" />
 
-				    	<complexgrid id="querygrid" title="发票信息列表" frame="true" page="true" root="data.list" url="/custOrder/custOrderScMgr!list.action" itemsAlign="after" itemsFun="querygridFun">
+				    	<complexgrid id="querygrid" title="发票信息列表" frame="true" page="true" root="data.list" url="/invoice/RecInvoice!list.action" itemsAlign="after" itemsFun="querygridFun">
 				    		<columns>
 				    			<column header="操作"      dataIndex=""  id="operator" width="170" />
 				    		</columns>

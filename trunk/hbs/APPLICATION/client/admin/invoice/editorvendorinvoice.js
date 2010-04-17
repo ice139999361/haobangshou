@@ -12,9 +12,11 @@ HBSConvertHelper.init(function() {
 	
 	(function() {
 		// 提交按钮的单击事件
+		
 		submitBtn.on("click", function() {
 			// 提交数据
-			ExtConvertHelper.submitForm(ExtConvertHelper.getHiddenForm().id, "/success.action", null, function(form, action) {
+			var girdData = HBSConvertHelper.getGridSubmitData("querygrid", "invoicelist");
+			ExtConvertHelper.submitForm(ExtConvertHelper.getHiddenForm().id, "/invoice/RecInvoice!add.action", girdData, function(form, action) {
 				// 获取成功后的提示信息
 				var msg = ExtConvertHelper.getMessageInfo(action, "操作成功！");
 				
@@ -31,7 +33,13 @@ HBSConvertHelper.init(function() {
 		querygrid.getView().on("refresh", function(view) {
 			// 查看已有发票记录按钮事件
 			var queryinvoiceFun = function() {
-				showModalDialog(CONTEXT_PATH + "/invoice/querybeingvendorinvoice.jsp", null, "dialogWidth:900px");
+				var record = this.config;
+				var  url = [CONTEXT_PATH, "/invoice/querybeingvendorinvoice.jsp"
+				 ,"?invoice.ccode=" , record.get("ccode")
+				 ,"&invoice.poNo="  , record.get("poNo")
+				 ,"&invoice.partNo=", record.get("partNo")].join("");
+				 
+				showModalDialog(url, null, "dialogWidth:900px");
 			};
 			
 			for(var i = 0 ; i < view.ds.getCount() ; i++) {
