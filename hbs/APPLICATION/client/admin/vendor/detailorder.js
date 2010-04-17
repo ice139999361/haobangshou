@@ -53,10 +53,20 @@ HBSConvertHelper.init(function() {
 		historyBtn.on("click", function() {
 			HBSConvertHelper.open("/complex/detailhistory.jsp", 800, 500, {gridurl: ["/vendorInfo/vendorPartNoInfoMgr!list.action?", params].join("")})
 		});
+		
+		Ext.getCmp("printBtn").on("click", function() {
+			open(CONTEXT_PATH + "/print/cgdd.jsp" + location.search, null, ["location=0,width=", screen.availWidth, ",height=", screen.availHeight].join(""))
+		});
 	
 		// 加载数据
 		ExtConvertHelper.loadForm("form", "/customerInfo/customerInfo!getInfo.action", params, function(form, action) {
 				Ext.getCmp("custbankgrid").addData(action.result.data);
+				switch(action.result.data.custInfo.state) {
+					// 正式状态
+					case "2":
+						ExtConvertHelper.showItems("printBtn");
+						break;
+				}
 		});
 	}())
 	
