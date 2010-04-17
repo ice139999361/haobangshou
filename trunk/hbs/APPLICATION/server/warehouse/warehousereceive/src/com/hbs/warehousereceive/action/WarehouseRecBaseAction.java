@@ -8,9 +8,12 @@ import org.apache.log4j.Logger;
 
 import com.hbs.common.action.JianQuanUtil;
 import com.hbs.common.action.base.BaseAction;
+import com.hbs.domain.warehouse.pojo.WarehouseRecDetail;
 import com.hbs.domain.warehouse.pojo.WarehouseRecInfo;
+
 import com.hbs.warehousereceive.manager.WareHouseRecDetailMgr;
 import com.hbs.warehousereceive.manager.WareHouseRecMgr;
+
 
 /**
  * 仓库入库单基类，实现doList、doGetInfo
@@ -30,6 +33,8 @@ public abstract class WarehouseRecBaseAction extends BaseAction {
 	public static final String WAREHOUSE_REC_DETAIL_MGR ="wareHouseRecDetailMgr";
 	
 	WarehouseRecInfo warehouseRec;
+	
+	WarehouseRecDetail warehouseRecDetail;
 
 	public WarehouseRecInfo getWarehouseRec() {
 		return warehouseRec;
@@ -37,6 +42,16 @@ public abstract class WarehouseRecBaseAction extends BaseAction {
 
 	public void setWarehouseRec(WarehouseRecInfo warehouseRec) {
 		this.warehouseRec = warehouseRec;
+	}
+
+	
+	
+	public WarehouseRecDetail getWarehouseRecDetail() {
+		return warehouseRecDetail;
+	}
+
+	public void setWarehouseRecDetail(WarehouseRecDetail warehouseRecDetail) {
+		this.warehouseRecDetail = warehouseRecDetail;
 	}
 
 	/**
@@ -89,6 +104,30 @@ public abstract class WarehouseRecBaseAction extends BaseAction {
 		}
 	}
 
+	/**
+	 * 供财务管理发票使用，新增发票时选择入货单
+	 * @return
+	 */
+	public String doListDetail() {
+		try {
+			logger.debug("begin doListDetail");
+			if(warehouseRecDetail == null){
+				warehouseRecDetail = new WarehouseRecDetail();
+			}
+			warehouseRecDetail.setField("notInState", "'01','03'");			
+			setPagination(warehouseRecDetail);
+			WareHouseRecDetailMgr mgr = getMgrDetail();
+			setResult("list", mgr.getWarehouseRecDetailList(warehouseRecDetail));
+			setTotalCount(mgr.getWarehouseRecDetailCount(warehouseRecDetail));
+			setResult("count", getTotalCount());			
+			logger.debug("end doListDetail");
+			return SUCCESS;
+		} catch(Exception e) {
+			logger.error("catch Exception in doListDetail", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+	}
 	/**
 	 * 获取入库单信息
 	 * @action.input warehouseRec.recPoNo + warehouseRec.vendorCode

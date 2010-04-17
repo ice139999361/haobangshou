@@ -66,7 +66,7 @@ public class WareHouseRecDetailMgr {
 		}
 		WarehouseRecDetailDao detailDao = (WarehouseRecDetailDao)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_REC_DETAIL_DAO);
 		//计算金额
-		detail.setCurrMoney(OrderCalUtils.calOrderMoney(detail.getPrice(), detail.getIsTax(), detail.getTaxRate(),detail.getPriceTax(),null, detail.getAmount()));
+		detail.setCurMoney(OrderCalUtils.calOrderMoney(detail.getPrice(), detail.getIsTax(), detail.getTaxRate(),detail.getPriceTax(),null, detail.getAmount()));
 		//设置账期
 		String period = detail.getPeriod();
 		if(StringUtils.isEmpty(period)){
