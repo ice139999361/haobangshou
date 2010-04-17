@@ -49,6 +49,7 @@
 			    				<button text=""             id="operatorBtn1" hidden="true" />
 			    				<button text=""             id="operatorBtn2" hidden="true" />
 			    				<button text=""             id="operatorBtn3" hidden="true" />
+			    				<button text="打印"         id="printBtn"     hidden="true" />
 			    				<button text="取消"         id="backBtn"      />
 			    				<button text="查看操作历史" id="historyBtn"   />
 			    			</buttons>
