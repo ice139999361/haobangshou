@@ -34,6 +34,8 @@ public class AdjustCgManagerAction extends AdjustBaseAction {
 	 * @action.input adjustInfo.applySeqId
 	 * @action.input adjustInfo.auditAgree	0---同意  1---不同意
 	 * @action.input adjustInfo.auditContent
+	 * @action.input audit	审批结果 0：审批不通过；1：审批通过
+	 * @action.input	auditDesc 审批意见
 	 * @return
 	 */
 	public String doAudit(){
@@ -53,8 +55,8 @@ public class AdjustCgManagerAction extends AdjustBaseAction {
 				setErrorReason(s);
 				return ERROR;
 			}
-			adjustInfo.setAuditAgree(adjustInfo2.getAuditAgree());
-			adjustInfo.setAuditContent(adjustInfo2.getAuditContent());
+			adjustInfo.setAuditAgree(getHttpServletRequest().getParameter("audit"));
+			adjustInfo.setAuditContent(getHttpServletRequest().getParameter("auditDesc"));
 			adjustInfo.setAuditDate(adjustInfo2.getAuditDate());
 			adjustInfo.setAuditStaffId(adjustInfo2.getAuditStaffId());
 			adjustInfo.setAuditStaffName(adjustInfo2.getAuditStaffName());
@@ -73,7 +75,7 @@ public class AdjustCgManagerAction extends AdjustBaseAction {
 				return ERROR;
 			}
 			int i;
-			if("0".equals(adjustInfo.getAuditAgree()))
+			if("1".equals(adjustInfo.getAuditAgree()))
 				i = getMgr().agreeAdjustInfo(adjustInfo);
 			else
 				i = getMgr().disAgreeAdjustInfo(adjustInfo);

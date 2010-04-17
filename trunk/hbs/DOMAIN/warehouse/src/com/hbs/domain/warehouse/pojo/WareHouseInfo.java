@@ -249,6 +249,9 @@ public class WareHouseInfo extends BaseDomain{
 		if(this.houseUse != null){
 			sb.append("houseUse=").append(this.houseUse).append(" ");
 		}
+		if(this.custCode != null){
+			sb.append("custCode=").append(this.custCode).append(" ");
+		}
 		if(this.vendorCode != null){
 			sb.append("vendorCode=").append(this.vendorCode).append(" ");
 		}

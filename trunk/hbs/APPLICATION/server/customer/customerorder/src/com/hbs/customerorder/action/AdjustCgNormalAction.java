@@ -74,8 +74,8 @@ public class AdjustCgNormalAction extends AdjustBaseAction {
 			AdjustMgr mgr = getMgr();
 			boolean isNew = adjustInfo.getApplySeqId() == null;
 			int i = mgr.saveAdjustInfo(adjustInfo);
-			if(i != 0) {
-				logger.info("±£¥Ê ß∞‹£°");
+			if(i <= 0) {
+				logger.info("±£¥Ê ß∞‹£°" + " ret = " + i);
 				setErrorReason("±£¥Ê ß∞‹£°");
 				return ERROR;
 			}

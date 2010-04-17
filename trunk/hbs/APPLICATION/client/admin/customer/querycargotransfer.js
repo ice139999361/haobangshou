@@ -13,10 +13,8 @@ HBSConvertHelper.init(function() {
 			// 审批按钮触发事件
 			var auditBtnFun = function() {
 				// 要访问的 url 地址
-				var url = ["/customer/detailcargotransfer.jsp?editorType=audit&commCode=", this.config.get("commCode")
-							, "&poNo=", this.config.get("poNo")
-							, "&poNoType=", this.config.get("poNoType")
-							, "&state=", this.config.get("state")].join("");
+				var url = ["/customer/detailcargotransfer.jsp?editorType=audit&applySeqId=", this.config.get("applySeqId")
+						  ].join("");
 				// 打开指定页面
 				HBSConvertHelper.openNewWin(url);
 			};
@@ -28,7 +26,7 @@ HBSConvertHelper.init(function() {
 				// 获取编码所在的列
 				var commCode_cell = view.getCell(i, view.grid.getColumnIndexById("commCode"));
 				// 将需要的链接渲染到此列
-				HBSConvertHelper.renderATag2Cell(commCode_cell.innerText, "/customer/detailcargotransfer.jsp?pageType=query&baseSeqId=" + record.get("baseSeqId"), "open", commCode_cell);
+				HBSConvertHelper.renderATag2Cell(commCode_cell.innerText, "/customer/detailcargotransfer.jsp?pageType=query&applySeqId=" + record.get("applySeqId"), "open", commCode_cell);
 			
 				if(view.grid.getColumnIndexById("operator") != -1) {
 					// 获取操作列

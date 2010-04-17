@@ -21,22 +21,27 @@
 				    			<fields>
 				    				<field name="commCode" />
 				    				<field name="cpartNo" />
+				    				<field name="partNo" />
 				    				<field name="pnDesc" />
 				    				<field name="amount" />
 				    				<field name="deliveryAmount" />
 				    				<field name="selfLockAmount" />
 				    				<field name="commLockAmount" />
 				    				<field name="needAmount" />
+				    				<field name="vendorCode" />
+				    				<field name="poNo" />
 				    			</fields>
 				    			<columns>
 				    				<column header="客户编码"           dataIndex="commCode" />
 				    				<column header="客户型号"           dataIndex="cpartNo" />
+				    				<column header="本公司型号"			dataIndex="partNo" />
 				    				<column header="描述"               dataIndex="pnDesc" />
 				    				<column header="数量"               dataIndex="amount" />
-				    				<column header="已发送数量"               dataIndex="deliveryAmount" />
+				    				<column header="已发送数量"         dataIndex="deliveryAmount" />
 				    				<column header="本客户锁定数量"     dataIndex="selfLockAmount" />
 				    				<column header="通用锁定数量"       dataIndex="commLockAmount" />
 				    				<column header="需备货数量"         dataIndex="needAmount" />
+				    				<column header="供应商编码"         dataIndex="vendorCode" />
 				    			</columns>
 				    		</complexgrid>
 	    		
@@ -53,14 +58,18 @@
 				    			</layoutpanel>	
 				    		</listpanel>
 				    		   
-				    		<complexgrid id="storeinfogrid" title="其他客户库存" frame="true" height="100" url="/custOrder/custOrderScMgr!list.action" root="data.list">
+				    		<complexgrid id="storeinfogrid" title="其他客户库存" frame="true" height="100" url="/">
 				    			<fields>
 				    				<field name="custCode" />
 				    				<field name="useAmount" />
+				    				<field name="houseType" />
+				    				<field name="vendorCode" />
 				    			</fields>
 				    			<columns>
 				    				<column header="客户编码"           dataIndex="custCode"  width="250" />
 				    				<column header="可用数量"           dataIndex="useAmount" width="250" />
+				    				<column header="仓库"           dataIndex="houseTypeDesc" width="250" />
+				    				<column header="供应商编码"           dataIndex="vendorCode" width="250" />
 				    				<column header="操作"               dataIndex=""          id="operator" width="150" />
 				    			</columns>
 				    		</complexgrid>
