@@ -64,7 +64,7 @@
 	 * @return
 	 */
 		 -->
-    	<action name="adjustInfo!list" method="doList" 
+    	<action name="adjustInfoCgMgr!list" method="doList" 
     			class="com.hbs.customerorder.action.AdjustCgManagerAction">
 		</action>
 		<!-- 
@@ -75,7 +75,7 @@
 	 * @return
 	 */
 		 -->
-    	<action name="adjustInfo!getInfo" method="doGetInfo" 
+    	<action name="adjustInfoCgMgr!getInfo" method="doGetInfo" 
     			class="com.hbs.customerorder.action.AdjustCgManagerAction">
 		</action>
 		<!-- 
@@ -87,7 +87,7 @@
 	 * @return
 	 */
 		 -->
-    	<action name="adjustInfo!audit" method="doAudit" 
+    	<action name="adjustInfoCgMgr!audit" method="doAudit" 
     			class="com.hbs.customerorder.action.AdjustCgManagerAction">
 		</action>
 	</package>

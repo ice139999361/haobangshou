@@ -20,18 +20,21 @@
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="调货信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<label    fieldLabel="GLE物料编码"	      name="custOrder.commCode"       labelStyle="width:150" />
-				    				<label    fieldLabel="从 客户编码"	      name="custOrder.commCode"       labelStyle="width:150" />
-				    				<label    fieldLabel="到 客户编码"        name="custOrder.commCode"       labelStyle="width:150" />
-				    				<label    fieldLabel="申请调货数量"       name="custOrder.shortName"	    labelStyle="width:150"/>
+				    				<label    fieldLabel="GLE物料编码"	      name="adjustInfo.partNo"       labelStyle="width:150" />
+				    				<label    fieldLabel="从 客户编码"	      name="adjustInfo.fromCustCode"       labelStyle="width:150" />
+				    				<label    fieldLabel="到 客户编码"        name="adjustInfo.toCustCode"       labelStyle="width:150" />
+				    				<label    fieldLabel="申请调货数量"       name="adjustInfo.applyAmount"	    labelStyle="width:150"/>
 				    				
-				    				<label    fieldLabel="物料描述"           name="custOrder.shortName"	    labelStyle="width:150"/>
-				    				<label    fieldLabel="客户简称"           name="custOrder.shortName"	    labelStyle="width:150"/>
-				    				<label    fieldLabel="客户简称"           name="custOrder.shortName"	    labelStyle="width:150"/>
-				    				<label    fieldLabel="物料提供供应商"     name="custOrder.shortName"	    labelStyle="width:150"/>
+				    				<label    fieldLabel="物料描述"           name="adjustInfo.pnDesc"	    labelStyle="width:150"/>
+				    				<label    fieldLabel="客户简称"           name="adjustInfo.fromCustName"	    labelStyle="width:150"/>
+				    				<label    fieldLabel="客户简称"           name="adjustInfo.toCustName"	    labelStyle="width:150"/>
+				    				<label    fieldLabel="物料提供供应商"     name="adjustInfo.shortName"	    labelStyle="width:150"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
-				    				<label     fieldLabel="申请调货原因"      name="custInfo.commDesc"        labelStyle="width:150" />
+				    				<label     fieldLabel="申请调货原因"      name="adjustInfo.applyContent"        labelStyle="width:150" />
+				    			</layoutpanel>
+				    			<layoutpanel columnNum="1">
+				    				<hidden    name="adjustInfo.applySeqId" />
 				    			</layoutpanel>
 				    		</listpanel>				    		
 				    		
@@ -56,4 +59,4 @@
 	</xmp>
 </body>
 </html>
-<script type="text/javascript" src="<%=contextPath %>/customer/detailpnrelation.js"></script>
+<script type="text/javascript" src="<%=contextPath %>/customer/detailcargotransfer.js"></script>

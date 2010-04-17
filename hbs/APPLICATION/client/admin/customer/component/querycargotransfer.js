@@ -57,27 +57,29 @@ var scmanagerLayout = function(cmpobj) {
 var querygridFun = function() {
 	var cgh = new ComplexGridHelper;
 	
-	cgh.appendField("l1");
-	cgh.appendField("l2");
-	cgh.appendField("l3");
-	cgh.appendField("l4");
-	cgh.appendField("l5");
-	cgh.appendField("l6");
-	cgh.appendField("l7");
-	cgh.appendField("l8");
-	cgh.appendField("l9");
-	cgh.appendField("l10");
+	cgh.appendField("applySeqId");
+	cgh.appendField("staffName");
+	cgh.appendField("applyDate");
+	cgh.appendField("partNo");
+	cgh.appendField("fromCustCode");
+	cgh.appendField("toCustCode");
+	cgh.appendField("applyAmount");
+	cgh.appendField("auditStaffId");
+	cgh.appendField("auditStaffName");
+	cgh.appendField("auditAgree");
+	cgh.appendField("auditContent");
+	cgh.appendField("auditDate");
 
 			    							
-	cgh.appendColumn({header: "申请人"      , dataIndex: "l1"     , id: "commCode"});
-	cgh.appendColumn({header: "申请日期"    , dataIndex: "l2"});
-	cgh.appendColumn({header: "GLE P/N"     , dataIndex: "l3"});
-	cgh.appendColumn({header: "从 客户"     , dataIndex: "l4"});
-	cgh.appendColumn({header: "到 客户"     , dataIndex: "l5"});
-	cgh.appendColumn({header: "申请数量"    , dataIndex: "l6"});
-	cgh.appendColumn({header: "审批人"      , dataIndex: "l8"});
-	cgh.appendColumn({header: "审批意见"    , dataIndex: "l9"});
-	cgh.appendColumn({header: "审批时间"    , dataIndex: "l10"});
+	cgh.appendColumn({header: "申请人"      , dataIndex: "staffName"     , id: "commCode"});
+	cgh.appendColumn({header: "申请日期"    , dataIndex: "applyDate"});
+	cgh.appendColumn({header: "GLE P/N"     , dataIndex: "partNo"});
+	cgh.appendColumn({header: "从 客户"     , dataIndex: "fromCustCode"});
+	cgh.appendColumn({header: "到 客户"     , dataIndex: "toCustCode"});
+	cgh.appendColumn({header: "申请数量"    , dataIndex: "applyAmount"});
+	cgh.appendColumn({header: "审批人"      , dataIndex: "auditStaffName"});
+	cgh.appendColumn({header: "审批意见"    , dataIndex: "auditAgree"});
+	cgh.appendColumn({header: "审批时间"    , dataIndex: "auditDate"});
 	
 	switch(urlPs.roleType) {
 		case "scmanager":

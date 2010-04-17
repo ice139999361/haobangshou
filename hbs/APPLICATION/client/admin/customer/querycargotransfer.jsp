@@ -18,7 +18,7 @@
 			    	<!-- service ext ui.  begin. -->
 			    		<queryform gridId="querygrid" itemsFun="queryformFun" />
 
-				    	<complexgrid id="querygrid" title="发票信息列表" frame="true" page="true" root="data.list" url="/custOrder/custOrderScMgr!list.action" itemsAlign="after" itemsFun="querygridFun" />
+				    	<complexgrid id="querygrid" title="发票信息列表" frame="true" page="true" root="data.list" url="/adjustInfo/adjustInfoCgMgr!list.action" itemsAlign="after" itemsFun="querygridFun" />
 			    	<!-- service ext ui.  end. -->
 			    	</items>
 			    </panel>

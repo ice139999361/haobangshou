@@ -13,7 +13,7 @@ HBSConvertHelper.init(function() {
 	(function() {		
 		// 当单击提交按钮时，调用默认的关闭窗口方法
 		submitBtn.on("click", function() {
-			ExtConvertHelper.submitForm("form", "/customerInfo/custPartNoInfoMgr!audit.action", null, function(form, action) {
+			ExtConvertHelper.submitForm("form", "/adjustInfo/adjustInfoCgMgr!audit.action", null, function(form, action) {
 				// 获取成功后的提示信息
 				var msg = ExtConvertHelper.getMessageInfo(action, "操作成功！");
 				
@@ -29,10 +29,10 @@ HBSConvertHelper.init(function() {
 		backBtn.on("click", HBSConvertHelper.defaultCloseTab);
 		
 		// 组装需要的参数
-		var params = ["custPartNoInfo.seqId=", urlPs.seqId].join("");
+		var params = ["adjustInfo.applySeqId=", urlPs.applySeqId].join("");
 		
 		// 加载数据
-		ExtConvertHelper.loadForm("form", "/customerInfo/custPartNoInfo!getInfo.action", params);
+		ExtConvertHelper.loadForm("form", "/adjustInfo/adjustInfo!getInfo.action", params);
 	}())
 	
 	var queryInitFun = function() {

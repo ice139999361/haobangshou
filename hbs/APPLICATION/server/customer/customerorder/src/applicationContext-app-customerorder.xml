@@ -75,6 +75,10 @@
 	<bean id="custOrderDetailMgr" class="com.hbs.customerorder.manager.CustOrderDetailMgr">		
 	</bean>
 	
+	<!-- 调货   -->
+	<bean id="adjustMgr" class="com.hbs.customerorder.manager.AdjustMgr">
+	</bean>
+
 	<!-- 订单状态接口类 -->
 	<bean id="custOrderState"
 		class="com.hbs.customerorder.manager.helper.CustOrderState"
