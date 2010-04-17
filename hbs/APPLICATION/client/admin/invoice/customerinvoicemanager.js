@@ -22,7 +22,7 @@ HBSConvertHelper.init(function() {
 				Ext.Msg.confirm("提示", "您要执行的是删除操作，请确认是否继续？", function(btn) {
 					if(btn == "no") return;		
 					
-					ExtConvertHelper.request("/invoice/SendInvoice!del?invoice.invoiceSeqId=" + this.config.get("invoiceSeqId"), null, function() {
+					ExtConvertHelper.request("/invoice/SendInvoice!del.action?invoice.invoiceSeqId=" + this.config.get("invoiceSeqId"), null, function() {
 					HBSConvertHelper.refreshGrid("querygrid");
 					});
 					
