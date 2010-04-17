@@ -1,14 +1,15 @@
 var queryformFun = function() {	
 	var cph = new ColumnPanelHelper;
 		
-	var p1 = cph.createLayoutPanel(3);
+	var p1 = cph.createLayoutPanel(2);
 	p1.push({fieldLabel: "客户编码", name: "invoice.ccode", xtype: "textfield", labelStyle: "width:150"});
 	p1.push({fieldLabel: "客户简称", name: "invoice.shortName", xtype: "textfield", labelStyle: "width:150"});
-	p1.push({fieldLabel: "发货单号"  , name: "invoice.poNo", xtype: "textfield", labelStyle: "width:150"});
+	//p1.push({fieldLabel: "发货单号"  , name: "invoice.poNo", xtype: "textfield", labelStyle: "width:150"});
 
 
 	var p2 = cph.createLayoutPanel("6:.3333,.11,.05,.15,.05,.3");
-	p2.push({fieldLabel: "客户编码", name: "invoice.ccode", xtype: "textfield", labelStyle: "width:150"});
+	p2.push({fieldLabel: "发货单号"  , name: "invoice.poNo", xtype: "textfield", labelStyle: "width:150"});
+	//p2.push({fieldLabel: "客户编码", name: "invoice.ccode", xtype: "textfield", labelStyle: "width:150"});
 	p2.push({fieldLabel: "录入时间"            , xtype: "label"});
 	p2.push({fieldLabel: "从"                  , xtype: "label"    , labelSeparator: ""});
 	p2.push({fieldLabel: "起始时间"  , name: "invoice.dynamicFields.likeBegainTime", xtype: "datefield", hideLabel: true, format: "Y-m-d"});

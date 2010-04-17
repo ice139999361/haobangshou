@@ -33,10 +33,10 @@
 				    				<label        fieldLabel="物料描述"        name="invoice.pnDesc"                         labelStyle="width:150"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="2">
-				    				<label        fieldLabel="发货数量"                                 labelStyle="width:150"/>
+				    				<label        fieldLabel="发货数量"        name="invoice.amount"                         labelStyle="width:150"/>
 				    				<label        fieldLabel="本次开票金额"   name="invoice.curMoney"                           labelStyle="width:150"/>
 				    					
-				    				<label        fieldLabel="总金额"         name="invoice.amount"                          labelStyle="width:150"/>
+				    				<label        fieldLabel="总金额"         name="invoice.allMoney"                          labelStyle="width:150"/>
 				    				<label        fieldLabel="剩余开票金额"   name="invoice.leftMoney"                           labelStyle="width:150"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">

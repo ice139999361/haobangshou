@@ -20,12 +20,14 @@ HBSConvertHelper.init(function() {
 			// 删除按钮触发事件
 			var deleteBtnFun = function() {
 				Ext.Msg.confirm("提示", "您要执行的是删除操作，请确认是否继续？", function(btn) {
-					if(btn == "no") return;
+					if(btn == "no") return;		
 					
 					ExtConvertHelper.request("/invoice/SendInvoice!del?invoice.invoiceSeqId=" + this.config.get("invoiceSeqId"), null, function() {
-						HBSConvertHelper.refreshGrid("querygrid");
+					HBSConvertHelper.refreshGrid("querygrid");
 					});
-				}, this);
+					
+			}, this);
+			
 			}
 			
 			// 修改按钮触发事件

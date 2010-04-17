@@ -236,6 +236,7 @@ public abstract class InvoiceBaseAction extends BaseAction {
 	 * @return
 	 */
 	public String doDelete() {
+		getLogger().debug("进入删除发票管理！");
 		try{
 			if(!InvoiceUtil.checkKeyFields(invoice)){
 				getLogger().info("参数错误！");
