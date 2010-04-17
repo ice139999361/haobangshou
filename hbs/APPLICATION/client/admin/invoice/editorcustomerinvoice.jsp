@@ -20,9 +20,10 @@
 			
 			    		<queryform gridId="querygrid" itemsFun="addQueryformFun" />
 
-				    	<complexgrid id="querygrid" title="客户信息列表" frame="true" page="true" root="data.list" url="/warehouseSend/warehouseSend!listDetail.action">
+				    	<complexgrid id="querygrid" title="客户出货单列表" frame="true" page="true" root="data.list" url="/warehouseSend/warehouseSend!listDetail.action">
 				    		<fields>
 				    			<field name="custCode" />
+				    			<field name="shortName" />	
 				    			<field name="partNo" />
 				    			<field name="custPartNo" />
 				    			<field name="pnDesc" />
@@ -54,6 +55,8 @@
 				    			<column header="发票备注"          dataIndex="invoiceDesc" xtype="textfield" />
 				    			<column header="操作"          dataIndex=""   id="operator"     width="120" />
 				    		</columns>
+				    		<submitFields value="ccode,partNo,cpartNo,pnDesc,shortName,poNo,specDesc,amount,allMoney,currMoney,leftMoney,invoiceDesc,poNoDate" />
+
 				    	</complexgrid>
 				    	
 				    	<panel buttonAlign="center">
