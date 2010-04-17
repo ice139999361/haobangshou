@@ -12,7 +12,9 @@ ExtUx.widget.ComplexGrid = function(config) {
 Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 	initComponent : function(){
 		ExtUx.widget.ComplexGrid.superclass.initComponent.call(this);
-		
+		this.store.on("load", function() {
+			Ext.getCmp(this.gridId).__notdatahtml = {};
+		});
 		// 加载数据
 		if(this.storeAutoLoad) this.store.load();
 	},
@@ -158,12 +160,9 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 				config.checkId = column.id;
 				column.width = 35;
 				column = new Ext.grid.CheckboxSelectionModel(column);
-			} else if (Ext.isEmpty(column.dataIndex)) {
-				//
 			} else {
 				// 处理渲染方法
 				this.__processRenderer__(column, item);
-				
 				
 				// 处理可编辑对象
 				if(config.editorFlag != false) this.__processEditorColumn__(column, item, sbEditStore, columnFields);
@@ -203,11 +202,28 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 			if(Ext.isEmpty(this._column)) this._column = _grid.getColumnByIndex(colIndex);
 			// 获取列对象
 			var column = this._column;
-			
+
 			// 扩展的渲染处理
 			if(column.__extRenderer) val = column.__extRenderer.call(this, val, metadata, record, rowIndex, colIndex, store, column);
 			// 应用的渲染处理
 			if(column.__selfRenderer) val = column.__selfRenderer.call(this, val, metadata, record, rowIndex, colIndex, store, column);
+			// 如果不是数据列
+			else if(Ext.isEmpty(column.dataIndex)) {
+				try {
+					var td   = _grid.getView().getCell(rowIndex, colIndex);
+					var ckey = "clumn" + rowIndex + colIndex;
+					_grid.__notdatahtml[ckey] = td.innerHTML;
+					var aa = ['try{'
+									, 'var _grid = ', 'Ext.getCmp("', _grid.id, '");'
+									, 'var _td   = _grid.getView().getCell(', rowIndex, ', ', colIndex, ');'
+									, 'var _html = _grid.__notdatahtml["', ckey, '"];'
+									, 'if(!Ext.isEmpty(_html)) _td.innerHTML = _html;'
+									, '_html = "";'
+									, '} catch(e) {}'].join("");
+					//alert(aa)
+					setTimeout(new Function(aa), 0)
+				} catch(e) {}
+			}
 
 			return val;
 		}
@@ -394,6 +410,7 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 	},
 	// 表格验证方法，暂未实现
 	isValid: function() { return true },
+	__notdatahtml : {},
 	style         : "margin:10px 0px 0px 5px",
 	height        : 250,
 	stripeRows    : true,
