@@ -38,7 +38,7 @@
 				    		
 				    		<listpanel frame="true" title="发票详情" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<textfield    fieldLabel="本次开票金额"         name="invoice.curMoney"                   labelStyle="width:150"/>
+				    				<textfield    fieldLabel="本次开票金额"         name="invoice.currMoney"                   labelStyle="width:150"/>
 				    				<textfield    fieldLabel="剩余开票金额"         name="invoice.leftMoney"                   labelStyle="width:150"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">

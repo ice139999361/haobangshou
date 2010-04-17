@@ -34,7 +34,7 @@
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="2">
 				    				<label        fieldLabel="发货数量"        name="invoice.amount"                         labelStyle="width:150"/>
-				    				<label        fieldLabel="本次开票金额"   name="invoice.curMoney"                           labelStyle="width:150"/>
+				    				<label        fieldLabel="本次开票金额"   name="invoice.currMoney"                           labelStyle="width:150"/>
 				    					
 				    				<label        fieldLabel="总金额"         name="invoice.allMoney"                          labelStyle="width:150"/>
 				    				<label        fieldLabel="剩余开票金额"   name="invoice.leftMoney"                           labelStyle="width:150"/>
