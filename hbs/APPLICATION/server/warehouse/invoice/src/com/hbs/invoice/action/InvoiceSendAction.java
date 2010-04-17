@@ -70,6 +70,10 @@ public class InvoiceSendAction extends InvoiceBaseAction {
 		return mgr.saveSendInvoice(invoice);
 	}
 
+	protected int addInvoiceAbstract(InvoiceInfo detail) throws Exception {
+		return mgr.saveSendInvoice(detail);
+	}
+	
 	@Override
 	protected int deleteInvoiceAbstract() throws Exception {
 		return mgr.deleteSendInvoice(invoice.getInvoiceSeqId().toString());

@@ -111,7 +111,7 @@ public class VendorRecInvoiceHisDaoTest extends AbstractTransactionalDataSourceS
         System.out.println("pnDesc=" + invoiceInfo.getPnDesc());
         System.out.println("amount=" + invoiceInfo.getAmount());
         System.out.println("allMoney=" + invoiceInfo.getAllMoney());
-        System.out.println("curMoney=" + invoiceInfo.getCurMoney());
+        //System.out.println("curMoney=" + invoiceInfo.getCurMoney());
         System.out.println("leftMoney=" + invoiceInfo.getLeftMoney());
         System.out.println("invoiceDesc=" + invoiceInfo.getInvoiceDesc());
     }
@@ -156,7 +156,7 @@ public class VendorRecInvoiceHisDaoTest extends AbstractTransactionalDataSourceS
             System.out.println(i + " pnDesc=" + tmpInvoiceInfo.getPnDesc());
             System.out.println(i + " amount=" + tmpInvoiceInfo.getAmount());
             System.out.println(i + " allMoney=" + tmpInvoiceInfo.getAllMoney());
-            System.out.println(i + " curMoney=" + tmpInvoiceInfo.getCurMoney());
+            //System.out.println(i + " curMoney=" + tmpInvoiceInfo.getCurMoney());
             System.out.println(i + " leftMoney=" + tmpInvoiceInfo.getLeftMoney());
             System.out.println(i + " invoiceDesc=" + tmpInvoiceInfo.getInvoiceDesc());
         }

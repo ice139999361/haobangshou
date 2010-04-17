@@ -3,15 +3,22 @@
  */
 package com.hbs.invoice.action;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.action.FieldErr;
 import com.hbs.common.action.base.BaseAction;
+import com.hbs.common.utils.ListDataUtil;
+
 import com.hbs.domain.common.pojo.baseinfo.InvoiceInfo;
+
 
 /**
  * @author xyf
@@ -19,7 +26,12 @@ import com.hbs.domain.common.pojo.baseinfo.InvoiceInfo;
  */
 @SuppressWarnings("serial")
 public abstract class InvoiceBaseAction extends BaseAction {
-
+	private static final String detailListName = "invoicelist";
+	private static final String detailListFields = "invoicelistFields";
+	
+private static final String splitter = "\\|\\|;;";
+	
+private static final String fieldNameSplitter = ",";
 	protected InvoiceInfo invoice;
 
 	public InvoiceInfo getInvoice() {
@@ -58,6 +70,7 @@ public abstract class InvoiceBaseAction extends BaseAction {
 	 */
 	protected abstract int saveInvoiceAbstract() throws Exception;
 
+	protected abstract int addInvoiceAbstract(InvoiceInfo detail) throws Exception;
 	/**
 	 * 更新发票
 	 * @return
@@ -230,6 +243,59 @@ public abstract class InvoiceBaseAction extends BaseAction {
 		}		
 	}
 	
+	public String doAdd(){
+		try {
+			getLogger().debug("begin doAdd");
+			List<InvoiceInfo> list =processListData(this.getHttpServletRequest());
+			if (list == null || list.size() ==0) {
+				getLogger().info("没有需要保持的发票记录！");
+				setErrorReason("没有需要保持的发票记录！");
+				return ERROR;
+			}
+			
+			for(InvoiceInfo detail : list){
+				addInvoiceAbstract(detail);
+			}
+			
+			// DONE：doSave
+			getLogger().debug("end doAdd");
+			return SUCCESS;
+		} catch(Exception e) {
+			getLogger().error("catch Exception in doAdd", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}	
+	}
+	
+	@SuppressWarnings("unchecked")
+	private List<InvoiceInfo> processListData(
+			HttpServletRequest request) {
+		List<InvoiceInfo> listAdd = null;
+		try {
+			//getLogger().debug("aaa = " + request.getParameterValues(detailListName));
+			//getLogger().debug("bbb = " + request.getParameter(detailListFields));
+			List<InvoiceInfo> list = ListDataUtil.splitIntoList(InvoiceInfo.class, 
+				request.getParameterValues(detailListName), 
+				request.getParameter(detailListFields).split(fieldNameSplitter), 
+				splitter);		
+			
+			listAdd= new ArrayList<InvoiceInfo>();
+			
+			for(InvoiceInfo detail : list){
+				if(detail.getCurrMoney() != null){
+					setStaffId(true,detail);
+					detail.setCreateTime(new Date());
+					String ponoDate = detail.getPoNoDate();
+					detail.setPoNoDate(ponoDate.substring(0,10));
+				    listAdd.add(detail);
+				}
+			}
+		} catch (Exception e) {
+			getLogger().info("processListData处理detailList出错", e);
+		}
+		return listAdd;
+	}
+	
 	/**
 	 * 删除发票
 	 * @action.input invoice.*
@@ -261,5 +327,11 @@ public abstract class InvoiceBaseAction extends BaseAction {
 		invoice.setStaffId(getLoginStaff().getStaffId().toString());
 		if(setName)
 			invoice.setStaffName(getLoginStaff().getStaffName());
+	}
+	
+	protected void setStaffId(boolean setName,InvoiceInfo detail) throws Exception {
+		detail.setStaffId(getLoginStaff().getStaffId().toString());
+		if(setName)
+			detail.setStaffName(getLoginStaff().getStaffName());
 	}
 }
