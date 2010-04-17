@@ -81,7 +81,7 @@ public class InvoiceInfo extends BaseDomain{
     /**
      * 本次开票金额.
      */
-    private BigDecimal curMoney;
+    private BigDecimal currMoney;
     
     /**
      * 未开票金额.
@@ -199,12 +199,12 @@ public class InvoiceInfo extends BaseDomain{
         this.allMoney = allMoney;
     }
     
-    public BigDecimal getCurMoney() {
-        return this.curMoney;
+    public BigDecimal getCurrMoney() {
+        return this.currMoney;
     }	
   
-    public void setCurMoney(BigDecimal curMoney) {
-        this.curMoney = curMoney;
+    public void setCurrMoney(BigDecimal currMoney) {
+        this.currMoney = currMoney;
     }
     
     public BigDecimal getLeftMoney() {
@@ -248,7 +248,7 @@ public class InvoiceInfo extends BaseDomain{
 		sb.append("pnDesc=").append(this.pnDesc).append(" ");
 		sb.append("amount=").append(this.amount == null ? "0" :this.allMoney.intValue() ).append(" ");
 		sb.append("allMoney=").append(this.allMoney == null ? "0" :this.allMoney.intValue() ).append(" ");		
-		sb.append("curMoney=").append(this.curMoney == null ? "0" : this.curMoney.intValue()).append(" ");
+		sb.append("currMoney=").append(this.currMoney == null ? "0" : this.currMoney.intValue()).append(" ");
 		sb.append("leftMoney=").append(this.leftMoney== null ? "0" : this.leftMoney.intValue()).append(" ");
 		sb.append("invoiceDesc=").append(this.invoiceDesc);
 		return sb.toString();

@@ -95,6 +95,13 @@
 		 <action name="warehouseSend!print" method="doGetInfoPrint" 
     			class="com.hbs.warehousesend.action.WareHouseSendPrintAction">
 		</action> 
+		
+		<!--  
+		供财务管理发票使用，新增发票时选择出货单
+		 -->
+		 <action name="warehouseSend!listDetail" method="doListDetail" 
+    			class="com.hbs.warehousesend.action.WarehouseSendAction">
+		</action>
 	</package>
 </struts>
         

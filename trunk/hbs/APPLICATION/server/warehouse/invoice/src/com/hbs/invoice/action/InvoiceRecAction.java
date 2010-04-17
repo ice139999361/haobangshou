@@ -70,6 +70,9 @@ public class InvoiceRecAction extends InvoiceBaseAction {
 		return mgr.saveRecInvoice(invoice);
 	}
 
+	protected int addInvoiceAbstract(InvoiceInfo detail) throws Exception {
+		return mgr.saveRecInvoice(detail);
+	}
 	@Override
 	protected int deleteInvoiceAbstract() throws Exception {
 		return mgr.deleteRecInvoice(invoice.getInvoiceSeqId().toString());

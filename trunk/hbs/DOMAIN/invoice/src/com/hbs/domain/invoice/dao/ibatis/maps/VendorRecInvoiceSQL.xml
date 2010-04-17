@@ -18,7 +18,7 @@
     <result property="pnDesc" column="PN_DESC"/>
     <result property="amount" column="AMOUNT"/>
     <result property="allMoney" column="ALL_MONEY"/>
-    <result property="curMoney" column="CUR_MONEY"/>
+    <result property="currMoney" column="CUR_MONEY"/>
     <result property="leftMoney" column="LEFT_MONEY"/>
     <result property="invoiceDesc" column="INVOICE_DESC"/>
 </resultMap>
@@ -59,7 +59,7 @@
             #pnDesc#,
             #amount#,
             #allMoney#,
-            #curMoney#,
+            #currMoney#,
             #leftMoney#,
             #invoiceDesc#
     )
@@ -115,8 +115,8 @@
 	<isNotEmpty prepend="," property="allMoney">
             ALL_MONEY = #allMoney#
 	</isNotEmpty>
-	<isNotEmpty prepend="," property="curMoney">
-            CUR_MONEY = #curMoney#
+	<isNotEmpty prepend="," property="currMoney">
+            CUR_MONEY = #currMoney#
 	</isNotEmpty>
 	<isNotEmpty prepend="," property="leftMoney">
             LEFT_MONEY = #leftMoney#

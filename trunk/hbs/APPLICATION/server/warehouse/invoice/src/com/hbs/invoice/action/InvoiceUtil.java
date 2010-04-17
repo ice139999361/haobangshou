@@ -50,7 +50,7 @@ public class InvoiceUtil {
 				list.add(new FieldErr("CpartNo","CpartNo没有填写"));
 			if(StringUtils.isEmpty(invoice.getPartNo()))
 				list.add(new FieldErr("PartNo","PartNo没有填写"));
-			if(invoice.getCurMoney() == null)
+			if(invoice.getCurrMoney() == null)
 				list.add(new FieldErr("CurMoney", "CurMoney没有填写"));
 			if(StringUtils.isEmpty(invoice.getInvoiceDesc()))
 				list.add(new FieldErr("InvoiceDesc","InvoiceDesc没有填写"));

@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import com.hbs.common.action.JianQuanUtil;
 import com.hbs.common.action.base.BaseAction;
+import com.hbs.domain.warehouse.pojo.WarehouseSendDetail;
 import com.hbs.domain.warehouse.pojo.WarehouseSendInfo;
 
 import com.hbs.warehousesend.manager.WareHouseSendDetailMgr;
@@ -35,7 +36,7 @@ public abstract class WarehouseSendBaseAction extends BaseAction {
 	}
 	
 	WarehouseSendInfo warehouseSend;
-
+	WarehouseSendDetail warehouseSendDetail;
 	
 
 	public WarehouseSendInfo getWarehouseSend() {
@@ -87,6 +88,31 @@ public abstract class WarehouseSendBaseAction extends BaseAction {
 			return SUCCESS;
 		} catch(Exception e) {
 			logger.error("catch Exception in doList", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+	}
+	
+	/**
+	 * 供财务管理发票使用，新增发票时选择出货单
+	 * @return
+	 */
+	public String doListDetail() {
+		try {
+			logger.debug("begin doListDetail");
+			if(warehouseSendDetail == null){
+				warehouseSendDetail = new WarehouseSendDetail();
+			}
+			warehouseSendDetail.setField("notInState", "'01','03'");			
+			setPagination(warehouseSendDetail);
+			WareHouseSendDetailMgr mgr = getMgrDetail();
+			setResult("list", mgr.listWarehouseSendDetail(warehouseSendDetail));
+			setTotalCount(mgr.listWarehouseSendDetailCount(warehouseSendDetail));
+			setResult("count", getTotalCount());			
+			logger.debug("end doListDetail");
+			return SUCCESS;
+		} catch(Exception e) {
+			logger.error("catch Exception in doListDetail", e);
 			setErrorReason("内部错误");
 			return ERROR;
 		}

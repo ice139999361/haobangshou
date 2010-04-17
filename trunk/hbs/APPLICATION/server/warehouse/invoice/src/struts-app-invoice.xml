@@ -77,6 +77,9 @@
     	<action name="RecInvoice!save" method="doSave" 
     			class="com.hbs.invoice.action.InvoiceRecAction">
 		</action>
+		<action name="RecInvoice!add" method="doAdd" 
+    			class="com.hbs.invoice.action.InvoiceRecAction">
+		</action>
 		<!-- 
 	/**
 	 * 删除发票
@@ -125,6 +128,10 @@
 	 */
 		 -->
     	<action name="SendInvoice!save" method="doSave" 
+    			class="com.hbs.invoice.action.InvoiceSendAction">
+		</action>
+		
+		<action name="SendInvoice!add" method="doAdd" 
     			class="com.hbs.invoice.action.InvoiceSendAction">
 		</action>
 		<!-- 
