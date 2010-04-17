@@ -103,7 +103,7 @@ public class WarehouseRecDetail extends BaseDomain{
     /**
      * 本次送货金额
      */
-    private BigDecimal currMoney;
+    private BigDecimal curMoney;
     
     /**
      * 所属账期.
@@ -163,15 +163,15 @@ public class WarehouseRecDetail extends BaseDomain{
 	/**
 	 * @return the currMoney
 	 */
-	public BigDecimal getCurrMoney() {
-		return currMoney;
+	public BigDecimal getCurMoney() {
+		return curMoney;
 	}
 
 	/**
 	 * @param currMoney the currMoney to set
 	 */
-	public void setCurrMoney(BigDecimal currMoney) {
-		this.currMoney = currMoney;
+	public void setCurMoney(BigDecimal curMoney) {
+		this.curMoney = curMoney;
 	}
 
 	public String getState() {

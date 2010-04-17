@@ -22,7 +22,7 @@
     <result property="isTax" column="IS_TAX"/>
     <result property="taxRate" column="TAX_RATE"/>
     <result property="amount" column="AMOUNT"/>
-    <result property="currMoney" column="CUR_MONEY"/>
+    <result property="curMoney" column="CUR_MONEY"/>
     <result property="period" column="PERIOD"/>
     <result property="financeState" column="FINANCE_STATE"/>
     <result property="poNoType" column="PO_NO_TYPE"/>
@@ -87,7 +87,7 @@
             #isTax#,
             #taxRate#,
             #amount#,
-			#currMoney#,
+			#curMoney#,
             #period#,
             #financeState#,
             #poNoType#,
@@ -194,8 +194,8 @@
 	<isNotEmpty prepend="," property="amount">
             AMOUNT = #amount#
 	</isNotEmpty>
-	<isNotEmpty prepend="," property="currMoney">
-            CUR_MONEY = #currMoney#
+	<isNotEmpty prepend="," property="curMoney">
+            CUR_MONEY = #curMoney#
 	</isNotEmpty>
 	<isNotEmpty prepend="," property="period">
             PERIOD = #period#

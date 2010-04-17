@@ -570,6 +570,12 @@
 			<isNotEmpty prepend="and" property = "houseType">
 				HOUSE_TYPE = #houseType#
 			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.notInState">
+				<![CDATA[	
+					STATE NOT IN ($dynamicFields.notInState$)
+				]]>
+			</isNotEmpty>
 			<!-- 账期范围查询  需要extends BaseDomain 出库单日期 -->	
 			<isNotEmpty prepend="and"
 				property="dynamicFields.lessPeriod">
