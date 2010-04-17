@@ -30,17 +30,14 @@ HBSConvertHelper.init(function() {
 
 		querygrid.getView().on("refresh", function(view) {
 			// 查看已有发票记录按钮事件
-			
-			//alert(this.config.get("ccode"));
-			
-			var  url1 = [CONTEXT_PATH, "/invoice/querybeingcustomerinvoice.jsp"
-				 ,"?invoice.ccode=" , this.config.get("ccode")
-				 ,"&invoice.poNo="  , this.config.get("poNo")
-				 ,"&invoice.partNo=", this.config.get("partNo")].join("");
-
-       alert(url1);
 			var queryinvoiceFun = function() {     
-				showModalDialog(url1, null, "dialogWidth:900px");
+				var record = this.config;
+				var  url = [CONTEXT_PATH, "/invoice/querybeingcustomerinvoice.jsp"
+				 ,"?invoice.ccode=" , record.get("ccode")
+				 ,"&invoice.poNo="  , record.get("poNo")
+				 ,"&invoice.partNo=", record.get("partNo")].join("");
+				 
+				showModalDialog(url, null, "dialogWidth:900px");
 			};
 			
 			for(var i = 0 ; i < view.ds.getCount() ; i++) {
