@@ -20,24 +20,15 @@
 			    			<layoutpanel columnNum="3">
 			    				<autocomplete fieldLabel="客户编码" url="/customerInfo/customerInfo!list.action"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"     name="custInfo.commCode"       labelStyle="width:150" id="commcode" />
 			    				<label        fieldLabel="客户名称"      name="" id="allname" />
-			    				<label        fieldLabel="帐期"            name="" id="offperiod" />
+			    				<label        fieldLabel="结算方式"            name="" id="offperiod" />
 			    			</layoutpanel>
 			    			<layoutpanel columnNum="1">
 			    				<label        fieldLabel=" 对帐单注意事项" name="" id="cinfo" />
 			    			</layoutpanel>
 			    		</listpanel>
 			    		
-			    		<complexgrid id="financegrid" title="财务人员信息" itemsFun="contactFun" itemsAlign="after" frame="true" height="150" url="1" editorFlag="false">
-			    			<fields>
-			    				<field name="conAddress" />
-			    				<field name="conZip" />
-			    				<field name="isPrimary" />
-			    			</fields>
+			    		<complexgrid id="financegrid" title="联系人员信息" itemsFun="contactFun" itemsAlign="after" frame="true" height="150" url="1" editorFlag="false">
 			    			
-			    			<columns>
-			    				<column header="收货地址" 			dataIndex="conAddress" xtype="textfield" />
-			    				<column header="收货邮编" 			dataIndex="conZip"     xtype="textfield" />
-			    			</columns>
 			    		</complexgrid>
 			    	
 			    	
@@ -45,14 +36,17 @@
 			    			<layoutpanel columnNum="6:.11,.05,.15,.05,.2,">									
 									<label     fieldLabel="日期范围" />
 									<label     fieldLabel="从"       labelSeparator=""/>
-									<datefield fieldLabel="起始时间" hideLabel="true"  name="" format="Y-m-d" />
+									<datefield fieldLabel="起始时间" hideLabel="true"  name="warehouseSendDetail.dynamicFields.beginPoNoDate" format="Y-m-d" />
 									<label     fieldLabel="到"       labelSeparator=""/>
-									<datefield fieldLabel="结束时间" hideLabel="true"  name="" format="Y-m-d" />	
-									<textfield fieldLabel="帐期"     name=""  />
+									<datefield fieldLabel="结束时间" hideLabel="true"  name="warehouseSendDetail.dynamicFields.endPoNoDate" format="Y-m-d" />	
+									<textfield fieldLabel="帐期"     name="warehouseSendDetail.period"  />
+			    			</layoutpanel>
+			    			<layoutpanel columnNum ="1">
+			    				<dictcombo    fieldLabel="财务状态"           hiddenName="warehouseSendDetail.financeState"    paramsValue="WAREHOUSE_FINANCE_STATE"     showText="请选择" />
 			    			</layoutpanel>
 			    		</queryform>
 				    		
-				    	<complexgrid id="settlementgrid" title="待结算信息列表" frame="true" page="false" root="data.list" url="/adffds.action">
+				    	<complexgrid id="settlementgrid" title="结算信息列表" frame="true" page="false" root="data.list" url="/adffds.action">
 				    		<fields>
 				    			<field name="l1" />
 				    			<field name="l2" />
