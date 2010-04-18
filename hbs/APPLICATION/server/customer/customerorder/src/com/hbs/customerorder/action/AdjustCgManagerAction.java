@@ -75,15 +75,23 @@ public class AdjustCgManagerAction extends AdjustBaseAction {
 				return ERROR;
 			}
 			int i;
-			if("1".equals(adjustInfo.getAuditAgree()))
+			if("1".equals(adjustInfo.getAuditAgree())){
 				i = getMgr().agreeAdjustInfo(adjustInfo);
-			else
+				if(i != 0){
+					String s = "…Û≈˙ ß∞‹£°";
+					logger.info(s + " ret=" + i);
+					setErrorReason(s);
+					return ERROR;
+				}
+			}
+			else{
 				i = getMgr().disAgreeAdjustInfo(adjustInfo);
-			if(i != 0){
-				String s = "…Û≈˙ ß∞‹£°";
-				logger.info(s);
-				setErrorReason(s);
-				return ERROR;
+				if(i <= 0){
+					String s = "…Û≈˙ ß∞‹£°";
+					logger.info(s + " ret=" + i);
+					setErrorReason(s);
+					return ERROR;
+				}
 			}
 			logger.debug("end doAudit");
 			return SUCCESS;

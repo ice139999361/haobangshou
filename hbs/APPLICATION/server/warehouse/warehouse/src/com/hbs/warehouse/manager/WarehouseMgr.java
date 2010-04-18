@@ -11,6 +11,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.springhelper.BeanLocator;
+import com.hbs.common.utils.IntegerUtils;
 import com.hbs.domain.warehouse.dao.WareHouseInfoDao;
 import com.hbs.domain.warehouse.pojo.WareHouseInfo;
 import com.hbs.warehouse.common.constants.WareHouseConstants;
@@ -60,10 +61,9 @@ public class WarehouseMgr {
 		int ret =0;
 		logger.debug("保存入库库存信息传入的参数为：" + wInfo.toString());
 		
-		int wInfoTotalAmount = (wInfo.getTotalAmount() == null ? 0 : wInfo.getTotalAmount());
-		int wInfoLockAmount = (wInfo.getLockAmount()== null ? 0 : wInfo.getLockAmount());
-		int wInfoUseAmount = (wInfo.getUseAmount()== null ? 0 : wInfo.getUseAmount());
-		
+		int wInfoTotalAmount = IntegerUtils.intValue(wInfo.getTotalAmount());
+		int wInfoLockAmount = IntegerUtils.intValue(wInfo.getLockAmount());
+		int wInfoUseAmount = IntegerUtils.intValue(wInfo.getUseAmount());
 		if(wInfoLockAmount + wInfoUseAmount !=  wInfoTotalAmount){			
 			StringBuilder sb = new StringBuilder("-1 保存的库存总数  != 锁定数量 + 可用数量  错误!");
 			sb.append("保存的库存总数=").append(wInfoTotalAmount);
@@ -73,6 +73,7 @@ public class WarehouseMgr {
 			throw new Exception(sb.toString());
 		}else{
 			//查找库中是否存在业务主键的库存信息
+			wInfo.setState(null);
 			WareHouseInfoDao whInfoDao =(WareHouseInfoDao)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_INFO_DAO);
 			WareHouseInfo existWInfo = findWareHouseInfoByBizKey(whInfoDao,wInfo);
 			
@@ -82,10 +83,10 @@ public class WarehouseMgr {
 				
 			}else{//存在相同库存信息，做update操作
 				
-				existWInfo.setTotalAmount(existWInfo.getTotalAmount().intValue() + wInfoTotalAmount);
-				existWInfo.setLockAmount(existWInfo.getLockAmount().intValue() + wInfoLockAmount);
-				existWInfo.setUseAmount(existWInfo.getUseAmount().intValue() + wInfoUseAmount);
-				if(existWInfo.getUseAmount().intValue() == 0){//可用库存为0，库存状态为不可用，否则可用
+				existWInfo.setTotalAmount(IntegerUtils.intValue(existWInfo.getTotalAmount()) + wInfoTotalAmount);
+				existWInfo.setLockAmount(IntegerUtils.intValue(existWInfo.getLockAmount()) + wInfoLockAmount);
+				existWInfo.setUseAmount(IntegerUtils.intValue(existWInfo.getUseAmount()) + wInfoUseAmount);
+				if(IntegerUtils.intValue(existWInfo.getUseAmount()) == 0){//可用库存为0，库存状态为不可用，否则可用
 					existWInfo.setState(WareHouseConstants.WAREHOUSE_INFO_STATE_1);				
 				}else{
 					existWInfo.setState(WareHouseConstants.WAREHOUSE_INFO_STATE_0);
@@ -107,15 +108,16 @@ public class WarehouseMgr {
 	public int saveOutWareHouseInfo(WareHouseInfo wInfo) throws Exception{
 		int ret =0;
 		logger.debug("保存出库库存信息传入的参数为：" + wInfo.toString());
-		int wInfoTotalAmount = (wInfo.getTotalAmount() == null ? 0 : wInfo.getTotalAmount());
-		int wInfoLockAmount = (wInfo.getLockAmount()== null ? 0 : wInfo.getLockAmount());
+		int wInfoTotalAmount = IntegerUtils.intValue(wInfo.getTotalAmount());
+		int wInfoLockAmount = IntegerUtils.intValue(wInfo.getLockAmount());
 		//根据业务主键查询库存中是否存在
+		wInfo.setState(null);
 		WareHouseInfoDao whInfoDao =(WareHouseInfoDao)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_INFO_DAO);
 		WareHouseInfo existWInfo = findWareHouseInfoByBizKey(whInfoDao,wInfo);
 		if(null != existWInfo){//仓库存在库存信息
-			int newTotalAmount = wInfo.getTotalAmount().intValue() - wInfoTotalAmount;
-			int newLockAmount = wInfo.getLockAmount().intValue() - wInfoLockAmount;
-			int existUseAmount = wInfo.getUseAmount().intValue();
+			int newTotalAmount = IntegerUtils.intValue(existWInfo.getTotalAmount()) - wInfoTotalAmount;
+			int newLockAmount = IntegerUtils.intValue(existWInfo.getLockAmount().intValue()) - wInfoLockAmount;
+			int existUseAmount = IntegerUtils.intValue(existWInfo.getUseAmount().intValue());
 			if(newTotalAmount < 0 || newLockAmount <0 ||
 					(newTotalAmount != (newLockAmount + existUseAmount))){//更新的数据不正确，抛出异常
 				throw new Exception("库存存在的信息为：" + existWInfo.toString() + "数据变更后导致不正确！无法保存");
@@ -151,6 +153,7 @@ public class WarehouseMgr {
 		int wInfoUseAmount = (wInfo.getUseAmount()== null ? 0 : wInfo.getUseAmount());
 		
 		//根据业务主键查询库存中是否存在
+		wInfo.setState(null);
 		WareHouseInfoDao whInfoDao =(WareHouseInfoDao)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_INFO_DAO);
 		WareHouseInfo existWInfo = findWareHouseInfoByBizKey(whInfoDao,wInfo);
 		if(null != existWInfo){//仓库存在库存信息
@@ -165,6 +168,8 @@ public class WarehouseMgr {
 				existWInfo.setUseAmount(newUseAmount);
 				if(newUseAmount == 0){
 					existWInfo.setState(WareHouseConstants.WAREHOUSE_INFO_STATE_1);
+				}else{
+					existWInfo.setState(WareHouseConstants.WAREHOUSE_INFO_STATE_0);
 				}
 				
 			}

@@ -65,7 +65,10 @@ HBSConvertHelper.init(function() {
 					switch(urlPs.roleType){
 					case "cgy":
 						//alert("state= " + record.get("state"));
-						if(record.get("state") == "20" || record.get("state") == "21"){
+						
+						if(record.get("state") == "20" 
+							|| record.get("state") == "21"
+							|| record.get("state") == "71"){
 							// 创建按钮到操作列
 							var operatorBtn = HBSConvertHelper.renderButton2Cell(["查看库存"], operator_cell, view.ds.getAt(i));
 							// 添加处理按钮事件
@@ -76,7 +79,7 @@ HBSConvertHelper.init(function() {
 											, "&partNo=", this.config.get("partNo")].join("");
 								// 打开指定页面
 								HBSConvertHelper.openNewWin(url);
-							});
+							});
 						} 
 						break;
 					}

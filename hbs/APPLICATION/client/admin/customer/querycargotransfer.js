@@ -28,6 +28,8 @@ HBSConvertHelper.init(function() {
 				// 将需要的链接渲染到此列
 				HBSConvertHelper.renderATag2Cell(commCode_cell.innerText, "/customer/detailcargotransfer.jsp?pageType=query&applySeqId=" + record.get("applySeqId"), "open", commCode_cell);
 			
+				if(record.get("auditAgree") !== null)
+					continue;
 				if(view.grid.getColumnIndexById("operator") != -1) {
 					// 获取操作列
 					var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));

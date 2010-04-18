@@ -80,7 +80,7 @@ HBSConvertHelper.init(function() {
 							
 							if(jsonData.success === false) return;			
 							// 加载数据
-							reloadStockInfo();
+							location.reload();
 						});
 					}, this);
 				});
@@ -88,19 +88,17 @@ HBSConvertHelper.init(function() {
 		});
 				
 		// 加载数据
-		reloadStockInfo();
-		
-	}())
-});
-
-function reloadStockInfo(){
-
 		ExtConvertHelper.request("/custOrderDetail/orderDetailCg!list.action", params, function(response, options) {
 			var action = Ext.util.JSON.decode(response.responseText);
+			// TODO: 需备货数量 = 数量 - 已发送数量 - 本客户锁定数量 - 通用锁定数量
 			Ext.getCmp("orderdetailgrid").addData(action.data.list);
     	});
 		// 加载数据
 		ExtConvertHelper.loadForm("form", "/custOrderDetail/orderDetailCg!getStockInfo.action", params, function(form, action) {
+			Ext.getCmp("tsuserAmount").setValue(0);
+			Ext.getCmp("tcuserAmount").setValue(0);
 			Ext.getCmp("storeinfogrid").addData(action.result.data.otherList);
 		});
-}
+		
+	}())
+});
