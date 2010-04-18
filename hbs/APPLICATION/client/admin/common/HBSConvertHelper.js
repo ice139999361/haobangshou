@@ -54,8 +54,9 @@ var HBSConvertHelper = {
 	  * @param paramsName (String)  要获取数据的表格参数名设置 (参数名之间用 "," 分隔，与表格 id 顺序对应) 例："paramName1,paramName1"
 	  * @param isCheck    (Boolean) 是否需要校验，默认为（true）
 	  * @param splitChar  (String)  数据分隔符，默认分隔符为（||;;）
+	  * @param flag       (Boolean) 是否只返回选择的数据 (默认返回所有)
 	  */
-	 getGridSubmitData: function(gridIds, paramsName, isCheck, splitChar) {
+	 getGridSubmitData: function(gridIds, paramsName, isCheck, splitChar, flag) {
 	 		// 对参数进行格式化
 	 		gridIds    = gridIds.split(",");
 	 		paramsName = paramsName.split(",");
@@ -78,7 +79,7 @@ var HBSConvertHelper = {
 	 			// 对表格数据进行校验
 	 			if(isCheck) if(!_grid.isValid()) return false;
 	 			// 获取数据
-	 			var tmp = _grid.getAllDatatToFormat(_paramName, splitChar);
+	 			var tmp = (flag === true) ? _grid.getSelectDatatToFormat(_paramName, splitChar) : _grid.getAllDatatToFormat(_paramName, splitChar);
 	 			
 	 			// 装载数据到集合
 	 			if(tmp) _data.push(tmp);
