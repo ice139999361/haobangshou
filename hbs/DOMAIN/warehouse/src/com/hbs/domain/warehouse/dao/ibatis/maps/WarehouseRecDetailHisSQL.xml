@@ -414,7 +414,13 @@
 			<isNotEmpty prepend="and"
 				property="dynamicFields.lessPeriod">
 				<![CDATA[	
-					CAST(PERIOD AS SIGNED) <= #lessPeriod#
+					CAST(PERIOD AS SIGNED) <= $dynamicFields.lessPeriod$
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.lessFinancePeriod">
+				<![CDATA[	
+					CAST(FINANCE_PERIOD AS SIGNED) <= $dynamicFields.lessFinancePeriod$
 				]]>
 			</isNotEmpty>
 		<!-- 时间段范围查询  需要extends BaseDomain 入库单供应商日期 -->
@@ -519,7 +525,13 @@
 			<isNotEmpty prepend="and"
 				property="dynamicFields.lessPeriod">
 				<![CDATA[	
-					CAST(PERIOD AS SIGNED) <= #lessPeriod#
+					CAST(PERIOD AS SIGNED) <= $dynamicFields.lessPeriod$
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.lessFinancePeriod">
+				<![CDATA[	
+					CAST(FINANCE_PERIOD AS SIGNED) <= $dynamicFields.lessFinancePeriod$
 				]]>
 			</isNotEmpty>
 		<!-- 时间段范围查询  需要extends BaseDomain 入库单供应商日期 -->
