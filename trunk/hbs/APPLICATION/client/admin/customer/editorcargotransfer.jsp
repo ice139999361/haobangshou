@@ -19,18 +19,23 @@
 							<form id="form"><items>
 				    		<listpanel frame="true" title="调货信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<autocomplete fieldLabel="GLE物料编码"	url="/customerInfo/customerInfo!list.action"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"           name="custOrder.commCode"       labelStyle="width:150" />
-				    				<autocomplete fieldLabel="从 客户编码"	url="/customerInfo/customerInfo!list.action"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"           name="custOrder.commCode"       labelStyle="width:150" />
-				    				<autocomplete fieldLabel="到 客户编码"	url="/customerInfo/customerInfo!list.action"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"           name="custOrder.commCode"       labelStyle="width:150" />
-				    				<textfield    fieldLabel="申请调货数量"           name="custOrder.shortName"	               labelStyle="width:150"/>
+				    				<autocomplete fieldLabel="GLE物料编码"	url="/partNo/partNo!list.action"  displayField="partNo"  valueField="partNo" queryParam="partNo.partNo"    id="acPartNo"     name="adjustInfo.partNo"       labelStyle="width:150" />
+				    				<autocomplete fieldLabel="从 客户编码"	url="/customerInfo/customerInfoMgr!list.action"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"      id="acFromCCode"  name="adjustInfo.fromCustCode"       labelStyle="width:150" />
+				    				<autocomplete fieldLabel="到 客户编码"	url="/customerInfo/customerInfoMgr!list.action"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"      id="acToCCode"    name="adjustInfo.toCustCode"       labelStyle="width:150" />
+				    				<autocomplete fieldLabel="物料提供供应商" url="/vendorInfo/vendorInfoMgr!list.action"    displayField="commCode"  valueField="commCode" queryParam="vendorInfo.commCode"    id="acVendorCode" name="adjustInfo.vendorCode"	                 labelStyle="width:150"/>
+				    				<textfield    fieldLabel="申请调货数量"           name="adjustInfo.applyAmount"	               labelStyle="width:150"/>
 				    				
-				    				<textfield    fieldLabel="物料描述"           name="custOrder.shortName"	      readOnly="true"              labelStyle="width:150"/>
-				    				<textfield    fieldLabel="客户简称"           name="custOrder.shortName"	      readOnly="true"              labelStyle="width:150"/>
-				    				<textfield    fieldLabel="客户简称"           name="custOrder.shortName"	      readOnly="true"              labelStyle="width:150"/>
-				    				<textfield    fieldLabel="物料提供供应商"     name="custOrder.shortName"	                 labelStyle="width:150"/>
+				    				<textfield    fieldLabel="物料描述"           name="adjustInfo.pnDesc"	      id="acPnDesc"     readOnly="true"              labelStyle="width:150"/>
+				    				<textfield    fieldLabel="客户简称"           name="adjustInfo.fromCustName"  id="acFromCName"  readOnly="true"              labelStyle="width:150"/>
+				    				<textfield    fieldLabel="客户简称"           name="adjustInfo.toCustName"	  id="acToCName"    readOnly="true"              labelStyle="width:150"/>
+				    				<textfield    fieldLabel="供应商简称"         name="adjustInfo.shortName"	  id="acShortName"  readOnly="true"              labelStyle="width:150"/>
+				    				<dictcombo    fieldLabel="仓库类型"           hiddenName="adjustInfo.houseType"     paramsValue="WAREHOUSE_TYPE" labelStyle="width:150" />
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
-				    				<textarea     fieldLabel="申请调货原因"               name="custInfo.commDesc"              labelStyle="width:150" width="600" height="80" />
+				    				<textarea     fieldLabel="申请调货原因"               name="adjustInfo.applyContent"              labelStyle="width:150" width="600" height="80" />
+				    			</layoutpanel>
+				    			<layoutpanel columnNum="1">
+				    				<hidden name="adjustInfo.applySeqId" />
 				    			</layoutpanel>
 				    		</listpanel>
 			    		</items></form>
