@@ -3,17 +3,24 @@
  */
 package com.hbs.warehousereceive.action;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.action.FieldErr;
+import com.hbs.common.utils.ListDataUtil;
 import com.hbs.domain.warehouse.pojo.WarehouseRecDetail;
+
 import com.hbs.warehouse.common.constants.WareHouseConstants;
+import com.hbs.warehousereceive.manager.WareHouseRecDetailMgr;
+
 
 /**
  * @author xyf
@@ -22,7 +29,12 @@ import com.hbs.warehouse.common.constants.WareHouseConstants;
 @SuppressWarnings("serial")
 public class WarehouseRecAction extends WarehouseRecBaseAction {
 	private static final Logger logger = Logger.getLogger(WarehouseRecAction.class);
-
+	private static final String detailListName = "settlementlist";
+	private static final String detailListFields = "settlementlistFields";
+	
+	private static final String splitter = "\\|\\|;;";
+	
+	private static final String fieldNameSplitter = ",";
 	@Override
 	protected boolean getIsManager() {
 		return false;
@@ -263,7 +275,76 @@ public class WarehouseRecAction extends WarehouseRecBaseAction {
 			setErrorReason("内部错误");
 			return ERROR;
 		}
-		
-		
+	}
+	
+	/**
+	 * 财务的入库单对账
+	 * @return
+	 */
+	public String doConfirmFinancePeriod(){
+		try {
+			logger.debug("begin doConfirmFinancePeriod");
+			List<WarehouseRecDetail> list =processListData(this.getHttpServletRequest());
+			String realFinancePeriod = this.getHttpServletRequest().getParameter("realfinancePeriod");
+			logger.debug("realFinancePeriod=" + realFinancePeriod);
+			if (list == null || list.size() ==0) {
+				logger.info("没有需要处理的入库单信息！");
+				setErrorReason("没有需要处理的入库单信息！");
+				return ERROR;
+			}
+			WareHouseRecDetailMgr mgr = getMgrDetail();
+			for(WarehouseRecDetail detail : list){
+				String settlementtype = detail.getSettlementType();
+				if(settlementtype.equals("1")){//账期结算
+					detail.setFinancePeriod(realFinancePeriod);
+					mgr.adjustFinancePeriod(detail, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), null);
+					
+					//detail.setFinanceState("1");
+					
+					mgr.setFinanceState(detail, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), null);
+				}else{//非账期结算
+					//detail.setFinanceState("1");
+					
+					mgr.setFinanceState(detail, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), null);
+				}
+				
+			}
+			
+			// DONE：doSave
+			logger.debug("end doConfirmFinancePeriod");
+			return SUCCESS;
+		} catch(Exception e) {
+			logger.error("catch Exception in doConfirmFinancePeriod", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}	
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	private List<WarehouseRecDetail> processListData(
+			HttpServletRequest request) {
+		List<WarehouseRecDetail> listAdd = null;
+		try {
+			logger.debug("aaa = " + request.getParameterValues(detailListName));
+			logger.debug("bbb = " + request.getParameter(detailListFields));
+			List<WarehouseRecDetail> list = ListDataUtil.splitIntoList(WarehouseRecDetail.class, 
+				request.getParameterValues(detailListName), 
+				request.getParameter(detailListFields).split(fieldNameSplitter), 
+				splitter);		
+			
+			listAdd= new ArrayList<WarehouseRecDetail>();
+			if(list != null && list.size() >0){
+				for(WarehouseRecDetail detail : list){
+					if(StringUtils.isEmpty(detail.getFinanceState()) || detail.getFinanceState().equals("0")){
+						
+					    listAdd.add(detail);
+					}
+				}
+			}
+		} catch (Exception e) {
+			logger.info("processListData处理detailList出错", e);
+		}
+		return listAdd;
 	}
 }

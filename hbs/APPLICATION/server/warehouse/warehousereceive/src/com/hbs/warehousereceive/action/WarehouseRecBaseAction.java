@@ -11,8 +11,10 @@ import com.hbs.common.action.base.BaseAction;
 import com.hbs.domain.warehouse.pojo.WarehouseRecDetail;
 import com.hbs.domain.warehouse.pojo.WarehouseRecInfo;
 
+
 import com.hbs.warehousereceive.manager.WareHouseRecDetailMgr;
 import com.hbs.warehousereceive.manager.WareHouseRecMgr;
+
 
 
 /**
@@ -124,6 +126,46 @@ public abstract class WarehouseRecBaseAction extends BaseAction {
 			return SUCCESS;
 		} catch(Exception e) {
 			logger.error("catch Exception in doListDetail", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+	}
+	
+	/**
+	 * 供财务管理对账使用
+	 * @return
+	 */
+	public String doListFinanceDetail() {
+		try {
+			logger.debug("begin doListFinanceDetail");
+			if(warehouseRecDetail == null){
+				warehouseRecDetail = new WarehouseRecDetail();
+			}
+			
+			if(StringUtils.isEmpty(warehouseRecDetail.getVendorCode())){
+				setErrorReason("请输入供应商编码!");
+				return ERROR;
+			}
+			String startTime = (String)warehouseRecDetail.getDynamicFields().get("beginPoNoDate");
+			String endTime =   (String)warehouseRecDetail.getDynamicFields().get("endPoNoDate");
+			String finacePeriod = warehouseRecDetail.getFinancePeriod();
+			
+			if( StringUtils.isEmpty(startTime) && StringUtils.isEmpty(endTime) && StringUtils.isEmpty(finacePeriod)){
+				setErrorReason("请输入时间范围或账期!");
+				return ERROR;
+			}
+			if(StringUtils.isNotEmpty(warehouseRecDetail.getFinancePeriod())){
+				warehouseRecDetail.setField("lessFinancePeriod", warehouseRecDetail.getFinancePeriod());
+			}
+			warehouseRecDetail.setField("notInState", "'01','03'");			
+			WareHouseRecDetailMgr mgr = getMgrDetail();
+			setResult("list", mgr.getWarehouseRecDetailList(warehouseRecDetail));
+			
+					
+			logger.debug("end doListFinanceDetail");
+			return SUCCESS;
+		} catch(Exception e) {
+			logger.error("catch Exception in doListFinanceDetail", e);
 			setErrorReason("内部错误");
 			return ERROR;
 		}

@@ -312,11 +312,11 @@
 		</action>
 		<!--
 		   财务获取客户基本信息 
-		 -->
+		 
 		<action name="customerInfoCw!getInfo" method="doGetInfo" 
     			class="com.hbs.customerinfo.action.CustomerInfoCwNormalAction">
 		</action>
-		
+		-->
 		<!-- ********************************************* -->
 		<!-- 
   	/**

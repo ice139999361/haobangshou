@@ -7,7 +7,10 @@ import org.apache.log4j.Logger;
 
 import com.hbs.common.action.JianQuanUtil;
 import com.hbs.common.action.base.BaseAction;
+import com.hbs.common.springhelper.BeanLocator;
+import com.hbs.domain.invoice.pojo.PeriodSpecMemo;
 import com.hbs.domain.vendor.vendorinfo.pojo.VendorInfo;
+import com.hbs.invoice.manager.PeriodSpecMemoMgr;
 import com.hbs.vendorinfo.manager.VendorInfoMgr;
 
 /**
@@ -78,6 +81,7 @@ public class VendorInfoCwNormalAction extends BaseAction {
 				setErrorReason("参数错误！");
 				return ERROR;
 			}
+			vendorInfo.setState("0");
 			VendorInfoMgr mgr = (VendorInfoMgr)getBean(VendorInfoNormalAction.vendorInfoMgrName);
 			getVendorInfoValue(mgr);
 			if(!"0".equals(vendorInfo.getState())){
@@ -104,6 +108,7 @@ public class VendorInfoCwNormalAction extends BaseAction {
 	 * @action.input memo 说明
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	public String doLock(){
 		try
 		{
@@ -138,6 +143,7 @@ public class VendorInfoCwNormalAction extends BaseAction {
 	 * @action.input memo 说明
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	public String doUnlock(){
 		try
 		{
@@ -177,5 +183,14 @@ public class VendorInfoCwNormalAction extends BaseAction {
 	protected void getVendorInfoValue(VendorInfoMgr mgr) throws Exception
 	{
 		vendorInfo = VendorInfoUtil.getVendorInfo(mgr, vendorInfo);
+		if(null != vendorInfo){
+			PeriodSpecMemoMgr specMemoMgr =(PeriodSpecMemoMgr)BeanLocator.getInstance().getBean("periodSpecMemoMgr");
+			
+			PeriodSpecMemo memo = specMemoMgr.getSepcMemo(vendorInfo.getCommCode());
+			if(null !=memo){
+				vendorInfo.setSpecMemo(memo.getMemo());
+			}
+			
+		}
 	}
 }
