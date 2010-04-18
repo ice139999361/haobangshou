@@ -171,7 +171,11 @@ public class VendorInfo extends BaseDomain{
      */
     private BigDecimal taxRate;
 
-
+    /**
+     * 对账信息备注
+     */
+    
+    private String specMemo;
     
     /**
      * 联系列表
@@ -560,6 +564,14 @@ public class VendorInfo extends BaseDomain{
 	
 	public String getWaitTaskKey(){
 		return this.commCode;
+	}
+
+	public String getSpecMemo() {
+		return specMemo;
+	}
+
+	public void setSpecMemo(String specMemo) {
+		this.specMemo = specMemo;
 	}
 
 	@Override

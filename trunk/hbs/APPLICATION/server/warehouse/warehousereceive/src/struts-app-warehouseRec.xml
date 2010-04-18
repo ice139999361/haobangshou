@@ -94,7 +94,16 @@
 		 <action name="warehouseRec!listDetail" method="doListDetail" 
     			class="com.hbs.warehousereceive.action.WarehouseRecAction">
 		</action>
-        		
+        <!--  
+		供财务对账使用
+		 -->
+		 <action name="warehouseRec!listFinanceDetail" method="doListFinanceDetail" 
+    			class="com.hbs.warehousereceive.action.WarehouseRecAction">
+		</action>	
+		
+		<action name="warehouseRec!confirmFinancePeriod" method="doConfirmFinancePeriod" 
+    			class="com.hbs.warehousereceive.action.WarehouseRecAction">
+		</action>	
 	</package>
 </struts>
         

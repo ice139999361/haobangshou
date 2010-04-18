@@ -149,7 +149,7 @@ public abstract class WarehouseSendBaseAction extends BaseAction {
 				setErrorReason("请输入时间范围或账期!");
 				return ERROR;
 			}
-			if(warehouseSendDetail.getFinancePeriod() != null){
+			if(StringUtils.isNotEmpty(warehouseSendDetail.getFinancePeriod())){
 				warehouseSendDetail.setField("lessFinancePeriod", warehouseSendDetail.getFinancePeriod());
 			}
 			warehouseSendDetail.setField("notInState", "'01','03'");			

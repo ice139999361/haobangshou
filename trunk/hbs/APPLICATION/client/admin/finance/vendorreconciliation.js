@@ -12,25 +12,31 @@ HBSConvertHelper.init(function() {
 	// -------------------------------------- 页面初始化
 		
 	(function() {
-		Ext.getCmp("commcode").setProcessConfig("/customerInfo/customerInfo!list.action", "custInfo.commCode", null, function(action) {
+		Ext.getCmp("commcode").setProcessConfig("/vendorInfo/vendorInfoCw!getInfo.action", "vendorInfo.commCode", null, function(action) {
 			if(!action.success) return;
 				
-			Ext.getCmp("allname").setValue("供应商名称");
-			Ext.getCmp("offperiod").setValue("帐期");
-			Ext.getCmp("cinfo").setValue("对帐单注意事项");
+			Ext.getCmp("allname").setValue(action.data.vendorInfo.allName);
+			Ext.getCmp("offperiod").setValue(action.data.vendorInfo.settlementDesc);
+			Ext.getCmp("cinfo").setValue(action.data.vendorInfo.specMemo);
 			
+						
 			// 财务人员信息列表填充
-			Ext.getCmp("financegrid").addData(action);
+			Ext.getCmp("financegrid").addData(action.data.vendorInfo.dynamicFields.contactlist);
+			Ext.getCmp("wsdvendorCode").setValue(Ext.getCmp("commcode").getValue());
+			Ext.getCmp("query_btn").fireEvent("click");
 		});
 		
 		// 当单击提交按钮时，调用默认的关闭窗口方法
 		submitBtn.on("click", function() {
 			// 提交的参数
-			var params = {
-				"baseSeqId" : settlementgrid.getCheckFields()
-			};
+			// 提交的参数
+			var params = [
+				,"realfinancePeriod=", Ext.getCmp("wsdfinancePeriod").getValue()
+				,"&"
+				,HBSConvertHelper.getGridSubmitData("settlementgrid", "settlementlist", null, null, true)
+			].join("");
 			
-			ExtConvertHelper.submitForm("form", this.url, params, function(form, action) {
+			ExtConvertHelper.submitForm(null, "/warehouseRec/warehouseRec!confirmFinancePeriod.action", params, function(form, action) {
 				// 获取成功后的提示信息
 				var msg = ExtConvertHelper.getMessageInfo(action, "操作成功！");
 				

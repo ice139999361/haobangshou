@@ -42,31 +42,27 @@ public class VendorInfoUtil {
 	 */
 	public static boolean checkKeyFields(VendorInfo vendorInfo)
 	{
+		boolean ret = true;
 		try
 		{
-			if(vendorInfo == null)
-				return false;
-			Integer i = vendorInfo.getBaseSeqId();
-			if(i != null && !i.equals(0))
-				return true;
-			String s = vendorInfo.getCommCode();
-			if(StringUtils.isEmpty(s))
-				return false;
-			s = vendorInfo.getState();
-			try
-			{
-				Integer.parseInt(s);
+			if(null == vendorInfo){
+				ret = false;
+			}else{
+				Integer i = vendorInfo.getBaseSeqId();
+				String code = vendorInfo.getCommCode();
+				if((null == i || i.intValue() == 0) && (StringUtils.isEmpty(code))){
+					ret = false;
+				}
 			}
-			catch(Exception e)
-			{
-				return false;
-			}
-			return true;
 		}
 		catch(Exception e)
 		{
-			return false;
+			ret = false;
 		}
+		if(vendorInfo.getState() == null){
+			vendorInfo.setState("0");
+		}
+		return ret;
 	}
 	
 	/**

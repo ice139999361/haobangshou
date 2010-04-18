@@ -18,7 +18,7 @@
 			    	<!-- service ext ui.  begin. -->
 			    		<listpanel frame="true" title="供应商基本信息" collapsible="true" titleCollapse="true">
 			    			<layoutpanel columnNum="3">
-			    				<autocomplete fieldLabel="供应商编码" url="/customerInfo/customerInfo!list.action"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"     name="custInfo.commCode"       labelStyle="width:150" id="commcode" />
+			    				<autocomplete fieldLabel="供应商编码" url="/vendorInfo/vendorInfo!list.action"  displayField="commCode"  valueField="commCode" queryParam="vendorInfo.commCode"     name="vendorInfo.commCode"       labelStyle="width:150" id="commcode" />
 			    				<label        fieldLabel="供应商名称"      name="" id="allname" />
 			    				<label        fieldLabel="帐期"            name="" id="offperiod" />
 			    			</layoutpanel>
@@ -28,16 +28,7 @@
 			    		</listpanel>
 			    		
 			    		<complexgrid id="financegrid" title="财务人员信息" itemsFun="contactFun" itemsAlign="after" frame="true" height="150" url="1" editorFlag="false">
-			    			<fields>
-			    				<field name="conAddress" />
-			    				<field name="conZip" />
-			    				<field name="isPrimary" />
-			    			</fields>
 			    			
-			    			<columns>
-			    				<column header="收货地址" 			dataIndex="conAddress" xtype="textfield" />
-			    				<column header="收货邮编" 			dataIndex="conZip"     xtype="textfield" />
-			    			</columns>
 			    		</complexgrid>
 			    	
 			    	
@@ -45,38 +36,52 @@
 			    			<layoutpanel columnNum="6:.11,.05,.15,.05,.2,">									
 									<label     fieldLabel="日期范围" />
 									<label     fieldLabel="从"       labelSeparator=""/>
-									<datefield fieldLabel="起始时间" hideLabel="true"  name="" format="Y-m-d" />
+									<datefield fieldLabel="起始时间" hideLabel="true"  name="warehouseRecDetail.dynamicFields.beginPoNoDate" format="Y-m-d" />
 									<label     fieldLabel="到"       labelSeparator=""/>
-									<datefield fieldLabel="结束时间" hideLabel="true"  name="" format="Y-m-d" />	
-									<textfield fieldLabel="帐期"     name=""  />
+									<datefield fieldLabel="结束时间" hideLabel="true"  name="warehouseRecDetail.dynamicFields.endPoNoDate" format="Y-m-d" />	
+									<textfield fieldLabel="帐期"     name=""warehouseRecDetail.financePeriod"  id="wsdfinancePeriod"/>
+			    			</layoutpanel>
+			    			<layoutpanel columnNum ="1">
+			    				<dictcombo    fieldLabel="财务状态"           hiddenName="warehouseRecDetail.financeState"    paramsValue="WAREHOUSE_FINANCE_STATE"     showText="请选择" />
+			    			</layoutpanel>
+			    			<layoutpanel columnNum ="1">
+			    				<hidden name="warehouseRecDetail.vendorCode" id="wsdvendorCode" />
 			    			</layoutpanel>
 			    		</queryform>
 				    		
-				    	<complexgrid id="settlementgrid" title="待结算信息列表" frame="true" page="false" root="data.list" url="/adffds.action">
+				    	<complexgrid id="settlementgrid" title="结算信息列表" frame="true" page="false" root="data.list" url="/warehouseRec/warehouseRec!listFinanceDetail.action">
 				    		<fields>
-				    			<field name="l1" />
-				    			<field name="l2" />
-				    			<field name="l3" />
-				    			<field name="l4" />
-				    			<field name="l5" />
-				    			<field name="l6" />
-				    			<field name="l7" />
-				    			<field name="l8" />
+				    			<field name="recDetailSeqId" />
+				    			<field name="applyDate" />
+				    			<field name="recPoNo" />
+				    			<field name="rltPoNo" />
+				    			<field name="partNo" />
+				    			<field name="cpartNo" />
+				    			<field name="pnDesc" />
+				    			<field name="financePeriod" />
+				    			<field name="financeStateDesc" />
+				    			<field name="financeState" />				    			
+				    			<field name="amount" />				    								
+				    			<field name="curMoney" />
+				    			<field name="settlementType" />
+				    			
 				    		</fields>
 				    		<columns>       
-				    			<column isCheck="true"      dataIndex="l8" />
-				    			<column header="入库日期"   dataIndex="l1" />
-				    			<column header="入库单号"   dataIndex="l2" />
-				    			<column header="采购单号"   dataIndex="l3" />
-				    			<column header="GLE P/N"    dataIndex="l4" />
-				    			<column header="供应商 P/N" dataIndex="l5" />
-				    			<column header="描述"       dataIndex="l6" />
-				    			<column header="类型"       dataIndex="l7" />
-				    			<column header="是否对帐"   dataIndex="l7"  />
-				    			<column header="数量"       dataIndex="l7"  />
-				    			<column header="单价"       dataIndex="l7"  />
-				    			<column header="金额"       dataIndex="l7"  />
+				    			<column isCheck="true"      dataIndex="recDetailSeqId" />
+				    			<column header="入库日期"   dataIndex="applyDate" />
+				    			<column header="入库单号"   dataIndex="recPoNo" />
+				    			<column header="采购单号"   dataIndex="rltPoNo" />
+				    			<column header="GLE P/N"    dataIndex="partNo" />
+				    			<column header="供应商 P/N" dataIndex="cpartNo" />
+				    			<column header="描述"       dataIndex="pnDesc" />
+				    			
+				    			<column header="财务账期"   dataIndex="financePeriod"  />
+				    			<column header="是否对帐"   dataIndex="financeStateDesc"  />
+				    			<column header="数量"       dataIndex="amount"  />
+				    			
+				    			<column header="金额"       dataIndex="curMoney"  />
 				    		</columns>
+				    		<submitFields value="recDetailSeqId,settlementType,financeState" />
 				    	</complexgrid>
 				    	
 				    	<panel buttonAlign="center">
