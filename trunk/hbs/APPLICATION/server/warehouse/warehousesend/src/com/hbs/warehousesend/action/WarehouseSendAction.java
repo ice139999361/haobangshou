@@ -309,11 +309,11 @@ public class WarehouseSendAction extends WarehouseSendBaseAction {
 					detail.setFinancePeriod(realFinancePeriod);
 					mgr.adjustFinancePeriod(detail, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), null);
 					
-					detail.setFinanceState("1");
+					//detail.setFinanceState("1");
 					
 					mgr.setFinanceState(detail, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), null);
 				}else{//∑«’À∆⁄Ω·À„
-					detail.setFinanceState("1");
+					//detail.setFinanceState("1");
 					
 					mgr.setFinanceState(detail, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), null);
 				}
@@ -344,11 +344,12 @@ public class WarehouseSendAction extends WarehouseSendBaseAction {
 				splitter);		
 			
 			listAdd= new ArrayList<WarehouseSendDetail>();
-			
-			for(WarehouseSendDetail detail : list){
-				if(null != detail.getFinanceState() || detail.getFinanceState().equals("0")){
-					
-				    listAdd.add(detail);
+			if(list != null && list.size() >0){
+				for(WarehouseSendDetail detail : list){
+					if(StringUtils.isEmpty(detail.getFinanceState()) || detail.getFinanceState().equals("0")){
+						
+					    listAdd.add(detail);
+					}
 				}
 			}
 		} catch (Exception e) {

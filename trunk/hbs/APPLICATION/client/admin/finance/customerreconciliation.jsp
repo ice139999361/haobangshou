@@ -80,7 +80,7 @@
 				    			<column header="金额"       dataIndex="curMoney"  />
 				    		</columns>
 				    		
-				    		<submitFields value="sendSeqId,settlementType" />
+				    		<submitFields value="sendSeqId,settlementType,financeState" />
 				    	</complexgrid>
 				    	
 				    	<panel buttonAlign="center">

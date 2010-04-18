@@ -518,6 +518,18 @@ public class WarehouseSendDetail extends BaseDomain{
         return this.financeState;
     }	
   
+    public String getFinanceStateDesc(){
+    	String retStr ="Œ¥∂®“Â";
+    	ConfigEncode ceParam = new ConfigEncode();
+    	ceParam.setEncodeKey(getFinanceState());
+    	ceParam.setEncodeType("WAREHOUSE_FINANCE_STATE");
+    	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
+    	if(null != cEncode){
+    		retStr = cEncode.getEncodeValue();
+    	}
+    	return retStr;
+    }
+    
     public void setFinanceState(String financeState) {
         this.financeState = financeState;
     }
