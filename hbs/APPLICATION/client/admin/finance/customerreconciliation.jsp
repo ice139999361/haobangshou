@@ -44,6 +44,9 @@
 			    			<layoutpanel columnNum ="1">
 			    				<dictcombo    fieldLabel="财务状态"           hiddenName="warehouseSendDetail.financeState"    paramsValue="WAREHOUSE_FINANCE_STATE"     showText="请选择" />
 			    			</layoutpanel>
+			    			<layoutpanel columnNum ="1">
+			    				<hidden name="warehouseSendDetail.custCode" id="wsdcustCode" />
+			    			</layoutpanel>
 			    		</queryform>
 				    		
 				    	<complexgrid id="settlementgrid" title="结算信息列表" frame="true" page="false" root="data.list" url="/adffds.action">
