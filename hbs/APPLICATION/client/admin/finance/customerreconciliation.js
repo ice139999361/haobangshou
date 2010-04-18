@@ -29,7 +29,9 @@ HBSConvertHelper.init(function() {
 		submitBtn.on("click", function() {
 			// 提交的参数
 			var params = {
-				"baseSeqId" : settlementgrid.getCheckFields()
+				 "baseSeqId" : settlementgrid.getCheckFields()				
+				,"warehouseSendDetail.custCode": Ext.getCmp("wsdcustCode").getValue()
+				,"warehouseSendDetail.financePeriod": Ext.getCmp("wsdfinancePeriod").getValue()
 			};
 			
 			ExtConvertHelper.submitForm("form", this.url, params, function(form, action) {
