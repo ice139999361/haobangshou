@@ -17,7 +17,7 @@ HBSConvertHelper.init(function() {
 			if(!ExtConvertHelper.isFormValid("form")) return;
 			
 			// 提交数据
-			ExtConvertHelper.submitForm("form", "/custOrder/custOrder!save.action", null, function(form, action) {
+			ExtConvertHelper.submitForm("form", "/adjustInfo/adjustInfo!save.action", null, function(form, action) {
 				// 获取成功后的提示信息
 				var msg = ExtConvertHelper.getMessageInfo(action, "操作成功！");
 				
@@ -34,4 +34,24 @@ HBSConvertHelper.init(function() {
 		backBtn.on("click", HBSConvertHelper.defaultCloseTab);
 	}())
 	
+	Ext.getCmp("acPartNo").setProcessConfig("/partNo/partNo!get.action", "partNo.partNo", null, function(action){
+		if(!action.success)
+			return;
+		Ext.getCmp("acPnDesc").setValue(action.data.partNo.pnDesc);
+	});
+	Ext.getCmp("acFromCCode").setProcessConfig("/customerInfo/customerInfoMgr!getInfo.action?custInfo.state=0", "custInfo.commCode", null, function(action){
+		if(!action.success)
+			return;
+		Ext.getCmp("acFromCName").setValue(action.data.custInfo.shortName);
+	});
+	Ext.getCmp("acToCCode").setProcessConfig("/customerInfo/customerInfoMgr!getInfo.action?custInfo.state=0", "custInfo.commCode", null, function(action){
+		if(!action.success)
+			return;
+		Ext.getCmp("acToCName").setValue(action.data.custInfo.shortName);
+	});
+	Ext.getCmp("acVendorCode").setProcessConfig("/vendorInfo/vendorInfoMgr!getInfo.action?vendorInfo.state=0", "vendorInfo.commCode", null, function(action){
+		if(!action.success)
+			return;
+		Ext.getCmp("acShortName").setValue(action.data.vendorInfo.shortName);
+	});
 });

@@ -232,6 +232,8 @@ public class AdjustMgr {
 		wInfo.setVendorCode(adjustInfo.getVendorCode());
 		//设置物料编号
 		wInfo.setPartNo(adjustInfo.getPartNo());
+		
+		wInfo.setState(null);
 		//设置客户
 		if(isFrom){
 			wInfo.setCustCode(adjustInfo.getFromCustCode());

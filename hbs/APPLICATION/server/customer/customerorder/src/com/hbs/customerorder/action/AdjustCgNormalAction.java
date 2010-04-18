@@ -75,8 +75,19 @@ public class AdjustCgNormalAction extends AdjustBaseAction {
 			boolean isNew = adjustInfo.getApplySeqId() == null;
 			int i = mgr.saveAdjustInfo(adjustInfo);
 			if(i <= 0) {
-				logger.info("保存失败！" + " ret = " + i);
-				setErrorReason("保存失败！");
+				String s;
+				switch(i){
+				case -1:
+					s = "库存中不存在能够被调货的库存信息！无法执行调货!";
+					break;
+				case -2:
+					s = "库存中的被调货库存物料数量小于需要的调货数量，无法执行调货！";
+					break;
+				default:
+					s = "保存失败！";
+				}
+				logger.info(s + " ret = " + i);
+				setErrorReason(s);
 				return ERROR;
 			}
 			if(isNew) {
