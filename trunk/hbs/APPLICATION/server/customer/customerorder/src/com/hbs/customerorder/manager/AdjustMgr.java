@@ -17,11 +17,15 @@ import org.apache.log4j.Logger;
 import com.hbs.common.springhelper.BeanLocator;
 
 import com.hbs.common.utils.ExpireTimeUtil;
+import com.hbs.common.utils.IntegerUtils;
 import com.hbs.customer.common.utils.CustLogUtils;
+import com.hbs.customerinfo.constants.CustInfoConstants;
+import com.hbs.customerinfo.manager.CustPartNoInfoMgr;
 import com.hbs.customerorder.constants.CustOrderConstants;
 import com.hbs.customerorder.utils.CustOrderUtils;
 import com.hbs.domain.adjust.dao.AdjustInfoDao;
 import com.hbs.domain.adjust.pojo.AdjustInfo;
+import com.hbs.domain.customer.customerinfo.pojo.CustPartNoInfo;
 
 import com.hbs.domain.waittask.pojo.WaitTaskInfo;
 import com.hbs.domain.warehouse.pojo.WareHouseInfo;
@@ -103,16 +107,17 @@ public class AdjustMgr {
 		logger.debug("审批同意调货，输入的参数为：" + adjustInfo.toString());
 		//组合库存信息
 		WarehouseMgr whMgr = (WarehouseMgr)BeanLocator.getInstance().getBean(CustOrderConstants.WAREHOUSE_INFO_MGR);
+		int applyAmount = IntegerUtils.intValue(adjustInfo.getApplyAmount());
 		
 		//从被调方库存出货
 		WareHouseInfo wFromObject = createFromWInfoObject(adjustInfo , true);
-		wFromObject.setLockAmount(adjustInfo.getApplyAmount().intValue());
-		wFromObject.setTotalAmount(adjustInfo.getApplyAmount().intValue());
+		wFromObject.setLockAmount(applyAmount);
+		wFromObject.setTotalAmount(applyAmount);
 		whMgr.saveOutWareHouseInfo(wFromObject);		
 		//调方入库
 		WareHouseInfo wToObject = createFromWInfoObject(adjustInfo , false);
-		wToObject.setTotalAmount(adjustInfo.getApplyAmount().intValue());
-		wToObject.setUseAmount(adjustInfo.getApplyAmount().intValue());
+		wToObject.setTotalAmount(applyAmount);
+		wToObject.setUseAmount(applyAmount);
 		whMgr.saveInWareHouseInfo(wToObject);
 		//保存调货信息
 		AdjustInfoDao justDao =(AdjustInfoDao)BeanLocator.getInstance().getBean(CustOrderConstants.ADJUST_INFO_DAO);
@@ -222,7 +227,7 @@ public class AdjustMgr {
 	 * @param isFrom true 被调货货方  false  调货方
 	 * @return
 	 */
-	private WareHouseInfo createFromWInfoObject(AdjustInfo adjustInfo , boolean isFrom){
+	private WareHouseInfo createFromWInfoObject(AdjustInfo adjustInfo , boolean isFrom) throws Exception {
 		WareHouseInfo wInfo = new WareHouseInfo();
 		//仓库位置
 		wInfo.setHouseType(adjustInfo.getHouseType());
@@ -234,12 +239,29 @@ public class AdjustMgr {
 		wInfo.setPartNo(adjustInfo.getPartNo());
 		
 		wInfo.setState(null);
+		wInfo.setTotalAmount(0);
+		wInfo.setLockAmount(0);
+		wInfo.setUseAmount(0);
+		
 		//设置客户
 		if(isFrom){
 			wInfo.setCustCode(adjustInfo.getFromCustCode());
 		}else{
 			wInfo.setCustCode(adjustInfo.getToCustCode());
+			
+			// DONE: 填写cpartNo
+			CustPartNoInfoMgr cpMgr = (CustPartNoInfoMgr) BeanLocator.getInstance().getBean(CustInfoConstants.CUSTPARTNOINFOMGR);
+			CustPartNoInfo cpart = new CustPartNoInfo();
+			cpart.setCommCode(wInfo.getCustCode());
+			cpart.setPartNo(wInfo.getPartNo());
+			cpart.setState("0");
+			cpart.setCustPartNo(null);
+			CustPartNoInfo cpart2 = cpMgr.getCustPartNoInfoByBizKey(cpart);
+			if(cpart2 == null)
+				throw new Exception("无法找到客户物料关系！ " + cpart.toString());
+			wInfo.setCpartNo(cpart2.getCustPartNo());
 		}
+		
 		return wInfo;
 	}
 	

@@ -355,10 +355,20 @@ public class CustOrderDetailMgr {
 	 */
 	public int lockOrderDetailAmount(CustOrderDetail orderDetail,String staffId, String staffName, String content) throws Exception{
 		int ret =0;
+
+		//本次本客户库存锁定数量
+		int oselfLock = IntegerUtils.intValue(orderDetail.getSelfLockAmount());
+		//本次通用库存锁定数量
+		int ocommLock = IntegerUtils.intValue(orderDetail.getCommLockAmount());
+		String oper_content = "(" + oselfLock + "," + ocommLock + ")";
+		
+		if(oselfLock + ocommLock == 0)
+			return 0;
+		
 		logger.debug("客户订单明细锁定物料锁定操作！ 传入的参数为：" + orderDetail.toString());
 		//根据业务主键查询客户订单明细
 		CustOrderDetail  existDetail = findCustOrderDetailByBizKey(orderDetail);
-		String oper_content = null;
+
 		if(existDetail != null){//客户订单明细存在，执行库存锁定操作
 			logger.debug("客户订单明细锁定物料锁定操作,查询客户订单明细为：" + existDetail.toString());
 			int iAmount = IntegerUtils.intValue(existDetail.getAmount());  //订单数量
@@ -366,11 +376,6 @@ public class CustOrderDetailMgr {
 			int iselLock = IntegerUtils.intValue(existDetail.getSelfLockAmount()); //客户备货锁定数量
 			int icommLock = IntegerUtils.intValue(existDetail.getCommLockAmount());//常规备货锁定数量
 			int idelivery = IntegerUtils.intValue(existDetail.getDeliveryAmount());//已经发货的数量
-			//本次本客户库存锁定数量
-			int oselfLock = IntegerUtils.intValue(orderDetail.getSelfLockAmount());
-			//本次通用库存锁定数量
-			int ocommLock = IntegerUtils.intValue(orderDetail.getCommLockAmount());
-			oper_content = "(" + oselfLock + "," + ocommLock + ")";
 			
 			int isavelockAmount = iLockAmount + oselfLock + ocommLock;
 			if(isavelockAmount + idelivery > iAmount){//锁定的数量  + 已发货数量大于订单明细订货数量
@@ -414,7 +419,7 @@ public class CustOrderDetailMgr {
 		if(staffId != null && ret == 0){
 			logger.debug("处理仓库锁定操作！由操作人员发起，发起人 " + staffId + staffName );
 			WarehouseMgr whMgr =(WarehouseMgr)BeanLocator.getInstance().getBean(CustOrderConstants.WAREHOUSE_INFO_MGR);
-			int detailSelock = IntegerUtils.intValue(orderDetail.getSelfLockAmount());
+			int detailSelock = oselfLock; // IntegerUtils.intValue(orderDetail.getSelfLockAmount());
 			if( detailSelock != 0){
 				logger.debug("存在特定客户备货锁定，锁定数量为：" + detailSelock);
 				WareHouseInfo whrInfo = new WareHouseInfo();
@@ -430,9 +435,10 @@ public class CustOrderDetailMgr {
 				//设置锁定数量
 				whrInfo.setLockAmount(detailSelock);
 				whrInfo.setUseAmount(-detailSelock);
+				whrInfo.setState(null);
 				whMgr.saveLockWareHouseInfo(whrInfo, null, null, null);
 			}
-			int commLock = IntegerUtils.intValue(orderDetail.getCommLockAmount());
+			int commLock = ocommLock; //IntegerUtils.intValue(orderDetail.getCommLockAmount());
 			if(commLock != 0){
 				logger.debug("存在常规备货锁定，锁定数量为：" + commLock);
 				WareHouseInfo whrInfo = new WareHouseInfo();
@@ -447,6 +453,7 @@ public class CustOrderDetailMgr {
 				//设置锁定数量
 				whrInfo.setLockAmount(commLock);
 				whrInfo.setUseAmount(-commLock);
+				whrInfo.setState(null);
 				whMgr.saveLockWareHouseInfo(whrInfo, null, null, null);
 			}
 		}
