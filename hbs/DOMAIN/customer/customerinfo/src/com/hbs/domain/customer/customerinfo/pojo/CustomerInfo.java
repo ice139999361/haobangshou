@@ -180,7 +180,12 @@ public class CustomerInfo extends BaseDomain{
      * 对应的业务部助理姓名.
      */
     private String assStaffName;
-
+    
+    /**
+     * 对账信息备注
+     */
+    
+    private String specMemo;
     /**
      * 联系列表
      */
@@ -535,6 +540,14 @@ public class CustomerInfo extends BaseDomain{
     }
     
     
+
+	public String getSpecMemo() {
+		return specMemo;
+	}
+
+	public void setSpecMemo(String specMemo) {
+		this.specMemo = specMemo;
+	}
 
 	/**
 	 * @return the createTime

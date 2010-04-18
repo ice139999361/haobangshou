@@ -153,7 +153,7 @@
 <update id="WarehouseSendDetail_updateWarehouseSendDetailByFinancePeriod" parameterClass="warehouseSendDetail">
     <![CDATA[
     UPDATE T_WAREHOUSE_SEND_DETAIL
-      SET FINANCE_PERIOD = #financePeriod#
+      SET FINANCE_PERIOD = #financePeriod#      
     WHERE SEND_DETAIL_SEQID = #sendSeqId#
      ]]>
 </update>
@@ -470,7 +470,13 @@
 			<isNotEmpty prepend="and"
 				property="dynamicFields.lessPeriod">
 				<![CDATA[	
-					CAST(PERIOD AS SIGNED) <= #lessPeriod#
+					CAST(PERIOD AS SIGNED) <= #dynamicFields.lessPeriod#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.lessFinancePeriod">
+				<![CDATA[	
+					CAST(FINANCE_PERIOD AS SIGNED) <= $dynamicFields.lessFinancePeriod$
 				]]>
 			</isNotEmpty>
 			<isNotEmpty prepend="and"

@@ -137,8 +137,16 @@ public abstract class WarehouseSendBaseAction extends BaseAction {
 				warehouseSendDetail = new WarehouseSendDetail();
 			}
 			
-			if(warehouseSendDetail.getCustCode() == null){
+			if(StringUtils.isEmpty(warehouseSendDetail.getCustCode())){
 				setErrorReason("请输入客户编码!");
+				return ERROR;
+			}
+			String startTime = (String)warehouseSendDetail.getDynamicFields().get("beginPoNoDate");
+			String endTime =   (String)warehouseSendDetail.getDynamicFields().get("endPoNoDate");
+			String finacePeriod = warehouseSendDetail.getFinancePeriod();
+			
+			if( StringUtils.isEmpty(startTime) && StringUtils.isEmpty(endTime) && StringUtils.isEmpty(finacePeriod)){
+				setErrorReason("请输入时间范围或账期!");
 				return ERROR;
 			}
 			if(warehouseSendDetail.getFinancePeriod() != null){
