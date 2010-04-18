@@ -28,14 +28,15 @@ HBSConvertHelper.init(function() {
 		// 当单击提交按钮时，调用默认的关闭窗口方法
 		submitBtn.on("click", function() {
 			// "baseSeqId=", settlementgrid.getCheckFields()
+			
 			// 提交的参数
 			var params = [
-				,"warehouseSendDetail.financePeriod=", Ext.getCmp("wsdfinancePeriod").getValue()
+				,"realfinancePeriod=", Ext.getCmp("wsdfinancePeriod").getValue()
 				,"&"
 				,HBSConvertHelper.getGridSubmitData("settlementgrid", "settlementlist", null, null, true)
 			].join("");
-			
-			ExtConvertHelper.submitForm("form", this.url, params, function(form, action) {
+			var myurl = "/warehouseSend/warehouseSend!confirmFinancePeriod.action";
+			ExtConvertHelper.submitForm("form", myurl , params, function(form, action) {
 				// 获取成功后的提示信息
 				var msg = ExtConvertHelper.getMessageInfo(action, "操作成功！");
 				

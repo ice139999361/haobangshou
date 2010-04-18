@@ -102,6 +102,17 @@
 		 <action name="warehouseSend!listDetail" method="doListDetail" 
     			class="com.hbs.warehousesend.action.WarehouseSendAction">
 		</action>
+		
+		<!--  
+		供财务对账使用
+		 -->
+		 <action name="warehouseSend!listFinanceDetail" method="doListFinanceDetail" 
+    			class="com.hbs.warehousesend.action.WarehouseSendAction">
+		</action>
+		
+		<action name="warehouseSend!confirmFinancePeriod" method="doConfirmFinancePeriod" 
+    			class="com.hbs.warehousesend.action.WarehouseSendAction">
+		</action>
 	</package>
 </struts>
         

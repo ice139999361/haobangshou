@@ -39,6 +39,14 @@ public abstract class WarehouseSendBaseAction extends BaseAction {
 	WarehouseSendDetail warehouseSendDetail;
 	
 
+	public WarehouseSendDetail getWarehouseSendDetail() {
+		return warehouseSendDetail;
+	}
+
+	public void setWarehouseSendDetail(WarehouseSendDetail warehouseSendDetail) {
+		this.warehouseSendDetail = warehouseSendDetail;
+	}
+
 	public WarehouseSendInfo getWarehouseSend() {
 		return warehouseSend;
 	}
@@ -113,6 +121,38 @@ public abstract class WarehouseSendBaseAction extends BaseAction {
 			return SUCCESS;
 		} catch(Exception e) {
 			logger.error("catch Exception in doListDetail", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+	}
+	
+	/**
+	 * 供财务管理对账使用
+	 * @return
+	 */
+	public String doListFinanceDetail() {
+		try {
+			logger.debug("begin doListFinanceDetail");
+			if(warehouseSendDetail == null){
+				warehouseSendDetail = new WarehouseSendDetail();
+			}
+			
+			if(warehouseSendDetail.getCustCode() == null){
+				setErrorReason("请输入客户编码!");
+				return ERROR;
+			}
+			if(warehouseSendDetail.getFinancePeriod() != null){
+				warehouseSendDetail.setField("lessFinancePeriod", warehouseSendDetail.getFinancePeriod());
+			}
+			warehouseSendDetail.setField("notInState", "'01','03'");			
+			WareHouseSendDetailMgr mgr = getMgrDetail();
+			setResult("list", mgr.listWarehouseSendDetail(warehouseSendDetail));
+			
+					
+			logger.debug("end doListFinanceDetail");
+			return SUCCESS;
+		} catch(Exception e) {
+			logger.error("catch Exception in doListFinanceDetail", e);
 			setErrorReason("内部错误");
 			return ERROR;
 		}

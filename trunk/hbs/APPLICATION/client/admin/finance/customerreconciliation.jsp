@@ -64,6 +64,7 @@
 				    			<field name="financePeriod" />
 				    			<field name="amount" />				    								
 				    			<field name="curMoney" />
+				    			<field name="settlementType" />
 				    		</fields>
 				    		<columns>       
 				    			<column isCheck="true"      dataIndex="sendSeqId" />
@@ -79,12 +80,12 @@
 				    			<column header="金额"       dataIndex="curMoney"  />
 				    		</columns>
 				    		
-				    		<submitFields value="sendSeqId,createTime,sendPoNo,rltPoNo,partNo,custPartNo,pnDesc,financeStateDesc,financePeriod,amount,curMoney" />
+				    		<submitFields value="sendSeqId,settlementType" />
 				    	</complexgrid>
 				    	
 				    	<panel buttonAlign="center">
 			    			<buttons>
-			    				<button text="确认对帐" id="submitBtn" />
+			    				<button text="确认对帐" id="submitBtn" url="/warehouseSend/warehouseSend!confirmFinancePeriod.action" />
 			    				<button text="取消"     id="backBtn"   />
 			    			</buttons>
 			    		</panel>
