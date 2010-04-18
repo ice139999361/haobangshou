@@ -79,7 +79,7 @@
 				    			<column header="金额"       dataIndex="curMoney"  />
 				    		</columns>
 				    		
-				    		<submitFields value="sendSeqId,financePeriod" />
+				    		<submitFields value="sendSeqId,createTime,sendPoNo,rltPoNo,partNo,custPartNo,pnDesc,financeStateDesc,financePeriod,amount,curMoney" />
 				    	</complexgrid>
 				    	
 				    	<panel buttonAlign="center">
