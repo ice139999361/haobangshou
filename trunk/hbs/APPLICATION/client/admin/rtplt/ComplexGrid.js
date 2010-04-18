@@ -361,6 +361,31 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 	getSubmitFields: function() {
 		return this.__submitFields;
 	},
+	// 返回列表中选择的数据
+	getSelectDatatToFormat: function(paramName, splitChar) {
+		// 删除所有的空行
+		this.removeEmptyRows();
+		// 组装参量对象
+		paramName += "=";
+		// 获取store对象
+		var selections = this.getSelectionModel().getSelections();
+		// 存放要提交的数据
+		var _datas = [];
+		
+		// 组装数据
+		for(var i = 0, count = selections.length ; i < count ; i++) {
+			var record = selections[i];
+			var sb = [];
+			Ext.each(this.getSubmitFields().split(","), function(item, index, itemsAll) {
+				var _d = record.get(item);
+				sb.push(_d);
+			});
+			_datas.push(paramName + sb.join(splitChar) + splitChar);
+		}
+		
+		// 返回生成的数据
+		return _datas.join("&");
+	},
 	// 返回列表中所有的数据
 	getAllDatatToFormat: function(paramName, splitChar) {
 		// 删除所有的空行
