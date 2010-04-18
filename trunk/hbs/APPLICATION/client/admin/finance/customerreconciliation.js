@@ -18,9 +18,11 @@ HBSConvertHelper.init(function() {
 			Ext.getCmp("allname").setValue(action.data.custInfo.allName);
 			Ext.getCmp("offperiod").setValue(action.data.custInfo.settlementDesc);
 			Ext.getCmp("cinfo").setValue(action.data.custInfo.specMemo);
-			alert(action.data.custInfo);
+			
 			// 财务人员信息列表填充
 			Ext.getCmp("financegrid").addData(action.data.custInfo.dynamicFields.contactlist);
+			Ext.getCmp("wsdcustCode").setValue(Ext.getCmp("commcode").getValue());
+			Ext.getCmp("query_btn").fireEvent("click");
 		});
 		
 		// 当单击提交按钮时，调用默认的关闭窗口方法
