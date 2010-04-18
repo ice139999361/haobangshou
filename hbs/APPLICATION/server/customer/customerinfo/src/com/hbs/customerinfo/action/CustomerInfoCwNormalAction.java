@@ -7,8 +7,11 @@ import org.apache.log4j.Logger;
 
 import com.hbs.common.action.JianQuanUtil;
 import com.hbs.common.action.base.BaseAction;
+import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.customerinfo.manager.CustomerInfoMgr;
 import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
+import com.hbs.domain.invoice.pojo.PeriodSpecMemo;
+import com.hbs.invoice.manager.PeriodSpecMemoMgr;
 
 /**
  * @author xyf
@@ -78,6 +81,7 @@ public class CustomerInfoCwNormalAction extends BaseAction {
 				setErrorReason("²ÎÊý´íÎó£¡");
 				return ERROR;
 			}
+			custInfo.setState("0");
 			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(CustomerInfoNormalAction.custInfoMgrName);
 			getCustomerInfoValue(mgr);
 			if(!"0".equals(custInfo.getState())){
@@ -177,5 +181,14 @@ public class CustomerInfoCwNormalAction extends BaseAction {
 	protected void getCustomerInfoValue(CustomerInfoMgr mgr) throws Exception
 	{
 		custInfo = CustomerInfoUtil.getCustomerInfo(mgr, custInfo);
+		if(null != custInfo){
+			PeriodSpecMemoMgr specMemoMgr =(PeriodSpecMemoMgr)BeanLocator.getInstance().getBean("periodSpecMemoMgr");
+			
+			PeriodSpecMemo memo = specMemoMgr.getSepcMemo(custInfo.getCommCode());
+			if(null !=memo){
+				custInfo.setSpecMemo(memo.getMemo());
+			}
+			
+		}
 	}
 }

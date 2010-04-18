@@ -41,31 +41,27 @@ public class CustomerInfoUtil {
 	 */
 	public static boolean checkKeyFields(CustomerInfo custInfo)
 	{
+		boolean ret = true;
 		try
 		{
-			if(custInfo == null)
-				return false;
-			Integer i = custInfo.getBaseSeqId();
-			if(i != null && !i.equals(0))
-				return true;
-			String s = custInfo.getCommCode();
-			if(StringUtils.isEmpty(s))
-				return false;
-			s = custInfo.getState();
-			try
-			{
-				Integer.parseInt(s);
+			if(null == custInfo){
+				ret = false;
+			}else{
+				Integer i = custInfo.getBaseSeqId();
+				String code = custInfo.getCommCode();
+				if((null == i || i.intValue() == 0) && (StringUtils.isEmpty(code))){
+					ret = false;
+				}
 			}
-			catch(Exception e)
-			{
-				return false;
-			}
-			return true;
 		}
 		catch(Exception e)
 		{
-			return false;
+			ret = false;
 		}
+		if(custInfo.getState() == null){
+			custInfo.setState("0");
+		}
+		return ret;
 	}
 	
 	/**
