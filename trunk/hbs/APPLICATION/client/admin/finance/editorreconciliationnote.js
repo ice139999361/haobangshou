@@ -42,30 +42,32 @@ HBSConvertHelper.init(function() {
 		case "customer":
 			HBSConvertHelper.setDocumentTitle("客户对帐注意事项");
 			ccommcode.setFieldLabel("客户编码");
-			ccommcode.changeUrl("/aaaccc.action");
-			ccommcode.setProcessConfig("/customerInfo/customerInfo!list.action", "custInfo.commCode", null, function(action) {
+			ccommcode.queryParam = "custInfo.commCode" ;
+			ccommcode.changeUrl("/customerInfo/customerInfo!list.action");
+			ccommcode.setProcessConfig("/invoice/periodSpec!getInfo.action", "specMemo.commCode", null, function(action) {
 				if(!action.success)
 				return;
 				
-				cinfo.setValue("反反复反复反复反复反复反复");
+				cinfo.setValue(action.data.specMemo.memo);
 			});
       
       // 设置提交的 URL
-      submitBtn.url = "/success.action";
+      submitBtn.url = "/invoice/periodSpec!save.action";
 			break;
 		case "vendor":
 			HBSConvertHelper.setDocumentTitle("供应商对帐注意事项");
 			ccommcode.setFieldLabel("供应商编码");
-			ccommcode.changeUrl("/aaaccc.action");
-			ccommcode.setProcessConfig("/customerInfo/customerInfo!list.action", "custInfo.commCode", null, function(action) {
+			ccommcode.queryParam = "vendorInfo.commCode" ;
+			ccommcode.changeUrl("/vendorInfo/vendorInfo!listDict.action");
+			ccommcode.setProcessConfig("/invoice/periodSpec!getInfo.action", "specMemo.commCode", null, function(action) {
 				if(!action.success)
 				return;
 				
-				cinfo.setValue("反反复反复反复反复反复反复");
+				cinfo.setValue(action.data.specMemo.memo);
 			});
 			
 			// 设置提交的 URL
-      submitBtn.url = "/success.action";
+      submitBtn.url = "/invoice/periodSpec!save.action";
 			break;
 	}
 	
