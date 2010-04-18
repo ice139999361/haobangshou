@@ -85,7 +85,7 @@
 				    	
 				    	<panel buttonAlign="center">
 			    			<buttons>
-			    				<button text="确认对帐" id="submitBtn" url="/warehouseSend/warehouseSend!confirmFinancePeriod.action" />
+			    				<button text="确认对帐" id="submitBtn" />
 			    				<button text="取消"     id="backBtn"   />
 			    			</buttons>
 			    		</panel>

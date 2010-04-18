@@ -35,8 +35,8 @@ HBSConvertHelper.init(function() {
 				,"&"
 				,HBSConvertHelper.getGridSubmitData("settlementgrid", "settlementlist", null, null, true)
 			].join("");
-			var myurl = "/warehouseSend/warehouseSend!confirmFinancePeriod.action";
-			ExtConvertHelper.submitForm("form", myurl , params, function(form, action) {
+
+			ExtConvertHelper.submitForm(null, "/warehouseSend/warehouseSend!confirmFinancePeriod.action" , params, function(form, action) {
 				// 获取成功后的提示信息
 				var msg = ExtConvertHelper.getMessageInfo(action, "操作成功！");
 				
