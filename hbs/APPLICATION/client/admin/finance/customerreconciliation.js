@@ -12,15 +12,15 @@ HBSConvertHelper.init(function() {
 	// -------------------------------------- 页面初始化
 		
 	(function() {
-		Ext.getCmp("commcode").setProcessConfig("/customerInfo/customerInfo!list.action", "custInfo.commCode", null, function(action) {
+		Ext.getCmp("commcode").setProcessConfig("/customerInfo/customerInfoCw!getInfo.action", "custInfo.commCode", null, function(action) {
 			if(!action.success) return;
 				
-			Ext.getCmp("allname").setValue("供应商名称");
-			Ext.getCmp("offperiod").setValue("帐期");
-			Ext.getCmp("cinfo").setValue("对帐单注意事项");
-			
+			Ext.getCmp("allname").setValue(action.data.custInfo.allName);
+			Ext.getCmp("offperiod").setValue(action.data.custInfo.settlementDesc);
+			Ext.getCmp("cinfo").setValue(action.data.custInfo.specMemo);
+			alert(action.data.custInfo);
 			// 财务人员信息列表填充
-			Ext.getCmp("financegrid").addData(action);
+			Ext.getCmp("financegrid").addData(action.data.custInfo.dynamicFields.contactlist);
 		});
 		
 		// 当单击提交按钮时，调用默认的关闭窗口方法
