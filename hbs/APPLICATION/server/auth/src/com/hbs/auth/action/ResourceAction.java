@@ -15,6 +15,7 @@ import com.hbs.auth.contants.AuthConstants;
 import com.hbs.auth.manager.ActionMgr;
 import com.hbs.auth.manager.ResourceMgr;
 import com.hbs.common.action.base.BaseAction;
+import com.hbs.common.utils.IntegerUtils;
 import com.hbs.domain.auth.pojo.Action;
 import com.hbs.domain.auth.pojo.Resource;
 
@@ -175,9 +176,11 @@ public class ResourceAction extends BaseAction {
 			for(Resource res : list) {
 				if(res == null || res.getResourceId() == null)
 					continue;
+				if(IntegerUtils.intValue(res.getIsMenu()) == 0)
+					continue;
+				// 如果没有登录（resourceButtons == null），则显示所有菜单项
 				if(resourceButtons == null || 
-						(resourceButtons.containsKey(res.getResourceId().toString())
-						&& !res.getIsMenu().equals(0))
+						resourceButtons.containsKey(res.getResourceId().toString())
 						){
 					list2.add(res);
 				}
