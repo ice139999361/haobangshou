@@ -127,7 +127,8 @@ public class Resource extends BaseDomain{
 		sb.append("resourceId=").append(resourceId).append(";");
 		sb.append("actionsId=").append(actionsId).append(";");
 		sb.append("resourceName=").append(resourceName).append(";");
-		sb.append("description=").append(description);		
+		sb.append("description=").append(description).append(";");	
+		sb.append("parent=").append(parent);
 		return sb.toString();
 	}
 }

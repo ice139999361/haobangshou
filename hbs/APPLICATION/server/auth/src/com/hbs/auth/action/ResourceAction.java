@@ -160,7 +160,16 @@ public class ResourceAction extends BaseAction {
 			HashMap<String,ArrayList<String>> resourceButtons = user == null ? null : user.getResourceButtons();
 			if(resourceButtons == null)
 				logger.error("resourceButtons == null");
+			else{
+				if(logger.isDebugEnabled()){
+					StringBuffer sb = new StringBuffer();
+					for(String s : resourceButtons.keySet())
+						sb.append(s).append(",");
+					logger.debug("cache resource: " + sb.toString());
+				}
+			}
 			List<Resource> list = getRMgr().listResource(resource);
+			Collections.sort(list, compResourceId);
 			List<Resource> list2 = new Vector<Resource>();
 			if(list.size()>0)
 			for(Resource res : list) {
@@ -174,7 +183,8 @@ public class ResourceAction extends BaseAction {
 				}
 			}
 			
-			list2 = transformMenu(list2);
+			list2 = transformMenu(list2, list);
+			Collections.sort(list2, compResourceId);
 			
 			setResult("menu", list2);
 			return SUCCESS;
@@ -190,61 +200,36 @@ public class ResourceAction extends BaseAction {
 	/**
 	 * 将资源列表整形成菜单格式
 	 * @param list 原始资源列表	List<Resource>
+	 * @param allList 已经根据parent排序的所有资源列表
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
-	private static List<Resource> transformMenu(List<Resource> list) throws Exception {
-		/**
-		 * 根据parent、resourceId排序的比较器
-		 */
-		final Comparator<Resource> compResource = new Comparator<Resource>(){
-			private int getParent(Resource res) {
-				try{
-					return res.getParent().intValue();
-					//return 0;
-				}catch(Exception e){
-					return 0;
-				}
-			}
-			private int getId(Resource res){
-				try{
-					return res.getResourceId().intValue();
-				}catch(Exception e){
-					return 0;
-				}
-			}
-			public int compare(Resource o1, Resource o2) {
-				if(o1 == null) return -1;
-				if(o2 == null) return 1;
-				int i = getParent(o1) - getParent(o2);
-				if(i == 0)
-					return getId(o1) - getId(o2);
-				else
-					return i;
-			}
-			
-		};
+	private static List<Resource> transformMenu(List<Resource> list, List<Resource> allList) throws Exception {
 		
-		List<Resource> list2 = new Vector<Resource>();
+		// 用于根据id获取信息
 		HashMap<Integer, Resource> idmap = new HashMap<Integer, Resource>();
+		List<Resource> list2 = new Vector<Resource>();
 		for(Resource res : list) {
 			if(res == null || res.getResourceId() == null)
 				continue;
-			
 			list2.add(res);
-			idmap.put(res.getResourceId(), res);				
+			idmap.put(res.getResourceId(), res);
 		}
 		
-		// 按照parent、id排序
-		if(list2.size() > 0)
-		Collections.sort(list2, compResource);
-		
 		// 整形
-		if(list2.size() > 0)
-		for(Resource res : list2){
+		
+		logger.debug("transform...");
+		for(int index = 0; index < list2.size(); index++){
+			Resource res = list2.get(index);
 			Integer i = res.getParent();
+			logger.debug("processing " + res.toString());
 			if(i == null || i.equals(0))
 				continue;
+			
+			if(!idmap.containsKey(i)){
+				addParntItems(idmap, i, list2, allList);
+			}
+			
 			List<Resource> sublist = (List<Resource>)idmap.get(i).getField(childrenFieldName);
 			if(sublist == null) {
 				sublist = new Vector<Resource>();
@@ -267,14 +252,35 @@ public class ResourceAction extends BaseAction {
 		return list2;
 	}
 	
+	private static void addParntItems(HashMap<Integer, Resource> idmap, Integer parent, 
+			List<Resource> list2, List<Resource> allList) throws Exception {
+		if(parent == null || parent.equals(0))
+			return;
+		Resource res = new Resource();
+		res.setResourceId(parent);
+		int i = Collections.binarySearch(allList, res, compResourceId);
+		if(i < 0)
+			throw new Exception("parent not found");
+		res = allList.get(i);
+		logger.debug("addParntItems " + res.toString());
+		list2.add(res);
+		idmap.put(res.getResourceId(), res);
+		parent = res.getParent();
+		if(parent != null && !parent.equals(0)){
+			if(!idmap.containsKey(parent))
+				addParntItems(idmap, parent, list2, allList);
+		}	
+	}
+
 	@SuppressWarnings("unchecked")
 	private List<Resource> getAllListResource(){
 		List<Resource> list2 = null;
 		try {			
 			Resource temp = new Resource();
-			List<Resource> list = getRMgr().listResource(temp);			
+			List<Resource> list = getRMgr().listResource(temp);	
+			Collections.sort(list, compResourceId);
 			if(list.size()>0)
-				list2 = transformMenu(list);
+				list2 = transformMenu(list, list);
 		} catch(Exception e) {
 			logger.error("catch Exception in getAllListResource", e);
 			
