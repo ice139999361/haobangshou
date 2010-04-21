@@ -10,11 +10,10 @@ import java.util.Vector;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-import com.hbs.common.action.base.BaseAction;
+import com.hbs.common.utils.IntegerUtils;
 import com.hbs.customerorder.action.detail.CustOrderDetailBaseAction;
 import com.hbs.customerorder.manager.CustOrderDetailMgr;
 import com.hbs.domain.customer.order.pojo.CustOrderDetail;
-import com.hbs.domain.customer.order.pojo.CustomerOrder;
 
 /**
  * 采购普通用户对客户订单的操作
@@ -22,7 +21,7 @@ import com.hbs.domain.customer.order.pojo.CustomerOrder;
  *
  */
 @SuppressWarnings("serial")
-public class CustOrderCgNormalAction extends BaseAction {
+public class CustOrderCgNormalAction extends CustOrderBaseAction {
 
 	/**
 	 * logger.
@@ -31,20 +30,14 @@ public class CustOrderCgNormalAction extends BaseAction {
 
 	public static final String roleName = "cgnormal";
 
-	CustomerOrder custOrder;
-
-	/**
-	 * @return the custOrder
-	 */
-	public CustomerOrder getCustOrder() {
-		return custOrder;
+	@Override
+	protected Logger getLogger() {
+		return logger;
 	}
 
-	/**
-	 * @param custOrder the custOrder to set
-	 */
-	public void setCustOrder(CustomerOrder custOrder) {
-		this.custOrder = custOrder;
+	@Override
+	public String getRoleName() {
+		return roleName;
 	}
 
 	/**
@@ -71,7 +64,7 @@ public class CustOrderCgNormalAction extends BaseAction {
 			List<CustOrderDetail> list = mgr.listCustOrderDetail(orderDetail); 
 			for(Iterator<CustOrderDetail> it = list.iterator(); it.hasNext(); ) {
 				CustOrderDetail o = it.next();
-				if((o.getAmount() - isNull(o.getLockAmount(),0) - isNull(o.getDeliveryAmount(),0)) <= (0))
+				if((o.getAmount() - IntegerUtils.isNull(o.getLockAmount(),0) - IntegerUtils.isNull(o.getDeliveryAmount(),0)) <= (0))
 					it.remove();
 			}
 			setResult("list", list);
@@ -83,17 +76,6 @@ public class CustOrderCgNormalAction extends BaseAction {
 			return ERROR;
 		}
 	}
-	
-	/**
-	 * 如果i为null，则返回v；否则返回i
-	 * @param i	带判断的Integer
-	 * @param v 缺省返回值
-	 * @return 如果i为null，则返回v；否则返回i
-	 */
-	private static Integer isNull(Integer i, int v) {
-		if(i == null)
-			return v;
-		else
-			return i;
-	}
+
+
 }

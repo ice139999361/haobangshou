@@ -147,7 +147,7 @@ HBSConvertHelper.init(function() {
 				case "50":
 					// 显示需要的控件
 					ExtConvertHelper.showItems("submitBtn,auditPanel");
-					submitBtn.url = "/success.action";
+					submitBtn.url = "/custOrder/custOrderScMgr!audit.action";
 					break;
 			}			
 		};
@@ -186,6 +186,16 @@ HBSConvertHelper.init(function() {
 					operatorBtn1.on("click", submitFun);
 					break;
 			}
+			switch(urlPs.state){
+				case "30":
+					operatorBtn1.url = "/custOrder/custOrderCw!financeAgree.action";
+					operatorBtn2.url = "/custOrder/custOrderCw!financeDisAgree.action";
+					break;
+				case "31":
+					break;
+				case "32":
+					break;
+			}
 			
 		};
 		
@@ -196,7 +206,7 @@ HBSConvertHelper.init(function() {
 				case "33":
 					// 显示需要的控件
 					ExtConvertHelper.showItems("submitBtn,auditPanel");
-					submitBtn.url = "/success.action";
+					submitBtn.url = "/custOrder/custOrderCwMgr!audit.action";
 					break;
 			}			
 		};

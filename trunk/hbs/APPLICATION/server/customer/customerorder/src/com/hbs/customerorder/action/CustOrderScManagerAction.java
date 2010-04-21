@@ -6,93 +6,65 @@ package com.hbs.customerorder.action;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-import com.hbs.common.action.base.BaseAction;
 import com.hbs.customerorder.constants.CustOrderConstants;
 import com.hbs.customerorder.manager.CustOrderMgr;
-import com.hbs.domain.customer.order.pojo.CustomerOrder;
 
 /**
  * @author xyf
  *
  */
 @SuppressWarnings("serial")
-public class CustOrderScManagerAction extends BaseAction {
-
-	/**
-	 * logger.
-	 */
+public class CustOrderScManagerAction extends CustOrderBaseAction {
 	private static final Logger logger = Logger.getLogger(CustOrderScManagerAction.class);
+	
+	@Override
+	protected Logger getLogger() {
+		return logger;
+	}
 
-	public static final String roleName = "scmanager";
-
-	CustomerOrder custOrder;
-
-	/**
-	 * @return the custOrder
-	 */
-	public CustomerOrder getCustOrder() {
-		return custOrder;
+	@Override
+	public String getRoleName() {
+		return "scmanager";
 	}
 
 	/**
-	 * @param custOrder the custOrder to set
-	 */
-	public void setCustOrder(CustomerOrder custOrder) {
-		this.custOrder = custOrder;
-	}
-
-	/**
-	 * 查询
-	 * @action.input custOrder.查询条件
-	 * @action.result list：列表 count：总数
-	 * @return
-	 */
-	public String doList() {
-		try {
-			logger.debug("begin doList");
-			if(custOrder == null)
-				custOrder = new CustomerOrder();
-			custOrder.setField("noState01", true);
-			setPagination(custOrder);
-			CustOrderMgr mgr = (CustOrderMgr)getBean(CustOrderConstants.CUSTORDERMGR);
-			setResult("list", mgr.listCustomerOrder(custOrder));
-			setTotalCount(mgr.listCustomerOrderCount(custOrder));
-			setResult("count", getTotalCount());
-			logger.debug("end doList");
-			return SUCCESS;
-		} catch(Exception e) {
-			logger.error("catch Exception in doList", e);
-			setErrorReason("内部错误");
-			return ERROR;
-		}
-	}
-
-	/**
-	 * 获取客户订单信息
+	 * 经理审批 超过账期最大金额的客户订单
 	 * @action.input custOrder.commCode + custOrder.poNo
-	 * @action.result custOrder.*
+	 * @action.input audit 审批结果 1表示审批通过
+	 * @action.input auditDesc	审批说明
+	 * @action.result
 	 * @return
 	 */
-	public String doGetInfo() {
+	public String doAudit() {
 		try{
-			logger.debug("begin doGetInfo");
-			if(custOrder == null
-					|| StringUtils.isEmpty(custOrder.getCommCode()) 
-					|| StringUtils.isEmpty(custOrder.getPoNo())) {
-				setErrorReason("参数为空！");
+			logger.debug("begin doAudit");
+			if(!this.getCustOrderByBizKey())
+				return ERROR;
+			if(custOrder == null){
+				String s = "找不到指定的客户订单！";
+				setErrorReason(s);
+				logger.info(s);
 				return ERROR;
 			}
-			CustOrderMgr mgr = (CustOrderMgr)getBean(CustOrderConstants.CUSTORDERMGR);
-			setResult("custOrder", mgr.findCustomerOrderByBizKey(custOrder, true));
-			logger.debug("end doGetInfo");
+			int i;
+			if("1".equals(audit))
+				i = getMgr().auditAgreeCustOrder(custOrder, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), auditDesc);
+			else
+				i = getMgr().auditDisAgreeCustOrder(custOrder, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), auditDesc);
+			if(i != 0) {
+				logger.info("审批订单出错！");
+				setErrorReason("审批订单出错！");
+				return ERROR;
+			}
+			logger.debug("end doAudit");
 			return SUCCESS;
 		}catch(Exception e) {
-			logger.error("catch Exception in doGetInfo", e);
+			logger.error("catch Exception in doAudit", e);
 			setErrorReason("内部错误");
 			return ERROR;
-		}
+		}		
 	}
-
+	
 	/**
 	 * 经理审批通过超过账期最大金额的客户订单，审批结果为通过
 	 * @action.input custOrder.commCode + custOrder.poNo
@@ -100,6 +72,7 @@ public class CustOrderScManagerAction extends BaseAction {
 	 * @action.result
 	 * @return
 	 */
+	@Deprecated
 	public String doAuditAgree() {
 		try{
 			logger.debug("begin doAuditAgree");
@@ -133,9 +106,10 @@ public class CustOrderScManagerAction extends BaseAction {
 	 * @action.result
 	 * @return
 	 */
+	@Deprecated
 	public String doAuditDisAgree() {
 		try{
-			logger.debug("begin doAuditAgree");
+			logger.debug("begin doAuditDisAgree");
 			if(custOrder == null
 					|| StringUtils.isEmpty(custOrder.getCommCode()) 
 					|| StringUtils.isEmpty(custOrder.getPoNo())) {
@@ -150,12 +124,13 @@ public class CustOrderScManagerAction extends BaseAction {
 				setErrorReason("审批订单出错！");
 				return ERROR;
 			}
-			logger.debug("end doAuditAgree");
+			logger.debug("end doAuditDisAgree");
 			return SUCCESS;
 		}catch(Exception e) {
-			logger.error("catch Exception in doAuditAgree", e);
+			logger.error("catch Exception in doAuditDisAgree", e);
 			setErrorReason("内部错误");
 			return ERROR;
 		}
 	}
+
 }
