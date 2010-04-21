@@ -483,6 +483,7 @@
 <select id="CustOrderDetail_listtotalMoneyByPeriod" resultMap="custOrderDetail_result" parameterClass="custOrderDetail">
 <![CDATA[
 	SELECT
+		ORDER_SEQID, 
 		C_CODE,
 		PO_NO,
 		PO_NO_TYPE,
