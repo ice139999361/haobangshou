@@ -731,10 +731,10 @@ public class CustOrderDetailMgr {
 				int ipoNoType = Integer.parseInt(detail.getPoNoType());
 				switch(ipoNoType){
 					case 0:
-						ret.add(detail.getMoney());
+						ret = ret.add(detail.getMoney());
 						break;
 					case 1:
-						ret.subtract(detail.getMoney());
+						ret = ret.subtract(detail.getMoney());
 				}
 			}
 		}

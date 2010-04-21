@@ -63,7 +63,9 @@ public class CustOrderMgr {
 		String period = cOrder.getPeriod();
 		if(StringUtils.isEmpty(period)){
 			CustOrderState orderState =(CustOrderState)BeanLocator.getInstance().getBean(PRE_SPRING + cOrder.getPoNoType() + cOrder.getSettlementType());
-			cOrder.setPeriod(orderState.getPeriod(cOrder));			
+			period = orderState.getPeriod(cOrder);
+			cOrder.setPeriod(period);	
+			logger.debug("ÐÞ¸ÄÕÊÆÚÎª" + cOrder.getPeriod());
 		}
 		cOrder.setState(CustOrderConstants.ORDER_STATE_01);
 		CustomerOrderDao cOrderDao =(CustomerOrderDao)BeanLocator.getInstance().getBean("customerOrderDao");

@@ -8,6 +8,8 @@ package com.hbs.customerorder.manager.helper;
 
 import java.math.BigDecimal;
 
+import org.apache.log4j.Logger;
+
 
 import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.common.utils.DateUtils;
@@ -25,6 +27,8 @@ import com.hbs.domain.customer.order.pojo.CustomerOrder;
 
 public class PeriodCustOrderState implements CustOrderState {
 
+	private static final Logger logger = Logger.getLogger(PeriodCustOrderState.class);
+	
 	/* (non-Javadoc)
 	 * @see com.hbs.customerorder.manager.CustOrderState#commitCustomerOrder(com.hbs.domain.customer.order.pojo.CustomerOrder)
 	 */
@@ -42,6 +46,7 @@ public class PeriodCustOrderState implements CustOrderState {
 	
 	private boolean comparePeriodMaxMoney(CustomerOrder cOrder) throws Exception{
 		boolean ret = false;
+		logger.debug("进入comparePeriodMaxMoney(CustomerOrder)，参数" + cOrder);
 		String period = cOrder.getPeriod();
 		AccountPreiod aPreiod = AccountPreiodUtils.getCustAccountPreiod(cOrder.getCommCode());
 		
@@ -55,9 +60,11 @@ public class PeriodCustOrderState implements CustOrderState {
 				
 				CustOrderDetailMgr detailMgr =(CustOrderDetailMgr)BeanLocator.getInstance().getBean("custOrderDetailMgr");
 				BigDecimal curMoney = detailMgr.getTotalMoneyByPeriod(orderDetail);
+				logger.debug("比较" + maxMoney + "，" + curMoney);
 				ret = (maxMoney.compareTo(curMoney) < 0) ? true : false;
 			}		
 		}
+		logger.debug("离开comparePeriodMaxMoney(CustomerOrder)，返回" + ret);
 		return ret;
 	}
 

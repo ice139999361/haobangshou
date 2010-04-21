@@ -113,26 +113,15 @@
 		</action>
 		<!-- 
 	/**
-	 * 经理审批通过超过账期最大金额的客户订单，审批结果为通过
+	 * 经理审批 超过账期最大金额的客户订单
 	 * @action.input custOrder.commCode + custOrder.poNo
-	 * @action.input memo	审批说明
+	 * @action.input audit 审批结果 1表示审批通过
+	 * @action.input auditDesc	审批说明
 	 * @action.result
 	 * @return
 	 */
 		 -->
-    	<action name="custOrderScMgr!auditAgree" method="doAuditAgree" 
-    			class="com.hbs.customerorder.action.CustOrderScManagerAction">
-		</action>
-		<!-- 
-	/**
-	 * 经理审批不通过超过账期最大金额的客户订单，审批结果为不通过
-	 * @action.input custOrder.commCode + custOrder.poNo
-	 * @action.input memo	审批说明
-	 * @action.result
-	 * @return
-	 */
-		 -->
-    	<action name="custOrderScMgr!auditDisAgree" method="doAuditDisAgree" 
+    	<action name="custOrderScMgr!audit" method="doAudit" 
     			class="com.hbs.customerorder.action.CustOrderScManagerAction">
 		</action>
 

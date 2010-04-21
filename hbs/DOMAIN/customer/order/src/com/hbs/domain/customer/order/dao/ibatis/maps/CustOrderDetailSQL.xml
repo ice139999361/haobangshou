@@ -45,6 +45,22 @@
     <result property="contactFee" column="CONTACT_FEE"/>
 </resultMap>
 
+<resultMap id="custOrderDetail_result_part_money" class="custOrderDetail">
+    <result property="operSeqId" column="ORDER_SEQID"/>
+    <result property="commCode" column="C_CODE"/>
+    <result property="poNoType" column="PO_NO_TYPE"/>
+    <result property="poNo" column="PO_NO"/>
+    <result property="money" column="MONEY"/>
+</resultMap>
+
+<resultMap id="custOrderDetail_result_part_state" class="custOrderDetail">
+    <result property="operSeqId" column="ORDER_SEQID"/>
+    <result property="commCode" column="C_CODE"/>
+    <result property="poNoType" column="PO_NO_TYPE"/>
+    <result property="poNo" column="PO_NO"/>
+    <result property="state" column="STATE"/>
+</resultMap>
+
 <insert id="CustOrderDetail_insertCustOrderDetail" parameterClass="custOrderDetail" >
 <![CDATA[
     INSERT INTO T_CUST_ORDER_DETAIL (            
@@ -480,7 +496,7 @@
 	</dynamic>
 </select>
 
-<select id="CustOrderDetail_listtotalMoneyByPeriod" resultMap="custOrderDetail_result" parameterClass="custOrderDetail">
+<select id="CustOrderDetail_listtotalMoneyByPeriod" resultMap="custOrderDetail_result_part_money" parameterClass="custOrderDetail">
 <![CDATA[
 	SELECT
 		ORDER_SEQID, 
@@ -495,7 +511,7 @@
 
 </select>
 
-<select id="CustOrderDetail_listCustOrderDetailState" resultMap="custOrderDetail_result" parameterClass="custOrderDetail">
+<select id="CustOrderDetail_listCustOrderDetailState" resultMap="custOrderDetail_result_part_state" parameterClass="custOrderDetail">
 <![CDATA[
 	SELECT
             ORDER_SEQID, 
