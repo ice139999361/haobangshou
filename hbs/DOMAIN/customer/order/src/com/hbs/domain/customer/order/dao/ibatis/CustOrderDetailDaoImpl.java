@@ -70,41 +70,41 @@ public class CustOrderDetailDaoImpl extends SqlMapClientDaoSupport implements Cu
     }
     public void updateCustOrderDetailByActiveState(CustOrderDetail custOrderDetail) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
-    		logger.debug("进入updateCustOrderDetail(CustOrderDetail), 输入参数[" + custOrderDetail + "]");
+    		logger.debug("进入updateCustOrderDetailByActiveState(CustOrderDetail), 输入参数[" + custOrderDetail + "]");
 		}
     	getSqlMapClientTemplate().update("CustOrderDetail_updateCustOrderDetailByActiveState", custOrderDetail);
 		if (logger.isDebugEnabled()) {
-    		logger.debug("离开updateCustOrderDetail(CustOrderDetail)");
+    		logger.debug("离开updateCustOrderDetailByActiveState(CustOrderDetail)");
 		}
     }
     
     public void updateCustOrderDetailByState(CustOrderDetail custOrderDetail) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
-    		logger.debug("进入updateCustOrderDetail(CustOrderDetail), 输入参数[" + custOrderDetail + "]");
+    		logger.debug("进入updateCustOrderDetailByState(CustOrderDetail), 输入参数[" + custOrderDetail + "]");
 		}
     	getSqlMapClientTemplate().update("CustOrderDetail_updateCustOrderDetailByState", custOrderDetail);
 		if (logger.isDebugEnabled()) {
-    		logger.debug("离开updateCustOrderDetail(CustOrderDetail)");
+    		logger.debug("离开updateCustOrderDetailByState(CustOrderDetail)");
 		}
     }
     
     public void updateCustOrderDetailAmount(CustOrderDetail custOrderDetail) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
-    		logger.debug("进入updateCustOrderDetail(CustOrderDetail), 输入参数[" + custOrderDetail + "]");
+    		logger.debug("进入updateCustOrderDetailAmount(CustOrderDetail), 输入参数[" + custOrderDetail + "]");
 		}
     	getSqlMapClientTemplate().update("CustOrderDetail_updateCustOrderDetailAmount", custOrderDetail);
 		if (logger.isDebugEnabled()) {
-    		logger.debug("离开updateCustOrderDetail(CustOrderDetail)");
+    		logger.debug("离开updateCustOrderDetailAmount(CustOrderDetail)");
 		}
     } 
     
     public void updateCustOrderDetailByRltPoNo(CustOrderDetail custOrderDetail) throws DataAccessException{
     	if (logger.isDebugEnabled()) {
-    		logger.debug("进入updateCustOrderDetail(CustOrderDetail), 输入参数[" + custOrderDetail + "]");
+    		logger.debug("进入updateCustOrderDetailByRltPoNo(CustOrderDetail), 输入参数[" + custOrderDetail + "]");
 		}
     	getSqlMapClientTemplate().update("CustOrderDetail_updateCustOrderDetailByRltPoNo", custOrderDetail);
 		if (logger.isDebugEnabled()) {
-    		logger.debug("离开updateCustOrderDetail(CustOrderDetail)");
+    		logger.debug("离开updateCustOrderDetailByRltPoNo(CustOrderDetail)");
 		}
     }
     
@@ -116,22 +116,22 @@ public class CustOrderDetailDaoImpl extends SqlMapClientDaoSupport implements Cu
      */
     public CustOrderDetail findCustOrderDetailById(String pk) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
-        	logger.debug("进入findCustOrderDetail(CustOrderDetail), 输入参数[" + pk + "]");
+        	logger.debug("进入findCustOrderDetailById(CustOrderDetail), 输入参数[" + pk + "]");
 		}
         CustOrderDetail custOrderDetail = (CustOrderDetail) getSqlMapClientTemplate().queryForObject("CustOrderDetail_findCustOrderDetailById", pk);
 		if (logger.isDebugEnabled()) {
-        	logger.debug("离开findCustOrderDetail(CustOrderDetail), 返回[" + custOrderDetail + "]");
+        	logger.debug("离开findCustOrderDetailById(CustOrderDetail), 返回[" + custOrderDetail + "]");
 		}
         return custOrderDetail;
     }
     
     public CustOrderDetail findCustOrderDetailByBizKey(CustOrderDetail orderDetail) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
-        	logger.debug("进入findCustOrderDetail(CustOrderDetail), 输入参数[" + orderDetail + "]");
+        	logger.debug("进入findCustOrderDetailByBizKey(CustOrderDetail), 输入参数[" + orderDetail + "]");
 		}
         CustOrderDetail custOrderDetail = (CustOrderDetail) getSqlMapClientTemplate().queryForObject("CustOrderDetail_findCustOrderDetailByBizKey", orderDetail);
 		if (logger.isDebugEnabled()) {
-        	logger.debug("离开findCustOrderDetail(CustOrderDetail), 返回[" + custOrderDetail + "]");
+        	logger.debug("离开findCustOrderDetailByBizKey(CustOrderDetail), 返回[" + custOrderDetail + "]");
 		}
         return custOrderDetail;
     }
@@ -158,11 +158,11 @@ public class CustOrderDetailDaoImpl extends SqlMapClientDaoSupport implements Cu
     @SuppressWarnings("unchecked")
 	public List<CustOrderDetail> listtotalMoneyByPeriod(CustOrderDetail custOrderDetail) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
-        	logger.debug("进入listCustOrderDetail(CustOrderDetail), 输入参数[" + custOrderDetail + "]");
+        	logger.debug("进入listtotalMoneyByPeriod(CustOrderDetail), 输入参数[" + custOrderDetail + "]");
 		}
         List<CustOrderDetail> list = getSqlMapClientTemplate().queryForList("CustOrderDetail_listtotalMoneyByPeriod", custOrderDetail);
 		if (logger.isDebugEnabled()) {
-        	logger.debug("离开listCustOrderDetail(CustOrderDetail), 返回[" + list + "]");
+        	logger.debug("离开listtotalMoneyByPeriod(CustOrderDetail), 返回[" + list + "]");
 		}
         return list;
     } 
@@ -170,11 +170,11 @@ public class CustOrderDetailDaoImpl extends SqlMapClientDaoSupport implements Cu
     @SuppressWarnings("unchecked")
 	public List<CustOrderDetail> listCustOrderDetailState(CustOrderDetail custOrderDetail) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
-        	logger.debug("进入listCustOrderDetail(CustOrderDetail), 输入参数[" + custOrderDetail + "]");
+        	logger.debug("进入listCustOrderDetailState(CustOrderDetail), 输入参数[" + custOrderDetail + "]");
 		}
         List<CustOrderDetail> list = getSqlMapClientTemplate().queryForList("CustOrderDetail_listCustOrderDetailState", custOrderDetail);
 		if (logger.isDebugEnabled()) {
-        	logger.debug("离开listCustOrderDetail(CustOrderDetail), 返回[" + list + "]");
+        	logger.debug("离开listCustOrderDetailState(CustOrderDetail), 返回[" + list + "]");
 		}
         return list;
     }
