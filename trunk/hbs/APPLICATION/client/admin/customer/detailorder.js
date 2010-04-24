@@ -15,12 +15,34 @@ HBSConvertHelper.init(function() {
 	var historyBtn   = Ext.getCmp("historyBtn");
 	// 组装需要的参数
 	var params = ["custOrder.poNo=", urlPs.poNo, "&custOrder.commCode=", urlPs.commCode, "&custOrder.poNoType=", urlPs.poNoType].join("");
+	// 详情列表中创建按钮的方法
+	var detailcreatebuttonFun;
 	
 	
 	// -------------------------------------- 应用逻辑处理
 	
 	// 隐藏不需要的按钮
-	ExtConvertHelper.hideItems("submitBtn,04process,auditPanel");
+	ExtConvertHelper.hideItems("submitBtn,auditPanel");
+	
+	var getDetailSubParms = function(record) {
+		return ["operSeqId=", record.get("operSeqId")
+					, "&cpartNo=" , record.get("cpartNo")
+					, "&partNo="  , record.get("partNo")].join("");
+	}
+	
+	var reLoadFun = function(response, opts) {
+		var action = Ext.util.JSON.decode(response.responseText);
+		if(action.success == true || action.success == "true") {
+			// 加载数据
+			ExtConvertHelper.loadForm(null, "/custOrder/custOrder!getInfo.action", params, function(form, action) {
+					Ext.getCmp("custbankgrid").store.removeAll();
+					Ext.getCmp("custbankgrid").addData(action.result.data.custOrder.orderDetailList);
+			});
+		} else {
+			var message = ExtConvertHelper.getMessageInfo(action, "请求失败：服务器异常");
+			Ext.Msg.alert("提示", message);
+		}
+  };
 	
 	// 定义 submitFun
 	var submitFun = function() {
@@ -62,6 +84,7 @@ HBSConvertHelper.init(function() {
 				if(view.grid.getColumnIndexById("operator") != -1) {
 					// 获取操作列
 					var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));
+					/*
 					switch(urlPs.roleType){
 					case "cgy":
 						//alert("state= " + record.get("state"));
@@ -83,6 +106,8 @@ HBSConvertHelper.init(function() {
 						} 
 						break;
 					}
+				*/
+					detailcreatebuttonFun(record.get("state"), operator_cell, record);
 				}
 			}
 		});
@@ -97,9 +122,20 @@ HBSConvertHelper.init(function() {
 	};
 	
 	var processInitFun = function() {
+		// 默认的处理方法，带提示
+		var defualtProcessFun = function() {
+			Ext.Msg.confirm("提示", "您要执行的是" + this.text + "操作，请确认是否继续？", function(btn) {
+				if(btn == "no") return;
+				
+				ExtConvertHelper.request(this.url, getDetailSubParms(this.config), reLoadFun);
+			}, this);
+		};
+		
+		
 		
 		// 市场业务员的处理方法
 		var sccustomersViewFun = function() {
+			
 			// 如果是暂停状态
 			if(urlPs.activeState == "PAUSE") {
 				// 显示需要的控件
@@ -108,35 +144,38 @@ HBSConvertHelper.init(function() {
 				// 显示需要的控件
 				ExtConvertHelper.showItems("stopBtn");
 				
-				switch(urlPs.state) {
-					// 待业务确认交期(只对账期订单有效，本状态是采购修改交期后，显示的状态，等待业务确认交期，交期的概念针对订单明细，只要有一个订单明细需要确认交期，订单状态就为待交期确认)
-					case "04":
-						// 显示需要的控件
-						ExtConvertHelper.showItems("submitBtn,04process");
-						// 客户意见的选择事件，下边 01,02,03是假设的数据，需要和字典更对
-						Ext.getCmp("04khyj").on("select", function() {
-							switch(this.getValue()) {
-								case "1":
-									submitBtn.url = "/success.action";
-									break;
-								case "2":
-									submitBtn.url = "/success.action";
-									break;
-								case "3":
-									submitBtn.url = "/success.action";
-									break;
-							}
-						});
-						break;
-					// 交期到，待业务确认发货（货未备齐）
-					case "05":
-						// 显示需要的控件
-						ExtConvertHelper.showItems("submitBtn");
-						// 设置提交按钮
-						submitBtn.setText("客户要求发货");
-						submitBtn.url = "/success.action";
-						break;
+				// 创建详情列表操作按钮的方法
+				detailcreatebuttonFun = function(state, operator_cell, record) {
+					switch(state) {
+						// 待业务确认交期(只对账期订单有效，本状态是采购修改交期后，显示的状态，等待业务确认交期，交期的概念针对订单明细，只要有一个订单明细需要确认交期，订单状态就为待交期确认)
+						case "04":
+							// 创建按钮到操作列
+							var operatorBtn = HBSConvertHelper.renderButton2Cell(["客户同意", "客户不同意", "客户取消"], operator_cell, record);
+							// 客户同意按钮
+							operatorBtn.get(0).on("click", defualtProcessFun);
+							operatorBtn.get(0).url = "";
+							// 客户不同意按钮
+							operatorBtn.get(1).on("click", function() {
+								Ext.Msg.prompt('提示', '请输入客户指定交期:', function(btn, text){
+							    if (btn == 'ok'){
+							    	var _ps = getDetailSubParms(this.config) + "&khzdjq=" + text;
+							    	ExtConvertHelper.request("/success.action", _ps, reLoadFun);
+							    }
+								}, this);
+							});
+							// 客户取消按钮
+							operatorBtn.get(2).on("click", defualtProcessFun);
+							operatorBtn.get(2).url = "";
+							break;
+						// 交期到，待业务确认发货（货未备齐）
+						case "05":
+							var operatorBtn = HBSConvertHelper.renderButton2Cell(["客户要求发货"], operator_cell, record);
+							operatorBtn.on("click", defualtProcessFun);
+							operatorBtn.url = "/success.action";
+					}
+					
 				}
+				
 			}
 		};
 		

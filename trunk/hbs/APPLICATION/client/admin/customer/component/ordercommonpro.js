@@ -49,7 +49,7 @@ var ordergridFun = function() {
 	cgh.appendColumn({header: "特殊备注<font color=red>*</font>"		, dataIndex: "specDesc", xtype: "textfield"});
 	cgh.appendColumn({header: "备注<font color=red>*</font>"		, dataIndex: "commDesc", xtype: "textfield"});
 
-	cgh.appendColumn({header: "操作"			, dataIndex: ""         , id: "operator"});
+	cgh.appendColumn({header: "操作"			, dataIndex: ""         , id: "operator", width: 250});
 	/*
 	switch(urlPs.state) {
 		case "20":
