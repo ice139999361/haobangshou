@@ -15,12 +15,68 @@ HBSConvertHelper.init(function() {
 	var historyBtn   = Ext.getCmp("historyBtn");
 	// 组装需要的参数
 	var params = ["custOrder.poNo=", urlPs.poNo, "&custOrder.commCode=", urlPs.commCode].join("");
+	// 详情列表中创建按钮的方法
+	var detailcreatebuttonFun = Ext.emptyFn;
 	
 	
 	// -------------------------------------- 应用逻辑处理
 	
 	// 隐藏不需要的按钮
 	ExtConvertHelper.hideItems("submitBtn,04process");
+	
+	var getDetailSubParms = function(record) {
+		return ["operSeqId=", record.get("operSeqId")
+					, "&cpartNo=" , record.get("cpartNo")
+					, "&partNo="  , record.get("partNo")].join("");
+	}
+	
+	var reLoadFun = function(response, opts) {
+		var action = Ext.util.JSON.decode(response.responseText);
+		if(action.success == true || action.success == "true") {
+			// 加载数据
+			ExtConvertHelper.loadForm(null, "/custOrder/custOrder!getInfo.action", params, function(form, action) {
+					Ext.getCmp("custbankgrid").store.removeAll();
+					Ext.getCmp("custbankgrid").addData(action.result.data.custOrder.orderDetailList);
+			});
+		} else {
+			var message = ExtConvertHelper.getMessageInfo(action, "请求失败：服务器异常");
+			Ext.Msg.alert("提示", message);
+		}
+  };
+  
+  // 默认的处理方法，带提示
+	var defualtProcessFun = function() {
+		Ext.Msg.confirm("提示", "您要执行的是" + this.text + "操作，请确认是否继续？", function(btn) {
+			if(btn == "no") return;
+			
+			ExtConvertHelper.request(this.url, getDetailSubParms(this.config), reLoadFun);
+		}, this);
+	};
+	
+	var promptProcessFun = function() {
+		Ext.Msg.prompt('提示', this.message, function(btn, text){
+	    if (btn == 'ok'){
+	    	var _ps = getDetailSubParms(this.config) + "&" + this.paramName + "=" + text;
+	    	ExtConvertHelper.request(this.url, _ps, reLoadFun);
+	    }
+		}, this);
+	}
+	
+	var tearPromptProcessFun = function() {
+		Ext.Msg.prompt('提示', this.message, function(btn, text){
+	    if (btn == 'ok'){
+	    	var _ps = getDetailSubParms(this.config) + "&" + this.paramName + "=" + text;
+	    	ExtConvertHelper.request(this.url, _ps, reLoadFun);
+	    }
+		}, this, true);
+	}
+	
+	var _querystoreFun = function() {
+		// 要访问的 url 地址
+		var url = "/customer/detailstockinfo.jsp?" + getDetailSubParms(this.config);
+		// 打开指定页面
+		HBSConvertHelper.openNewWin(url);
+	}
 	
 	// 定义 submitFun
 	var submitFun = function() {
@@ -57,10 +113,23 @@ HBSConvertHelper.init(function() {
 		Ext.getCmp("printBtn").on("click", function() {
 			open(CONTEXT_PATH + "/print/cgdd.jsp" + location.search, null, ["location=0,width=", screen.availWidth, ",height=", screen.availHeight].join(""))
 		});
+		
+		Ext.getCmp("ordergrid").getView().on("refresh", function(view) {
+			for(var i = 0 ; i < view.ds.getCount() ; i++) {
+				// 获取数据容器
+				var record = view.ds.getAt(i);
+				// 操作列如果存在
+				if(view.grid.getColumnIndexById("operator") != -1) {
+					// 获取操作列
+					var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));
+					detailcreatebuttonFun(record.get("state"), operator_cell, record);
+				}
+			}
+		});
 	
 		// 加载数据
 		ExtConvertHelper.loadForm("form", "/customerInfo/customerInfo!getInfo.action", params, function(form, action) {
-				Ext.getCmp("custbankgrid").addData(action.result.data);
+				Ext.getCmp("ordergrid").addData(action.result.data);
 				switch(action.result.data.custInfo.state) {
 					// 正式状态
 					case "2":
@@ -85,19 +154,22 @@ HBSConvertHelper.init(function() {
 				// 显示需要的控件
 				ExtConvertHelper.showItems("stopBtn");
 				
-				switch(urlPs.state) {
-					// 待业务确认交期(只对账期订单有效，本状态是采购修改交期后，显示的状态，等待业务确认交期，交期的概念针对订单明细，只要有一个订单明细需要确认交期，订单状态就为待交期确认)
-					case "04":
-						// 显示需要的控件
-						ExtConvertHelper.showItems("submitBtn,04process,operatorBtn1,operatorBtn2");
-						operatorBtn1.setText("确认交期");
-						operatorBtn1.url = "/success.action";
-						operatorBtn1.on("click", submitFun);
-						
-						operatorBtn2.setText("取消订单");
-						operatorBtn2.url = "/success.action";
-						operatorBtn2.on("click", submitFun);
-						break;
+				detailcreatebuttonFun = function(state, operator_cell, record) {
+					switch(state) {
+						// 待业务确认交期(只对账期订单有效，本状态是采购修改交期后，显示的状态，等待业务确认交期，交期的概念针对订单明细，只要有一个订单明细需要确认交期，订单状态就为待交期确认)
+						case "04":
+							// 创建按钮到操作列
+							var operatorBtn = HBSConvertHelper.renderButton2Cell(["确认交期", "取消订单"], operator_cell, record);
+							// 确认交期按钮
+							operatorBtn.get(0).on("click", promptProcessFun);
+							operatorBtn.get(0).message = "请输入确认交期:";
+							operatorBtn.get(0).paramName = "cgjq";
+							operatorBtn.get(0).url = "/success.action";
+							// 取消订单按钮
+							operatorBtn.get(1).on("click", defualtProcessFun);
+							operatorBtn.get(1).url = "/success.action";
+							break;
+					}
 				}
 			}
 		};
