@@ -87,6 +87,17 @@
      	<action name="user!save" method="doSave" 
     			class="com.hbs.auth.action.UserAction">
 		</action>
+		<!-- 
+	/**
+	 * 根据角色id获取用户列表
+	 * @action.input roleId
+	 * @action.result list List<Staff> 
+	 * @return
+	 */
+		 -->
+     	<action name="user!listByRoleId" method="doListByRoleId" 
+    			class="com.hbs.auth.action.UserAction">
+		</action>
 		
 
 
