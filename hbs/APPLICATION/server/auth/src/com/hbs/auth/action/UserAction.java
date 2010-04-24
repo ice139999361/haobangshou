@@ -260,4 +260,30 @@ public class UserAction extends BaseAction  {
 		staff.setField("roleNames", sbName.toString());
 	}
 
+	/**
+	 * 根据角色id获取用户列表
+	 * @action.input roleId
+	 * @action.result list List<Staff> 
+	 * @return
+	 */
+	public String doListByRoleId() {
+		try {
+			String roleId = this.getHttpServletRequest().getParameter("roleId");
+			if(!StringUtils.isNumeric(roleId)){
+				String s = "参数错误";
+				logger.error(s + roleId);
+				setErrorReason(s);
+				return ERROR;
+			}
+				
+			List<Staff> list = getSMgr().listStaffByRoleId(roleId);
+			setResult("list", list);
+			return SUCCESS;
+		} catch(Exception e) {
+			logger.error("catch Exception in doList", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+	}
+	
 }

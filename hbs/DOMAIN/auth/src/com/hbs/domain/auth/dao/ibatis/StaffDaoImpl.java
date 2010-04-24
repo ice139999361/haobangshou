@@ -121,5 +121,17 @@ public class StaffDaoImpl extends SqlMapClientDaoSupport implements StaffDao
         	logger.debug("离开listStaffCount(Staff), 返回[" + count + "]");
 		}
         return count;
-    }  
+    }
+
+	@SuppressWarnings("unchecked")
+	public List<Staff> listStaffByRoleId(String roleId) throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+        	logger.debug("进入listStaffByRoleId(String roleId), 输入参数[" + roleId + "]");
+		}
+        List<Staff> list = getSqlMapClientTemplate().queryForList("Staff_listStaffByRoleId", roleId);
+		if (logger.isDebugEnabled()) {
+        	logger.debug("离开listStaffByRoleId(String roleId), 返回[" + list + "]");
+		}
+        return list;
+	}  
 }

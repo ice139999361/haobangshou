@@ -202,4 +202,13 @@
 		</dynamic>
 </select>
 
+<select id="Staff_listStaffByRoleId" resultMap="staff_result" parameterClass="string">
+<![CDATA[
+    SELECT
+            s.*
+    FROM staff s, user_role r 
+    where s.STAFF_ID = r.STAFF_ID and r.ROLE_ID = #roleId#
+]]>
+</select>
+
 </sqlMap>

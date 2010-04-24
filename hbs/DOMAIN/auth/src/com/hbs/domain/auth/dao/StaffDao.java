@@ -56,4 +56,12 @@ public interface StaffDao {
      * @throws DataAccessException DataAccessException
      */
     Integer listStaffCount(Staff staff) throws DataAccessException ;
+
+    /**
+     * 根据角色id获取用户列表
+     * @param roleId 角色ID
+     * @return staff list
+     * @throws DataAccessException DataAccessException
+     */
+	List<Staff> listStaffByRoleId(String roleId) throws DataAccessException;
 }

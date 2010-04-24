@@ -118,4 +118,23 @@ public class StaffMgr {
     	}
 		return ret;
 	}
+	
+    /**
+     * 根据角色id获取用户列表
+     * @param roleId 角色ID
+     * @return staff list
+     * @throws DataAccessException DataAccessException
+     */
+	public List<Staff> listStaffByRoleId(String roleId) throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+    		logger.debug("Invoking listStaffByRoleId(String roleId): parameter=" + roleId);
+    	}
+		StaffDao staffDao = (StaffDao)BeanLocator.getInstance().getBean(STAFF_DAO_NAME);
+		
+		List<Staff> ret = staffDao.listStaffByRoleId(roleId);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("Finished invoking listStaffByRoleId(String roleId)");
+    	}
+		return ret;
+	}
 }
