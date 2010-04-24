@@ -16,7 +16,7 @@ HBSConvertHelper.init(function() {
 	// 组装需要的参数
 	var params = ["custOrder.poNo=", urlPs.poNo, "&custOrder.commCode=", urlPs.commCode, "&custOrder.poNoType=", urlPs.poNoType].join("");
 	// 详情列表中创建按钮的方法
-	var detailcreatebuttonFun;
+	var detailcreatebuttonFun = Ext.emptyFn;
 	
 	
 	// -------------------------------------- 应用逻辑处理
