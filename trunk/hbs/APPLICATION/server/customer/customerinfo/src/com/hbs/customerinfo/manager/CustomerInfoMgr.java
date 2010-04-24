@@ -76,6 +76,14 @@ public class CustomerInfoMgr {
 			custInfo.setState(new Integer(StateConstants.STATE_2).toString());
 			logger.debug("设置的状态为：" + StateConstants.STATE_2);
 			ret = this.insertCustomerInfo(custInfo);
+			WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
+			Map<String , String> hmParam = new HashMap<String,String>();
+			hmParam.put("$staffName", custInfo.getStaffName());
+			hmParam.put("$businessKey", custInfo.getCommCode());
+			waitTaskInfo.setHmParam(hmParam);
+			waitTaskInfo.setBusinessKey(custInfo.getCommCode());
+			WaitTaskMgr.deleteWaitTask(custInfo.getCommCode());
+			WaitTaskMgr.createWaitTask("CUSTOMER001", waitTaskInfo);
 		}else{
 			//获取提交数据打状态
 			int iState = Integer.parseInt(custInfo.getState());

@@ -153,6 +153,12 @@ public class CustomerInfoUtil {
 			baseSeqId = custInfo.getBaseSeqId().toString();
 		} catch (Exception e) {
 		}
+		String settleMentType = custInfo.getSettlementType();
+		if(settleMentType.equals("1")){
+			custInfo.setPrePaidInfo(null);
+		}else{
+			custInfo.setAccountPreiod(null);
+		}
 		AccountPreiod accountPreiod = custInfo.getAccountPreiod();
 		if(accountPreiod != null) {
 			accountPreiod.setCommCode(custInfo.getCommCode());
@@ -338,7 +344,7 @@ public class CustomerInfoUtil {
 					list.add(new FieldErr("importantCode", "importantCode的值不正确"));
 				else
 				{
-					custInfo.setImportantCode(ce.getEncodeKey());
+					
 					custInfo.setImportantDesc(ce.getEncodeValue());
 				}
 			}
@@ -353,8 +359,7 @@ public class CustomerInfoUtil {
 				if(ce == null)
 					list.add(new FieldErr("CreditRate", "CreditRate的值不正确"));
 				else
-				{
-					custInfo.setCreditRate(ce.getEncodeKey());
+				{					
 					custInfo.setCreditDesc(ce.getEncodeValue());
 				}
 			}
@@ -365,8 +370,7 @@ public class CustomerInfoUtil {
 				ce = getEncode("SETTLEMENT_TYPE", s);
 				if(ce == null)
 					list.add(new FieldErr("SettlementType", "SettlementType的值不正确"));
-				else{
-					custInfo.setSettlementType(ce.getEncodeKey());
+				else{					
 					custInfo.setSettlementDesc(ce.getEncodeValue());
 				}
 			}
@@ -377,9 +381,8 @@ public class CustomerInfoUtil {
 				ce = getEncode("CURRENCY", s);
 				if(ce == null)
 					list.add(new FieldErr("Currency", "Currency的值不正确"));
-				else
-				{
-					custInfo.setCurrency(ce.getEncodeKey());
+				else{
+					
 					custInfo.setCurrencyDesc(ce.getEncodeValue());
 				}
 			}
@@ -390,10 +393,7 @@ public class CustomerInfoUtil {
 				ce = getEncode("IS_SHOW_PRICE", s);
 				if(ce == null)
 					list.add(new FieldErr("IsShowPrice", "IsShowPrice的值不正确"));
-				else
-				{
-					custInfo.setIsShowPrice(ce.getEncodeKey());
-				}
+				
 			}
 
 			s = custInfo.getStaffId();
@@ -430,24 +430,14 @@ public class CustomerInfoUtil {
 	public static ConfigEncode getEncode(String type, String s)
 	{
 		ConfigEncode ce = new ConfigEncode();
-		List<ConfigEncode> ce2;
-		ce.setEncodeType(type);
-		if(s.equals("请选择"))
-		{
-			return ce;
-		}
-		try{
-			Integer.parseInt(s);
-			ce.setEncodeKey(s);
-		}catch(Exception e){
-			ce.setEncodeValue(s);
-		}
 		
-		ce2 = ConfigEncodeMgr.getListConfigEncode(ce);
-		if(ce2 == null || ce2.size() == 0)
-			return null;
-		else
-			return ce2.get(0);
+		ce.setEncodeType(type);		
+		ce.setEncodeKey(s);
+		
+		
+		ce = ConfigEncodeMgr.getConfigEncode(ce);
+		
+		return ce;
 	}
 	
 	/**

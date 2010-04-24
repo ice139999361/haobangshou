@@ -101,11 +101,12 @@ public class CustomerInfoNormalAction extends BaseAction {
 				setErrorReason("参数错误！");
 				return ERROR;
 			}
-
+			
 			custInfo.setState("1");
 			if (CustomerInfoUtil.checkSetStaffId(custInfo))
 				setMyId(true);
 			CustomerInfoUtil.processListData(custInfo, this.getHttpServletRequest());
+			
 			List<FieldErr> errs = CustomerInfoUtil.checkInputFields(custInfo);
 			if (!errs.isEmpty()) {
 				String s = FieldErr.formFieldsErrString(errs);
@@ -115,7 +116,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 			}
 
 			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(custInfoMgrName);
-
+			
 			if(custInfo.getBaseSeqId() == null) {
 				CustomerInfo cInfo = new CustomerInfo();
 				cInfo.setCommCode(custInfo.getCommCode());
@@ -126,6 +127,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 					return ERROR;
 				}
 			}
+			
 			CustomerInfo info2 = mgr.getCustomerInfo(custInfo, false);
 			int ret;
 			if (info2 != null)
@@ -170,7 +172,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 				setErrorReason("参数错误！");
 				return ERROR;
 			}
-
+			
 			if (CustomerInfoUtil.checkSetStaffId(custInfo))
 				setMyId(true);
 			CustomerInfoUtil.processListData(custInfo, this
@@ -206,8 +208,8 @@ public class CustomerInfoNormalAction extends BaseAction {
 						.getStaffId().toString(), getLoginStaff().getStaffName());
 			}
 			else {
-				custInfo.setCreditRate("3");
-				custInfo.setState("1");
+				//custInfo.setCreditRate("3");
+				//custInfo.setState("1");
 				ret = mgr.commitCustomerInfo(custInfo, getLoginStaff()
 						.getStaffId().toString(), getLoginStaff().getStaffName());
 			}
