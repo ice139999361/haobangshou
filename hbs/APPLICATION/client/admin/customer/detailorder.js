@@ -62,6 +62,15 @@ HBSConvertHelper.init(function() {
 		}, this);
 	}
 	
+	var tearPromptProcessFun = function() {
+		Ext.Msg.prompt('提示', this.message, function(btn, text){
+	    if (btn == 'ok'){
+	    	var _ps = getDetailSubParms(this.config) + "&" + this.paramName + "=" + text;
+	    	ExtConvertHelper.request(this.url, _ps, reLoadFun);
+	    }
+		}, this, true);
+	}
+	
 	var _querystoreFun = function() {
 		// 要访问的 url 地址
 		var url = "/customer/detailstockinfo.jsp?" + getDetailSubParms(this.config);
@@ -220,46 +229,49 @@ HBSConvertHelper.init(function() {
 		
 		// 财务的处理方法
 		var financeViewFun = function() {
+			detailcreatebuttonFun = function(state, operator_cell, record) {
+				switch(state) {
+					// 待财务确认发货（针对预付X%，款到发货）
+					case "31":
+					// 待财务确认收到剩余货款
+					case "32":
+						var operatorBtn = HBSConvertHelper.renderButton2Cell(["确认"], operator_cell, record);
+						operatorBtn.on("click", defualtProcessFun);
+						operatorBtn.url = "/success.action";
+				}
+				
+			}
+				
 			switch(urlPs.state) {
 				// 待财务确认预付
 				case "30":
-					ExtConvertHelper.showItems("operatorBtn2");
-					operatorBtn2.setText("退回");
-					operatorBtn2.url = "/success.action";
-					operatorBtn2.on("click", submitFun);
-				// 待财务确认发货（针对预付X%，款到发货）
-				case "31":
-				// 待财务确认收到剩余货款
-				case "32":
-					ExtConvertHelper.showItems("operatorBtn1");
+					ExtConvertHelper.showItems("operatorBtn1,operatorBtn2");
 					operatorBtn1.setText("确认");
 					operatorBtn1.url = "/success.action";
 					operatorBtn1.on("click", submitFun);
+					operatorBtn2.setText("退回");
+					operatorBtn2.url = "/success.action";
+					operatorBtn2.on("click", submitFun);
 					break;
 			}
-			switch(urlPs.state){
-				case "30":
-					operatorBtn1.url = "/custOrder/custOrderCw!financeAgree.action";
-					operatorBtn2.url = "/custOrder/custOrderCw!financeDisAgree.action";
-					break;
-				case "31":
-					break;
-				case "32":
-					break;
-			}
-			
 		};
 		
 		// 财务经理的处理方法
 		var financemanagerViewFun = function() {
-			switch(urlPs.state) {
-				// 款到发货而款未到，申请待经理审批（针对预付X%，剩余款到发货）
-				case "33":
-					// 显示需要的控件
-					ExtConvertHelper.showItems("submitBtn,auditPanel");
-					submitBtn.url = "/custOrder/custOrderCwMgr!audit.action";
+			detailcreatebuttonFun = function(state, operator_cell, record) {
+				switch(state) {
+					// 款到发货而款未到，申请待经理审批（针对预付X%，剩余款到发货）
+					case "33":
+						var operatorBtn = HBSConvertHelper.renderButton2Cell(["同意", "不同意"], operator_cell, record);
+						operatorBtn.get(0).on("click", tearPromptProcessFun);
+						operatorBtn.get(0).message = "请输入同意原因:";
+						operatorBtn.get(0).paramName = "cgjq";
+						operatorBtn.get(0).url="/success.action";
+						operatorBtn.get(1).on("click", defualtProcessFun);
+						operatorBtn.get(1).url="/success.action";
 					break;
-			}			
+				}	
+			}
 		};
 		
 		eval(urlPs.roleType + "ViewFun")();

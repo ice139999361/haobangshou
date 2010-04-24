@@ -80,18 +80,6 @@ HBSConvertHelper.init(function() {
 			// 打开查看历史记录页面
 			HBSConvertHelper.open("/complex/detailhistory.jsp", 800, 500, {gridurl: ["/vendorInfo/vendorPartNoInfoMgr!list.action?custOrder.poNo=", record.get("poNo"), "&custOrder.commCode=", record.get("commCode")].join("")})
 		}
-		/*
-		// 查看库存按钮触发事件
-		var querystoreBtnFun = function(){
-			// 要访问的 url 地址
-			var url = ["/customer/detailstockinfo.jsp?commCode=", this.config.get("commCode")
-						, "&poNo=", this.config.get("poNo")
-						, "&poNoType=", this.config.get("poNoType")
-						, "&state=", this.config.get("state")].join("");
-			// 打开指定页面
-			HBSConvertHelper.openNewWin(url);
-		}
-		*/
 		
 		// 获取 roleType 
 		var roleType = urlPs.roleType;
@@ -172,19 +160,9 @@ HBSConvertHelper.init(function() {
 			// 如果是暂停状态
 			if(record.get("activeState") == "PAUSE") return
 			
-			switch(record.get("state")) {
-				// 待财务确认预付
-				case "30":
-				// 待财务确认发货（针对预付X%，款到发货）
-				case "31":
-				// 待财务确认收到剩余货款
-				case "32":
-					// 创建操作按钮
-					var operatorBtn = HBSConvertHelper.renderButton2Cell(["处理"], operator_cell, record);
-					// 添加继续按钮事件
-					operatorBtn.on("click", processBtnFun);
-					break;
-			}
+			var operatorBtn = HBSConvertHelper.renderButton2Cell(["处理"], operator_cell, record);
+			// 添加处理按钮事件
+			operatorBtn.on("click", processBtnFun);
 			
 		};
 		
@@ -193,15 +171,9 @@ HBSConvertHelper.init(function() {
 			// 如果是暂停状态
 			if(record.get("activeState") == "PAUSE") return
 			
-			switch(record.get("state")) {
-				// 款到发货而款未到，申请待经理审批（针对预付X%，剩余款到发货）
-				case "33":
-					// 创建操作按钮
-					var operatorBtn = HBSConvertHelper.renderButton2Cell(["审批"], operator_cell, record);
-					// 添加继续按钮事件
-					operatorBtn.on("click", processBtnFun);
-					break;
-			}
+			var operatorBtn = HBSConvertHelper.renderButton2Cell(["处理"], operator_cell, record);
+			// 添加处理按钮事件
+			operatorBtn.on("click", processBtnFun);
 			
 		};
 		
