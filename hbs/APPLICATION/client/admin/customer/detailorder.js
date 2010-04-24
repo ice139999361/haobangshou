@@ -43,6 +43,31 @@ HBSConvertHelper.init(function() {
 			Ext.Msg.alert("提示", message);
 		}
   };
+  
+  // 默认的处理方法，带提示
+	var defualtProcessFun = function() {
+		Ext.Msg.confirm("提示", "您要执行的是" + this.text + "操作，请确认是否继续？", function(btn) {
+			if(btn == "no") return;
+			
+			ExtConvertHelper.request(this.url, getDetailSubParms(this.config), reLoadFun);
+		}, this);
+	};
+	
+	var promptProcessFun = function() {
+		Ext.Msg.prompt('提示', this.message, function(btn, text){
+	    if (btn == 'ok'){
+	    	var _ps = getDetailSubParms(this.config) + "&" + this.paramName + "=" + text;
+	    	ExtConvertHelper.request(this.url, _ps, reLoadFun);
+	    }
+		}, this);
+	}
+	
+	var _querystoreFun = function() {
+		// 要访问的 url 地址
+		var url = "/customer/detailstockinfo.jsp?" + getDetailSubParms(this.config);
+		// 打开指定页面
+		HBSConvertHelper.openNewWin(url);
+	}
 	
 	// 定义 submitFun
 	var submitFun = function() {
@@ -84,29 +109,6 @@ HBSConvertHelper.init(function() {
 				if(view.grid.getColumnIndexById("operator") != -1) {
 					// 获取操作列
 					var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));
-					/*
-					switch(urlPs.roleType){
-					case "cgy":
-						//alert("state= " + record.get("state"));
-						
-						if(record.get("state") == "20" 
-							|| record.get("state") == "21"
-							|| record.get("state") == "71"){
-							// 创建按钮到操作列
-							var operatorBtn = HBSConvertHelper.renderButton2Cell(["查看库存"], operator_cell, view.ds.getAt(i));
-							// 添加处理按钮事件
-							operatorBtn.on("click", function(){
-								// 要访问的 url 地址
-								var url = ["/customer/detailstockinfo.jsp?operSeqId=", this.config.get("operSeqId")
-											, "&cpartNo=", this.config.get("cpartNo")
-											, "&partNo=", this.config.get("partNo")].join("");
-								// 打开指定页面
-								HBSConvertHelper.openNewWin(url);
-							});
-						} 
-						break;
-					}
-				*/
 					detailcreatebuttonFun(record.get("state"), operator_cell, record);
 				}
 			}
@@ -122,17 +124,6 @@ HBSConvertHelper.init(function() {
 	};
 	
 	var processInitFun = function() {
-		// 默认的处理方法，带提示
-		var defualtProcessFun = function() {
-			Ext.Msg.confirm("提示", "您要执行的是" + this.text + "操作，请确认是否继续？", function(btn) {
-				if(btn == "no") return;
-				
-				ExtConvertHelper.request(this.url, getDetailSubParms(this.config), reLoadFun);
-			}, this);
-		};
-		
-		
-		
 		// 市场业务员的处理方法
 		var sccustomersViewFun = function() {
 			
@@ -155,14 +146,10 @@ HBSConvertHelper.init(function() {
 							operatorBtn.get(0).on("click", defualtProcessFun);
 							operatorBtn.get(0).url = "";
 							// 客户不同意按钮
-							operatorBtn.get(1).on("click", function() {
-								Ext.Msg.prompt('提示', '请输入客户指定交期:', function(btn, text){
-							    if (btn == 'ok'){
-							    	var _ps = getDetailSubParms(this.config) + "&khzdjq=" + text;
-							    	ExtConvertHelper.request("/success.action", _ps, reLoadFun);
-							    }
-								}, this);
-							});
+							operatorBtn.get(1).on("click", promptProcessFun);
+							operatorBtn.get(1).message = "请输入客户指定交期:";
+							operatorBtn.get(1).paramName = "cgjq";
+							operatorBtn.get(1).url = "/success.action";
 							// 客户取消按钮
 							operatorBtn.get(2).on("click", defualtProcessFun);
 							operatorBtn.get(2).url = "";
@@ -193,6 +180,31 @@ HBSConvertHelper.init(function() {
 		
 		// 采购部采购员的处理方法
 		var cgyViewFun = function() {
+			
+			detailcreatebuttonFun = function(state, operator_cell, record) {
+				switch(state) {
+					case "71":
+						var operatorBtn = HBSConvertHelper.renderButton2Cell(["查看库存"], operator_cell, record);
+						operatorBtn.on("click", _querystoreFun);
+						break;
+					case "21":
+						var operatorBtn = HBSConvertHelper.renderButton2Cell(["查看库存", "查看操作历史"], operator_cell, record);
+						operatorBtn.get(0).on("click", _querystoreFun);
+						operatorBtn.get(1).on("click", function() {
+							HBSConvertHelper.open("/complex/detailhistory.jsp", 800, 500, {gridurl: ["/vendorInfo/vendorPartNoInfoMgr!list.action?", getDetailSubParms(this.config)].join("")})
+						});
+						break;
+					case "20":
+						var operatorBtn = HBSConvertHelper.renderButton2Cell(["查看库存", "采购交期"], operator_cell, record);
+						operatorBtn.get(0).on("click", _querystoreFun);
+						operatorBtn.get(1).on("click", promptProcessFun);
+						operatorBtn.get(1).message = "请输入供应商回复交期:";
+						operatorBtn.get(1).paramName = "cgjq";
+						operatorBtn.get(1).url = "/success.action";
+						break;
+				}
+			}
+			
 			switch(urlPs.state) {
 				// 待采购确认交期（对账期订单有效，采购修改交期，状态变为此状态）
 				case "20":
