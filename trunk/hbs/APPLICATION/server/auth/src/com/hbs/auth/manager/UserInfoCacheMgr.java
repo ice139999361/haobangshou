@@ -57,6 +57,7 @@ public class UserInfoCacheMgr {
 					List<String> roleList = new ArrayList<String>();//存放角色ID
 					HashMap<String, String> actionNames = new HashMap<String,String>(64);
 					HashMap<String,ArrayList<String>> resourceButtons = new HashMap<String,ArrayList<String>>(64);
+					List<Resource> resList = new ArrayList<Resource>();
 					for(UserRole userRole : listUserRole){
 						Integer roleId = userRole.getRoleId();	
 						roleList.add(roleId.toString());
@@ -79,6 +80,10 @@ public class UserInfoCacheMgr {
 							//cache action names
 							ResourceMgr resourceMgr = (ResourceMgr)BeanLocator.getInstance().getBean(AuthConstants.RESOURCE_MANAGER_NAME);
 							Resource resource = resourceMgr.findResource(resourceId);
+							//用户添加资源列表
+							if(null != resource && resource.getIsMenu() ==0){
+								resList.add(resource);
+							}
 							Integer actionsId = resource.getActionsId();
 							ActionMgr actionMgr = (ActionMgr)BeanLocator.getInstance().getBean(AuthConstants.ACTION_MANAGER_NAME);
 							Action tempAction = new Action();
@@ -94,6 +99,7 @@ public class UserInfoCacheMgr {
 						user.setResourceButtons(resourceButtons);
 					}
 					user.setRoleList(roleList);
+					user.setResList(resList);
 				}
 			}else{
 				logger.info("不存在" + userAccount +"对应的用户信息！");

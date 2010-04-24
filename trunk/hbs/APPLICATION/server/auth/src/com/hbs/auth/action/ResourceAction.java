@@ -1,5 +1,6 @@
 package com.hbs.auth.action;
 
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -17,6 +18,7 @@ import com.hbs.auth.manager.ResourceMgr;
 import com.hbs.common.action.base.BaseAction;
 import com.hbs.common.utils.IntegerUtils;
 import com.hbs.domain.auth.pojo.Action;
+import com.hbs.domain.auth.pojo.Menu;
 import com.hbs.domain.auth.pojo.Resource;
 
 @SuppressWarnings("serial")
@@ -147,15 +149,15 @@ public class ResourceAction extends BaseAction {
 	 * @action.result menu: List<Resource> + dnamicFields.children (List<Resource>) + dynamicFields.isLeaf (boolean)
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	public String doMenu() {
+		logger.debug("开始组织菜单数据！");
 		try {
 			// 过滤资源信息
 			com.hbs.common.authfilter.User user = null;
 			try {
 				user = (com.hbs.common.authfilter.User)getSession().getAttribute("user");
 			} catch (Exception e1) {
-				logger.error("catch Exception in getuser" + e1);
+				logger.error("catch Exception in getuser", e1);
 			}
 			resource = new Resource();
 			HashMap<String,ArrayList<String>> resourceButtons = user == null ? null : user.getResourceButtons();
@@ -193,6 +195,63 @@ public class ResourceAction extends BaseAction {
 			return SUCCESS;
 		} catch(Exception e) {
 			logger.error("catch Exception in doGetAllRes", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+		
+		
+	}
+	
+	public String doMenu2() {
+		logger.debug("开始组织菜单数据！");
+		try {
+			// 过滤资源信息
+			com.hbs.common.authfilter.User user = null;
+			List<Menu> menuList = null;
+			
+			user = (com.hbs.common.authfilter.User)getSession().getAttribute("user");
+			
+			logger.debug("获取缓存的用户菜单资源信息！");
+			List<Resource> resList  = user.getResList();
+			if(null != resList && resList.size() >0){
+				menuList = new ArrayList<Menu>();
+				for(Resource res : resList){
+					if(res.getParent() == 0){
+						Menu menu = new Menu();
+						menu.setId(res.getResourceId());
+						menu.setLeaf(false);
+						menu.setMenuOrder(res.getResourceId().toString());
+						menu.setText(res.getResourceName());
+						menu.setUrl(res.getUrlAddress());
+						menuList.add(menu);
+					}
+				}
+				
+				if(menuList.size() >0){
+					for(Menu mm : menuList){
+						int mId = mm.getId();
+						for(Resource res : resList){
+							int iResPar = res.getParent();
+							if(mId == iResPar){
+								Menu menu = new Menu();
+								menu.setId(res.getResourceId());
+								menu.setLeaf(true);
+								menu.setMenuOrder(res.getResourceId().toString());
+								menu.setText(res.getResourceName());	
+								menu.setUrl((res.getUrlAddress()));
+								mm.addChildren(menu);
+							}
+						}
+					}
+				}
+				
+				setResult("data",menuList);
+			}else{
+				setResult("data", null);
+			}
+			return SUCCESS;
+		} catch(Exception e) {
+			logger.error("catch Exception in doMenu2", e);
 			setErrorReason("内部错误");
 			return ERROR;
 		}
@@ -275,7 +334,6 @@ public class ResourceAction extends BaseAction {
 		}	
 	}
 
-	@SuppressWarnings("unchecked")
 	private List<Resource> getAllListResource(){
 		List<Resource> list2 = null;
 		try {			
