@@ -32,7 +32,7 @@
 				    			</layoutpanel>
 				    		</listpanel>
 				    		
-				    		<complexgrid id="custbankgrid"   title="订单详情" itemsFun="ordergridFun"   frame="true" height="200" url="1" editorFlag="false"/>
+				    		<complexgrid id="ordergrid"   title="订单详情" itemsFun="ordergridFun"   frame="true" height="200" url="1" editorFlag="false"/>
 				    			
 			    			<listpanel title="处理信息" frame="true" collapsible="true" titleCollapse="true" id="04process">
 			    				<layoutpanel columnNum="1">
