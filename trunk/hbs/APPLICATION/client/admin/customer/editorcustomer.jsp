@@ -27,8 +27,8 @@
 				    				<dictcombo fieldLabel="客户信用度"             hiddenName="custInfo.creditRate"     labelStyle="width:150" paramsValue="CREDIT_RATE"     emptyText="请选择" />	
 				    				<textfield fieldLabel="客户纳税人识别号"       name="custInfo.taxCode"              labelStyle="width:150" />
 				    				<textfield fieldLabel="性质"                   name="custInfo.commType"             labelStyle="width:150" />
-				    				<dictcombo fieldLabel="对应的业务部助理"       hiddenName="custInfo.assStaffId"     labelStyle="width:150"  url="/auth/user!listByRoleId.action" root="data.list"  displayField="staffName"  valueField="staffId" queryParam="roleId"/>
-				    				<textfield fieldLabel="供应商编码"             name="custInfo.vendorCode"           labelStyle="width:150" />
+				    				<dictcombo fieldLabel="对应的业务部助理"       hiddenName="custInfo.assStaffId"     labelStyle="width:150"  url="/auth/user!listByRoleId.action?roleId=7" root="data.list"  displayField="staffName"  valueField="staffId" />
+				    				<autocomplete fieldLabel="供应商编码"             name="custInfo.vendorCode"           labelStyle="width:150"  url="/vendorInfo/vendorInfo!listDict.action"  displayField="commCode"  valueField="commCode" queryParam="vendorInfo.commCode"/>
 				    				<dictcombo fieldLabel="对应的分公司或分支机构" hiddenName="custInfo.companyBranch"  labelStyle="width:150" paramsValue="COMPANY_BRANCH"  emptyText="请选择" />			
 				    				
 				    				<textfield fieldLabel="客户法人代表"           name="custInfo.representative"       labelStyle="width:150" />

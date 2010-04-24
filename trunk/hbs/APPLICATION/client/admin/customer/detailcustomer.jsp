@@ -112,7 +112,7 @@
 				    			
 				    		<complexgrid id="purchasegrid"   title="采购单信息"   itemsFun="purchaseFun"   frame="true" height="200" url="1" editorFlag="false"/>
 				    			
-				    		<listpanel frame="true" title="结算信息" collapsible="true" titleCollapse="true" itemsFun="balanceFun" />
+				    		
 				    			
 				    		<auditpanel id="auditPanel" />
 			    			
