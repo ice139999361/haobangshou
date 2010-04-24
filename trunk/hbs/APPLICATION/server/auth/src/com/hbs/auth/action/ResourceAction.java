@@ -202,62 +202,7 @@ public class ResourceAction extends BaseAction {
 		
 	}
 	
-	public String doMenu2() {
-		logger.debug("开始组织菜单数据！");
-		try {
-			// 过滤资源信息
-			com.hbs.common.authfilter.User user = null;
-			List<Menu> menuList = null;
-			
-			user = (com.hbs.common.authfilter.User)getSession().getAttribute("user");
-			
-			logger.debug("获取缓存的用户菜单资源信息！");
-			List<Resource> resList  = user.getResList();
-			if(null != resList && resList.size() >0){
-				menuList = new ArrayList<Menu>();
-				for(Resource res : resList){
-					if(res.getParent() == 0){
-						Menu menu = new Menu();
-						menu.setId(res.getResourceId());
-						menu.setLeaf(false);
-						menu.setMenuOrder(res.getResourceId().toString());
-						menu.setText(res.getResourceName());
-						menu.setUrl(res.getUrlAddress());
-						menuList.add(menu);
-					}
-				}
-				
-				if(menuList.size() >0){
-					for(Menu mm : menuList){
-						int mId = mm.getId();
-						for(Resource res : resList){
-							int iResPar = res.getParent();
-							if(mId == iResPar){
-								Menu menu = new Menu();
-								menu.setId(res.getResourceId());
-								menu.setLeaf(true);
-								menu.setMenuOrder(res.getResourceId().toString());
-								menu.setText(res.getResourceName());	
-								menu.setUrl((res.getUrlAddress()));
-								mm.addChildren(menu);
-							}
-						}
-					}
-				}
-				
-				setResult("data",menuList);
-			}else{
-				setResult("data", null);
-			}
-			return SUCCESS;
-		} catch(Exception e) {
-			logger.error("catch Exception in doMenu2", e);
-			setErrorReason("内部错误");
-			return ERROR;
-		}
-		
-		
-	}
+	
 
 	/**
 	 * 将资源列表整形成菜单格式

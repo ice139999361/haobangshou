@@ -209,9 +209,7 @@
 		 <action name="resource!menu" method="doMenu" 
     			class="com.hbs.auth.action.ResourceAction">
 		</action>
-		<action name="resource!menu2" method="doMenu2" 
-    			class="com.hbs.auth.action.MenuAction">
-		</action>
+		
 		<!-- 
 	/**
 	 * 查询资源2
