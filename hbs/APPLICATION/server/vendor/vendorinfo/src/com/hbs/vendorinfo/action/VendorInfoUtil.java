@@ -138,6 +138,12 @@ public class VendorInfoUtil {
 			baseSeqId = vendorInfo.getBaseSeqId().toString();
 		} catch (Exception e) {
 		}
+		String settleMentType = vendorInfo.getSettlementType();
+		if(settleMentType.equals("1")){
+			vendorInfo.setPrePaidInfo(null);
+		}else{
+			vendorInfo.setAccountPreiod(null);
+		}
 		AccountPreiod accountPreiod = vendorInfo.getAccountPreiod();
 		if(accountPreiod != null) {
 			accountPreiod.setCommCode(vendorInfo.getCommCode());
@@ -298,7 +304,7 @@ public class VendorInfoUtil {
 					list.add(new FieldErr("importantCode", "importantCode的值不正确"));
 				else
 				{
-					vendorInfo.setImportantCode(ce.getEncodeKey());
+				
 					vendorInfo.setImportantDesc(ce.getEncodeValue());
 				}
 			}
@@ -314,7 +320,7 @@ public class VendorInfoUtil {
 					list.add(new FieldErr("CreditRate", "CreditRate的值不正确"));
 				else
 				{
-					vendorInfo.setCreditRate(ce.getEncodeKey());
+					
 					vendorInfo.setCreditDesc(ce.getEncodeValue());
 				}
 			}
@@ -326,7 +332,7 @@ public class VendorInfoUtil {
 				if(s == null)
 					list.add(new FieldErr("SettlementType", "SettlementType的值不正确"));
 				else{
-					vendorInfo.setSettlementType(ce.getEncodeKey());
+					
 					vendorInfo.setSettlementDesc(ce.getEncodeValue());
 				}
 			}
@@ -339,7 +345,7 @@ public class VendorInfoUtil {
 					list.add(new FieldErr("Currency", "Currency的值不正确"));
 				else
 				{
-					vendorInfo.setCurrency(ce.getEncodeKey());
+					
 					vendorInfo.setCurrencyDesc(ce.getEncodeValue());
 				}
 			}
@@ -350,10 +356,7 @@ public class VendorInfoUtil {
 				ce = getEncode("IS_SHOW_PRICE", s);
 				if(s == null)
 					list.add(new FieldErr("IsShowPrice", "IsShowPrice的值不正确"));
-				else
-				{
-					vendorInfo.setIsShowPrice(ce.getEncodeKey());
-				}
+				
 			}
 
 			s = vendorInfo.getStaffId();
@@ -379,24 +382,14 @@ public class VendorInfoUtil {
 	private static ConfigEncode getEncode(String type, String s)
 	{
 		ConfigEncode ce = new ConfigEncode();
-		List<ConfigEncode> ce2;
-		ce.setEncodeType(type);
-		if(s.equals("请选择"))
-		{
-			return ce;
-		}
-		try{
-			Integer.parseInt(s);
-			ce.setEncodeKey(s);
-		}catch(Exception e){
-			ce.setEncodeValue(s);
-		}
 		
-		ce2 = ConfigEncodeMgr.getListConfigEncode(ce);
-		if(ce2 == null || ce2.size() == 0)
-			return null;
-		else
-			return ce2.get(0);
+		ce.setEncodeType(type);		
+		ce.setEncodeKey(s);
+		
+		
+		ce = ConfigEncodeMgr.getConfigEncode(ce);
+		
+		return ce;
 	}
 	
 	/**
