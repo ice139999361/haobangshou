@@ -71,7 +71,7 @@ var ExtConvertHelper = {
 	 }
 	,defaultDeleteFun: function(response, opts) {
 			var action = Ext.util.JSON.decode(response.responseText);
-			if(action.success === true) {
+			if(action.success == true || action.success == "true") {
 				HBSConvertHelper.refreshGrid("querygrid");
 			} else {
 				var message = ExtConvertHelper.getMessageInfo(action, "请求失败：服务器异常");
