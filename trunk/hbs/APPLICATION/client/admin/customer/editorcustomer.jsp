@@ -27,7 +27,7 @@
 				    				<dictcombo fieldLabel="客户信用度"             hiddenName="custInfo.creditRate"     labelStyle="width:150" paramsValue="CREDIT_RATE"     emptyText="请选择" />	
 				    				<textfield fieldLabel="客户纳税人识别号"       name="custInfo.taxCode"              labelStyle="width:150" />
 				    				<textfield fieldLabel="性质"                   name="custInfo.commType"             labelStyle="width:150" />
-				    				<textfield fieldLabel="对应的业务部助理ID"     name="custInfo.assStaffId"           labelStyle="width:150" />
+				    				<dictcombo fieldLabel="对应的业务部助理"       hiddenName="custInfo.assStaffId"     labelStyle="width:150"  url="/auth/user!listByRoleId.action" root="data.list"  displayField="staffName"  valueField="staffId" queryParam="roleId"/>
 				    				<textfield fieldLabel="供应商编码"             name="custInfo.vendorCode"           labelStyle="width:150" />
 				    				<dictcombo fieldLabel="对应的分公司或分支机构" hiddenName="custInfo.companyBranch"  labelStyle="width:150" paramsValue="COMPANY_BRANCH"  emptyText="请选择" />			
 				    				
@@ -38,7 +38,6 @@
 				    				<dictcombo fieldLabel="客户的重要程度"         hiddenName="custInfo.importantCode"  labelStyle="width:150" paramsValue="IMPORTANT_CODE"  emptyText="请选择" />
 				    				<textfield fieldLabel="客户公司网址"           name="custInfo.webSite"              labelStyle="width:150" />
 				    				<textfield fieldLabel="规模"                   name="custInfo.commScale"            labelStyle="width:150" />
-				    				<textfield fieldLabel="对应的业务部助理姓名"   name="custInfo.assStaffName"         labelStyle="width:150" />
 				    				<dictcombo fieldLabel="发货单是否显示单价"     hiddenName="custInfo.isShowPrice"    labelStyle="width:150" paramsValue="IS_SHOW_PRICE"   emptyText="请选择" />
 				    			</layoutpanel>
 				    			
