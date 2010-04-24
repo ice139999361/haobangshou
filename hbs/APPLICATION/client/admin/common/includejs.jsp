@@ -10,7 +10,8 @@
 	// final String  SERVER_PATH = contextPath + "/test";
 	final String  SERVER_PATH = "/server";
 	// 菜单的地址
-	final String  MENU_PATH = contextPath + "/config/menu/admin.json";
+	//final String  MENU_PATH = contextPath + "/config/menu/admin.json";
+	final String  MENU_PATH = SERVER_PATH + "/menu/menu!menu2.action";
 	// 系统首页
 	final String  MAIN_PATH = contextPath + "/portal/homepage.jsp";
 %>
