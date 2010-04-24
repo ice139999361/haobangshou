@@ -21,6 +21,7 @@
 <include file="struts-app-warehouseRec.xml" />
 <include file="struts-app-warehouseSend.xml" />
 <include file="struts-app-invoice.xml" />
-
+<include file="struts-app-menu.xml" />
+<include file="struts-app-warehouse.xml" />
 	<!--end merged code-->	
 </struts>

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.hbs.domain.auth.pojo.Resource;
+
 /**
  * 
  * @author tony.chen
@@ -19,8 +21,17 @@ public class User {
 	private HashMap<String,ArrayList<String>> resourceButtons;
 	private HashMap<String,String> actionNames;
 	private List<String> roleList;
+	private List<Resource> resList;//当前用户的所有资源菜单
 	
 		
+	public List<Resource> getResList() {
+		return resList;
+	}
+
+	public void setResList(List<Resource> resList) {
+		this.resList = resList;
+	}
+
 	public List<String> getRoleList() {
 		return roleList;
 	}

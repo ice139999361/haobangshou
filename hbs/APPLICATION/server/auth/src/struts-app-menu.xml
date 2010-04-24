@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<package name="app-menu" namespace="/menu" extends="struts-default">
+		
+		<global-results>
+			<result name="error" type="stream">			    
+            </result>
+ 			<result name="success" type="stream">				
+			</result>
+        </global-results>
+
+		
+		<!-- 
+	/**
+	 * 获取菜单
+	 * @action.result menu: List<Resource> + dnamicFields.children (List<Resource>) + dynamicFields.isLeaf (boolean)
+	 * @return
+	 */
+	 	 -->
+		
+		<action name="menu!menu2" method="doMenu2" 
+    			class="com.hbs.auth.action.MenuAction">
+		</action>
+		
+		
+    </package>
+</struts>
