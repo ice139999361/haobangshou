@@ -220,7 +220,7 @@ HBSConvertHelper.init(function() {
 						break;
 				}
 			}
-			
+			/*
 			switch(urlPs.state) {
 				// 待采购确认交期（对账期订单有效，采购修改交期，状态变为此状态）
 				case "20":
@@ -239,6 +239,7 @@ HBSConvertHelper.init(function() {
 					});
 					break;
 			}			
+			*/
 		};
 		
 		// 财务的处理方法
