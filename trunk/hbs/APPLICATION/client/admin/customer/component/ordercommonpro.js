@@ -34,6 +34,9 @@ var ordergridFun = function() {
 	cgh.appendField("orgDeliveryDate");
 	cgh.appendField("specDesc");
 	cgh.appendField("commDesc");
+	cgh.appendField("state");
+	cgh.appendField("stateDesc");
+	
 			    							
 	cgh.appendColumn({dataIndex: "operSeqId"	, isCheck: true});
 //	cgh.appendColumn({header: "货品名称"	, dataIndex: "pnName"});
@@ -48,7 +51,7 @@ var ordergridFun = function() {
 	cgh.appendColumn({header: "交货日期<font color=red>*</font>", dataIndex: "orgDeliveryDate", xtype: "datefield", format: "Y-m-d", renderer: FormatUtil.dateRenderer});
 	cgh.appendColumn({header: "特殊备注<font color=red>*</font>"		, dataIndex: "specDesc", xtype: "textfield"});
 	cgh.appendColumn({header: "备注<font color=red>*</font>"		, dataIndex: "commDesc", xtype: "textfield"});
-
+	cgh.appendColumn({header: "状态"			, dataIndex: "stateDesc"});
 	cgh.appendColumn({header: "操作"			, dataIndex: ""         , id: "operator", width: 250});
 	/*
 	switch(urlPs.state) {
