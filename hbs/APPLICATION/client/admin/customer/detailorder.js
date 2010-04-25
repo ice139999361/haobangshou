@@ -233,7 +233,7 @@ HBSConvertHelper.init(function() {
 					//submitBtn.url = "/vendorOrder/vendorOrder!.action";
 					operatorBtn1.on("click", function(){
 						// TODO: 下单，需要传递参数：operSeqId = 所有选中的订单明细的operSeqId，以,分隔
-						var url = "/vendor/editororder.jsp?editorType=update&operSeqId=" + Ext.getCmp("custbankgrid").getCheckFields();
+						var url = "/vendor/editororder.jsp?operSeqId=" + Ext.getCmp("custbankgrid").getCheckFields();
 						// 打开指定页面
 						HBSConvertHelper.openNewWin(url);
 					});
