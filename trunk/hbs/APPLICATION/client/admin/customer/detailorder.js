@@ -227,13 +227,13 @@ HBSConvertHelper.init(function() {
 				// 采购备货中
 				case "21":
 					// 显示需要的控件
-					ExtConvertHelper.showItems("submitBtn");
+					ExtConvertHelper.showItems("operatorBtn1");
 					
-					submitBtn.setText("下单");
+					operatorBtn1.setText("下单");
 					//submitBtn.url = "/vendorOrder/vendorOrder!.action";
-					submitBtn.on("click", function(){
+					operatorBtn1.on("click", function(){
 						// TODO: 下单，需要传递参数：operSeqId = 所有选中的订单明细的operSeqId，以,分隔
-						var url = "/vendor/editorder.jsp?" + "";
+						var url = "/vendor/editororder.jsp?editorType=update&operSeqId=" + Ext.getCmp("custbankgrid").getCheckFields();
 						// 打开指定页面
 						HBSConvertHelper.openNewWin(url);
 					});
