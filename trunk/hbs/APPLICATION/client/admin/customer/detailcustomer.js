@@ -32,9 +32,10 @@ HBSConvertHelper.init(function() {
 	(function() {		
 		// 组装需要的参数
 		var params = ["custInfo.baseSeqId=", urlPs.baseSeqId].join("");
-		
+		var getInfoUrl = (urlPs.roleType == "sccustomers") ? "/customerInfo/customerInfo!getInfo.action" 
+			: "/customerInfo/customerInfoMgr!getInfo.action";
 		// 加载数据
-		ExtConvertHelper.loadForm("form", "/customerInfo/customerInfo!getInfo.action", params, function(form, action) {
+		ExtConvertHelper.loadForm("form", getInfoUrl, params, function(form, action) {
 				Ext.getCmp("contactgrid").addData(action.result.data.custInfo.dynamicFields.contactlist);
 				Ext.getCmp("consigneegrid").addData(action.result.data.custInfo.dynamicFields.consigneelist);
 				Ext.getCmp("custbankgrid").addData(action.result.data.custInfo.listBankInfo);
