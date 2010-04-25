@@ -1,12 +1,18 @@
 package com.hbs.customerorder.action.detail;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
+import com.hbs.common.utils.ListDataUtil;
 import com.hbs.customerorder.constants.CustOrderConstants;
 import com.hbs.domain.customer.order.pojo.CustOrderDetail;
 import com.hbs.domain.warehouse.pojo.WareHouseInfo;
@@ -28,8 +34,7 @@ public class CustOrderDetailCgNormalAction extends CustOrderDetailBaseAction {
 	 */
 	public String doConfirmDelivery() {
 		try {
-			if(!checkKeyFields()) {
-				setErrorReason("参数错误！");
+			if(!this.findOrderDetail()) {
 				return ERROR;
 			}
 			int i = mgr.purchaseConfirmDetailDelivery(orderDetail, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), getMemo());
@@ -48,15 +53,39 @@ public class CustOrderDetailCgNormalAction extends CustOrderDetailBaseAction {
 	/**
 	 * 采购不同意订单明细交期，提交给业务助理处理
 	 * @action.input orderDetail.*
+	 * @action.input vendorDate
 	 * @action.input memo 取消原因
 	 * @return
 	 */
 	public String doRefuseDelivery() {
 		try {
-			if(!checkKeyFields()) {
-				setErrorReason("参数错误！");
+			if(!findOrderDetail()) {
 				return ERROR;
 			}
+			
+			Date d = null;
+			String s = this.getHttpServletRequest().getParameter("vendorDate");
+			if(StringUtils.isNotEmpty(s)){	
+				try {
+					DateTimeFormatter fmt = DateTimeFormat.forPattern(ListDataUtil.DATEFORMAT);
+					DateTime dt = fmt.parseDateTime(s);
+					Calendar c = Calendar.getInstance();
+					c.set(dt.getYear(), dt.getMonthOfYear() - 1, dt.getDayOfMonth());
+					d = c.getTime();
+				} catch (Exception e) {
+					String str = "日期格式错误！";
+					logger.debug(str + " " + s);
+					setErrorReason(str);
+					return ERROR;
+				}
+			}
+			if(d != null)
+				orderDetail.setPreDeliveryDate(d);
+			else{
+				// TODO: 使用上一个交期
+				//orderDetail.setVerDeliveryDate(orderDetail.getPreDeliveryDate());
+			}
+			
 			int i = mgr.purchaseRefuseDetailDelivery(orderDetail, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), getMemo());
 			if(i != 0) {
 				setErrorReason("提交出错！");
@@ -245,6 +274,14 @@ public class CustOrderDetailCgNormalAction extends CustOrderDetailBaseAction {
 			logger.debug("begin doLockAmount");
 			if(!findOrderDetail())
 				return ERROR;
+			
+			if(CustOrderConstants.ORDER_STATE_20.equals(orderDetail.getState())){
+				String s = "状态错误";
+				setErrorReason(s);
+				logger.debug(s + orderDetail.getState());
+				return ERROR;
+			}
+				
 			try{
 				orderDetail.setSelfLockAmount(Integer.parseInt(this.getHttpServletRequest().getParameter("self.lockAmount")));
 			}catch(Exception e){};

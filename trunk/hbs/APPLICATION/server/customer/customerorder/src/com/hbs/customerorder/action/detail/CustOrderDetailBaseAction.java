@@ -42,6 +42,12 @@ public class CustOrderDetailBaseAction extends BaseAction {
 		this.orderDetail = orderDetail;
 	}
 	
+	protected void setMyId(boolean setName) throws Exception {
+		orderDetail.setStaffId(this.getLoginStaff().getStaffId().toString());
+		if(setName)
+			orderDetail.setStaffName(this.getLoginStaff().getStaffName());
+	}
+	
 	/**
 	 * 检查订单详情的关键字段是否填写
 	 * @return

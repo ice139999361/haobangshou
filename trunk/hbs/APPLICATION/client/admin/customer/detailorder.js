@@ -124,7 +124,10 @@ HBSConvertHelper.init(function() {
 		});
 	
 		// 加载数据
-		ExtConvertHelper.loadForm("form", "/custOrder/custOrder!getInfo.action", params, function(form, action) {
+		var getInfoUrl = (urlPs.roleType == "sccustomers") ? "/custOrder/custOrder!getInfo.action"
+			 : "/custOrder/custOrderMgr!getInfo.action"
+		
+		ExtConvertHelper.loadForm("form", getInfoUrl, params, function(form, action) {
 				Ext.getCmp("custbankgrid").addData(action.result.data.custOrder.orderDetailList);
 		});
 	}())
@@ -153,21 +156,23 @@ HBSConvertHelper.init(function() {
 							var operatorBtn = HBSConvertHelper.renderButton2Cell(["客户同意", "客户不同意", "客户取消"], operator_cell, record);
 							// 客户同意按钮
 							operatorBtn.get(0).on("click", defualtProcessFun);
-							operatorBtn.get(0).url = "";
+							operatorBtn.get(0).url = "/custOrderDetail/orderDetail!confirmDelivery.action";
 							// 客户不同意按钮
 							operatorBtn.get(1).on("click", promptProcessFun);
 							operatorBtn.get(1).message = "请输入客户指定交期:";
-							operatorBtn.get(1).paramName = "cgjq";
-							operatorBtn.get(1).url = "/success.action";
+							operatorBtn.get(1).paramName = "custDate";
+							operatorBtn.get(1).url = "/custOrderDetail/orderDetail!confirmDelivery.action";
 							// 客户取消按钮
 							operatorBtn.get(2).on("click", defualtProcessFun);
-							operatorBtn.get(2).url = "";
+							operatorBtn.get(2).url = "/custOrderDetail/orderDetail!cancel.action";
 							break;
 						// 交期到，待业务确认发货（货未备齐）
 						case "05":
-							var operatorBtn = HBSConvertHelper.renderButton2Cell(["客户要求发货"], operator_cell, record);
-							operatorBtn.on("click", defualtProcessFun);
-							operatorBtn.url = "/success.action";
+							var operatorBtn = HBSConvertHelper.renderButton2Cell(["客户要求发货","客户不要求发货"], operator_cell, record);
+							operatorBtn.get(0).on("click", defualtProcessFun);
+							operatorBtn.get(0).url = "/custOrderDetail/orderDetail!confirmSend.action";
+							operatorBtn.get(1).on("click", defualtProcessFun);
+							operatorBtn.get(1).url = "/custOrderDetail/orderDetail!confirmNotSend.action";
 					}
 					
 				}
@@ -204,12 +209,14 @@ HBSConvertHelper.init(function() {
 						});
 						break;
 					case "20":
-						var operatorBtn = HBSConvertHelper.renderButton2Cell(["查看库存", "采购交期"], operator_cell, record);
+						var operatorBtn = HBSConvertHelper.renderButton2Cell(["查看库存", "采购交期确认", "采购修改交期"], operator_cell, record);
 						operatorBtn.get(0).on("click", _querystoreFun);
-						operatorBtn.get(1).on("click", promptProcessFun);
-						operatorBtn.get(1).message = "请输入供应商回复交期:";
-						operatorBtn.get(1).paramName = "cgjq";
-						operatorBtn.get(1).url = "/success.action";
+						operatorBtn.get(1).on("click", defualtProcessFun);
+						operatorBtn.get(1).url = "/custOrderDetail/orderDetailCg!confirmDelivery.action";
+						operatorBtn.get(2).on("click", promptProcessFun);
+						operatorBtn.get(2).message = "请输入供应商回复交期:";
+						operatorBtn.get(2).paramName = "vendorDate";
+						operatorBtn.get(2).url = "/custOrderDetail/orderDetailCg!refuseDelivery.action";
 						break;
 				}
 			}
@@ -221,8 +228,15 @@ HBSConvertHelper.init(function() {
 				case "21":
 					// 显示需要的控件
 					ExtConvertHelper.showItems("submitBtn");
+					
 					submitBtn.setText("下单");
-					submitBtn.url = "/success.action";
+					//submitBtn.url = "/vendorOrder/vendorOrder!.action";
+					submitBtn.on("click", function(){
+						// TODO: 下单，需要传递参数：operSeqId = 所有选中的订单明细的operSeqId，以,分隔
+						var url = "/vendor/editorder.jsp?" + "";
+						// 打开指定页面
+						HBSConvertHelper.openNewWin(url);
+					});
 					break;
 			}			
 		};
@@ -233,11 +247,19 @@ HBSConvertHelper.init(function() {
 				switch(state) {
 					// 待财务确认发货（针对预付X%，款到发货）
 					case "31":
+						var operatorBtn = HBSConvertHelper.renderButton2Cell(["确认","申请款未到发货"], operator_cell, record);
+						operatorBtn.get(0).on("click", defualtProcessFun);
+						operatorBtn.get(0).url = "/custOrderDetail/orderDetailCw!confirmDetailFee.action";
+						operatorBtn.get(1).on("click", defualtProcessFun);
+						operatorBtn.get(1).url = "/custOrderDetail/orderDetailCw!applyDetailFee.action";
+						break;
 					// 待财务确认收到剩余货款
 					case "32":
 						var operatorBtn = HBSConvertHelper.renderButton2Cell(["确认"], operator_cell, record);
 						operatorBtn.on("click", defualtProcessFun);
-						operatorBtn.url = "/success.action";
+						operatorBtn.url = "/success.action"; 
+						// TODO： ???? 老杨的后台好像没有这个状态
+						break;
 				}
 				
 			}
@@ -247,10 +269,10 @@ HBSConvertHelper.init(function() {
 				case "30":
 					ExtConvertHelper.showItems("operatorBtn1,operatorBtn2");
 					operatorBtn1.setText("确认");
-					operatorBtn1.url = "/success.action";
-					operatorBtn1.on("click", submitFun);
+					operatorBtn1.url = "/custOrder/custOrderCw!financeAgree.action";
+					operatorBtn1.on("click", Submitfun);
 					operatorBtn2.setText("退回");
-					operatorBtn2.url = "/success.action";
+					operatorBtn2.url = "/custOrder/custOrderCw!financeDisAgree.action";
 					operatorBtn2.on("click", submitFun);
 					break;
 			}
@@ -265,10 +287,10 @@ HBSConvertHelper.init(function() {
 						var operatorBtn = HBSConvertHelper.renderButton2Cell(["同意", "不同意"], operator_cell, record);
 						operatorBtn.get(0).on("click", tearPromptProcessFun);
 						operatorBtn.get(0).message = "请输入同意原因:";
-						operatorBtn.get(0).paramName = "cgjq";
-						operatorBtn.get(0).url="/success.action";
+						operatorBtn.get(0).paramName = "memo";
+						operatorBtn.get(0).url="/custOrderDetail/orderDetailCwMgr!agreeDetailFee.action";
 						operatorBtn.get(1).on("click", defualtProcessFun);
-						operatorBtn.get(1).url="/success.action";
+						operatorBtn.get(1).url="/custOrderDetail/orderDetailCwMgr!disAgreeDetailFee.action";
 					break;
 				}	
 			}

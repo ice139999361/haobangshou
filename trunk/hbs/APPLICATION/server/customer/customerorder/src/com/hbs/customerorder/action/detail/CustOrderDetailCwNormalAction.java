@@ -24,8 +24,7 @@ public class CustOrderDetailCwNormalAction extends CustOrderDetailBaseAction {
 	 */
 	public String doConfirmDetailFee() {
 		try {
-			if(!checkKeyFields()) {
-				setErrorReason("参数错误！");
+			if(!findOrderDetail()) {
 				return ERROR;
 			}
 			int i = mgr.financeConfirmDetailFee(orderDetail, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), getMemo());
@@ -49,8 +48,7 @@ public class CustOrderDetailCwNormalAction extends CustOrderDetailBaseAction {
 	 */
 	public String doApplyDetailFee() {
 		try {
-			if(!checkKeyFields()) {
-				setErrorReason("参数错误！");
+			if(!findOrderDetail()) {
 				return ERROR;
 			}
 			int i = mgr.financeApplyDetailFee(orderDetail, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), getMemo());

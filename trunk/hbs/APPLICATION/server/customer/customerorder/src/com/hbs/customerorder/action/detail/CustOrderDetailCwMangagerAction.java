@@ -25,8 +25,7 @@ public class CustOrderDetailCwMangagerAction extends CustOrderDetailBaseAction {
 	 */
 	public String doAgreeDetailFee() {
 		try {
-			if(!checkKeyFields()) {
-				setErrorReason("参数错误！");
+			if(!findOrderDetail()) {
 				return ERROR;
 			}
 			int i = mgr.auditAgreeDetailFee(orderDetail, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), getMemo());
@@ -50,7 +49,7 @@ public class CustOrderDetailCwMangagerAction extends CustOrderDetailBaseAction {
 	 */
 	public String doDisAgreeDetailFee() {
 		try {
-			if(!checkKeyFields()) {
+			if(!findOrderDetail()) {
 				setErrorReason("参数错误！");
 				return ERROR;
 			}
