@@ -31,9 +31,10 @@ HBSConvertHelper.init(function() {
 	(function() {		
 		// 组装需要的参数
 		var params = ["vendorInfo.baseSeqId=", urlPs.baseSeqId].join("");
-		
+		var getInfoUrl = (urlPs.roleType == "cgy") ? "/vendorInfo/vendorInfo!getInfo.action"
+			: "/vendorInfo/vendorInfoMgr!getInfo.action";
 		// 加载数据
-		ExtConvertHelper.loadForm("form", "/vendorInfo/vendorInfo!getInfo.action", params, function(form, action) {
+		ExtConvertHelper.loadForm("form", getInfoUrl, params, function(form, action) {
 				Ext.getCmp("contactgrid").addData(action.result.data.vendorInfo.dynamicFields.contactlist);
 				Ext.getCmp("consigneegrid").addData(action.result.data.vendorInfo.dynamicFields.consigneelist);
 				Ext.getCmp("custbankgrid").addData(action.result.data.vendorInfo.listBankInfo);
