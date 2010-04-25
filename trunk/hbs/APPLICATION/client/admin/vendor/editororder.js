@@ -241,6 +241,13 @@ HBSConvertHelper.init(function() {
 			selectWindow.hide();
 		});
 		
+		Ext.getCmp("querygrid").getView().on("refresh", function(view) {
+			for(var i = 0 ; i < view.ds.getCount() ; i++) {
+				var record = view.ds.getAt(i);
+				record.set("fromTo", "window");
+			}
+		});
+		
 		// 点击确定按钮的事件
 		Ext.getCmp("wokBtn").on("click", function() {
 			// 获取查询列表
@@ -251,6 +258,7 @@ HBSConvertHelper.init(function() {
 			Ext.each(records, function(record) {
 				record.selectType = "window";
 			});
+
 			// 添加选择的数据至订单详情表格
 			ordergrid.store.add(records);
 			
