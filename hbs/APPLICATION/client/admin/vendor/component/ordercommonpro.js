@@ -1,7 +1,7 @@
 var amountRenderer = function(value, metadata, record) {
 	if(value) {
-		
-		record.set("money", Math.FloatMul(value, record.get("cprice")));
+		var _money = Math.FloatMul(value, record.get("cprice"));
+		if(record.get("money") != _money)	record.set("money", _money);
 	}
 	return value;
 }
@@ -34,6 +34,7 @@ var ordergridFun = function() {
 	cgh.appendField("specDesc");
 	cgh.appendField("commDesc");
 	cgh.appendField("custCcode");
+	cgh.appendField("fromTo");
 	
 	cgh.appendColumn({dataIndex: "operSeqId"	, isCheck: true});
 	cgh.appendColumn({header: "客户订单号<br />特定备货的客户编码"	, xtype: "textfield", dataIndex: "custCcode", width: 120});
@@ -77,6 +78,9 @@ var orderquerygridFun = function() {
 	cgh.appendField("orgDeliveryDate");
 	cgh.appendField("specDesc");
 	cgh.appendField("commDesc");
+	cgh.appendField("custCcode");
+	cgh.appendField("fromTo");
+	
 			    							
 	cgh.appendColumn({dataIndex: "operSeqId"	, isCheck: true});
 	cgh.appendColumn({header: "货品名称"	    , dataIndex: "pnName"});
