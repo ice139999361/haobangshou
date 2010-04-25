@@ -52,6 +52,30 @@
     	<action name="orderDetail!controlActiveState" method="doControlActiveState" 
     			class="com.hbs.customerorder.action.detail.CustOrderDetailScNormalAction">
 		</action>
+		<!--
+	/**
+	 * 账期客户订单明细交期将到，但货未备齐，业务助理决定部分发货
+	 * 状态由05-交期到，待业务确认发货（货未备齐） 转为原来状态70
+	 * @action.input orderDetail.*
+	 * @action.input memo
+	 * @return
+	 */
+		 -->
+    	<action name="orderDetail!confirmSend" method="doConfirmSend" 
+    			class="com.hbs.customerorder.action.detail.CustOrderDetailScNormalAction">
+		</action>
+		<!--
+	/**
+	 * 账期客户订单明细交期将到，但货未备齐，业务助理决定不部分发货
+	 * 状态由05-交期到，待业务确认发货（货未备齐） 转为原来状态71
+	 * @action.input orderDetail.*
+	 * @action.input memo
+	 * @return
+	 */
+		 -->
+    	<action name="orderDetail!confirmNotSend" method="doConfirmNotSend" 
+    			class="com.hbs.customerorder.action.detail.CustOrderDetailScNormalAction">
+		</action>
 
 
 		<!-- 采购普通用户 ***************************************************-->

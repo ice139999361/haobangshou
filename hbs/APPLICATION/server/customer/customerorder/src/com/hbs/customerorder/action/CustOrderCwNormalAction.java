@@ -3,7 +3,6 @@
  */
 package com.hbs.customerorder.action;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.customerorder.constants.CustOrderConstants;
