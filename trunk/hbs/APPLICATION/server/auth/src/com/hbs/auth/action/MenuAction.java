@@ -9,6 +9,8 @@ package com.hbs.auth.action;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -58,6 +60,13 @@ public class MenuAction extends BaseAction {
 				}
 				
 				if(menuList.size() >0){
+					// ≈≈–Ú
+					Collections.sort(menuList, new Comparator<Menu>(){
+						public int compare(Menu o1, Menu o2) {
+							return o1.getId() - o2.getId();
+						}
+					});
+					
 					for(Menu mm : menuList){
 						int mId = mm.getId();
 						for(Resource res : resList){

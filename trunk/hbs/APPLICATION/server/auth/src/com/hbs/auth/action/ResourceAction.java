@@ -18,7 +18,6 @@ import com.hbs.auth.manager.ResourceMgr;
 import com.hbs.common.action.base.BaseAction;
 import com.hbs.common.utils.IntegerUtils;
 import com.hbs.domain.auth.pojo.Action;
-import com.hbs.domain.auth.pojo.Menu;
 import com.hbs.domain.auth.pojo.Resource;
 
 @SuppressWarnings("serial")
