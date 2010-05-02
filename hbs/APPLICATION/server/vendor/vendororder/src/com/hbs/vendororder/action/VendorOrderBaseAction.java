@@ -76,7 +76,7 @@ public abstract class VendorOrderBaseAction extends BaseAction {
 			else
 				setMyId(false);
 			setPagination(vendorOrder);
-			VendorOrderMgr mgr = (VendorOrderMgr)getBean(VENDOR_ORDER_MGR);
+			VendorOrderMgr mgr = getMgr();
 			setResult("list", mgr.getVendorOrderList(vendorOrder));
 			setTotalCount(mgr.getVendorOrderCount(vendorOrder));
 			setResult("count", getTotalCount());
@@ -99,25 +99,9 @@ public abstract class VendorOrderBaseAction extends BaseAction {
 	public String doGetInfo() {
 		try{
 			logger.debug("begin doGetInfo");
-			if(vendorOrder == null
-					|| StringUtils.isEmpty(vendorOrder.getCommCode()) 
-					|| StringUtils.isEmpty(vendorOrder.getPoNo())) {
-				logger.debug("参数为空！");
-				setErrorReason("参数为空！");
+			if(!findVendorOrder())
 				return ERROR;
-			}
-			VendorOrderMgr mgr = (VendorOrderMgr)getBean(VENDOR_ORDER_MGR);
-			VendorOrder vendorOrder2 = mgr.getVendorOrder(vendorOrder.getCommCode(), vendorOrder.getPoNo(), true);
-			if(vendorOrder2 == null || vendorOrder2.getStaffId() == null) {
-				logger.debug("没有找到");
-				setErrorReason("没有找到");
-				return ERROR;
-			}else if(!getIsManager() && !vendorOrder2.getStaffId().equals(getLoginStaff().getStaffId().toString())) {
-				logger.debug("权限错误");
-				setErrorReason("权限错误");
-				return ERROR;
-			}
-			setResult("vendorOrder", vendorOrder2);
+			setResult("vendorOrder", vendorOrder);
 			logger.debug("end doGetInfo");
 			return SUCCESS;
 		}catch(Exception e) {
@@ -127,6 +111,33 @@ public abstract class VendorOrderBaseAction extends BaseAction {
 		}
 	}
 
+	protected VendorOrderMgr getMgr() throws Exception {
+		return (VendorOrderMgr)getBean(VENDOR_ORDER_MGR);
+	}
+	
+	protected boolean findVendorOrder() throws Exception {
+		if(vendorOrder == null
+				|| StringUtils.isEmpty(vendorOrder.getCommCode()) 
+				|| StringUtils.isEmpty(vendorOrder.getPoNo())) {
+			logger.debug("参数为空！");
+			setErrorReason("参数为空！");
+			return false;
+		}
+		VendorOrderMgr mgr = getMgr();
+		VendorOrder vendorOrder2 = mgr.getVendorOrder(vendorOrder.getCommCode(), vendorOrder.getPoNo(), true);
+		if(vendorOrder2 == null || vendorOrder2.getStaffId() == null) {
+			logger.debug("没有找到");
+			setErrorReason("没有找到");
+			return false;
+		}else if(!getIsManager() && !vendorOrder2.getStaffId().equals(getLoginStaff().getStaffId().toString())) {
+			logger.debug("权限错误");
+			setErrorReason("权限错误");
+			return false;
+		}
+		vendorOrder = vendorOrder2;
+		return true;
+	}
+	
 	protected void setMyId(boolean setName) throws Exception {
 		vendorOrder.setStaffId(getLoginStaff().getStaffId().toString());
 		if(setName)

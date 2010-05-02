@@ -14,11 +14,10 @@ public class VendorOrderDetailCgNormalAction extends VendorOrderDetailBaseAction
 	 */
 	public String doConfirmDelivery() {
 		try {
-			if(!checkKeyFields()) {
-				logger.debug("参数错误！");
-				setErrorReason("参数错误！");
+			if(!findOrderDetail()) {
 				return ERROR;
 			}
+			// TODO: 处理doConfirmDelivery的参数
 			int i = mgr.confirmOrderDetailDelivery(orderDetail, false, getMemo());
 			if(i != 0) {
 				logger.error("提交出错！ ret = " + i);
@@ -41,9 +40,7 @@ public class VendorOrderDetailCgNormalAction extends VendorOrderDetailBaseAction
 	 */
 	public String doControlActiveState() {
 		try {
-			if(!checkKeyFields()) {
-				logger.debug("参数错误！");
-				setErrorReason("参数错误！");
+			if(!findOrderDetail()) {
 				return ERROR;
 			}
 			int i = mgr.controlActiveState(orderDetail, false, getMemo());

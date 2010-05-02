@@ -16,36 +16,36 @@
 			    <panel frame="true" autoScroll="true">
 			    	<items>
 			    	<!-- service ext ui.  begin. -->
-			    	
+
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="订单基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<label        fieldLabel="供应商"                                   labelStyle="width:150"/>
-				    				<label        fieldLabel="开单日期"                                 labelStyle="width:150"/>
-				    				<label        fieldLabel="联系人"                                   labelStyle="width:150"/>
-				    				<label        fieldLabel="传真"                                     labelStyle="width:150"/>
-				    						
-				    				<label        fieldLabel="订单编号"                                 labelStyle="width:150"/>
-				    				<label        fieldLabel="对应分公司"                               labelStyle="width:150"/>
-				    				<label        fieldLabel="联系电话"                                 labelStyle="width:150"/>
-				    				<label        fieldLabel="月结方式"                                 labelStyle="width:150"/>
+				    				<label        fieldLabel="供应商"	    name="vendorOrder.shortName"            labelStyle="width:150"/>
+				    				<label        fieldLabel="开单日期"     name="vendorOrder.createTime"           labelStyle="width:150"/>
+				    				<label        fieldLabel="联系人"       name="vendorOrder.conName"              labelStyle="width:150"/>
+				    				<label        fieldLabel="传真"         name="vendorOrder.conFax"               labelStyle="width:150"/>
+
+				    				<label        fieldLabel="订单编号"     name="vendorOrder.poNo"                 labelStyle="width:150"/>
+				    				<label        fieldLabel="对应分公司"	name="vendorOrder.companyBranchDesc"	labelStyle="width:150"/>
+				    				<label        fieldLabel="联系电话"     name="vendorOrder.conTel"               labelStyle="width:150"/>
+				    				<label        fieldLabel="月结方式"     name="vendorOrder.settlementTypeDesc"   labelStyle="width:150"/>
 				    			</layoutpanel>
 				    		</listpanel>
-				    		
+
 				    		<complexgrid id="ordergrid"   title="订单详情" itemsFun="ordergridFun"   frame="true" height="200" url="1" editorFlag="false"/>
-				    			
+
 			    			<listpanel title="处理信息" frame="true" collapsible="true" titleCollapse="true" id="04process">
 			    				<layoutpanel columnNum="1">
 				    				<datefield fieldLabel="确认的交期"           name=""	format="Y-m-d" />
-				    			</layoutpanel>	
+				    			</layoutpanel>
 				    		</listpanel>
 			    		</items></form>
-			    		
+
 			    		<panel buttonAlign="center">
 			    			<buttons>
 			    				<button text="提交"         id="submitBtn"    hidden="true"/>
-			    				<button text="继续"         id="goonBtn"      hidden="true" url="/custOrder/custOrder!controlActiveState.action" />
-			    				<button text="暂停"         id="stopBtn"      hidden="true" url="/custOrder/custOrder!controlActiveState.action" />
+			    				<button text="继续"         id="goonBtn"      hidden="true" url="/vendorOrder/vendorOrder!controlActiveState.action" />
+			    				<button text="暂停"         id="stopBtn"      hidden="true" url="/vendorOrder/vendorOrder!controlActiveState.action" />
 			    				<button text=""             id="operatorBtn1" hidden="true" />
 			    				<button text=""             id="operatorBtn2" hidden="true" />
 			    				<button text=""             id="operatorBtn3" hidden="true" />
@@ -54,7 +54,7 @@
 			    				<button text="查看操作历史" id="historyBtn"   />
 			    			</buttons>
 			    		</panel>
-			    		
+
 			    	<!-- service ext ui.  end. -->
 			    	</items>
 			    </panel>

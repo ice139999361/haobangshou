@@ -124,7 +124,7 @@ public class VendorOrder extends BaseDomain{
     /**
      * 订单的活动状态.
      */
-    private String activeState="active";
+    private String activeState;
     
     /**
      * 针对0----客户采购单，3-- 特定客户备货有效
