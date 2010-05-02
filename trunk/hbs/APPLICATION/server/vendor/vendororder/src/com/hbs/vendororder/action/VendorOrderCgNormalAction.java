@@ -74,7 +74,7 @@ public class VendorOrderCgNormalAction extends VendorOrderBaseAction {
 				return ERROR;
 			}
 			
-			VendorOrderMgr mgr = (VendorOrderMgr)getBean(VENDOR_ORDER_MGR);
+			VendorOrderMgr mgr = getMgr();
 			boolean isNew = StringUtils.isEmpty(vendorOrder.getPoNo());
 			int i = mgr.saveTempVendorOrder(vendorOrder, "");
 			if(i != 0) {
@@ -117,7 +117,7 @@ public class VendorOrderCgNormalAction extends VendorOrderBaseAction {
 				String ret = doSaveTemp();
 				if(ret.equals(SUCCESS)) {
 					// 再获取数据，正式提交
-					VendorOrderMgr mgr = (VendorOrderMgr)getBean(VENDOR_ORDER_MGR);
+					VendorOrderMgr mgr = getMgr();
 					vendorOrder = mgr.getVendorOrder(vendorOrder.getCommCode(), vendorOrder.getPoNo(), true);
 					int i = mgr.commitVendorOrder(vendorOrder, null);
 					if(i != 0) {
@@ -153,14 +153,12 @@ public class VendorOrderCgNormalAction extends VendorOrderBaseAction {
 	 */
 	public String doControlActiveState() {
 		try {
-			if(vendorOrder == null
-					|| StringUtils.isEmpty(vendorOrder.getCommCode()) 
-					|| StringUtils.isEmpty(vendorOrder.getPoNo())) {
-				logger.debug("参数为空！");
-				setErrorReason("参数为空！");
+			
+			if(!findVendorOrder()) {
 				return ERROR;
 			}
-			VendorOrderMgr mgr = (VendorOrderMgr)getBean(VENDOR_ORDER_MGR);
+			setMyId(true);
+			VendorOrderMgr mgr = getMgr();
 			int i = mgr.controlActiveState(vendorOrder, this.getHttpServletRequest().getParameter("memo"));
 			if(i != 0) {
 				logger.error("提交出错！ ret = " + i);
@@ -190,7 +188,8 @@ public class VendorOrderCgNormalAction extends VendorOrderBaseAction {
 				setErrorReason("参数为空！");
 				return ERROR;
 			}
-			VendorOrderMgr mgr = (VendorOrderMgr)getBean(VENDOR_ORDER_MGR);
+			setMyId(true);
+			VendorOrderMgr mgr = getMgr();
 			int i = mgr.cancelVendorOrder(vendorOrder, this.getHttpServletRequest().getParameter("memo"));
 			if(i != 0) {
 				logger.error("提交出错！ ret = " + i);

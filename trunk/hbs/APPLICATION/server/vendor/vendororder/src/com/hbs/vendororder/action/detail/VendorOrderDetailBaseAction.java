@@ -79,13 +79,15 @@ public class VendorOrderDetailBaseAction extends BaseAction {
 	protected boolean findOrderDetail() throws Exception{
 		if(!checkKeyFields())
 			return false;
-		orderDetail = mgr.getVendorOrderDetailById(orderDetail.getOperSeqId().toString());
-		if(orderDetail == null) {
+		VendorOrderDetail orderDetail2 = mgr.getVendorOrderDetailById(orderDetail.getOperSeqId().toString());
+		if(orderDetail2 == null) {
 			logger.info("参数错误 getVendorOrderDetailById 返回null");
 			setErrorReason("参数错误");
 			return false;
-		} else
+		} else{
+			orderDetail = orderDetail2;
 			return true;
+		}
 	}
 	
 	/**
