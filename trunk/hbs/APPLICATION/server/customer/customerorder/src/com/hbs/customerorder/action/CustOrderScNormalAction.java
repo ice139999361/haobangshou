@@ -179,7 +179,7 @@ public class CustOrderScNormalAction extends BaseAction {
 			if(custOrder == null)
 				custOrder = new CustomerOrder();
 			setPagination(custOrder);
-			setMyId();
+			setMyId(false);
 			CustOrderMgr mgr = (CustOrderMgr)getBean(CustOrderConstants.CUSTORDERMGR);
 			setResult("list", mgr.listCustomerOrder(custOrder));
 			setTotalCount(mgr.listCustomerOrderCount(custOrder));
@@ -233,6 +233,7 @@ public class CustOrderScNormalAction extends BaseAction {
 				setErrorReason("参数为空！");
 				return ERROR;
 			}
+			setMyId(true);
 			CustOrderMgr mgr = (CustOrderMgr)getBean(CustOrderConstants.CUSTORDERMGR);
 			String cancelContent = this.getHttpServletRequest().getParameter("memo");
 			int i = mgr.cancelCustOrder(custOrder, cancelContent);
@@ -262,6 +263,7 @@ public class CustOrderScNormalAction extends BaseAction {
 			CustomerOrder custOrder2 = findCustOrder(mgr, true);
 			if(custOrder2 == null)
 				return ERROR;
+			setMyId(true);
 			int i = mgr.controlActiveState(custOrder2, this.getHttpServletRequest().getParameter("memo"));
 			if(i != 0) {
 				logger.error("提交出错！ ret = " + i);
@@ -303,7 +305,9 @@ public class CustOrderScNormalAction extends BaseAction {
 		return custOrder2;
 	}
 
-	private void setMyId() throws Exception {
+	private void setMyId(boolean setName) throws Exception {
 		custOrder.setStaffId(getLoginStaff().getStaffId().toString());
+		if(setName)
+			custOrder.setStaffName(getLoginStaff().getStaffName());
 	}
 }
