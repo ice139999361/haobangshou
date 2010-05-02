@@ -169,6 +169,7 @@ public class CustOrderDetailCgNormalAction extends CustOrderDetailBaseAction {
 	}
 	
 	/**
+	 * 该功能已暂时取消
 	 * 下供应商订单时，用于将客户订单详情按照供应商编码分割
 	 * @action.input	operSeqId	待分割的客户订单详情id，以,分割
 	 * @action.result	commCode	供应商编码，可能不出现
@@ -176,6 +177,7 @@ public class CustOrderDetailCgNormalAction extends CustOrderDetailBaseAction {
 	 * @action.result	leftOperSeqId	剩余的客户订单详情id List<String>
 	 * @return
 	 */
+	@Deprecated
 	public String doCheckOperSeqId() {
 		try {
 			String commCode = null;

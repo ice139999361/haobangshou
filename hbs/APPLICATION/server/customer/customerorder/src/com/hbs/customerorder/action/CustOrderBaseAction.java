@@ -129,4 +129,9 @@ public abstract class CustOrderBaseAction extends BaseAction {
 		return true;
 	}
 
+	protected void setMyId(boolean setName) throws Exception {
+		custOrder.setStaffId(getLoginStaff().getStaffId().toString());
+		if(setName)
+			custOrder.setStaffName(getLoginStaff().getStaffName());
+	}
 }

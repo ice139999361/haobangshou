@@ -133,7 +133,7 @@ public class CustomerOrder extends BaseDomain{
     /**
      * 订单的活动状态.
      */
-    private String activeState="ACTIVE";
+    private String activeState;
     /**
      * 订单明细列表
      */
