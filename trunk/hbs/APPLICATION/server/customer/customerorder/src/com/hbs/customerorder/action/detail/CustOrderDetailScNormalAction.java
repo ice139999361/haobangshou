@@ -84,7 +84,7 @@ public class CustOrderDetailScNormalAction extends CustOrderDetailBaseAction {
 			if(d != null)
 				orderDetail.setPreDeliveryDate(d);
 			else{
-				// TODO: 使用上一个交期
+				// DONE: 使用上一个交期
 				//orderDetail.setVerDeliveryDate(orderDetail.getPreDeliveryDate());
 			}
 				
