@@ -15,6 +15,9 @@ import com.hbs.common.action.FieldErr;
 import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.common.utils.ListDataUtil;
 import com.hbs.customerinfo.action.CustomerInfoUtil;
+import com.hbs.customerorder.action.detail.CustOrderDetailBaseAction;
+import com.hbs.customerorder.manager.CustOrderDetailMgr;
+import com.hbs.domain.customer.order.pojo.CustOrderDetail;
 import com.hbs.domain.vendor.order.pojo.VendorOrder;
 import com.hbs.domain.vendor.order.pojo.VendorOrderDetail;
 import com.hbs.domain.vendor.vendorinfo.pojo.VendorInfo;
@@ -52,6 +55,7 @@ public class VendorOrderUtil {
 	public static List<FieldErr> checkInputFields(VendorOrder vendorOrder,
 			Map otherData) 
 	{
+		@SuppressWarnings("unused")
 		VendorInfo vInfo = (VendorInfo)otherData.get("vendorInfo");
 		
 		List<FieldErr> errs = new Vector<FieldErr>();
@@ -144,12 +148,17 @@ public class VendorOrderUtil {
 					info.setPoNoType(poNoType);
 				}else{
 					String newtype;
-					if(StringUtils.isEmpty(info.getRltOrderPoNo())){
+					if(info.getOperSeqId() != null){
 						if(StringUtils.isEmpty(info.getCustCcode()))
 							newtype = VendorOrderConstants.VENDOR_PO_NO_TYPE_2;
 						else
 							newtype = VendorOrderConstants.VENDOR_PO_NO_TYPE_3;
 					}else{
+						CustOrderDetailMgr codMgr = (CustOrderDetailMgr)BeanLocator.getInstance().getBean(CustOrderDetailBaseAction.custOrderDetailMgrName);
+						CustOrderDetail cod = codMgr.findCustOrderDetailById(info.getOperSeqId().toString());
+						if(cod != null){
+							info.setRltOrderPoNo(cod.getPoNo());
+						}
 						newtype = VendorOrderConstants.VENDOR_PO_NO_TYPE_0;
 					}
 					info.setPoNoType(newtype);
