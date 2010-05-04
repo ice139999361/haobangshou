@@ -7,7 +7,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -34,6 +33,10 @@ public class ListDataUtil {
      * 日期格式 yyyy-MM-dd
      */
 	public static final String DATEFORMAT = "yyyy-MM-dd";
+    /**
+     * 日期格式 yyyy-MM-dd HH:mm:ss
+     */
+	public static final String DATEFORMAT2 = "yyyy-MM-dd HH:mm:ss";
 
     /**
 	 * 将一组数据写入对象列表中
@@ -136,14 +139,20 @@ public class ListDataUtil {
 							if(!(Modifier.isPublic(fd.getModifiers()))){//非公共属性
 								fd.setAccessible(true);
 							}
-							//TODO:此处可能还需要修改，目前可以处理的格式有String、Number、Date
+							//TODO:此处可能还需要修改，目前可以处理的格式有String、Number、Date(yyyy-MM-dd、yyyy-MM-dd HH:mm:ss)
 							Class typeClass = fd.getType();
 							if(typeClass.equals(Date.class)){
 								DateTimeFormatter fmt = DateTimeFormat.forPattern(DATEFORMAT);
-								DateTime dt = fmt.parseDateTime(ar[i]);
-								Calendar c = Calendar.getInstance();
-								c.set(dt.getYear(), dt.getMonthOfYear() - 1, dt.getDayOfMonth());
-								fd.set(o, c.getTime());
+								DateTime dt;
+								try {
+									dt = fmt.parseDateTime(ar[i]);
+								} catch (IllegalArgumentException e) {
+									fmt = DateTimeFormat.forPattern(DATEFORMAT2);
+									dt = fmt.parseDateTime(ar[i]);
+								}
+								/*Calendar c = Calendar.getInstance();
+								c.set(dt.getYear(), dt.getMonthOfYear() - 1, dt.getDayOfMonth(), dt.getHourOfDay(), dt.getMinuteOfHour(), dt.getSecondOfMinute());*/
+								fd.set(o, new Date(dt.getMillis()));
 							}else{
 								// 一般类型处理方法，包括字符串、数值
 								Constructor con = typeClass.getConstructor(String.class);
