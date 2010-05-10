@@ -4,7 +4,9 @@ package com.hbs.auth.manager;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.authfilter.User;
@@ -58,6 +60,7 @@ public class UserInfoCacheMgr {
 					HashMap<String, String> actionNames = new HashMap<String,String>(64);
 					HashMap<String,ArrayList<String>> resourceButtons = new HashMap<String,ArrayList<String>>(64);
 					List<Resource> resList = new ArrayList<Resource>();
+					Map<Integer , String > hasMap = new HashMap<Integer,String>();
 					for(UserRole userRole : listUserRole){
 						Integer roleId = userRole.getRoleId();	
 						roleList.add(roleId.toString());
@@ -80,9 +83,10 @@ public class UserInfoCacheMgr {
 							//cache action names
 							ResourceMgr resourceMgr = (ResourceMgr)BeanLocator.getInstance().getBean(AuthConstants.RESOURCE_MANAGER_NAME);
 							Resource resource = resourceMgr.findResource(resourceId);
-							//用户添加资源列表
-							if(null != resource && resource.getIsMenu() ==0){
+							//用户添加资源列表,过滤角色的重复资源
+							if(null != resource && resource.getIsMenu() ==0 && (StringUtils.isEmpty(hasMap.get(resource.getResourceId())))){
 								resList.add(resource);
+								hasMap.put(resource.getResourceId(), "menu");
 							}
 							Integer actionsId = resource.getActionsId();
 							ActionMgr actionMgr = (ActionMgr)BeanLocator.getInstance().getBean(AuthConstants.ACTION_MANAGER_NAME);

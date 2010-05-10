@@ -1,7 +1,6 @@
 
 package com.hbs.auth.manager;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.springhelper.BeanLocator;
