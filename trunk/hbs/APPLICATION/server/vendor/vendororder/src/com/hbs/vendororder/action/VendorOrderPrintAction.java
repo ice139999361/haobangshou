@@ -64,7 +64,7 @@ public class VendorOrderPrintAction extends BaseAction {
 				return ERROR;
 			}else{
 				//¼Ó×´Ì¬
-				vendorOrder.setState("21");
+				vendorOrder.setState("02");
 				vendorOrder.setActiveState("ACTIVE");
 			}
 			VendorOrderMgr mgr = (VendorOrderMgr)getBean(VENDOR_ORDER_MGR);
@@ -81,7 +81,7 @@ public class VendorOrderPrintAction extends BaseAction {
 					for(VendorOrderDetail detail : detailList){
 						String state = detail.getState();
 						
-						if(null != state && state.equals("21")){
+						if(null != state && state.equals("02")){
 							printList.add(detail);
 						}
 					}
