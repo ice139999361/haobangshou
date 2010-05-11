@@ -54,16 +54,27 @@
 				    				<dictcombo   fieldLabel="结算类型"               hiddenName="vendorInfo.settlementType"            labelStyle="width:150" paramsValue="SETTLEMENT_TYPE" emptyText="请选择" id="vSettlementType" />
 				    				<dictcombo   fieldLabel="结算币种"               hiddenName="vendorInfo.currency"                  labelStyle="width:150" paramsValue="CURRENCY"        emptyText="请选择" />	
 				    				<textfield   fieldLabel="合同费"                 name="vendorInfo.contactFee"                      labelStyle="width:150" />
-				    				<dictcombo   fieldLabel="账期类型" 			         hiddenName="vendorInfo.accountPreiod.accountType" labelStyle="width:150" paramsValue="ACCOUNT_TYPE"    emptyText="请选择" id="vaAccountType" />
-				    				<datefield   fieldLabel="账期的起始日" 					 name="vendorInfo.accountPreiod.periodStart"       labelStyle="width:150" id="vaPeriodStart"     format="Ymd" />
-				    				<numberfield fieldLabel="账期的结算日" 					 name="vendorInfo.accountPreiod.settlementDay"     labelStyle="width:150" id="vaSettlementDay"   emptyText="账期结束的第几日"   relate="vaAccounDay|;&gt;|;必须大于账期的对账日" vtype="commCheck" />
-				    					
-				    				<numberfield fieldLabel="提醒设置" 							 name="vendorInfo.accountPreiod.reminderDay"       labelStyle="width:150" id="vaReminderDay"     emptyText="提前几天提醒对账" />
+				    				<!--  账期类型固定为月结
+									<dictcombo   fieldLabel="账期类型" 			         hiddenName="vendorInfo.accountPreiod.accountType" labelStyle="width:150" paramsValue="ACCOUNT_TYPE"    emptyText="请选择" id="vaAccountType" />
+									-->
+
+				    				<datefield   fieldLabel="账期的起始日" 					 name="vendorInfo.accountPreiod.periodStart"       labelStyle="width:150" id="vaPeriodStart"  emptyText="格式：YYYYMMDD"   format="Ymd" />
+				    				<!--  改用下拉列表框选择
+									<numberfield fieldLabel="账期的结算日" 					 name="vendorInfo.accountPreiod.settlementDay"     labelStyle="width:150" id="vaSettlementDay"   emptyText="账期结束的第几日"   relate="vaAccounDay|;&gt;|;必须大于账期的对账日" vtype="commCheck" />
+				    				-->
+									<dictcombo fieldLabel="账期的结算日" 					 hiddenName="vendorInfo.accountPreiod.settlementDay"     labelStyle="width:150" paramsValue="SETTLEMENT_DAY" id="vaSettlementDay"   />
+				    				<numberfield fieldLabel="提醒设置(单位:天)" 							 name="vendorInfo.accountPreiod.reminderDay"       labelStyle="width:150" id="vaReminderDay"     emptyText="提前几天提醒对账/结算" />
 				    				<textfield   fieldLabel="税率"                   name="vendorInfo.taxRate"                         labelStyle="width:150" />	
-				    				<textfield   fieldLabel="供应商的账期设置" 		   name="vendorInfo.accountPreiod.accountPeriod"     labelStyle="width:150" id="vaAccountPeriod"/>	
-				    				<textfield   fieldLabel="预付百分比" 						 name="vendorInfo.prePaidInfo.prePaid"             labelStyle="width:150" />
-				    				<textfield   fieldLabel="提醒日" 			           name="vendorInfo.prePaidInfo.reminderDay"         labelStyle="width:150" id="vpReminderDay"  />
-				    				<numberfield fieldLabel="账期的对账日"  				 name="vendorInfo.accountPreiod.accounDay"         labelStyle="width:150" id="vaAccounDay"       emptyText="账期结束后的第几日" />
+				    				<!-- 账期设置固定为1个月
+									<textfield   fieldLabel="供应商的账期设置" 		   name="vendorInfo.accountPreiod.accountPeriod"     labelStyle="width:150" id="vaAccountPeriod"/>	
+									-->
+				    				<textfield   fieldLabel="预付百分比" 						 name="vendorInfo.prePaidInfo.prePaid"             labelStyle="width:150" id="vpPrePaid" />
+				    				<!--
+									<textfield   fieldLabel="催款提醒日(单位:天)" 			           name="vendorInfo.prePaidInfo.reminderDay"         labelStyle="width:150" id="vpReminderDay"  />
+									-->
+				    				<!--  采用缺省值1 ，界面不需要处理了
+									<numberfield fieldLabel="账期的对账日"  				 name="vendorInfo.accountPreiod.accounDay"         labelStyle="width:150" id="vaAccounDay"       emptyText="账期结束后的第几日" />
+									-->
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">

@@ -103,6 +103,11 @@
     			class="com.hbs.customerinfo.action.CustomerInfoNormalAction">
 		</action>
 		
+		 <!-- 获取新的客户编码-->
+		  <action name="customerInfo!getNewCommCode" method="doGetNewCustomerCode" 
+    			class="com.hbs.customerinfo.action.CustomerInfoNormalAction">
+		</action>
+		
 <!-- *************************************************************** -->
 
 		<!-- 经理用户客户信息 -->

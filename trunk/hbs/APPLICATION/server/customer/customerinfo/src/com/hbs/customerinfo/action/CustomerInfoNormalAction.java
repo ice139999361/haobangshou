@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import com.hbs.common.action.FieldErr;
 import com.hbs.common.action.JianQuanUtil;
 import com.hbs.common.action.base.BaseAction;
+import com.hbs.common.manager.syssequence.SysSequenceMgr;
 import com.hbs.customerinfo.manager.CustContactMgr;
 import com.hbs.customerinfo.manager.CustomerInfoMgr;
 import com.hbs.domain.common.pojo.baseinfo.ContactInfo;
@@ -475,6 +476,27 @@ public class CustomerInfoNormalAction extends BaseAction {
 		}
 	}
 	
+	
+	/**
+	 * 获取新的客户编码
+	 * @return
+	 */
+	public String doGetNewCustomerCode(){
+		try {
+			
+			logger.debug("begin doGetNewCustomerCode" );
+			
+			
+			String vendorCode = SysSequenceMgr.getCode(SysSequenceMgr.GC_CODE);
+			setResult("commCode",vendorCode);
+			
+			return SUCCESS;
+		} catch (Exception e) {
+			logger.error("catch Exception in doGetNewCustomerCode", e);
+			setErrorReason("无法获取新的客户编码！请检查配置！");
+			return ERROR;
+		}
+	}
 	/**
 	 * 设置STAFF信息为当前用户信息
 	 * 
