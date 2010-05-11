@@ -92,6 +92,14 @@
     			class="com.hbs.vendorinfo.action.VendorInfoNormalAction">
 		</action>
 		
+	 <!-- 
+	  获取新的供应商编码
+	 
+	 -->
+		  <action name="vendorInfo!getNewCommCode" method="doGetNewVendorCode" 
+    			class="com.hbs.vendorinfo.action.VendorInfoNormalAction">
+		</action>
+		
 <!-- *************************************************************** -->
 
 		<!-- 经理用户供应商信息 -->

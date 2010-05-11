@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import com.hbs.common.action.FieldErr;
 import com.hbs.common.action.JianQuanUtil;
 import com.hbs.common.action.base.BaseAction;
+import com.hbs.common.manager.syssequence.SysSequenceMgr;
 import com.hbs.domain.common.pojo.baseinfo.ContactInfo;
 import com.hbs.domain.vendor.vendorinfo.pojo.VendorInfo;
 import com.hbs.vendorinfo.manager.VendorContactMgr;
@@ -36,8 +37,7 @@ public class VendorInfoNormalAction extends BaseAction {
 			.getLogger(VendorInfoNormalAction.class);
 
 	public static final String roleName = "cgnormal";
-	VendorInfo vendorInfo;
-
+	VendorInfo vendorInfo;	
 	/**
 	 * 获取供应商信息
 	 * @return 供应商信息
@@ -53,6 +53,8 @@ public class VendorInfoNormalAction extends BaseAction {
 	public void setVendorInfo(VendorInfo a) {
 		this.vendorInfo = a;
 	}
+
+	
 
 	/**
 	 * 查询，限定自己能管理的供应商信息。调用mgr.getCustomerInfoListByUser。
@@ -494,7 +496,26 @@ public class VendorInfoNormalAction extends BaseAction {
 			return ERROR;
 		}
 	}
-	
+	/**
+	 * 获取新的供应商编码
+	 * @return
+	 */
+	public String doGetNewVendorCode(){
+		try {
+			
+			logger.debug("begin doGetNewVendorCode" );
+			
+			
+			String vendorCode = SysSequenceMgr.getCode(SysSequenceMgr.GV_CODE);
+			setResult("commCode",vendorCode);
+			
+			return SUCCESS;
+		} catch (Exception e) {
+			logger.error("catch Exception in doGetNewVendorCode", e);
+			setErrorReason("无法获取新的供应商编码！请检查配置！");
+			return ERROR;
+		}
+	}
 	/**
 	 * 设置STAFF信息为当前用户信息
 	 * 

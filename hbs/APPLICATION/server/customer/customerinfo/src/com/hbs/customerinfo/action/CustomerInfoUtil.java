@@ -164,6 +164,9 @@ public class CustomerInfoUtil {
 			accountPreiod.setCommCode(custInfo.getCommCode());
 			accountPreiod.setState(custInfo.getState());
 			accountPreiod.setBaseSeqId(baseSeqId);
+			accountPreiod.setAccounDay("1");//对账日，缺省1
+			accountPreiod.setAccountType("1");//账期类型，缺省1 月结
+			accountPreiod.setAccountPeriod("1"); //账期  缺省1  一个月
 		}
 		PrePaidInfo prePaidInfo = custInfo.getPrePaidInfo();
 		if(prePaidInfo != null) {
