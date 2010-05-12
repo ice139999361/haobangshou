@@ -81,6 +81,14 @@ HBSConvertHelper.init(function() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("新客户信息录入");
 		
+		// 获取客户编码
+		ExtConvertHelper.request("/customerInfo/customerInfo!getNewCommCode.action", null, function(response, opts) {
+			var action = Ext.util.JSON.decode(response.responseText);
+			if(action.success == "true" || action.success == true) {
+				Ext.getCmp("textCustCode").setValue(action.data.commCode);
+			}
+		});
+		
 		// 提交完成后的操作
 		submitSuccessPro = function() {
 			// 用户单击后重载此页面
@@ -93,8 +101,6 @@ HBSConvertHelper.init(function() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("修改客户信息");
 		
-		// 设置客户编码的编辑框为只读	；同时不到后台校验
-		ExtConvertHelper.setItemsReadOnly("textCustCode", true);
 		// 隐藏不需要的控件
 		if(urlPs.state != 1) ExtConvertHelper.hideItems("saveBtn");
 		
