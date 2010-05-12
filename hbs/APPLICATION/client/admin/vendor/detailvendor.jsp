@@ -53,19 +53,27 @@
 				    		
 				    		<listpanel frame="true" title="供应商结算信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<label fieldLabel="结算类型"               name="vendorInfo.settlementDesc"            labelStyle="width:150" paramsValue="SETTLEMENT_TYPE" emptyText="请选择" />
+				    				<label fieldLabel="结算类型"               name="vendorInfo.settlementDesc"            labelStyle="width:150"  />
 				    				<label fieldLabel="结算币种"               name="vendorInfo.currencyDesc"                  labelStyle="width:150" paramsValue="CURRENCY"        emptyText="请选择" />	
 				    				<label fieldLabel="合同费"                 name="vendorInfo.contactFee"                      labelStyle="width:150" />
-				    				<label fieldLabel="账期类型" 			         name="vendorInfo.accountPreiod.accountTypeDesc" labelStyle="width:150" paramsValue="ACCOUNT_TYPE" emptyText="请选择" />
-				    				<label fieldLabel="账期的起始日" 					 name="vendorInfo.accountPreiod.periodStart"       labelStyle="width:150" />
-				    				<label fieldLabel="客户账期的最大交易金额" name="vendorInfo.accountPreiod.maxMoney"          labelStyle="width:150" />
-				    				<label fieldLabel="提醒设置" 							 name="vendorInfo.accountPreiod.reminderDay"       labelStyle="width:150" />
+				    				<!--
+									<label fieldLabel="账期类型" 			         name="vendorInfo.accountPreiod.accountTypeDesc" labelStyle="width:150" paramsValue="ACCOUNT_TYPE" emptyText="请选择" />
+									-->
+				    				<label fieldLabel="账期的起始日" 					 name="vendorInfo.accountPreiod.periodStart"    id="vaPeriodStart"   labelStyle="width:150" />
+				    				<!--
+									<label fieldLabel="客户账期的最大交易金额" name="vendorInfo.accountPreiod.maxMoney"          labelStyle="width:150" />
+									-->
+				    				<label fieldLabel="账期提醒设置" 							 name="vendorInfo.accountPreiod.reminderDay"  id="vaReminderDay"     labelStyle="width:150" />
 				    				
 				    				<label fieldLabel="税率"                   name="vendorInfo.taxRate"                         labelStyle="width:150" />	
-				    				<label fieldLabel="供应商的账期设置" 		   name="vendorInfo.accountPreiod.accountPeriod"     labelStyle="width:150" />	
-				    				<label fieldLabel="账期的结算日" 					 name="vendorInfo.accountPreiod.settlementDay"     labelStyle="width:150" />	
-				    				<label fieldLabel="预付百分比" 						 name="vendorInfo.prePaidInfo.prePaid"             labelStyle="width:150" />
-				    				<label fieldLabel="提醒人" 			           name="vendorInfo.prePaidInfo.reminderDay"         labelStyle="width:150" />
+				    				<!--
+									<label fieldLabel="供应商的账期设置" 		   name="vendorInfo.accountPreiod.accountPeriod"     labelStyle="width:150" />	
+									-->
+				    				<label fieldLabel="账期的结算日" 					 name="vendorInfo.accountPreiod.settlementDayDesc"   id="vaSettlementDay"  labelStyle="width:150" />	
+				    				<label fieldLabel="预付百分比" 						 name="vendorInfo.prePaidInfo.prePaid"     id="vpPrePaid"        labelStyle="width:150" />
+				    				<!--
+									<label fieldLabel="催款提醒" 			           name="vendorInfo.prePaidInfo.reminderDay"         labelStyle="width:150" />
+									-->
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">
