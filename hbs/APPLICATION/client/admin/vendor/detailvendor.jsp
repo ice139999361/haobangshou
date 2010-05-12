@@ -28,7 +28,9 @@
 				    				<label fieldLabel="重要程度"               name="vendorInfo.importantDesc"  labelStyle="width:150" paramsValue="IMPORTANT_CODE"  emptyText="请选择" />
 				    				<label fieldLabel="纳税人识别号"           name="vendorInfo.taxCode"              labelStyle="width:150" />
 				    				<label fieldLabel="性质"                   name="vendorInfo.commType"             labelStyle="width:150" />
+				    				<!--
 				    				<label fieldLabel="操作人员ID"             name="vendorInfo.staffId"              labelStyle="width:150" />
+				    				-->
 				    				<label fieldLabel="对应的分公司或分支机构" name="vendorInfo.companyBranchDesc"  labelStyle="width:150" paramsValue="COMPANY_BRANCH"  emptyText="请选择" />			
 				    				
 				    				<label fieldLabel="法人代表"               name="vendorInfo.representative"       labelStyle="width:150" />
@@ -48,6 +50,7 @@
 				    			<layoutpanel columnNum="1">
 				    				<hidden name="vendorInfo.baseSeqId" />
 				    				<hidden name="vendorInfo.state" />
+				    				<hidden name="vendorInfo.staffId" />
 				    			</layoutpanel>
 				    		</listpanel>
 				    		
