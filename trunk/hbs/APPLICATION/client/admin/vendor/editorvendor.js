@@ -79,6 +79,7 @@ HBSConvertHelper.init(function() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("供应商信息录入");
 		
+		// 获取供应商编码
 		ExtConvertHelper.request("/vendorInfo/vendorInfo!getNewCommCode.action", null, function(response, opts) {
 			var action = Ext.util.JSON.decode(response.responseText);
 			if(action.success == "true" || action.success == true) {
