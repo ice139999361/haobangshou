@@ -164,7 +164,17 @@ public class AccountPreiod {
     public String getSettlementDay() {
         return this.settlementDay;
     }	
-  
+    public String getSettlementDayDesc(){
+    	String retStr ="Œ¥∂®“Â";
+    	ConfigEncode ceParam = new ConfigEncode();
+    	ceParam.setEncodeKey(getSettlementDay());
+    	ceParam.setEncodeType("SETTLEMENT_DAY");
+    	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
+    	if(null != cEncode){
+    		retStr = cEncode.getEncodeValue();
+    	}
+    	return retStr;
+    }
     public void setSettlementDay(String settlementDay) {
         this.settlementDay = settlementDay;
     }
