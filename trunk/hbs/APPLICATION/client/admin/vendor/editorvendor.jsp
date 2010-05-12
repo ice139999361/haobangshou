@@ -20,7 +20,7 @@
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="供应商基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<textfield fieldLabel="供应商编码"      id ="textVendorCode"       name="vendorInfo.commCode"             labelStyle="width:150" prefix="GV" suffix="|;number|;4" psMsg="格式不正确，应该是 GV + 4位数字。例:(GV1234)" vtype="commCheck" checkUrl="/vendorInfo/vendorInfo!checkCommCode.action" allowBlank="false"/>
+				    				<textfield fieldLabel="供应商编码"      id ="textVendorCode"       name="vendorInfo.commCode"             labelStyle="width:150" allowBlank="false" readOnly="true" />
 				    				<textfield fieldLabel="中文名称"               name="vendorInfo.allName"              labelStyle="width:150" />
 				    				<textfield fieldLabel="供应商简称"             name="vendorInfo.shortName"            labelStyle="width:150" allowBlank="false"/>
 				    				<textfield fieldLabel="公司地址"               name="vendorInfo.address"              labelStyle="width:150" />
