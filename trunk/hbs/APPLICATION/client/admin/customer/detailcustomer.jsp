@@ -57,17 +57,22 @@
 				    		<listpanel frame="true" title="客户结算信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
 				    				<label fieldLabel="客户结算类型"           name="custInfo.settlementType"              labelStyle="width:150" paramsValue="SETTLEMENT_TYPE" emptyText="请选择" />
-				    				<label fieldLabel="账期类型" 			         name="custInfo.accountPreiod.accountType"   labelStyle="width:150" paramsValue="ACCOUNT_TYPE" emptyText="请选择" />
-				    				<label fieldLabel="账期的起始日" 					 name="custInfo.accountPreiod.periodStart"   labelStyle="width:150" />
-				    				<label fieldLabel="账期的结算日" 					 name="custInfo.accountPreiod.settlementDay" labelStyle="width:150" />
-				    				<label fieldLabel="提醒设置" 							 name="custInfo.accountPreiod.reminderDay"   labelStyle="width:150" />
-				    				<label fieldLabel="提醒市场人员催款" 			 name="custInfo.prePaidInfo.reminderDay"     labelStyle="width:150" />
+				    				<!--
+									<label fieldLabel="账期类型" 			         name="custInfo.accountPreiod.accountType"   labelStyle="width:150" paramsValue="ACCOUNT_TYPE" emptyText="请选择" />
+									-->
+				    				<label fieldLabel="账期的起始日" 					 name="custInfo.accountPreiod.periodStart" id="vaPeriodStart"  labelStyle="width:150" />
+				    				<label fieldLabel="账期的结算日" 					 name="custInfo.accountPreiod.settlementDayDesc" id="vaSettlementDay" labelStyle="width:150" />
+				    				<label fieldLabel="对账/结算提醒设置" 							 name="custInfo.accountPreiod.reminderDay"  id="vaReminderDay" labelStyle="width:150" />
+				    				<label fieldLabel="提醒市场人员催款" 			 name="custInfo.prePaidInfo.reminderDay"  id="vpReminderDay"   labelStyle="width:150" />
 				    				
 				    				<label fieldLabel="客户结算币种"           name="custInfo.currencyDesc"                labelStyle="width:150" />
-				    				<label fieldLabel="客户的账期设置" 				 name="custInfo.accountPreiod.accountPeriod" labelStyle="width:150" />
+				    				<!--
+									<label fieldLabel="客户的账期设置" 				 name="custInfo.accountPreiod.accountPeriod" labelStyle="width:150" />
+									
 				    				<label fieldLabel="账期的对账日" 					 name="custInfo.accountPreiod.accounDay"     labelStyle="width:150" />
-				    				<label fieldLabel="客户账期的最大交易金额" name="custInfo.accountPreiod.maxMoney"      labelStyle="width:150" />
-				    				<label fieldLabel="预付百分比" 						 name="custInfo.prePaidInfo.prePaid"         labelStyle="width:150" />
+									-->
+				    				<label fieldLabel="客户账期的最大交易金额" name="custInfo.accountPreiod.maxMoney"   id="vaMaxMoney"   labelStyle="width:150" />
+				    				<label fieldLabel="预付百分比" 						 name="custInfo.prePaidInfo.prePaid"   id="vpPrePaid"      labelStyle="width:150" />
 				    				<label fieldLabel="合同费"                 name="custInfo.contactFee"                  labelStyle="width:150" />
 				    				<label fieldLabel="交易税率"               name="custInfo.taxRate"                     labelStyle="width:150" />
 				    			</layoutpanel>
@@ -107,11 +112,11 @@
 				    		</complexgrid>
 				    		
 				    		<complexgrid id="custbankgrid"   title="客户银行信息" itemsFun="custbankFun"   frame="true" height="200" url="1" editorFlag="false"/>
-				    			
+				    		<!--	
 				    		<complexgrid id="productdirgrid" title="产品目录信息" itemsFun="productdirFun" frame="true" height="200" url="1" editorFlag="false"/>
 				    			
 				    		<complexgrid id="purchasegrid"   title="采购单信息"   itemsFun="purchaseFun"   frame="true" height="200" url="1" editorFlag="false"/>
-				    			
+				    		-->
 				    		
 				    			
 				    		<auditpanel id="auditPanel" />
