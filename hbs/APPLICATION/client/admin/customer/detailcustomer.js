@@ -39,8 +39,26 @@ HBSConvertHelper.init(function() {
 				Ext.getCmp("contactgrid").addData(action.result.data.custInfo.dynamicFields.contactlist);
 				Ext.getCmp("consigneegrid").addData(action.result.data.custInfo.dynamicFields.consigneelist);
 				Ext.getCmp("custbankgrid").addData(action.result.data.custInfo.listBankInfo);
-				Ext.getCmp("productdirgrid").addData(action.result.data.custInfo.dynamicFields.consigneelist);
-				Ext.getCmp("purchasegrid").addData(action.result.data.custInfo.listBankInfo);
+				//Ext.getCmp("productdirgrid").addData(action.result.data.custInfo.dynamicFields.consigneelist);
+				//Ext.getCmp("purchasegrid").addData(action.result.data.custInfo.listBankInfo);
+				var settleMentType = actino.result.data.custInfo.settlementType;
+				switch(settleMentType) {
+					case "1":
+						// 显示：账期类型,账期的起始日,账期的对账日,账期的结算日,客户账期的最大交易金额,提醒设置,供应商的账期设置,提醒日
+						//ExtConvertHelper.showItems("vaAccountType,vaPeriodStart,vaAccounDay,vaSettlementDay,vaMaxMoney,vaReminderDay,vaAccountPeriod");
+						//ExtConvertHelper.hideItems("vpReminderDay");
+						ExtConvertHelper.showItems("vaPeriodStart,vaSettlementDay,vaReminderDay,vaMaxMoney");
+						ExtConvertHelper.hideItems("vpPrePaid,vpReminderDay");
+						break;
+					case "2":
+					case "3":
+						// 隐藏：账期类型,账期的起始日,账期的对账日,账期的结算日,客户账期的最大交易金额,提醒设置,供应商的账期设置,提醒日
+						//ExtConvertHelper.hideItems("vaAccountType,vaPeriodStart,vaAccounDay,vaSettlementDay,vaMaxMoney,vaReminderDay,vaAccountPeriod");
+						//ExtConvertHelper.showItems("vpReminderDay");
+						ExtConvertHelper.hideItems("vaPeriodStart,vaSettlementDay,vaReminderDay,vaMaxMoney");
+						ExtConvertHelper.showItems("vpPrePaid,vpReminderDay");
+						break;
+				}
 		});
 	}())
 	
