@@ -305,6 +305,14 @@ public class CustomerInfoNormalAction extends BaseAction {
 				setErrorReason("参数为空！");
 				return ERROR;
 			}
+			setMyId(false);
+			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(custInfoMgrName);
+			custInfo = mgr.getCustomerInfo(custInfo, true);
+			if (custInfo == null) {
+				logger.info("参数错误！");
+				setErrorReason("参数错误！");
+				return ERROR;
+			}
 			try {
 				if (3 != Integer.parseInt(custInfo.getState())) {
 					logger.info("状态不正确！");
@@ -312,16 +320,13 @@ public class CustomerInfoNormalAction extends BaseAction {
 					return ERROR;
 				}
 			} catch (Exception e) {
-				logger.info("状态不正确！");
+				logger.info("状态不正确！" + e.getMessage());
 				setErrorReason("状态不正确！");
 				return ERROR;
 			}
-			setMyId(false);
-			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(custInfoMgrName);
-			custInfo = mgr.getCustomerInfo(custInfo, true);
-			if (custInfo == null) {
-				logger.info("参数错误！");
-				setErrorReason("参数错误！");
+			if(!getLoginStaff().getStaffId().toString().equals(custInfo.getStaffId())){
+				logger.info("权限错误！");
+				setErrorReason("权限错误！");
 				return ERROR;
 			}
 			int i = mgr.deleteCustomerInfo(custInfo, getLoginStaff().getStaffId().toString(), 

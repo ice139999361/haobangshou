@@ -47,6 +47,18 @@
 		<action name="orderDetail!listDetail" method="doListDetail" 
     			class="com.hbs.vendororder.action.detail.VendorOrderDetailCgNormalAction">
 		</action>
+		
+		<!-- 
+	/**
+	 * 取消订单明细，状态变为03
+	 * @action.input vendorOrder.*
+	 * @action.input memo
+	 * @return
+	 */
+		 -->
+    	<action name="orderDetailCg!cancel" method="doCancel" 
+    			class="com.hbs.vendororder.action.detail.VendorOrderDetailCgNormalAction">
+		</action>
 
 	</package>
 </struts>	

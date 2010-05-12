@@ -139,20 +139,16 @@ public class ListDataUtil {
 							if(!(Modifier.isPublic(fd.getModifiers()))){//非公共属性
 								fd.setAccessible(true);
 							}
-							//TODO:此处可能还需要修改，目前可以处理的格式有String、Number、Date(yyyy-MM-dd、yyyy-MM-dd HH:mm:ss)
+							/*
+							 * TODO:此处可能还需要修改，以便支持更多的格式。
+							 * 目前可以处理的格式有：
+							 * String
+							 * Number
+							 * Date(yyyy-MM-dd、yyyy-MM-dd HH:mm:ss) 
+							 */
 							Class typeClass = fd.getType();
 							if(typeClass.equals(Date.class)){
-								DateTimeFormatter fmt = DateTimeFormat.forPattern(DATEFORMAT);
-								DateTime dt;
-								try {
-									dt = fmt.parseDateTime(ar[i]);
-								} catch (IllegalArgumentException e) {
-									fmt = DateTimeFormat.forPattern(DATEFORMAT2);
-									dt = fmt.parseDateTime(ar[i]);
-								}
-								/*Calendar c = Calendar.getInstance();
-								c.set(dt.getYear(), dt.getMonthOfYear() - 1, dt.getDayOfMonth(), dt.getHourOfDay(), dt.getMinuteOfHour(), dt.getSecondOfMinute());*/
-								fd.set(o, new Date(dt.getMillis()));
+								fd.set(o, parseDate(ar[i]));
 							}else{
 								// 一般类型处理方法，包括字符串、数值
 								Constructor con = typeClass.getConstructor(String.class);
@@ -160,14 +156,7 @@ public class ListDataUtil {
 							}
 						} catch (Exception e) {
 							// 获取出错行号
-							int line = -1;
-							final String className = ListDataUtil.class.getName();
-							for(StackTraceElement s : e.getStackTrace()){
-								if(className.equals(s.getClassName())){
-									line = s.getLineNumber();
-									break;
-								}
-							}
+							int line = findExceptionLinenumber(e, ListDataUtil.class);
 							StringBuffer sb = new StringBuffer();
 							sb.append("splitIntoFields line ").append(line)
 							.append(" ").append(o.getClass().getSimpleName()).append(".").append(fieldNames[i])
@@ -180,6 +169,43 @@ public class ListDataUtil {
 				logger.debug("解析结果：" + o.toString());
 			}		
 		
+	}
+
+	/**
+	 * 在Exception的CallStack中找到对应类的行号
+	 * @param e	异常
+	 * @param cls	要查找的类
+	 * @return 行号，-1表示没有找到
+	 */
+	@SuppressWarnings("unchecked")
+	public static int findExceptionLinenumber(Exception e, Class cls) {
+		int line = -1;
+		final String className = cls.getName();  
+		for(StackTraceElement s : e.getStackTrace()){
+			if(className.equals(s.getClassName())){
+				line = s.getLineNumber();
+				break;
+			}
+		}
+		return line;
+	}
+
+	/**
+	 * 分析字符串，返回Date
+	 * @param datestr
+	 * @return	
+	 */
+	public static Date parseDate(String datestr) throws Exception{
+		DateTimeFormatter fmt;
+		DateTime dt;
+		try {
+			fmt = DateTimeFormat.forPattern(DATEFORMAT);
+			dt = fmt.parseDateTime(datestr);
+		} catch (IllegalArgumentException e) {
+			fmt = DateTimeFormat.forPattern(DATEFORMAT2);
+			dt = fmt.parseDateTime(datestr);
+		}
+		return new Date(dt.getMillis());
 	}
 
 
