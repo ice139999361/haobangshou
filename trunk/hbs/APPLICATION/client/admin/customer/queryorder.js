@@ -10,7 +10,7 @@ var querygridUrl;
 		// 市场经理
 		case "scmanager":
 			querygridUrl = "/custOrder/custOrderScMgr!list.action";
-			break; 
+			break;
 		// 采购部采购员
 		case "cgy":
 			querygridUrl = "/custOrder/custOrderScMgr!list.action";
@@ -27,21 +27,21 @@ var querygridUrl;
 
 HBSConvertHelper.init(function() {
 	// -------------------------------------- 获取需要持久用到的对象
-	
+
 	// 获取表格
 	var querygrid = Ext.getCmp("querygrid");
-	
-	
-	
+
+
+
 	// -------------------------------------- 应用逻辑处理
-	
+
 	querygrid.getView().on("refresh", function(view) {
-		
+
 		// 处理按钮触发事件
 		var processBtnFun = function() {
 			// 获取数据容器
 			var record = this.config;
-			
+
 			// 要访问的 url 地址
 			var url = ["/customer/detailorder.jsp?pageType=process&poNo=", record.get("poNo")
 								,"&commCode="   , record.get("commCode")
@@ -52,7 +52,7 @@ HBSConvertHelper.init(function() {
 			// 打开指定页面
 			HBSConvertHelper.openNewWin(url);
 		}
-		
+
 		// 修改按钮触发事件
 		var updateBtnFun = function() {
 			// 要访问的 url 地址
@@ -63,16 +63,18 @@ HBSConvertHelper.init(function() {
 			// 打开指定页面
 			HBSConvertHelper.openNewWin(url);
 		};
-		
+
 		// 删除按钮触发事件
 		var cancelBtnFun = function() {
 			Ext.Msg.confirm("提示", "您要执行的是取消操作，请确认是否继续？", function(btn) {
 				if(btn == "no") return;
-				
-				ExtConvertHelper.request("/success.action?baseSeqId=" + this.config.get("baseSeqId"), null, ExtConvertHelper.defaultDeleteFun);
+
+				ExtConvertHelper.request("/custOrder/custOrder!cancel.action?commCode=" + this.config.get("commCode")
+					+ "&poNo=" + this.config.get("poNo")
+					+ "&poNoType=", this.config.get("poNoType"), null, ExtConvertHelper.defaultDeleteFun);
 			}, this);
 		}
-		
+
 		// 查看操作历史按钮触发事件
 		var historyBtnFun = function() {
 			// 获取 record
@@ -80,10 +82,10 @@ HBSConvertHelper.init(function() {
 			// 打开查看历史记录页面
 			HBSConvertHelper.open("/complex/detailhistory.jsp", 800, 500, {gridurl: ["/vendorInfo/vendorPartNoInfoMgr!list.action?custOrder.poNo=", record.get("poNo"), "&custOrder.commCode=", record.get("commCode")].join("")})
 		}
-		
-		// 获取 roleType 
+
+		// 获取 roleType
 		var roleType = urlPs.roleType;
-		
+
 		// 市场业务员的处理方法
 		var sccustomersViewFun = function(record, operator_cell) {
 			// 如果是暂停状态
@@ -126,12 +128,12 @@ HBSConvertHelper.init(function() {
 				}
 			}
 		};
-		
+
 		// 市场经理的处理方法
 		var scmanagerViewFun = function(record, operator_cell) {
 			// 如果是暂停状态
 			if(record.get("activeState") == "PAUSE") return
-			
+
 			switch(record.get("state")) {
 				// 待经理审批最大金额（账期交易，本账期订单超出了最大金额）
 				case "50":
@@ -141,43 +143,43 @@ HBSConvertHelper.init(function() {
 					operatorBtn.on("click", processBtnFun);
 					break;
 			}
-			
+
 		};
 
 		// 采购部采购员的处理方法
 		var cgyViewFun = function(record, operator_cell) {
 			// 如果是暂停状态
 			if(record.get("activeState") == "PAUSE") return
-			
+
 			var operatorBtn = HBSConvertHelper.renderButton2Cell(["处理"], operator_cell, record);
 			// 添加处理按钮事件
 			operatorBtn.on("click", processBtnFun);
-			
+
 		};
-		
+
 		// 财务的处理方法
 		var financeViewFun = function(record, operator_cell) {
 			// 如果是暂停状态
 			if(record.get("activeState") == "PAUSE") return
-			
+
 			var operatorBtn = HBSConvertHelper.renderButton2Cell(["处理"], operator_cell, record);
 			// 添加处理按钮事件
 			operatorBtn.on("click", processBtnFun);
-			
+
 		};
-		
+
 		// 财务经理的处理方法
 		var financemanagerViewFun = function(record, operator_cell) {
 			// 如果是暂停状态
 			if(record.get("activeState") == "PAUSE") return
-			
+
 			var operatorBtn = HBSConvertHelper.renderButton2Cell(["处理"], operator_cell, record);
 			// 添加处理按钮事件
 			operatorBtn.on("click", processBtnFun);
-			
+
 		};
-		
-		
+
+
 		//alert(this.ds.getCount())
 		for(var i = 0 ; i < view.ds.getCount() ; i++) {
 			// 获取数据容器
@@ -188,7 +190,7 @@ HBSConvertHelper.init(function() {
 			var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));
 			// 将需要的链接渲染到此列
 			HBSConvertHelper.renderATag2Cell(poNo_cell.innerText, "/customer/detailorder.jsp?pageType=query&roleType=" + urlPs.roleType + "&poNo=" + record.get("poNo") + "&commCode=" + record.get("commCode") + "&poNoType=" + record.get("poNoType"), "open", poNo_cell);
-			
+
 			switch(roleType) {
 				// 市场业务员的处理方法
 				case "sccustomers":

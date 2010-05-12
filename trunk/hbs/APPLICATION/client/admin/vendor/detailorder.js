@@ -167,10 +167,10 @@ HBSConvertHelper.init(function() {
 							operatorBtn.get(0).on("click", promptProcessFun);
 							operatorBtn.get(0).message = "请输入确认交期:";
 							operatorBtn.get(0).paramName = "cgjq";
-							operatorBtn.get(0).url = "/success.action";
+							operatorBtn.get(0).url = "/vendorOrderDetail/orderDetailCg!confirmDelivery.action";
 							// 取消订单按钮
 							operatorBtn.get(1).on("click", defualtProcessFun);
-							operatorBtn.get(1).url = "/success.action";
+							operatorBtn.get(1).url = "/vendorOrderDetail/orderDetailCg!cancel.action";
 							break;
 					}
 				}

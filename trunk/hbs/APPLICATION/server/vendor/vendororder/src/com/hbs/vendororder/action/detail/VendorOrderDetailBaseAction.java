@@ -121,4 +121,11 @@ public class VendorOrderDetailBaseAction extends BaseAction {
 			return ERROR;
 		}
 	}
+	
+	protected void setMyId(boolean setName) throws Exception {
+		orderDetail.setStaffId(getLoginStaff().getStaffId().toString());
+		if(setName)
+			orderDetail.setStaffName(getLoginStaff().getStaffName());
+	}
+
 }

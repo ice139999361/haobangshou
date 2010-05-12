@@ -227,14 +227,11 @@ public class CustOrderScNormalAction extends BaseAction {
 	public String doCancel() {
 		try{
 			logger.debug("begin doCancel");
-			if(custOrder == null
-					|| StringUtils.isEmpty(custOrder.getCommCode()) 
-					|| StringUtils.isEmpty(custOrder.getPoNo())) {
-				setErrorReason("²ÎÊýÎª¿Õ£¡");
-				return ERROR;
-			}
-			setMyId(true);
 			CustOrderMgr mgr = (CustOrderMgr)getBean(CustOrderConstants.CUSTORDERMGR);
+			custOrder = findCustOrder(mgr, true);
+			if(custOrder == null)
+				return ERROR;
+			setMyId(true);
 			String cancelContent = this.getHttpServletRequest().getParameter("memo");
 			int i = mgr.cancelCustOrder(custOrder, cancelContent);
 			if(i != 0) {
