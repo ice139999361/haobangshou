@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>客户信息审批</title>
+	<title>供应商信息审批</title>
 	<script type="text/javascript" src="<%=contextPath %>/vendor/common/CommonPro.js"></script>
 	<script type="text/javascript" src="<%=contextPath %>/vendor/component/queryvendor.js"></script>
 </head>
@@ -20,7 +20,7 @@
 			    		
 			    		<queryform gridId="querygrid" exportId="exportBtn" itemsFun="queryformFun" />
 						
-				    	<complexgrid id="querygrid" title="客户信息列表" frame="true" page="true" root="data.list" itemsFun="complexgridFun" />
+				    	<complexgrid id="querygrid" title="供应商信息列表" frame="true" page="true" root="data.list" itemsFun="complexgridFun" />
 			    		
 			    		<panel buttonAlign="center">
 			    			<buttons>
