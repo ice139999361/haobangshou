@@ -35,7 +35,7 @@
 			    		<iframepanel id="homepage" closable="false" title="首页" defaultSrc="<%=MAIN_PATH %>"/>
 			    	</items>
 			    </mainpanel>
-			    <bottompanel region="south" height="20" title="版权所有 xxxxxxxxxxxx"  url="http://www.chinamobile.com" />
+			    <bottompanel region="south" height="20" title="版权所有 xxxxxxxxxxxx"  url="http://www.hbs.com" />
 			  </items>
 			</viewport>
 		</application>
@@ -43,7 +43,18 @@
 </body>
 </html>
 <script type="text/javascript">
-
+	// 退出系统的方法
+	function eschandler() {
+		Ext.Msg.minWidth = 200;
+		Ext.Msg.confirm("提示", "您确定要退出系统？", function(btn) {
+			if(btn == "no") return;
+			
+			// 关闭页面
+			window.opener = null;
+			window.close();
+		});
+	}
+	
 	// 初始化页面
 	var app = new ExtUx.widget.Application({xmpid: "config"});
 	// 与 window 进行关联
