@@ -12,10 +12,10 @@ HBSConvertHelper.init(function() {
 		backBtn.on("click", HBSConvertHelper.defaultCloseTab);
 	
 		// 组装需要的参数
-		var params = ["custPartNoInfo.staffName=", urlPs.staffName].join("");
+		var params = ["userRole.staffId=", urlPs.staffId].join("");
 		
 		// 加载数据
-		ExtConvertHelper.loadForm("form", "/customerInfo/custPartNoInfo!getInfo.action", params);
+		ExtConvertHelper.loadForm("form", "/auth/userRole!getInfo.action", params);
 	}())
 	
 });
