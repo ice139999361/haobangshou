@@ -36,12 +36,14 @@ HBSConvertHelper.init(function() {
 			: "/customerInfo/customerInfoMgr!getInfo.action";
 		// 加载数据
 		ExtConvertHelper.loadForm("form", getInfoUrl, params, function(form, action) {
+				
 				Ext.getCmp("contactgrid").addData(action.result.data.custInfo.dynamicFields.contactlist);
 				Ext.getCmp("consigneegrid").addData(action.result.data.custInfo.dynamicFields.consigneelist);
 				Ext.getCmp("custbankgrid").addData(action.result.data.custInfo.listBankInfo);
 				//Ext.getCmp("productdirgrid").addData(action.result.data.custInfo.dynamicFields.consigneelist);
 				//Ext.getCmp("purchasegrid").addData(action.result.data.custInfo.listBankInfo);
-				var settleMentType = actino.result.data.custInfo.settlementType;
+				var settleMentType = action.result.data.custInfo.settlementType;
+				
 				switch(settleMentType) {
 					case "1":
 						// 显示：账期类型,账期的起始日,账期的对账日,账期的结算日,客户账期的最大交易金额,提醒设置,供应商的账期设置,提醒日
