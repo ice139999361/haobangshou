@@ -20,7 +20,7 @@
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="客户基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="1">
-				    				<autocomplete fieldLabel="客户编码" url="/customerInfo/customerInfo!list.action?custInfo.state=0"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"     name="custInfo.commCode"       labelStyle="width:150" allowBlank="false" id="acCommCode" />
+				    				<autocomplete fieldLabel="客户编码" url="/customerInfo/customerInfoMgr!list.action?custInfo.state=0"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"     name="custInfo.commCode"       labelStyle="width:150" allowBlank="false" id="acCommCode" />
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="2">
@@ -53,6 +53,7 @@
 				    				
 				    				<textfield fieldLabel="税率"               name="custPartNoInfo.priceTax"                labelStyle="width:150" />				    				
 				    				<textfield fieldLabel="最小订单量" 				 name="custPartNoInfo.minAmount"               labelStyle="width:150" value="0" />
+									<autocomplete fieldLabel="供应商编码"             name="custPartNoInfo.vendorCode"           labelStyle="width:150"  url="/vendorInfo/vendorInfo!listDict.action"  displayField="commCode"  valueField="commCode" queryParam="vendorInfo.commCode"  allowBlank="false"/>
 				    			</layoutpanel>
 				    		</listpanel>
 			    		</items></form>

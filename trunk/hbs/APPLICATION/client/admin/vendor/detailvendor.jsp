@@ -9,7 +9,7 @@
 </head>
 
 <body>
-	<xmp id="config" style="display:none">
+	<xmp id="config"  style="display:none">
 		<application>
 			<viewport layout="fit">
 			  <items>

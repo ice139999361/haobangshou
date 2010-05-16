@@ -87,6 +87,13 @@ public class CustPartNoInfoUtil {
 		{
 			list.add(new FieldErr("CommCode","CommCode没有填写"));
 		}
+		
+		s = custPartNoInfo.getVendorCode();
+		if(StringUtils.isEmpty(s))
+		{
+			list.add(new FieldErr("VendorCode","供应商编码没有填写"));
+		}
+		
 		s = custPartNoInfo.getCustPartNo();
 		if(StringUtils.isEmpty(s))
 		{
@@ -121,11 +128,7 @@ public class CustPartNoInfoUtil {
 				list.add(new FieldErr("PartNo", "PartNo错误"));
 			}
 		}
-		s = custPartNoInfo.getVendorCode();
-		if(StringUtils.isEmpty(s))
-		{
-			list.add(new FieldErr("venderCode","venderCode没有填写"));
-		}
+		
 		s = custPartNoInfo.getPnDesc();
 		if(StringUtils.isEmpty(s))
 		{
