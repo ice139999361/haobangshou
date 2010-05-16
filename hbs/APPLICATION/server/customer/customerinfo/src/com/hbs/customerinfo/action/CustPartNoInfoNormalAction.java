@@ -110,7 +110,7 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 			if(!checkCommonFields())
 				return ERROR;
 
-			custPartNoInfo.setVendorCode(custInfo.getVendorCode());
+			//custPartNoInfo.setVendorCode(custInfo.getVendorCode());
 
 			List<FieldErr> errs = CustPartNoInfoUtil.checkInputFields(custPartNoInfo);
 			if(!errs.isEmpty())

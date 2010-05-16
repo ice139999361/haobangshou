@@ -106,10 +106,10 @@ public class CustomerInfoUtil {
 		String s;
 		// DONE:完成checkInputFields，对输入的客户信息进行校验
 		s = custInfo.getVendorCode();
-		if(StringUtils.isEmpty(s))
-		{
-			list.add(new FieldErr("venderCode","venderCode没有填写"));
-		}
+//		if(StringUtils.isEmpty(s))
+//		{
+//			list.add(new FieldErr("venderCode","venderCode没有填写"));
+//		}
 		s = custInfo.getCommCode();
 		if(StringUtils.isEmpty(s))
 		{
