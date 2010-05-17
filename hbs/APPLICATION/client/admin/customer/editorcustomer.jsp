@@ -40,8 +40,8 @@
 								</layoutpanel>
 								
 								<layoutpanel columnNum="1">
-									<textfield fieldLabel="公司中文名称"           name="custInfo.allName"              labelStyle="width:150" width="600" />
-									<textfield fieldLabel="客户公司地址"           name="custInfo.address"              labelStyle="width:150" width="600"/>
+									<textfield fieldLabel="公司中文名称"           name="custInfo.allName"              labelStyle="width:150" width="600" allowBlank="false"/>
+									<textfield fieldLabel="客户公司地址"           name="custInfo.address"              labelStyle="width:150" width="600" allowBlank="false"/>
 									<textfield fieldLabel="公司英文名称"           name="custInfo.enName"               labelStyle="width:150" width="600" />
 				    				<textfield fieldLabel="公司英文地址"           name="custInfo.enAddress"            labelStyle="width:150" width="600"/>
 									<textfield fieldLabel="客户纳税人识别号"       name="custInfo.taxCode"              labelStyle="width:150" width="600"/>
@@ -97,9 +97,9 @@
 				    				<textfield fieldLabel="账期的对账日" 					 name="custInfo.accountPreiod.accounDay"         labelStyle="width:150" id="vaAccounDay"       emptyText="账期结束后的第几日"/>
 									-->
 				    				<textfield fieldLabel="账期最大交易金额(元)" name="custInfo.accountPreiod.maxMoney"          labelStyle="width:150" id="vaMaxMoney" />
-				    				<textfield fieldLabel="预付百分比" 						 name="custInfo.prePaidInfo.prePaid"             labelStyle="width:150" id="vpPrePaid" />
-				    				<textfield fieldLabel="合同费"                 name="custInfo.contactFee"                      labelStyle="width:150" />
-				    				<textfield fieldLabel="交易税率"               name="custInfo.taxRate"                         labelStyle="width:150" />
+				    				<textfield fieldLabel="预付百分比" 						 name="custInfo.prePaidInfo.prePaid"             labelStyle="width:150" id="vpPrePaid" emptyText="如:预付17%,请输入17"/>
+				    				<textfield fieldLabel="合同费"                 name="custInfo.contactFee"                      labelStyle="width:150" emptyText="如:合同费2%,请输入0.02"/>
+				    				<textfield fieldLabel="交易税率"               name="custInfo.taxRate"                         labelStyle="width:150" emptyText="如:税率17%,请输入0.17"/>
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">
