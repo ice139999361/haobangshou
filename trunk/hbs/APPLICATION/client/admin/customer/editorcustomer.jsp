@@ -35,7 +35,7 @@
 								</layoutpanel>
 
 								<layoutpanel columnNum="2">	
-				    				<textfield fieldLabel="性质"                   name="custInfo.commType"             labelStyle="width:150" />
+				    				<dictcombo fieldLabel="性质"                   hiddenName="custInfo.commType"             labelStyle="width:150" paramsValue="COMM_TYPE"     emptyText="请选择" />
 									<textfield fieldLabel="规模"                   name="custInfo.commScale"            labelStyle="width:150" />
 								</layoutpanel>
 								
@@ -141,8 +141,8 @@
 			    		
 			    		<panel buttonAlign="center">
 			    			<buttons>
-			    				<button text="提交" id="submitBtn" />
-			    				<button text="保存" id="saveBtn"   />
+			    				<button text="提交审批" id="submitBtn" />
+			    				<button text="暂存" id="saveBtn"   />
 			    				<button text="取消" id="backBtn"   />
 			    			</buttons>
 			    		</panel>

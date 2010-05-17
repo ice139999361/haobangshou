@@ -32,7 +32,7 @@
 									<dictcombo fieldLabel="重要程度"               hiddenName="vendorInfo.importantCode"  labelStyle="width:150" paramsValue="IMPORTANT_CODE"  emptyText="请选择" />
 								</layoutpanel>
 								<layoutpanel columnNum="2">	
-				    				<textfield fieldLabel="性质"                   name="vendorInfo.commType"             labelStyle="width:150" />
+				    				<dictcombo fieldLabel="性质"                   hiddenName="vendorInfo.commType"             labelStyle="width:150" paramsValue="COMM_TYPE" emptyText="请选择"/>
 									<textfield fieldLabel="规模"                   name="vendorInfo.commScale"            labelStyle="width:150" />
 								</layoutpanel>
 
