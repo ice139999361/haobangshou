@@ -46,7 +46,9 @@
 				    			<layoutpanel columnNum="2">
 				    				<label fieldLabel="对应的分公司或分支机构" name="vendorInfo.companyBranchDesc"  labelStyle="width:150" paramsValue="COMPANY_BRANCH"  emptyText="请选择" />
 				    				<label fieldLabel="操作人员名字"           name="vendorInfo.staffName"            labelStyle="width:150" />
-				    				<label fieldLabel="是否显示单价"           name="vendorInfo.isShowPriceDesc"    labelStyle="width:150" paramsValue="IS_SHOW_PRICE"   emptyText="请选择" />
+				    				<!--
+									<label fieldLabel="是否显示单价"           name="vendorInfo.isShowPriceDesc"    labelStyle="width:150" paramsValue="IS_SHOW_PRICE"   emptyText="请选择" />
+									-->
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">
@@ -57,6 +59,7 @@
 				    				<hidden name="vendorInfo.baseSeqId" />
 				    				<hidden name="vendorInfo.state" />
 				    				<hidden name="vendorInfo.staffId" />
+									<hidden name="vendorInfo.isShowPrice" />
 				    			</layoutpanel>
 				    		</listpanel>
 				    		

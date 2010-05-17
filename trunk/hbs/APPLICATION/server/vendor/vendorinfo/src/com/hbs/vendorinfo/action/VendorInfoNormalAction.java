@@ -130,6 +130,7 @@ public class VendorInfoNormalAction extends BaseAction {
 			}
 
 			vendorInfo.setState("1");
+			vendorInfo.setIsShowPrice("0");
 			if (VendorInfoUtil.checkSetStaffId(vendorInfo))
 				setMyId(true);
 			VendorInfoUtil.processListData(vendorInfo, this.getHttpServletRequest());

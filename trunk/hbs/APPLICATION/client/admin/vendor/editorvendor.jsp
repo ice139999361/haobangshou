@@ -46,7 +46,9 @@
 								</layoutpanel>
 				    			<layoutpanel columnNum="2">
 				    				<dictcombo fieldLabel="对应的分公司或分支机构" hiddenName="vendorInfo.companyBranch"  labelStyle="width:150" paramsValue="COMPANY_BRANCH"  emptyText="请选择" />
-				    				<dictcombo fieldLabel="是否显示单价"           hiddenName="vendorInfo.isShowPrice"    labelStyle="width:150" paramsValue="IS_SHOW_PRICE"   emptyText="请选择" />
+				    				<!--
+									<dictcombo fieldLabel="是否显示单价"           hiddenName="vendorInfo.isShowPrice"    labelStyle="width:150" paramsValue="IS_SHOW_PRICE"   emptyText="请选择" />
+									-->
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">
