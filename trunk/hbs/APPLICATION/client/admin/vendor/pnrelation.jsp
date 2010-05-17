@@ -62,7 +62,7 @@
 			    		
 			    		<panel buttonAlign="center">
 			    			<buttons>
-			    				<button text="关联" id="submitBtn" />
+			    				<button text="提交审批" id="submitBtn" />
 			    				<button text="取消" id="backBtn"   />
 			    			</buttons>
 			    		</panel>
