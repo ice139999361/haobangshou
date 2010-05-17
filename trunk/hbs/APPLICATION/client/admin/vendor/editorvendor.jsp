@@ -72,7 +72,7 @@
 				    				<!--  改用下拉列表框选择
 									<numberfield fieldLabel="账期的结算日" 					 name="vendorInfo.accountPreiod.settlementDay"     labelStyle="width:150" id="vaSettlementDay"   emptyText="账期结束的第几日"   relate="vaAccounDay|;&gt;|;必须大于账期的对账日" vtype="commCheck" />
 				    				-->
-									<dictcombo fieldLabel="账期的结算日" 					 hiddenName="vendorInfo.accountPreiod.settlementDay"     labelStyle="width:150" paramsValue="SETTLEMENT_DAY" id="vaSettlementDay"   />
+									<dictcombo fieldLabel="结算方式" 					 hiddenName="vendorInfo.accountPreiod.settlementDay"     labelStyle="width:150" paramsValue="SETTLEMENT_DAY" id="vaSettlementDay"   />
 				    				<numberfield fieldLabel="提醒设置(单位:天)" 							 name="vendorInfo.accountPreiod.reminderDay"       labelStyle="width:150" id="vaReminderDay"     emptyText="提前几天提醒对账/结算" />
 				    				<textfield   fieldLabel="税率"                   name="vendorInfo.taxRate"                         labelStyle="width:150" emptyText="如:税率17%,请输入0.17"/>	
 				    				<!-- 账期设置固定为1个月
