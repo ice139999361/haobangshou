@@ -55,6 +55,9 @@
 				    				<textfield fieldLabel="最小订单量" 				 name="custPartNoInfo.minAmount"               labelStyle="width:150" value="0" />
 									<autocomplete fieldLabel="供应商编码"             name="custPartNoInfo.vendorCode"           labelStyle="width:150"  url="/vendorInfo/vendorInfo!listDict.action"  displayField="commCode"  valueField="commCode" queryParam="vendorInfo.commCode"  allowBlank="false"/>
 				    			</layoutpanel>
+								<layoutpanel columnNum="1">
+				    				<label style="color:red" text="注意：单价和税率的关系，税率为0.00，单价为不含税，税率不为0.00，单价为含税" />
+				    			</layoutpanel>
 				    		</listpanel>
 			    		</items></form>
 			    		

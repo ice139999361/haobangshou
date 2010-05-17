@@ -53,6 +53,9 @@
 				    				<label fieldLabel="税率"               name="custPartNoInfo.priceTax"                labelStyle="width:150" />				    				
 				    				<label fieldLabel="最小订单量" 				 name="custPartNoInfo.minAmount"               labelStyle="width:150" value="0" />
 				    			</layoutpanel>
+								<layoutpanel columnNum="1">
+				    				<label style="color:red" text="注意：单价和税率的关系，税率为0.00，单价为不含税，税率不为0.00，单价为含税" />
+				    			</layoutpanel>
 				    		</listpanel>
 				    		
 				    		<auditpanel id="auditPanel" />
