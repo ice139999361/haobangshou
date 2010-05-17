@@ -78,7 +78,7 @@
 				    				<!--
 									<label fieldLabel="供应商的账期设置" 		   name="vendorInfo.accountPreiod.accountPeriod"     labelStyle="width:150" />	
 									-->
-				    				<label fieldLabel="账期的结算日" 					 name="vendorInfo.accountPreiod.settlementDayDesc"   id="vaSettlementDay"  labelStyle="width:150" />	
+				    				<label fieldLabel="结算方式" 					 name="vendorInfo.accountPreiod.settlementDayDesc"   id="vaSettlementDay"  labelStyle="width:150" />	
 				    				<label fieldLabel="预付百分比" 						 name="vendorInfo.prePaidInfo.prePaid"     id="vpPrePaid"        labelStyle="width:150" />
 				    				<!--
 									<label fieldLabel="催款提醒" 			           name="vendorInfo.prePaidInfo.reminderDay"         labelStyle="width:150" />

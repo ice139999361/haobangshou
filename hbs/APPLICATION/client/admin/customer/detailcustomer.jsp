@@ -88,7 +88,7 @@
 									<label fieldLabel="账期类型" 			         name="custInfo.accountPreiod.accountType"   labelStyle="width:150" paramsValue="ACCOUNT_TYPE" emptyText="请选择" />
 									-->
 				    				<label fieldLabel="账期的起始日" 					 name="custInfo.accountPreiod.periodStart" id="vaPeriodStart"  labelStyle="width:150" />
-				    				<label fieldLabel="账期的结算日" 					 name="custInfo.accountPreiod.settlementDayDesc" id="vaSettlementDay" labelStyle="width:150" />
+				    				<label fieldLabel="结算方式" 					 name="custInfo.accountPreiod.settlementDayDesc" id="vaSettlementDay" labelStyle="width:150" />
 				    				<label fieldLabel="对账/结算提醒设置(天)" 							 name="custInfo.accountPreiod.reminderDay"  id="vaReminderDay" labelStyle="width:150" />
 				    				<label fieldLabel="提醒市场人员催款(天)" 			 name="custInfo.prePaidInfo.reminderDay"  id="vpReminderDay"   labelStyle="width:150" />
 				    				
