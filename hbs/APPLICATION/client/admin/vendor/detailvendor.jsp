@@ -19,26 +19,32 @@
 			    	
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="供应商基本信息" collapsible="true" titleCollapse="true">
-				    			<layoutpanel columnNum="2">
+								<layoutpanel columnNum="2">
 				    				<label fieldLabel="供应商编码"             name="vendorInfo.commCode"           labelStyle="width:150" />
-				    				<label fieldLabel="中文名称"               name="vendorInfo.allName"              labelStyle="width:150" />
-				    				<label fieldLabel="供应商简称"             name="vendorInfo.shortName"            labelStyle="width:150" allowBlank="false"/>
-				    				<label fieldLabel="公司地址"               name="vendorInfo.address"              labelStyle="width:150" />
-				    				<label fieldLabel="信用度"                 name="vendorInfo.creditDesc"     labelStyle="width:150" paramsValue="CREDIT_RATE"     emptyText="请选择" />	
-				    				<label fieldLabel="重要程度"               name="vendorInfo.importantDesc"  labelStyle="width:150" paramsValue="IMPORTANT_CODE"  emptyText="请选择" />
-				    				<label fieldLabel="纳税人识别号"           name="vendorInfo.taxCode"              labelStyle="width:150" />
-				    				<label fieldLabel="性质"                   name="vendorInfo.commType"             labelStyle="width:150" />
-				    				<!--
-				    				<label fieldLabel="操作人员ID"             name="vendorInfo.staffId"              labelStyle="width:150" />
-				    				-->
-				    				<label fieldLabel="对应的分公司或分支机构" name="vendorInfo.companyBranchDesc"  labelStyle="width:150" paramsValue="COMPANY_BRANCH"  emptyText="请选择" />			
-				    				
 				    				<label fieldLabel="法人代表"               name="vendorInfo.representative"       labelStyle="width:150" />
-				    				<label fieldLabel="英文名称"               name="vendorInfo.enName"               labelStyle="width:150" />
-				    				<label fieldLabel="公司英文地址"           name="vendorInfo.enAddress"            labelStyle="width:150" />	
-				    				<label fieldLabel="英文简称"               name="vendorInfo.enShortName"          labelStyle="width:150" />
-				    				<label fieldLabel="公司网址"               name="vendorInfo.webSite"              labelStyle="width:150" />
-				    				<label fieldLabel="规模"                   name="vendorInfo.commScale"            labelStyle="width:150" />
+								</layoutpanel>
+								<layoutpanel columnNum="2">	
+				    				<label fieldLabel="供应商简称"             name="vendorInfo.shortName"            labelStyle="width:150" allowBlank="false"/>
+									<label fieldLabel="英文简称"               name="vendorInfo.enShortName"          labelStyle="width:150" />
+								</layoutpanel>
+								<layoutpanel columnNum="2">	
+				    				<label fieldLabel="信用度"                 name="vendorInfo.creditDesc"     labelStyle="width:150" paramsValue="CREDIT_RATE"     emptyText="请选择" />
+									<label fieldLabel="重要程度"               name="vendorInfo.importantDesc"  labelStyle="width:150" paramsValue="IMPORTANT_CODE"  emptyText="请选择" />
+								</layoutpanel>
+								<layoutpanel columnNum="2">	
+				    				<label fieldLabel="性质"                   name="vendorInfo.commType"             labelStyle="width:150" />
+									<label fieldLabel="规模"                   name="vendorInfo.commScale"            labelStyle="width:150" />
+								</layoutpanel>
+								<layoutpanel columnNum="1">
+									<label fieldLabel="中文名称"               name="vendorInfo.allName"              labelStyle="width:150"   width="600" />
+									<label fieldLabel="公司地址"               name="vendorInfo.address"              labelStyle="width:150"   width="600" />
+									<label fieldLabel="英文名称"               name="vendorInfo.enName"               labelStyle="width:150"   width="600" />
+				    				<label fieldLabel="英文地址"               name="vendorInfo.enAddress"            labelStyle="width:150"   width="600" />		
+									<label fieldLabel="纳税人识别号"           name="vendorInfo.taxCode"              labelStyle="width:150"   width="600" />
+									<label fieldLabel="公司网址"               name="vendorInfo.webSite"              labelStyle="width:150"   width="600" />
+								</layoutpanel>
+				    			<layoutpanel columnNum="2">
+				    				<label fieldLabel="对应的分公司或分支机构" name="vendorInfo.companyBranchDesc"  labelStyle="width:150" paramsValue="COMPANY_BRANCH"  emptyText="请选择" />
 				    				<label fieldLabel="操作人员名字"           name="vendorInfo.staffName"            labelStyle="width:150" />
 				    				<label fieldLabel="是否显示单价"           name="vendorInfo.isShowPriceDesc"    labelStyle="width:150" paramsValue="IS_SHOW_PRICE"   emptyText="请选择" />
 				    			</layoutpanel>
