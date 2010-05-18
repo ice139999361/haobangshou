@@ -7,7 +7,7 @@ var queryformFun = function() {
 	p1.push({xtype: "textfield", fieldLabel: "客户编码"     , name: "custPartNoInfo.commCode"});
 	if(urlPs.pageType != "audit") p1.push({xtype: "dictcombo", fieldLabel: "状态"         , hiddenName: "custPartNoInfo.state", paramsValue: "CUSTOMER_INFO_STATE"});
 	p1.push({xtype: "textfield", fieldLabel: "客户P/N"      , name: "custPartNoInfo.custPartNo"});
-	p1.push({xtype: "textfield", fieldLabel: "本公司P/N"    , name: "custPartNoInfo.partNO"});
+	p1.push({xtype: "textfield", fieldLabel: "本公司P/N"    , name: "custPartNoInfo.partNo"});
 	
 	return cph;
 };
