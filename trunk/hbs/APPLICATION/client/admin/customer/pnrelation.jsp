@@ -39,8 +39,8 @@
 				    		
 				    		<listpanel frame="true" title="P/N对照信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<textfield fieldLabel="客户" 	name="custPartNoInfo.custPartNo"     id="acCustPartNo"         labelStyle="width:150" allowBlank="false" />
-				    				<autocomplete fieldLabel="本公司" url="/partNo/partNo!list.action" displayField="partNo" valueField="partNo" queryParam="partNo.partNo"	name="custPartNoInfo.partNo"                  labelStyle="width:150" allowBlank="false" id="acPartNo" />
+				    				<textfield fieldLabel="客户P/N" 	name="custPartNoInfo.custPartNo"     id="acCustPartNo"         labelStyle="width:150" allowBlank="false" />
+				    				<autocomplete fieldLabel="本公司P/N" url="/partNo/partNo!list.action" displayField="partNo" valueField="partNo" queryParam="partNo.partNo"	name="custPartNoInfo.partNo"                  labelStyle="width:150" allowBlank="false" id="acPartNo" />
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">
