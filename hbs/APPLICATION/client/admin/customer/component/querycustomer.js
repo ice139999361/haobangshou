@@ -13,7 +13,7 @@ var queryformFun = function() {
 		,{xtype: "datefield", hideLabel: true            , name: "custInfo.dynamicFields.likeEndTime"   , format: "Y-m-d", width: 120}
 	];
 	// 精确查找
-	cmpobj["jqcz"] = {xtype: "checkbox" , labelSeparator: ""         , name: "", boxLabel: "精确查找"};
+	//cmpobj["jqcz"] = {xtype: "checkbox" , labelSeparator: ""         , name: "", boxLabel: "精确查找"};
 	cmpobj["khbm"] = {xtype: "textfield", fieldLabel: "客户编码"     , name: "custInfo.commCode"};
 	cmpobj["ywy"]  = {xtype: "dictcombo", fieldLabel: "业务员"       , hiddenName: "", paramsValue: "IMPORTANT_CODE"};
 	cmpobj["ywzl"] = {xtype: "dictcombo", fieldLabel: "业务助理"     , hiddenName: "", paramsValue: "IMPORTANT_CODE"};
@@ -31,7 +31,7 @@ var sccustomersLayout = function(cmpobj) {
 	ExtConvertHelper.copyArrayToArray(cmpobj["khlrsj"], p1);
 	
 	var p2 = cph.createLayoutPanel("2:.3,.3");
-	p2.push(cmpobj["jqcz"]);
+	//p2.push(cmpobj["jqcz"]);
 	p2.push(cmpobj["khbm"]);
 	
 	return cph;
@@ -43,7 +43,7 @@ var scmanagerLayout = function(cmpobj) {
 		
 	var p1 = cph.createLayoutPanel(3);
 	p1.push(cmpobj["khjc"]);
-	p1.push(cmpobj["jqcz"]);
+	//p1.push(cmpobj["jqcz"]);
 	
 	p1.push(cmpobj["khbm"]);
 	p1.push(cmpobj["ywzl"]);

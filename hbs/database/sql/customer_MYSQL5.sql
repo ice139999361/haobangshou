@@ -315,6 +315,7 @@ CREATE TABLE `t_cust_part_no_info` (
   `SAMPLE_CODE` varchar(32) DEFAULT NULL COMMENT '样品编号',
   `VENDOR_CODE` varchar(32) DEFAULT NULL COMMENT '供应商编码',
   `IS_PRICECHANGE` varchar(2) NOT NULL DEFAULT '0' COMMENT '价格是否变动过  0--没有  1--是',
+  `C_SHORT_NAME` varchar(32) default NULL,
   PRIMARY KEY (`SEQID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='客户物料编号同本公司物料编号对应表';
 

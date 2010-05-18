@@ -34,6 +34,13 @@ HBSConvertHelper.init(function() {
 		Ext.getCmp("acCurrencyDesc").setValue(action.data.custInfo.currencyDesc);
 	});
 
+	Ext.getCmp("acShortName").setProcessConfig("/customerInfo/customerInfoMgr!getInfo.action?custInfo.state=0", "custInfo.shortName", null, function(action){
+		if(!action.success)
+			return;
+		Ext.getCmp("acCommCode").setValue(action.data.custInfo.commCode);
+		Ext.getCmp("acCurrencyDesc").setValue(action.data.custInfo.currencyDesc);
+	});
+
 	// 根据本公司物料信息填写项目
 	function fillPartNo(partNo) {
 		Ext.getCmp("acPnDesc").setValue(partNo.pnDesc);

@@ -19,12 +19,15 @@
 			    	
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="客户基本信息" collapsible="true" titleCollapse="true">
-				    			<layoutpanel columnNum="1">
-				    				<autocomplete fieldLabel="客户编码" url="/customerInfo/customerInfoMgr!list.action?custInfo.state=0"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"     name="custInfo.commCode"       labelStyle="width:150" allowBlank="false" id="acCommCode" />
+				    			<layoutpanel columnNum="2">
+								    <autocomplete fieldLabel="客户简称" url="/customerInfo/customerInfoMgr!listDict.action?custInfo.state=0"  displayField="shortName"  valueField="shortName" queryParam="custInfo.shortName"     name="custPartNoInfo.shortName"       labelStyle="width:150" allowBlank="false" id="acShortName" />
+				    				<autocomplete fieldLabel="客户编码" url="/customerInfo/customerInfoMgr!listDict.action?custInfo.state=0"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"     name="custPartNoInfo.commCode"       labelStyle="width:150" allowBlank="false" id="acCommCode" />
 				    			</layoutpanel>
 				    			
-				    			<layoutpanel columnNum="2">
+				    			<layoutpanel columnNum="1">
+								    <!--
 				    				<label fieldLabel="客户简称"               name="custInfo.shortName"   id="acShortName"    labelStyle="width:150" allowBlank="false"/>
+									-->
 				    				<label fieldLabel="客户结算币种"           name="custInfo.currencyDesc"                      id="acCurrencyDesc"   labelStyle="width:150" paramsValue="CURRENCY"        emptyText="请选择" />
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">

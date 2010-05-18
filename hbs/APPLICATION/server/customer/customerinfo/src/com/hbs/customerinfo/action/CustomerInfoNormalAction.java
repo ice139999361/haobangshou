@@ -118,29 +118,30 @@ public class CustomerInfoNormalAction extends BaseAction {
 
 			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(custInfoMgrName);
 			
-			if(custInfo.getBaseSeqId() == null) {
-				CustomerInfo cInfo = new CustomerInfo();
-				cInfo.setCommCode(custInfo.getCommCode());
-				Integer i = mgr.getCustomerInfoCount(cInfo);
-				if(i == null || i.compareTo(0) > 0) {
-					logger.error("客户编码重复！" + custInfo.getCommCode());
-					setErrorReason("客户编码重复！");
-					return ERROR;
-				}
-			}
+//			if(custInfo.getBaseSeqId() == null) {
+//				CustomerInfo cInfo = new CustomerInfo();
+//				cInfo.setCommCode(custInfo.getCommCode());
+//				Integer i = mgr.getCustomerInfoCount(cInfo);
+//				if(i == null || i.compareTo(0) > 0) {
+//					logger.error("客户编码重复！" + custInfo.getCommCode());
+//					setErrorReason("客户编码重复！");
+//					return ERROR;
+//				}
+//			}
 			
-			CustomerInfo info2 = mgr.getCustomerInfo(custInfo, false);
+			//CustomerInfo info2 = mgr.getCustomerInfo(custInfo, false);
 			int ret;
-			if (info2 != null)
-				ret = mgr.updateCustomerInfo(custInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName());
-			else
-				ret = mgr.saveTempCustomerInfo(custInfo);
-			
-			if (ret < 0) {
-				logger.info("临时保存出错！");
-				setErrorReason("临时保存出错！");
-				return ERROR;
-			}
+//			if (info2 != null)
+//				ret = mgr.updateCustomerInfo(custInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName());
+//			else
+//				ret = mgr.saveTempCustomerInfo(custInfo);
+//			
+//			if (ret < 0) {
+//				logger.info("临时保存出错！");
+//				setErrorReason("临时保存出错！");
+//				return ERROR;
+//			}
+			ret = mgr.saveTempCustomerInfo(custInfo);
 			if(ret > 0) {
 				this.setResult("seqId", ret);
 				if (logger.isDebugEnabled()) logger.debug("seqId="+ret);
@@ -189,32 +190,32 @@ public class CustomerInfoNormalAction extends BaseAction {
 			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(custInfoMgrName);
 
 			
-			if(custInfo.getBaseSeqId() == null) {
-				CustomerInfo cInfo = new CustomerInfo();
-				cInfo.setCommCode(custInfo.getCommCode());
-				Integer i = mgr.getCustomerInfoCount(cInfo);
-				if(i == null || i.compareTo(0) > 0) {
-					logger.error("客户编码重复！" + custInfo.getCommCode());
-					setErrorReason("客户编码重复！");
-					return ERROR;
-				}
-			}
-			CustomerInfo info2 = mgr.getCustomerInfo(custInfo, false);
+//			if(custInfo.getBaseSeqId() == null) {
+//				CustomerInfo cInfo = new CustomerInfo();
+//				cInfo.setCommCode(custInfo.getCommCode());
+//				Integer i = mgr.getCustomerInfoCount(cInfo);
+//				if(i == null || i.compareTo(0) > 0) {
+//					logger.error("客户编码重复！" + custInfo.getCommCode());
+//					setErrorReason("客户编码重复！");
+//					return ERROR;
+//				}
+//			}
+//			CustomerInfo info2 = mgr.getCustomerInfo(custInfo, false);
 			int ret;
-			if (info2 != null) {
-				if(custInfo.getState().equals("1"))
-					ret = mgr.commitCustomerInfo(custInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName());
-				else
-					ret = mgr.updateCustomerInfo(custInfo, getLoginStaff()
-						.getStaffId().toString(), getLoginStaff().getStaffName());
-			}
-			else {
-				//custInfo.setCreditRate("3");
-				//custInfo.setState("1");
-				ret = mgr.commitCustomerInfo(custInfo, getLoginStaff()
-						.getStaffId().toString(), getLoginStaff().getStaffName());
-			}
-			
+//			if (info2 != null) {
+//				if(custInfo.getState().equals("1"))
+//					ret = mgr.commitCustomerInfo(custInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName());
+//				else
+//					ret = mgr.updateCustomerInfo(custInfo, getLoginStaff()
+//						.getStaffId().toString(), getLoginStaff().getStaffName());
+//			}
+//			else {
+//				//custInfo.setCreditRate("3");
+//				//custInfo.setState("1");
+//				ret = mgr.commitCustomerInfo(custInfo, getLoginStaff()
+//						.getStaffId().toString(), getLoginStaff().getStaffName());
+//			}
+			ret = mgr.commitCustomerInfo(custInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName());
 			//int ret = mgr.commitCustomerInfo(custInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName());
 			if (ret < 0) {
 				String s;

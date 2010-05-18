@@ -31,6 +31,8 @@ public class VendorPartNoInfo extends BaseDomain {
      */
     private String commCode;
     
+    private String shortName;
+    
     /**
      * 状态0----正式数据1---临时数据（没有提交审批）2---待审批数据3---审批不通过4---废弃数据.
      */
@@ -260,6 +262,20 @@ public class VendorPartNoInfo extends BaseDomain {
 
 	public void setIsPriceChange(String isPriceChange) {
 		this.isPriceChange = isPriceChange;
+	}
+
+	/**
+	 * @return the shortName
+	 */
+	public String getShortName() {
+		return shortName;
+	}
+
+	/**
+	 * @param shortName the shortName to set
+	 */
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
 	}
 
 	public String getLogBizKey(){

@@ -112,11 +112,11 @@ public class VendorInfoUtil {
 			list.add(new FieldErr("venderCode","venderCode没有填写"));
 		}
 		*/
-		s = vendorInfo.getCommCode();
-		if(StringUtils.isEmpty(s))
-		{
-			list.add(new FieldErr("CommCode","CommCode没有填写"));
-		}
+//		s = vendorInfo.getCommCode();
+//		if(StringUtils.isEmpty(s))
+//		{
+//			list.add(new FieldErr("CommCode","CommCode没有填写"));
+//		}
 		s = vendorInfo.getShortName();
 		if(StringUtils.isEmpty(s))
 		{
@@ -133,10 +133,13 @@ public class VendorInfoUtil {
 			list.add(new FieldErr("IsShowPrice","IsShowPrice没有填写"));
 		}
 		
-		String baseSeqId = null;
-		try {
-			baseSeqId = vendorInfo.getBaseSeqId().toString();
-		} catch (Exception e) {
+		Integer baseSeqId = vendorInfo.getBaseSeqId();
+		if(baseSeqId != null){
+			s = vendorInfo.getCommCode();
+			if(StringUtils.isEmpty(s))
+			{
+				list.add(new FieldErr("CommCode","CommCode没有填写"));
+			}
 		}
 		String settleMentType = vendorInfo.getSettlementType();
 		if(settleMentType.equals("1")){
@@ -148,16 +151,21 @@ public class VendorInfoUtil {
 		if(accountPreiod != null) {
 			accountPreiod.setCommCode(vendorInfo.getCommCode());
 			accountPreiod.setState(vendorInfo.getState());
-			accountPreiod.setBaseSeqId(baseSeqId);
+			
+			accountPreiod.setBaseSeqId(baseSeqId == null ? null : baseSeqId.toString());
+			
 			accountPreiod.setAccounDay("1");//对账日，缺省1
 			accountPreiod.setAccountType("1");//账期类型，缺省1 月结
 			accountPreiod.setAccountPeriod("1"); //账期  缺省1  一个月
+			accountPreiod.setReminderDay("2"); //提醒日
 		}
 		PrePaidInfo prePaidInfo = vendorInfo.getPrePaidInfo();
 		if(prePaidInfo != null) {
 			prePaidInfo.setCommCode(vendorInfo.getCommCode());
 			prePaidInfo.setState(vendorInfo.getState());
-			prePaidInfo.setBaseSeqId(baseSeqId);
+			
+			prePaidInfo.setBaseSeqId(baseSeqId == null ? null : baseSeqId.toString());
+			
 		
 		}
 		return list;

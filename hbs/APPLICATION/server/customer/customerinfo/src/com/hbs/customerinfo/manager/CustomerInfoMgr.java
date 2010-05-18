@@ -18,6 +18,7 @@ import com.hbs.common.manager.baseinfo.BankInfoMgr;
 import com.hbs.common.manager.baseinfo.ContactMgr;
 import com.hbs.common.manager.baseinfo.PrePaidMgr;
 
+import com.hbs.common.manager.syssequence.SysSequenceMgr;
 import com.hbs.common.manager.waittask.WaitTaskMgr;
 import com.hbs.common.springhelper.BeanLocator;
 
@@ -51,10 +52,19 @@ public class CustomerInfoMgr {
 	 * @throws Exception
 	 */
 	public int saveTempCustomerInfo(CustomerInfo custInfo) throws Exception{
+		int ret =0;
 		logger.debug("保存客户信息的临时数据,输入的参数为：" + custInfo.toString());
-		custInfo.setState(new Integer(StateConstants.STATE_1).toString());
-		logger.debug("设置的状态为：" + StateConstants.STATE_1);
-		return insertCustomerInfo(custInfo);
+		Integer seqId = custInfo.getBaseSeqId();
+		if(seqId == null){
+			String commCode = SysSequenceMgr.getCode(SysSequenceMgr.GC_CODE);
+			custInfo.setCommCode(commCode);
+			custInfo.setState(new Integer(StateConstants.STATE_1).toString());
+			logger.debug("设置的状态为：" + StateConstants.STATE_1);
+			ret =  insertCustomerInfo(custInfo);
+		}else{
+			ret = updateCustomerInfo(custInfo, custInfo.getStaffId(), custInfo.getStaffName());
+		}
+		return ret;
 	}
 	/**
 	 * 提交数据审批,
@@ -75,6 +85,8 @@ public class CustomerInfoMgr {
 			logger.debug("提交客户信息数据的主键为null,做插入操作！");
 			custInfo.setState(new Integer(StateConstants.STATE_2).toString());
 			logger.debug("设置的状态为：" + StateConstants.STATE_2);
+			String commCode = SysSequenceMgr.getCode(SysSequenceMgr.GC_CODE);
+			custInfo.setCommCode(commCode);
 			ret = this.insertCustomerInfo(custInfo);
 			WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
 			Map<String , String> hmParam = new HashMap<String,String>();
@@ -457,6 +469,7 @@ public class CustomerInfoMgr {
 			if(null != contactInfoList && contactInfoList.size() >0){//存在联系人信息
 				for(ContactInfo cInfo : contactInfoList){
 					cInfo.setBaseSeqId(baseSeqId.toString());
+					cInfo.setCommCode(customerInfo.getCommCode());
 					cInfo.setState(customerInfo.getState());
 				}
 				ContactMgr contactInfoMgr = (ContactMgr)BeanLocator.getInstance().getBean(CustInfoConstants.CUSTCONTACTMGR);
@@ -467,6 +480,7 @@ public class CustomerInfoMgr {
 			if(null != bankInfoList && bankInfoList.size() >0){//存在银行信息
 				for(BankInfo bInfo : bankInfoList){
 					bInfo.setBaseSeqId(baseSeqId.toString());
+					bInfo.setCommCode(customerInfo.getCommCode());
 					bInfo.setState(customerInfo.getState());
 				}
 				BankInfoMgr bankInfoMgr =(BankInfoMgr)BeanLocator.getInstance().getBean(CustInfoConstants.CUSTBANKINFOMGR);
@@ -486,7 +500,8 @@ public class CustomerInfoMgr {
 				AccountPreiod aPreiod = customerInfo.getAccountPreiod();
 				if(null != aPreiod){
 					aPreiod.setBaseSeqId(baseSeqId.toString());
-					aPreiod.setState(customerInfo.getState());					
+					aPreiod.setState(customerInfo.getState());	
+					aPreiod.setCommCode(customerInfo.getCommCode());
 					custAccountPreiodMgr.insertAccountPreiod(aPreiod);
 				}
 				break;
@@ -496,7 +511,8 @@ public class CustomerInfoMgr {
 				PrePaidInfo pInfo = customerInfo.getPrePaidInfo();
 				if(null != pInfo){
 					pInfo.setBaseSeqId(baseSeqId.toString());
-					pInfo.setState(customerInfo.getState());					
+					pInfo.setState(customerInfo.getState());
+					pInfo.setCommCode(customerInfo.getCommCode());
 					prePaidMgr.insertPrePaidInfo(pInfo);
 				}
 				break;
@@ -659,6 +675,7 @@ public class CustomerInfoMgr {
 		if(null != contactInfoList && contactInfoList.size() >0){//存在联系人信息	
 			for(ContactInfo cInfo : contactInfoList){
 				cInfo.setState(customerInfo.getState());
+				cInfo.setCommCode(customerInfo.getCommCode());
 				cInfo.setBaseSeqId((customerInfo.getBaseSeqId()).toString());
 			}
 			ContactMgr contactInfoMgr = (ContactMgr)BeanLocator.getInstance().getBean(CustInfoConstants.CUSTCONTACTMGR);
@@ -669,6 +686,7 @@ public class CustomerInfoMgr {
 		if(null != bankInfoList && bankInfoList.size() >0){//存在银行信息
 			for(BankInfo cInfo : bankInfoList){
 				cInfo.setState(customerInfo.getState());
+				cInfo.setCommCode(customerInfo.getCommCode());
 				cInfo.setBaseSeqId((customerInfo.getBaseSeqId()).toString());
 			}
 			BankInfoMgr bankInfoMgr =(BankInfoMgr)BeanLocator.getInstance().getBean(CustInfoConstants.CUSTBANKINFOMGR);
@@ -690,7 +708,8 @@ public class CustomerInfoMgr {
 			AccountPreiod aPreiod = customerInfo.getAccountPreiod();
 			if(null != aPreiod){	//不存在插入
 				aPreiod.setState(customerInfo.getState());
-				aPreiod.setBaseSeqId((customerInfo.getBaseSeqId()).toString());			
+				aPreiod.setBaseSeqId((customerInfo.getBaseSeqId()).toString());	
+				aPreiod.setCommCode(customerInfo.getCommCode());
 				custAccountPreiodMgr.insertAccountPreiod(aPreiod);
 			}
 			break;
@@ -702,7 +721,7 @@ public class CustomerInfoMgr {
 			if(null != pInfo){
 				pInfo.setState(customerInfo.getState());
 				pInfo.setBaseSeqId((customerInfo.getBaseSeqId()).toString());
-				
+				pInfo.setCommCode(customerInfo.getCommCode());
 				prePaidMgr.insertPrePaidInfo(pInfo);
 			}
 			break;
