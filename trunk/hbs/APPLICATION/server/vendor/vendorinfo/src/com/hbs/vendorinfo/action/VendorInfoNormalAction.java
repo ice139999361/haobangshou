@@ -144,23 +144,24 @@ public class VendorInfoNormalAction extends BaseAction {
 
 			VendorInfoMgr mgr = (VendorInfoMgr)getBean(vendorInfoMgrName);
 
-			if(vendorInfo.getBaseSeqId() == null) {
-				VendorInfo vInfo = new VendorInfo();
-				vInfo.setCommCode(vendorInfo.getCommCode());
-				Integer i = mgr.getVendorInfoCount(vInfo);
-				if(i == null || i.compareTo(0) > 0) {
-					logger.error("供应商编码重复！" + vendorInfo.getCommCode());
-					setErrorReason("供应商编码重复！");
-					return ERROR;
-				}
-			}
-			VendorInfo info2 = mgr.getVendorInfo(vendorInfo, false);
+//			if(vendorInfo.getBaseSeqId() == null) {
+//				VendorInfo vInfo = new VendorInfo();
+//				vInfo.setCommCode(vendorInfo.getCommCode());
+//				Integer i = mgr.getVendorInfoCount(vInfo);
+//				if(i == null || i.compareTo(0) > 0) {
+//					logger.error("供应商编码重复！" + vendorInfo.getCommCode());
+//					setErrorReason("供应商编码重复！");
+//					return ERROR;
+//				}
+//			}
+//			VendorInfo info2 = mgr.getVendorInfo(vendorInfo, false);
 			int ret;
-			if (info2 != null)
-				ret = mgr.updateCustomerInfo(vendorInfo);
-			else
-				ret = mgr.saveTempVendorInfo(vendorInfo);
-			
+//			if (info2 != null)
+//				ret = mgr.updateVendorInfo(vendorInfo);
+//			else
+//				ret = mgr.saveTempVendorInfo(vendorInfo);
+			ret = mgr.saveTempVendorInfo(vendorInfo);
+//			
 			if (ret < 0) {
 				logger.info("临时保存出错！");
 				setErrorReason("临时保存出错！");
@@ -215,30 +216,30 @@ public class VendorInfoNormalAction extends BaseAction {
 
 			VendorInfoMgr mgr = (VendorInfoMgr)getBean(vendorInfoMgrName);
 
-			if(vendorInfo.getBaseSeqId() == null) {
-				VendorInfo vInfo = new VendorInfo();
-				vInfo.setCommCode(vendorInfo.getCommCode());
-				Integer i = mgr.getVendorInfoCount(vInfo);
-				if(i == null || i.compareTo(0) > 0) {
-					logger.error("供应商编码重复！" + vendorInfo.getCommCode());
-					setErrorReason("供应商编码重复！");
-					return ERROR;
-				}
-			}
-			VendorInfo info2 = mgr.getVendorInfo(vendorInfo, false);
+//			if(vendorInfo.getBaseSeqId() == null) {
+//				VendorInfo vInfo = new VendorInfo();
+//				vInfo.setCommCode(vendorInfo.getCommCode());
+//				Integer i = mgr.getVendorInfoCount(vInfo);
+//				if(i == null || i.compareTo(0) > 0) {
+//					logger.error("供应商编码重复！" + vendorInfo.getCommCode());
+//					setErrorReason("供应商编码重复！");
+//					return ERROR;
+//				}
+//			}
+//			VendorInfo info2 = mgr.getVendorInfo(vendorInfo, false);
 			int ret;
-			if (info2 != null) {
-				if(vendorInfo.getState().equals("1"))
-					ret = mgr.commitVendorInfo(vendorInfo);
-				else
-					ret = mgr.updateCustomerInfo(vendorInfo);
-			}
-			else {
-				vendorInfo.setState("1");
-				//delete by yangzj 为什么要设置此值？
-				//vendorInfo.setCreditRate("3");
+//			if (info2 != null) {
+//				if(vendorInfo.getState().equals("1"))
+//					ret = mgr.commitVendorInfo(vendorInfo);
+//				else
+//					ret = mgr.updateCustomerInfo(vendorInfo);
+//			}
+//			else {
+//				vendorInfo.setState("1");
+//				//delete by yangzj 为什么要设置此值？
+//				//vendorInfo.setCreditRate("3");
 				ret = mgr.commitVendorInfo(vendorInfo);
-			}
+//			}
 			if (ret < 0) {
 				String s;
 				switch (ret) {

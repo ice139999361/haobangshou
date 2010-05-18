@@ -74,9 +74,9 @@
 				    				<label fieldLabel="账期的起始日" 					 name="vendorInfo.accountPreiod.periodStart"    id="vaPeriodStart"   labelStyle="width:150" />
 				    				<!--
 									<label fieldLabel="客户账期的最大交易金额" name="vendorInfo.accountPreiod.maxMoney"          labelStyle="width:150" />
-									-->
+									
 				    				<label fieldLabel="账期提醒设置" 							 name="vendorInfo.accountPreiod.reminderDay"  id="vaReminderDay"     labelStyle="width:150" />
-				    				
+				    				-->
 				    				<label fieldLabel="税率"                   name="vendorInfo.taxRate"                         labelStyle="width:150" />	
 				    				<!--
 									<label fieldLabel="供应商的账期设置" 		   name="vendorInfo.accountPreiod.accountPeriod"     labelStyle="width:150" />	

@@ -89,9 +89,10 @@
 									-->
 				    				<label fieldLabel="账期的起始日" 					 name="custInfo.accountPreiod.periodStart" id="vaPeriodStart"  labelStyle="width:150" />
 				    				<label fieldLabel="结算方式" 					 name="custInfo.accountPreiod.settlementDayDesc" id="vaSettlementDay" labelStyle="width:150" />
-				    				<label fieldLabel="对账/结算提醒设置(天)" 							 name="custInfo.accountPreiod.reminderDay"  id="vaReminderDay" labelStyle="width:150" />
+				    				<!--
+									<label fieldLabel="对账/结算提醒设置(天)" 							 name="custInfo.accountPreiod.reminderDay"  id="vaReminderDay" labelStyle="width:150" />
 				    				<label fieldLabel="提醒市场人员催款(天)" 			 name="custInfo.prePaidInfo.reminderDay"  id="vpReminderDay"   labelStyle="width:150" />
-				    				
+				    				-->
 				    				<label fieldLabel="客户结算币种"           name="custInfo.currencyDesc"                labelStyle="width:150" />
 				    				<!--
 									<label fieldLabel="客户的账期设置" 				 name="custInfo.accountPreiod.accountPeriod" labelStyle="width:150" />

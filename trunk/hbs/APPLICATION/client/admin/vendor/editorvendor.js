@@ -19,14 +19,14 @@ HBSConvertHelper.init(function() {
 			case "1":
 				// 显示：账期类型,账期的起始日,账期的对账日,账期的结算日,客户账期的最大交易金额,提醒设置,供应商的账期设置,提醒日
 				//ExtConvertHelper.showItems("vaAccountType,vaPeriodStart,vaAccounDay,vaSettlementDay,vaMaxMoney,vaReminderDay,vaAccountPeriod,vpReminderDay");
-				ExtConvertHelper.showItems("vaPeriodStart,vaSettlementDay,vaReminderDay");
+				ExtConvertHelper.showItems("vaPeriodStart,vaSettlementDay");
 				ExtConvertHelper.hideItems("vpPrePaid");
 				break;
 			case "2":
 			case "3":
 				// 隐藏：账期类型,账期的起始日,账期的对账日,账期的结算日,客户账期的最大交易金额,提醒设置,供应商的账期设置,提醒日
 				//ExtConvertHelper.hideItems("vaAccountType,vaPeriodStart,vaAccounDay,vaSettlementDay,vaMaxMoney,vaReminderDay,vaAccountPeriod,vpReminderDay");
-				ExtConvertHelper.hideItems("vaPeriodStart,vaSettlementDay,vaReminderDay");
+				ExtConvertHelper.hideItems("vaPeriodStart,vaSettlementDay");
 				ExtConvertHelper.showItems("vpPrePaid");
 				break;
 		}
@@ -80,13 +80,14 @@ HBSConvertHelper.init(function() {
 		HBSConvertHelper.setDocumentTitle("供应商信息录入");
 		
 		// 获取供应商编码
-		ExtConvertHelper.request("/vendorInfo/vendorInfo!getNewCommCode.action", null, function(response, opts) {
-			var action = Ext.util.JSON.decode(response.responseText);
-			if(action.success == "true" || action.success == true) {
-				Ext.getCmp("textVendorCode").setValue(action.data.commCode);
-			}
-		});
-		
+	//	ExtConvertHelper.request("/vendorInfo/vendorInfo!getNewCommCode.action", null, function(response, opts) {
+	//		var action = Ext.util.JSON.decode(response.responseText);
+	//		if(action.success == "true" || action.success == true) {
+	//			Ext.getCmp("textVendorCode").setValue(action.data.commCode);
+	//		}
+	//	});
+	//新增，隐藏编码
+		ExtConvertHelper.hideItems("textVendorCode");
 		// 提交完成后的操作
 		submitSuccessPro = function() {
 			// 用户单击后重载此页面
@@ -98,7 +99,8 @@ HBSConvertHelper.init(function() {
 	function updateInitFun() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("修改供应商信息");
-		
+		//修改，显示编码
+		ExtConvertHelper.showItems("textVendorCode");
 		// 隐藏不需要的控件
 		if(urlPs.state != 1) ExtConvertHelper.hideItems("saveBtn");
 		

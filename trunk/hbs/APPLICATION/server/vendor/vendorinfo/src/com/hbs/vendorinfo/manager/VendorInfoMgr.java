@@ -16,6 +16,7 @@ import com.hbs.common.manager.baseinfo.AccountPreiodMgr;
 import com.hbs.common.manager.baseinfo.BankInfoMgr;
 import com.hbs.common.manager.baseinfo.ContactMgr;
 import com.hbs.common.manager.baseinfo.PrePaidMgr;
+import com.hbs.common.manager.syssequence.SysSequenceMgr;
 
 
 import com.hbs.common.springhelper.BeanLocator;
@@ -49,9 +50,18 @@ public class VendorInfoMgr {
 	 * @throws Exception
 	 */
 	public int saveTempVendorInfo(VendorInfo vInfo) throws Exception{
+		int ret = 0;
 		logger.debug("保存供应商信息的临时数据,数据状态为临时状态,输入的参数为:" + vInfo.toString());
-		vInfo.setState(new Integer(StateConstants.STATE_1).toString());
-		return insertVendorInfo(vInfo);
+		Integer seqId = vInfo.getBaseSeqId();
+		if(seqId == null){//新保存
+			String commCode = SysSequenceMgr.getCode(SysSequenceMgr.GV_CODE);
+			vInfo.setCommCode(commCode);
+			vInfo.setState(new Integer(StateConstants.STATE_1).toString());
+			ret =  insertVendorInfo(vInfo);
+		}else{//修改保存
+			ret = updateVendorInfo(vInfo);
+		}
+		return ret;
 	}
 	
 	/**
@@ -74,6 +84,7 @@ public class VendorInfoMgr {
 			if(null != contactInfoList && contactInfoList.size() >0){//存在联系人信息
 				for(ContactInfo cInfo : contactInfoList){
 					cInfo.setBaseSeqId(baseSeqId.toString());
+					cInfo.setCommCode(vInfo.getCommCode());
 					cInfo.setState(vInfo.getState());
 				}
 				ContactMgr contactInfoMgr = (ContactMgr)BeanLocator.getInstance().getBean(VendorInfoConstants.VENDOR_CONTACTMGR);
@@ -85,6 +96,7 @@ public class VendorInfoMgr {
 			if(null != bankInfoList && bankInfoList.size() >0){//存在银行信息
 				for(BankInfo bInfo : bankInfoList){
 					bInfo.setBaseSeqId(baseSeqId.toString());
+					bInfo.setCommCode(vInfo.getCommCode());
 					bInfo.setState(vInfo.getState());
 				}
 				BankInfoMgr bankInfoMgr =(BankInfoMgr)BeanLocator.getInstance().getBean(VendorInfoConstants.VENDOR_BANKINFOMGR);
@@ -105,6 +117,7 @@ public class VendorInfoMgr {
 				AccountPreiod aPreiod = vInfo.getAccountPreiod();
 				if(null != aPreiod){
 					aPreiod.setBaseSeqId(baseSeqId.toString());
+					aPreiod.setCommCode(vInfo.getCommCode());
 					aPreiod.setState(vInfo.getState());
 					
 					accountPreiodMgr.insertAccountPreiod(aPreiod);
@@ -116,6 +129,7 @@ public class VendorInfoMgr {
 				PrePaidInfo pInfo = vInfo.getPrePaidInfo();
 				if(null != pInfo){
 					pInfo.setBaseSeqId(baseSeqId.toString());
+					pInfo.setCommCode(vInfo.getCommCode());
 					pInfo.setState(vInfo.getState());				
 					prePaidMgr.insertPrePaidInfo(pInfo);
 				}
@@ -145,8 +159,18 @@ public class VendorInfoMgr {
 		//获取提交数据的baseSeqId ，如果不存在，表示没有保存过，需要先保存
 		Integer ibaseSeqId = vInfo.getBaseSeqId();
 		if(null == ibaseSeqId){
+			String commCode = SysSequenceMgr.getCode(SysSequenceMgr.GV_CODE);
+			vInfo.setCommCode(commCode);
 			vInfo.setState(new Integer(StateConstants.STATE_2).toString());
 			ret = this.insertVendorInfo(vInfo);
+			WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
+			Map<String , String> hmParam = new HashMap<String,String>();
+			hmParam.put("$staffName", vInfo.getStaffName());
+			hmParam.put("$commCode", vInfo.getCommCode());
+			hmParam.put("$shortName", vInfo.getShortName());
+			waitTaskInfo.setHmParam(hmParam);
+			waitTaskInfo.setBusinessKey(vInfo.getWaitTaskKey());
+			VendorWaitTaskUtils.processCreateWaitTask("VENDOR001", null, waitTaskInfo);
 		}else{
 			//获取需要提交数据的状态
 			int iState = Integer.parseInt(vInfo.getState());
@@ -247,7 +271,7 @@ public class VendorInfoMgr {
 	 * @return 0---成功   1--无此状态  2---状态不正确
 	 * @throws Exception
 	 */
-	public int updateCustomerInfo(VendorInfo vInfo) throws Exception{
+	public int updateVendorInfo(VendorInfo vInfo) throws Exception{
 		logger.debug("修改供应商信息,输入的参数为：" + vInfo.toString());
 		int ret =0;
 		int iState = Integer.parseInt(vInfo.getState());
@@ -607,6 +631,7 @@ public class VendorInfoMgr {
 		if(null != contactInfoList && contactInfoList.size() >0){//存在联系人信息	
 			for(ContactInfo cInfo : contactInfoList){
 				cInfo.setState(vInfo.getState());
+				cInfo.setCommCode(vInfo.getCommCode());
 				cInfo.setBaseSeqId((vInfo.getBaseSeqId()).toString());
 			}
 			ContactMgr contactInfoMgr = (ContactMgr)BeanLocator.getInstance().getBean(VendorInfoConstants.VENDOR_CONTACTMGR);
@@ -617,6 +642,7 @@ public class VendorInfoMgr {
 		if(null != bankInfoList && bankInfoList.size() >0){//存在银行信息
 			for(BankInfo cInfo : bankInfoList){
 				cInfo.setState(vInfo.getState());
+				cInfo.setCommCode(vInfo.getCommCode());
 				cInfo.setBaseSeqId((vInfo.getBaseSeqId()).toString());
 			}
 			BankInfoMgr bankInfoMgr =(BankInfoMgr)BeanLocator.getInstance().getBean(VendorInfoConstants.VENDOR_BANKINFOMGR);
@@ -636,6 +662,7 @@ public class VendorInfoMgr {
 			AccountPreiod aPreiod = vInfo.getAccountPreiod();
 			if(null != aPreiod){	
 				aPreiod.setState(vInfo.getState());
+				aPreiod.setCommCode(vInfo.getCommCode());
 				aPreiod.setBaseSeqId((vInfo.getBaseSeqId()).toString());
 				
 				accountPreiodMgr.insertAccountPreiod(aPreiod);
@@ -649,7 +676,7 @@ public class VendorInfoMgr {
 			if(null != pInfo){
 				pInfo.setState(vInfo.getState());
 				pInfo.setBaseSeqId((vInfo.getBaseSeqId()).toString());
-				
+				pInfo.setCommCode(vInfo.getCommCode());
 				prePaidMgr.insertPrePaidInfo(pInfo);
 			}
 			break;

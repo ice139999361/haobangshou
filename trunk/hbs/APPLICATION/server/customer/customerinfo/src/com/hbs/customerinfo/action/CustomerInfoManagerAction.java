@@ -224,6 +224,36 @@ public class CustomerInfoManagerAction extends BaseAction {
 		}
 	}
 	
+	/** autocomplete 填充使用  
+	 * 
+	 * @return
+	 */
+	public String doListDict()
+	{
+		try
+		{
+			if (logger.isDebugEnabled())    logger.debug("begin doListDict");
+			if (custInfo == null) {
+				custInfo = new CustomerInfo();
+				custInfo.setState("0");
+			}else{
+				custInfo.setState("0");
+			}
+			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(custInfoMgrName);
+			
+			setResult("list", mgr.getCustomerInfoList(custInfo));
+			
+			if (logger.isDebugEnabled())    logger.debug("end doListDict");
+			return SUCCESS;
+		}
+		catch(Exception e)
+		{
+			logger.error("catch Exception in doListDict", e);
+			setErrorReason("内部错误");
+            return ERROR;
+		}
+	}
+	
 	/**
 	 * 查询待审批数据
 	 * @action.input 无

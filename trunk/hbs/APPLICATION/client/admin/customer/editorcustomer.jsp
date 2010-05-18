@@ -20,7 +20,8 @@
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="客户基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<textfield fieldLabel="客户编码"       id ="textCustCode"        name="custInfo.commCode"             labelStyle="width:150" allowBlank="false"  readOnly="true" />				    				
+				    				<!--<textfield fieldLabel="客户编码"       id ="textCustCode"        name="custInfo.commCode"             labelStyle="width:150" allowBlank="false"  readOnly="true" />	-->
+									<textfield fieldLabel="客户编码"       id ="textCustCode"        name="custInfo.commCode"             labelStyle="width:150"   readOnly="true" />	
 				    				<textfield fieldLabel="客户法人代表"           name="custInfo.representative"       labelStyle="width:150" />
 								</layoutpanel>
 
@@ -87,8 +88,10 @@
 									<numberfield fieldLabel="账期的结算日" 					 name="custInfo.accountPreiod.settlementDay"     labelStyle="width:150" id="vaSettlementDay"   emptyText="账期结束的第几日"   relate="vaAccounDay|;&gt;|;必须大于账期的对账日" vtype="commCheck"/>
 									-->
 				    				<dictcombo fieldLabel="结算方式" 					 hiddenName="custInfo.accountPreiod.settlementDay"     labelStyle="width:150" paramsValue="SETTLEMENT_DAY" id="vaSettlementDay"   />
+									<!--
 									<numberfield fieldLabel="提醒设置(单位:天)" 							 name="custInfo.accountPreiod.reminderDay"       labelStyle="width:150" id="vaReminderDay"     emptyText="提前几天提醒对账/结算" />
 				    				<numberfield fieldLabel="提醒市场人员催款" 			 name="custInfo.prePaidInfo.reminderDay"         labelStyle="width:150" id="vpReminderDay"  emptyText="货到付款催款提醒"/>
+									-->
 				    				
 				    				<dictcombo fieldLabel="客户结算币种"           hiddenName="custInfo.currency"                  labelStyle="width:150" paramsValue="CURRENCY"        emptyText="请选择" />
 				    				<!--账期设置固定为1个月

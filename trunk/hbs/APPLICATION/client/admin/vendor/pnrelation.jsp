@@ -19,12 +19,15 @@
 			    	
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="供应商基本信息" collapsible="true" titleCollapse="true">
-				    			<layoutpanel columnNum="1">
-				    				<autocomplete fieldLabel="供应商编码" url="/vendorInfo/vendorInfo!list.action?vendorInfo.state=0"  displayField="commCode"  valueField="commCode" queryParam="vendorInfo.commCode"     name="vendorInfo.commCode"       labelStyle="width:150" allowBlank="false" id="acCommCode"/>
+				    			<layoutpanel columnNum="2">
+									<autocomplete fieldLabel="供应商简称" url="/vendorInfo/vendorInfo!listDict.action?vendorInfo.state=0"  displayField="shortName"  valueField="shortName" queryParam="vendorInfo.shortName"     name="vendorPartNoInfo.shortName"       labelStyle="width:150" allowBlank="false" id="acShortName"/>
+				    				<autocomplete fieldLabel="供应商编码" url="/vendorInfo/vendorInfo!listDict.action?vendorInfo.state=0"  displayField="commCode"  valueField="commCode" queryParam="vendorInfo.commCode"     name="vendorPartNoInfo.commCode"       labelStyle="width:150" allowBlank="false" id="acCommCode"/>
 				    			</layoutpanel>
 				    			
-				    			<layoutpanel columnNum="2">
-				    				<label fieldLabel="供应商简称"               name="vendorInfo.shortName"  	id="acShortName"      labelStyle="width:150" allowBlank="false"/>
+				    			<layoutpanel columnNum="1">
+				    				<!--
+									<label fieldLabel="供应商简称"               name="vendorInfo.shortName"  	id="acShortName"      labelStyle="width:150" allowBlank="false"/>
+									-->
 				    				<label fieldLabel="供应商结算币种"           name="vendorInfo.currencyDesc" id="acCurrencyDesc"   labelStyle="width:150" />
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
@@ -48,7 +51,7 @@
 				    		<listpanel frame="true" title="关联信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
 				    				<textfield   fieldLabel="单价"               name="vendorPartNoInfo.price"                   labelStyle="width:150" />
-				    				<textfield   fieldLabel="最小包装" 			     name=""                        labelStyle="width:150" value="1" />
+				    				<textfield   fieldLabel="最小包装" 			     name="vendorPartNoInfo.minPackage"                        labelStyle="width:150" value="1" />
 				    				<textfield   fieldLabel="样品编码" 					 name="vendorPartNoInfo.sampleCode"              labelStyle="width:150" />
 				    				
 				    				<numberfield fieldLabel="税率"               name="vendorPartNoInfo.priceTax"                labelStyle="width:150" value="0.00" minValue="0.00" maxValue="1"/>

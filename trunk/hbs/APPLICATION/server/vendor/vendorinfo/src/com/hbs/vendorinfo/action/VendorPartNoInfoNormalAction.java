@@ -366,19 +366,19 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
 	
 	protected void fixCommCode()
 	{
-		try {
-			if(vendorPartNoInfo == null)
-				return;
-			if(StringUtils.isEmpty(vendorPartNoInfo.getCommCode()))
-			{
-				String s = this.getHttpServletRequest().getParameter("vendorInfo.commCode");
-				if(StringUtils.isNotEmpty(s))
-				{
-					vendorPartNoInfo.setCommCode(s);
-				}
-			}
-		} catch (Exception e) {
-			logger.error("catch Exception in fixCommCode", e);
-		}
+//		try {
+//			if(vendorPartNoInfo == null)
+//				return;
+//			if(StringUtils.isEmpty(vendorPartNoInfo.getCommCode()))
+//			{
+//				String s = this.getHttpServletRequest().getParameter("vendorInfo.commCode");
+//				if(StringUtils.isNotEmpty(s))
+//				{
+//					vendorPartNoInfo.setCommCode(s);
+//				}
+//			}
+//		} catch (Exception e) {
+//			logger.error("catch Exception in fixCommCode", e);
+//		}
 	}
 }

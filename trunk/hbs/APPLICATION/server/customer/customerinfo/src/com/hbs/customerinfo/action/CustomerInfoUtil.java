@@ -105,16 +105,16 @@ public class CustomerInfoUtil {
 		
 		String s;
 		// DONE:完成checkInputFields，对输入的客户信息进行校验
-		s = custInfo.getVendorCode();
+//		s = custInfo.getVendorCode();
 //		if(StringUtils.isEmpty(s))
 //		{
 //			list.add(new FieldErr("venderCode","venderCode没有填写"));
 //		}
-		s = custInfo.getCommCode();
-		if(StringUtils.isEmpty(s))
-		{
-			list.add(new FieldErr("CommCode","CommCode没有填写"));
-		}
+//		s = custInfo.getCommCode();
+//		if(StringUtils.isEmpty(s))
+//		{
+//			list.add(new FieldErr("CommCode","CommCode没有填写"));
+//		}
 		s = custInfo.getShortName();
 		if(StringUtils.isEmpty(s))
 		{
@@ -148,10 +148,18 @@ public class CustomerInfoUtil {
 			list.add(new FieldErr("SettlementType","SettlementType没有填写"));
 		}
 		
-		String baseSeqId = null;
-		try {
-			baseSeqId = custInfo.getBaseSeqId().toString();
-		} catch (Exception e) {
+//		String baseSeqId = null;
+//		try {
+//			baseSeqId = custInfo.getBaseSeqId().toString();
+//		} catch (Exception e) {
+//		}
+		Integer baseSeqId = custInfo.getBaseSeqId();
+		if(baseSeqId != null){
+			s = custInfo.getCommCode();
+			if(StringUtils.isEmpty(s))
+			{
+				list.add(new FieldErr("CommCode","CommCode没有填写"));
+			}
 		}
 		String settleMentType = custInfo.getSettlementType();
 		if(settleMentType.equals("1")){
@@ -163,17 +171,18 @@ public class CustomerInfoUtil {
 		if(accountPreiod != null) {
 			accountPreiod.setCommCode(custInfo.getCommCode());
 			accountPreiod.setState(custInfo.getState());
-			accountPreiod.setBaseSeqId(baseSeqId);
+			accountPreiod.setBaseSeqId(baseSeqId == null ? null : baseSeqId.toString());
 			accountPreiod.setAccounDay("1");//对账日，缺省1
 			accountPreiod.setAccountType("1");//账期类型，缺省1 月结
 			accountPreiod.setAccountPeriod("1"); //账期  缺省1  一个月
+			accountPreiod.setReminderDay("2");
 		}
 		PrePaidInfo prePaidInfo = custInfo.getPrePaidInfo();
 		if(prePaidInfo != null) {
 			prePaidInfo.setCommCode(custInfo.getCommCode());
 			prePaidInfo.setState(custInfo.getState());
-			prePaidInfo.setBaseSeqId(baseSeqId);
-			
+			prePaidInfo.setBaseSeqId(baseSeqId == null ? null : baseSeqId.toString());
+			prePaidInfo.setReminderDay("1");
 			// 处理prepaid的reminderday
 			if(custInfo.getSettlementType().equals("2")) {
 				s = prePaidInfo.getReminderDay();

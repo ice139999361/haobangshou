@@ -8,6 +8,7 @@
 	<result property="seqId" column="SEQID"/>
     <result property="custPartNo" column="C_PART_NO"/>
     <result property="commCode" column="C_CODE"/>
+    <result property="shortName" column="C_SHORT_NAME"/>
     <result property="state" column="STATE"/>
     <result property="pnDesc" column="PN_DESC"/>
     <result property="price" column="PRICE"/>
@@ -42,7 +43,8 @@
             MIN_AMOUNT, 
             MIN_PACKAGE, 
             SAMPLE_CODE,
-            IS_PRICECHANGE
+            IS_PRICECHANGE,
+			C_SHORT_NAME
         )
     VALUES (
             #custPartNo#,
@@ -60,7 +62,8 @@
             #minAmount#,
             #minPackage#,
             #sampleCode#,
-            #isPriceChange#
+            #isPriceChange#,
+			#shortName#
     )
 ]]>
 <selectKey resultClass="Integer" keyProperty="seqId">
@@ -107,6 +110,9 @@
     	C_PART_NO = #custPartNo#
 	<isNotEmpty prepend="," property="commCode">
             C_CODE = #commCode#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="shortName">
+            C_SHORT_NAME = #shortName#
 	</isNotEmpty>
 	<isNotEmpty prepend="," property="state">
             STATE = #state#
@@ -159,6 +165,7 @@
     		SEQID,
             C_PART_NO, 
             C_CODE, 
+			C_SHORT_NAME,
             STATE, 
             PN_DESC, 
             PRICE, 
@@ -183,6 +190,7 @@
     		SEQID,
             C_PART_NO, 
             C_CODE, 
+			C_SHORT_NAME,
             STATE, 
             PN_DESC, 
             PRICE, 
@@ -206,6 +214,9 @@
 			<isNotEmpty prepend="and" property = "commCode">
 				C_CODE = #commCode#
 			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "shortName">
+				C_SHORT_NAME = #shortName#
+			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "state">
 				STATE = #state#
 			</isNotEmpty>			
@@ -221,6 +232,7 @@
     		SEQID,
             C_PART_NO, 
             C_CODE, 
+			C_SHORT_NAME,
             STATE, 
             PN_DESC, 
             PRICE, 
@@ -243,6 +255,9 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "commCode">
 				C_CODE = #commCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "shortName">
+				C_SHORT_NAME = #shortName#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "state">
 				STATE = #state#
@@ -280,6 +295,9 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "commCode">
 				C_CODE = #commCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "shortName">
+				C_SHORT_NAME = #shortName#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "state">
 				STATE = #state#

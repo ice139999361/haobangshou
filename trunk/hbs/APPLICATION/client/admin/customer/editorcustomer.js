@@ -21,16 +21,16 @@ HBSConvertHelper.init(function() {
 				// 显示：账期类型,账期的起始日,账期的对账日,账期的结算日,客户账期的最大交易金额,提醒设置,供应商的账期设置,提醒日
 				//ExtConvertHelper.showItems("vaAccountType,vaPeriodStart,vaAccounDay,vaSettlementDay,vaMaxMoney,vaReminderDay,vaAccountPeriod");
 				//ExtConvertHelper.hideItems("vpReminderDay");
-				ExtConvertHelper.showItems("vaPeriodStart,vaSettlementDay,vaReminderDay,vaMaxMoney");
-				ExtConvertHelper.hideItems("vpPrePaid,vpReminderDay");
+				ExtConvertHelper.showItems("vaPeriodStart,vaSettlementDay,vaMaxMoney");
+				ExtConvertHelper.hideItems("vpPrePaid");
 				break;
 			case "2":
 			case "3":
 				// 隐藏：账期类型,账期的起始日,账期的对账日,账期的结算日,客户账期的最大交易金额,提醒设置,供应商的账期设置,提醒日
 				//ExtConvertHelper.hideItems("vaAccountType,vaPeriodStart,vaAccounDay,vaSettlementDay,vaMaxMoney,vaReminderDay,vaAccountPeriod");
 				//ExtConvertHelper.showItems("vpReminderDay");
-				ExtConvertHelper.hideItems("vaPeriodStart,vaSettlementDay,vaReminderDay,vaMaxMoney");
-				ExtConvertHelper.showItems("vpPrePaid,vpReminderDay");
+				ExtConvertHelper.hideItems("vaPeriodStart,vaSettlementDay,vaMaxMoney");
+				ExtConvertHelper.showItems("vpPrePaid");
 				break;
 		}
 	});
@@ -82,13 +82,14 @@ HBSConvertHelper.init(function() {
 		HBSConvertHelper.setDocumentTitle("新客户信息录入");
 		
 		// 获取客户编码
-		ExtConvertHelper.request("/customerInfo/customerInfo!getNewCommCode.action", null, function(response, opts) {
-			var action = Ext.util.JSON.decode(response.responseText);
-			if(action.success == "true" || action.success == true) {
-				Ext.getCmp("textCustCode").setValue(action.data.commCode);
-			}
-		});
-		
+		//ExtConvertHelper.request("/customerInfo/customerInfo!getNewCommCode.action", null, function(response, opts) {
+		//	var action = Ext.util.JSON.decode(response.responseText);
+		//	if(action.success == "true" || action.success == true) {
+		//		Ext.getCmp("textCustCode").setValue(action.data.commCode);
+		//	}
+		//});
+		//新增，隐藏编码
+		ExtConvertHelper.hideItems("textCustCode");
 		// 提交完成后的操作
 		submitSuccessPro = function() {
 			// 用户单击后重载此页面
@@ -100,7 +101,8 @@ HBSConvertHelper.init(function() {
 	function updateInitFun() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("修改客户信息");
-		
+		//修改，显示编码
+		ExtConvertHelper.showItems("textCustCode");
 		// 隐藏不需要的控件
 		if(urlPs.state != 1) ExtConvertHelper.hideItems("saveBtn");
 		
