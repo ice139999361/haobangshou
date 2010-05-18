@@ -114,6 +114,9 @@
      	<action name="customerInfoMgr!list" method="doList" 
     			class="com.hbs.customerinfo.action.CustomerInfoManagerAction">
 		</action>
+		<action name="customerInfoMgr!listDict" method="doListDict" 
+    			class="com.hbs.customerinfo.action.CustomerInfoManagerAction">
+		</action>
     	<action name="customerInfoMgr!getInfo" method="doGetInfo" 
     			class="com.hbs.customerinfo.action.CustomerInfoManagerAction">
 		</action>
@@ -244,9 +247,7 @@
      	<action name="custPartNoInfoMgr!list" method="doList" 
     			class="com.hbs.customerinfo.action.CustPartNoInfoManagerAction">
 		</action>
-		<action name="custPartNoInfoMgr!listDict" method="doListDict" 
-    			class="com.hbs.customerinfo.action.CustPartNoInfoManagerAction">
-		</action>
+		
       	<action name="custPartNoInfoMgr!audit" method="doAudit" 
     			class="com.hbs.customerinfo.action.CustPartNoInfoManagerAction">
 		</action>

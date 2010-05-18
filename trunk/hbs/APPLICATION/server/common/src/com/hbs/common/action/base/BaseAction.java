@@ -351,7 +351,8 @@ public class BaseAction extends ActionSupport {
     		return new Staff(u.getStaffId(), u.getStarffName());
     	else{
     		logger.error("无法获取Session中的用户信息！");
-    		return new Staff(1, "user1");
+    		//return new Staff(1, "user1");
+    		return null;
     	}
         //return (Staff) LoginHelper.getLoginStaff(domain);
     }
