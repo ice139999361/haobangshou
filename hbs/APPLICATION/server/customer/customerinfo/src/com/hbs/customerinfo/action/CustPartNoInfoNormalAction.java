@@ -72,9 +72,9 @@ public class CustPartNoInfoNormalAction extends BaseAction {
     	{
 			if (logger.isDebugEnabled())    logger.debug("begin doList");
 
-			if(custPartNoInfo == null)
+			if(custPartNoInfo == null){
 				custPartNoInfo = new CustPartNoInfo();
-			
+			}
 			if(!checkCommonFields())
 				return ERROR;
 
@@ -331,10 +331,11 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 			}
 			
 			String commCode = custPartNoInfo.getCommCode();
-			if(StringUtils.isEmpty(commCode))
+			String shortName = custPartNoInfo.getShortName();
+			if(StringUtils.isEmpty(commCode) && StringUtils.isEmpty(shortName))
 			{
-				logger.info("客户编码没有填写！");
-				setErrorReason("客户编码没有填写！");
+				logger.info("客户编码或客户简称没有填写！");
+				setErrorReason("客户编码或客户简称没有填写！");
 				return false;
 			}
 			
@@ -342,11 +343,12 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 			CustomerInfoMgr custmgr = (CustomerInfoMgr)getBean(CustomerInfoNormalAction.custInfoMgrName);
 			custInfo = new CustomerInfo();
 			custInfo.setCommCode(commCode);
+			custInfo.setShortName(shortName);
 			custInfo.setState("0");
 			custInfo = custmgr.getCustomerInfo(custInfo, false);
 			if(custInfo == null) {
 				logger.info("客户编码错误！");
-				setErrorReason("客户编码错误！");
+				setErrorReason("没有对应的客户信息！");
 				return false;
 			}
 			String id = getLoginStaff().getStaffId().toString();

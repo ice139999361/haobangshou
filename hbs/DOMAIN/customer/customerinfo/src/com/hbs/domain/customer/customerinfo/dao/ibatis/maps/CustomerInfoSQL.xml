@@ -288,8 +288,19 @@
             ASS_STAFF_ID, 
             ASS_STAFF_NAME,
 			CREATE_TIME
-    FROM T_CUSTOMER_INFO WHERE C_CODE = #commCode# AND STATE = #state#
+    FROM T_CUSTOMER_INFO
 ]]>
+<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property="commCode">
+				C_CODE  = #commCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="state">
+				STATE = #state#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="shortName">
+				SHORT_NAME = #shortName#
+			</isNotEmpty>
+</dynamic>
 </select>
 
 

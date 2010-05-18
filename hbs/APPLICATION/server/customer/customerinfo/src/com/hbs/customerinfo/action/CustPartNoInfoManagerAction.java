@@ -59,9 +59,9 @@ public class CustPartNoInfoManagerAction extends BaseAction {
 				custPartNoInfo.setState("0");
 			*/
 			
-			if(!checkCommonFields())
-				return ERROR;
-			
+//			if(!checkCommonFields())
+//				return ERROR;
+//			
 			setPagination(custPartNoInfo);
 			CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)getBean(custPartNoInfoMgrName);
 			setResult("list", mgr.listCustPartNoInfo(custPartNoInfo));
@@ -327,10 +327,12 @@ public class CustPartNoInfoManagerAction extends BaseAction {
 				return false;
 			}
 			
-			if(StringUtils.isEmpty(custPartNoInfo.getCommCode()))
+			String commCode = custPartNoInfo.getCommCode();
+			String shortName = custPartNoInfo.getShortName();
+			if(StringUtils.isEmpty(commCode) && StringUtils.isEmpty(shortName))
 			{
-				logger.info("客户编码没有填写！");
-				setErrorReason("客户编码没有填写！");
+				logger.info("客户编码或客户简称没有填写！");
+				setErrorReason("客户编码或客户简称没有填写！");
 				return false;
 			}
 			
