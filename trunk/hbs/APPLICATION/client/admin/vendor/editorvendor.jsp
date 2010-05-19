@@ -59,6 +59,7 @@
 				    			<layoutpanel columnNum="1">
 				    				<hidden name="vendorInfo.baseSeqId" />
 				    				<hidden name="vendorInfo.state" />
+									<hidden name="vendorInfo.isShowPrice" />
 				    			</layoutpanel>
 				    		</listpanel>
 				    		

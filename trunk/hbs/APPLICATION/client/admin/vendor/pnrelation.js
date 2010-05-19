@@ -69,16 +69,16 @@ HBSConvertHelper.init(function() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("供应商P/N对照修改");
 		// 设置下列控件为只读
-		ExtConvertHelper.setItemsReadOnly("acCommCode,acCustPartNo,acPartNo", true);
+		ExtConvertHelper.setItemsReadOnly("acShortName,acCommCode,acCustPartNo,acPartNo", true);
 		
 		// 设置关联按钮的 url
 		submitBtn.url = "/vendorInfo/vendorPartNoInfo!save.action";
 		
 		// 组装需要的参数
-		var params = ["vendorInfo.seqId=", urlPs.seqId].join("");
+		var params = ["vendorPartNoInfo.seqId=", urlPs.seqId].join("");
 		
 		// 加载数据
-		ExtConvertHelper.loadForm("form", "/vendorInfo/vendoromerInfo!getInfo.action", params, function(form, action) {
+		ExtConvertHelper.loadForm("form", "/vendorInfo/vendorPartNoInfo!getInfo.action", params, function(form, action) {
 			Ext.getCmp("acPnDesc").setValue(action.result.data.vendorPartNoInfo.pnDesc);
 		});
 	}
