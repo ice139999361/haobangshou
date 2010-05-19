@@ -149,11 +149,13 @@
 			
 			<isNotEmpty prepend="and" property = "roleId">
 			  <![CDATA[
-			    (ROLE_ID = #roleId# AND STAFF_ID IS NULL)
+			    ((ROLE_ID = #roleId# AND STAFF_ID IS NULL)
 			  ]]>
 			  <isNotEmpty prepend="OR" property = "staffId">
-				STAFF_ID = #staffId#
-			  </isNotEmpty>
+			  <![CDATA[
+				(STAFF_ID = #staffId# AND ROLE_ID IS NULL) )
+				]]>
+			  </isNotEmpty>			  
 			</isNotEmpty>
 			
 			<isEmpty prepend="and" property = "roleId">
