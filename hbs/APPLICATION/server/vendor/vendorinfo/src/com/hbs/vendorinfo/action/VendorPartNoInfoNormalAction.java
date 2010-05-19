@@ -331,10 +331,11 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
 			}
 			
 			String commCode = vendorPartNoInfo.getCommCode();
-			if(StringUtils.isEmpty(commCode))
+			String shortName = vendorPartNoInfo.getShortName();
+			if(StringUtils.isEmpty(commCode) && StringUtils.isEmpty(shortName))
 			{
-				logger.info("供应商编码没有填写！");
-				setErrorReason("供应商编码没有填写！");
+				logger.info("供应商编码或简称没有填写！");
+				setErrorReason("供应商编码或简称没有填写！");
 				return false;
 			}
 			
@@ -342,15 +343,17 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
 			VendorInfoMgr vendormgr = (VendorInfoMgr)getBean(VendorInfoNormalAction.vendorInfoMgrName);
 			VendorInfo vendorInfo = new VendorInfo();
 			vendorInfo.setCommCode(commCode);
+			vendorInfo.setShortName(shortName);
 			vendorInfo.setState("0");
 			vendorInfo = vendormgr.getVendorInfo(vendorInfo, false);
 			if(vendorInfo == null) {
-				logger.info("供应编码错误！");
-				setErrorReason("供应编码错误！");
+				logger.info("供应商编码错误！");
+				setErrorReason("无对应的供应商信息！");
 				return false;
 			}
 			String id = getLoginStaff().getStaffId().toString();
-			if(vendorInfo == null || !id.equals(vendorInfo.getStaffId()))
+			
+			if( !id.equals(vendorInfo.getStaffId()))
 			{
 				logger.info("您没有权限访问！");
 				setErrorReason("您没有权限访问！");

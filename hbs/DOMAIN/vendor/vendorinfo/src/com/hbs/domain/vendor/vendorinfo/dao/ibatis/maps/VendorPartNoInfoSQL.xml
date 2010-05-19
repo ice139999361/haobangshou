@@ -254,10 +254,10 @@
 				C_PART_NO like '%$custPartNo$%'
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "commCode">
-				C_CODE = #commCode#
+				C_CODE like '%$commCode$%'
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "shortName">
-				C_SHORT_NAME = #shortName#
+				C_SHORT_NAME like '%$shortName$%'
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "state">
 				STATE = #state#
@@ -294,10 +294,10 @@
 				C_PART_NO like '%$custPartNo$%'
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "commCode">
-				C_CODE = #commCode#
+				C_CODE like '%$commCode$%'
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "shortName">
-				C_SHORT_NAME = #shortName#
+				C_SHORT_NAME like '%$shortName$%'
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "state">
 				STATE = #state#

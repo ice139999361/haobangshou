@@ -257,8 +257,19 @@
             IS_SHOW_PRICE, 
             TAX_RATE,
 			CREATE_TIME
-    FROM T_VENDOR_INFO WHERE C_CODE = #commCode# AND STATE = #state#
+    FROM T_VENDOR_INFO
 ]]>
+<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property="commCode">
+				C_CODE  = #commCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="state">
+				STATE = #state#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="shortName">
+				SHORT_NAME = #shortName#
+			</isNotEmpty>
+</dynamic>
 </select>
 
 <select id="VendorInfo_findVendorInfoByID" resultMap="vendorInfo_result" parameterClass="string">
