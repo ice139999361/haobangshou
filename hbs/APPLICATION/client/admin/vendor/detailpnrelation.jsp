@@ -47,7 +47,7 @@
 				    		<listpanel frame="true" title="关联信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
 				    				<label fieldLabel="单价"               name="vendorPartNoInfo.price"                   labelStyle="width:150" />
-				    				<label fieldLabel="最小包装" 			     name=""                        labelStyle="width:150" value="1" />
+				    				<label fieldLabel="最小包装" 			     name="vendorPartNoInfo.minPackage"                        labelStyle="width:150" value="1" />
 				    				<label fieldLabel="样品编码" 					 name="vendorPartNoInfo.sampleCode"              labelStyle="width:150" />
 				    				
 				    				<label fieldLabel="税率"               name="vendorPartNoInfo.priceTax"                labelStyle="width:150" />				    				
