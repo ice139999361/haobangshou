@@ -48,6 +48,9 @@ public class VendorInfoUtil {
 			if(null == vendorInfo){
 				ret = false;
 			}else{
+				if(vendorInfo.getState() == null){
+					vendorInfo.setState("0");
+				}
 				Integer i = vendorInfo.getBaseSeqId();
 				String code = vendorInfo.getCommCode();
 				if((null == i || i.intValue() == 0) && (StringUtils.isEmpty(code))){
@@ -59,9 +62,7 @@ public class VendorInfoUtil {
 		{
 			ret = false;
 		}
-		if(vendorInfo.getState() == null){
-			vendorInfo.setState("0");
-		}
+		
 		return ret;
 	}
 	

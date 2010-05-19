@@ -47,6 +47,10 @@ public class CustomerInfoUtil {
 			if(null == custInfo){
 				ret = false;
 			}else{
+				
+				if(custInfo.getState() == null){
+					custInfo.setState("0");
+				}
 				Integer i = custInfo.getBaseSeqId();
 				String code = custInfo.getCommCode();
 				if((null == i || i.intValue() == 0) && (StringUtils.isEmpty(code))){
@@ -58,9 +62,7 @@ public class CustomerInfoUtil {
 		{
 			ret = false;
 		}
-		if(custInfo.getState() == null){
-			custInfo.setState("0");
-		}
+		
 		return ret;
 	}
 	

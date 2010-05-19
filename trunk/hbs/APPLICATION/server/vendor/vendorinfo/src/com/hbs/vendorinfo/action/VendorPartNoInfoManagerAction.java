@@ -54,9 +54,9 @@ public class VendorPartNoInfoManagerAction extends BaseAction {
 			if(vendorPartNoInfo == null)
 				vendorPartNoInfo = new VendorPartNoInfo();
 
-			if(!checkCommonFields())
-				return ERROR;
-			
+//			if(!checkCommonFields())
+//				return ERROR;
+//			
 			setPagination(vendorPartNoInfo);
 			VendorPartNoInfoMgr mgr = (VendorPartNoInfoMgr)BeanLocator.getInstance().getBean(vendorPartNoInfoMgrName);
 			setResult("list", mgr.listVendorPartNoInfo(vendorPartNoInfo));
@@ -259,10 +259,12 @@ public class VendorPartNoInfoManagerAction extends BaseAction {
 				return false;
 			}
 			
-			if(StringUtils.isEmpty(vendorPartNoInfo.getCommCode()))
+			String commCode = vendorPartNoInfo.getCommCode();
+			String shortName = vendorPartNoInfo.getShortName();
+			if(StringUtils.isEmpty(commCode) && StringUtils.isEmpty(shortName))
 			{
-				logger.info("供应商编码没有填写！");
-				setErrorReason("供应商编码没有填写！");
+				logger.info("供应商编码或简称没有填写！");
+				setErrorReason("供应商编码或简称没有填写！");
 				return false;
 			}
 			
