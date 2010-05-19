@@ -1,0 +1,1 @@
+UPDATE `t_waittask_config_info` SET `URL`='/vendor/pnquery.jsp?roleType=cgy' WHERE `CONFIG_ID`='VENDOR_PARTNO_003';
