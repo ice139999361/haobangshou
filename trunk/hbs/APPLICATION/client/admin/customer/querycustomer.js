@@ -35,7 +35,7 @@ HBSConvertHelper.init(function() {
 			Ext.Msg.confirm("提示", "您要执行的是删除操作，请确认是否继续？", function(btn) {
 				if(btn == "no") return;
 
-				ExtConvertHelper.request("/customerInfo/customerInfo!del.action?baseSeqId=" + this.config.get("baseSeqId"), null, ExtConvertHelper.defaultDeleteFun);
+				ExtConvertHelper.request("/customerInfo/customerInfo!del.action?custInfo.baseSeqId=" + this.config.get("baseSeqId")+"&custInfo.state=" +this.config.get("state"), null, ExtConvertHelper.defaultDeleteFun);
 			}, this);
 		}
 

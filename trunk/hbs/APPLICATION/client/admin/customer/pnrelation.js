@@ -68,7 +68,7 @@ HBSConvertHelper.init(function() {
 	function updateInitFun() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("客户P/N对照修改");
-		ExtConvertHelper.setItemsReadOnly("acCommCode,acCustPartNo,acPartNo", true);
+		ExtConvertHelper.setItemsReadOnly("acCommCode,acCustPartNo,acPartNo,acShortName", true);
 		
 		
 		// 设置关联按钮的 url
