@@ -29,6 +29,7 @@
 				    				<label        fieldLabel="对应分公司"	name="vendorOrder.companyBranchDesc"	labelStyle="width:150"/>
 				    				<label        fieldLabel="联系电话"     name="vendorOrder.conTel"               labelStyle="width:150"/>
 				    				<label        fieldLabel="月结方式"     name="vendorOrder.settlementTypeDesc"   labelStyle="width:150"/>
+				    				<label        fieldLabel="追货提醒/天"	name="vendorOrder.hastenReminder"	    labelStyle="width:150"/>
 				    			</layoutpanel>
 				    		</listpanel>
 

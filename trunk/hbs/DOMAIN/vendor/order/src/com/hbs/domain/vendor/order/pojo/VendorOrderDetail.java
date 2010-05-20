@@ -472,6 +472,7 @@ public class VendorOrderDetail extends BaseDomain{
 		sb.append("staffName=").append(this.staffName).append(" ");
 		sb.append("settlementType=").append(this.settlementType).append(" ");
 		sb.append("custCcode=").append(this.custCcode).append(" ");
+		sb.append("hastenReminder=").append(this.hastenReminder).append(" ");
 		return sb.toString();
 	}
     
