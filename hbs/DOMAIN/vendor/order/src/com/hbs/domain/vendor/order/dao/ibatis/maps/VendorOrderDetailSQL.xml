@@ -33,6 +33,7 @@
     <result property="staffId" column="STAFF_ID"/>
     <result property="staffName" column="STAFF_NAME"/>
     <result property="custCcode" column="CUST_C_CODE"/>
+    <result property="hastenReminder" column="HASTEN_REMINDER"/>
 </resultMap>
 
 
@@ -65,7 +66,8 @@
 			SETTLEMENT_TYPE,
             STAFF_ID,
             STAFF_NAME,
-            CUST_C_CODE
+            CUST_C_CODE,
+            HASTEN_REMINDER
         )
     VALUES (           
             #commCode#,
@@ -94,7 +96,8 @@
 			#settlementType#,
             #staffId#,
             #staffName#,
-            #custCcode#
+            #custCcode#,
+            #hastenReminder"
     )
 ]]>
  <selectKey resultClass="Integer" keyProperty="operSeqId">
@@ -293,6 +296,9 @@
 	<isNotEmpty prepend="," property="custCcode">
             CUST_C_CODE = #custCcode#
 	</isNotEmpty>
+	<isNotEmpty prepend="," property="hastenReminder">
+            HASTEN_REMINDER = #hastenReminder#
+	</isNotEmpty>
     WHERE ORDER_SEQID = #operSeqId#
 </update> 
 
@@ -326,7 +332,8 @@
 			SETTLEMENT_TYPE,
             STAFF_ID,
             STAFF_NAME,
-            CUST_C_CODE
+            CUST_C_CODE,
+            HASTEN_REMINDER
     FROM T_VENDOR_ORDER_DETAIL WHERE ORDER_SEQID = #operSeqId#
 ]]>
 </select>
@@ -361,7 +368,8 @@
 			SETTLEMENT_TYPE,
             STAFF_ID,
             STAFF_NAME,
-            CUST_C_CODE
+            CUST_C_CODE,
+            HASTEN_REMINDER
     FROM T_VENDOR_ORDER_DETAIL
 ]]>
 	<dynamic prepend="WHERE">
@@ -421,7 +429,8 @@
 			SETTLEMENT_TYPE,
             STAFF_ID,
             STAFF_NAME,
-            CUST_C_CODE
+            CUST_C_CODE,
+            HASTEN_REMINDER
     FROM T_VENDOR_ORDER_DETAIL
 ]]>
 		<dynamic prepend="WHERE">
@@ -482,6 +491,9 @@
 						<![CDATA[ 
 						  PO_NO_TYPE !=  $dynamicFields.notPoNoType$
 						]]> 
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="hastenReminder">
+		            HASTEN_REMINDER = #hastenReminder#
 			</isNotEmpty>
 			<isNotEmpty prepend="order by" property="sort">
                    $sort$
@@ -557,6 +569,9 @@
 						<![CDATA[ 
 						  PO_NO_TYPE !=  $dynamicFields.notPoNoType$
 						]]> 
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="hastenReminder">
+		            HASTEN_REMINDER = #hastenReminder#
 			</isNotEmpty>
 		</dynamic>
 </select>
