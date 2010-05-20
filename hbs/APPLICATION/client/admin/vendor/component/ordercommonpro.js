@@ -12,14 +12,14 @@ var cpriceTaxRenderer = function(value, metadata, record, rowIndex, colIndex, st
 		record.set("isTax", "1");
 		var _grid = Ext.getCmp(store.gridId);
 		_grid.getColumnById("cisTax").editable = false;
-	} 
-	
+	}
+
 	return value;
 }
 
 var ordergridFun = function() {
 	var cgh = new ComplexGridHelper;
-	
+
 	cgh.appendField("operSeqId");
 	cgh.appendField("pnName");
 	cgh.appendField("cpartNo");
@@ -34,8 +34,10 @@ var ordergridFun = function() {
 	cgh.appendField("specDesc");
 	cgh.appendField("commDesc");
 	cgh.appendField("custCcode");
+	cgh.appendField("hastenReminder");
+	cgh.appendField("selectType");
 	cgh.appendField("fromTo");
-	
+
 	cgh.appendColumn({dataIndex: "operSeqId"	, isCheck: true});
 	cgh.appendColumn({header: "客户订单号<br />特定备货的客户编码"	, xtype: "textfield", dataIndex: "custCcode", width: 120});
 	//cgh.appendColumn({header: "货品名称"	  , dataIndex: "pnName"});
@@ -53,18 +55,19 @@ var ordergridFun = function() {
 	//cgh.appendColumn({header: "数量"	      , dataIndex: "amount", xtype: "numberfield", renderer: "amountRenderer"});
 	cgh.appendColumn({header: "金额"        , dataIndex: "money"});
 	cgh.appendColumn({header: "交货日期"    , dataIndex: "orgDeliveryDate", xtype: "datefield", format: "Y-m-d"});
+	cgh.appendColumn({header: "追货提醒/天"        , dataIndex: "hastenReminder", xtype: "textfield"});
 	cgh.appendColumn({header: "备注"	    	, dataIndex: "commDesc", xtype: "textfield"});
 	cgh.appendColumn({header: "特殊备注"		, dataIndex: "specDesc", xtype: "textfield"});
 	cgh.appendColumn({header: "操作"			, dataIndex: ""         , id: "operator", width: 250});
-	
 
-	cgh.setSubmitFields("operSeqId,pnName,cpartNo,partNo,pnDesc,cprice,cpriceTax,isTax,amount,money,orgDeliveryDate,specDesc,commDesc,custCcode");
+
+	cgh.setSubmitFields("operSeqId,pnName,cpartNo,partNo,pnDesc,cprice,cpriceTax,isTax,amount,money,orgDeliveryDate,specDesc,commDesc,custCcode,hastenReminder");
 	return cgh;
 };
 
 var orderquerygridFun = function() {
 	var cgh = new ComplexGridHelper;
-	
+
 	cgh.appendField("operSeqId");
 	cgh.appendField("pnName");
 	cgh.appendField("cpartNo");
@@ -79,9 +82,10 @@ var orderquerygridFun = function() {
 	cgh.appendField("specDesc");
 	cgh.appendField("commDesc");
 	cgh.appendField("custCcode");
+	cgh.appendField("hastenReminder");
 	cgh.appendField("fromTo");
-	
-			    							
+
+
 	cgh.appendColumn({dataIndex: "operSeqId"	, isCheck: true});
 	cgh.appendColumn({header: "货品名称"	    , dataIndex: "pnName"});
 	cgh.appendColumn({header: "客户型号"	    , dataIndex: "cpartNo"});
@@ -93,8 +97,9 @@ var orderquerygridFun = function() {
 	cgh.appendColumn({header: "数量"	        , dataIndex: "amount"});
 	cgh.appendColumn({header: "金额"          , dataIndex: "money"});
 	cgh.appendColumn({header: "交货日期"      , dataIndex: "orgDeliveryDate"});
+	cgh.appendColumn({header: "追货提醒/天"		      , dataIndex: "hastenReminder"});
 	cgh.appendColumn({header: "特殊备注"	  	, dataIndex: "specDesc"});
 	cgh.appendColumn({header: "备注"		      , dataIndex: "commDesc"});
-	
+
 	return cgh;
 };

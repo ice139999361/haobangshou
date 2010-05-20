@@ -426,7 +426,7 @@ public class VendorOrder extends BaseDomain{
 		sb.append("state=").append(this.state).append(" ");
 		sb.append("activeState=").append(this.activeState).append(" ");
 		sb.append("custCcode=").append(this.custCcode).append(" ");
-		
+		sb.append("hastenReminder=").append(this.hastenReminder).append(" ");
 		return sb.toString();
 	}
 
