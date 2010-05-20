@@ -161,6 +161,11 @@ public class VendorOrderDetail extends BaseDomain{
      */
     private String custCcode;
     
+    /**
+     * ×·»õÌáĞÑ/Ìì
+     */
+    private Integer hastenReminder;
+
     public String getCustCcode() {
 		return custCcode;
 	}
@@ -471,5 +476,12 @@ public class VendorOrderDetail extends BaseDomain{
 	}
     
     
+	public Integer getHastenReminder() {
+		return hastenReminder;
+	}
+
+	public void setHastenReminder(Integer hastenReminder) {
+		this.hastenReminder = hastenReminder;
+	}
     
 }

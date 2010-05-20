@@ -27,6 +27,7 @@
     <result property="state" column="STATE"/>
     <result property="activeState" column="ACTIVE_STATE"/>
     <result property="custCcode" column="CUST_C_CODE"/>
+    <result property="hastenReminder" column="HASTEN_REMINDER"/>
 </resultMap>
 
 <insert id="VendorOrder_insertVendorOrder" parameterClass="vendorOrder" >
@@ -53,7 +54,8 @@
             PERIOD, 
             STATE, 
             ACTIVE_STATE,
-            CUST_C_CODE
+            CUST_C_CODE,
+            HASTEN_REMINDER
         )
     VALUES (
             #commCode#,
@@ -77,7 +79,8 @@
             #period#,
             #state#,
             #activeState#,
-            #custCcode#
+            #custCcode#,
+            #hastenReminder"
     )
 ]]>
 </insert>
@@ -183,6 +186,9 @@
 	<isNotEmpty prepend="," property="custCcode">
             CUST_C_CODE = #custCcode#
 	</isNotEmpty>
+	<isNotEmpty prepend="," property="hastenReminder">
+            HASTEN_REMINDER = #hastenReminder#
+	</isNotEmpty>
     WHERE C_CODE = #commCode# AND PO_NO = #poNo#
 </update> 
 
@@ -210,7 +216,8 @@
             PERIOD, 
             STATE, 
             ACTIVE_STATE,
-            CUST_C_CODE
+            CUST_C_CODE,
+            HASTEN_REMINDER
     FROM T_VENDOR_ORDER WHERE C_CODE = #commCode# AND PO_NO = #poNo#
 ]]>
 </select>
@@ -239,7 +246,8 @@
             PERIOD, 
             STATE, 
             ACTIVE_STATE,
-            CUST_C_CODE
+            CUST_C_CODE,
+            HASTEN_REMINDER
     FROM T_VENDOR_ORDER
 ]]>
 		<dynamic prepend="WHERE">
@@ -323,6 +331,9 @@
 				STATE != "01"
 				]]>
 			</isNotEmpty>	
+			<isNotEmpty prepend="and" property="hastenReminder">
+		            HASTEN_REMINDER = #hastenReminder#
+			</isNotEmpty>
 			<isNotEmpty prepend="order by" property="sort">
                    $sort$
             </isNotEmpty>
@@ -419,6 +430,9 @@
 				<![CDATA[
 				STATE != "01"
 				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="hastenReminder">
+		            HASTEN_REMINDER = #hastenReminder#
 			</isNotEmpty>
 		</dynamic>
 </select>
