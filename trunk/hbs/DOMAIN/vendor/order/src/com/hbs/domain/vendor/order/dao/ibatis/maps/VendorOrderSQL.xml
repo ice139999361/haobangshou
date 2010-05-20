@@ -80,7 +80,7 @@
             #state#,
             #activeState#,
             #custCcode#,
-            #hastenReminder"
+            #hastenReminder#
     )
 ]]>
 </insert>

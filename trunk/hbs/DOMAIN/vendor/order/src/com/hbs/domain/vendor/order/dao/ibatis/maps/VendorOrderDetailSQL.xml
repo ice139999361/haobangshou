@@ -97,7 +97,7 @@
             #staffId#,
             #staffName#,
             #custCcode#,
-            #hastenReminder"
+            #hastenReminder#
     )
 ]]>
  <selectKey resultClass="Integer" keyProperty="operSeqId">
