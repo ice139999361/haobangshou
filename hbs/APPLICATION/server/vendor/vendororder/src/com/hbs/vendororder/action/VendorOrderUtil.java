@@ -23,7 +23,9 @@ import com.hbs.domain.vendor.order.pojo.VendorOrderDetail;
 import com.hbs.domain.vendor.vendorinfo.pojo.VendorInfo;
 import com.hbs.vendorinfo.action.VendorInfoNormalAction;
 import com.hbs.vendorinfo.manager.VendorInfoMgr;
+import com.hbs.vendororder.action.detail.VendorOrderDetailBaseAction;
 import com.hbs.vendororder.constants.VendorOrderConstants;
+import com.hbs.vendororder.manager.VendorOrderDetailMgr;
 
 public class VendorOrderUtil {
 	private static final String detailListName = "orderlist";
@@ -99,7 +101,7 @@ public class VendorOrderUtil {
 			HttpServletRequest request, Map otherData) 
 	{
 		try {
-			List<VendorOrderDetail> list = ListDataUtil.splitIntoList(VendorOrderDetail.class, 
+			List<VendorOrderDetail> list = ListDataUtil.splitIntoList(VendorOrderDetailWithSelectType.class, 
 				request.getParameterValues(detailListName), 
 				request.getParameter(detailListFields).split(CustomerInfoUtil.fieldNameSplitter), 
 				CustomerInfoUtil.splitter);
@@ -137,6 +139,8 @@ public class VendorOrderUtil {
 			while(it.hasNext())
 			{
 				VendorOrderDetail info = it.next();
+				
+				
 				if(info == null)
 					continue;
 				
@@ -147,19 +151,35 @@ public class VendorOrderUtil {
 					//退货
 					info.setPoNoType(poNoType);
 				}else{
-					String newtype;
-					if(info.getOperSeqId() != null){
-						if(StringUtils.isEmpty(info.getCustCcode()))
-							newtype = VendorOrderConstants.VENDOR_PO_NO_TYPE_2;
-						else
-							newtype = VendorOrderConstants.VENDOR_PO_NO_TYPE_3;
-					}else{
-						CustOrderDetailMgr codMgr = (CustOrderDetailMgr)BeanLocator.getInstance().getBean(CustOrderDetailBaseAction.custOrderDetailMgrName);
-						CustOrderDetail cod = codMgr.findCustOrderDetailById(info.getOperSeqId().toString());
-						if(cod != null){
-							info.setRltOrderPoNo(cod.getPoNo());
+					String newtype = null;
+					if(info.getOperSeqId() == null){
+						// 新增项目
+						VendorOrderDetailWithSelectType info2 = null;
+						try{
+							info2 = (VendorOrderDetailWithSelectType)info;
+						}catch(Exception e){
+							logger.info("cast VendorOrderDetailWithSelectType failed! " + e.toString());
 						}
-						newtype = VendorOrderConstants.VENDOR_PO_NO_TYPE_0;
+						if(info2 != null && "window".equals(info2.getSelectType())){
+							newtype = VendorOrderConstants.VENDOR_PO_NO_TYPE_0;
+							if(info.getOperSeqId() != null){
+								CustOrderDetailMgr codMgr = (CustOrderDetailMgr)BeanLocator.getInstance().getBean(CustOrderDetailBaseAction.custOrderDetailMgrName);
+								CustOrderDetail cod = codMgr.findCustOrderDetailById(info.getOperSeqId().toString());
+								if(cod != null){
+									info.setRltOrderPoNo(cod.getPoNo());
+								}
+							}
+						}else{
+							if(StringUtils.isEmpty(info.getCustCcode()))
+								newtype = VendorOrderConstants.VENDOR_PO_NO_TYPE_2;
+							else
+								newtype = VendorOrderConstants.VENDOR_PO_NO_TYPE_3;
+						}
+					}else{
+						VendorOrderDetailMgr vodMgr = (VendorOrderDetailMgr)BeanLocator.getInstance().getBean(VendorOrderDetailBaseAction.vendorOrderDetailMgrName);
+						VendorOrderDetail d2 = vodMgr.getVendorOrderDetailById(info.getOperSeqId().toString());
+						if(d2 != null)
+							newtype = d2.getPoNoType();
 					}
 					info.setPoNoType(newtype);
 				}
