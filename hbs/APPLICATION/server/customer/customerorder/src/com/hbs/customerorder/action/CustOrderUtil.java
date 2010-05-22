@@ -19,7 +19,9 @@ import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.common.utils.ListDataUtil;
 import com.hbs.customerinfo.action.CustomerInfoUtil;
 import com.hbs.customerinfo.constants.CustInfoConstants;
+import com.hbs.customerinfo.manager.CustPartNoInfoMgr;
 import com.hbs.customerinfo.manager.CustomerInfoMgr;
+import com.hbs.domain.customer.customerinfo.pojo.CustPartNoInfo;
 import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
 import com.hbs.domain.customer.order.pojo.CustOrderDetail;
 import com.hbs.domain.customer.order.pojo.CustomerOrder;
@@ -62,7 +64,8 @@ public class CustOrderUtil {
 			String staffId = custOrder.getStaffId();
 			String staffName = custOrder.getStaffName();
 			String settlementType = custOrder.getSettlementType();
-			String vendorCode = custOrder.getVendorCode();
+			// vendorCode不再保存在custInfo中了，应该从物料关联中获取
+			//String vendorCode = custOrder.getVendorCode();
 
 			Iterator<CustOrderDetail> it = list.iterator();
 			while(it.hasNext())
@@ -85,8 +88,25 @@ public class CustOrderUtil {
 				info.setStaffId(staffId);
 				info.setStaffName(staffName);
 				info.setSettlementType(settlementType);
-				info.setVendorCode(vendorCode);
 				info.setTaxRate((BigDecimal)otherData.get("taxRate"));
+				// vendorCode不再保存在custInfo中了，应该从物料关联中获取
+				//info.setVendorCode(vendorCode);
+				try{
+					if(StringUtils.isNotEmpty(info.getCpartNo())){
+						CustPartNoInfoMgr pninfoMgr = (CustPartNoInfoMgr)BeanLocator.getInstance().getBean(CustInfoConstants.CUSTPARTNOINFOMGR);
+						CustPartNoInfo pninfo = new CustPartNoInfo();
+						pninfo.setCommCode(commCode);
+						pninfo.setCustPartNo(info.getCpartNo());
+						pninfo.setState("0");
+						pninfo = pninfoMgr.getCustPartNoInfoByBizKey(pninfo);
+						if(pninfo != null && StringUtils.isNotEmpty(pninfo.getVendorCode()))
+							info.setVendorCode(pninfo.getVendorCode());
+						else
+							logger.error("获取VendorCode失败：" + info.toString());
+					}
+				}catch(Exception e){
+					logger.error("catch Exception in processListData.", e);
+				}
 			}
 			custOrder.setOrderDetailList(list);
 		} catch (Exception e) {
@@ -127,7 +147,8 @@ public class CustOrderUtil {
 				if(StringUtils.isEmpty(custOrder.getSettlementType())) {
 					custOrder.setSettlementType(custInfo.getSettlementType());
 					custOrder.setShortName(custInfo.getShortName());
-					custOrder.setVendorCode(custInfo.getVendorCode());
+					// vendorCode不再保存在custInfo中了，应该从物料关联中获取
+					//custOrder.setVendorCode(custInfo.getVendorCode());
 					custOrder.setCompanyBranch(custInfo.getCompanyBranch());
 					custOrder.setIsShowPrice(custInfo.getIsShowPrice());
 					custOrder.setSalesId(custInfo.getStaffId());
