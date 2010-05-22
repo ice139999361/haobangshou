@@ -72,7 +72,7 @@
 			    		<panel buttonAlign="center">
 			    			<buttons>
 			    				<button text="提交" id="submitBtn" />
-			    				<button text="保存" id="saveBtn"   />
+			    				<button text="暂存" id="saveBtn"   />
 			    				<button text="取消" id="backBtn"   />
 			    			</buttons>
 			    		</panel>
