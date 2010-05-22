@@ -537,7 +537,11 @@ ComplexGridHelper.prototype = {
 			} else {
 				// 设置 config 的 fields 属性, 两个数组对象融合
 				if(config.itemsAlign == "after") config.columns = this.columns.concat(config.columns);
-				else config.columns = config.columns.concat(this.columns);
+				else {
+					var _tmp;
+					if(this.columns[0].isCheck) _tmp = this.columns.splice(0, 1);
+					config.columns = _tmp.concat(config.columns.concat(this.columns));
+				}
 			}
 			
 			// 返回对象本身
