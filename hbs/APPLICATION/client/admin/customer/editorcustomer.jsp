@@ -112,7 +112,7 @@
 				    		</listpanel>
 			    		</items></form>
 			    		
-			    		<complexgrid id="contactgrid" title="客户联系人信息" itemsFun="contactFun" itemsAlign="after" frame="true" height="200" deftbar="true" url="1">
+			    		<complexgrid id="contactgrid" title="客户联系人信息" itemsFun="contactFun" frame="true" height="200" deftbar="true" url="1">
 			    			<fields>
 			    				<field name="isPrimary" />
 			    			</fields>
@@ -124,7 +124,7 @@
 			    			<submitFields value="seqId,conName,conDuty,conTel,conMobile,conFax,conMail,conQq,conMsn,conOther,isPrimary" />
 			    		</complexgrid>
 			    		
-			    		<complexgrid id="consigneegrid" title="客户收货人信息" itemsFun="contactFun" itemsAlign="after" frame="true" height="200" deftbar="true" url="1">
+			    		<complexgrid id="consigneegrid" title="客户收货人信息" itemsFun="contactFun" frame="true" height="200" deftbar="true" url="1">
 			    			<fields>
 			    				<field name="conAddress" />
 			    				<field name="conZip" />
@@ -132,9 +132,9 @@
 			    			</fields>
 			    			
 			    			<columns>
+			    				<column header="是否是主收货人" dataIndex="isPrimary"  xtype="dictcombo" paramsValue="IS_PRIMARY" />
 			    				<column header="收货地址" 			dataIndex="conAddress" xtype="textfield" />
 			    				<column header="收货邮编" 			dataIndex="conZip"     xtype="textfield" />
-			    				<column header="是否是主收货人" dataIndex="isPrimary"  xtype="dictcombo" paramsValue="IS_PRIMARY" />
 			    			</columns>
 			    			
 			    			<submitFields value="seqId,conName,conDuty,conTel,conMobile,conFax,conMail,conQq,conMsn,conOther,conAddress,conZip,isPrimary" />
