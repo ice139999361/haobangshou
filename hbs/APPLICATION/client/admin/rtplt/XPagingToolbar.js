@@ -43,6 +43,7 @@ ExtUx.widget.XPagingToolbar = Ext.extend(Ext.Toolbar, {
             enableKeyEvents: true,
             selectOnFocus: true,
             submitValue: false,
+            width: 30,
             listeners: {
                 scope: this,
                 keydown: this.onPagingKeyDown,
@@ -56,6 +57,7 @@ ExtUx.widget.XPagingToolbar = Ext.extend(Ext.Toolbar, {
             enableKeyEvents: true,
             selectOnFocus: true,
             submitValue: false,
+            width: 30,
             listeners: {
                 scope: this,
                 keydown: this.onPagingKeyDown,
