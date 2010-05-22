@@ -473,6 +473,8 @@ public class VendorOrderDetail extends BaseDomain{
 		sb.append("settlementType=").append(this.settlementType).append(" ");
 		sb.append("custCcode=").append(this.custCcode).append(" ");
 		sb.append("hastenReminder=").append(this.hastenReminder).append(" ");
+		sb.append("selectType=").append(this.selectType).append(" ");
+		sb.append("fromTo=").append(this.fromTo).append(" ");
 		return sb.toString();
 	}
     
@@ -485,4 +487,23 @@ public class VendorOrderDetail extends BaseDomain{
 		this.hastenReminder = hastenReminder;
 	}
     
+	// 以下两项是客户端传来的信息，不需要入库
+	private String selectType;
+	private String fromTo;
+
+	public String getFromTo() {
+		return fromTo;
+	}
+
+	public void setFromTo(String fromTo) {
+		this.fromTo = fromTo;
+	}
+
+	public String getSelectType() {
+		return selectType;
+	}
+
+	public void setSelectType(String selectType) {
+		this.selectType = selectType;
+	}
 }

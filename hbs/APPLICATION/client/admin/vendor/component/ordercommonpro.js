@@ -61,7 +61,7 @@ var ordergridFun = function() {
 	cgh.appendColumn({header: "操作"			, dataIndex: ""         , id: "operator", width: 250});
 
 
-	cgh.setSubmitFields("operSeqId,pnName,cpartNo,partNo,pnDesc,cprice,cpriceTax,isTax,amount,money,orgDeliveryDate,specDesc,commDesc,custCcode,hastenReminder");
+	cgh.setSubmitFields("operSeqId,pnName,cpartNo,partNo,pnDesc,cprice,cpriceTax,isTax,amount,money,orgDeliveryDate,specDesc,commDesc,custCcode,hastenReminder,selectType,fromTo");
 	return cgh;
 };
 
