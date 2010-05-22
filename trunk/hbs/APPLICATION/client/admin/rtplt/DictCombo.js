@@ -14,7 +14,6 @@ ExtUx.widget.DictCombo = function(config){
 	    ,paramsName    : "encodeDict.encodeType"
 	    ,paramsValue   : ""
 	    ,record        : null
-	    ,width         : 123
     });
 
     ExtUx.widget.DictCombo.superclass.constructor.call(this, config);  

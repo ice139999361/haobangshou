@@ -9,7 +9,6 @@ ExtUx.widget.AutoComplete = function(config){
 	    ,root					 : "data.list"
 	    ,paramsName    : ""
 	    ,paramsValue   : ""
-	    ,width         : 123
 	    ,loadingText   : "正在请求数据"
 	    ,minChars      : 3
 	    ,queryDelay    : 300
