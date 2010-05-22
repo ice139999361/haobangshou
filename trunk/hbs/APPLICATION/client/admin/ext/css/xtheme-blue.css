@@ -932,7 +932,7 @@ td.x-grid3-hd-over .x-grid3-hd-inner, td.sort-desc .x-grid3-hd-inner, td.sort-as
 }
 
 .x-tree-node .x-tree-selected {
-	background-color: #d9e8fb;
+	background-color: #defaaf;
 }
 
 .x-tree-drop-ok-append .x-dd-drop-icon{
