@@ -10,7 +10,7 @@ ExtUx.widget.XPagingToolbar = Ext.extend(Ext.Toolbar, {
     // 记录展示信息
     displayMsg : '显示第 {0} 条到第 {1} 条记录，共 {2} 条，共{3}页',
     // 如果没有数据显示的信息
-    emptyMsg : '没有记录',
+    emptyMsg : '<span style="color:red">没有您查找的信息&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>',
     beforePageText : '第',
     afterPageText : '页',
     beforePageSizeText : "每页",
