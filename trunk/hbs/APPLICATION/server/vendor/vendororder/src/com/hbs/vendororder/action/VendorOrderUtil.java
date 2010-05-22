@@ -101,7 +101,7 @@ public class VendorOrderUtil {
 			HttpServletRequest request, Map otherData) 
 	{
 		try {
-			List<VendorOrderDetail> list = ListDataUtil.splitIntoList(VendorOrderDetailWithSelectType.class, 
+			List<VendorOrderDetail> list = ListDataUtil.splitIntoList(VendorOrderDetail.class, 
 				request.getParameterValues(detailListName), 
 				request.getParameter(detailListFields).split(CustomerInfoUtil.fieldNameSplitter), 
 				CustomerInfoUtil.splitter);
@@ -151,36 +151,36 @@ public class VendorOrderUtil {
 					//退货
 					info.setPoNoType(poNoType);
 				}else{
+					logger.debug("calc poNoType of " + info.toString());
 					String newtype = null;
-					if(info.getOperSeqId() == null){
-						// 新增项目
-						VendorOrderDetailWithSelectType info2 = null;
-						try{
-							info2 = (VendorOrderDetailWithSelectType)info;
-						}catch(Exception e){
-							logger.info("cast VendorOrderDetailWithSelectType failed! " + e.toString());
-						}
-						if(info2 != null && "window".equals(info2.getSelectType())){
-							newtype = VendorOrderConstants.VENDOR_PO_NO_TYPE_0;
-							if(info.getOperSeqId() != null){
-								CustOrderDetailMgr codMgr = (CustOrderDetailMgr)BeanLocator.getInstance().getBean(CustOrderDetailBaseAction.custOrderDetailMgrName);
-								CustOrderDetail cod = codMgr.findCustOrderDetailById(info.getOperSeqId().toString());
-								if(cod != null){
-									info.setRltOrderPoNo(cod.getPoNo());
-								}
+					if("window".equals(info.getFromTo())){
+						// 新增项目1
+						newtype = VendorOrderConstants.VENDOR_PO_NO_TYPE_0;
+						if(info.getOperSeqId() != null){
+							CustOrderDetailMgr codMgr = (CustOrderDetailMgr)BeanLocator.getInstance().getBean(CustOrderDetailBaseAction.custOrderDetailMgrName);
+							CustOrderDetail cod = codMgr.findCustOrderDetailById(info.getOperSeqId().toString());
+							if(cod != null){
+								info.setRltOrderPoNo(cod.getPoNo());
+							}else{
+								logger.info("can't find CustOrderDetail by id " + info.getOperSeqId());
 							}
-						}else{
+							info.setOperSeqId(null);
+						}
+					}else{
+						if(info.getOperSeqId() == null){
+							// 新增项目2
 							if(StringUtils.isEmpty(info.getCustCcode()))
 								newtype = VendorOrderConstants.VENDOR_PO_NO_TYPE_2;
 							else
 								newtype = VendorOrderConstants.VENDOR_PO_NO_TYPE_3;
+						}else{
+							VendorOrderDetailMgr vodMgr = (VendorOrderDetailMgr)BeanLocator.getInstance().getBean(VendorOrderDetailBaseAction.vendorOrderDetailMgrName);
+							VendorOrderDetail d2 = vodMgr.getVendorOrderDetailById(info.getOperSeqId().toString());
+							if(d2 != null)
+								newtype = d2.getPoNoType();
 						}
-					}else{
-						VendorOrderDetailMgr vodMgr = (VendorOrderDetailMgr)BeanLocator.getInstance().getBean(VendorOrderDetailBaseAction.vendorOrderDetailMgrName);
-						VendorOrderDetail d2 = vodMgr.getVendorOrderDetailById(info.getOperSeqId().toString());
-						if(d2 != null)
-							newtype = d2.getPoNoType();
 					}
+					logger.debug("calc poNoType = " + newtype);
 					info.setPoNoType(newtype);
 				}
 				// DONE:根据详情数据设置poNoType
