@@ -32,14 +32,14 @@
 			    		</complexgrid>
 			    	
 			    	
-			    		<queryform gridId="settlementgrid" exportId="exportBtn">
+			    		<queryform gridId="settlementgrid">
 			    			<layoutpanel columnNum="6:.11,.05,.15,.05,.2,">									
 									<label     fieldLabel="日期范围" />
 									<label     fieldLabel="从"       labelSeparator=""/>
 									<datefield fieldLabel="起始时间" hideLabel="true"  name="warehouseRecDetail.dynamicFields.beginPoNoDate" format="Y-m-d" />
 									<label     fieldLabel="到"       labelSeparator=""/>
 									<datefield fieldLabel="结束时间" hideLabel="true"  name="warehouseRecDetail.dynamicFields.endPoNoDate" format="Y-m-d" />	
-									<textfield fieldLabel="帐期"     name=""warehouseRecDetail.financePeriod"  id="wsdfinancePeriod"/>
+									<textfield fieldLabel="帐期"     name="warehouseRecDetail.financePeriod"  id="wsdfinancePeriod"/>
 			    			</layoutpanel>
 			    			<layoutpanel columnNum ="1">
 			    				<dictcombo    fieldLabel="财务状态"           hiddenName="warehouseRecDetail.financeState"    paramsValue="WAREHOUSE_FINANCE_STATE"     showText="请选择" />
