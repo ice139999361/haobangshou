@@ -1,14 +1,14 @@
 Ext.BLANK_IMAGE_URL = Ext.isIE6||Ext.isIE7||Ext.isAir?CONTEXT_PATH+"/ext/images/default/s.gif":"data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==";
 // 更改错误展示方式
 Ext.form.Field.prototype.msgTarget = 'side';
-Ext.form.Field.prototype.width = 180;
+Ext.form.Field.prototype.width = 150;
 Ext.form.Field.prototype.setFieldLabel = function(text) {
 	this.container.up('div.x-form-item').dom.childNodes[0].innerHTML = text + ":";
 };
 // 更改日期控件默认的宽度
-Ext.form.DateField.prototype.width = 180;
-Ext.form.TriggerField.prototype.width = 180;
-Ext.form.ComboBox.prototype.minwidth = 180;
+Ext.form.DateField.prototype.width = 150;
+Ext.form.TriggerField.prototype.width = 150;
+Ext.form.ComboBox.prototype.minwidth = 150;
 //Ext.form.TriggerField.prototype.width = '250px';
 
 Ext.data.Connection.prototype.doExportData = function(config) {
