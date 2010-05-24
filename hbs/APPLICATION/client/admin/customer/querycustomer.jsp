@@ -21,12 +21,13 @@
 			    		<queryform gridId="querygrid" exportId="exportBtn" itemsFun="queryformFun" />
 			
 				    	<complexgrid id="querygrid" title="客户信息列表" frame="true" page="true" root="data.list" itemsFun="complexgridFun" />
-			    		
+			    		<!--
 			    		<panel buttonAlign="center">
 			    			<buttons>
 			    				<exportbutton text="导出" url="/test2.action" />
 			    			</buttons>
 			    		</panel>
+						-->
 			    	<!-- service ext ui.  end. -->
 			    	</items>
 			    </panel>
