@@ -125,7 +125,31 @@
     			class="com.hbs.customerorder.action.CustOrderScManagerAction">
 		</action>
 
-	
+		<!-- 采购普通用户 ***************************************************-->
+		<!-- 
+	/**
+	 * 查询
+	 * @action.input custOrder.查询条件
+	 * @action.result list：列表 count：总数
+	 * @return
+	 */
+		 -->
+    	<action name="custOrderCg!list" method="doList" 
+    			class="com.hbs.customerorder.action.CustOrderCgNormalAction">
+		</action>
+		<!-- 
+	/**
+	 * 获取客户订单信息
+	 * @action.input custOrder.commCode + custOrder.poNo
+	 * @action.result custOrder.*
+	 * @return
+	 */
+		 -->
+    	<action name="custOrderCg!getInfo" method="doGetInfo" 
+    			class="com.hbs.customerorder.action.CustOrderCgNormalAction">
+		</action>
+		
+			
 		<!-- 财务普通用户 ***************************************************-->
 		<!-- 
 	/**

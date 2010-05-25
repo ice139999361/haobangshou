@@ -25,9 +25,9 @@ HBSConvertHelper.init(function() {
 	ExtConvertHelper.hideItems("submitBtn,04process");
 
 	var getDetailSubParms = function(record) {
-		return ["operSeqId=", record.get("operSeqId")
-					, "&cpartNo=" , record.get("cpartNo")
-					, "&partNo="  , record.get("partNo")].join("");
+		return ["orderDetail.operSeqId=", record.get("operSeqId")
+					, "&orderDetail.cpartNo=" , record.get("cpartNo")
+					, "&orderDetail.partNo="  , record.get("partNo")].join("");
 	}
 
 	var reLoadFun = function(response, opts) {
