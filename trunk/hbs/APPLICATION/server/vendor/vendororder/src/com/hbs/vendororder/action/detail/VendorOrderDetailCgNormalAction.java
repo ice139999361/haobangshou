@@ -20,7 +20,7 @@ public class VendorOrderDetailCgNormalAction extends VendorOrderDetailBaseAction
 	public String doConfirmDelivery() {
 		try {
 			String s = this.getHttpServletRequest().getParameter("cgjq");
-			logger.debug("begin doConfirmDelivery, " + orderDetail == null ? "" : orderDetail.toString() + " " + s);
+			logger.debug("begin doConfirmDelivery, " + ((orderDetail == null) ? "" : orderDetail.toString()) + " " + s);
 			if(!findOrderDetail()) {
 				return ERROR;
 			}

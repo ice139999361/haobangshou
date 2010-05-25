@@ -199,13 +199,12 @@
 
 <update id="CustOrderDetail_updateCustOrderDetailByRltPoNo" parameterClass="custOrderDetail">
 	UPDATE T_CUST_ORDER_DETAIL
-	    SET PO_NO = #poNo#,
+	    SET PO_NO = #poNo#
 	    <isNotEmpty prepend="," property="rltOrderPoNo">
          <![CDATA[ 
          	RLT_ORDER_PO_NO = CONCAT_WS(',',RLT_ORDER_PO_NO,#rltOrderPoNo#)
          ]]>    
 		</isNotEmpty>
-	    RLT_ORDER_PO_NO = #rltOrderPoNo#
 	<dynamic prepend="WHERE">				
 				<isNotEmpty prepend="and" property = "commCode">
 					C_CODE = #commCode#
