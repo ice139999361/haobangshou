@@ -133,6 +133,11 @@
     	<action name="vendorInfoMgr!audit" method="doAudit" 
     			class="com.hbs.vendorinfo.action.VendorInfoManagerAction">
 		</action>
+		
+	<!-- 更新采购员信息-->
+    	<action name="vendorInfoMgr!updateSales" method="doUpdateSales" 
+    			class="com.hbs.vendorinfo.action.VendorInfoManagerAction">
+		</action>
 		<!-- 
 	/**
 	 * 审批同意

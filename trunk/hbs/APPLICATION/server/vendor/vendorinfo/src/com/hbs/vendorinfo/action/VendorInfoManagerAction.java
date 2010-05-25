@@ -1,9 +1,13 @@
 package com.hbs.vendorinfo.action;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.action.JianQuanUtil;
 import com.hbs.common.action.base.BaseAction;
+import com.hbs.common.utils.StaffUtil;
+
+import com.hbs.domain.auth.pojo.Staff;
 import com.hbs.domain.vendor.vendorinfo.pojo.VendorInfo;
 import com.hbs.vendorinfo.manager.VendorInfoMgr;
 
@@ -287,6 +291,49 @@ public class VendorInfoManagerAction extends BaseAction {
 		}
 	}
 
+	public String doUpdateSales(){
+		try
+		{
+			if (logger.isDebugEnabled())    logger.debug("begin doUpdateSales");
+			
+			if(!VendorInfoUtil.checkKeyFields(vendorInfo))
+			{
+				logger.info("参数错误！");
+				setErrorReason("参数错误！");
+				return ERROR;
+			}
+			String staffId = vendorInfo.getStaffId();
+			
+			if(StringUtils.isEmpty(staffId)){
+				logger.error("传入的采购员为空！");
+				setErrorReason("传入的采购员为空为空，请选择！");
+				return ERROR;
+			}
+			if(StringUtils.isNotEmpty(staffId)){				
+				Staff u = StaffUtil.getStaffById(staffId);
+				if(u != null){
+					vendorInfo.setStaffName(u.getStaffName());
+				}else{
+					logger.error("无法找到对应的采购人员！");
+					setErrorReason("无法找到对应的采购人员！");
+					return ERROR;
+				}					
+			}
+			
+			VendorInfoMgr mgr = (VendorInfoMgr)getBean(vendorInfoMgrName);
+			getVendorInfoValue(mgr);
+			mgr.updateVendorSalesInfo(vendorInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), null);
+			
+			if (logger.isDebugEnabled())    logger.debug("end doUpdateSales");
+			return SUCCESS;
+		}
+		catch(Exception e)
+		{
+			logger.error("catch Exception in doAuditAgree", e);
+			setErrorReason("修改供应商信息对应的采购员错误!");
+            return ERROR;
+		}
+	}
 	/**
 	 * 根据vendorInfo的部分信息获取全部信息
 	 * @param mgr

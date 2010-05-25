@@ -257,6 +257,21 @@ public class CustomerInfoMgr {
 		return ret;
 	}
 	/**
+	 * 执行更新客户的销售人员信息
+	 * @param custInfo
+	 * @param staffId
+	 * @param staffName
+	 * @return
+	 */
+	public int updateCustSalesInfo(CustomerInfo custInfo, String staffId,String staffName ,String otherInfo){
+		int ret = 0;
+		CustomerInfoDao customerInfoDao = (CustomerInfoDao)BeanLocator.getInstance().getBean(CUSTOMERINFODAO);
+		customerInfoDao.updateCustomerInfo(custInfo);
+		operLog( staffId, staffName, "销售信息", custInfo.getBaseSeqId().toString(), otherInfo);
+		
+		return ret;
+	}
+	/**
 	 * 锁定客户资料，财务执行，只能对正式数据做锁定操作
 	 * @param custInfo
 	 * @param staffId  操作人ID

@@ -90,6 +90,13 @@
                     "leaf": "true",
                     "url": "/customer/auditcustomer.jsp"
                 },
+		{
+                    "id": "updateSales",
+                    "text": "修改客户销售人员信息",
+                    "menuOrder": "20001",
+                    "leaf": "true",
+                    "url": "/customer/updatedetailcustomer.jsp"
+                },
                 {
                     "id": "scmpnaudit",
                     "text": "客户P/N对照审批",
@@ -200,6 +207,13 @@
                     "menuOrder": "50000",
                     "leaf": "true",
                     "url": "/vendor/auditvendor.jsp"
+                },
+		{
+                    "id": "updatePurchase",
+                    "text": "修改供应商采购员信息",
+                    "menuOrder": "50001",
+                    "leaf": "true",
+                    "url": "/vendor/updatedetailvendor.jsp"
                 },
                 {
                     "id": "cgmgpnaudit",

@@ -144,6 +144,11 @@
     	<action name="customerInfoMgr!audit" method="doAudit" 
     			class="com.hbs.customerinfo.action.CustomerInfoManagerAction">
 		</action>
+		
+		<!-- 更新销售或业务助理信息-->
+    	<action name="customerInfoMgr!updateSales" method="doUpdateSales" 
+    			class="com.hbs.customerinfo.action.CustomerInfoManagerAction">
+		</action>
 		<!-- 
 	/**
 	 * 审批同意

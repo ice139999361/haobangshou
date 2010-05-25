@@ -32,6 +32,7 @@ import com.hbs.domain.common.pojo.baseinfo.PrePaidInfo;
 
 
 
+
 import com.hbs.domain.vendor.vendorinfo.dao.VendorInfoDao;
 import com.hbs.domain.vendor.vendorinfo.pojo.VendorInfo;
 import com.hbs.domain.waittask.pojo.WaitTaskInfo;
@@ -319,6 +320,21 @@ public class VendorInfoMgr {
 		return ret;
 	}
 	
+	
+	/**
+	 * 执行更新客户的销售人员信息
+	 * @param custInfo
+	 * @param staffId
+	 * @param staffName
+	 * @return
+	 */
+	public int updateVendorSalesInfo(VendorInfo vendorInfo, String staffId,String staffName ,String otherInfo){
+		int ret = 0;
+		VendorInfoDao vInfoDao = (VendorInfoDao)BeanLocator.getInstance().getBean(VENDORINFO_DAO);
+		vInfoDao.updateVendorInfo(vendorInfo);		
+		VendorLogUtils.operLog(vendorInfo.getStaffId(), vendorInfo.getStaffName(), "采购变更", "供应商信息", vendorInfo.getLogKey(), null, null);
+		return ret;
+	}
 	/**
 	 * 锁定供应商资料，财务执行，只能对正式数据做锁定操作
 	 * 供应商应该没有锁定操作
