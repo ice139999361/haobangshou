@@ -20,13 +20,14 @@
 			    		<queryform gridId="querygrid" exportId="exportBtn" itemsFun="queryformFun" />
 				    		
 				    	<complexgrid id="querygrid" title="客户P/N对照列表" frame="true" page="true" root="data.list" itemsFun="complexgridFun" />
-			    		
+			    		<!--
 			    		<panel buttonAlign="center">
 			    			<buttons>
 			    				<button text="批量通过" id="passBtn"   />
 			    				<button text="批量拒绝" id="rejectBtn" />
 			    			</buttons>
 			    		</panel>
+						-->
 			    	<!-- service ext ui.  end. -->
 			    	</items>
 			    </panel>
