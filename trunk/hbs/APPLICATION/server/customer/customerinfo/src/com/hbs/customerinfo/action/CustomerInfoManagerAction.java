@@ -360,7 +360,7 @@ public class CustomerInfoManagerAction extends BaseAction {
 				}					
 			}
 			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(custInfoMgrName);
-			getCustInfoValue(mgr);
+			
 			mgr.updateCustSalesInfo(custInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), null);
 			
 			if (logger.isDebugEnabled())    logger.debug("end doUpdateSales");

@@ -321,7 +321,7 @@ public class VendorInfoManagerAction extends BaseAction {
 			}
 			
 			VendorInfoMgr mgr = (VendorInfoMgr)getBean(vendorInfoMgrName);
-			getVendorInfoValue(mgr);
+			
 			mgr.updateVendorSalesInfo(vendorInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), null);
 			
 			if (logger.isDebugEnabled())    logger.debug("end doUpdateSales");

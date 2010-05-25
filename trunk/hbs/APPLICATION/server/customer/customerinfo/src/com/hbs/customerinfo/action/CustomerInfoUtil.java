@@ -53,7 +53,8 @@ public class CustomerInfoUtil {
 				}
 				Integer i = custInfo.getBaseSeqId();
 				String code = custInfo.getCommCode();
-				if((null == i || i.intValue() == 0) && (StringUtils.isEmpty(code))){
+				String shortName = custInfo.getShortName();
+				if((null == i || i.intValue() == 0) && (StringUtils.isEmpty(code)) && (StringUtils.isEmpty(shortName))){
 					ret = false;
 				}
 			}

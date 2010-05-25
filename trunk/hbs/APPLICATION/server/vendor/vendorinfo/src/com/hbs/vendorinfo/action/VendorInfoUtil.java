@@ -53,7 +53,8 @@ public class VendorInfoUtil {
 				}
 				Integer i = vendorInfo.getBaseSeqId();
 				String code = vendorInfo.getCommCode();
-				if((null == i || i.intValue() == 0) && (StringUtils.isEmpty(code))){
+				String shortName = vendorInfo.getShortName();
+				if((null == i || i.intValue() == 0) && (StringUtils.isEmpty(code))&& (StringUtils.isEmpty(shortName))){
 					ret = false;
 				}
 			}
