@@ -26,10 +26,10 @@ HBSConvertHelper.init(function() {
 	});
 	
 	// 当单击取消按钮时，调用默认的关闭窗口方法
-	backBtn.on("click", HBSConvertHelper.defaultCloseTab());
+	backBtn.on("click", HBSConvertHelper.defaultCloseTab);
 	
 	Ext.getCmp("commCode").setProcessConfig("/customerInfo/customerInfoMgr!getInfo.action?custInfo.state=0", "custInfo.commCode", null, function(action){
-		if(!action.success)
+		if(!action.success){
 			return;
 		Ext.getCmp("shortName").setValue(action.data.custInfo.shortName);
 		Ext.getCmp("representative").setValue(action.data.custInfo.representative);
@@ -46,6 +46,7 @@ HBSConvertHelper.init(function() {
 		Ext.getCmp("taxCode").setValue(action.data.custInfo.taxCode);
 		Ext.getCmp("webSite").setValue(action.data.custInfo.webSite);
 		Ext.getCmp("companyBranchDesc").setValue(action.data.custInfo.companyBranchDesc);
+		Ext.getCmp("isShowPriceDesc").setValue(action.data.custInfo.isShowPriceDesc);
 		Ext.getCmp("commDesc").setValue(action.data.custInfo.commDesc);
 		Ext.getCmp("staffName").setValue(action.data.custInfo.staffName);
 		Ext.getCmp("assStaffName").setValue(action.data.custInfo.assStaffName);
@@ -70,6 +71,7 @@ HBSConvertHelper.init(function() {
 		Ext.getCmp("taxCode").setValue(action.data.custInfo.taxCode);
 		Ext.getCmp("webSite").setValue(action.data.custInfo.webSite);
 		Ext.getCmp("companyBranchDesc").setValue(action.data.custInfo.companyBranchDesc);
+		Ext.getCmp("isShowPriceDesc").setValue(action.data.custInfo.isShowPriceDesc);
 		Ext.getCmp("commDesc").setValue(action.data.custInfo.commDesc);
 		Ext.getCmp("staffName").setValue(action.data.custInfo.staffName);
 		Ext.getCmp("assStaffName").setValue(action.data.custInfo.assStaffName);

@@ -19,7 +19,7 @@
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="客户基本信息" collapsible="true" titleCollapse="true">
 								<layoutpanel columnNum="2">
-								 <autocomplete fieldLabel="客户简称" url="/customerInfo/customerInfoMgr!listDict.action?custInfo.state=0"  displayField="shortName"  valueField="shortName" queryParam="custInfo.shortName"     name="custInfo.shortName"       labelStyle="width:150" allowBlank="false" id="shortName" />				    						    				
+								 <autocomplete fieldLabel="客户简称" url="/customerInfo/customerInfoMgr!listDict.action?custInfo.state=0"  displayField="shortName"  valueField="shortName" queryParam="custInfo.shortName"     name="custInfo.shortName"       labelStyle="width:150" allowBlank="false" id="shortName" minChars="2" />				    						    				
 				    				<label fieldLabel="客户法人代表"           name="custInfo.representative"   id="representative"  labelStyle="width:150" />
 								</layoutpanel>
 
@@ -56,11 +56,11 @@
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="2">
 				    				<label fieldLabel="原销售人员"           name=""         id="staffName" labelStyle="width:150" />
-									<dictcombo fieldLabel="新销售人员"       hiddenName="custInfo.staffId"     labelStyle="width:150"  url="/auth/user!listByRoleId.action?roleId=5" root="data.list"  displayField="staffName"  valueField="staffId" />
+									<dictcombo fieldLabel="新销售人员"       hiddenName="custInfo.staffId"     labelStyle="width:150;color:red;"  url="/auth/user!listByRoleId.action?roleId=5" root="data.list"  displayField="staffName"  valueField="staffId" />
 				    			</layoutpanel>
 								<layoutpanel columnNum="2">
 				    				<label fieldLabel="原业务部助理"   name=""      id="assStaffName" labelStyle="width:150" />
-									<dictcombo fieldLabel="对应的业务部助理"       hiddenName="custInfo.assStaffId"     labelStyle="width:150"  url="/auth/user!listByRoleId.action?roleId=7" root="data.list"  displayField="staffName"  valueField="staffId" />
+									<dictcombo fieldLabel="新业务部助理"       hiddenName="custInfo.assStaffId"     labelStyle="width:150;color:red;"  url="/auth/user!listByRoleId.action?roleId=7" root="data.list"  displayField="staffName"  valueField="staffId" />
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
 				    				<hidden name="custInfo.baseSeqId" id="baseSeqId" />
