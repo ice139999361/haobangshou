@@ -19,7 +19,7 @@
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="供应商基本信息" collapsible="true" titleCollapse="true">
 								<layoutpanel columnNum="2">
-									<autocomplete fieldLabel="供应商简称" url="/vendorInfo/vendorInfo!listDict.action?vendorInfo.state=0"  displayField="shortName"  valueField="shortName" queryParam="vendorInfo.shortName"     name="vendorInfo.shortName"       labelStyle="width:150" allowBlank="false" id="shortName"/>				    				
+									<autocomplete fieldLabel="供应商简称" url="/vendorInfo/vendorInfo!listDict.action?vendorInfo.state=0"  displayField="shortName"  valueField="shortName" queryParam="vendorInfo.shortName"     name="vendorInfo.shortName"       labelStyle="width:150" allowBlank="false" id="shortName" minChars="1" />				    				
 				    				<label fieldLabel="法人代表"               name=""   id="representative"    labelStyle="width:150" />
 								</layoutpanel>
 								<layoutpanel columnNum="2">
@@ -52,7 +52,7 @@
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">				    				
 				    				<label fieldLabel="原采购员"           name=""    id="staffName"        labelStyle="width:150" />
-									<dictcombo fieldLabel="新采购员"       hiddenName="vendorInfo.staffId"     labelStyle="width:150"  url="/auth/user!listByRoleId.action?roleId=9" root="data.list"  displayField="staffName"  valueField="staffId" />
+									<dictcombo fieldLabel="新采购员"       hiddenName="vendorInfo.staffId"     labelStyle="width:150;color:red;"  url="/auth/user!listByRoleId.action?roleId=9" root="data.list"  displayField="staffName"  valueField="staffId" />
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
 				    				<hidden name="vendorInfo.baseSeqId"  id="baseSeqId" />				    				
