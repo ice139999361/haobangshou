@@ -1,11 +1,18 @@
 package com.hbs.vendororder.action.detail;
 
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.utils.ListDataUtil;
+import com.hbs.domain.vendor.order.dao.VendorOrderDao;
+import com.hbs.domain.vendor.order.pojo.VendorOrder;
+import com.hbs.domain.vendor.order.pojo.VendorOrderDetail;
+import com.hbs.vendororder.action.VendorOrderBaseAction;
+import com.hbs.vendororder.constants.VendorOrderConstants;
+import com.hbs.vendororder.manager.VendorOrderMgr;
 
 @SuppressWarnings("serial")
 public class VendorOrderDetailCgNormalAction extends VendorOrderDetailBaseAction {
@@ -45,12 +52,43 @@ public class VendorOrderDetailCgNormalAction extends VendorOrderDetailBaseAction
 				setErrorReason("提交出错！");
 				return ERROR;
 			}
+			checkOrderState02(orderDetail.getCommCode(), orderDetail.getPoNo());
 			logger.debug("end doConfirmDelivery");
 			return SUCCESS;
 		} catch (Exception e) {
 			logger.error("catch Exception in doConfirmDelivery", e);
 			setErrorReason("内部错误");
 			return ERROR;
+		}
+	}
+
+	/**
+	 * 检查供应商订单的所有明细，看看是否可以将供应商订单的状态从04改为02
+	 * @param commcode
+	 * @param pono
+	 * @throws Exception
+	 */
+	public void checkOrderState02(String commcode, String pono) throws Exception {
+		VendorOrderMgr omgr = (VendorOrderMgr)getBean(VendorOrderBaseAction.VENDOR_ORDER_MGR);
+		VendorOrder order = omgr.getVendorOrder(commcode, pono, true);
+		if(order == null)
+			return;
+		if(!VendorOrderConstants.VENDOR_ORDER_STATE_04.equals(order.getState()))
+			return;
+		List<VendorOrderDetail> list = order.getVendorOrderDetailList();
+		boolean change = true;
+		for(VendorOrderDetail od : list){
+			String state = od.getState();
+			if(!VendorOrderConstants.VENDOR_ORDER_STATE_02.equals(state)
+					&& !VendorOrderConstants.VENDOR_ORDER_STATE_60.equals(state)
+					&& !VendorOrderConstants.VENDOR_ORDER_STATE_61.equals(state)){
+				change = false;
+			}
+		}
+		if(change){
+			order.setState(VendorOrderConstants.VENDOR_ORDER_STATE_02);
+			VendorOrderDao vOrderDao =(VendorOrderDao)getBean(VendorOrderConstants.VENDOR_ORDER_DAO);
+			vOrderDao.updateVendorOrderByState(order);
 		}
 	}
 
