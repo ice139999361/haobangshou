@@ -1,7 +1,8 @@
 Ext.BLANK_IMAGE_URL = Ext.isIE6||Ext.isIE7||Ext.isAir?CONTEXT_PATH+"/ext/images/default/s.gif":"data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==";
 // 更改错误展示方式
 Ext.form.Field.prototype.msgTarget = 'side';
-Ext.form.Field.prototype.width = 150;
+Ext.form.TextField.prototype.width = 150;
+
 Ext.form.Field.prototype.setFieldLabel = function(text) {
 	this.container.up('div.x-form-item').dom.childNodes[0].innerHTML = text + ":";
 };
