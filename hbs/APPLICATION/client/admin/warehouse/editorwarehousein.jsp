@@ -16,7 +16,7 @@
 			    <panel frame="true" autoScroll="true">
 			    	<items>
 			    	<!-- service ext ui.  begin. -->
-			    	
+
 							<form id="form"><items>
 				    		<listpanel frame="true" title="入库基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
@@ -25,33 +25,33 @@
 				    				<!--<textfield    fieldLabel="供应商"      id="txtVendorCode"   name="warehouseRec.vendorCode"       labelStyle="width:150"  />
 									 -->
 				    				<autocomplete fieldLabel="供应商" url="/vendorInfo/vendorInfo!listDict.action"  displayField="commCode"  valueField="commCode" queryParam="vendorInfo.commCode"     name="warehouseRec.vendorCode"       labelStyle="width:150" allowBlank="false" id="acCommCode" />
-				    				
-				    				
+
+
 				    				<datefield    fieldLabel="入库日期"  	    name="warehouseRec.operTime"        labelStyle="width:150"     format="Y-m-d" id="acOperTime" />
 				    				<datefield    fieldLabel="到货日期"  	    name="warehouseRec.applyDate"        labelStyle="width:150"     format="Y-m-d" id="acApplyDate"/>
-				    				
-				    				<dictcombo    fieldLabel="仓库"           hiddenName="warehouseRec.houseType"  labelStyle="width:150"     paramsValue="COMPANY_BRANCH"     emptyText="请选择" />
-				    				
+
+				    				<dictcombo    fieldLabel="仓库"           hiddenName="warehouseRec.houseType"  labelStyle="width:150"     paramsValue="WAREHOUSE_TYPE"     emptyText="请选择" />
+
 				    			</layoutpanel>
 								<layoutpanel columnNum="1">
 				    				<textarea     fieldLabel="收货地址"           name="warehouseSend.receiveAddress"        labelStyle="width:150" width="600" height="25"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
 				    				<textarea     fieldLabel="备注"           name="warehouseRec.receiveDesc"        labelStyle="width:150" width="600" />
-				    			</layoutpanel>	
-				    			<layoutpanel columnNum="1">				    				
+				    			</layoutpanel>
+				    			<layoutpanel columnNum="1">
 				    				<hidden name="warehouseRec.shortName" />
 				    				<hidden name="warehouseRec.settlementType" />
-				    				<hidden name="warehouseRec.poNoType" />	
-									<hidden name="warehouseRec.activeState" />	
-									<hidden name="warehouseRec.state" />	
-									<hidden name="warehouseRec.operId" />	
-									<hidden name="warehouseRec.operStaff" />	
-									<hidden name="warehouseRec.financeState" />	
+				    				<hidden name="warehouseRec.poNoType" />
+									<hidden name="warehouseRec.activeState" />
+									<hidden name="warehouseRec.state" />
+									<hidden name="warehouseRec.operId" />
+									<hidden name="warehouseRec.operStaff" />
+									<hidden name="warehouseRec.financeState" />
 				    			</layoutpanel>
 				    		</listpanel>
 			    		</items></form>
-			    		
+
 			    		<complexgrid id="warehousegrid" frame="true" height="200" deftbar="false" url="1" title="入库详情" itemsFun="warehousegridFun" />
 
 			    		<panel buttonAlign="center">
@@ -62,7 +62,7 @@
 			    				<button text="取消"         id="backBtn"   />
 			    			</buttons>
 			    		</panel>
-			    		
+
 			    	<!-- service ext ui.  end. -->
 			    	</items>
 			    </panel>
@@ -75,12 +75,12 @@
 	    				<textfield fieldLabel="供应商编码"           name="orderDetail.commCode"  />
 	    				<textfield fieldLabel="供应商 P/N"           name="orderDetail.cpartNo" />
 	    				<textfield fieldLabel="供应商PO/N"           name="orderDetail.poNo"  />
-	    					
+
 	    				<textfield fieldLabel="公司 P/N"             name="orderDetail.partNo" />
 	    				<textfield fieldLabel="特殊备注"             name="orderDetail.specDesc" />
 	    			</layoutpanel>
 	    		</queryform>
-	    		
+
 	    		<complexgrid id="querygrid" buttonAlign="center" title="供应商订单详情" frame="true" height="300" url="/vendorOrderDetail/orderDetail!listDetail.action" page="true" root="data.list">
 	    			<fields>
 	    				<field name="poNo" />
@@ -89,22 +89,22 @@
 	    				<field name="pnDesc" />
 	    				<field name="specDesc" />
 	    				<field name="amount" />
-	    				<field name="deliveryAmount" />	
-	    				<field name="taxRate" />	
-	    				<field name="isTax" />	
+	    				<field name="deliveryAmount" />
+	    				<field name="taxRate" />
+	    				<field name="isTax" />
 	    				<field name="cprice" />
 	    				<field name="cpriceTax" />
 	    				<field name="settlementType" />
-	    				<field name="specDesc" />	
-	    				<field name="poNoType" />		
-	    				<field name="activeState" />    							    			
-	    				<field name="stateDesc" />	
-	    					
+	    				<field name="specDesc" />
+	    				<field name="poNoType" />
+	    				<field name="activeState" />
+	    				<field name="stateDesc" />
+
 	    				<!-- 转换字段，自动填充 -->
-	    				<field name="rltPoNo"  mapping="poNo" />	
+	    				<field name="rltPoNo"  mapping="poNo" />
 	    				<field name="price"    mapping="cprice" />
-	    				<field name="priceTax" mapping="cpriceTax" />	
-	    				<field name="cgstate"  mapping="stateDesc" />    				
+	    				<field name="priceTax" mapping="cpriceTax" />
+	    				<field name="cgstate"  mapping="stateDesc" />
 	    			</fields>
 	    			<columns>
 	    				<column header=""                   isCheck="true" />
