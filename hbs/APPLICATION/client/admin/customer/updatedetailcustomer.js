@@ -16,7 +16,7 @@ HBSConvertHelper.init(function() {
 		ExtConvertHelper.submitForm("form", submitUrl, null, function(form, action) {
 			// 获取成功后的提示信息
 			var msg = ExtConvertHelper.getMessageInfo(action, "操作成功！");
-			
+			Ext.Msg.alert("提示", msg);
 			// 弹出提示框给用户
 			//Ext.Msg.alert("提示", msg, function() {
 				// 用户单击后关闭此页面
@@ -29,7 +29,7 @@ HBSConvertHelper.init(function() {
 	backBtn.on("click", HBSConvertHelper.defaultCloseTab);
 	
 	Ext.getCmp("commCode").setProcessConfig("/customerInfo/customerInfoMgr!getInfo.action?custInfo.state=0", "custInfo.commCode", null, function(action){
-		if(!action.success){
+		if(!action.success)
 			return;
 		Ext.getCmp("shortName").setValue(action.data.custInfo.shortName);
 		Ext.getCmp("representative").setValue(action.data.custInfo.representative);
