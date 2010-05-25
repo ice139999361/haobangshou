@@ -1,4 +1,4 @@
-var submitUrl = "/customerInfo/customerInfoMgr!updateSales.action";
+var submitUrl = "/vendorInfo/vendorInfoMgr!updateSales.action";
 
 HBSConvertHelper.init(function() {
 	// -------------------------------------- 获取需要持久用到的对象
@@ -7,7 +7,6 @@ HBSConvertHelper.init(function() {
 	var backBtn 		= Ext.getCmp("backBtn");
 	// 获取提交按钮
 	var submitBtn   = Ext.getCmp("submitBtn");
-	
 	
 	// -------------------------------------- 应用逻辑处理
 	
@@ -28,7 +27,7 @@ HBSConvertHelper.init(function() {
 	// 当单击取消按钮时，调用默认的关闭窗口方法
 	backBtn.on("click", HBSConvertHelper.defaultCloseTab());
 	
-	Ext.getCmp("commCode").setProcessConfig("/customerInfo/customerInfoMgr!getInfo.action?custInfo.state=0", "custInfo.commCode", null, function(action){
+	Ext.getCmp("commCode").setProcessConfig("/vendorInfo/vendorInfoMgr!getInfo.action?vendorInfo.state=0", "vendorInfo.commCode", null, function(action){
 		if(!action.success)
 			return;
 		Ext.getCmp("shortName").setValue(action.data.custInfo.shortName);
@@ -47,12 +46,11 @@ HBSConvertHelper.init(function() {
 		Ext.getCmp("webSite").setValue(action.data.custInfo.webSite);
 		Ext.getCmp("companyBranchDesc").setValue(action.data.custInfo.companyBranchDesc);
 		Ext.getCmp("commDesc").setValue(action.data.custInfo.commDesc);
-		Ext.getCmp("staffName").setValue(action.data.custInfo.staffName);
-		Ext.getCmp("assStaffName").setValue(action.data.custInfo.assStaffName);
+		Ext.getCmp("staffName").setValue(action.data.custInfo.staffName);		
 		Ext.getCmp("baseSeqId").setValue(action.data.custInfo.baseSeqId);		
 	});
 
-	Ext.getCmp("shortName").setProcessConfig("/customerInfo/customerInfoMgr!getInfo.action?custInfo.state=0", "custInfo.shortName", null, function(action){
+	Ext.getCmp("shortName").setProcessConfig("/vendorInfo/vendorInfoMgr!getInfo.action?vendorInfo.state=0", "vendorInfo.shortName", null, function(action){
 		if(!action.success)
 			return;
 		//Ext.getCmp("shortName").setValue(action.data.custInfo.shortName);
@@ -71,9 +69,9 @@ HBSConvertHelper.init(function() {
 		Ext.getCmp("webSite").setValue(action.data.custInfo.webSite);
 		Ext.getCmp("companyBranchDesc").setValue(action.data.custInfo.companyBranchDesc);
 		Ext.getCmp("commDesc").setValue(action.data.custInfo.commDesc);
-		Ext.getCmp("staffName").setValue(action.data.custInfo.staffName);
-		Ext.getCmp("assStaffName").setValue(action.data.custInfo.assStaffName);
+		Ext.getCmp("staffName").setValue(action.data.custInfo.staffName);		
 		Ext.getCmp("baseSeqId").setValue(action.data.custInfo.baseSeqId);	
 	});
 	
+
 });

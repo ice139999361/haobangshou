@@ -1,10 +1,14 @@
 package com.hbs.customerinfo.action;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+
 
 import com.hbs.common.action.JianQuanUtil;
 import com.hbs.common.action.base.BaseAction;
+import com.hbs.common.utils.StaffUtil;
 import com.hbs.customerinfo.manager.CustomerInfoMgr;
+import com.hbs.domain.auth.pojo.Staff;
 import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
 
 /**
@@ -315,7 +319,61 @@ public class CustomerInfoManagerAction extends BaseAction {
             return ERROR;
 		}
 	}
-
+	
+	public String doUpdateSales(){
+		try
+		{
+			if (logger.isDebugEnabled())    logger.debug("begin doUpdateSales");
+			
+			if(!CustomerInfoUtil.checkKeyFields(custInfo))
+			{
+				logger.info("参数错误！");
+				setErrorReason("参数错误！");
+				return ERROR;
+			}
+			String staffId = custInfo.getStaffId();
+			String assStaffId = custInfo.getAssStaffId();
+			if(StringUtils.isEmpty(staffId) && StringUtils.isEmpty(assStaffId)){
+				logger.error("传入的销售人员和业务助理都为空！");
+				setErrorReason("传入的销售人员和业务助理都为空，请选择！");
+				return ERROR;
+			}
+			if(StringUtils.isNotEmpty(staffId)){				
+				Staff u = StaffUtil.getStaffById(staffId);
+				if(u != null){
+					custInfo.setStaffName(u.getStaffName());
+				}else{
+					logger.error("无法找到对应的销售人员！");
+					setErrorReason("无法找到对应的销售人员！");
+					return ERROR;
+				}					
+			}
+			
+			if(StringUtils.isNotEmpty(assStaffId)){				
+				Staff u = StaffUtil.getStaffById(assStaffId);
+				if(u != null){
+					custInfo.setAssStaffName(u.getStaffName());
+				}else{
+					logger.error("无法找到对应的业务助理！");
+					setErrorReason("无法找到对应的业务助理！");
+					return ERROR;
+				}					
+			}
+			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(custInfoMgrName);
+			getCustInfoValue(mgr);
+			mgr.updateCustSalesInfo(custInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), null);
+			
+			if (logger.isDebugEnabled())    logger.debug("end doUpdateSales");
+			return SUCCESS;
+		}
+		catch(Exception e)
+		{
+			logger.error("catch Exception in doAuditAgree", e);
+			setErrorReason("修改客户信息对应的销售或业务助理错误!");
+            return ERROR;
+		}
+	}
+	
 	/**
 	 * 根据custInfo的部分信息获取全部信息
 	 * @param mgr
