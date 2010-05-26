@@ -49,6 +49,7 @@ var ExtConvertHelper = {
 				url: SERVER_PATH + url,
 				params: this._processParams(params),
 			  waitTitle: '提示',
+			  method: 'POST',
 				waitMsg: '请等待：正在提交请求',
 				scope: scope,
 				success: success ? success : function(){},
