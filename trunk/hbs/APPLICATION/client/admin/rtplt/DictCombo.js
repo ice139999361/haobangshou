@@ -73,7 +73,6 @@ Ext.extend(ExtUx.widget.DictCombo, Ext.form.ComboBox, {
 			var __processConfig = this. __processConfig;
 			// 设置访问的 url
 			var _url = __processConfig.url + (__processConfig.url.indexOf("?") == -1 ? "?" : "&") + __processConfig.paramName + "=" + (this.getValue() || this.getEl().dom.value);
-			
 			ExtConvertHelper.request(_url, __processConfig.params, function(response, options) {
 				var action = Ext.util.JSON.decode(response.responseText);
 				// 调用应用的处理方法
