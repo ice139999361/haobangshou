@@ -8,6 +8,7 @@ var querygridUrl;
 			querygridUrl = "/customerInfo/customerInfo!list.action";
 			break;
 		case "scmanager":
+		case "cw":
 			querygridUrl = "/customerInfo/customerInfoMgr!list.action";
 			break;
 	}

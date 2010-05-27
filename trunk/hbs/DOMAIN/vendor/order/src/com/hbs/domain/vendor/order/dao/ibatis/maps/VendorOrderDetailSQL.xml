@@ -495,6 +495,25 @@
 			<isNotEmpty prepend="and" property="hastenReminder">
 		            HASTEN_REMINDER = #hastenReminder#
 			</isNotEmpty>
+			<!-- 订货数量 ！= 收货数量 -->
+			<isNotEmpty prepend = "and" property = "dynamicFields.notComplete" >
+						<![CDATA[ 
+						  AMOUNT != DELIVERY_AMOUNT
+						]]> 
+			</isNotEmpty>
+			<!-- 时间范围查询 -->
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeBegainTime">
+				<![CDATA[	
+					VER_DELIVERY_DATE >= STR_TO_DATE('$dynamicFields.likeBegainTime$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeEndTime">
+				<![CDATA[	
+					VER_DELIVERY_DATE <= DATE_ADD(STR_TO_DATE('$dynamicFields.likeEndTime$','%Y-%m-%d'),INTERVAL 1 DAY)
+				]]>
+			</isNotEmpty>
 			<isNotEmpty prepend="order by" property="sort">
                    $sort$
             </isNotEmpty>
@@ -572,6 +591,25 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="hastenReminder">
 		            HASTEN_REMINDER = #hastenReminder#
+			</isNotEmpty>
+			<!-- 订货数量 ！= 收货数量 -->
+			<isNotEmpty prepend = "and" property = "dynamicFields.notComplete" >
+						<![CDATA[ 
+						  AMOUNT != DELIVERY_AMOUNT
+						]]> 
+			</isNotEmpty>
+			<!-- 时间范围查询 -->
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeBegainTime">
+				<![CDATA[	
+					VER_DELIVERY_DATE >= STR_TO_DATE('$dynamicFields.likeBegainTime$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeEndTime">
+				<![CDATA[	
+					VER_DELIVERY_DATE <= DATE_ADD(STR_TO_DATE('$dynamicFields.likeEndTime$','%Y-%m-%d'),INTERVAL 1 DAY)
+				]]>
 			</isNotEmpty>
 		</dynamic>
 </select>
