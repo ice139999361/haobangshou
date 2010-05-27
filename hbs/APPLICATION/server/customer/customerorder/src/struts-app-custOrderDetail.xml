@@ -230,5 +230,10 @@
 		<action name="orderDetail!listDetail" method="doListDetail"  
     			class="com.hbs.customerorder.action.detail.CustOrderDetailBaseAction">
 		</action>
+		
+		<!-- 查询未交货客户订单明细  add yangzj-->
+	<action name="orderDetail!listNoCommit" method="doQueryList" 
+    			class="com.hbs.customerorder.action.detail.CustOrderDetailQueryAction">
+		</action>
 	</package>
 </struts>	

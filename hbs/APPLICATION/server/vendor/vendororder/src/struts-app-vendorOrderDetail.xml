@@ -60,5 +60,10 @@
     			class="com.hbs.vendororder.action.detail.VendorOrderDetailCgNormalAction">
 		</action>
 
+
+	<!-- 查询未交货供应商订单明细  add yangzj-->
+	<action name="orderDetailCg!listNoCommit" method="doQueryList" 
+    			class="com.hbs.vendororder.action.detail.VendorOrderDetailQueryAction">
+		</action>
 	</package>
 </struts>	

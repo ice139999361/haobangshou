@@ -68,7 +68,7 @@
                 },
                 {
                     "id": "stxdhwfhkhdd",
-                    "text": "客户未发货客户订单",
+                    "text": "客户未发货订单查询",
                     "menuOrder": "80000",
                     "leaf": "true",
                     "url": "/customer/querynosendorder.jsp?roleType=sccustomers"
@@ -193,7 +193,7 @@
                 },
                 {
                     "id": "cgywtjhdd",
-                    "text": "供应商未提交货订单",
+                    "text": "供应商未交货订单查询",
                     "menuOrder": "70000",
                     "leaf": "true",
                     "url": "/vendor/querynocommitorder.jsp?roleType=cgy"
@@ -372,6 +372,22 @@
                     "menuOrder": "110000",
                     "leaf": "true",
                     "url": "/invoice/vendorinvoicemanager.jsp"
+                }
+		,
+                {
+                    "id": "cwquerycustomer",
+                    "text": "客户信息查询",
+                    "menuOrder": "120000",
+                    "leaf": "true",
+                    "url": "/customer/querycustomer.jsp?roleType=cw"
+                }
+		,
+                {
+                    "id": "cwqueryvendor",
+                    "text": "供应商信息查询",
+                    "menuOrder": "120000",
+                    "leaf": "true",
+                    "url": "/vendor/queryvendor.jsp?roleType=cw"
                 }
             ]
         },

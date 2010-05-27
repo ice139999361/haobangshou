@@ -653,6 +653,37 @@
 						  PO_NO_TYPE !=  $dynamicFields.notPoNoType$
 						]]> 
 			</isNotEmpty>
+			<!-- 用户查找，销售或助理 -->
+			<isNotEmpty prepend="and"
+				property="dynamicFields.queryStaffId">
+				<![CDATA[	
+					(STAFF_ID = '$dynamicFields.queryStaffId$' OR SALES_ID = '$dynamicFields.queryStaffId$')
+				]]>
+			</isNotEmpty>
+			<!-- 订货数量 ！= 发货数量 -->
+			<isNotEmpty prepend = "and" property = "dynamicFields.notComplete" >
+						<![CDATA[ 
+						  AMOUNT != DELIVERY_AMOUNT
+						]]> 
+			</isNotEmpty>
+			<isNotEmpty prepend = "and" property = "dynamicFields.noState" >
+						<![CDATA[ 
+						  STATE NOT IN ($dynamicFields.noState$)
+						]]> 
+			</isNotEmpty>
+			<!-- 时间范围查询 -->
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeBegainTime">
+				<![CDATA[	
+					VER_DELIVERY_DATE >= STR_TO_DATE('$dynamicFields.likeBegainTime$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeEndTime">
+				<![CDATA[	
+					VER_DELIVERY_DATE <= DATE_ADD(STR_TO_DATE('$dynamicFields.likeEndTime$','%Y-%m-%d'),INTERVAL 1 DAY)
+				]]>
+			</isNotEmpty>
 			<isNotEmpty prepend="order by" property="sort">
                    $sort$
             </isNotEmpty>
@@ -739,6 +770,37 @@
 						<![CDATA[ 
 						  PO_NO_TYPE !=  $dynamicFields.notPoNoType$
 						]]> 
+			</isNotEmpty>
+			<!-- 用户查找，销售或助理 -->
+			<isNotEmpty prepend="and"
+				property="dynamicFields.queryStaffId">
+				<![CDATA[	
+					(STAFF_ID = '$dynamicFields.queryStaffId$' OR SALES_ID = '$dynamicFields.queryStaffId$')
+				]]>
+			</isNotEmpty>
+			<!-- 订货数量 ！= 发货数量 -->
+			<isNotEmpty prepend = "and" property = "dynamicFields.notComplete" >
+						<![CDATA[ 
+						  AMOUNT != DELIVERY_AMOUNT
+						]]> 
+			</isNotEmpty>
+			<isNotEmpty prepend = "and" property = "dynamicFields.noState" >
+						<![CDATA[ 
+						  STATE NOT IN ($dynamicFields.noState$)
+						]]> 
+			</isNotEmpty>
+			<!-- 时间范围查询 -->
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeBegainTime">
+				<![CDATA[	
+					VER_DELIVERY_DATE >= STR_TO_DATE('$dynamicFields.likeBegainTime$','%Y-%m-%d')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.likeEndTime">
+				<![CDATA[	
+					VER_DELIVERY_DATE <= DATE_ADD(STR_TO_DATE('$dynamicFields.likeEndTime$','%Y-%m-%d'),INTERVAL 1 DAY)
+				]]>
 			</isNotEmpty>
 		</dynamic>
 </select>

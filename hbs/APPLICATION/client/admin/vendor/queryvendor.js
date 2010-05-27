@@ -8,6 +8,7 @@ var querygridUrl;
 			querygridUrl = "/vendorInfo/vendorInfo!list.action";
 			break;
 		case "cgm":
+		case "cw":
 			querygridUrl = "/vendorInfo/vendorInfoMgr!list.action";
 			break; 
 	}
