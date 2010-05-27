@@ -372,23 +372,22 @@
                     "menuOrder": "110000",
                     "leaf": "true",
                     "url": "/invoice/vendorinvoicemanager.jsp"
-                }
-		,
-                {
-                    "id": "cwquerycustomer",
-                    "text": "客户信息查询",
-                    "menuOrder": "120000",
-                    "leaf": "true",
-                    "url": "/customer/querycustomer.jsp?roleType=cw"
-                }
-		,
+                },
                 {
                     "id": "cwqueryvendor",
                     "text": "供应商信息查询",
                     "menuOrder": "120000",
                     "leaf": "true",
                     "url": "/vendor/queryvendor.jsp?roleType=cw"
+                },
+                {
+                    "id": "cwquerycustomer",
+                    "text": "客户信息查询",
+                    "menuOrder": "130000",
+                    "leaf": "true",
+                    "url": "/customer/querycustomer.jsp?roleType=cw"
                 }
+
             ]
         },
         {
