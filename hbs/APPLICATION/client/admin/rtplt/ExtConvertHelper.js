@@ -1,3 +1,11 @@
+// 格式化 url 中特殊字符，用于get传参
+function encodeString(str) {
+	return encodeURIComponent(encodeURIComponent(str));
+}
+
+
+
+
 // 好帮手引用框架作用域
 var HBS = Ice;
 var panelSyncSizeFlagIds = "";
