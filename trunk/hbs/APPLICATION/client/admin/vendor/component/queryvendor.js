@@ -7,7 +7,7 @@ var queryformFun = function() {
 	// 供应商编码
 	cmpobj["gysbm"] = {xtype: "textfield", fieldLabel: "供应商编码"  , name: "vendorInfo.commCode"};
 	// 业务员
-	cmpobj["cgy"]   = {xtype: "dictcombo", fieldLabel: "采购员"      , hiddenName: "vendorInfo.staffId", paramsValue: "IMPORTANT_CODE"};
+	//cmpobj["cgy"]   = {xtype: "dictcombo", fieldLabel: "采购员"      , hiddenName: "vendorInfo.staffId", paramsValue: "IMPORTANT_CODE"};
 	// 客户录入时间
 	cmpobj["gyslrsj"] = [
 		 {xtype: "label"    , fieldLabel: "供应商录入时间"}
@@ -42,7 +42,7 @@ var cgmLayout = function(cmpobj) {
 	var p1 = cph.createLayoutPanel(3);
 	p1.push(cmpobj["gysjc"]);
 	p1.push(cmpobj["gysbm"]);
-	p1.push(cmpobj["cgy"]);
+	//p1.push(cmpobj["cgy"]);
 
 
 	var p2 = cph.createLayoutPanel("5:.10,.05,.15,.05,.3");
@@ -51,14 +51,14 @@ var cgmLayout = function(cmpobj) {
 	return cph;
 };
 
-// 采购部经理
+// 财务
 var cwLayout = function(cmpobj) {	
 	var cph = new ColumnPanelHelper;
 		
 	var p1 = cph.createLayoutPanel(3);
 	p1.push(cmpobj["gysjc"]);
 	p1.push(cmpobj["gysbm"]);
-	p1.push(cmpobj["cgy"]);
+	//p1.push(cmpobj["cgy"]);
 
 
 	var p2 = cph.createLayoutPanel("5:.10,.05,.15,.05,.3");
