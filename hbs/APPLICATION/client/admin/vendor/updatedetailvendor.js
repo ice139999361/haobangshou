@@ -50,7 +50,7 @@ HBSConvertHelper.init(function() {
 		Ext.getCmp("baseSeqId").setValue(action.data.vendorInfo.baseSeqId);		
 	});
 
-	Ext.getCmp("shortName").setProcessConfig("/vendorInfo/vendorInfoMgr!getInfo.action?vendorInfo.state=0", "vendorInfo.shortName", null, function(action){
+	Ext.getCmp("shortName").setProcessConfig("/vendorInfo/vendorInfoMgr!getInfo.action?vendorInfo.state=0", "vendorInfo.commCode", null, function(action){
 		if(!action.success)
 			return;
 		//Ext.getCmp("shortName").setValue(action.data.vendorInfo.shortName);

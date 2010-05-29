@@ -3,18 +3,18 @@ var queryformFun = function() {
 	var cmpobj = {};
 			    				
 	// 供应商简称
-	cmpobj["gysjc"] = {xtype: "textfield", fieldLabel: "供应商简称"  , name: "custInfo.shortName"};
+	cmpobj["gysjc"] = {xtype: "textfield", fieldLabel: "供应商简称"  , name: "vendorInfo.shortName"};
 	// 供应商编码
-	cmpobj["gysbm"] = {xtype: "textfield", fieldLabel: "供应商编码"  , name: "custInfo.commCode"};
+	cmpobj["gysbm"] = {xtype: "textfield", fieldLabel: "供应商编码"  , name: "vendorInfo.commCode"};
 	// 业务员
-	cmpobj["cgy"]   = {xtype: "dictcombo", fieldLabel: "采购员"      , hiddenName: "", paramsValue: "IMPORTANT_CODE"};
+	cmpobj["cgy"]   = {xtype: "dictcombo", fieldLabel: "采购员"      , hiddenName: "vendorInfo.staffId", paramsValue: "IMPORTANT_CODE"};
 	// 客户录入时间
 	cmpobj["gyslrsj"] = [
 		 {xtype: "label"    , fieldLabel: "供应商录入时间"}
 		,{xtype: "label"    , fieldLabel: "从"           , labelSeparator: ""}
-		,{xtype: "datefield", hideLabel: true            , name: "custInfo.dynamicFields.likeBegainTime", format: "Y-m-d", width: 120}
+		,{xtype: "datefield", hideLabel: true            , name: "vendorInfo.dynamicFields.likeBegainTime", format: "Y-m-d", width: 120}
 		,{xtype: "label"    , fieldLabel: "到"           , labelSeparator: ""}
-		,{xtype: "datefield", hideLabel: true            , name: "custInfo.dynamicFields.likeEndTime"   , format: "Y-m-d", width: 120}
+		,{xtype: "datefield", hideLabel: true            , name: "vendorInfo.dynamicFields.likeEndTime"   , format: "Y-m-d", width: 120}
 	];
 	
 	
@@ -37,6 +37,22 @@ var cgyLayout = function(cmpobj) {
 
 // 采购部经理
 var cgmLayout = function(cmpobj) {	
+	var cph = new ColumnPanelHelper;
+		
+	var p1 = cph.createLayoutPanel(3);
+	p1.push(cmpobj["gysjc"]);
+	p1.push(cmpobj["gysbm"]);
+	p1.push(cmpobj["cgy"]);
+
+
+	var p2 = cph.createLayoutPanel("5:.10,.05,.15,.05,.3");
+	ExtConvertHelper.copyArrayToArray(cmpobj["gyslrsj"], p2);
+
+	return cph;
+};
+
+// 采购部经理
+var cwLayout = function(cmpobj) {	
 	var cph = new ColumnPanelHelper;
 		
 	var p1 = cph.createLayoutPanel(3);
