@@ -40,8 +40,8 @@
 				    				<textarea     fieldLabel="备注"           name="warehouseRec.receiveDesc"        labelStyle="width:150" width="600" />
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
-				    				<hidden name="warehouseRec.shortName" />
-				    				<hidden name="warehouseRec.settlementType" />
+				    				<hidden name="warehouseRec.shortName" id="hidShortName" />
+				    				<hidden name="warehouseRec.settlementType" id="hidSettlementType" />
 				    				<hidden name="warehouseRec.poNoType" />
 									<hidden name="warehouseRec.activeState" />
 									<hidden name="warehouseRec.state" />

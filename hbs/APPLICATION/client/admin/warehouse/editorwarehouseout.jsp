@@ -16,20 +16,20 @@
 			    <panel frame="true" autoScroll="true">
 			    	<items>
 			    	<!-- service ext ui.  begin. -->
-			    	
+
 							<form id="form"><items>
 				    		<listpanel frame="true" title="出库基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<textfield    fieldLabel="出库单号"       name="warehouseSend.sendPoNo"        labelStyle="width:150" />
-				    				<dictcombo    fieldLabel="对应分公司"           hiddenName="warehouseSend.companyBranch"  labelStyle="width:150"     paramsValue="COMPANY_BRANCH"     emptyText="请选择" />
-				    				<autocomplete fieldLabel="客户"	url="/customerInfo/customerInfo!list.action"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"           name="warehouseSend.custCode"       labelStyle="width:150" id="acCommCode" />
+				    				<textfield    fieldLabel="出库单号"       name="warehouseSend.sendPoNo"  id="sendPoNo"      labelStyle="width:150" />
+				    				<dictcombo    fieldLabel="对应分公司"           hiddenName="warehouseSend.companyBranch"  labelStyle="width:150"     paramsValue="COMPANY_BRANCH"     emptyText="请选择" id="acCompanyBranch" />
+				    				<autocomplete fieldLabel="客户"	url="/customerInfo/customerInfoMgr!list.action"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"           name="warehouseSend.custCode"       labelStyle="width:150" id="acCommCode" />
 				    				<textfield    fieldLabel="联系电话"       name="warehouseSend.conTel"        labelStyle="width:150" id="tconTel" />
 				    				<textfield    fieldLabel="邮编"       name="warehouseSend.receiveZip"        labelStyle="width:150" id="treceiveZip"  />
-				    					
+
 				    				<datefield    fieldLabel="出库日期"  	    name="warehouseSend.createDate"        labelStyle="width:150"   id="acCreateDate"  format="Y-m-d" />
-				    				<dictcombo    fieldLabel="出库仓库"           hiddenName="warehouseSend.houseType"  labelStyle="width:150"     paramsValue="WAREHOUSE_TYPE"     emptyText="请选择" id="acHouseType"/>				    				
+				    				<dictcombo    fieldLabel="出库仓库"           hiddenName="warehouseSend.houseType"  labelStyle="width:150"     paramsValue="WAREHOUSE_TYPE"     emptyText="请选择" id="acHouseType"/>
 				    				<dictcombo fieldLabel="收货人" url="/customerInfo/custContactInfo!listContactInfo.action"  displayField="conName"  valueField="seqId"  root="data.contactInfoList"  name="warehouseSend.receiveName"       labelStyle="width:150" allowBlank="false" id="areceiveName" />
-				    				
+
 				    				<textfield    fieldLabel="传真"       name="warehouseSend.conFax"        labelStyle="width:150" id="tconFax" />
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
@@ -37,7 +37,7 @@
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
 				    				<textarea     fieldLabel="备注"           name="warehouseSend.sendDesc"        labelStyle="width:150" width="600" />
-				    			</layoutpanel>	
+				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
 				    				<hidden name="warehouseSend.state" />
 				    				<hidden name="warehouseSend.financeState" />
@@ -45,14 +45,14 @@
 				    				<hidden name="warehouseSend.operId" />
 				    				<hidden name="warehouseSend.operStaff" />
 				    				<hidden name="warehouseSend.poNoType" />
-				    				<hidden name="warehouseSend.settlementType" />
-				    				<hidden name="warehouseSend.shortName" />				    				
+				    				<hidden name="warehouseSend.settlementType" id="hidSettlementType" />
+				    				<hidden name="warehouseSend.shortName" id="hidShortName" />
 				    			</layoutpanel>
 				    		</listpanel>
 			    		</items></form>
-			    		
+
 			    		<complexgrid id="warehousegrid" frame="true" height="200" deftbar="false" url="1" title="出库详情" itemsFun="warehousegridFun" />
-			    		
+
 			    		<panel buttonAlign="center">
 			    			<buttons>
 			    				<button text="添加出库详情" id="addInfoBtn" />
@@ -62,7 +62,7 @@
 			    				<button text="取消"         id="backBtn"   />
 			    			</buttons>
 			    		</panel>
-			    		
+
 			    	<!-- service ext ui.  end. -->
 			    	</items>
 			    </panel>
@@ -75,12 +75,12 @@
 	    				<textfield fieldLabel="客户编码"                   name="orderDetail.commCode"  />
 	    				<textfield fieldLabel="客户订单号"                     name="orderDetail.poNo" />
 	    				<textfield fieldLabel="客户物料编码"               name="orderDetail.cpartNo"  />
-	    					
+
 	    				<textfield fieldLabel="公司物料编码"               name="orderDetail.partNo" />
 	    				<textfield fieldLabel="特殊备注（批次）"           name="orderDetail.specDesc" />
 	    			</layoutpanel>
 	    		</queryform>
-	    		
+
 	    		<complexgrid id="querygrid" buttonAlign="center" title="客户订单详情" frame="true" height="300" url="/custOrderDetail/orderDetail!listDetail.action" page="true" root="data.list">
 	    			<fields>
 	    				<field name="commCode" />
@@ -111,16 +111,16 @@
 	    				<field name="verDeliveryDate" />
 	    				<field name="period" />
 	    				<field name="rltOrderPoNo" />
-	    				<field name="vendorCode" />	    				
-	    				<field name="stateDesc" />	    				
+	    				<field name="vendorCode" />
+	    				<field name="stateDesc" />
 	    				<field name="contactFee" />
-	    				
-	    				
+
+
 	    				<!-- 转换字段，自动填充 -->
-	    				<field name="rltPoNo"  mapping="poNo" />	
+	    				<field name="rltPoNo"  mapping="poNo" />
 	    				<field name="price"    mapping="cprice" />
 	    				<field name="priceTax" mapping="cpriceTax" />
-	    				<field name="custPartNo"  mapping="cpartNo" /> 
+	    				<field name="custPartNo"  mapping="cpartNo" />
 	    				<field name="custCode"  mapping="commCode" />
 	    				<field name="commAmount"  mapping="commLockAmount" />
 	    				<field name="selfAmount"  mapping="selfLockAmount" />

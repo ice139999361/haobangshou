@@ -78,7 +78,8 @@ public class WarehouseMgr {
 			WareHouseInfo existWInfo = findWareHouseInfoByBizKey(whInfoDao,wInfo);
 			
 			if(null == existWInfo){//库中不存在需要保持的库存信息
-				logger.debug("库中不存在需要保持的库存信息,做添加操作！");			
+				logger.debug("库中不存在需要保持的库存信息,做添加操作！");
+				wInfo.setState((0 == IntegerUtils.intValue(wInfo.getUseAmount()))?"1":"0");
 				whInfoDao.insertWareHouseInfo(wInfo);
 				
 			}else{//存在相同库存信息，做update操作
@@ -149,17 +150,17 @@ public class WarehouseMgr {
 		int ret =0;
 		logger.debug("保存仓库锁定库存信息传入的参数为：" + wInfo.toString());		
 		
-		int wInfoLockAmount = (wInfo.getLockAmount()== null ? 0 : wInfo.getLockAmount());
-		int wInfoUseAmount = (wInfo.getUseAmount()== null ? 0 : wInfo.getUseAmount());
+		int wInfoLockAmount = IntegerUtils.intValue(wInfo.getLockAmount());
+		int wInfoUseAmount = IntegerUtils.intValue(wInfo.getUseAmount());
 		
 		//根据业务主键查询库存中是否存在
 		wInfo.setState(null);
 		WareHouseInfoDao whInfoDao =(WareHouseInfoDao)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_INFO_DAO);
 		WareHouseInfo existWInfo = findWareHouseInfoByBizKey(whInfoDao,wInfo);
 		if(null != existWInfo){//仓库存在库存信息
-			int existTotalAmount = existWInfo.getTotalAmount().intValue();
-			int newLockAmount = existWInfo.getLockAmount().intValue() + wInfoLockAmount;
-			int newUseAmount = existWInfo.getUseAmount().intValue() + wInfoUseAmount;
+			int existTotalAmount = IntegerUtils.intValue(existWInfo.getTotalAmount());
+			int newLockAmount = IntegerUtils.intValue(existWInfo.getLockAmount()) + wInfoLockAmount;
+			int newUseAmount = IntegerUtils.intValue(existWInfo.getUseAmount()) + wInfoUseAmount;
 			if(newUseAmount < 0 || 
 					(existTotalAmount != (newLockAmount + newUseAmount))){//更新的数据不正确，抛出异常
 				throw new Exception("库存存在的信息为：" + existWInfo.toString() + "数据变更后导致不正确！无法保存");
@@ -180,7 +181,21 @@ public class WarehouseMgr {
 				WareHouseLogUtils.operLog(staffId, staffName, "锁定库存", "仓库信息", wInfo.getLogKey(), wInfo.toString(), content);
 			}
 		}else{//仓库中不存在库存信息
-			throw new Exception("仓库中不存在需要锁定的库存信息,无法做锁定操作！信息为：" + wInfo.toString());
+			/*
+			 * com.hbs.warehousereceive.manager.WareHouseRecDetailMgr.processCustOrderDetail(WarehouseRecDetail, String, String, String)
+			 * 中调用了本函数，可能导致这个问题。
+			 */
+			/*
+			 * 修改为在processCustOrderDetail的上一级：
+			 * processVendorOrderDetail中
+			 * 先调用processWarehouseInfo增加库存，再调用processCustOrderDetail
+			 * 就应该运行到此。
+			 */
+			/*if(wInfoUseAmount + wInfoLockAmount == IntegerUtils.intValue(wInfo.getTotalAmount())){
+				wInfo.setState(wInfoUseAmount > 0 ? "0" : "1"); // 无可用库存
+				whInfoDao.insertWareHouseInfo(wInfo);
+			}else*/
+				throw new Exception("仓库中不存在需要锁定的库存信息,无法做锁定操作！信息为：" + wInfo.toString());
 		}
 		return ret;
 	}

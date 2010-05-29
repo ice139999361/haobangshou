@@ -1,12 +1,19 @@
 package com.hbs.vendororder.action.detail;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
+import com.hbs.common.manager.systemconfig.SystemConfigMgr;
 import com.hbs.common.utils.ListDataUtil;
+import com.hbs.customerorder.action.detail.CustOrderDetailBaseAction;
+import com.hbs.customerorder.constants.CustOrderConstants;
+import com.hbs.customerorder.manager.CustOrderDetailMgr;
+import com.hbs.domain.common.pojo.SystemConfig;
+import com.hbs.domain.customer.order.pojo.CustOrderDetail;
 import com.hbs.domain.vendor.order.dao.VendorOrderDao;
 import com.hbs.domain.vendor.order.pojo.VendorOrder;
 import com.hbs.domain.vendor.order.pojo.VendorOrderDetail;
@@ -44,8 +51,11 @@ public class VendorOrderDetailCgNormalAction extends VendorOrderDetailBaseAction
 					return ERROR;
 				}
 			}
-			if(d != null)
-				orderDetail.setVerDeliveryDate(d);
+			if(d == null){
+				d = orderDetail.getOrgDeliveryDate();
+			}
+			orderDetail.setVerDeliveryDate(d);
+			
 			int i = mgr.confirmOrderDetailDelivery(orderDetail, false, getMemo());
 			if(i != 0) {
 				logger.error("提交出错！ ret = " + i);
@@ -53,12 +63,68 @@ public class VendorOrderDetailCgNormalAction extends VendorOrderDetailBaseAction
 				return ERROR;
 			}
 			checkOrderState02(orderDetail.getCommCode(), orderDetail.getPoNo());
+			try{
+				checkCustOrderDeliveryDate(orderDetail, d);
+			}catch(Exception e){
+				String ss = "自动提交客户订单交期失败，请手工确认对应的客户订单详情的交期！";
+				logger.debug(ss + orderDetail.toString(), e);
+				this.setAlertMsg(ss);
+			}
 			logger.debug("end doConfirmDelivery");
 			return SUCCESS;
 		} catch (Exception e) {
 			logger.error("catch Exception in doConfirmDelivery", e);
 			setErrorReason("内部错误");
 			return ERROR;
+		}
+	}
+
+	private void checkCustOrderDeliveryDate(VendorOrderDetail orderDetail, Date d) throws Exception {
+		final String cfgName = "VendorDate2CustDate";
+		if(StringUtils.isEmpty(orderDetail.getRltOrderPoNo()))
+			return;
+		SystemConfig cfg = SystemConfigMgr.findSystemConfig(cfgName);
+		if(cfg == null){
+			logger.debug("findSystemConfig failed:" + cfgName);
+			return;
+		}
+
+		CustOrderDetail cod1 = new CustOrderDetail();
+		CustOrderDetailMgr codMgr = (CustOrderDetailMgr)getBean(CustOrderDetailBaseAction.custOrderDetailMgrName);
+		cod1.setCommCode(orderDetail.getCustCcode());
+		cod1.setPoNo(orderDetail.getRltOrderPoNo());
+		cod1.setCpartNo(orderDetail.getCpartNo());
+		cod1.setPartNo(orderDetail.getPartNo());
+		cod1.setSpecDesc(orderDetail.getSpecDesc());
+		CustOrderDetail cod = codMgr.findCustOrderDetailByBizKey(cod1);
+		if(cod == null)
+			throw new Exception("findCustOrderDetailByBizKey failed!");
+		if(!CustOrderConstants.ORDER_STATE_20.equals(cod.getState())){
+			logger.debug("CustOrderDetail.state != 20");
+			return;
+		}
+		int ret;
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(d);
+		cal.add(Calendar.DAY_OF_MONTH, Integer.parseInt(cfg.getConfigValue()));
+		Date newdate = cal.getTime();
+		Date predate = cod.getPreDeliveryDate();
+		if(predate == null)
+			predate = cod.getOrgDeliveryDate();
+		if(predate.before(newdate)){
+			// 超期
+			cod.setPreDeliveryDate(newdate);
+			logger.debug("purchaseRefuseDetailDelivery");
+			ret = codMgr.purchaseRefuseDetailDelivery(cod, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), null);
+		}else{
+			// 在期限内
+			logger.debug("purchaseConfirmDetailDelivery");
+			newdate = predate;
+			cod.setPreDeliveryDate(newdate);
+			ret = codMgr.purchaseConfirmDetailDelivery(cod, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), null);
+		}
+		if(ret != 0){
+			throw new Exception("purchaseXXXDetailDelivery failed! ret=" + ret);
 		}
 	}
 

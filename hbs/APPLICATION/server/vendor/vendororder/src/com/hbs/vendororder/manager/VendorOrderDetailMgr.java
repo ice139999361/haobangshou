@@ -11,6 +11,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.springhelper.BeanLocator;
+import com.hbs.common.utils.IntegerUtils;
 import com.hbs.common.utils.OrderCalUtils;
 import com.hbs.customerorder.constants.CustOrderConstants;
 import com.hbs.domain.customer.order.dao.CustOrderDetailDao;
@@ -214,15 +215,15 @@ public class VendorOrderDetailMgr {
 	public int updateOrderDetailByAmount(VendorOrderDetail detail) throws Exception{
 		logger.debug("提交订单明细，采购的物料入库，更新相关状态，输入的参数为：" + detail.toString());
 		int ret =0;
-		int delmount = detail.getDeliveryAmount();
+		int delmount = IntegerUtils.intValue(detail.getDeliveryAmount());
 		VendorOrderDetailDao vDetailDao =(VendorOrderDetailDao)BeanLocator.getInstance().getBean(VendorOrderConstants.VENDOR_ORDER_DETAIL_DAO);
 		VendorOrderDao vDao =(VendorOrderDao)BeanLocator.getInstance().getBean(VendorOrderConstants.VENDOR_ORDER_DAO);
 		VendorOrderDetail tempDetail = vDetailDao.findVendorOrderDetailByBizKey(detail);
 		if(null != tempDetail){
-			int iMount = tempDetail.getAmount();
-			int iDelivMount = tempDetail.getDeliveryAmount().intValue();
+			int iMount = IntegerUtils.intValue(tempDetail.getAmount());
+			int iDelivMount = IntegerUtils.intValue(tempDetail.getDeliveryAmount());
 			int updateAmount = delmount + iDelivMount;
-			logger.debug("提交订单明细,订单总数量为：" + iMount +"已经入库数量为：" + iDelivMount + "本次入库数量为：" + detail.getDeliveryAmount().intValue());
+			logger.debug("提交订单明细,订单总数量为：" + iMount +"已经入库数量为：" + iDelivMount + "本次入库数量为：" + IntegerUtils.intValue(detail.getDeliveryAmount()));
 			if(updateAmount > iMount){//更新的数目不对
 				//ret =2;
 				logger.debug("提交订单明细,更新的数码不正确，订单总数量 < 已经入库数量 + 本次入库数量");

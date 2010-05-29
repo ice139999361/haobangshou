@@ -408,6 +408,7 @@ public class CustOrderDetailMgr {
 				orderDetail.setLockAmount(isavelockAmount);
 				orderDetail.setSelfLockAmount(iselLock + oselfLock);
 				orderDetail.setCommLockAmount(ocommLock + icommLock);
+				orderDetail.setPoNo(existDetail.getPoNo());
 				ret = updateCustDetailAmount(orderDetail);
 			}
 		}else{//客户订单明细不存在 ，返回-1
