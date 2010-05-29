@@ -64,7 +64,8 @@ public class ProductAction extends BaseAction {
 			List<CompanyPartNo> list = mgr.getCompanyPartNoList(partNo);
 			setResult("list", list);
 			setTotalCount(mgr.getCompanyPartNoListCount(partNo));
-			setResult("count", getTotalCount());
+			//setResult("count", getTotalCount());
+			//setResult("totalCount", getTotalCount());
 			return SUCCESS;
 		}
 		catch(Exception e)

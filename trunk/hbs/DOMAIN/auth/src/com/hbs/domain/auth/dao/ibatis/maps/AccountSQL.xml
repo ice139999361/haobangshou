@@ -121,6 +121,9 @@
 				ENABLED = #enabled#
 			</isNotEmpty>
 		</dynamic>
+		<![CDATA[
+      		LIMIT #start# ,#end#
+		]]>
 </select>
 
 

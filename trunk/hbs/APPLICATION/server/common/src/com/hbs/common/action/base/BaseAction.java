@@ -266,13 +266,13 @@ public class BaseAction extends ActionSupport {
 	public void setLimit(int limit) {
 		this.limit = limit;
 	}
-
+	@JSON(name = "totalCount")
 	public int getTotalCount() {
 		return totalCount;
 	}
 
 	public void setTotalCount(int totalCount) {
-		this.totalCount = totalCount;
+		this.totalCount = totalCount;		
 	}
 
 	public String getSort() {
