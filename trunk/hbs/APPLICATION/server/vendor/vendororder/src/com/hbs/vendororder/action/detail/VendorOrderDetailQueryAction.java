@@ -62,7 +62,8 @@ public class VendorOrderDetailQueryAction extends BaseAction {
 			//订货数量！= 已收货数量
 			vorderDetail.setField("notComplete", "notComplete");
 			//订单
-			vorderDetail.setPoNoType("0");
+			//vorderDetail.setPoNoType("0");
+			vorderDetail.setField("notPoNoType", "1");
 			vorderDetail.setActiveState("ACTIVE");
 			vorderDetail.setField("state", "'02','04','60','61'");
 			vorderDetail.setSort("VER_DELIVERY_DATE DESC");
