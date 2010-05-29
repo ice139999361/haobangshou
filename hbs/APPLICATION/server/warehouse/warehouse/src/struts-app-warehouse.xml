@@ -14,7 +14,7 @@
             </result>
  			<result name="success" type="json">
 				<param name="includeProperties">
-                	success, result.*
+                	success, result.*, totalCount
                 </param>
 			</result>
         </global-results>
