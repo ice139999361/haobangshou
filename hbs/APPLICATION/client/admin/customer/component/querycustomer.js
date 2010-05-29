@@ -15,7 +15,7 @@ var queryformFun = function() {
 	// 精确查找
 	//cmpobj["jqcz"] = {xtype: "checkbox" , labelSeparator: ""         , name: "", boxLabel: "精确查找"};
 	cmpobj["khbm"] = {xtype: "textfield", fieldLabel: "客户编码"     , name: "custInfo.commCode"};
-	cmpobj["ywy"]  = {xtype: "dictcombo", fieldLabel: "业务员"       , hiddenName: "", paramsValue: "IMPORTANT_CODE"};
+	cmpobj["ywy"]  = {xtype: "dictcombo", fieldLabel: "业务员"       , hiddenName: "custInfo.staffId", paramsValue: "IMPORTANT_CODE"};
 	cmpobj["ywzl"] = {xtype: "dictcombo", fieldLabel: "业务助理"     , hiddenName: "", paramsValue: "IMPORTANT_CODE"};
 	
 	
@@ -39,6 +39,26 @@ var sccustomersLayout = function(cmpobj) {
 
 // 市场经理
 var scmanagerLayout = function(cmpobj) {	
+	var cph = new ColumnPanelHelper;
+		
+	var p1 = cph.createLayoutPanel(3);
+	p1.push(cmpobj["khjc"]);
+	//p1.push(cmpobj["jqcz"]);
+	
+	p1.push(cmpobj["khbm"]);
+	p1.push(cmpobj["ywzl"]);
+	
+	p1.push(cmpobj["ywy"]);
+
+
+	var p2 = cph.createLayoutPanel("5:.10,.05,.15,.05,.3");
+	ExtConvertHelper.copyArrayToArray(cmpobj["khlrsj"], p2);
+
+	return cph;
+};
+
+// 财务
+var cwLayout = function(cmpobj) {	
 	var cph = new ColumnPanelHelper;
 		
 	var p1 = cph.createLayoutPanel(3);

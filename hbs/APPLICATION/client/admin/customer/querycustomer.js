@@ -7,9 +7,11 @@ var querygridUrl;
 		case "sccustomers":
 			querygridUrl = "/customerInfo/customerInfo!list.action";
 			break;
-		case "scmanager":
-		case "cw":
+		case "scmanager":		
 			querygridUrl = "/customerInfo/customerInfoMgr!list.action";
+			break;
+		case "cw":
+			querygridUrl = "/customerInfo/customerInfoMgr!list.action?custInfo.state=0";
 			break;
 	}
 }())
