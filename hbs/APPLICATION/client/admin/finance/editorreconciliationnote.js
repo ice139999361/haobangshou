@@ -43,7 +43,7 @@ HBSConvertHelper.init(function() {
 			HBSConvertHelper.setDocumentTitle("客户对帐注意事项");
 			ccommcode.setFieldLabel("客户编码");
 			ccommcode.queryParam = "custInfo.commCode" ;
-			ccommcode.changeUrl("/customerInfo/customerInfo!list.action");
+			ccommcode.changeUrl("/customerInfo/customerInfoMgr!list.action?custInfo.state=0");
 			ccommcode.setProcessConfig("/invoice/periodSpec!getInfo.action", "specMemo.commCode", null, function(action) {
 				if(!action.success)
 				return;
