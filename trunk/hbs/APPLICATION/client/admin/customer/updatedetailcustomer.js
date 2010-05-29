@@ -53,7 +53,7 @@ HBSConvertHelper.init(function() {
 		Ext.getCmp("baseSeqId").setValue(action.data.custInfo.baseSeqId);		
 	});
 
-	Ext.getCmp("shortName").setProcessConfig("/customerInfo/customerInfoMgr!getInfo.action?custInfo.state=0", "custInfo.shortName", null, function(action){
+	Ext.getCmp("shortName").setProcessConfig("/customerInfo/customerInfoMgr!getInfo.action?custInfo.state=0", "custInfo.commCode", null, function(action){
 		if(!action.success)
 			return;
 		//Ext.getCmp("shortName").setValue(action.data.custInfo.shortName);
