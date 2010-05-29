@@ -186,6 +186,7 @@ public class UserAction extends BaseAction  {
 		try {
 			if(staff == null) 
 				staff = new Staff();
+			setPagination(staff);
 			setTotalCount(getSMgr().listStaffCount(staff));
 			List<Staff> list = getSMgr().listStaff(staff);
 			// 获取account，放在dynamicFields.account
