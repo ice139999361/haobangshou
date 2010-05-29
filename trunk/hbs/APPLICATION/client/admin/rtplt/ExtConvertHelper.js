@@ -24,7 +24,9 @@ var ExtConvertHelper = {
 			if(!this.__urlPs) {
 				this.__urlPs = Ext.urlDecode((location.search || "?").slice(1));
 				for(var t in this.__urlPs) {
-					this.__urlPs[t] = decodeString(this.__urlPs[t]);
+					try {
+						this.__urlPs[t] = decodeString(this.__urlPs[t]);
+					} catch(e) {}
 				}
 			}
 			
