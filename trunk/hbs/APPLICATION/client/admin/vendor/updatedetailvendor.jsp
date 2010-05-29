@@ -19,7 +19,7 @@
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="供应商基本信息" collapsible="true" titleCollapse="true">
 								<layoutpanel columnNum="2">
-									<autocomplete fieldLabel="供应商简称" url="/vendorInfo/vendorInfo!listDict.action?vendorInfo.state=0"  displayField="shortName"  valueField="shortName" queryParam="vendorInfo.shortName"     name="vendorInfo.shortName"       labelStyle="width:150" allowBlank="false" id="shortName" minChars="1" />				    				
+									<autocomplete fieldLabel="供应商简称" url="/vendorInfo/vendorInfo!listDict.action?vendorInfo.state=0"  displayField="shortName"  valueField="commCode" queryParam="vendorInfo.shortName"     name="vendorInfo.shortName"       labelStyle="width:150" allowBlank="false" id="shortName" minChars="1" />				    				
 				    				<label fieldLabel="法人代表"               name=""   id="representative"    labelStyle="width:150" />
 								</layoutpanel>
 								<layoutpanel columnNum="2">

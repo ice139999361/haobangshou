@@ -7,9 +7,11 @@ var querygridUrl;
 		case "cgy":
 			querygridUrl = "/vendorInfo/vendorInfo!list.action";
 			break;
-		case "cgm":
-		case "cw":
+		case "cgm":		
 			querygridUrl = "/vendorInfo/vendorInfoMgr!list.action";
+			break; 
+		case "cw":
+			querygridUrl = "/vendorInfo/vendorInfoMgr!list.action?vendorInfo.state=0";
 			break; 
 	}
 }())
