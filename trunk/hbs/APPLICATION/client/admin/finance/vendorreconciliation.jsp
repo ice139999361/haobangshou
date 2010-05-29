@@ -18,7 +18,7 @@
 			    	<!-- service ext ui.  begin. -->
 			    		<listpanel frame="true" title="供应商基本信息" collapsible="true" titleCollapse="true">
 			    			<layoutpanel columnNum="3">
-			    				<autocomplete fieldLabel="供应商编码" url="/vendorInfo/vendorInfo!list.action"  displayField="commCode"  valueField="commCode" queryParam="vendorInfo.commCode"     name="vendorInfo.commCode"       labelStyle="width:150" id="commcode" />
+			    				<autocomplete fieldLabel="供应商编码" url="/vendorInfo/vendorInfo!listDict.action"  displayField="commCode"  valueField="commCode" queryParam="vendorInfo.commCode"     name="vendorInfo.commCode"       labelStyle="width:150" id="commcode" />
 			    				<label        fieldLabel="供应商名称"      name="" id="allname" />
 			    				<label        fieldLabel="帐期"            name="" id="offperiod" />
 			    			</layoutpanel>
