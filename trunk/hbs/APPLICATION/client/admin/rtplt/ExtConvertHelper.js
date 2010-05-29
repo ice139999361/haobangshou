@@ -3,6 +3,11 @@ function encodeString(str) {
 	return encodeURIComponent(encodeURIComponent(str));
 }
 
+// 反编码
+function decodeString(str) {
+	return decodeURIComponent(str);
+}
+
 
 
 
@@ -18,6 +23,9 @@ var ExtConvertHelper = {
 	 getUrlPs: function() {
 			if(!this.__urlPs) {
 				this.__urlPs = Ext.urlDecode((location.search || "?").slice(1));
+				for(var t in this.__urlPs) {
+					this.__urlPs[t] = decodeString(this.__urlPs[t]);
+				}
 			}
 			
 			return this.__urlPs;
