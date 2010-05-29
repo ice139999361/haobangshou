@@ -12,6 +12,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.springhelper.BeanLocator;
+import com.hbs.common.utils.IntegerUtils;
 import com.hbs.common.utils.OrderCalUtils;
 import com.hbs.customerorder.manager.CustOrderDetailMgr;
 import com.hbs.domain.customer.order.pojo.CustOrderDetail;
@@ -145,6 +146,7 @@ public class WareHouseRecDetailMgr {
 			switch(Integer.parseInt(vPonoType)){
 			case 0: //客户供应商采购单
 				logger.debug("供应商采购单为客户订单！");
+				ret = processWarehouseInfo( detail, custCode, vPonoType);
 				ret =processCustOrderDetail( detail, custCode, custPoNo, custSpecDesc);
 				break;
 			case 1: //退货单
@@ -192,14 +194,16 @@ public class WareHouseRecDetailMgr {
 		CustOrderDetailMgr custDetailMgr =(CustOrderDetailMgr)BeanLocator.getInstance().getBean(WareHouseConstants.CUST_ORDER_DETAILMGR);
 		CustOrderDetail existDetail = custDetailMgr.findCustOrderDetailByBizKey(orderDetail);
 		//可能的仓库保存的可用数量
+		@SuppressWarnings("unused")
 		int iuseAmount =0;
 		if(existDetail != null){
-			int ineedLock = existDetail.getAmount() - existDetail.getLockAmount();
-			if(ineedLock >= detail.getAmount()){//客户订单中需要锁定的数量> 本次送货数量
-				ineedLock = detail.getAmount();
+			int ineedLock = IntegerUtils.intValue(existDetail.getAmount()) - IntegerUtils.intValue(existDetail.getLockAmount());
+			if(ineedLock >= IntegerUtils.intValue(detail.getAmount())){//客户订单中需要锁定的数量> 本次送货数量
+				ineedLock = IntegerUtils.intValue(detail.getAmount());
 			}else{
-				iuseAmount = detail.getAmount() - ineedLock;
+				iuseAmount = IntegerUtils.intValue(detail.getAmount()) - ineedLock;
 			}
+			orderDetail.setSettlementType(existDetail.getSettlementType());
 			orderDetail.setOperSeqId(existDetail.getOperSeqId());
 			orderDetail.setSelfLockAmount(ineedLock);
 			//客户订单增加锁定数量
@@ -211,6 +215,9 @@ public class WareHouseRecDetailMgr {
 			
 			wInfo.setHouseType(WareHouseConstants.WAREHOUSE_USE_TYPE_1);
 				
+			wInfo.setCustCode(existDetail.getCommCode());
+			wInfo.setHouseUse(WareHouseConstants.WAREHOUSE_USE_TYPE_1);
+			
 			//设置供应商编码
 			wInfo.setVendorCode(detail.getVendorCode());
 			//设置本公司物料编码
@@ -218,13 +225,20 @@ public class WareHouseRecDetailMgr {
 			//设置供应商的物料编码
 			wInfo.setCpartNo(detail.getCpartNo());
 			wInfo.setPnDesc(detail.getPnDesc());
+			/*
 			//设置增加的库存
 			wInfo.setTotalAmount(detail.getAmount());
 			wInfo.setUseAmount(iuseAmount);
 			wInfo.setLockAmount(ineedLock);
+			*/
+			//修改可用库存和锁定库存
+			wInfo.setTotalAmount(0);
+			wInfo.setUseAmount(0-ineedLock);
+			wInfo.setLockAmount(ineedLock);
 			//设置客户编码
 			wInfo.setCustCode(custCode);
 			WarehouseMgr whMgr= (WarehouseMgr)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_INFO_MGR);
+
 			ret = whMgr.saveLockWareHouseInfo(wInfo, null, null, null);
 		}else{
 			throw new Exception("按照关键字无法找到对应的客户订单，无法入库，关键字为：" + orderDetail.toString());

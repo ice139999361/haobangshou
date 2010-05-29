@@ -15,9 +15,9 @@
 			    <panel frame="true" autoScroll="true">
 			    	<items>
 			    	<!-- service ext ui.  begin. -->
-			    	
+
 			    		<form id="form"><items>
-			    			<complexgrid id="orderdetailgrid" title="客户订单详情信息" frame="true" height="100" url="/custOrder/custOrderScMgr!list.action" root="data.list">
+			    			<complexgrid id="orderdetailgrid" title="客户订单详情信息" frame="true" height="100" url="nofile.action" root="data.list">
 				    			<fields>
 				    				<field name="commCode" />
 				    				<field name="cpartNo" />
@@ -44,20 +44,20 @@
 				    				<column header="供应商编码"         dataIndex="vendorCode" />
 				    			</columns>
 				    		</complexgrid>
-	    		
+
 				    		<listpanel frame="true" title="库存操作" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2:.2,.15,">
 				    				<label fieldLabel="本客户库存"           name="self.useAmount" id="selfstore" />
 				    				<label fieldLabel="通用库存"             name="common.useAmount"	   id="commstore" />
-				    				
+
 				    				<textfield hideLabel="true" name="self.lockAmount"   id="tsuserAmount" relate="selfstore|;&lt;=|;必须小于等于本客户库存量" vtype="commCheck" />
 				    				<textfield hideLabel="true" name="common.lockAmount" id="tcuserAmount" relate="commstore|;&lt;=|;必须小于等于通用库存量"   vtype="commCheck" />
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1" buttonAlign="center">
 				    					<button text="锁定" minWidth="80" id="sstockBtn" url="/custOrderDetail/orderDetailCg!lockAmount.action" />
-				    			</layoutpanel>	
+				    			</layoutpanel>
 				    		</listpanel>
-				    		   
+
 				    		<complexgrid id="storeinfogrid" title="其他客户库存" frame="true" height="100" url="/">
 				    			<fields>
 				    				<field name="custCode" />
@@ -73,15 +73,15 @@
 				    				<column header="操作"               dataIndex=""          id="operator" width="150" />
 				    			</columns>
 				    		</complexgrid>
-				    			
+
 			    		</items></form>
-			    		
+
 			    		<panel buttonAlign="center">
 			    			<buttons>
 			    				<button text="取消"         id="backBtn"   />
 			    			</buttons>
 			    		</panel>
-			    		
+
 			    	<!-- service ext ui.  end. -->
 			    	</items>
 			    </panel>

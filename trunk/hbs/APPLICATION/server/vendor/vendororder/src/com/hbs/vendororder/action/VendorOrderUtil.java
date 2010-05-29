@@ -160,6 +160,7 @@ public class VendorOrderUtil {
 							CustOrderDetailMgr codMgr = (CustOrderDetailMgr)BeanLocator.getInstance().getBean(CustOrderDetailBaseAction.custOrderDetailMgrName);
 							CustOrderDetail cod = codMgr.findCustOrderDetailById(info.getOperSeqId().toString());
 							if(cod != null){
+								info.setCustCcode(cod.getCommCode());
 								info.setRltOrderPoNo(cod.getPoNo());
 							}else{
 								logger.info("can't find CustOrderDetail by id " + info.getOperSeqId());

@@ -1,7 +1,7 @@
 ﻿
 HBSConvertHelper.init(function() {
 	// -------------------------------------- 获取需要持久用到的对象
-	
+
 	// 获取提交按钮
 	var submitBtn 	= Ext.getCmp("submitBtn");
 	// 获取保存按钮
@@ -12,10 +12,10 @@ HBSConvertHelper.init(function() {
 	var warehousegrid   = Ext.getCmp("warehousegrid");
 	// 获取查询客户订单 window 控件
 	var selectWindow = Ext.getCmp("selectWindow");
-	
-	
+
+
 	// -------------------------------------- 应用逻辑处理
-	
+
 	/**
 	 * 提交数据
 	 * @param url  (String) 提交的url
@@ -23,15 +23,17 @@ HBSConvertHelper.init(function() {
 	function submitData(url) {
 		// 验证 form 内容是符满足要求
 		//if(!ExtConvertHelper.isFormValid("form")) return;
-		
+
 		// 获取（客户联系人信息、客户收货人信息、客户银行信息）表格中的提交数据
 		var girdData = HBSConvertHelper.getGridSubmitData("warehousegrid", "orderlist");
-		
+
 		// 提交数据
 		ExtConvertHelper.submitForm("form", url, girdData, function(form, action) {
 			// 获取成功后的提示信息
 			var msg = ExtConvertHelper.getMessageInfo(action, "操作成功！");
-			
+			if(action && action.result && action.result.data && action.result.data.sendPoNo){
+				msg += " 编号：" + action.result.data.sendPoNo;
+			}
 			// 弹出提示框给用户
 			Ext.Msg.alert("提示", msg, function() {
 				// 用户单击后重载此页面
@@ -39,30 +41,39 @@ HBSConvertHelper.init(function() {
 			});
 		});
 	}
-	
+
 	(function() {
+		Ext.getCmp("acCommCode").setProcessConfig("/customerInfo/customerInfoMgr!getInfo.action?CustInfo.state=0", "custInfo.commCode", null, function(action){
+			if(!action.success)
+				return;
+			// 给需要的隐藏域赋值
+			Ext.getCmp("hidSettlementType").setValue(action.data.custInfo.settlementType);
+			Ext.getCmp("hidShortName").setValue(action.data.custInfo.shortName);
+			Ext.getCmp("acCompanyBranch").setValue(action.data.custInfo.companyBranch);
+
+		});
 		// 当提交按钮被单击时
 		submitBtn.on("click", function() {
 			submitData("/warehouseSend/warehouseSend!commit.action");
 		});
-		
+
 		// 当保存按钮被单击时
 		saveBtn.on("click", function() {
 			submitData("/warehouseSend/warehouseSend!saveTemp.action");
 		});
-		
+
 		// 当单机取消按钮时，调用默认的关闭窗口方法
 		backBtn.on("click", HBSConvertHelper.defaultCloseTab);
-		
+
 		Ext.getCmp("addInfoBtn").on("click", function() {
 			selectWindow.show();
 			HBSConvertHelper.refreshGrid("querygrid");
 		});
-		
+
 		// 根据收货人自动填充 联系电话，邮编，收货地址，传真
 		Ext.getCmp("areceiveName").setProcessConfig("/customerInfo/custContactInfo!getContactInfo.action", "seqId", null, function(action){
 			if(!action.success) return;
-			
+
 			// 设置联系电话
 			Ext.getCmp("tconTel").setValue(action.data.contactInfo.conTel);
 			// 设置邮编
@@ -72,8 +83,8 @@ HBSConvertHelper.init(function() {
 			// 设置收货地址
 			Ext.getCmp("treceiveAddress").setValue(action.data.contactInfo.conAddress);
 		});
-		
-		Ext.getCmp("acCommCode").on("select", function() {			
+
+		Ext.getCmp("acCommCode").on("select", function() {
 			Ext.getCmp("areceiveName").setParam("custCode", this.getValue());
 			Ext.getCmp("areceiveName").store.load();
 		});
@@ -81,20 +92,20 @@ HBSConvertHelper.init(function() {
 		warehousegrid.getView().on("refresh", function(view) {
 			// 删除按钮触发事件
 			var deleteBtnFun = function() {
-				
+
 				var seqid =this.config.get("sendSeqId");
-				
-				
+
+
 				if(seqid > 0){
 					Ext.Msg.confirm("提示", "您要执行的是出库单明细取消，请确认是否继续？", function(btn) {
 					if(btn == "no") return;
-					
+
 							ExtConvertHelper.request("/warehouseSend/warehouseSend!cancelDetail.action?sendSeqId=" + this.config.get("sendSeqId"), null, ExtConvertHelper.defaultDeleteFun);
 						}, this);
-						
+
 		        	}else{
 			       	Ext.Msg.confirm("提示", "您要执行的是出库单明细操作，本条明细还没有保存，请确认是否继续删除？", function(btn) {
-									if(btn == "no") return;	
+									if(btn == "no") return;
 			        		warehousegrid.store.remove(this.config);
 			        	}, this);
 		        	}
@@ -115,31 +126,32 @@ HBSConvertHelper.init(function() {
 			}
 		})
 	}())
-	
+
 	// -------------------------------------- 页面操作逻辑处理
 	// 新增页面的处理逻辑
 	function addInitFun() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("出库");
+		ExtConvertHelper.setItemsReadOnly("sendPoNo", true);
 	}
-	
+
 	// 修改页面的处理逻辑
 	function updateInitFun() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("出库修改");
 		// 设置客户编码的编辑框为只读	；同时不到后台校验
-		ExtConvertHelper.setItemsReadOnly("acCommCode", true);		
+		ExtConvertHelper.setItemsReadOnly("acCommCode", true);
 		ExtConvertHelper.setItemsReadOnly("acHouseType", true);
 		// 组装需要的参数
 		var params = ["warehouseSend.sendPoNo=", urlPs["warehouseSend.sendPoNo"],"&warehouseSend.custCode=" , urlPs["warehouseSend.custCode"],"&warehouseSend.poNoType=", urlPs["warehouseSend.poNoType"]].join("");
-		
+
 		// 加载数据
 		ExtConvertHelper.loadForm("form", "/warehouseSend/warehouseSend!getInfo.action", params, function(form, action) {
 				var warehouseSend = action.result.data.warehouseSend;
 			  Ext.getCmp("acCreateDate").setValue(FormatUtil.data2string(warehouseSend.createDate));
 			  Ext.getCmp("warehousegrid").addData(warehouseSend.detailList);
 			  Ext.getCmp("acCommCode").fireEvent("select");
-			  
+
 			  switch(warehouseSend.state) {
 			  	// 临时状态
 			  	case "01":
@@ -156,30 +168,30 @@ HBSConvertHelper.init(function() {
 			  }
 		});
 	}
-	
+
 	// 根据不同的操作类型，做出不同的处理
 	eval(urlPs.editorType + "InitFun")();
-	
+
 	// -------------------------------------- window 部分功能实现代码
 	(function() {
 		// 点击取消按钮的事件
 		Ext.getCmp("wbackBtn").on("click", function() {
 			selectWindow.hide();
 		});
-		
+
 		// 点击确定按钮的事件
 		Ext.getCmp("wokBtn").on("click", function() {
 			// 获取查询列表
 			var querygrid = Ext.getCmp("querygrid");
 			// 获取选择的数据集
 			var records = querygrid.getSelectionModel().getSelections();
-			
+
 			// 缓存数据
 			var oldRecords = {};
 			warehousegrid.store.each(function() {
 				oldRecords[this.get("rltPoNo")] = true;
 			});
-			
+
 			var newRecords = [];
 			// 添加标示
 			Ext.each(records, function(record) {
@@ -188,7 +200,7 @@ HBSConvertHelper.init(function() {
 					newRecords.push(record);
 				}
 			});
-			
+
 			// 添加标示
 			Ext.each(records, function(record) {
 				record.selectType = "window";
@@ -199,7 +211,7 @@ HBSConvertHelper.init(function() {
 			setTimeout(function() {	warehousegrid.getView().refresh() }, 0);
 			// 隐藏 window 控件
 			selectWindow.hide();
-			
+
 		});
 	}())
 });

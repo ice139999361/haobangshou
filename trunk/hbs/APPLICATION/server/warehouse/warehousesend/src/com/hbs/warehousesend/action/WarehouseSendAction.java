@@ -97,12 +97,15 @@ public class WarehouseSendAction extends WarehouseSendBaseAction {
 				setErrorReason(s);
 				return ERROR;
 			}
+			boolean isNew = StringUtils.isEmpty(warehouseSend.getSendPoNo());
 			int i = getMgr().saveWareHouseSendInfo(warehouseSend, null);
 			if(i != 0) {
 				logger.info("¡Ÿ ±±£¥Ê ß∞‹£°");
 				setErrorReason("±£¥Ê ß∞‹£°");
 				return ERROR;
 			}
+			if(isNew)
+				setResult("sendPoNo", warehouseSend.getSendPoNo());
 			logger.debug("end doSaveTemp");
 			return SUCCESS;
 		} catch(Exception e) {
@@ -145,13 +148,15 @@ public class WarehouseSendAction extends WarehouseSendBaseAction {
 				setErrorReason(s);
 				return ERROR;
 			}
+			boolean isNew = StringUtils.isEmpty(warehouseSend.getSendPoNo());
 			int i = getMgr().corfirmWarehouseSendInfo(warehouseSend, null);
 			if(i != 0) {
 				logger.info("±£¥Ê ß∞‹£°");
 				setErrorReason("±£¥Ê ß∞‹£°");
 				return ERROR;
 			}
-			
+			if(isNew)
+				setResult("sendPoNo", warehouseSend.getSendPoNo());
 			// DONE£∫doSave
 			logger.debug("end doSave");
 			return SUCCESS;
