@@ -19,7 +19,7 @@
 			    		<queryform gridId="querygrid" exportId="exportBtn">
 			    			<layoutpanel columnNum="3">
 			    				<textfield fieldLabel="出库单号"   name="warehouseSend.sendPoNo"  />	
-			    				<autocomplete fieldLabel="客户" url="/customerInfo/customerInfo!list.action"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"     name="warehouseSend.custCode"    />
+			    				<autocomplete fieldLabel="客户" url="/customerInfo/customerInfoMgr!listDict.action"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"     name="warehouseSend.custCode"    />
 			    				<dictcombo    fieldLabel="出库仓库"           hiddenName="warehouseSend.houseType"    paramsValue="WAREHOUSE_TYPE"     showText="请选择" />
 			    			</layoutpanel>
 			    			<layoutpanel columnNum="6:.11,.05,.15,.05,.18,.3">
