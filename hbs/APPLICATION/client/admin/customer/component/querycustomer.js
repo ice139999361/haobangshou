@@ -15,8 +15,8 @@ var queryformFun = function() {
 	// 精确查找
 	//cmpobj["jqcz"] = {xtype: "checkbox" , labelSeparator: ""         , name: "", boxLabel: "精确查找"};
 	cmpobj["khbm"] = {xtype: "textfield", fieldLabel: "客户编码"     , name: "custInfo.commCode"};
-	cmpobj["ywy"]  = {xtype: "dictcombo", fieldLabel: "业务员"       , hiddenName: "custInfo.staffId", paramsValue: "IMPORTANT_CODE"};
-	cmpobj["ywzl"] = {xtype: "dictcombo", fieldLabel: "业务助理"     , hiddenName: "", paramsValue: "IMPORTANT_CODE"};
+	//cmpobj["ywy"]  = {xtype: "dictcombo", fieldLabel: "业务员"       , hiddenName: "custInfo.staffId", paramsValue: "IMPORTANT_CODE"};
+	//cmpobj["ywzl"] = {xtype: "dictcombo", fieldLabel: "业务助理"     , hiddenName: "", paramsValue: "IMPORTANT_CODE"};
 	
 	
 	return eval((urlPs.roleType + "Layout")).call(this, cmpobj);
@@ -46,9 +46,9 @@ var scmanagerLayout = function(cmpobj) {
 	//p1.push(cmpobj["jqcz"]);
 	
 	p1.push(cmpobj["khbm"]);
-	p1.push(cmpobj["ywzl"]);
+	//p1.push(cmpobj["ywzl"]);
 	
-	p1.push(cmpobj["ywy"]);
+	//p1.push(cmpobj["ywy"]);
 
 
 	var p2 = cph.createLayoutPanel("5:.10,.05,.15,.05,.3");
@@ -66,9 +66,9 @@ var cwLayout = function(cmpobj) {
 	//p1.push(cmpobj["jqcz"]);
 	
 	p1.push(cmpobj["khbm"]);
-	p1.push(cmpobj["ywzl"]);
+	//p1.push(cmpobj["ywzl"]);
 	
-	p1.push(cmpobj["ywy"]);
+	//p1.push(cmpobj["ywy"]);
 
 
 	var p2 = cph.createLayoutPanel("5:.10,.05,.15,.05,.3");
