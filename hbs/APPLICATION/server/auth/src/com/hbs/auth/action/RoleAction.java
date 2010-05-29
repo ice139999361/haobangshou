@@ -100,6 +100,7 @@ public class RoleAction extends BaseAction {
 		try {
 			if(role == null) 
 				role = new Role();
+			setPagination(role);
 			setTotalCount(getMgr().listRoleCount(role));
 			setResult("list", getMgr().listRole(role));
 			setResult("count", getTotalCount());
