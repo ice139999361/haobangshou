@@ -1,3 +1,5 @@
+//TODO：从配置中获取此值
+var VendorDate2CustDate = 3;
 
 HBSConvertHelper.init(function() {
 	// -------------------------------------- 获取需要持久用到的对象
@@ -257,7 +259,7 @@ HBSConvertHelper.init(function() {
 			// 添加标示
 			Ext.each(records, function(record) {
 				record.set("selectType", "window");
-				//DONE:获取客户订单明细的交期(按照ver、pre、org的顺序获取非空时间)，减3，放入orgDeliveryDate
+				//DONE:获取客户订单明细的交期(按照ver、pre、org的顺序获取非空时间)，减(VendorDate2CustDate)天，放入orgDeliveryDate
 				var s = record.get("verDeliveryDate");
 				if(!s)
 					s = record.get("preDeliveryDate");
@@ -266,7 +268,7 @@ HBSConvertHelper.init(function() {
 				if(s){
 					var d = new Date(s.replace(/-/g,   "/"));
 					var a   =   d.valueOf();
-  					a   =   a   -   3   *   24   *   60   *   60   *   1000;
+  					a   -=   VendorDate2CustDate   *   24   *   60   *   60   *   1000;
   					d = new Date(a);
   					record.set("orgDeliveryDate", d);
 				}
