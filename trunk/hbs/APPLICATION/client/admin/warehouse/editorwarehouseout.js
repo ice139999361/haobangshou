@@ -51,6 +51,9 @@ HBSConvertHelper.init(function() {
 			Ext.getCmp("hidShortName").setValue(action.data.custInfo.shortName);
 			Ext.getCmp("acCompanyBranch").setValue(action.data.custInfo.companyBranch);
 
+			Ext.getCmp("areceiveName").setParam("custCode", action.data.custInfo.commCode);
+			Ext.getCmp("areceiveName").store.load();
+
 		});
 		// 当提交按钮被单击时
 		submitBtn.on("click", function() {
@@ -82,11 +85,6 @@ HBSConvertHelper.init(function() {
 			Ext.getCmp("tconFax").setValue(action.data.contactInfo.conFax);
 			// 设置收货地址
 			Ext.getCmp("treceiveAddress").setValue(action.data.contactInfo.conAddress);
-		});
-
-		Ext.getCmp("acCommCode").on("select", function() {
-			Ext.getCmp("areceiveName").setParam("custCode", this.getValue());
-			Ext.getCmp("areceiveName").store.load();
 		});
 
 		warehousegrid.getView().on("refresh", function(view) {

@@ -1,4 +1,5 @@
 var params = {"orderDetail.operSeqId": urlPs["orderDetail.operSeqId"]};
+var needAmount = 0;
 
 HBSConvertHelper.init(function() {
 	// 组织参数
@@ -55,7 +56,7 @@ HBSConvertHelper.init(function() {
 					Ext.Msg.prompt("提示", "请输入调货数量", function(btn, value) {
 						if(btn == "no") return;
 
-						// TODO: 校验value，确保是数值，且不大于record.get("useAmount")
+						// TODO: 校验value，确保是数值，且不大于record.get("useAmount")和needAmount
 
 						// 获取订单详情信息
 						var orderDetailInfo = Ext.getCmp("orderdetailgrid").getView().ds.getAt(0);
@@ -90,7 +91,22 @@ HBSConvertHelper.init(function() {
 		// 加载数据
 		ExtConvertHelper.request("/custOrderDetail/orderDetailCg!list.action", params, function(response, options) {
 			var action = Ext.util.JSON.decode(response.responseText);
-			// TODO: 需备货数量 = 数量 - 已发送数量 - 本客户锁定数量 - 通用锁定数量
+			// DONE: 需备货数量 = 数量 - 已发送数量 - 本客户锁定数量 - 通用锁定数量
+			Ext.each(action.data.list, function(record){
+				var a = record.amount;
+				var b;
+				b = record.deliverAmount;
+				b = b ? b : 0;
+				a -= b;
+				b = record.selfLockAmount;
+				b = b ? b : 0;
+				a -= b;
+				b = record.commLockAmount;
+				b = b ? b : 0;
+				a -= b;
+				record.needAmount = a;
+				needAmount = a;
+			});
 			Ext.getCmp("orderdetailgrid").addData(action.data.list);
     	});
 		// 加载数据

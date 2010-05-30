@@ -136,6 +136,7 @@ HBSConvertHelper.init(function() {
 			Ext.getDom("txtRecPoNo").readOnly = true;
 			Ext.getCmp("txtRecPoNo").vType="";
 			Ext.getCmp("txtRecPoNo").allowBlank=true;
+			Ext.getCmp("acCommCode").fireEvent("select");
 
 			// 隐藏不需要的控件
 			if(warehouseRec.state != "01") ExtConvertHelper.hideItems("saveBtn");
