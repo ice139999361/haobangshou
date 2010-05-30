@@ -232,6 +232,7 @@ public class VendorOrderDetailMgr {
 				logger.debug("提交订单明细,更新的数码，订单总数量 < 已经入库数量 + 本次入库数量 ,部分入库！");
 				tempDetail.setState(VendorOrderConstants.VENDOR_ORDER_STATE_60);
 				tempDetail.setDeliveryAmount(updateAmount);
+				tempDetail.setRltRecPoNo(detail.getPoNo());
 				vDetailDao.updateVendorOrderDetailAmount(tempDetail);
 				//更新采购单状态为部分入库
 				VendorOrder vOrder = new VendorOrder();
@@ -243,6 +244,7 @@ public class VendorOrderDetailMgr {
 				logger.debug("提交订单明细,更新的数码，订单总数量 = 已经入库数量 + 本次入库数量，全部入库！");
 				tempDetail.setState(VendorOrderConstants.VENDOR_ORDER_STATE_61);
 				tempDetail.setDeliveryAmount(updateAmount);
+				tempDetail.setRltRecPoNo(detail.getPoNo());
 				vDetailDao.updateVendorOrderDetailAmount(tempDetail);
 				
 				logger.debug("提交订单明细,更新订单状态");
