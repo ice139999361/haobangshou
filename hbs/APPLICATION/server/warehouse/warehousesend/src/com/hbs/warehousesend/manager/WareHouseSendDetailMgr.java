@@ -101,19 +101,19 @@ public class WareHouseSendDetailMgr {
 				logger.debug("数据库中存在出库单明细，update操作！状态不正确，不允许修改！");
 				ret = -1;
 			}
-			/**
-			 * 如果是确认操作，则还需要执行如下操作
-			 * 判断出库的物料明细对于的客户订单明细，
-			 * 查询出客户订单明细，重点关注本次发货的特定客户库存和通用库存的变化
-			 * 更新客户订单明细中的已发货数量和发货单编号，
-			 * 更新对应的库存的总数量和锁定数量
-			 */
-			if(st.equals(WareHouseConstants.WAREHOUSE_SEND_INFO_02)){
-				logger.debug("出库单明细出库，处理对应的客户订单！");
-				processCustOrderDetail(detail);
-				logger.debug("出库单明细出库，处理对应的库存信息！");
-				processWarehouseInfo(detail);
-			}
+		}
+		/**
+		 * 如果是确认操作，则还需要执行如下操作
+		 * 判断出库的物料明细对于的客户订单明细，
+		 * 查询出客户订单明细，重点关注本次发货的特定客户库存和通用库存的变化
+		 * 更新客户订单明细中的已发货数量和发货单编号，
+		 * 更新对应的库存的总数量和锁定数量
+		 */
+		if(st.equals(WareHouseConstants.WAREHOUSE_SEND_INFO_02)){
+			logger.debug("出库单明细出库，处理对应的客户订单！");
+			processCustOrderDetail(detail);
+			logger.debug("出库单明细出库，处理对应的库存信息！");
+			processWarehouseInfo(detail);
 		}
 		return ret;
 	}

@@ -184,6 +184,11 @@
 		<isNotEmpty prepend="," property="deliveryAmount">
             DELIVERY_AMOUNT = #deliveryAmount#
 		</isNotEmpty>
+		<isNotEmpty prepend="," property="rltRecPoNo">            
+         <![CDATA[ 
+         	RLT_REC_PO_NO = CONCAT_WS(',',RLT_REC_PO_NO,#rltRecPoNo#)
+         ]]>
+	</isNotEmpty>
 	<dynamic prepend="WHERE">
 				<isNotEmpty prepend="and" property = "operSeqId">
 					ORDER_SEQID = #operSeqId#
