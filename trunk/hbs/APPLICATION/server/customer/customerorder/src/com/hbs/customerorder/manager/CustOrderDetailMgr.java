@@ -310,7 +310,7 @@ public class CustOrderDetailMgr {
 		CustLogUtils.operLog(orderDetail.getStaffId(), orderDetail.getStaffName(), "业务提交交期", "客户订单明细", orderDetail.getLogBizKey(), null, content);
 		//waittask
 		WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
-		waitTaskInfo.setStaffId(getVendorStaffId(orderDetail.getCommCode()));//这里需要查找采购人员ID
+		waitTaskInfo.setStaffId(getVendorStaffId(orderDetail.getVendorCode()));//这里需要查找采购人员ID
 		Map<String , String> hmParam = new HashMap<String,String>();
 		hmParam.put("$staffName", orderDetail.getStaffName());
 		hmParam.put("$businessKey", orderDetail.getWaitTaskBizKey());
