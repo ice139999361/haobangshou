@@ -70,10 +70,10 @@ public class VendorOrderMgr {
 			for(VendorOrderDetail detail : detailList){
 				detail.setPeriod(vOrder.getPeriod());
 				detail.setPoNo(vOrder.getPoNo());
-				//调用订单明细管理类，保存订单明细
-				VendorOrderDetailMgr detailMgr =(VendorOrderDetailMgr)BeanLocator.getInstance().getBean(VendorOrderConstants.VENDOR_ORDER_DETAIL_MGR);
-				detailMgr.saveTempOrderDetailList(detailList, true);
 			}
+			//调用订单明细管理类，保存订单明细
+			VendorOrderDetailMgr detailMgr =(VendorOrderDetailMgr)BeanLocator.getInstance().getBean(VendorOrderConstants.VENDOR_ORDER_DETAIL_MGR);
+			detailMgr.saveTempOrderDetailList(detailList, true);
 		}
 		return ret;
 	}
