@@ -164,5 +164,11 @@ public class WarehouseRecDetailHisDaoImpl extends SqlMapClientDaoSupport impleme
 			WarehouseRecDetail warehouseRecDetail) throws DataAccessException {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void updateWarehouseRecDetailByFinanceStateSettlement(
+			WarehouseRecDetail warehouseRecDetail) throws DataAccessException {
+		// TODO Auto-generated method stub
+		
 	}  
 }

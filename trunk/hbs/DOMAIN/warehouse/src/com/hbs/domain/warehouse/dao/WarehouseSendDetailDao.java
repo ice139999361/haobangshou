@@ -36,6 +36,7 @@ public interface WarehouseSendDetailDao {
     void updateWarehouseSendDetailByActiveState(WarehouseSendDetail warehouseSendDetail) throws DataAccessException ;
     void updateWarehouseSendDetailByFinanceState(WarehouseSendDetail warehouseSendDetail) throws DataAccessException ;
     void updateWarehouseSendDetailByFinancePeriod(WarehouseSendDetail warehouseSendDetail) throws DataAccessException ;
+    void updateWarehouseSendDetailByFinanceStateSettlement(WarehouseSendDetail warehouseSendDetail) throws DataAccessException ;
     /**
      * find.
      * @param id id

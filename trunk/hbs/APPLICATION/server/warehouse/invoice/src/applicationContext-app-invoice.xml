@@ -13,4 +13,8 @@
 	<!-- 财务账期结算备注信息实现类   -->
 	<bean id="periodSpecMemoMgr"  class="com.hbs.invoice.manager.PeriodSpecMemoMgr">		
 	</bean>
+	<bean id="custFinanceSettlementMgr"  class="com.hbs.invoice.manager.CustFinanceSettlementMgr">		
+	</bean>
+	<bean id="vendorFinanceSettlementMgr"  class="com.hbs.invoice.manager.VendorFinanceSettlementMgr">		
+	</bean>
 </beans>

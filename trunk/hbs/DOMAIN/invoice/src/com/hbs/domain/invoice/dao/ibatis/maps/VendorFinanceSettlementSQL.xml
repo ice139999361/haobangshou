@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="VendorFinanceSettlement">
+<typeAlias alias="financeSettlement" type="com.hbs.domain.invoice.pojo.FinanceSettlement"/> 
+<resultMap id="vendorSettlement_result" class="financeSettlement">
+    <result property="commCode" column="C_CODE"/>
+    <result property="shortName" column="SHORT_NAME"/>
+    <result property="settlementType" column="SETTLEMENT_TYPE"/>
+    <result property="summery" column="ABSTRACT"/>
+    <result property="totalMoney" column="TOTAL_MONEY"/>
+    <result property="needMoney" column="NEED_MONEY"/>
+    <result property="dealMoney" column="SET_MONEY"/>    
+    <result property="financeState" column="FINANCE_STATE"/>
+    <result property="salesId" column="PURCHASE_ID"/>
+    <result property="salesName" column="PURCHASE_NAME"/>
+    <result property="staffId" column="STAFF_ID"/>
+    <result property="staffName" column="STAFF_NAME"/>
+</resultMap>
+
+<resultMap id="v_vendorSettlement_result" class="financeSettlement">
+    <result property="commCode" column="C_CODE"/>
+    <result property="shortName" column="SHORT_NAME"/>
+    <result property="settlementType" column="SETTLEMENT_TYPE"/>
+    <result property="summery" column="ABSTRACT"/>
+    <result property="totalMoney" column="TOTAL_MONEY"/>
+    <result property="needMoney" column="NEED_MONEY"/>
+    <result property="dealMoney" column="SET_MONEY"/>    
+    <result property="financeState" column="FINANCE_STATE"/>
+    <result property="salesId" column="PURCHASE_ID"/>
+    <result property="salesName" column="PURCHASE_NAME"/>
+</resultMap>
+
+
+
+<insert id="VendorFinanceSettlement_insertFinanceSettlement" parameterClass="financeSettlement" >
+<![CDATA[
+    INSERT INTO T_VENDOR_SETTLEMENT (
+            C_CODE, 
+            SHORT_NAME, 
+            SETTLEMENT_TYPE, 
+            ABSTRACT, 
+            TOTAL_MONEY, 
+            NEED_MONEY, 
+            SET_MONEY,
+            FINANCE_STATE, 
+            PURCHASE_ID, 
+            PURCHASE_NAME,
+            STAFF_ID, 
+            STAFF_NAME
+        )
+    VALUES (
+            #commCode#,
+            #shortName#,
+            #settlementType#,
+            #summery#,
+            #totalMoney#,
+            #needMoney#,
+            #dealMoney#,
+            #financeState#,
+            #salesId#,
+            #salesName#,
+            #staffId#,
+            #staffName#
+    )
+]]>
+</insert>
+
+  
+
+<update id="VendorFinanceSettlement_updateFinanceSettlement" parameterClass="financeSettlement">
+    UPDATE T_VENDOR_SETTLEMENT 
+    SET
+    	C_CODE = #commCode#
+	<isNotEmpty prepend="," property="needMoney">
+            NEED_MONEY = #needMoney#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="dealMoney">
+            SET_MONEY = #dealMoney#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="financeState">
+            FINANCE_STATE = #financeState#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="staffId">
+            STAFF_ID = #staffId#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="staffName">
+            STAFF_NAME = #staffName#
+	</isNotEmpty>
+    WHERE C_CODE = #commCode# and SETTLEMENT_TYPE = #settlementType# and ABSTRACT= #summery#
+</update> 
+
+<select id="VendorFinanceSettlement_findFinanceSettlement" resultMap="v_vendorSettlement_result" parameterClass="financeSettlement">
+<![CDATA[
+    SELECT
+            C_CODE, 
+            SHORT_NAME, 
+            SETTLEMENT_TYPE, 
+            ABSTRACT, 
+            TOTAL_MONEY, 
+            NEED_MONEY, 
+            SET_MONEY, 
+            FINANCE_STATE, 
+            PURCHASE_ID, 
+            PURCHASE_NAME,
+            STAFF_ID, 
+            STAFF_NAME
+    FROM V_VENDOR_TOTAL_SETTLEMENT WHERE C_CODE = #commCode# and SETTLEMENT_TYPE = #settlementType# and ABSTRACT= #summery#
+]]>
+</select>
+
+<select id="VendorFinanceSettlement_listFinanceSettlement" resultMap="v_vendorSettlement_result" parameterClass="financeSettlement">
+<![CDATA[
+    SELECT
+            C_CODE, 
+            SHORT_NAME, 
+            SETTLEMENT_TYPE, 
+            ABSTRACT, 
+            TOTAL_MONEY, 
+            NEED_MONEY, 
+            SET_MONEY,
+            FINANCE_STATE, 
+            PURCHASE_ID, 
+            PURCHASE_NAME,
+            STAFF_ID, 
+            STAFF_NAME
+    FROM V_VENDOR_TOTAL_SETTLEMENT
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "commCode">
+				C_CODE = #commCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "shortName">
+				SHORT_NAME = #shortName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "settlementType">
+				SETTLEMENT_TYPE = #settlementType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "summery">
+				ABSTRACT = #summery#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "financeState">
+				FINANCE_STATE = #financeState#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "salesId">
+				PURCHASE_ID = #salesId#
+			</isNotEmpty>
+			<isNotEmpty prepend="order by" property="sort">
+                   $sort$
+            </isNotEmpty> 			
+		</dynamic>
+		<![CDATA[
+      		LIMIT #start# ,#end#
+		]]>
+</select>
+
+
+<select id="VendorFinanceSettlement_listFinanceSettlementCount" resultClass="java.lang.Integer" parameterClass="financeSettlement">
+<![CDATA[
+    SELECT
+		COUNT(1)
+    FROM V_VENDOR_TOTAL_SETTLEMENT
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "commCode">
+				C_CODE = #commCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "shortName">
+				SHORT_NAME = #shortName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "settlementType">
+				SETTLEMENT_TYPE = #settlementType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "summery">
+				ABSTRACT = #summery#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "financeState">
+				FINANCE_STATE = #financeState#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "salesId">
+				PURCHASE_ID = #salesId#
+			</isNotEmpty>
+		</dynamic>
+</select>
+
+</sqlMap>

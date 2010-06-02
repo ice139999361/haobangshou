@@ -108,7 +108,15 @@ public class WarehouseRecDetailDaoImpl extends SqlMapClientDaoSupport implements
     		logger.debug("离开updateWarehouseRecDetail(WarehouseRecDetail)");
 		}
     }
-    
+    public void updateWarehouseRecDetailByFinanceStateSettlement(WarehouseRecDetail warehouseRecDetail) throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+    		logger.debug("进入updateWarehouseRecDetailByFinanceStateSettlement(WarehouseRecDetail), 输入参数[" + warehouseRecDetail + "]");
+		}
+    	getSqlMapClientTemplate().update("WarehouseRecDetail_updateWarehouseRecDetailByFinanceState_Settlement", warehouseRecDetail);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开updateWarehouseRecDetailByFinanceStateSettlement(WarehouseRecDetail)");
+		}
+    }
     /**
      * find.
      * @param id id
