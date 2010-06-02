@@ -8,7 +8,7 @@ wdetail.finance_period as abstract,
 from t_vendor_info vinfo , t_warehouse_receive_detail wdetail
 
 where vinfo.state =0 and wdetail.state = '02'  and wdetail.settlement_type =1
-and wdetail.finance_state=0 and vinfo.c_code = wdetail.c_code
+and wdetail.finance_state=1 and vinfo.c_code = wdetail.c_code
 group by c_code , short_name , purchase_id , purchase_name, settlement_type,abstract, finance_state 
 
 union 
@@ -21,7 +21,7 @@ wdetail.rec_po_no as abstract,
 from t_vendor_info vinfo , t_warehouse_receive_detail wdetail
 
 where vinfo.state =0 and wdetail.state = '02'  and wdetail.settlement_type != 1
-and wdetail.finance_state=0 and vinfo.c_code = wdetail.c_code
+and (wdetail.finance_state=0 or wdetail.finance_state=1) and vinfo.c_code = wdetail.c_code
 group by c_code , short_name , purchase_id , purchase_name, settlement_type,abstract, finance_state ;
 
 /** 创建客户未对账的视图*/
@@ -35,7 +35,7 @@ wdetail.finance_period as abstract,
 from t_customer_info vinfo , t_warehouse_send_detail wdetail
 
 where vinfo.state =0 and wdetail.state = '02'  and wdetail.settlement_type =1
-and wdetail.finance_state=0 and vinfo.c_code = wdetail.c_code
+and wdetail.finance_state=1 and vinfo.c_code = wdetail.c_code
 group by c_code , short_name , sales_id , sales_name, ass_id , ass_name, settlement_type,abstract, finance_state 
 
 union 
@@ -49,7 +49,7 @@ wdetail.send_po_no as abstract,
 from t_customer_info vinfo , t_warehouse_send_detail wdetail
 
 where vinfo.state =0 and wdetail.state = '02'  and wdetail.settlement_type != 1
-and wdetail.finance_state=0 and vinfo.c_code = wdetail.c_code
+and (wdetail.finance_state=0 or wdetail.finance_state=1) and vinfo.c_code = wdetail.c_code
 group by c_code , short_name , sales_id , sales_name, ass_id , ass_name, settlement_type,abstract, finance_state;
 
 /** 创建客户结算表 */
@@ -61,7 +61,7 @@ CREATE TABLE `t_customer_settlement` (
   `TOTAL_MONEY` float(9,2) NOT NULL DEFAULT '0.00' COMMENT '总金额',
   `NEED_MONEY` float(9,2) NOT NULL DEFAULT '0.00' COMMENT '待结算金额',
   `SET_MONEY` float(9,2) NOT NULL DEFAULT '0.00' COMMENT '已结算金额',
-  `FINANCE_STATE` varchar(2) DEFAULT NULL COMMENT '财务状态  2 已对账未结算  3部分结算  4已结算',
+  `FINANCE_STATE` varchar(2) DEFAULT NULL COMMENT '财务状态  1 已对账未结算  2部分结算  3已结算',
   `SALES_ID` varchar(20) DEFAULT NULL COMMENT '销售人员ID',
   `SALES_NAME` varchar(32) DEFAULT NULL COMMENT '销售姓名',
   `ASS_ID` varchar(20) DEFAULT NULL COMMENT '业务助理ID',
@@ -80,7 +80,7 @@ CREATE TABLE `t_vendor_settlement` (
   `TOTAL_MONEY` float(9,2) NOT NULL DEFAULT '0.00' COMMENT '总金额',
   `NEED_MONEY` float(9,2) NOT NULL DEFAULT '0.00' COMMENT '待结算金额',
   `SET_MONEY` float(9,2) NOT NULL DEFAULT '0.00' COMMENT '已结算金额',
-  `FINANCE_STATE` varchar(2) DEFAULT NULL COMMENT '财务状态  2 已对账未结算  3部分结算  4已结算',
+  `FINANCE_STATE` varchar(2) DEFAULT NULL COMMENT '财务状态  1 已对账未结算  2部分结算  3已结算',
   `PURCHASE_ID` varchar(20) DEFAULT NULL COMMENT '采购员ID',
   `PURCHASE_NAME` varchar(32) DEFAULT NULL COMMENT '采购员姓名',
   `STAFF_ID` varchar(20) DEFAULT NULL COMMENT '操作员ID',
