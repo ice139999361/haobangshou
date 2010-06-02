@@ -164,5 +164,11 @@ public class WarehouseSendDetailHisDaoImpl extends SqlMapClientDaoSupport implem
 			WarehouseSendDetail warehouseSendDetail) throws DataAccessException {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void updateWarehouseSendDetailByFinanceStateSettlement(
+			WarehouseSendDetail warehouseSendDetail) throws DataAccessException {
+		// TODO Auto-generated method stub
+		
 	}  
 }

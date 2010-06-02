@@ -28,4 +28,11 @@
 	<bean id="periodSpecMemoDao"  class="com.hbs.domain.invoice.dao.ibatis.PeriodSpecMemoDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient"/>
 	</bean>
+	<!-- 财务结算DAO实现类   -->
+	<bean id="custFinanceSettlementDao"  class="com.hbs.domain.invoice.dao.ibatis.CustFinanceSettlementDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	<bean id="vendorFinanceSettlementDao"  class="com.hbs.domain.invoice.dao.ibatis.VendorFinanceSettlementDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
 </beans>

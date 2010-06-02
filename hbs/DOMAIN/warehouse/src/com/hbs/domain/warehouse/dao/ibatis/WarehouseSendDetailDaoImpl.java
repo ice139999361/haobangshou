@@ -98,7 +98,15 @@ public class WarehouseSendDetailDaoImpl extends SqlMapClientDaoSupport implement
     		logger.debug("离开updateWarehouseSendDetail(WarehouseSendDetail)");
 		}
     }
-    
+    public void updateWarehouseSendDetailByFinanceStateSettlement(WarehouseSendDetail warehouseSendDetail) throws DataAccessException{
+		if (logger.isDebugEnabled()) {
+    		logger.debug("进入updateWarehouseSendDetailByFinanceStateSettlement(WarehouseSendDetail), 输入参数[" + warehouseSendDetail + "]");
+		}
+    	getSqlMapClientTemplate().update("WarehouseSendDetail_updateWarehouseSendDetailByFinanceState_Settlement", warehouseSendDetail);
+		if (logger.isDebugEnabled()) {
+    		logger.debug("离开updateWarehouseSendDetailByFinanceStateSettlement(WarehouseSendDetail)");
+		}
+    }
     public void updateWarehouseSendDetailByFinancePeriod(WarehouseSendDetail warehouseSendDetail) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入updateWarehouseSendDetail(WarehouseSendDetail), 输入参数[" + warehouseSendDetail + "]");

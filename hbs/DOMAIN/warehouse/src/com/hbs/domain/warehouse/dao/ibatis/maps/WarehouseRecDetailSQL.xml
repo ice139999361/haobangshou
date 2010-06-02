@@ -125,13 +125,47 @@
 </update>
 
 <update id="WarehouseRecDetail_updateWarehouseRecDetailByFinanceState" parameterClass="warehouseRecDetail">
+<![CDATA[
 	UPDATE T_WAREHOUSE_RECEIVE_DETAIL 
     SET
     	FINANCE_STATE = #financeState#
-    WHERE REC_DETAIL_SEQID = #recDetailSeqId#
+]]>
+    <dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "recDetailSeqId">
+				REC_DETAIL_SEQID = #recDetailSeqId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "recPoNo">
+				REC_PO_NO = #recPoNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "vendorCode">
+				C_CODE = #vendorCode#
+			</isNotEmpty>
+	</dynamic>>
 
 </update>
 
+<update id="WarehouseRecDetail_updateWarehouseRecDetailByFinanceState_Settlement" parameterClass="warehouseRecDetail">
+<![CDATA[
+	UPDATE T_WAREHOUSE_RECEIVE_DETAIL 
+    SET
+    	FINANCE_STATE = #financeState#
+]]>
+    <dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "recDetailSeqId">
+				REC_DETAIL_SEQID = #recDetailSeqId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "recPoNo">
+				REC_PO_NO = #recPoNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "vendorCode">
+				C_CODE = #vendorCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "financePeriod">
+				FINANCE_PERIOD = #financePeriod#
+			</isNotEmpty>
+	</dynamic>>
+
+</update>
 <update id="WarehouseRecDetail_updateWarehouseRecDetailByFinancePeriod" parameterClass="warehouseRecDetail">
 	UPDATE T_WAREHOUSE_RECEIVE_DETAIL 
     SET

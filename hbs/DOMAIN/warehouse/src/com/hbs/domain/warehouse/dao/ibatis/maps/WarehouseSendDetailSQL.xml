@@ -145,10 +145,42 @@
     <![CDATA[
     UPDATE T_WAREHOUSE_SEND_DETAIL
     	SET FINANCE_STATE = #financeState#
-    WHERE SEND_DETAIL_SEQID = #sendSeqId#
+    
     ]]>
+    <dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "sendSeqId">
+				SEND_DETAIL_SEQID = #sendSeqId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "sendPoNo">
+				SEND_PO_NO = #sendPoNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "custCode">
+				C_CODE = #custCode#
+			</isNotEmpty>
+	</dynamic>
 </update>
 
+<update id="WarehouseSendDetail_updateWarehouseSendDetailByFinanceState_Settlement" parameterClass="warehouseSendDetail">
+    <![CDATA[
+    UPDATE T_WAREHOUSE_SEND_DETAIL
+    	SET FINANCE_STATE = #financeState#
+    
+    ]]>
+    <dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "sendSeqId">
+				SEND_DETAIL_SEQID = #sendSeqId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "sendPoNo">
+				SEND_PO_NO = #sendPoNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "custCode">
+				C_CODE = #custCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "financePeriod">
+				FINANCE_PERIOD = #financePeriod#
+			</isNotEmpty>
+	</dynamic>
+</update>
 
 <update id="WarehouseSendDetail_updateWarehouseSendDetailByFinancePeriod" parameterClass="warehouseSendDetail">
     <![CDATA[

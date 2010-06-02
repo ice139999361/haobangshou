@@ -36,6 +36,7 @@ public interface WarehouseRecDetailDao {
     void updateWarehouseRecDetailByActiveState(WarehouseRecDetail warehouseRecDetail) throws DataAccessException ;
     void updateWarehouseRecDetailByFinanceState(WarehouseRecDetail warehouseRecDetail) throws DataAccessException ;
     void updateWarehouseRecDetailByFinancePeriod(WarehouseRecDetail warehouseRecDetail) throws DataAccessException ;
+    void updateWarehouseRecDetailByFinanceStateSettlement(WarehouseRecDetail warehouseRecDetail) throws DataAccessException ;
 
     /**
      * find.
