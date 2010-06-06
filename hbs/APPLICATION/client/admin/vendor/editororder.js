@@ -256,9 +256,11 @@ HBSConvertHelper.init(function() {
 			var querygrid = Ext.getCmp("querygrid");
 			// 获取选择的数据集
 			var records = querygrid.getSelectionModel().getSelections();
+			// 订单详情需要的字段集
+			var ordergridFields = ['operSeqId', 'pnName', 'cpartNo', 'partNo', 'pnDesc', 'cprice', 'cpriceTax', 'isTax', 'amount', 'money', 'orgDeliveryDate', 'specDesc', 'commDesc', 'custCcode', 'hastenReminder', 'selectType', 'fromTo'];
 			// 添加标示
 			Ext.each(records, function(record) {
-				record.set("selectType", "window");
+				//record.set("selectType", "window");
 				//DONE:获取客户订单明细的交期(按照ver、pre、org的顺序获取非空时间)，减(VendorDate2CustDate)天，放入orgDeliveryDate
 				var s = record.get("verDeliveryDate");
 				if(!s)
@@ -272,6 +274,11 @@ HBSConvertHelper.init(function() {
   					d = new Date(a);
   					record.set("orgDeliveryDate", d);
 				}
+
+				if(record.get('orgDeliveryDate') instanceof Date) 
+				{
+					record.set('orgDeliveryDate', Ext.util.Format.date(record.get('orgDeliveryDate'), 'Y-m-d'))
+				}	
 			});
 
 			// 添加选择的数据至订单详情表格
