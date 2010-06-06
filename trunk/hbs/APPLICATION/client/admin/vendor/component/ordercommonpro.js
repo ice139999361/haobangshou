@@ -1,7 +1,9 @@
 var amountRenderer = function(value, metadata, record) {
 	if(value) {
-		var _money = Math.FloatMul(value, record.get("cprice"));
-		if(record.get("money") != _money)	record.set("money", _money);
+		try {
+			var _money = Math.FloatMul(value, record.get("cprice"));
+			if(record.get("money") != _money)	record.set("money", _money);
+		} catch(e) {}
 	}
 	return value;
 }
