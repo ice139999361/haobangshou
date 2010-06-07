@@ -32,7 +32,7 @@
 					</treemenu>
 					<mainpanel activeTab="0" id="content" region="center" enableTabScroll="true">
 			    	<items>
-			    		<iframepanel id="homepage" closable="false" title="首页" defaultSrc="<%=MAIN_PATH %>"/>
+			    		<iframepanel id="homepage" closable="false" title="待处理事项" defaultSrc="<%=MAIN_PATH %>"/>
 			    	</items>
 			    </mainpanel>
 			    <bottompanel region="south" height="20" title="版权所有 xxxxxxxxxxxx"  url="http://www.hbs.com" />
