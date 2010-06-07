@@ -5,7 +5,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" type="text/css" href="<%=contextPath %>/portal/css/theme.css"/>
-	<title></title>
+	<title>待处理事项</title>
 </head>
          
 <body>
@@ -79,7 +79,7 @@ HBSConvertHelper.init(function() {
 			
 		});
 		
-		setTimeout(fillingData, 120000);
+		setTimeout(fillingData, 300000);
 	}
 	
 	

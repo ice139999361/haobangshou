@@ -190,7 +190,19 @@ public class VendorInfoMgr {
 					VendorWaitTaskUtils.processCreateWaitTask("VENDOR001", null, waitTaskInfo);				
 				}
 			}else{//数据的状态表示不能提交
-				ret =-2; 
+				logger.debug("提交正式数据的修改审批，提交的数据状态为：" + vInfo.getState());
+				ret = updateVendorInfo(vInfo);
+				if(ret >= 0){//发待办通知,先取消可能的待办，再添加新的待办
+					ret = vInfo.getBaseSeqId();
+					WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
+					Map<String , String> hmParam = new HashMap<String,String>();
+					hmParam.put("$staffName", vInfo.getStaffName());
+					hmParam.put("$commCode", vInfo.getCommCode());
+					hmParam.put("$shortName", vInfo.getShortName());
+					waitTaskInfo.setHmParam(hmParam);
+					waitTaskInfo.setBusinessKey(vInfo.getWaitTaskKey());
+					VendorWaitTaskUtils.processCreateWaitTask("VENDOR001", null, waitTaskInfo);
+				}
 			}
 		}
 		return ret;

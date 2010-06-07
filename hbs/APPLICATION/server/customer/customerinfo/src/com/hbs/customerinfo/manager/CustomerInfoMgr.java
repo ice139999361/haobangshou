@@ -120,6 +120,17 @@ public class CustomerInfoMgr {
 				//throw new Exception("数据提交的状态不正确!");
 				logger.debug("提交正式数据的修改审批，提交的数据状态为：" + custInfo.getState());
 				ret = updateCustomerInfo(custInfo,null,null);
+				if(ret >= 0){//发待办通知,先取消可能的待办，再添加新的待办
+					ret = custInfo.getBaseSeqId();//设置baseSeqId返回
+					WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
+					Map<String , String> hmParam = new HashMap<String,String>();
+					hmParam.put("$staffName", custInfo.getStaffName());
+					hmParam.put("$businessKey", custInfo.getCommCode());
+					waitTaskInfo.setHmParam(hmParam);
+					waitTaskInfo.setBusinessKey(custInfo.getCommCode());
+					WaitTaskMgr.deleteWaitTask(custInfo.getCommCode());
+					WaitTaskMgr.createWaitTask("CUSTOMER001", waitTaskInfo);
+				}
 			}
 		}
 		return ret;

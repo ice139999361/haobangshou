@@ -78,7 +78,7 @@
 		</layout>
 		<filter class="org.apache.log4j.varia.LevelRangeFilter">
 			<param name="LevelMin" value="debug"/>
-			<param name="LevelMax" value="debug"/>
+			<param name="LevelMax" value="error"/>
 			<param name="acceptOnMatch" value="true"/>
 		</filter>
 	</appender>
@@ -95,7 +95,7 @@
 		</layout>
 		<filter class="org.apache.log4j.varia.LevelRangeFilter">
 			<param name="LevelMin" value="info"/>
-			<param name="LevelMax" value="info"/>
+			<param name="LevelMax" value="error"/>
 			<param name="acceptOnMatch" value="true"/>
 		</filter>
 	</appender>        
@@ -147,7 +147,7 @@ other:
 
     <!--ibatis assign to sql log-->
 	<logger name="com.ibatis" additivity="false">
-		<level value="info"/>
+		<level value="debug"/>
 		<appender-ref ref="SQL_DEBUG"/>
 		<appender-ref ref="SQL_INFO"/>
 		<appender-ref ref="SQL_ERROR"/>		
@@ -155,7 +155,7 @@ other:
 	
     <!--java.sql assign to sql log-->	
 	<logger name="java.sql" additivity="false">
-		<level value="info"/>
+		<level value="debug"/>
 		<appender-ref ref="SQL_DEBUG"/>
 		<appender-ref ref="SQL_INFO"/>
 		<appender-ref ref="SQL_ERROR"/>		
@@ -171,7 +171,13 @@ other:
 	
     <!--com.aspire.disn.app.common assign to app announce log-->
 	<logger name="com.hbs" additivity="false">
-		<level value="info"/>
+		<level value="debug"/>
+		<appender-ref ref="APP_DEBUG"/>
+		<appender-ref ref="APP_INFO"/>
+		<appender-ref ref="APP_ERROR"/>		
+	</logger>
+	<logger name="org.quartz" additivity="false">
+		<level value="debug"/>
 		<appender-ref ref="APP_DEBUG"/>
 		<appender-ref ref="APP_INFO"/>
 		<appender-ref ref="APP_ERROR"/>		
