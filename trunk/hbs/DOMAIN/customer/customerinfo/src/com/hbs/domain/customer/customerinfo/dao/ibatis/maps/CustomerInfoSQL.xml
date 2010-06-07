@@ -418,7 +418,9 @@
 				CURRENCY = #currency#
 			</isNotEmpty>			
 			<isNotEmpty prepend="and" property="staffId">
-				STAFF_ID = #staffId#
+			<![CDATA[	
+				(STAFF_ID = #staffId# or ASS_STAFF_ID = #staffId#)
+			]]>
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="staffName">
 				STAFF_NAME = #staffName#
@@ -500,7 +502,9 @@
 				CURRENCY = #currency#
 			</isNotEmpty>			
 			<isNotEmpty prepend="and" property="staffId">
-				STAFF_ID = #staffId#
+			<![CDATA[	
+				(STAFF_ID = #staffId# or ASS_STAFF_ID = #staffId#)
+			]]>
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="staffName">
 				STAFF_NAME = #staffName#

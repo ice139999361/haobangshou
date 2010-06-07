@@ -7,7 +7,9 @@
 package com.hbs.common.action.waittask;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
@@ -32,26 +34,36 @@ public class WaitTaskAction extends BaseAction {
 				List<String> roleList = getLoginStaffRole();
 				List<WaitTaskInfo> waitMust = new ArrayList<WaitTaskInfo>();
 				List<WaitTaskInfo> waitReminder = new ArrayList<WaitTaskInfo>();
-				if(roleList == null){
-					roleList = new ArrayList<String>();
-					roleList.add("1");
-				}
-				if(null != roleList){
+				Set<String> setId= new HashSet<String>();
+				if(null != roleList && roleList.size() >0){
 					for(String roleid : roleList){
 						//获取待处理的待办						
 						List<WaitTaskInfo> waitInfo = WaitTaskMgr.listWaitTask(roleid, staffId, "0", null);
-						if(null != waitInfo){
-							waitMust.addAll(waitInfo);
+						if(null != waitInfo && waitInfo.size() >0){
+							for(WaitTaskInfo info : waitInfo){//处理多个角色对于的待办重复问题
+								String id = info.getTaskId();
+								if(!(setId.contains(id))){
+									waitMust.add(info);
+									setId.add(id);
+								}
+							}							
 						}
 					}
 					setResult("waitMust", waitMust);
+					setId.clear();
 					
 					//获取提醒类待办					
 					for(String roleid : roleList){
 						//获取待处理的待办						
 						List<WaitTaskInfo> waitInfo = WaitTaskMgr.listWaitTask(roleid, staffId, "1", null);
-						if(null != waitInfo){
-							waitReminder.addAll(waitInfo);
+						if(null != waitInfo && waitInfo.size() >0){
+							for(WaitTaskInfo info : waitInfo){//处理多个角色对于的待办重复问题
+								String id = info.getTaskId();
+								if(!(setId.contains(id))){
+									waitReminder.add(info);
+									setId.add(id);
+								}
+							}								
 						}
 					}
 					setResult("waitReminder", waitReminder);

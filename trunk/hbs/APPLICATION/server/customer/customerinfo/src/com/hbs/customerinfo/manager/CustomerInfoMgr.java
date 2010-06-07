@@ -114,10 +114,12 @@ public class CustomerInfoMgr {
 						WaitTaskMgr.deleteWaitTask(custInfo.getCommCode());
 						WaitTaskMgr.createWaitTask("CUSTOMER001", waitTaskInfo);
 					}
-			}else{
+			}else{//正式数据修改后，直接提交审批
 				//ret =-2;//表示数据提交的状态不正确
-				logger.debug("存在提交的客户信息数据，数据提交的状态不正确,不能做提交操作！");
-				throw new Exception("数据提交的状态不正确!");
+				//logger.debug("存在提交的客户信息数据，数据提交的状态不正确,不能做提交操作！");
+				//throw new Exception("数据提交的状态不正确!");
+				logger.debug("提交正式数据的修改审批，提交的数据状态为：" + custInfo.getState());
+				ret = updateCustomerInfo(custInfo,null,null);
 			}
 		}
 		return ret;
