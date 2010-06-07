@@ -199,7 +199,7 @@ public class VendorInfoNormalAction extends BaseAction {
 				setErrorReason("²ÎÊý´íÎó£¡");
 				return ERROR;
 			}
-
+			vendorInfo.setIsShowPrice("0");
 			if (StringUtils.isEmpty(vendorInfo.getState()))
 				vendorInfo.setState("2");
 			if (VendorInfoUtil.checkSetStaffId(vendorInfo))
