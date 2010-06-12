@@ -20,12 +20,12 @@
 							<form id="form"><items>
 				    		<listpanel frame="true" title="订单基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<autocomplete fieldLabel="客户编码"	url="/customerInfo/customerInfo!list.action"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"           name="custOrder.commCode"       labelStyle="width:150" id="acCommCode" />
+				    				<autocomplete fieldLabel="客户编码"	url="/customerInfo/customerInfo!list.action?custInfo.state=0"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"           name="custOrder.commCode"       labelStyle="width:150" id="acCommCode" />
 				    				<textfield    fieldLabel="客户订单号"         name="custOrder.poNo"                        labelStyle="width:150"/>
 				    				<label        fieldLabel="对应分公司"         id="acCompanyBranch"                        labelStyle="width:150"/>
 
 
-				    				<autocomplete fieldLabel="客户简称"           name="custOrder.shortName"	id="acShortName"                       labelStyle="width:150"/>
+				    				<autocomplete fieldLabel="客户简称" url="/customerInfo/customerInfo!list.action?custInfo.state=0"  displayField="shortName"  valueField="shortName" queryParam="custInfo.shortName"          name="custOrder.shortName"	id="acShortName"                       labelStyle="width:150"/>
 				    				<datefield    fieldLabel="客户订单日期"       name="custOrder.oderTime" 	format="Y-m-d"                       labelStyle="width:150" id="acOderTime"/>
 				    				<label        fieldLabel="结算类型"           id="acSettlementType"                        labelStyle="width:150"/>
 				    			</layoutpanel>
