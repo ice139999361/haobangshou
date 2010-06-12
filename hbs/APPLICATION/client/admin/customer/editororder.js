@@ -1,7 +1,7 @@
 
 HBSConvertHelper.init(function() {
 	// -------------------------------------- 获取需要持久用到的对象
-	
+
 	// 获取提交按钮
 	var submitBtn 	= Ext.getCmp("submitBtn");
 	// 获取保存按钮
@@ -10,13 +10,13 @@ HBSConvertHelper.init(function() {
 	var backBtn 		= Ext.getCmp("backBtn");
 	// 获取订单详情表格
 	var ordergrid   = Ext.getCmp("ordergrid");
-	
-	
+
+
 	// -------------------------------------- 应用逻辑处理
-	
+
 	// 提交操作成功后要做的事情
 	var submitSuccessPro;
-	
+
 	/**
 	 * 提交数据
 	 * @param url  (String) 提交的url
@@ -24,41 +24,41 @@ HBSConvertHelper.init(function() {
 	function submitData(url) {
 		// 验证 form 内容是符满足要求
 		//if(!ExtConvertHelper.isFormValid("form")) return;
-		
+
 		// 获取（客户联系人信息、客户收货人信息、客户银行信息）表格中的提交数据
 		var girdData = HBSConvertHelper.getGridSubmitData("ordergrid", "orderlist");
-		
+
 		// 提交数据
 		ExtConvertHelper.submitForm("form", url, girdData, function(form, action) {
 			// 获取成功后的提示信息
 			var msg = ExtConvertHelper.getMessageInfo(action, "操作成功！");
-			
+
 			// 弹出提示框给用户
 			Ext.Msg.alert("提示", msg, submitSuccessPro);
 		});
 	}
-	
+
 	(function() {
 		// 当提交按钮被单击时
 		submitBtn.on("click", function() {
 			submitData("/custOrder/custOrder!save.action");
 		});
-		
+
 		// 当保存按钮被单击时
 		saveBtn.on("click", function() {
 			submitData("/custOrder/custOrder!saveTemp.action");
 		});
-		
+
 		// 当单机取消按钮时，调用默认的关闭窗口方法
 		backBtn.on("click", HBSConvertHelper.defaultCloseTab);
-		
+
 		// 获取表格的列模型
 		var cm = ordergrid.getColumnModel();
-		
+
 		// 输入客户P/N或本公司P/N时，自动填写名称、描述、单价、税率
 		var orderacfun = function(action){
 			if(!action.success)	return;
-			
+
 			var sm = ordergrid.getSelectionModel();
 			sm.getSelected().set("pnName"   , action.data.custPartNoInfo.pnName);
 			sm.getSelected().set("pnDesc"   , action.data.custPartNoInfo.pnDesc);
@@ -67,24 +67,24 @@ HBSConvertHelper.init(function() {
 			sm.getSelected().set("cpartNo"   , action.data.custPartNoInfo.custPartNo);
 			sm.getSelected().set("partNo", action.data.custPartNoInfo.partNo);
 		};
-		
+
 		// 获取客户型号控件并加载事件
 		cm.getColumnById("cCpartNo").editor.setProcessConfig("/customerInfo/custPartNoInfo!getInfoDict.action", "cpartNo", null, orderacfun);
-		
+
 		// 获取GLE型号控件并加载事件
 		cm.getColumnById("cPartNo").editor.setProcessConfig("/customerInfo/custPartNoInfo!getInfoDict.action", "partNo", null, orderacfun);
-		
-		//根据税率设置是否含税交易：税率为0时，可选；否则设为是，并不可修改。 
-		//输入数量时，自动填写金额。 
+
+		//根据税率设置是否含税交易：税率为0时，可选；否则设为是，并不可修改。
+		//输入数量时，自动填写金额。
 		ordergrid.getSelectionModel().on("beforerowselect", function(sm, rowIndex, keepExisting, record) {
 			// 初始化 selectType
 			if(Ext.isEmpty(record.get("cpriceTax")) || record.get("cpriceTax") == 0) ordergrid.getColumnById("cisTax").editable = true;
 			else ordergrid.getColumnById("cisTax").editable = false;
 		});
 	}())
-	
-	
-	
+
+
+
 	/*
 	Ext.getCmp("acContactList").store = new Ext.data.JsonStore({
 		url : "/server/customerInfo/customerInfo!getContactList.action",
@@ -103,10 +103,11 @@ HBSConvertHelper.init(function() {
 			this.list.fireEvent("select");
 		}
 	}
-	
-	Ext.getCmp("acCommCode").setProcessConfig("/customerInfo/customerInfo!getInfo.action?custInfo.state=0", "custInfo.commCode", null, function(action){
+
+	function selectCustomer(action){
 		if(!action.success)
 			return;
+		Ext.getCmp("acCommCode").setValue(action.data.custInfo.commCode);
 		Ext.getCmp("acCompanyBranch").setValue(action.data.custInfo.companyBranchDesc);
 		Ext.getCmp("acShortName").setValue(action.data.custInfo.shortName);
 		Ext.getCmp("acSettlementType").setValue(action.data.custInfo.settlementDesc);
@@ -128,8 +129,11 @@ HBSConvertHelper.init(function() {
 			list.store.on("load", afterListLoad);
 			list.store.load();
 		}
-	});
-	
+	}
+
+	Ext.getCmp("acCommCode").setProcessConfig("/customerInfo/customerInfo!getInfo.action?custInfo.state=0", "custInfo.commCode", null, selectCustomer);
+	Ext.getCmp("acShortName").setProcessConfig("/customerInfo/customerInfo!getInfo.action?custInfo.state=0", "custInfo.shortName", null, selectCustomer);
+
 	Ext.getCmp("acContactList").on("select", function() {
 		if(this.selectedIndex < 0){
 			var val = this.getValue();
@@ -148,7 +152,7 @@ HBSConvertHelper.init(function() {
 		Ext.getCmp("acFax").setValue(o);
 		Ext.getCmp("acFaxHidden").setValue(o);
 	});
-	
+
 	Ext.getCmp("acConsigneeList").on("select", function() {
 		if(this.selectedIndex < 0){
 			var val = this.getValue();
@@ -167,34 +171,34 @@ HBSConvertHelper.init(function() {
 		Ext.getCmp("acZip").setValue(o);
 		Ext.getCmp("acZipHidden").setValue(o);
 	});
-	
+
 	// -------------------------------------- 页面操作逻辑处理
-	
+
 	// 提交操作成功后要做的事情
 	var submitSuccessPro;
-	
+
 	// 新增页面的处理逻辑
 	function addInitFun() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("客户订单录入");
-		
+
 		// 提交完成后的操作
 		submitSuccessPro = function() {
 			// 用户单击后重载此页面
 			location.reload();
 		}
 	}
-	
+
 	// 修改页面的处理逻辑
 	function updateInitFun() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("客户订单修改");
 		// 隐藏不需要的控件
 		if(urlPs.state != "01") ExtConvertHelper.hideItems("saveBtn");
-		
+
 		// 组装需要的参数
 		var params = ["custOrder.commCode=", urlPs.commCode, "&custOrder.poNo=", urlPs.poNo, "&custOrder.poNoType=", urlPs.poNoType].join("");
-		
+
 		// 加载数据
 		ExtConvertHelper.loadForm("form", "/custOrder/custOrder!getInfo.action", params, function(form, action) {
 				Ext.getCmp("ordergrid").addData(action.result.data.custOrder.orderDetailList);
@@ -203,14 +207,14 @@ HBSConvertHelper.init(function() {
 				//Ext.getCmp("acContactList").fireEvent("select");
 				//Ext.getCmp("acConsigneeList").fireEvent("select");
 		});
-		
+
 		// 提交完成后的操作
 		submitSuccessPro = function() {
 			// 用户单击后关闭此页面
 			HBSConvertHelper.defaultCloseTab();
 		}
 	}
-	
+
 	// 根据不同的操作类型，做出不同的处理
 	eval(urlPs.editorType + "InitFun")();
 });

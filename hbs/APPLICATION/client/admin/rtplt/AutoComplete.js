@@ -10,13 +10,13 @@ ExtUx.widget.AutoComplete = function(config){
 	    ,paramsName    : ""
 	    ,paramsValue   : ""
 	    ,loadingText   : "正在请求数据"
-	    ,minChars      : 3
+	    ,minChars      : 1
 	    ,queryDelay    : 300
 	    ,editable      : true
 	    ,hideTrigger   : true
     });
 
-    ExtUx.widget.AutoComplete.superclass.constructor.call(this, config);  
+    ExtUx.widget.AutoComplete.superclass.constructor.call(this, config);
 }
 
 Ext.extend(ExtUx.widget.AutoComplete, ExtUx.widget.DictCombo);
