@@ -234,9 +234,17 @@ public class CustOrderUtil {
 				if(StringUtils.isEmpty(info.getCpartNo()))
 					list.add(new FieldErr("CPartNo", "CPartNo没有填写"));
 				
-				if(StringUtils.isEmpty(info.getIsTax()))
-					list.add(new FieldErr("IsTax", "IsTax没有填写"));
-				else{
+				if(StringUtils.isEmpty(info.getIsTax())){
+					//list.add(new FieldErr("IsTax", "IsTax没有填写"));
+					/*
+					if(otherData == null)
+						list.add(new FieldErr("IsTax", "IsTax没有填写"));
+					else{
+						info.setIsTax((0 == BigDecimal.ZERO.compareTo((BigDecimal)(otherData.get("taxRate"))))?"0":"1");
+					}
+					*/
+					info.setIsTax( (0 == BigDecimal.ZERO.compareTo(info.getCpriceTax())) ? "0" : "1");
+				}else{
 					if(0 != BigDecimal.ZERO.compareTo(info.getCpriceTax()) && info.getIsTax().equals("0"))
 						list.add(new FieldErr("IsTax", "IsTax错误"));
 				}
