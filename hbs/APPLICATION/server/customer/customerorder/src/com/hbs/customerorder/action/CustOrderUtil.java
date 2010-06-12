@@ -237,7 +237,7 @@ public class CustOrderUtil {
 				if(StringUtils.isEmpty(info.getIsTax()))
 					list.add(new FieldErr("IsTax", "IsTax√ª”–ÃÓ–¥"));
 				else{
-					if(!info.getCpriceTax().equals(0) && info.getIsTax().equals("0"))
+					if(0 != BigDecimal.ZERO.compareTo(info.getCpriceTax()) && info.getIsTax().equals("0"))
 						list.add(new FieldErr("IsTax", "IsTax¥ÌŒÛ"));
 				}
 				Integer money = info.getAmount();
