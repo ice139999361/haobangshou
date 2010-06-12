@@ -85,7 +85,7 @@ public class VendorOrderDetailCgNormalAction extends VendorOrderDetailBaseAction
 			return;
 		SystemConfig cfg = SystemConfigMgr.findSystemConfig(cfgName);
 		if(cfg == null){
-			logger.debug("findSystemConfig failed:" + cfgName);
+			logger.debug("checkCustOrderDeliveryDate findSystemConfig failed:" + cfgName);
 			return;
 		}
 
@@ -97,11 +97,17 @@ public class VendorOrderDetailCgNormalAction extends VendorOrderDetailBaseAction
 		cod1.setPartNo(orderDetail.getPartNo());
 		cod1.setSpecDesc(orderDetail.getSpecDesc());
 		CustOrderDetail cod = codMgr.findCustOrderDetailByBizKey(cod1);
-		if(cod == null)
+		if(cod == null){
+			logger.info("checkCustOrderDeliveryDate findCustOrderDetailByBizKey failed!");
 			throw new Exception("findCustOrderDetailByBizKey failed!");
+		}
 		if(!CustOrderConstants.ORDER_STATE_20.equals(cod.getState())){
-			logger.debug("CustOrderDetail.state != 20");
+			logger.debug("checkCustOrderDeliveryDate CustOrderDetail.state != 20");
 			return;
+		}
+		if(!cod.getAmount().equals(orderDetail.getAmount())){
+			logger.debug("checkCustOrderDeliveryDate Amount not match!");
+			throw new Exception("Amount not match!");
 		}
 		int ret;
 		Calendar cal = Calendar.getInstance();
@@ -114,16 +120,17 @@ public class VendorOrderDetailCgNormalAction extends VendorOrderDetailBaseAction
 		if(predate.before(newdate)){
 			// 超期
 			cod.setPreDeliveryDate(newdate);
-			logger.debug("purchaseRefuseDetailDelivery");
+			logger.debug("checkCustOrderDeliveryDate purchaseRefuseDetailDelivery");
 			ret = codMgr.purchaseRefuseDetailDelivery(cod, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), null);
 		}else{
 			// 在期限内
-			logger.debug("purchaseConfirmDetailDelivery");
+			logger.debug("checkCustOrderDeliveryDate purchaseConfirmDetailDelivery");
 			newdate = predate;
 			cod.setPreDeliveryDate(newdate);
 			ret = codMgr.purchaseConfirmDetailDelivery(cod, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), null);
 		}
 		if(ret != 0){
+			logger.info("checkCustOrderDeliveryDate purchaseXXXDetailDelivery failed! ret=" + ret);
 			throw new Exception("purchaseXXXDetailDelivery failed! ret=" + ret);
 		}
 	}
