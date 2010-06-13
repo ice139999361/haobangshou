@@ -1,5 +1,6 @@
 package com.hbs.customerorder.action.detail;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -15,7 +16,10 @@ import org.joda.time.format.DateTimeFormatter;
 import com.hbs.common.utils.ListDataUtil;
 import com.hbs.customerorder.constants.CustOrderConstants;
 import com.hbs.domain.customer.order.pojo.CustOrderDetail;
+import com.hbs.domain.vendor.vendorinfo.pojo.VendorPartNoInfo;
 import com.hbs.domain.warehouse.pojo.WareHouseInfo;
+import com.hbs.vendorinfo.action.VendorPartNoInfoNormalAction;
+import com.hbs.vendorinfo.manager.VendorPartNoInfoMgr;
 import com.hbs.warehouse.common.constants.WareHouseConstants;
 import com.hbs.warehouse.manager.WarehouseMgr;
 
@@ -234,6 +238,7 @@ public class CustOrderDetailCgNormalAction extends CustOrderDetailBaseAction {
 	
 	/**
 	 * 根据供应商编码查询需备货的客户订单详情
+	 * 并将commCode、cpartno、单价、税率换成供应商的物料信息，以便前台显示成正确的供应商订单信息
 	 * @action.input orderDetail.vendorCode
 	 * @action.input orderDetail.*
 	 * @action.result list List<CustOrderDetail>
@@ -248,11 +253,27 @@ public class CustOrderDetailCgNormalAction extends CustOrderDetailBaseAction {
 			}
 			orderDetail.setField("stateList", "'20','21'");
 			List<CustOrderDetail> list = mgr.listCustOrderDetail(orderDetail); 
-			
+			VendorPartNoInfoMgr vpnMgr = (VendorPartNoInfoMgr)getBean(VendorPartNoInfoNormalAction.vendorPartNoInfoMgrName);
 			for(Iterator<CustOrderDetail> it = list.iterator(); it.hasNext();) {
 				CustOrderDetail o = it.next();
-				if((o.getAmount() - isNull(o.getLockAmount(),0) - isNull(o.getDeliveryAmount(),0)) <= (0))
+				int needAmount = o.getAmount() - isNull(o.getLockAmount(),0) - isNull(o.getDeliveryAmount(),0);
+				if(needAmount <= 0)
 					it.remove();
+				o.setAmount(needAmount);
+				//将commCode、cpartno、单价、税率、金额换成供应商的物料信息
+				VendorPartNoInfo vpn = new VendorPartNoInfo();
+				vpn.setCommCode(o.getVendorCode());
+				vpn.setPartNo(o.getPartNo());
+				vpn.setState("0");
+				vpn = vpnMgr.getVendorPartNoInfoByBizKey(vpn);
+				o.setCommCode(vpn.getCommCode());
+				o.setCpartNo(vpn.getCustPartNo());
+				o.setPnDesc(vpn.getPnDesc());
+				o.setCprice(vpn.getPrice());
+				o.setCpriceTax(vpn.getPriceTax());
+				o.setTaxRate(vpn.getPriceTax());
+				o.setMoney(vpn.getPrice().multiply(new BigDecimal(needAmount)));
+				
 			}
 			setResult("list", list);
 			// DONE:CustOrderCgNormalAction.doListByVendor

@@ -1,3 +1,4 @@
+var isManulSelect = true;	//标记是否人为选择commCode
 
 HBSConvertHelper.init(function() {
 	// -------------------------------------- 获取需要持久用到的对象
@@ -99,9 +100,31 @@ HBSConvertHelper.init(function() {
 	*/
 
 	function afterListLoad(){
-		if(this.getCount() > 0 && this.list && this.list.getValue()){
+		if(!(this && this.list))
+			return
+		if(this.list.selectPrimary){
+			selectPrimary(this.list)
+		}else if(this.list.getValue()){
 			this.list.fireEvent("select");
 		}
+	}
+
+	function selectPrimary(list){
+		list.selectPrimary = false;
+		// DONE:选择主联系人
+		if(!list || !list.store)
+			return;
+		var i = -1;
+		if(list.store.getCount() == 1)
+			i = 0;
+		else
+			i = list.store.findExact("isPrimary", "0");
+		if(i >= 0){
+			list.setValue(list.store.getAt(i).get("conName"));
+			list.selectedIndex = i;
+		}else
+			list.selectedIndex = -1;
+		list.fireEvent("select");
 	}
 
 	function selectCustomer(action){
@@ -116,19 +139,42 @@ HBSConvertHelper.init(function() {
 		var list = Ext.getCmp("acContactList");
 		list.store.baseParams["custInfo.commCode"] = o;
 		list.store.baseParams["custInfo.state"] = "0";
-		if(list.getValue()){
-			list.store.list = list;
-			list.store.on("load", afterListLoad);
+		list.store.list = list;
+		list.store.on("load", afterListLoad);
+		if(isManulSelect){
+			list.setValue("");
+			list.selectPrimary = true;
 			list.store.load();
+		}else{
+			if(list.getValue()){
+				list.selectPrimary = false;
+				list.store.load();
+			}
 		}
 		list = Ext.getCmp("acConsigneeList");
 		list.store.baseParams["custInfo.commCode"] = o;
 		list.store.baseParams["custInfo.state"] = "0";
-		if(list.getValue()){
-			list.store.list = list;
-			list.store.on("load", afterListLoad);
+		list.store.list = list;
+		list.store.on("load", afterListLoad);
+		if(isManulSelect){
+			list.setValue("");
+			list.selectPrimary = true;
 			list.store.load();
+		}else{
+			if(list.getValue()){
+				list.selectPrimary = false;
+				list.store.load();
+			}
 		}
+
+		var cm = ordergrid.getColumnModel();
+		list = cm.getColumnById("cCpartNo").editor;
+		list.store.baseParams["custPartNoInfo.commCode"] = o;
+		list.store.baseParams["custPartNoInfo.state"] = "0";
+		list = cm.getColumnById("cPartNo").editor;
+		list.store.baseParams["custPartNoInfo.commCode"] = o;
+		list.store.baseParams["custPartNoInfo.state"] = "0";
+		isManulSelect = true;
 	}
 
 	Ext.getCmp("acCommCode").setProcessConfig("/customerInfo/customerInfo!getInfo.action?custInfo.state=0", "custInfo.commCode", null, selectCustomer);
@@ -141,8 +187,13 @@ HBSConvertHelper.init(function() {
 				// 根据val设置selectedIndex
 				this.selectedIndex = this.store.findExact("conName", val);
 			}
-			if(this.selectedIndex < 0)
+			if(this.selectedIndex < 0){
+				Ext.getCmp("acTel").setValue("");
+				Ext.getCmp("acTelHidden").setValue("");
+				Ext.getCmp("acFax").setValue("");
+				Ext.getCmp("acFaxHidden").setValue("");
 				return;
+			}
 		}
 		var data = this.store.getAt(this.selectedIndex);
 		var o = data.get("conTel");
@@ -160,8 +211,13 @@ HBSConvertHelper.init(function() {
 				// 根据val设置selectedIndex
 				this.selectedIndex = this.store.findExact("conName", val);
 			}
-			if(this.selectedIndex < 0)
-				return;
+			if(this.selectedIndex < 0){
+				Ext.getCmp("acAddress").setValue("");
+				Ext.getCmp("acAddressHidden").setValue("");
+				Ext.getCmp("acZip").setValue("");
+				Ext.getCmp("acZipHidden").setValue("");
+				return
+			}
 		}
 		var data = this.store.getAt(this.selectedIndex);
 		var o = data.get("conAddress");
@@ -203,6 +259,7 @@ HBSConvertHelper.init(function() {
 		ExtConvertHelper.loadForm("form", "/custOrder/custOrder!getInfo.action", params, function(form, action) {
 				Ext.getCmp("ordergrid").addData(action.result.data.custOrder.orderDetailList);
 			  Ext.getCmp("acOderTime").setValue(FormatUtil.data2string(action.result.data.custOrder.oderTime));
+			  	isManulSelect = false;
 				Ext.getCmp("acCommCode").fireEvent("select");
 				//Ext.getCmp("acContactList").fireEvent("select");
 				//Ext.getCmp("acConsigneeList").fireEvent("select");

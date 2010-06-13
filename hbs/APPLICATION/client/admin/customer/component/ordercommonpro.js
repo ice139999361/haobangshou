@@ -13,14 +13,14 @@ var cpriceTaxRenderer = function(value, metadata, record, rowIndex, colIndex, st
 		record.set("isTax", "1");
 		var _grid = Ext.getCmp(store.gridId);
 		_grid.getColumnById("cisTax").editable = false;
-	} 
-	
+	}
+
 	return value;
 }
 
 var ordergridFun = function() {
 	var cgh = new ComplexGridHelper;
-	
+
 	cgh.appendField("operSeqId");
 	cgh.appendField("pnName");
 	cgh.appendField("cpartNo");
@@ -36,12 +36,12 @@ var ordergridFun = function() {
 	cgh.appendField("commDesc");
 	cgh.appendField("state");
 	cgh.appendField("stateDesc");
-	
-			    							
+
+
 	cgh.appendColumn({dataIndex: "operSeqId"	, isCheck: true});
 //	cgh.appendColumn({header: "货品名称"	, dataIndex: "pnName"});
-	cgh.appendColumn({header: "客户型号<font color=red>*</font>"	, dataIndex: "cpartNo", xtype: "autocomplete", id: "cCpartNo", queryParam: "cpartNo" ,displayField:"custPartNo" , valueField:"custPartNo", url: "/customerInfo/custPartNoInfo!getListDict.action"});
-	cgh.appendColumn({header: "GLE型号<font color=red>*</font>"		, dataIndex: "partNo", xtype: "autocomplete", id : "cPartNo", queryParam: "partNo"  ,displayField:"partNo" , valueField:"partNo" , url: "/customerInfo/custPartNoInfo!getListDict.action"});
+	cgh.appendColumn({header: "客户型号<font color=red>*</font>"	, dataIndex: "cpartNo", xtype: "autocomplete", id: "cCpartNo", queryParam: "custPartNoInfo.custPartNo" ,displayField:"custPartNo" , valueField:"custPartNo", url: "/customerInfo/custPartNoInfo!list.action"});
+	cgh.appendColumn({header: "GLE型号<font color=red>*</font>"		, dataIndex: "partNo", xtype: "autocomplete", id : "cPartNo", queryParam: "custPartNoInfo.partNo"  ,displayField:"partNo" , valueField:"partNo" , url: "/customerInfo/custPartNoInfo!list.action"});
 	cgh.appendColumn({header: "描述"	, dataIndex: "pnDesc"});
 	cgh.appendColumn({header: "单价"			, dataIndex: "cprice"});
 	cgh.appendColumn({header: "税率"	    , dataIndex: "cpriceTax", renderer: "cpriceTaxRenderer"});

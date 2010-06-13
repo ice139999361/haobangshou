@@ -1,5 +1,6 @@
 //TODO：从配置中获取此值
 var VendorDate2CustDate = 3;
+var isManulSelect = true;	//标记是否人为选择commCode
 
 HBSConvertHelper.init(function() {
 	// -------------------------------------- 获取需要持久用到的对象
@@ -73,13 +74,16 @@ HBSConvertHelper.init(function() {
 			// 初始化 selectType
 			if(Ext.isEmpty(record.selectType)) record.selectType = "none";
 
-			switch(record.selectType) {
+			switch(record.get("selectType")) {
 				case "window":
-
+					ordergrid.getColumnById("cCpartNo").editable = false;
 					ordergrid.getColumnById("cPartNo").editable = false;
+					ordergrid.getColumnById("colCustCcode").editable = false;
 					break;
 				default:
+					ordergrid.getColumnById("cCpartNo").editable = true;
 					ordergrid.getColumnById("cPartNo").editable = true;
+					ordergrid.getColumnById("colCustCcode").editable = true;
 					break;
 			}
 		});
@@ -117,9 +121,31 @@ HBSConvertHelper.init(function() {
 	}())
 
 	function afterListLoad(){
-		if(this.getCount() > 0 && this.list && this.list.getValue()){
+		if(!(this && this.list))
+			return
+		if(this.list.selectPrimary){
+			selectPrimary(this.list)
+		}else if(this.list.getValue()){
 			this.list.fireEvent("select");
 		}
+	}
+
+	function selectPrimary(list){
+		list.selectPrimary = false;
+		// DONE:选择主联系人
+		if(!list || !list.store)
+			return;
+		var i = -1;
+		if(list.store.getCount() == 1)
+			i = 0;
+		else
+			i = list.store.findExact("isPrimary", "0");
+		if(i >= 0){
+			list.setValue(list.store.getAt(i).get("conName"));
+			list.selectedIndex = i;
+		}else
+			list.selectedIndex = -1;
+		list.fireEvent("select");
 	}
 
 	Ext.getCmp("acCommCode").setProcessConfig("/vendorInfo/vendorInfo!getInfo.action?vendorInfo.state=0", "vendorInfo.commCode", null, function(action){
@@ -140,18 +166,43 @@ HBSConvertHelper.init(function() {
 		var list = Ext.getCmp("acContactList");
 		list.store.baseParams["vendorInfo.commCode"] = o;
 		list.store.baseParams["vendorInfo.state"] = "0";
-		if(list.getValue()){
-			list.store.list = list;
-			list.store.on("load", afterListLoad);
+		list.store.list = list;
+		list.store.on("load", afterListLoad);
+		if(isManulSelect){
+			list.setValue("");
+			list.selectPrimary = true;
 			list.store.load();
-		}list = Ext.getCmp("acConsigneeList");
+		}else{
+			if(list.getValue()){
+				list.selectPrimary = false;
+				list.store.load();
+			}
+		}
+		list = Ext.getCmp("acConsigneeList");
 		list.store.baseParams["vendorInfo.commCode"] = o;
 		list.store.baseParams["vendorInfo.state"] = "0";
-		if(list.getValue()){
-			list.store.list = list;
-			list.store.on("load", afterListLoad);
+		list.store.list = list;
+		list.store.on("load", afterListLoad);
+		if(isManulSelect){
+			list.setValue("");
+			list.selectPrimary = true;
 			list.store.load();
+		}else{
+			if(list.getValue()){
+				list.selectPrimary = false;
+				list.store.load();
+			}
 		}
+
+		var cm = ordergrid.getColumnModel();
+		list = cm.getColumnById("cCpartNo").editor;
+		list.store.baseParams["vendorPartNoInfo.commCode"] = o;
+		list.store.baseParams["vendorPartNoInfo.state"] = "0";
+		list = cm.getColumnById("cPartNo").editor;
+		list.store.baseParams["vendorPartNoInfo.commCode"] = o;
+		list.store.baseParams["vendorPartNoInfo.state"] = "0";
+
+		isManulSelect = true
 	});
 
 	Ext.getCmp("acContactList").on("select", function() {
@@ -161,8 +212,13 @@ HBSConvertHelper.init(function() {
 				// 根据val设置selectedIndex
 				this.selectedIndex = this.store.findExact("conName", val);
 			}
-			if(this.selectedIndex < 0)
+			if(this.selectedIndex < 0){
+				Ext.getCmp("acTel").setValue("");
+				Ext.getCmp("acTelHidden").setValue("");
+				Ext.getCmp("acFax").setValue("");
+				Ext.getCmp("acFaxHidden").setValue("");
 				return;
+			}
 		}
 		var data = this.store.getAt(this.selectedIndex);
 		var o = data.get("conTel");
@@ -180,8 +236,13 @@ HBSConvertHelper.init(function() {
 				// 根据val设置selectedIndex
 				this.selectedIndex = this.store.findExact("conName", val);
 			}
-			if(this.selectedIndex < 0)
+			if(this.selectedIndex < 0){
+				Ext.getCmp("acAddress").setValue("");
+				Ext.getCmp("acAddressHidden").setValue("");
+				Ext.getCmp("acZip").setValue("");
+				Ext.getCmp("acZipHidden").setValue("");
 				return;
+			}
 		}
 		var data = this.store.getAt(this.selectedIndex);
 		var o = data.get("conAddress");
@@ -222,6 +283,7 @@ HBSConvertHelper.init(function() {
 		// 加载数据
 		ExtConvertHelper.loadForm("form", "/vendorOrder/vendorOrder!getInfo.action", params, function(form, action) {
 				Ext.getCmp("ordergrid").addData(action.result.data.vendorOrder.vendorOrderDetailList);
+				isManulSelect = false;
 				Ext.getCmp("acCommCode").fireEvent("select");
 		});
 
@@ -260,7 +322,7 @@ HBSConvertHelper.init(function() {
 			var ordergridFields = ['operSeqId', 'pnName', 'cpartNo', 'partNo', 'pnDesc', 'cprice', 'cpriceTax', 'isTax', 'amount', 'money', 'orgDeliveryDate', 'specDesc', 'commDesc', 'custCcode', 'hastenReminder', 'selectType', 'fromTo'];
 			// 添加标示
 			Ext.each(records, function(record) {
-				//record.set("selectType", "window");
+				record.set("selectType", "window");
 				//DONE:获取客户订单明细的交期(按照ver、pre、org的顺序获取非空时间)，减(VendorDate2CustDate)天，放入orgDeliveryDate
 				var s = record.get("verDeliveryDate");
 				if(!s)
@@ -275,10 +337,10 @@ HBSConvertHelper.init(function() {
   					record.set("orgDeliveryDate", d);
 				}
 
-				if(record.get('orgDeliveryDate') instanceof Date) 
+				if(record.get('orgDeliveryDate') instanceof Date)
 				{
 					record.set('orgDeliveryDate', Ext.util.Format.date(record.get('orgDeliveryDate'), 'Y-m-d'))
-				}	
+				}
 			});
 
 			// 添加选择的数据至订单详情表格

@@ -38,14 +38,14 @@
 				    				<hidden name="custOrder.activeState" />
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
-				    				<dictcombo    fieldLabel="选择联系人"	id="acContactList"	url="/customerInfo/customerInfo!getContactList.action" record="seqId,conName,conTel,conFax"	root="data.list"	valueField="conName"	displayField="conName"	name="custOrder.conName"                        labelStyle="width:150"/>
+				    				<dictcombo    fieldLabel="选择联系人"	id="acContactList"	url="/customerInfo/customerInfo!getContactList.action" record="seqId,conName,conTel,conFax,isPrimary"	root="data.list"	valueField="conName"	displayField="conName"	name="custOrder.conName"                        labelStyle="width:150"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="2">
 				    				<label        fieldLabel="电话"               name="custOrder.conTel"	id="acTel"                        labelStyle="width:150"/>
 				    				<label        fieldLabel="传真"               name="custOrder.conFax"	id="acFax"                       labelStyle="width:150"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
-				    				<dictcombo    fieldLabel="选择收货人"	id="acConsigneeList"	url="/customerInfo/customerInfo!getConsigneeList.action" record="seqId,conName,conAddress,conZip"	root="data.list"	valueField="conName"	displayField="conName"	name="custOrder.receiveName"                        labelStyle="width:150"/>
+				    				<dictcombo    fieldLabel="选择收货人"	id="acConsigneeList"	url="/customerInfo/customerInfo!getConsigneeList.action" record="seqId,conName,conAddress,conZip,isPrimary"	root="data.list"	valueField="conName"	displayField="conName"	name="custOrder.receiveName"                        labelStyle="width:150"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="2">
 				    				<label        fieldLabel="收货地址"           name="custOrder.receiveAddress"	id="acAddress"                        labelStyle="width:150"/>

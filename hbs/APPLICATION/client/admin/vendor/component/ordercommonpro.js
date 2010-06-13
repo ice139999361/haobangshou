@@ -41,12 +41,12 @@ var ordergridFun = function() {
 	cgh.appendField("fromTo");
 
 	cgh.appendColumn({dataIndex: "operSeqId"	, isCheck: true});
-	cgh.appendColumn({header: "客户订单号<br />特定备货的客户编码"	, xtype: "textfield", dataIndex: "custCcode", width: 120});
+	cgh.appendColumn({header: "客户订单号<br />特定备货的客户编码"	, xtype: "textfield", dataIndex: "custCcode", id : "colCustCcode", width: 120});
 	//cgh.appendColumn({header: "货品名称"	  , dataIndex: "pnName"});
 	//cgh.appendColumn({header: "GLE型号"		  , dataIndex: "partNo", xtype: "autocomplete", id : "cPartNo", queryParam: "aaaa"});
 	//cgh.appendColumn({header: "供应商型号"	, dataIndex: "cpartNo"});
-	cgh.appendColumn({header: "GLE型号<font color=red>*</font>"		, dataIndex: "partNo", xtype: "autocomplete", id : "cPartNo", queryParam: "partNo"  ,displayField:"partNo" , valueField:"partNo" , url: "/vendorInfo/vendorPartNoInfo!getListDict.action"});
-	cgh.appendColumn({header: "供应商型号<font color=red>*</font>"	, dataIndex: "cpartNo", xtype: "autocomplete", id: "cCpartNo", queryParam: "cpartNo" ,displayField:"custPartNo" , valueField:"custPartNo", url: "/vendorInfo/vendorPartNoInfo!getListDict.action"});
+	cgh.appendColumn({header: "GLE型号<font color=red>*</font>"		, dataIndex: "partNo", xtype: "autocomplete", id : "cPartNo", queryParam: "vendorPartNoInfo.partNo"  ,displayField:"partNo" , valueField:"partNo" , url: "/vendorInfo/vendorPartNoInfo!list.action"});
+	cgh.appendColumn({header: "供应商型号<font color=red>*</font>"	, dataIndex: "cpartNo", xtype: "autocomplete", id: "cCpartNo", queryParam: "vendorPartNoInfo.custPartNo" ,displayField:"custPartNo" , valueField:"custPartNo", url: "/vendorInfo/vendorPartNoInfo!list.action"});
 	cgh.appendColumn({header: "描述"	      , dataIndex: "pnDesc"});
 	cgh.appendColumn({header: "单价"			  , dataIndex: "cprice"});
 	//cgh.appendColumn({header: "税率"	      , dataIndex: "cpriceTax"});
