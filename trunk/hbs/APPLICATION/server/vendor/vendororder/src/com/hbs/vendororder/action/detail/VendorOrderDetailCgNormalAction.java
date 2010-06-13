@@ -93,7 +93,8 @@ public class VendorOrderDetailCgNormalAction extends VendorOrderDetailBaseAction
 		CustOrderDetailMgr codMgr = (CustOrderDetailMgr)getBean(CustOrderDetailBaseAction.custOrderDetailMgrName);
 		cod1.setCommCode(orderDetail.getCustCcode());
 		cod1.setPoNo(orderDetail.getRltOrderPoNo());
-		cod1.setCpartNo(orderDetail.getCpartNo());
+		// 去掉以下一行，因为不能用供应商型号去查询客户订单详情
+		//cod1.setCpartNo(orderDetail.getCpartNo());
 		cod1.setPartNo(orderDetail.getPartNo());
 		cod1.setSpecDesc(orderDetail.getSpecDesc());
 		CustOrderDetail cod = codMgr.findCustOrderDetailByBizKey(cod1);
