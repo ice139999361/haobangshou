@@ -75,7 +75,7 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 			if(custPartNoInfo == null){
 				custPartNoInfo = new CustPartNoInfo();
 			}
-			if(!checkCommonFields())
+			if(!checkListFields())
 				return ERROR;
 
 			setPagination(custPartNoInfo);
@@ -128,8 +128,8 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 			int i = mgr.commitCustPartNoInfo(custPartNoInfo);
 			if(i == -1)
 			{
-				logger.info("已经存在修改待审批数据！");
-				setErrorReason("已经存在修改待审批数据！");
+				logger.info("您提交物料信息正在等待审批！请审批结束后再修改！");
+				setErrorReason("您提交物料信息正在等待审批！请审批结束后再修改！");
 				return ERROR;
 			}else if( i == 0 ){
 				this.setAlertMsg("提交成功！");
@@ -325,8 +325,8 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 		try{
 			if(custPartNoInfo == null)
 			{
-				logger.info("参数错误！");
-				setErrorReason("参数错误！");
+				logger.info("参数错误！请输入完整的客户物料信息！");
+				setErrorReason("参数错误！请输入完整的客户物料信息！");
 				return false;
 			}
 			
@@ -347,15 +347,15 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 			custInfo.setState("0");
 			custInfo = custmgr.getCustomerInfo(custInfo, false);
 			if(custInfo == null) {
-				logger.info("客户编码错误！");
-				setErrorReason("没有对应的客户信息！");
+				logger.info("您填写的客户编码不存在，请先录入客户信息！");
+				setErrorReason("您填写的客户编码不存在，请先录入客户信息！");
 				return false;
 			}
 			String id = getLoginStaff().getStaffId().toString();
 			if(custInfo == null || (!id.equals(custInfo.getStaffId()) && !id.equals(custInfo.getAssStaffId())))
 			{
-				logger.info("您没有权限访问！");
-				setErrorReason("您没有权限访问！");
+				logger.info("您查询的客户不属于您，您没有权限访问！");
+				setErrorReason("您查询的客户不属于您，您没有权限访问！");
 				return false;
 			}
 			return true;
@@ -366,6 +366,56 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
+	protected boolean checkListFields()
+	{
+		try{
+			if(custPartNoInfo == null)
+			{
+				custPartNoInfo = new CustPartNoInfo();
+				String id = getLoginStaff().getStaffId().toString();
+				custPartNoInfo.setField("operId", id);
+				return true;
+			}else{
+				String commCode = custPartNoInfo.getCommCode();
+				String shortName = custPartNoInfo.getShortName();
+				if(StringUtils.isEmpty(commCode) && StringUtils.isEmpty(shortName))
+				{
+					String id = getLoginStaff().getStaffId().toString();
+					custPartNoInfo.setField("operId", id);
+					return true;
+				}else{
+					CustomerInfoMgr custmgr = (CustomerInfoMgr)getBean(CustomerInfoNormalAction.custInfoMgrName);
+					custInfo = new CustomerInfo();
+					custInfo.setCommCode(commCode);
+					custInfo.setShortName(shortName);
+					custInfo.setState("0");
+					custInfo = custmgr.getCustomerInfo(custInfo, false);
+					if(custInfo == null) {
+						logger.info("您填写的客户编码不存在，请先录入客户信息！");
+						setErrorReason("您填写的客户编码不存在，请先录入客户信息！");
+						return false;
+					}
+					String id = getLoginStaff().getStaffId().toString();
+					if(custInfo == null || (!id.equals(custInfo.getStaffId()) && !id.equals(custInfo.getAssStaffId())))
+					{
+						logger.info("您查询的客户不属于您，您没有权限访问！");
+						setErrorReason("您查询的客户不属于您，您没有权限访问！");
+						return false;
+					}
+				}
+			}
+			
+			return true;
+		}catch(Exception e){
+			logger.error("catch Exception in checkListFields", e);
+			setErrorReason("内部错误");
+			return false;
+		}
+	}
 	protected void fixCommCode()
 	{
 //		try {

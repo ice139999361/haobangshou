@@ -85,7 +85,7 @@ public class CustPartNoInfoUtil {
 		s = custPartNoInfo.getCommCode();
 		if(StringUtils.isEmpty(s))
 		{
-			list.add(new FieldErr("CommCode","CommCode没有填写"));
+			list.add(new FieldErr("CommCode","客户编码没有填写"));
 		}
 		
 		s = custPartNoInfo.getVendorCode();
@@ -97,17 +97,17 @@ public class CustPartNoInfoUtil {
 		s = custPartNoInfo.getCustPartNo();
 		if(StringUtils.isEmpty(s))
 		{
-			list.add(new FieldErr("CustPartNo","CustPartNo没有填写"));
+			list.add(new FieldErr("CustPartNo","客户物料没有填写"));
 		}
 		BigDecimal num = custPartNoInfo.getPrice();
 		if(num.abs().movePointRight(3).compareTo(BigDecimal.ONE) <= 0)
 		{
-			list.add(new FieldErr("Price","Price没有填写"));
+			list.add(new FieldErr("Price","单价没有填写"));
 		}
 		s = custPartNoInfo.getPartNo();
 		if(StringUtils.isEmpty(s))
 		{
-			list.add(new FieldErr("PartNo","PartNo没有填写"));
+			list.add(new FieldErr("PartNo","公司物料没有填写"));
 		}
 		else
 		{
@@ -116,7 +116,7 @@ public class CustPartNoInfoUtil {
 				CompanyPartNo pnInfo = mgr.getCompanyPartNo(s);
 				if(pnInfo == null)
 				{
-					list.add(new FieldErr("PartNo", "PartNo错误"));
+					list.add(new FieldErr("PartNo", "公司物料错误"));
 				}
 				else
 				{
@@ -125,14 +125,14 @@ public class CustPartNoInfoUtil {
 				}
 			} catch (Exception e) {
 				logger.error("检查PartNo出错", e);
-				list.add(new FieldErr("PartNo", "PartNo错误"));
+				list.add(new FieldErr("PartNo", "公司物料错误"));
 			}
 		}
 		
 		s = custPartNoInfo.getPnDesc();
 		if(StringUtils.isEmpty(s))
 		{
-			list.add(new FieldErr("PnDesc","PnDesc没有填写"));
+			list.add(new FieldErr("PnDesc","物料描述没有填写"));
 		}
 		
 		List<FieldErr> list2 = checkSelectFields(custPartNoInfo);
