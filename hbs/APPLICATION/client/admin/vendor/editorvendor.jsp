@@ -33,8 +33,9 @@
 									<dictcombo fieldLabel="重要程度"               hiddenName="vendorInfo.importantCode"  labelStyle="width:150" paramsValue="IMPORTANT_CODE"  emptyText="请选择" />
 								</layoutpanel>
 								<layoutpanel columnNum="2">	
-				    				<dictcombo fieldLabel="性质"                   hiddenName="vendorInfo.commType"             labelStyle="width:150" paramsValue="COMM_TYPE" emptyText="请选择"/>
-									<textfield fieldLabel="规模"                   name="vendorInfo.commScale"            labelStyle="width:150" />
+				    				<dictcombo fieldLabel="企业性质"                   hiddenName="vendorInfo.commType"             labelStyle="width:150" paramsValue="COMM_TYPE" emptyText="请选择"  allowBlank="false"/>
+									<dictcombo fieldLabel="企业规模"                   name="vendorInfo.commScale"            labelStyle="width:150" paramsValue="SCALE_TYPE"     emptyText="请选择" allowBlank="false"/>
+									<dictcombo fieldLabel="企业类型"                   name="vendorInfo.saleType"            labelStyle="width:150" paramsValue="SALE_TYPE"     emptyText="请选择" allowBlank="false"/>
 								</layoutpanel>
 
 								<layoutpanel columnNum="1">

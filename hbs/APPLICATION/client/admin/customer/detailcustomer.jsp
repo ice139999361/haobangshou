@@ -34,8 +34,9 @@
 									<label fieldLabel="客户的重要程度"         name="custInfo.importantDesc"      labelStyle="width:150" />
 								</layoutpanel>
 								<layoutpanel columnNum="2">	
-				    				<label fieldLabel="性质"                   name="custInfo.commType"           labelStyle="width:150" />
-									<label fieldLabel="规模"                   name="custInfo.commScale"          labelStyle="width:150" />
+				    				<label fieldLabel="企业性质"                   name="custInfo.commType"           labelStyle="width:150" />
+									<label fieldLabel="企业规模"                   name="custInfo.commScale"          labelStyle="width:150" />
+									<label fieldLabel="企业类型"                   name="custInfo.saleType"          labelStyle="width:150" />
 								</layoutpanel>
 								<layoutpanel columnNum="1">
 									<label fieldLabel="公司中文名称"           name="custInfo.allName"            labelStyle="width:150" width="600" />

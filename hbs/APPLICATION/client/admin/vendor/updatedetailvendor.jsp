@@ -31,8 +31,9 @@
 									<label fieldLabel="重要程度"               name="" id="importantDesc" labelStyle="width:150"  />
 								</layoutpanel>
 								<layoutpanel columnNum="2">	
-				    				<label fieldLabel="性质"                   name=""      id="commType"       labelStyle="width:150" />
-									<label fieldLabel="规模"                   name=""     id="commScale"       labelStyle="width:150" />
+				    				<label fieldLabel="企业性质"                   name=""      id="commType"       labelStyle="width:150" />
+									<label fieldLabel="企业规模"                   name=""     id="commScale"       labelStyle="width:150" />
+									<label fieldLabel="企业类型"                   name=""     id="saleType"       labelStyle="width:150" />
 								</layoutpanel>
 								<layoutpanel columnNum="1">
 									<label fieldLabel="中文名称"               name=""       id="allName"       labelStyle="width:150"   width="600" />

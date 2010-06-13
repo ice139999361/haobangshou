@@ -32,8 +32,9 @@
 									<label fieldLabel="重要程度"               name="vendorInfo.importantDesc"  labelStyle="width:150" paramsValue="IMPORTANT_CODE"  emptyText="请选择" />
 								</layoutpanel>
 								<layoutpanel columnNum="2">	
-				    				<label fieldLabel="性质"                   name="vendorInfo.commType"             labelStyle="width:150" />
-									<label fieldLabel="规模"                   name="vendorInfo.commScale"            labelStyle="width:150" />
+				    				<label fieldLabel="企业性质"                   name="vendorInfo.commType"             labelStyle="width:150" />
+									<label fieldLabel="企业规模"                   name="vendorInfo.commScale"            labelStyle="width:150" />
+									<label fieldLabel="企业类型"                   name="vendorInfo.saleType"            labelStyle="width:150" />
 								</layoutpanel>
 								<layoutpanel columnNum="1">
 									<label fieldLabel="中文名称"               name="vendorInfo.allName"              labelStyle="width:150"   width="600" />
