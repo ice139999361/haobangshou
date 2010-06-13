@@ -16,6 +16,7 @@
     <result property="enAddress" column="EN_ADDRESS"/>
     <result property="commType" column="C_TYPE"/>
     <result property="commScale" column="C_SCALE"/>
+    <result property="saleType" column="SALE_TYPE" />
     <result property="webSite" column="WEBSITE"/>
     <result property="representative" column="REPRESENTATIVE"/>
     <result property="taxCode" column="TAX_CODE"/>
@@ -51,7 +52,8 @@
             ADDRESS, 
             EN_ADDRESS, 
             C_TYPE, 
-            C_SCALE, 
+            C_SCALE,
+            SALE_TYPE, 
             WEBSITE, 
             REPRESENTATIVE, 
             TAX_CODE, 
@@ -83,6 +85,7 @@
             #enAddress#,
             #commType#,
             #commScale#,
+            #saleType#,
             #webSite#,
             #representative#,
             #taxCode#,
@@ -167,6 +170,9 @@
 	<isNotEmpty prepend="," property="commScale">
             C_SCALE = #commScale#
 	</isNotEmpty>
+	<isNotEmpty prepend="," property="saleType">
+			SALE_TYPE = #saleType#
+	</isNotEmpty>
 	<isNotEmpty prepend="," property="webSite">
             WEBSITE = #webSite#
 	</isNotEmpty>
@@ -238,6 +244,7 @@
             EN_ADDRESS, 
             C_TYPE, 
             C_SCALE, 
+            SALE_TYPE,
             WEBSITE, 
             REPRESENTATIVE, 
             TAX_CODE, 
@@ -286,6 +293,7 @@
             EN_ADDRESS, 
             C_TYPE, 
             C_SCALE, 
+            SALE_TYPE,
             WEBSITE, 
             REPRESENTATIVE, 
             TAX_CODE, 
@@ -323,6 +331,7 @@
             EN_ADDRESS, 
             C_TYPE, 
             C_SCALE, 
+            SALE_TYPE,
             WEBSITE, 
             REPRESENTATIVE, 
             TAX_CODE, 

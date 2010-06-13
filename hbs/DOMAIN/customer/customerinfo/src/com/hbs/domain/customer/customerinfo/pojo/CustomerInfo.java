@@ -187,6 +187,10 @@ public class CustomerInfo extends BaseDomain{
     
     private String specMemo;
     /**
+     * 企业类型
+     */
+    private String saleType;
+    /**
      * 联系列表
      */
     private List<ContactInfo> listContactInfo;
@@ -561,6 +565,14 @@ public class CustomerInfo extends BaseDomain{
 	 */
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public String getSaleType() {
+		return saleType;
+	}
+
+	public void setSaleType(String saleType) {
+		this.saleType = saleType;
 	}
 
 	/**

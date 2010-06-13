@@ -178,6 +178,10 @@ public class VendorInfo extends BaseDomain{
     private String specMemo;
     
     /**
+     * 企业类型
+     */
+    private String saleType;
+    /**
      * 联系列表
      */
     private List<ContactInfo> listContactInfo;
@@ -572,6 +576,14 @@ public class VendorInfo extends BaseDomain{
 
 	public void setSpecMemo(String specMemo) {
 		this.specMemo = specMemo;
+	}
+
+	public String getSaleType() {
+		return saleType;
+	}
+
+	public void setSaleType(String saleType) {
+		this.saleType = saleType;
 	}
 
 	@Override

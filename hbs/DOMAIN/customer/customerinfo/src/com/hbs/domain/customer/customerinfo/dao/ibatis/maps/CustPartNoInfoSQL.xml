@@ -277,6 +277,12 @@
 			<isNotEmpty prepend="and" property = "vendorCode">
 				VENDOR_CODE like '%$vendorCode$%'
 			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.operId">
+				<![CDATA[	
+					c_code in (select distinct c_code from t_customer_info where state = '0' and (staff_id=#dynamicFields.operId# or ass_staff_id=#dynamicFields.operId#))
+				]]>
+			</isNotEmpty>
 			<isNotEmpty prepend="order by" property="sort">
                    $sort$
             </isNotEmpty> 
@@ -317,7 +323,13 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "vendorCode">
 				VENDOR_CODE like '%$vendorCode$%'
-			</isNotEmpty>			 
+			</isNotEmpty>	
+			<isNotEmpty prepend="and"
+				property="dynamicFields.operId">
+				<![CDATA[	
+					c_code in (select distinct c_code from t_customer_info where state = '0' and (staff_id=#dynamicFields.operId# or ass_staff_id=#dynamicFields.operId#))
+				]]>
+			</isNotEmpty>		 
 		</dynamic>
 </select>
 

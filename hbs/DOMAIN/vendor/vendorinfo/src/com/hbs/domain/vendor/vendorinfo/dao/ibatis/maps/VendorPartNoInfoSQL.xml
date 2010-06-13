@@ -276,6 +276,12 @@
 			<isNotEmpty prepend="order by" property="sort">
                    $sort$
             </isNotEmpty>
+            <isNotEmpty prepend="and"
+				property="dynamicFields.operId">
+				<![CDATA[	
+					c_code in (select distinct c_code from t_vendor_info where state = '0' and staff_id=#dynamicFields.operId#)
+				]]>
+			</isNotEmpty>
 		</dynamic>
 		<![CDATA[
       		LIMIT #start# ,#end#
@@ -312,6 +318,12 @@
 			
 			<isNotEmpty prepend="and" property = "sampleCode">
 				SAMPLE_CODE = #sampleCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.operId">
+				<![CDATA[	
+					c_code in (select distinct c_code from t_vendor_info where state = '0' and staff_id=#dynamicFields.operId#)
+				]]>
 			</isNotEmpty>
 		</dynamic>
 </select>
