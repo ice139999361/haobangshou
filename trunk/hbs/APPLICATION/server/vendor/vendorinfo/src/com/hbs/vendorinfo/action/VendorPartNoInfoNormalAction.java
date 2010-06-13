@@ -76,7 +76,7 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
 			if(vendorPartNoInfo == null)
 				vendorPartNoInfo = new VendorPartNoInfo();
 			
-			if(!checkCommonFields())
+			if(!checkListFields())
 				return ERROR;
 			
 			setPagination(vendorPartNoInfo);
@@ -126,8 +126,8 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
 			int i = mgr.commitVendorPartNoInfo(vendorPartNoInfo);
 			if(i == -1)
 			{
-				logger.info("已经存在修改待审批数据！");
-				setErrorReason("已经存在修改待审批数据！");
+				logger.info("您提交物料信息正在等待审批！请审批结束后再修改！");
+				setErrorReason("您提交物料信息正在等待审批！请审批结束后再修改！");
 				return ERROR;
 			}else if( i == 0 ){
 				this.setAlertMsg("提交成功！");
@@ -325,8 +325,8 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
 		try{
 			if(vendorPartNoInfo == null)
 			{
-				logger.info("参数错误！");
-				setErrorReason("参数错误！");
+				logger.info("参数错误！请输入完整的供应商物料信息！");
+				setErrorReason("参数错误！请输入完整的供应商物料信息！");
 				return false;
 			}
 			
@@ -366,7 +366,53 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
 			return false;
 		}
 	}
-	
+	protected boolean checkListFields()
+	{
+		try{
+			if(vendorPartNoInfo == null)
+			{
+				vendorPartNoInfo = new VendorPartNoInfo();
+				String id = getLoginStaff().getStaffId().toString();
+				vendorPartNoInfo.setField("operId", id);
+				return true;
+			}else{
+				String commCode = vendorPartNoInfo.getCommCode();
+				String shortName = vendorPartNoInfo.getShortName();
+				if(StringUtils.isEmpty(commCode) && StringUtils.isEmpty(shortName))
+				{
+					String id = getLoginStaff().getStaffId().toString();
+					vendorPartNoInfo.setField("operId", id);
+					return true;
+				}else{
+					VendorInfoMgr vendormgr = (VendorInfoMgr)getBean(VendorInfoNormalAction.vendorInfoMgrName);
+					VendorInfo vendorInfo = new VendorInfo();
+					vendorInfo.setCommCode(commCode);
+					vendorInfo.setShortName(shortName);
+					vendorInfo.setState("0");
+					vendorInfo = vendormgr.getVendorInfo(vendorInfo, false);
+					if(vendorInfo == null) {
+						logger.info("您填写的供应商编码不存在，请先录入供应商信息！");
+						setErrorReason("您填写的供应商编码不存在，请先录入供应商信息！");
+						return false;
+					}
+					String id = getLoginStaff().getStaffId().toString();
+					
+					if( !id.equals(vendorInfo.getStaffId()))
+					{
+						logger.info("您查询的供应商不属于您，您没有权限访问！");
+						setErrorReason("您查询的供应商不属于您，您没有权限访问！");
+						return false;
+					}
+				}
+			}
+			
+			return true;
+		}catch(Exception e){
+			logger.error("catch Exception in checkListFields", e);
+			setErrorReason("内部错误");
+			return false;
+		}
+	}
 	protected void fixCommCode()
 	{
 //		try {
