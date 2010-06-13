@@ -38,6 +38,7 @@ HBSConvertHelper.init(function() {
 		Ext.getCmp("importantDesc").setValue(action.data.vendorInfo.importantDesc);
 		Ext.getCmp("commType").setValue(action.data.vendorInfo.commType);
 		Ext.getCmp("commScale").setValue(action.data.vendorInfo.commScale);
+		Ext.getCmp("saleType").setValue(action.data.vendorInfo.saleType);
 		Ext.getCmp("allName").setValue(action.data.vendorInfo.allName);
 		Ext.getCmp("address").setValue(action.data.vendorInfo.address);
 		Ext.getCmp("enName").setValue(action.data.vendorInfo.enName);
@@ -61,6 +62,7 @@ HBSConvertHelper.init(function() {
 		Ext.getCmp("importantDesc").setValue(action.data.vendorInfo.importantDesc);
 		Ext.getCmp("commType").setValue(action.data.vendorInfo.commType);
 		Ext.getCmp("commScale").setValue(action.data.vendorInfo.commScale);
+		Ext.getCmp("saleType").setValue(action.data.vendorInfo.saleType);
 		Ext.getCmp("allName").setValue(action.data.vendorInfo.allName);
 		Ext.getCmp("address").setValue(action.data.vendorInfo.address);
 		Ext.getCmp("enName").setValue(action.data.vendorInfo.enName);

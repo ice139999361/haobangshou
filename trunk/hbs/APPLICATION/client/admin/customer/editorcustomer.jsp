@@ -36,8 +36,12 @@
 								</layoutpanel>
 
 								<layoutpanel columnNum="2">	
-				    				<dictcombo fieldLabel="性质"                   hiddenName="custInfo.commType"             labelStyle="width:150" paramsValue="COMM_TYPE"     emptyText="请选择" />
+				    				<dictcombo fieldLabel="企业性质"                   hiddenName="custInfo.commType"             labelStyle="width:150" paramsValue="COMM_TYPE"     emptyText="请选择" allowBlank="false"/>
+									<!--
 									<textfield fieldLabel="规模"                   name="custInfo.commScale"            labelStyle="width:150" />
+									-->
+									<dictcombo fieldLabel="企业规模"                   hiddenName="custInfo.commScale"            labelStyle="width:150" paramsValue="SCALE_TYPE"     emptyText="请选择" allowBlank="false"/>
+									<dictcombo fieldLabel="企业类型"                   hiddenName="custInfo.saleType"            labelStyle="width:150" paramsValue="SALE_TYPE"     emptyText="请选择" allowBlank="false"/>
 								</layoutpanel>
 								
 								<layoutpanel columnNum="1">
