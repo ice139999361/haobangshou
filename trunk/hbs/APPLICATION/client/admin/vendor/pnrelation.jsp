@@ -50,12 +50,14 @@
 				    		
 				    		<listpanel frame="true" title="关联信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<textfield   fieldLabel="单价"               name="vendorPartNoInfo.price"                   labelStyle="width:150" />
+				    				<textfield   fieldLabel="单价"               name="vendorPartNoInfo.price"                   labelStyle="width:150" id="idPrice"/>
 				    				<textfield   fieldLabel="最小包装" 			     name="vendorPartNoInfo.minPackage"                        labelStyle="width:150" value="1" />
 				    				<textfield   fieldLabel="样品编码" 					 name="vendorPartNoInfo.sampleCode"              labelStyle="width:150" />
-				    				
+				    				<!--
 				    				<numberfield fieldLabel="税率"               name="vendorPartNoInfo.priceTax"                labelStyle="width:150" value="0.00" minValue="0.00" maxValue="1"/>
-				    				<textfield   fieldLabel="最小订单量" 				 name="vendorPartNoInfo.minAmount"               labelStyle="width:150" value="0" />
+									-->
+				    				<textfield   fieldLabel="最小订单量" 				 name="vendorPartNoInfo.minAmount"               labelStyle="width:150" value="0.00" id="idPriceTax" readOnly="true" minValue="0.00" maxValue="1"/>
+									<label fieldLabel="税率"               name="vendorPartNoInfo.priceTax"                labelStyle="width:150" value="0.00"  id="idPriceTax"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
 				    				<label style="color:red" text="注意：单价和税率的关系，税率为0.00，单价为不含税，税率不为0.00，单价为含税" />

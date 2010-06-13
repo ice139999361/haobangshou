@@ -16,14 +16,14 @@
 			    <panel frame="true" autoScroll="true">
 			    	<items>
 			    	<!-- service ext ui.  begin. -->
-
+			    	
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="客户基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-								    <autocomplete fieldLabel="客户简称" url="/customerInfo/customerInfo!list.action?custInfo.state=0"  displayField="shortName"  valueField="shortName" queryParam="custInfo.shortName"     name="custPartNoInfo.shortName"       labelStyle="width:150" allowBlank="false" id="acShortName" />
-				    				<autocomplete fieldLabel="客户编码" url="/customerInfo/customerInfo!list.action?custInfo.state=0"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"     name="custPartNoInfo.commCode"       labelStyle="width:150" allowBlank="false" id="acCommCode" />
+								    <autocomplete fieldLabel="客户简称" url="/customerInfo/customerInfoMgr!listDict.action?custInfo.state=0"  displayField="shortName"  valueField="shortName" queryParam="custInfo.shortName"     name="custPartNoInfo.shortName"       labelStyle="width:150" allowBlank="false" id="acShortName" />
+				    				<autocomplete fieldLabel="客户编码" url="/customerInfo/customerInfoMgr!listDict.action?custInfo.state=0"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"     name="custPartNoInfo.commCode"       labelStyle="width:150" allowBlank="false" id="acCommCode" />
 				    			</layoutpanel>
-
+				    			
 				    			<layoutpanel columnNum="1">
 								    <!--
 				    				<label fieldLabel="客户简称"               name="custInfo.shortName"   id="acShortName"    labelStyle="width:150" allowBlank="false"/>
@@ -36,25 +36,26 @@
 				    				<hidden name="custPartNoInfo.pnDesc" id="acPnDescHidden" />
 								</layoutpanel>
 				    		</listpanel>
-
+				    		
 				    		<listpanel frame="true" title="P/N对照信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
 				    				<textfield fieldLabel="客户P/N" 	name="custPartNoInfo.custPartNo"     id="acCustPartNo"         labelStyle="width:150" allowBlank="false" />
 				    				<autocomplete fieldLabel="本公司P/N" url="/partNo/partNo!list.action" displayField="partNo" valueField="partNo" queryParam="partNo.partNo"	name="custPartNoInfo.partNo"                  labelStyle="width:150" allowBlank="false" id="acPartNo" />
 				    			</layoutpanel>
-
+				    			
 				    			<layoutpanel columnNum="1">
 				    				<label fieldLabel="描述"  id="acPnDesc"   labelStyle="width:150" allowBlank="false"/>
 				    			</layoutpanel>
 				    		</listpanel>
-
+				    		
 				    		<listpanel frame="true" title="关联信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<textfield fieldLabel="单价"               name="custPartNoInfo.price"                   labelStyle="width:150" />
+				    				<textfield fieldLabel="单价"               name="custPartNoInfo.price"                   labelStyle="width:150"  id="idPrice"/>
 				    				<!--textfield fieldLabel="最小包装" 			     name=""                        labelStyle="width:150" value="1" /-->
 				    				<textfield fieldLabel="样品编码" 					 name="custPartNoInfo.sampleCode"              labelStyle="width:150" />
-
-				    				<textfield fieldLabel="税率"               name="custPartNoInfo.priceTax"                labelStyle="width:150" />
+				    				<!--
+				    				<textfield fieldLabel="税率"               name="custPartNoInfo.priceTax"                labelStyle="width:150" />				    	-->	
+									<textfield fieldLabel="税率"               name="custPartNoInfo.priceTax"                labelStyle="width:150" value="0.00" id="idPriceTax" readOnly="true" minValue="0.00" maxValue="1"/>
 				    				<textfield fieldLabel="最小订单量" 				 name="custPartNoInfo.minAmount"               labelStyle="width:150" value="0" />
 									<autocomplete fieldLabel="供应商编码"             name="custPartNoInfo.vendorCode"           labelStyle="width:150"  url="/vendorInfo/vendorInfo!listDict.action"  displayField="commCode"  valueField="commCode" queryParam="vendorInfo.commCode"  allowBlank="false"/>
 				    			</layoutpanel>
@@ -63,14 +64,14 @@
 				    			</layoutpanel>
 				    		</listpanel>
 			    		</items></form>
-
+			    		
 			    		<panel buttonAlign="center">
 			    			<buttons>
 			    				<button text="提交审批" id="submitBtn" />
 			    				<button text="取消" id="backBtn"   />
 			    			</buttons>
 			    		</panel>
-
+			    		
 			    	<!-- service ext ui.  end. -->
 			    	</items>
 			    </panel>
