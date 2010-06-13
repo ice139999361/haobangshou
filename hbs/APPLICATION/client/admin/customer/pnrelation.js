@@ -32,6 +32,8 @@ HBSConvertHelper.init(function() {
 			return;
 		Ext.getCmp("acShortName").setValue(action.data.custInfo.shortName);
 		Ext.getCmp("acCurrencyDesc").setValue(action.data.custInfo.currencyDesc);
+		Ext.getCmp("idPriceTax").setValue(action.data.custInfo.taxRate);
+		document.getElementById("idPrice").parentNode.previousSibling.innerHTML ="单价：" + action.data.custInfo.currencyDesc; 
 	});
 
 	Ext.getCmp("acShortName").setProcessConfig("/customerInfo/customerInfoMgr!getInfo.action?custInfo.state=0", "custInfo.shortName", null, function(action){
@@ -39,6 +41,8 @@ HBSConvertHelper.init(function() {
 			return;
 		Ext.getCmp("acCommCode").setValue(action.data.custInfo.commCode);
 		Ext.getCmp("acCurrencyDesc").setValue(action.data.custInfo.currencyDesc);
+		Ext.getCmp("idPriceTax").setValue(action.data.custInfo.taxRate);
+		document.getElementById("idPrice").parentNode.previousSibling.innerHTML ="单价：" + action.data.custInfo.currencyDesc; 
 	});
 
 	// 根据本公司物料信息填写项目
