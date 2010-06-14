@@ -72,7 +72,7 @@
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">
-				    				<textarea fieldLabel="客户备注"               name="custInfo.commDesc"              labelStyle="width:150" width="600" height="80" />
+				    				<textarea fieldLabel="客户备注/企业经营产品"               name="custInfo.commDesc"              labelStyle="width:150" width="600" height="80" />
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">

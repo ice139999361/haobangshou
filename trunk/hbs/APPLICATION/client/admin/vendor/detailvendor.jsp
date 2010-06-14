@@ -53,7 +53,7 @@
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">
-				    				<label fieldLabel="备注"                    name="vendorInfo.commDesc"             labelStyle="width:150"/>
+				    				<label fieldLabel="企业备注/企业经营产品"                    name="vendorInfo.commDesc"             labelStyle="width:150"/>
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">
