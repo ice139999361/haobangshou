@@ -41,7 +41,15 @@ HBSConvertHelper.init(function() {
 				msg += " 订单编号：" + action.result.data.poNo;
 			}
 			// 弹出提示框给用户
-			Ext.Msg.alert("提示", msg, submitSuccessPro);
+			var o = new Object();
+			if(url.indexOf("!saveTemp") < 0){
+				o.commCode = Ext.getCmp("acCommCode").getValue();
+				if(action && action.result && action.result.data && action.result.data.poNo)
+					o.poNo = action.result.data.poNo;
+				else
+					o.poNo = urlPs.poNo;
+			}
+			Ext.Msg.alert("提示", msg, checkPrint, o);
 		});
 	}
 
@@ -254,6 +262,24 @@ HBSConvertHelper.init(function() {
 	});
 
 	// -------------------------------------- 页面操作逻辑处理
+	function checkPrint(){
+		//alert("checkPrint this.poNo=" + this.poNo + " this.commCode=" + this.commCode);
+		if(!(this.commCode && this.poNo)){
+			submitSuccessPro();
+			return;
+		}
+		Ext.Msg.confirm("是否打印", "是否打印供应商订单？", function(choice){
+			//alert("choice=" + choice + " Ext.Msg.YES=" + Ext.Msg.YES);
+			if(choice != "yes"){
+				submitSuccessPro();
+				return;
+			}
+			var url = ["/print/cgdd.jsp?vendorOrder.commCode=", this.commCode, "&vendorOrder.poNo=", this.poNo].join("");
+			// TODO: 打开新窗口和关闭当前窗口冲突了。打开新窗口在前的话，新窗口就被关闭了；关闭窗口在前的话，打开新窗口的语句就不执行了。
+			submitSuccessPro();
+			HBSConvertHelper.openNewWin(url);
+		}, this);
+	}
 
 	// 提交操作成功后要做的事情
 	var submitSuccessPro;
@@ -262,6 +288,8 @@ HBSConvertHelper.init(function() {
 	function addInitFun() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("下供应商订单");
+
+		Ext.getCmp("acCommCode").readOnly = false;
 
 		// 提交完成后的操作
 		submitSuccessPro = function() {
@@ -276,6 +304,10 @@ HBSConvertHelper.init(function() {
 		HBSConvertHelper.setDocumentTitle("供应商订单修改");
 		// 隐藏不需要的控件
 		if(urlPs.state != "01") ExtConvertHelper.hideItems("saveBtn");
+
+		//TODO: readOnly不管用，不能禁止用户输入。disable又变成灰色的，不协调。
+		Ext.getCmp("acCommCode").readOnly = true;
+		//Ext.getCmp("acCommCode").disable();
 
 		// 组装需要的参数
 		var params = ["vendorOrder.commCode=", urlPs.commCode, "&vendorOrder.poNo=", urlPs.poNo, "&vendorOrder.poNoType=", urlPs.poNoType].join("");

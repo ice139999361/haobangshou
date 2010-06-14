@@ -99,11 +99,15 @@
 ]]>	
 </update>
 
+<!-- 为了在由临时数据提交时能够更新orderTime，增加了orderTime -->
 <update id="VendorOrder_updateVendorOrderByState" parameterClass="vendorOrder">
 	<![CDATA[
 	    UPDATE T_VENDOR_ORDER
-	    SET STATE = #state#     
+	    SET STATE = #state#
 	]]>	
+	    <isNotEmpty prepend="," property="orderTime">
+            ORDER_TIME = #orderTime#
+		</isNotEmpty>     
 	<dynamic prepend="WHERE">					
 					<isNotEmpty prepend="and" property = "commCode">
 						C_CODE = #commCode#

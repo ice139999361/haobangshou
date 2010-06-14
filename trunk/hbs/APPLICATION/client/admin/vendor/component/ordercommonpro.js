@@ -56,7 +56,7 @@ var ordergridFun = function() {
 	cgh.appendColumn({header: "数量<font color=red>*</font>"	      , dataIndex: "amount", xtype: "numberfield", renderer: "amountRenderer"});
 	//cgh.appendColumn({header: "数量"	      , dataIndex: "amount", xtype: "numberfield", renderer: "amountRenderer"});
 	cgh.appendColumn({header: "金额"        , dataIndex: "money"});
-	cgh.appendColumn({header: "交货日期"    , dataIndex: "orgDeliveryDate", xtype: "datefield", format: "Y-m-d"});
+	cgh.appendColumn({header: "交货日期"    , dataIndex: "orgDeliveryDate", xtype: "datefield", format: "Y-m-d", renderer: FormatUtil.dateRenderer});
 	cgh.appendColumn({header: "追货提醒/天"        , dataIndex: "hastenReminder", xtype: "textfield"});
 	cgh.appendColumn({header: "备注"	    	, dataIndex: "commDesc", xtype: "textfield"});
 	cgh.appendColumn({header: "特殊备注"		, dataIndex: "specDesc", xtype: "textfield"});
