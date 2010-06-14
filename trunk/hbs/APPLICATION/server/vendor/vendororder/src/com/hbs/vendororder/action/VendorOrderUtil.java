@@ -62,34 +62,34 @@ public class VendorOrderUtil {
 		
 		List<FieldErr> errs = new Vector<FieldErr>();
 		if(StringUtils.isEmpty(vendorOrder.getCommCode()))
-			errs.add(new FieldErr("CommCode", "CommCode没有填写"));
+			errs.add(new FieldErr("CommCode", "供应商编码没有填写"));
 		if(StringUtils.isEmpty(vendorOrder.getConName()))
-			errs.add(new FieldErr("ConName", "ConName没有填写"));
+			errs.add(new FieldErr("ConName", "联系人没有填写"));
 		if(StringUtils.isEmpty(vendorOrder.getConTel()))
-			errs.add(new FieldErr("ConTel", "ConTel没有填写"));
+			errs.add(new FieldErr("ConTel", "联系电话没有填写"));
 		if(StringUtils.isEmpty(vendorOrder.getReceiveName()))
-			errs.add(new FieldErr("ReceiveName", "ReceiveName没有填写"));
+			errs.add(new FieldErr("ReceiveName", "收货人没有填写"));
 		if(StringUtils.isEmpty(vendorOrder.getReceiveAddress()))
-			errs.add(new FieldErr("ReceiveAddress", "ReceiveAddress没有填写"));
+			errs.add(new FieldErr("ReceiveAddress", "收货地址没有填写"));
 		if(StringUtils.isEmpty(vendorOrder.getSettlementType()))
-			errs.add(new FieldErr("SettlementType", "SettlementType没有填写"));
+			errs.add(new FieldErr("SettlementType", "结算方式没有填写"));
 		if(StringUtils.isEmpty(vendorOrder.getCompanyBranch()))
-			errs.add(new FieldErr("CompanyBranch", "CompanyBranch没有填写"));
+			errs.add(new FieldErr("CompanyBranch", "对应分公司没有填写"));
 		if(StringUtils.isEmpty(vendorOrder.getIsShowPrice()))
-			errs.add(new FieldErr("IsShowPrice", "IsShowPrice没有填写"));
+			errs.add(new FieldErr("IsShowPrice", "是否显示价格没有填写"));
 		
 		if(vendorOrder.getVendorOrderDetailList() != null && vendorOrder.getVendorOrderDetailList().size() > 0)
 		for(VendorOrderDetail info : vendorOrder.getVendorOrderDetailList()) {
 			if(info == null)
 				continue;
 			if(StringUtils.isEmpty(info.getCpartNo()))
-				errs.add(new FieldErr("CpartNo", "CpartNo没有填写"));
+				errs.add(new FieldErr("CpartNo", "供应商型号没有填写"));
 			if(StringUtils.isEmpty(info.getPartNo()))
-				errs.add(new FieldErr("PartNo", "PartNo没有填写"));
+				errs.add(new FieldErr("PartNo", "GLE型号没有填写"));
 			if(info.getAmount() == null)
-				errs.add(new FieldErr("Amount", "Amount没有填写"));
+				errs.add(new FieldErr("Amount", "数量没有填写"));
 			if(info.getMoney() == null)
-				errs.add(new FieldErr("Money", "Money没有填写"));
+				errs.add(new FieldErr("Money", "金额没有填写"));
 		}
 		
 		// TODO:VendorOrderUtil.checkInputFields

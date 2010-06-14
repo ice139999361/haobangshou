@@ -162,7 +162,7 @@ public class CustPartNoInfoUtil {
 				//DONE：用户信息需要处理	
 				Staff u = StaffUtil.getStaffById(s);
 				if(u == null)
-					list.add(new FieldErr("StaffId", "StaffId错误"));
+					list.add(new FieldErr("StaffId", "操作人员错误"));
 				else
 					custPartNoInfo.setStaffName(u.getStaffName());
 				

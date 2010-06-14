@@ -86,28 +86,28 @@ public class VendorPartNoInfoUtil {
 		s = vendorPartNoInfo.getSampleCode();
 		if(StringUtils.isEmpty(s))
 		{
-			list.add(new FieldErr("SampleCode","SampleCode没有填写"));
+			list.add(new FieldErr("SampleCode","样品编码没有填写"));
 		}
 		
 		s = vendorPartNoInfo.getCommCode();
 		if(StringUtils.isEmpty(s))
 		{
-			list.add(new FieldErr("CommCode","CommCode没有填写"));
+			list.add(new FieldErr("CommCode","供应商编码没有填写"));
 		}
 		s = vendorPartNoInfo.getCustPartNo();
 		if(StringUtils.isEmpty(s))
 		{
-			list.add(new FieldErr("CustPartNo","CustPartNo没有填写"));
+			list.add(new FieldErr("CustPartNo","供应商P/N没有填写"));
 		}
 		BigDecimal num = vendorPartNoInfo.getPrice();
 		if(num.abs().movePointRight(3).compareTo(BigDecimal.ONE) <= 0)
 		{
-			list.add(new FieldErr("Price","Price没有填写"));
+			list.add(new FieldErr("Price","单价没有填写"));
 		}
 		s = vendorPartNoInfo.getPartNo();
 		if(StringUtils.isEmpty(s))
 		{
-			list.add(new FieldErr("PartNo","PartNo没有填写"));
+			list.add(new FieldErr("PartNo","本公司P/N没有填写"));
 		}
 		else
 		{
@@ -116,7 +116,7 @@ public class VendorPartNoInfoUtil {
 				CompanyPartNo pnInfo = mgr.getCompanyPartNo(s);
 				if(pnInfo == null)
 				{
-					list.add(new FieldErr("PartNo", "PartNo错误"));
+					list.add(new FieldErr("PartNo", "本公司P/N错误"));
 				}
 				else
 				{
@@ -125,13 +125,13 @@ public class VendorPartNoInfoUtil {
 				}
 			} catch (Exception e) {
 				logger.error("检查PartNo出错", e);
-				list.add(new FieldErr("PartNo", "PartNo错误"));
+				list.add(new FieldErr("PartNo", "本公司P/N错误"));
 			}
 		}
 		s = vendorPartNoInfo.getPnDesc();
 		if(StringUtils.isEmpty(s))
 		{
-			list.add(new FieldErr("PnDesc","PnDesc没有填写"));
+			list.add(new FieldErr("PnDesc","描述没有填写"));
 		}
 		
 		List<FieldErr> list2 = checkSelectFields(vendorPartNoInfo);
@@ -161,7 +161,7 @@ public class VendorPartNoInfoUtil {
 				//DONE：用户信息需要处理	
 				Staff u = StaffUtil.getStaffById(s);
 				if(u == null)
-					list.add(new FieldErr("StaffId", "StaffId错误"));
+					list.add(new FieldErr("StaffId", "操作人员错误"));
 				else
 					vendorPartNoInfo.setStaffName(u.getStaffName());
 				
