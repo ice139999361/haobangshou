@@ -131,13 +131,19 @@ public class WareHouseRecDetailMgr {
 		vOrderDetail.setDeliveryAmount(detail.getAmount());
 		//设置供应商采购单中的特殊备注
 		vOrderDetail.setSpecDesc(detail.getSpecDesc());
+		vOrderDetail.setOperSeqId(Integer.parseInt(detail.getOrderSeqId()));
 		logger.debug("调用供应商采购单明细管理类，更新已到货数量！设置的参数为：" + vOrderDetail.toString());
 		VendorOrderDetailMgr vOrderDetailMgr =(VendorOrderDetailMgr)BeanLocator.getInstance().getBean(WareHouseConstants.VENDOR_ORDER_DETAILMGR);
 		ret = vOrderDetailMgr.updateOrderDetailByAmount(vOrderDetail);
 		if(ret ==0 ){
 			logger.debug("供应商采购单明细已到货数量更新成功！");
 			logger.debug("查询采购单，判断采购的类型！");
-			VendorOrderDetail existOrderDetail = vOrderDetailMgr.getVendorOrderDetailByBizKey(vOrderDetail);
+			VendorOrderDetail existOrderDetail;
+			if(vOrderDetail.getOperSeqId() == null)
+				existOrderDetail = vOrderDetailMgr.getVendorOrderDetailByBizKey(vOrderDetail);
+			else
+				existOrderDetail = vOrderDetailMgr.getVendorOrderDetailById(vOrderDetail.getOperSeqId().toString());
+			
 			String vPonoType = existOrderDetail.getPoNoType();
 			
 			String custCode = existOrderDetail.getCustCcode();
@@ -186,7 +192,8 @@ public class WareHouseRecDetailMgr {
 		//设置客户编码
 		orderDetail.setCommCode(custCode);
 		//设置客户订单的pono
-		orderDetail.setRltOrderPoNo(custPoNo);
+		//orderDetail.setRltOrderPoNo(custPoNo);
+		orderDetail.setPoNo(custPoNo);
 		//设置物料编号
 		orderDetail.setPartNo(detail.getPartNo());
 		//设置特殊备注

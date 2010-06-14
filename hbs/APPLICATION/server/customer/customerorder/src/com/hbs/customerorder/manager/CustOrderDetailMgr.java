@@ -410,6 +410,29 @@ public class CustOrderDetailMgr {
 				orderDetail.setCommLockAmount(ocommLock + icommLock);
 				orderDetail.setPoNo(existDetail.getPoNo());
 				ret = updateCustDetailAmount(orderDetail);
+				/*
+				if(ret == 0){
+					// 尝试修改客户订单本身的状态
+					// 客户订单本身的状态还是21待采购处理，不能修改
+					CustomerOrder co = new CustomerOrder();
+					co.setCommCode(orderDetail.getCommCode());
+					co.setPoNo(orderDetail.getPoNo());
+					CustOrderMgr coMgr = (CustOrderMgr)BeanLocator.getInstance().getBean(CustOrderConstants.CUSTORDERMGR);
+					co = coMgr.findCustomerOrderByBizKey(co, true);
+					if(co.getOrderDetailList() != null){
+						boolean isOk = true;
+						String[] states;
+						if(isavelockAmount == iAmount){
+							states = {""};
+						}else{
+							states = {};
+						}
+						for(CustOrderDetail cod1 : co.getOrderDetailList()){
+							cod1.getState();
+						}
+					}
+				}
+				*/
 			}
 		}else{//客户订单明细不存在 ，返回-1
 			logger.debug("根据输入的参数无法找到对应的客户订单明细，无法执行锁定操作！");
