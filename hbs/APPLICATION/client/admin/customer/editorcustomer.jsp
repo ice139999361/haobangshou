@@ -31,8 +31,8 @@
 								</layoutpanel>
 
 								<layoutpanel columnNum="2">	
-				    				<dictcombo fieldLabel="客户信用度"             hiddenName="custInfo.creditRate"     labelStyle="width:150" paramsValue="CREDIT_RATE"     emptyText="请选择" />
-									<dictcombo fieldLabel="客户的重要程度"         hiddenName="custInfo.importantCode"  labelStyle="width:150" paramsValue="IMPORTANT_CODE"  emptyText="请选择" />
+				    				<dictcombo fieldLabel="客户信用度"             hiddenName="custInfo.creditRate"     labelStyle="width:150" paramsValue="CREDIT_RATE"     emptyText="请选择" allowBlank="false"/>
+									<dictcombo fieldLabel="客户的重要程度"         hiddenName="custInfo.importantCode"  labelStyle="width:150" paramsValue="IMPORTANT_CODE"  emptyText="请选择" allowBlank="false"/>
 								</layoutpanel>
 
 								<layoutpanel columnNum="2">	
@@ -58,9 +58,9 @@
 				    					
 				    				
 				    				
-				    				<dictcombo fieldLabel="对应的业务部助理"       hiddenName="custInfo.assStaffId"     labelStyle="width:150"  url="/auth/user!listByRoleId.action?roleId=7" root="data.list"  displayField="staffName"  valueField="staffId" />
+				    				<dictcombo fieldLabel="对应的业务部助理"       hiddenName="custInfo.assStaffId"     labelStyle="width:150"  url="/auth/user!listByRoleId.action?roleId=7" root="data.list"  displayField="staffName"  valueField="staffId" allowBlank="false"/>
 				    				<!--<autocomplete fieldLabel="供应商编码"             name="custInfo.vendorCode"           labelStyle="width:150"  url="/vendorInfo/vendorInfo!listDict.action"  displayField="commCode"  valueField="commCode" queryParam="vendorInfo.commCode"/> -->
-				    				<dictcombo fieldLabel="对应的分公司或分支机构" hiddenName="custInfo.companyBranch"  labelStyle="width:150" paramsValue="COMPANY_BRANCH"  emptyText="请选择" />			
+				    				<dictcombo fieldLabel="对应的分公司或分支机构" hiddenName="custInfo.companyBranch"  labelStyle="width:150" paramsValue="COMPANY_BRANCH"  emptyText="请选择" allowBlank="false"/>			
 				    				
 				    				
 				    					
@@ -68,7 +68,7 @@
 				    				
 				    				
 				    				
-				    				<dictcombo fieldLabel="发货单是否显示单价"     hiddenName="custInfo.isShowPrice"    labelStyle="width:150" paramsValue="IS_SHOW_PRICE"   emptyText="请选择" />
+				    				<dictcombo fieldLabel="发货单是否显示单价"     hiddenName="custInfo.isShowPrice"    labelStyle="width:150" paramsValue="IS_SHOW_PRICE"   emptyText="请选择" allowBlank="false"/>
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">
@@ -83,30 +83,30 @@
 				    		
 				    		<listpanel frame="true" title="客户结算信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<dictcombo fieldLabel="客户结算类型"           hiddenName="custInfo.settlementType"            labelStyle="width:150" paramsValue="SETTLEMENT_TYPE" emptyText="请选择" id="vSettlementType" />
+				    				<dictcombo fieldLabel="客户结算类型"           hiddenName="custInfo.settlementType"            labelStyle="width:150" paramsValue="SETTLEMENT_TYPE" emptyText="请选择" id="vSettlementType" allowBlank="false"/>
 				    				<!--  账期类型固定为月结
 									<dictcombo fieldLabel="账期类型" 			         hiddenName="custInfo.accountPreiod.accountType" labelStyle="width:150" paramsValue="ACCOUNT_TYPE" emptyText="请选择" id="vaAccountType"/>
 									-->
-				    				<datefield fieldLabel="账期的起始日" 					 name="custInfo.accountPreiod.periodStart"       labelStyle="width:150" id="vaPeriodStart" emptyText="格式：YYYYMMDD" format="Ymd" />
+				    				<datefield fieldLabel="账期的起始日" 					 name="custInfo.accountPreiod.periodStart"       labelStyle="width:150" id="vaPeriodStart" emptyText="格式：YYYYMMDD" format="Ymd" allowBlank="false"/>
 				    				<!--改用下拉列表框选择
 									<numberfield fieldLabel="账期的结算日" 					 name="custInfo.accountPreiod.settlementDay"     labelStyle="width:150" id="vaSettlementDay"   emptyText="账期结束的第几日"   relate="vaAccounDay|;&gt;|;必须大于账期的对账日" vtype="commCheck"/>
 									-->
-				    				<dictcombo fieldLabel="结算方式" 					 hiddenName="custInfo.accountPreiod.settlementDay"     labelStyle="width:150" paramsValue="SETTLEMENT_DAY" id="vaSettlementDay"   />
+				    				<dictcombo fieldLabel="结算方式" 					 hiddenName="custInfo.accountPreiod.settlementDay"     labelStyle="width:150" paramsValue="SETTLEMENT_DAY" id="vaSettlementDay"   allowBlank="false"/>
 									<!--
 									<numberfield fieldLabel="提醒设置(单位:天)" 							 name="custInfo.accountPreiod.reminderDay"       labelStyle="width:150" id="vaReminderDay"     emptyText="提前几天提醒对账/结算" />
 				    				<numberfield fieldLabel="提醒市场人员催款" 			 name="custInfo.prePaidInfo.reminderDay"         labelStyle="width:150" id="vpReminderDay"  emptyText="货到付款催款提醒"/>
 									-->
 				    				
-				    				<dictcombo fieldLabel="客户结算币种"           hiddenName="custInfo.currency"                  labelStyle="width:150" paramsValue="CURRENCY"        emptyText="请选择" />
+				    				<dictcombo fieldLabel="客户结算币种"           hiddenName="custInfo.currency"                  labelStyle="width:150" paramsValue="CURRENCY"        emptyText="请选择" allowBlank="false"/>
 				    				<!--账期设置固定为1个月
 									<textfield fieldLabel="客户的账期设置" 				 name="custInfo.accountPreiod.accountPeriod"     labelStyle="width:150" id="vaAccountPeriod" emptyText="1代表30天结2为60天"/>
 									采用缺省值1
 				    				<textfield fieldLabel="账期的对账日" 					 name="custInfo.accountPreiod.accounDay"         labelStyle="width:150" id="vaAccounDay"       emptyText="账期结束后的第几日"/>
 									-->
-				    				<textfield fieldLabel="账期最大交易金额(元)" name="custInfo.accountPreiod.maxMoney"          labelStyle="width:150" id="vaMaxMoney" />
-				    				<textfield fieldLabel="预付百分比" 						 name="custInfo.prePaidInfo.prePaid"             labelStyle="width:150" id="vpPrePaid" emptyText="如:预付17%,请输入17"/>
-				    				<textfield fieldLabel="合同费"                 name="custInfo.contactFee"                      labelStyle="width:150" emptyText="如:合同费2%,请输入0.02"/>
-				    				<textfield fieldLabel="交易税率"               name="custInfo.taxRate"                         labelStyle="width:150" emptyText="如:税率17%,请输入0.17"/>
+				    				<numberfield fieldLabel="账期最大交易金额(元)" name="custInfo.accountPreiod.maxMoney"          labelStyle="width:150" id="vaMaxMoney" allowBlank="false"/>
+				    				<numberfield fieldLabel="预付百分比" 						 name="custInfo.prePaidInfo.prePaid"             labelStyle="width:150" id="vpPrePaid" emptyText="如:预付17%,请输入17" allowBlank="false"/>
+				    				<numberfield fieldLabel="合同费"                 name="custInfo.contactFee"                      labelStyle="width:150" emptyText="如:合同费2%,请输入0.02" allowBlank="false"/>
+				    				<numberfield fieldLabel="交易税率"               name="custInfo.taxRate"                         labelStyle="width:150" emptyText="如:税率17%,请输入0.17" allowBlank="false"/>
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">
