@@ -150,7 +150,20 @@ public class WarehouseRecDetail extends BaseDomain{
      */
     private String specDesc;
     
-   
+   /**
+    * 入库单明细对应的供应商采购单明细的seqid
+    */
+    private String orderSeqId;
+    
+    
+
+	public String getOrderSeqId() {
+	return orderSeqId;
+}
+
+public void setOrderSeqId(String orderSeqId) {
+	this.orderSeqId = orderSeqId;
+}
 
 	public String getSpecDesc() {
 		return specDesc;
