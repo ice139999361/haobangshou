@@ -33,6 +33,7 @@
     <result property="activeState" column="ACTIVE_STATE"/>
     <result property="financePeriod" column="FINANCE_PERIOD"/>
     <result property="specDesc" column="SPEC_DESC"/>
+    <result property="orderSeqId" column="ORDER_SEQID"/>
 </resultMap>
 
 
@@ -66,7 +67,8 @@
 			STATE,
 			ACTIVE_STATE,
 			FINANCE_PERIOD,
-			SPEC_DESC
+			SPEC_DESC,
+			ORDER_SEQID
         )
     VALUES (            
             #recPoNo#,
@@ -95,7 +97,8 @@
 			#state#,
 			#activeState#,
 			#financePeriod#,
-			#specDesc#
+			#specDesc#,
+			#orderSeqId#
     )
 ]]>
 <selectKey resultClass="Integer" keyProperty="recDetailSeqId">
@@ -286,12 +289,16 @@
 			STATE,
 			ACTIVE_STATE,
 			FINANCE_PERIOD,
-			SPEC_DESC
+			SPEC_DESC,
+			ORDER_SEQID
     FROM T_WAREHOUSE_RECEIVE_DETAIL
 ]]>
 	<dynamic prepend="WHERE">
 			<isNotEmpty prepend="and" property = "recDetailSeqId">
 				REC_DETAIL_SEQID = #recDetailSeqId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "orderSeqId">
+				ORDER_SEQID = #orderSeqId#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "recPoNo">
 				REC_PO_NO = #recPoNo#
@@ -347,7 +354,8 @@
 			STATE,
 			ACTIVE_STATE,
 			FINANCE_PERIOD,
-			SPEC_DESC
+			SPEC_DESC,
+			ORDER_SEQID
     FROM T_WAREHOUSE_RECEIVE_DETAIL WHERE REC_DETAIL_SEQID = #pk#
 ]]>
 </select>
@@ -382,7 +390,8 @@
 			STATE,
 			ACTIVE_STATE,
 			FINANCE_PERIOD,
-			SPEC_DESC
+			SPEC_DESC,
+			ORDER_SEQID
     FROM T_WAREHOUSE_RECEIVE_DETAIL
 ]]>
 		<dynamic prepend="WHERE">
