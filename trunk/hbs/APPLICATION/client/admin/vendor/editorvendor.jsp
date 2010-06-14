@@ -29,8 +29,8 @@
 									<textfield fieldLabel="英文简称"               name="vendorInfo.enShortName"          labelStyle="width:150" />
 								</layoutpanel>
 								<layoutpanel columnNum="2">	
-				    				<dictcombo fieldLabel="信用度"                 hiddenName="vendorInfo.creditRate"     labelStyle="width:150" paramsValue="CREDIT_RATE"     emptyText="请选择" />
-									<dictcombo fieldLabel="重要程度"               hiddenName="vendorInfo.importantCode"  labelStyle="width:150" paramsValue="IMPORTANT_CODE"  emptyText="请选择" />
+				    				<dictcombo fieldLabel="信用度"                 hiddenName="vendorInfo.creditRate"     labelStyle="width:150" paramsValue="CREDIT_RATE"     emptyText="请选择" allowBlank="false"/>
+									<dictcombo fieldLabel="重要程度"               hiddenName="vendorInfo.importantCode"  labelStyle="width:150" paramsValue="IMPORTANT_CODE"  emptyText="请选择" allowBlank="false"/>
 								</layoutpanel>
 								<layoutpanel columnNum="2">	
 				    				<dictcombo fieldLabel="企业性质"                   hiddenName="vendorInfo.commType"             labelStyle="width:150" paramsValue="COMM_TYPE" emptyText="请选择"  allowBlank="false"/>
@@ -47,7 +47,7 @@
 									<textfield fieldLabel="公司网址"               name="vendorInfo.webSite"              labelStyle="width:150"  width="600" />
 								</layoutpanel>
 				    			<layoutpanel columnNum="2">
-				    				<dictcombo fieldLabel="对应的分公司或分支机构" hiddenName="vendorInfo.companyBranch"  labelStyle="width:150" paramsValue="COMPANY_BRANCH"  emptyText="请选择" />
+				    				<dictcombo fieldLabel="对应的分公司或分支机构" hiddenName="vendorInfo.companyBranch"  labelStyle="width:150" paramsValue="COMPANY_BRANCH"  emptyText="请选择" allowBlank="false"/>
 				    				<!--
 									<dictcombo fieldLabel="是否显示单价"           hiddenName="vendorInfo.isShowPrice"    labelStyle="width:150" paramsValue="IS_SHOW_PRICE"   emptyText="请选择" />
 									-->
@@ -66,26 +66,26 @@
 				    		
 				    		<listpanel frame="true" title="供应商结算信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<dictcombo   fieldLabel="结算类型"               hiddenName="vendorInfo.settlementType"            labelStyle="width:150" paramsValue="SETTLEMENT_TYPE" emptyText="请选择" id="vSettlementType" />
-				    				<dictcombo   fieldLabel="结算币种"               hiddenName="vendorInfo.currency"                  labelStyle="width:150" paramsValue="CURRENCY"        emptyText="请选择" />	
-				    				<textfield   fieldLabel="合同费"                 name="vendorInfo.contactFee"                      labelStyle="width:150" emptyText="如:合同费2%,请输入0.02" />
+				    				<dictcombo   fieldLabel="结算类型"               hiddenName="vendorInfo.settlementType"            labelStyle="width:150" paramsValue="SETTLEMENT_TYPE" emptyText="请选择" id="vSettlementType" allowBlank="false"/>
+				    				<dictcombo   fieldLabel="结算币种"               hiddenName="vendorInfo.currency"                  labelStyle="width:150" paramsValue="CURRENCY"        emptyText="请选择" allowBlank="false"/>	
+				    				<textfield   fieldLabel="合同费"                 name="vendorInfo.contactFee"                      labelStyle="width:150" emptyText="如:合同费2%,请输入0.02" allowBlank="false"/>
 				    				<!--  账期类型固定为月结
 									<dictcombo   fieldLabel="账期类型" 			         hiddenName="vendorInfo.accountPreiod.accountType" labelStyle="width:150" paramsValue="ACCOUNT_TYPE"    emptyText="请选择" id="vaAccountType" />
 									-->
 
-				    				<datefield   fieldLabel="账期的起始日" 					 name="vendorInfo.accountPreiod.periodStart"       labelStyle="width:150" id="vaPeriodStart"  emptyText="格式：YYYYMMDD"   format="Ymd" />
+				    				<datefield   fieldLabel="账期的起始日" 					 name="vendorInfo.accountPreiod.periodStart"       labelStyle="width:150" id="vaPeriodStart"  emptyText="格式：YYYYMMDD"   format="Ymd" allowBlank="false"/>
 				    				<!--  改用下拉列表框选择
 									<numberfield fieldLabel="账期的结算日" 					 name="vendorInfo.accountPreiod.settlementDay"     labelStyle="width:150" id="vaSettlementDay"   emptyText="账期结束的第几日"   relate="vaAccounDay|;&gt;|;必须大于账期的对账日" vtype="commCheck" />
 				    				-->
-									<dictcombo fieldLabel="结算方式" 					 hiddenName="vendorInfo.accountPreiod.settlementDay"     labelStyle="width:150" paramsValue="SETTLEMENT_DAY" id="vaSettlementDay"   />
+									<dictcombo fieldLabel="结算方式" 					 hiddenName="vendorInfo.accountPreiod.settlementDay"     labelStyle="width:150" paramsValue="SETTLEMENT_DAY" id="vaSettlementDay"   allowBlank="false"/>
 				    				<!--
 									<numberfield fieldLabel="提醒设置(单位:天)" 							 name="vendorInfo.accountPreiod.reminderDay"       labelStyle="width:150" id="vaReminderDay"     emptyText="提前几天提醒对账/结算" />
 									-->
-				    				<textfield   fieldLabel="税率"                   name="vendorInfo.taxRate"                         labelStyle="width:150" emptyText="如:税率17%,请输入0.17"/>	
+				    				<textfield   fieldLabel="税率"                   name="vendorInfo.taxRate"                         labelStyle="width:150" emptyText="如:税率17%,请输入0.17" allowBlank="false"/>	
 				    				<!-- 账期设置固定为1个月
 									<textfield   fieldLabel="供应商的账期设置" 		   name="vendorInfo.accountPreiod.accountPeriod"     labelStyle="width:150" id="vaAccountPeriod"/>	
 									-->
-				    				<textfield   fieldLabel="预付百分比" 						 name="vendorInfo.prePaidInfo.prePaid"             labelStyle="width:150" id="vpPrePaid" emptyText="如:预付17%,请输入17"/>
+				    				<textfield   fieldLabel="预付百分比" 						 name="vendorInfo.prePaidInfo.prePaid"             labelStyle="width:150" id="vpPrePaid" emptyText="如:预付17%,请输入17" allowBlank="false"/>
 				    				<!--
 									<textfield   fieldLabel="催款提醒日(单位:天)" 			           name="vendorInfo.prePaidInfo.reminderDay"         labelStyle="width:150" id="vpReminderDay"  />
 									-->
