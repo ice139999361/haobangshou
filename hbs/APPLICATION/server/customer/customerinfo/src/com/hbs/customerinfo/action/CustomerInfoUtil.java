@@ -121,17 +121,17 @@ public class CustomerInfoUtil {
 		s = custInfo.getShortName();
 		if(StringUtils.isEmpty(s))
 		{
-			list.add(new FieldErr("ShortName","ShortName没有填写"));
+			list.add(new FieldErr("ShortName","客户简称没有填写"));
 		}
 		s = custInfo.getAllName();
 		if(StringUtils.isEmpty(s))
 		{
-			list.add(new FieldErr("AllName","AllName没有填写"));
+			list.add(new FieldErr("AllName","中文名称没有填写"));
 		}
 		s = custInfo.getIsShowPrice();
 		if(StringUtils.isEmpty(s))
 		{
-			list.add(new FieldErr("IsShowPrice","IsShowPrice没有填写"));
+			list.add(new FieldErr("IsShowPrice","是否显示单价没有填写"));
 		}
 		s = custInfo.getAssStaffId();
 		if(StringUtils.isEmpty(s))
@@ -143,12 +143,12 @@ public class CustomerInfoUtil {
 				i=0;
 			}
 			if(i == 0)
-			list.add(new FieldErr("AssStaff","AssStaff没有填写"));
+			list.add(new FieldErr("AssStaff","业务部助理没有填写"));
 		}
 		s = custInfo.getSettlementType();
 		if(StringUtils.isEmpty(s))
 		{
-			list.add(new FieldErr("SettlementType","SettlementType没有填写"));
+			list.add(new FieldErr("SettlementType","结算类型没有填写"));
 		}
 		
 //		String baseSeqId = null;
@@ -161,7 +161,7 @@ public class CustomerInfoUtil {
 			s = custInfo.getCommCode();
 			if(StringUtils.isEmpty(s))
 			{
-				list.add(new FieldErr("CommCode","CommCode没有填写"));
+				list.add(new FieldErr("CommCode","客户编码没有填写"));
 			}
 		}
 		String settleMentType = custInfo.getSettlementType();
@@ -190,7 +190,7 @@ public class CustomerInfoUtil {
 			if(custInfo.getSettlementType().equals("2")) {
 				s = prePaidInfo.getReminderDay();
 				if(StringUtils.isEmpty(s))
-					list.add(new FieldErr("ReminderDay", "ReminderDay没有填写"));
+					list.add(new FieldErr("ReminderDay", "提醒市场人员催款没有填写"));
 			}
 		}
 
@@ -356,7 +356,7 @@ public class CustomerInfoUtil {
 			{
 				ce = getEncode("IMPORTANT_CODE", s);
 				if(ce == null)
-					list.add(new FieldErr("importantCode", "importantCode的值不正确"));
+					list.add(new FieldErr("importantCode", "重要程度的值不正确"));
 				else
 				{
 					
@@ -372,7 +372,7 @@ public class CustomerInfoUtil {
 			{
 				ce = getEncode("CREDIT_RATE", s);
 				if(ce == null)
-					list.add(new FieldErr("CreditRate", "CreditRate的值不正确"));
+					list.add(new FieldErr("CreditRate", "信用度的值不正确"));
 				else
 				{					
 					custInfo.setCreditDesc(ce.getEncodeValue());
@@ -384,7 +384,7 @@ public class CustomerInfoUtil {
 			{
 				ce = getEncode("SETTLEMENT_TYPE", s);
 				if(ce == null)
-					list.add(new FieldErr("SettlementType", "SettlementType的值不正确"));
+					list.add(new FieldErr("SettlementType", "结算类型的值不正确"));
 				else{					
 					custInfo.setSettlementDesc(ce.getEncodeValue());
 				}
@@ -395,7 +395,7 @@ public class CustomerInfoUtil {
 			{
 				ce = getEncode("CURRENCY", s);
 				if(ce == null)
-					list.add(new FieldErr("Currency", "Currency的值不正确"));
+					list.add(new FieldErr("Currency", "结算币种的值不正确"));
 				else{
 					
 					custInfo.setCurrencyDesc(ce.getEncodeValue());
@@ -407,7 +407,7 @@ public class CustomerInfoUtil {
 			{
 				ce = getEncode("IS_SHOW_PRICE", s);
 				if(ce == null)
-					list.add(new FieldErr("IsShowPrice", "IsShowPrice的值不正确"));
+					list.add(new FieldErr("IsShowPrice", "是否显示单价的值不正确"));
 				
 			}
 
@@ -417,7 +417,7 @@ public class CustomerInfoUtil {
 				//DONE：用户信息需要处理
 				Staff u = StaffUtil.getStaffById(s);
 				if(u == null)
-					list.add(new FieldErr("StaffId", "StaffId错误"));
+					list.add(new FieldErr("StaffId", "操作人员错误"));
 				else
 					custInfo.setStaffName(u.getStaffName());
 			}
@@ -427,7 +427,7 @@ public class CustomerInfoUtil {
 				//DONE：用户信息需要处理
 				Staff u = StaffUtil.getStaffById(s);
 				if(u == null)
-					list.add(new FieldErr("AssStaffId", "AssStaffId错误"));
+					list.add(new FieldErr("AssStaffId", "业务部助理错误"));
 				else
 					custInfo.setAssStaffName(u.getStaffName());
 			}

@@ -178,27 +178,27 @@ public class CustOrderUtil {
 		s = custOrder.getPoNo();
 		if(StringUtils.isEmpty(s))
 		{
-			list.add(new FieldErr("PoNo","PoNo没有填写"));
+			list.add(new FieldErr("PoNo","客户订单号没有填写"));
 		}
 		if(null == custOrder.getOderTime())
-			list.add(new FieldErr("OrderTime","OrderTime没有填写"));
+			list.add(new FieldErr("OrderTime","客户订单日期没有填写"));
 		
 
 		if(StringUtils.isEmpty(custOrder.getConName()))
-			list.add(new FieldErr("ConName", "ConName没有填写"));
+			list.add(new FieldErr("ConName", "联系人没有填写"));
 		if(StringUtils.isEmpty(custOrder.getConTel()))
-			list.add(new FieldErr("ConTel", "ConTel没有填写"));
+			list.add(new FieldErr("ConTel", "联系电话没有填写"));
 		
 		if(StringUtils.isEmpty(custOrder.getReceiveName()))
-			list.add(new FieldErr("ReceiveName", "ReceiveName没有填写"));
+			list.add(new FieldErr("ReceiveName", "收货人没有填写"));
 		if(StringUtils.isEmpty(custOrder.getReceiveAddress()))
-			list.add(new FieldErr("ReceiveAddress", "ReceiveAddress没有填写"));
+			list.add(new FieldErr("ReceiveAddress", "收货地址没有填写"));
 		
 		List<CustOrderDetail> details = custOrder.getOrderDetailList();
 		if(null != details && details.size() > 0) {
 			for(CustOrderDetail info : details) {
 				if(StringUtils.isEmpty(info.getPartNo()))
-					list.add(new FieldErr("PartNo", "PartNo没有填写"));
+					list.add(new FieldErr("PartNo", "GLE型号没有填写"));
 				else {
 					/*
 					// DONE:复制价格等数据，这些信息都从前台传来，不需要在此设置
@@ -228,11 +228,11 @@ public class CustOrderUtil {
 					*/
 				}
 				if(info.getCprice() == null)
-					list.add(new FieldErr("Cprice", "Cprice没有填写"));
+					list.add(new FieldErr("Cprice", "单价没有填写"));
 				if(info.getCpriceTax() == null)
-					list.add(new FieldErr("CpriceTax", "CpriceTax没有填写"));
+					list.add(new FieldErr("CpriceTax", "税率没有填写"));
 				if(StringUtils.isEmpty(info.getCpartNo()))
-					list.add(new FieldErr("CPartNo", "CPartNo没有填写"));
+					list.add(new FieldErr("CPartNo", "客户型号没有填写"));
 				
 				if(StringUtils.isEmpty(info.getIsTax())){
 					//list.add(new FieldErr("IsTax", "IsTax没有填写"));
@@ -246,11 +246,11 @@ public class CustOrderUtil {
 					info.setIsTax( (0 == BigDecimal.ZERO.compareTo(info.getCpriceTax())) ? "0" : "1");
 				}else{
 					if(0 != BigDecimal.ZERO.compareTo(info.getCpriceTax()) && info.getIsTax().equals("0"))
-						list.add(new FieldErr("IsTax", "IsTax错误"));
+						list.add(new FieldErr("IsTax", "是否含税交易错误"));
 				}
 				Integer money = info.getAmount();
 				if(null == money)
-					list.add(new FieldErr("Amount", "Amount没有填写"));
+					list.add(new FieldErr("Amount", "数量没有填写"));
 				/*
 				else
 					try {
@@ -260,7 +260,7 @@ public class CustOrderUtil {
 					}
 				*/
 				if(info.getMoney() == null)
-					list.add(new FieldErr("Money", "Money没有填写"));
+					list.add(new FieldErr("Money", "金额没有填写"));
 			}
 		}
 		//DONE:CustOrderUtil.checkInputFields

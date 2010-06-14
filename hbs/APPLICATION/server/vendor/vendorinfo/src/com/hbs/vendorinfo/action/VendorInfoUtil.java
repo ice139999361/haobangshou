@@ -122,17 +122,17 @@ public class VendorInfoUtil {
 		s = vendorInfo.getShortName();
 		if(StringUtils.isEmpty(s))
 		{
-			list.add(new FieldErr("ShortName","ShortName没有填写"));
+			list.add(new FieldErr("ShortName","供应商简称没有填写"));
 		}
 		s = vendorInfo.getAllName();
 		if(StringUtils.isEmpty(s))
 		{
-			list.add(new FieldErr("AllName","AllName没有填写"));
+			list.add(new FieldErr("AllName","中文名称没有填写"));
 		}
 		s = vendorInfo.getIsShowPrice();
 		if(StringUtils.isEmpty(s))
 		{
-			list.add(new FieldErr("IsShowPrice","IsShowPrice没有填写"));
+			list.add(new FieldErr("IsShowPrice","是否显示单价没有填写"));
 		}
 		
 		Integer baseSeqId = vendorInfo.getBaseSeqId();
@@ -140,7 +140,7 @@ public class VendorInfoUtil {
 			s = vendorInfo.getCommCode();
 			if(StringUtils.isEmpty(s))
 			{
-				list.add(new FieldErr("CommCode","CommCode没有填写"));
+				list.add(new FieldErr("CommCode","供应商编码没有填写"));
 			}
 		}
 		String settleMentType = vendorInfo.getSettlementType();
@@ -314,7 +314,7 @@ public class VendorInfoUtil {
 			{
 				ce = getEncode("IMPORTANT_CODE", s);
 				if(ce == null)
-					list.add(new FieldErr("importantCode", "importantCode的值不正确"));
+					list.add(new FieldErr("importantCode", "重要程度的值不正确"));
 				else
 				{
 				
@@ -330,7 +330,7 @@ public class VendorInfoUtil {
 			{
 				ce = getEncode("CREDIT_RATE", s);
 				if(s == null)
-					list.add(new FieldErr("CreditRate", "CreditRate的值不正确"));
+					list.add(new FieldErr("CreditRate", "信用度的值不正确"));
 				else
 				{
 					
@@ -343,7 +343,7 @@ public class VendorInfoUtil {
 			{
 				ce = getEncode("SETTLEMENT_TYPE", s);
 				if(s == null)
-					list.add(new FieldErr("SettlementType", "SettlementType的值不正确"));
+					list.add(new FieldErr("SettlementType", "结算类型的值不正确"));
 				else{
 					
 					vendorInfo.setSettlementDesc(ce.getEncodeValue());
@@ -355,7 +355,7 @@ public class VendorInfoUtil {
 			{
 				ce = getEncode("CURRENCY", s);
 				if(s == null)
-					list.add(new FieldErr("Currency", "Currency的值不正确"));
+					list.add(new FieldErr("Currency", "结算币种的值不正确"));
 				else
 				{
 					
@@ -368,7 +368,7 @@ public class VendorInfoUtil {
 			{
 				ce = getEncode("IS_SHOW_PRICE", s);
 				if(s == null)
-					list.add(new FieldErr("IsShowPrice", "IsShowPrice的值不正确"));
+					list.add(new FieldErr("IsShowPrice", "是否显示单价的值不正确"));
 				
 			}
 
@@ -377,7 +377,7 @@ public class VendorInfoUtil {
 			{
 				Staff u = StaffUtil.getStaffById(s);
 				if(u == null)
-					list.add(new FieldErr("StaffId", "StaffId错误"));
+					list.add(new FieldErr("StaffId", "操作人员错误"));
 				else
 					vendorInfo.setStaffName(u.getStaffName());
 			}
