@@ -133,7 +133,7 @@ HBSConvertHelper.init(function() {
 		Ext.getCmp("acCommCode").setValue(action.data.custInfo.commCode);
 		Ext.getCmp("acCompanyBranch").setValue(action.data.custInfo.companyBranchDesc);
 		Ext.getCmp("acShortName").setValue(action.data.custInfo.shortName);
-		Ext.getCmp("acSettlementType").setValue(action.data.custInfo.settlementDesc);
+		Ext.getCmp("acSettlementType").setValue(action.data.custInfo.settlementDesc2);
 
 		var o = this.getValue();
 		var list = Ext.getCmp("acContactList");

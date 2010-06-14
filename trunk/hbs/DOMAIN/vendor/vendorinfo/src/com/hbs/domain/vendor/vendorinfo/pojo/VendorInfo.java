@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
 import com.hbs.common.manager.configencode.ConfigEncodeMgr;
 import com.hbs.domain.common.pojo.ConfigEncode;
 import com.hbs.domain.common.pojo.base.BaseDomain;
@@ -11,6 +14,7 @@ import com.hbs.domain.common.pojo.baseinfo.AccountPreiod;
 import com.hbs.domain.common.pojo.baseinfo.BankInfo;
 import com.hbs.domain.common.pojo.baseinfo.ContactInfo;
 import com.hbs.domain.common.pojo.baseinfo.PrePaidInfo;
+import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
 
 
 /**
@@ -586,6 +590,29 @@ public class VendorInfo extends BaseDomain{
 		this.saleType = saleType;
 	}
 
+	/**
+	 * 根据SettlementType和SettlementDay返回“月结30天”这样的信息
+	 * @return
+	 */
+	public String getSettlementDesc2() {
+		try{
+			String s;
+			if("1".equals(this.getSettlementType())){
+				s = this.getSettlementDesc();
+				if(this.accountPreiod != null && StringUtils.isNotEmpty(this.accountPreiod.getSettlementDayDesc())){
+					s = this.accountPreiod.getSettlementDayDesc();
+				}
+			}else{
+				s = this.getSettlementDesc();
+			}
+			return s;
+		}catch(Exception e){
+			Logger logger = Logger.getLogger(CustomerInfo.class);
+			logger.error("catch Exception in getSettlementDesc2", e);
+			return null;
+		}
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
