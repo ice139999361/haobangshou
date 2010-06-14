@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.manager.configencode.ConfigEncodeMgr;
@@ -593,6 +594,29 @@ public class CustomerInfo extends BaseDomain{
 		} catch (Exception e) {
 			Logger logger = Logger.getLogger(CustomerInfo.class);
 			logger.error("catch Exception in getStateDesc state=" + getState(), e);
+			return null;
+		}
+	}
+	
+	/**
+	 * 根据SettlementType和SettlementDay返回“月结30天”这样的信息
+	 * @return
+	 */
+	public String getSettlementDesc2() {
+		try{
+			String s;
+			if("1".equals(this.getSettlementType())){
+				s = this.getSettlementDesc();
+				if(this.accountPreiod != null && StringUtils.isNotEmpty(this.accountPreiod.getSettlementDayDesc())){
+					s = this.accountPreiod.getSettlementDayDesc();
+				}
+			}else{
+				s = this.getSettlementDesc();
+			}
+			return s;
+		}catch(Exception e){
+			Logger logger = Logger.getLogger(CustomerInfo.class);
+			logger.error("catch Exception in getSettlementDesc2", e);
 			return null;
 		}
 	}

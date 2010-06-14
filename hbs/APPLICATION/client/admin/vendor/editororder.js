@@ -153,7 +153,7 @@ HBSConvertHelper.init(function() {
 			return;
 		Ext.getCmp("acCompanyBranch").setValue(action.data.vendorInfo.companyBranchDesc);
 		Ext.getCmp("acShortName").setValue(action.data.vendorInfo.shortName);
-		Ext.getCmp("acSettlementType").setValue(action.data.vendorInfo.settlementDesc);
+		Ext.getCmp("acSettlementType").setValue(action.data.vendorInfo.settlementDesc2);
 
 		// 给需要的隐藏域赋值
 		Ext.getCmp("hidIsShowPrice").setValue(action.data.vendorInfo.isShowPrice);
