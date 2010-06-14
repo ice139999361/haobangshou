@@ -535,7 +535,9 @@ public void setOrderSeqId(String orderSeqId) {
 		if(this.specDesc != null){
 			sb.append("specDesc=").append(this.specDesc).append(" ");
 		}	
-		
+		if(this.orderSeqId != null){
+			sb.append("orderSeqId=").append(this.orderSeqId).append(" ");
+		}
 		return sb.toString();
 	}
 

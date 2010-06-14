@@ -101,6 +101,7 @@
 	    				<field name="stateDesc" />
 
 	    				<!-- 转换字段，自动填充 -->
+	    				<field name="orderSeqId" mapping="operSeqId" />
 	    				<field name="rltPoNo"  mapping="poNo" />
 	    				<field name="price"    mapping="cprice" />
 	    				<field name="priceTax" mapping="cpriceTax" />

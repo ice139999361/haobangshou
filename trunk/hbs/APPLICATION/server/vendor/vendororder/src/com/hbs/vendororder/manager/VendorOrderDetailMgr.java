@@ -218,7 +218,12 @@ public class VendorOrderDetailMgr {
 		int delmount = IntegerUtils.intValue(detail.getDeliveryAmount());
 		VendorOrderDetailDao vDetailDao =(VendorOrderDetailDao)BeanLocator.getInstance().getBean(VendorOrderConstants.VENDOR_ORDER_DETAIL_DAO);
 		VendorOrderDao vDao =(VendorOrderDao)BeanLocator.getInstance().getBean(VendorOrderConstants.VENDOR_ORDER_DAO);
-		VendorOrderDetail tempDetail = vDetailDao.findVendorOrderDetailByBizKey(detail);
+		VendorOrderDetail tempDetail;
+		if(detail.getOperSeqId() == null){
+			tempDetail = vDetailDao.findVendorOrderDetailByBizKey(detail);
+		}else{
+			tempDetail = vDetailDao.findVendorOrderDetailById(detail.getOperSeqId().toString());
+		}
 		if(null != tempDetail){
 			int iMount = IntegerUtils.intValue(tempDetail.getAmount());
 			int iDelivMount = IntegerUtils.intValue(tempDetail.getDeliveryAmount());

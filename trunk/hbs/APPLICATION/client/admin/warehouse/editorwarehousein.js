@@ -178,7 +178,7 @@ HBSConvertHelper.init(function() {
 			// 添加标示
 			Ext.each(records, function(record) {
 				if(!oldRecords[record.get("rltPoNo")]) {
-					record.selectType = "window";
+					record.set("selectType", "window");
 					newRecords.push(record);
 				}
 			});
