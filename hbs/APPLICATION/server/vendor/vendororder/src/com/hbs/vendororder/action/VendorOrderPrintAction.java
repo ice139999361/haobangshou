@@ -15,6 +15,9 @@ import org.apache.log4j.Logger;
 import com.hbs.common.action.base.BaseAction;
 import com.hbs.domain.vendor.order.pojo.VendorOrder;
 import com.hbs.domain.vendor.order.pojo.VendorOrderDetail;
+import com.hbs.domain.vendor.vendorinfo.pojo.VendorInfo;
+import com.hbs.vendorinfo.action.VendorInfoNormalAction;
+import com.hbs.vendorinfo.manager.VendorInfoMgr;
 import com.hbs.vendororder.manager.VendorOrderMgr;
 
 /**
@@ -77,11 +80,12 @@ public class VendorOrderPrintAction extends BaseAction {
 				List<VendorOrderDetail> detailList = vendorOrder2.getVendorOrderDetailList();
 				List<VendorOrderDetail> printList = new ArrayList<VendorOrderDetail>();
 				if(null != detailList && detailList.size() >0){
-					
+					int xh=0;
 					for(VendorOrderDetail detail : detailList){
 						String state = detail.getState();
 						
-						if(null != state && state.equals("02")){
+						if(null != state && state.equals("04")){
+							detail.setOperSeqId(++xh);
 							printList.add(detail);
 						}
 					}
@@ -93,6 +97,14 @@ public class VendorOrderPrintAction extends BaseAction {
 				}
 			}
 			setResult("vendorOrder", vendorOrder2);
+			
+			VendorInfoMgr viMgr = (VendorInfoMgr)getBean(VendorInfoNormalAction.vendorInfoMgrName);
+			VendorInfo vInfo = new VendorInfo();
+			vInfo.setCommCode(vendorOrder.getCommCode());
+			vInfo.setState("0");
+			vInfo = viMgr.getVendorInfo(vInfo, true);
+			setResult("vendorInfo", vInfo);
+			
 			logger.debug("end doGetInfoPrint");
 			return SUCCESS;
 		}catch(Exception e) {
