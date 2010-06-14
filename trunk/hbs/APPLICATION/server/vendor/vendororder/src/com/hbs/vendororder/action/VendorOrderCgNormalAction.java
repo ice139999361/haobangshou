@@ -119,6 +119,8 @@ public class VendorOrderCgNormalAction extends VendorOrderBaseAction {
 					// 再获取数据，正式提交
 					VendorOrderMgr mgr = getMgr();
 					vendorOrder = mgr.getVendorOrder(vendorOrder.getCommCode(), vendorOrder.getPoNo(), true);
+					if(vendorOrder.getOrderTime() == null)
+						vendorOrder.setOrderTime(new Date());
 					int i = mgr.commitVendorOrder(vendorOrder, null);
 					if(i != 0) {
 						logger.info("提交失败！");
