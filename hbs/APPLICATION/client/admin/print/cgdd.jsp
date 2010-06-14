@@ -7,6 +7,7 @@
 <title>采购订单</title>
 <link rel="stylesheet" type="text/css" href="<%=contextPath %>/print/css/print.css"/>
 <script type="text/javascript" src="<%=contextPath %>/print/common/print.js"></script>
+<script type="text/javascript" src="<%=contextPath %>/print/common/moneyToUpper.js"></script>
 </head>
 
 <body><div align="center">
@@ -149,7 +150,7 @@
               <tr>
                 <td width="18%" align="right" style="font-size:12pt">TOTAL AMOUNT：</td>
                 <td width="1%">&nbsp;</td>
-                <td width="81%" align="left" style="font-size:12pt">贰仟伍佰元整</td>
+                <td width="81%" align="left" style="font-size:12pt" id="moneyUpper"></td>
               </tr>
             </table></td>
             </tr>
@@ -241,7 +242,7 @@
             <td width="16%">&nbsp;</td>
             <td width="68%" align="center">（本订单为打印件，手写无效）</td>
             <td width="9%"><div align="right">操作人：</div></td>
-            <td width="7%" id="operatorpe">张　三</td>
+            <td width="7%" id="operatorpe"></td>
           </tr>
         </table></td>
       </tr>
@@ -249,68 +250,80 @@
   </tr>
 </table>
 <div id="printdiv">
-<OBJECT classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2" height=0 id=wb name=wb width=0></OBJECT> 
-<input type=button name=button_print value="打印"          onclick="javascript:printit();"      /> 
-<input type=button name=button_show  value="打印预览"      onclick="javascript:printpreview();" /> 
-<input type=button name=button_setup value="打印页面设置"  onclick="javascript:printsetup();"   /> 
+<OBJECT classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2" height=0 id=wb name=wb width=0></OBJECT>
+<input type=button name=button_print value="打印"          onclick="javascript:printit();"      />
+<input type=button name=button_show  value="打印预览"      onclick="javascript:printpreview();" />
+<input type=button name=button_setup value="打印页面设置"  onclick="javascript:printsetup();"   />
 </div>
 </div>
 </body>
 </html>
 <script>
-	ExtConvertHelper.request("/common/cgdd!list.action", null, function(response, opts) {
+	var params = ["vendorOrder.commCode=" , urlPs["vendorOrder.commCode"],"&vendorOrder.poNo=" , urlPs["vendorOrder.poNo"]].join("");
+	ExtConvertHelper.request("/vendorOrder/vendorOrder!print.action", params, function(response, opts) {
 		var jsonData = Ext.util.JSON.decode(response.responseText);
 		if(jsonData.success === false) return;
+		var info = jsonData.data.vendorOrder;
 		var templateStr = ['<tr>'
-		,'<td align="center" class="xl10418763">{xh}</td>'
-    ,'<td align="center" class="xl10418763">{glexh}</td>'
-    ,'<td align="center" class="xl10418763">{gysxh}</td>'
-    ,'<td align="center" class="xl10418763">{ms}</td>'
-    ,'<td align="center" class="xl10418763">{slpcs}</td>'
+		,'<td align="center" class="xl10418763">{operSeqId}</td>'
+    ,'<td align="center" class="xl10418763">{partNo}</td>'
+    ,'<td align="center" class="xl10418763">{cpartNo}</td>'
+    ,'<td align="center" class="xl10418763">{pnDesc}</td>'
+    ,'<td align="center" class="xl10418763">{amount}</td>'
     ,'<td align="center" class="xl10418763">{bb}</td>'
-    ,'<td align="center" class="xl10418763">{dj}</td>'
-    ,'<td align="center" class="xl10418763">{sl}</td>'
-    ,'<td align="center" class="xl10418763">{je}</td>'
-    ,'<td align="center" class="xl10418763">{jhrq}</td>'
-    ,'<td align="center" class="xl10418763">{bz}</td>'
+    ,'<td align="center" class="xl10418763">{cprice}</td>'
+    ,'<td align="center" class="xl10418763">{cpriceTax}</td>'
+    ,'<td align="center" class="xl10418763">{money}</td>'
+    ,'<td align="center" class="xl10418763">{orgDeliveryDate}</td>'
+    ,'<td align="center" class="xl10418763">{specDesc}</td>'
     ,'</tr>'].join("");
     var template = Ext.DomHelper.createTemplate(templateStr);
-    
+
     // 数量统计 金额统计
 		var quantity = amount = 0;
-		Ext.each(jsonData.data.list, function(item) {
+		Ext.each(jsonData.data.vendorOrder.vendorOrderDetailList, function(item) {
+			item.bb = jsonData.data.vendorInfo.currencyDesc;
+			if(item.orgDeliveryDate instanceof Date)
+			{
+				item.orgDeliveryDate = Ext.util.Format.date(item.orgDeliveryDate, 'Y-m-d');
+			}else{
+				item.orgDeliveryDate = item.orgDeliveryDate.split(" ")[0];
+			}
+			if(!item.specDesc)
+				item.specDesc = "&nbsp;"
+
 			template.insertBefore(Ext.get("totaltr"), item);
 			// 数量
-			quantity += +item.slpcs;
+			quantity += +item.amount;
 			// 税率
-			amount   += +item.je;
+			amount   += +item.money;
 		});
-		
+
 		// 填充数量/PCS
 		Ext.DomQuery.select("#totalcount")[0].innerHTML  = quantity;
 		// 填充总金额
 		Ext.DomQuery.select("#totalamount")[0].innerHTML = amount;
-		
-		var info = jsonData.data;
+		Ext.DomQuery.select("#moneyUpper")[0].innerHTML  = moneyToUpper(amount);
+
 		// Purchase Order No.订单编号
-		Ext.DomQuery.select("#poNo")[0].innerHTML = info.xx;
+		Ext.DomQuery.select("#poNo")[0].innerHTML = info.poNo;
 		// Vendor Code供应商编码
-		Ext.DomQuery.select("#vccommCode")[0].innerHTML = info.xx;
+		Ext.DomQuery.select("#vccommCode")[0].innerHTML = info.commCode;
 		// Payment Term付款方式
-		Ext.DomQuery.select("#paymentterm")[0].innerHTML = info.xx;
+		Ext.DomQuery.select("#paymentterm")[0].innerHTML = jsonData.data.vendorInfo.settlementDesc2;
 		// Date of lssue日期
-		Ext.DomQuery.select("#dateoflssue")[0].innerHTML = info.xx;
-		
+		Ext.DomQuery.select("#dateoflssue")[0].innerHTML = info.orderTime;
+
 		// 供应商地址
-		Ext.DomQuery.select("#vcaddress")[0].innerHTML = info.vcaddress;
+		Ext.DomQuery.select("#vcaddress")[0].innerHTML = jsonData.data.vendorInfo.address;
 		// 供应商联系电话
-		Ext.DomQuery.select("#vcphone")[0].innerHTML = "TEL：" + info.vctel +"        FAX：" + info.vcphone;
+		Ext.DomQuery.select("#vcphone")[0].innerHTML = "TEL：" + info.conTel +"        FAX：" + info.conFax;
 		// 供应商联系人
-		Ext.DomQuery.select("#vccontact")[0].innerHTML = "联系人: " + info.vccontact;
+		Ext.DomQuery.select("#vccontact")[0].innerHTML = "联系人: " + info.conName;
 		// 送货地址
-		Ext.DomQuery.select("#shipto")[0].innerHTML = "联系人: " + info.shipto;
-		
+		Ext.DomQuery.select("#shipto")[0].innerHTML = info.receiveAddress;
+
 		// 操作人
-		Ext.DomQuery.select("#operatorpe")[0].innerHTML = info.operatorpe;
+		Ext.DomQuery.select("#operatorpe")[0].innerHTML = info.staffName;
 	});
 </script>
