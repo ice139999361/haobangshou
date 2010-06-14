@@ -54,7 +54,7 @@
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">
-				    				<textarea fieldLabel="备注"                    name="vendorInfo.commDesc"             labelStyle="width:150" width="600" height="80" />
+				    				<textarea fieldLabel="企业备注/企业经营产品"                    name="vendorInfo.commDesc"             labelStyle="width:150" width="600" height="80" />
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">

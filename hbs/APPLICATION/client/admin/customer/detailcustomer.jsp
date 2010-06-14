@@ -71,7 +71,7 @@
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">
-				    				<label fieldLabel="客户备注"               name="custInfo.commDesc"       labelStyle="width:150" />
+				    				<label fieldLabel="客户备注/企业经营产品"               name="custInfo.commDesc"       labelStyle="width:150" />
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">
