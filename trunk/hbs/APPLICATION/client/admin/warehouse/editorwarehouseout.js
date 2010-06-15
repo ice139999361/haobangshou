@@ -1,4 +1,5 @@
-﻿
+﻿var isManulSelect = true;	//标记是否人为选择commCode
+
 HBSConvertHelper.init(function() {
 	// -------------------------------------- 获取需要持久用到的对象
 
@@ -42,6 +43,34 @@ HBSConvertHelper.init(function() {
 		});
 	}
 
+	function afterListLoad(){
+		if(!(this && this.list))
+			return
+		if(this.list.selectPrimary){
+			selectPrimary(this.list)
+		}else if(this.list.getValue()){
+			this.list.fireEvent("select");
+		}
+	}
+
+	function selectPrimary(list){
+		list.selectPrimary = false;
+		// DONE:选择主联系人
+		if(!list || !list.store)
+			return;
+		var i = -1;
+		if(list.store.getCount() == 1)
+			i = 0;
+		else
+			i = list.store.findExact("isPrimary", "0");
+		if(i >= 0){
+			list.setValue(list.store.getAt(i).get("conName"));
+			list.selectedIndex = i;
+		}else
+			list.selectedIndex = -1;
+		list.fireEvent("select");
+	}
+
 	(function() {
 		Ext.getCmp("acCommCode").setProcessConfig("/customerInfo/customerInfoMgr!getInfo.action?CustInfo.state=0", "custInfo.commCode", null, function(action){
 			if(!action.success)
@@ -51,9 +80,20 @@ HBSConvertHelper.init(function() {
 			Ext.getCmp("hidShortName").setValue(action.data.custInfo.shortName);
 			Ext.getCmp("acCompanyBranch").setValue(action.data.custInfo.companyBranch);
 
-			Ext.getCmp("areceiveName").setParam("custCode", action.data.custInfo.commCode);
-			Ext.getCmp("areceiveName").store.load();
-
+			var list = Ext.getCmp("areceiveName");
+			list.setParam("custCode", action.data.custInfo.commCode);
+			list.store.list = list;
+			list.store.on("load", afterListLoad);
+			if(isManulSelect){
+				list.setValue("");
+				list.selectPrimary = true;
+				list.store.load();
+			}else{
+				if(list.getValue()){
+					list.selectPrimary = false;
+					list.store.load();
+				}
+			}
 		});
 		// 当提交按钮被单击时
 		submitBtn.on("click", function() {
@@ -74,17 +114,32 @@ HBSConvertHelper.init(function() {
 		});
 
 		// 根据收货人自动填充 联系电话，邮编，收货地址，传真
-		Ext.getCmp("areceiveName").setProcessConfig("/customerInfo/custContactInfo!getContactInfo.action", "seqId", null, function(action){
-			if(!action.success) return;
+		Ext.getCmp("areceiveName").on("select", function() {
+			//alert(this.selectedIndex);
+			if(this.selectedIndex < 0){
+				var val = this.getValue();
+				if(val){
+					// 根据val设置selectedIndex
+					this.selectedIndex = this.store.findExact("conName", val);
+				}
+				if(this.selectedIndex < 0){
+					Ext.getCmp("tconTel").setValue("");
+					Ext.getCmp("treceiveZip").setValue("");
+					Ext.getCmp("tconFax").setValue("");
+					Ext.getCmp("treceiveAddress").setValue("");
+					return;
+				}
+			}
+			var data = this.store.getAt(this.selectedIndex);
 
 			// 设置联系电话
-			Ext.getCmp("tconTel").setValue(action.data.contactInfo.conTel);
+			Ext.getCmp("tconTel").setValue(data.get("conTel"));
 			// 设置邮编
-			Ext.getCmp("treceiveZip").setValue(action.data.contactInfo.conZip);
+			Ext.getCmp("treceiveZip").setValue(data.get("conZip"));
 			// 设置传真
-			Ext.getCmp("tconFax").setValue(action.data.contactInfo.conFax);
+			Ext.getCmp("tconFax").setValue(data.get("conFax"));
 			// 设置收货地址
-			Ext.getCmp("treceiveAddress").setValue(action.data.contactInfo.conAddress);
+			Ext.getCmp("treceiveAddress").setValue(data.get("conAddress"));
 		});
 
 		warehousegrid.getView().on("refresh", function(view) {

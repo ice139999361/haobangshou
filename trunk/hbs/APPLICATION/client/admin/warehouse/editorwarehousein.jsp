@@ -30,11 +30,11 @@
 				    				<datefield    fieldLabel="入库日期"  	    name="warehouseRec.operTime"        labelStyle="width:150"     format="Y-m-d" id="acOperTime" />
 				    				<datefield    fieldLabel="到货日期"  	    name="warehouseRec.applyDate"        labelStyle="width:150"     format="Y-m-d" id="acApplyDate"/>
 
-				    				<dictcombo    fieldLabel="仓库"           hiddenName="warehouseRec.houseType"  labelStyle="width:150"     paramsValue="WAREHOUSE_TYPE"     emptyText="请选择" />
+				    				<dictcombo    fieldLabel="仓库" id="aWarehouseType" url="/warehouse/warehouseAddr!list.action" record="id,name,conName,address,zip,isPrimary"	root="data.list"	valueField="id"	displayField="name"          hiddenName="warehouseRec.houseType"  labelStyle="width:150"     emptyText="请选择" />
 
 				    			</layoutpanel>
 								<layoutpanel columnNum="1">
-				    				<textarea     fieldLabel="收货地址"           name="warehouseSend.receiveAddress"        labelStyle="width:150" width="600" height="25"/>
+				    				<textarea     fieldLabel="收货地址" id="aAddress"           name="warehouseSend.receiveAddress"        labelStyle="width:150" width="600" height="25"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
 				    				<textarea     fieldLabel="备注"           name="warehouseRec.receiveDesc"        labelStyle="width:150" width="600" />

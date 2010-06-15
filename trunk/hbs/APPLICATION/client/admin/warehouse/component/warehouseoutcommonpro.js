@@ -1,6 +1,6 @@
 ﻿var warehousegridFun = function() {
 	var cgh = new ComplexGridHelper;
-	
+
 	cgh.appendField("activeState");
 	cgh.appendField("amount");
 	cgh.appendField("commAmount");
@@ -37,7 +37,7 @@
 	cgh.appendField("taxRate");
 	cgh.appendField("vendorCode");
 	cgh.appendField("vendorPoNo");
-			    							
+
 	cgh.appendColumn({header: "订单号"            , dataIndex: "rltPoNo"});
 	cgh.appendColumn({header: "公司 P/N"		      , dataIndex: "partNo"});
 	cgh.appendColumn({header: "客户 P/N"	      	, dataIndex: "custPartNo"});
@@ -53,7 +53,7 @@
 	if(urlPs.pageType != "query") cgh.appendColumn({header: "操作"              , dataIndex: ""  , id: "operator"});
 
 
-	cgh.setSubmitFields("activeState,amount,commAmount,contactFee,createTime,custCode,custPartNo,financeState,houseType,isShowPrice,isTax,partNo,period,pnDesc,poNoType,price,priceTax,rltPoNo,selfAmount,sendPoNo,sendSeqId,settlementType,shortName,specDesc,staffId,staffName,state,taxRate,vendorCode,vendorPoNo");
-	
+	cgh.setSubmitFields("activeState,amount,commAmount,contactFee,createTime,custCode,custPartNo,financeState,houseType,isShowPrice,isTax,partNo,period,pnDesc,poNoType,price,priceTax,rltPoNo,selfAmount,sendPoNo,sendSeqId,settlementType,shortName,specDesc,staffId,staffName,state,taxRate,vendorCode,vendorPoNo,commDesc");
+
 	return cgh;
 };

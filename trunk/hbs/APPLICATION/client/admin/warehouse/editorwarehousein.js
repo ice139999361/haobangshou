@@ -156,6 +156,22 @@ HBSConvertHelper.init(function() {
 			Ext.getCmp("hidShortName").setValue(action.data.vendorInfo.shortName);
 		});
 
+		Ext.getCmp("aWarehouseType").on("select", function(){
+			if(this.selectedIndex < 0){
+				var val = this.getValue();
+				if(val){
+					// 根据val设置selectedIndex
+					this.selectedIndex = this.store.findExact("id", val);
+				}
+				if(this.selectedIndex < 0){
+					Ext.getCmp("aAddress").setValue("");
+					return;
+				}
+			}
+			var data = this.store.getAt(this.selectedIndex);
+			Ext.getCmp("aAddress").setValue(data.get("address"));
+		});
+
 		// 点击取消按钮的事件
 		Ext.getCmp("wbackBtn").on("click", function() {
 			selectWindow.hide();

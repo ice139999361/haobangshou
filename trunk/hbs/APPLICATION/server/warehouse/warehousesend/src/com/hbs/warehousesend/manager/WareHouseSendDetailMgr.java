@@ -81,7 +81,12 @@ public class WareHouseSendDetailMgr {
 		}
 		WarehouseSendDetailDao detailDao = (WarehouseSendDetailDao)BeanLocator.getInstance().getBean(WareHouseConstants.WAREHOUSE_SEND_DETAIL_DAO);
 		//查询出库单明细,判断是否存在
-		WarehouseSendDetail existDetail = detailDao.findWarehouseSendDetailByBizKey(detail);
+		WarehouseSendDetail existDetail;
+		if(detail.getSendSeqId() == null)
+			existDetail = null;
+		else
+			//existDetail = detailDao.findWarehouseSendDetailByBizKey(detail);
+			existDetail = detailDao.findWarehouseSendDetail(detail.getSendSeqId().toString());
 		if(null == existDetail){//不存在，insert操作，
 			logger.debug("数据库中无此出库单明细，insert操作！");
 			ret = detailDao.insertWarehouseSendDetail(detail);
@@ -138,6 +143,7 @@ public class WareHouseSendDetailMgr {
 		orderDetail.setPoNo(detail.getRltPoNo());
 		//设置物料编码
 		orderDetail.setPartNo(detail.getPartNo());
+		orderDetail.setSpecDesc(detail.getSpecDesc());
 		return orderDetail;
 	}
 	/**
