@@ -209,10 +209,10 @@
 	</tr>
 </table>
 <div id="printdiv">
-<OBJECT classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2" height=0 id=wb name=wb width=0></OBJECT> 
-<input type=button name=button_print value="打印"          onclick="javascript:printit();"      /> 
-<input type=button name=button_show  value="打印预览"      onclick="javascript:printpreview();" /> 
-<input type=button name=button_setup value="打印页面设置"  onclick="javascript:printsetup();"   /> 
+<OBJECT classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2" height=0 id=wb name=wb width=0></OBJECT>
+<input type=button name=button_print value="打印"          onclick="javascript:printit();"      />
+<input type=button name=button_show  value="打印预览"      onclick="javascript:printpreview();" />
+<input type=button name=button_setup value="打印页面设置"  onclick="javascript:printsetup();"   />
 </div>
 </div></body>
 </html>
@@ -223,7 +223,7 @@
 		var jsonData = Ext.util.JSON.decode(response.responseText);
 		if(jsonData.success === false) return;
 		var currency = jsonData.data.currency;
-		alert(currency);
+		//alert(currency);
 		var templateStr = ['<tr>'
 		,'<td align="center" class="xl10418762" style="font-size:10px">{sendSeqId}</td>'
     ,'<td align="center" class="xl10418762" style="font-size:10px">{rltPoNo}</td>'
@@ -237,10 +237,10 @@
     ,'<td align="center" class="xl10418762" style="font-size:10px">{specDesc}</td>'
     ,'</tr>'].join("");
     var template = Ext.DomHelper.createTemplate(templateStr);
-    
+
     // 数量统计 金额统计
 		var quantity = amount = 0;
-		Ext.each(jsonData.data.warehouseSend.detailList, function(item) {			
+		Ext.each(jsonData.data.warehouseSend.detailList, function(item) {
 			if(jsonData.data.isShowPrice == 0) {
 				item.price = "&nbsp;";
 				item.taxRate = "&nbsp;";
@@ -254,15 +254,15 @@
 			quantity += +item.amount;
 			// 税率
 			amount   += +item.curMoney;
-			
+
 		});
-		
+
 		// 填充数量/PCS
 		Ext.DomQuery.select("#totalcount")[0].innerHTML  = quantity;
 		// 填充总金额
 		Ext.DomQuery.select("#totalamount")[0].innerHTML = amount;
-		
-		
+
+
 		var info = jsonData.data;
 		// 送货日期
 		var dataformat = FormatUtil.data2string(info.warehouseSend.createDate);
@@ -277,7 +277,7 @@
 		Ext.DomQuery.select("#cuaddress1")[0].innerHTML = info.warehouseSend.receiveAddress;
 		// 送货地址2
 		//Ext.DomQuery.select("#cuaddress2")[0].innerHTML = info.vcaddress;
-		
+
 		// 送货单号
 		Ext.DomQuery.select("#shdh")[0].innerHTML = info.warehouseSend.sendPoNo;
 		// 发票号

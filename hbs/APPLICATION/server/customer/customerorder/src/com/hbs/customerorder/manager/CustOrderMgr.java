@@ -36,6 +36,7 @@ import com.hbs.domain.waittask.pojo.WaitTaskInfo;
  *
  */
 public class CustOrderMgr {
+	public static final String CUSTOMER_ORDER_DAO = "customerOrderDao";
 	private static final Logger logger = Logger.getLogger(CustOrderMgr.class);
 	private static final String VENDORINFO_DAO ="vendorInfoDao";
 	/**
@@ -68,7 +69,7 @@ public class CustOrderMgr {
 			logger.debug("修改帐期为" + cOrder.getPeriod());
 		}
 		cOrder.setState(CustOrderConstants.ORDER_STATE_01);
-		CustomerOrderDao cOrderDao =(CustomerOrderDao)BeanLocator.getInstance().getBean("customerOrderDao");
+		CustomerOrderDao cOrderDao =(CustomerOrderDao)BeanLocator.getInstance().getBean(CUSTOMER_ORDER_DAO);
 		cOrderDao.insertCustomerOrder(cOrder);
 		List<CustOrderDetail> orderDetailList = cOrder.getOrderDetailList();
 		if(null != orderDetailList){
@@ -99,7 +100,7 @@ public class CustOrderMgr {
 	 */
 	public int updateTempCustomerOrder(CustomerOrder cOrder) throws Exception{
 		logger.debug("修改客户订单,输入的参数为：" + cOrder.toString());
-		CustomerOrderDao cOrderDao =(CustomerOrderDao)BeanLocator.getInstance().getBean("customerOrderDao");
+		CustomerOrderDao cOrderDao =(CustomerOrderDao)BeanLocator.getInstance().getBean(CUSTOMER_ORDER_DAO);
 		cOrderDao.updateCustomerOrder(cOrder);
 		List<CustOrderDetail> orderDetailList = cOrder.getOrderDetailList();
 		if(null != orderDetailList){			
@@ -367,7 +368,7 @@ public class CustOrderMgr {
 		}else{
 			cOrder.setActiveState(CustOrderConstants.ORDER_ACTIVE_STATE);
 		}
-		CustomerOrderDao cOrderDao =(CustomerOrderDao)BeanLocator.getInstance().getBean("customerOrderDao");
+		CustomerOrderDao cOrderDao =(CustomerOrderDao)BeanLocator.getInstance().getBean(CUSTOMER_ORDER_DAO);
 		cOrderDao.updateCustomerOrderByActiveState(cOrder);
 		List<CustOrderDetail> orderDetailList = cOrder.getOrderDetailList();
 		if(null != orderDetailList){
@@ -397,7 +398,7 @@ public class CustOrderMgr {
 	public CustomerOrder findCustomerOrderByBizKey(CustomerOrder cOrder, boolean isDetail)throws Exception{
 		CustomerOrder retOrder = null;
 		logger.debug("根据业务主键查询客户订单,输入的参数为：" + cOrder.toString());
-		CustomerOrderDao cOrderDao =(CustomerOrderDao)BeanLocator.getInstance().getBean("customerOrderDao");
+		CustomerOrderDao cOrderDao =(CustomerOrderDao)BeanLocator.getInstance().getBean(CUSTOMER_ORDER_DAO);
 		retOrder = cOrderDao.findCustomerOrder(cOrder);
 		if(isDetail){
 			CustOrderDetailMgr detailMgr =(CustOrderDetailMgr)BeanLocator.getInstance().getBean("custOrderDetailMgr");
@@ -417,7 +418,7 @@ public class CustOrderMgr {
 	public List<CustomerOrder> listCustomerOrder(CustomerOrder cOrder) throws Exception{
 		List<CustomerOrder> retList = null;
 		logger.debug("根据查询条件，查询订单列表,输入的参数为：" + cOrder.toString());
-		CustomerOrderDao cOrderDao =(CustomerOrderDao)BeanLocator.getInstance().getBean("customerOrderDao");
+		CustomerOrderDao cOrderDao =(CustomerOrderDao)BeanLocator.getInstance().getBean(CUSTOMER_ORDER_DAO);
 		retList = cOrderDao.listCustomerOrder(cOrder);
 		return retList;
 	}
@@ -431,7 +432,7 @@ public class CustOrderMgr {
 	public Integer listCustomerOrderCount(CustomerOrder cOrder) throws Exception{
 		Integer retI = null;
 		logger.debug("根据查询条件，查询符合条件的订单数量,输入的参数为：" + cOrder.toString());
-		CustomerOrderDao cOrderDao =(CustomerOrderDao)BeanLocator.getInstance().getBean("customerOrderDao");
+		CustomerOrderDao cOrderDao =(CustomerOrderDao)BeanLocator.getInstance().getBean(CUSTOMER_ORDER_DAO);
 		retI = cOrderDao.listCustomerOrderCount(cOrder);
 		return retI;
 	}
@@ -444,7 +445,7 @@ public class CustOrderMgr {
 	 */
 	private int updateCustCustomerState(CustomerOrder cOrder, boolean isDetail) throws Exception{
 		int ret =0;
-		CustomerOrderDao cOrderDao =(CustomerOrderDao)BeanLocator.getInstance().getBean("customerOrderDao");
+		CustomerOrderDao cOrderDao =(CustomerOrderDao)BeanLocator.getInstance().getBean(CUSTOMER_ORDER_DAO);
 		cOrderDao.updateCustomerOrderByState(cOrder);
 		if(isDetail){
 			CustOrderDetailMgr detailMgr =(CustOrderDetailMgr)BeanLocator.getInstance().getBean("custOrderDetailMgr");

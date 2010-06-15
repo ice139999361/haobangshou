@@ -678,11 +678,14 @@ public class CustOrderDetailMgr {
 				throw new Exception("通用库存发货数  > 锁定的通用库存数,无法执行操作！");
 			}
 			int  tempAmount = ieAmount + ideliveryAmount;
+			logger.debug("tempAmount="+tempAmount+" existDetail.getAmount()=" + existDetail.getAmount() + " ==" + (tempAmount == existDetail.getAmount()));
 			if(tempAmount <=  existDetail.getAmount()){
 				if(tempAmount == existDetail.getAmount()){
-					orderDetail.setState(CustOrderConstants.ORDER_STATE_61);
-				}else{
+					// 全部出货
 					orderDetail.setState(CustOrderConstants.ORDER_STATE_60);
+				}else{
+					// 部分出货
+					orderDetail.setState(CustOrderConstants.ORDER_STATE_61);
 				}
 				//处理数量
 				orderDetail.setDeliveryAmount(tempAmount);
@@ -693,6 +696,38 @@ public class CustOrderDetailMgr {
 				orderDetail.setSelfLockAmount(ieselfLock - iselfdeliveryAmount);
 				orderDetail.setCommLockAmount(iecommLock - icommdeliveryAmount);
 				ret = updateCustDetailAmount(orderDetail);
+				// DONE：判断是否需要修改客户订单本身的状态
+				if(ret == 0 && !orderDetail.getState().equals(existDetail.getState())){
+					CustOrderMgr coMgr = (CustOrderMgr)BeanLocator.getInstance().getBean(CustOrderConstants.CUSTORDERMGR);
+					CustomerOrder co = new CustomerOrder();
+					co.setCommCode(existDetail.getCommCode());
+					co.setPoNo(existDetail.getPoNo());
+					co = coMgr.findCustomerOrderByBizKey(co, true);
+					String s = co.getState();
+					if(! (CustOrderConstants.ORDER_STATE_60.equals(s)
+							|| orderDetail.getState().equals(s)) ){
+						boolean isOk = true;
+						String newState = orderDetail.getState();
+						for(CustOrderDetail co2 : co.getOrderDetailList()){
+							if(existDetail.getOperSeqId().equals(co2.getOperSeqId()))
+									continue;
+							s = co2.getState();
+							if(CustOrderConstants.ORDER_STATE_60.equals(s)){
+								continue;
+							}else if(CustOrderConstants.ORDER_STATE_61.equals(s)){
+								newState = CustOrderConstants.ORDER_STATE_61;
+							}else{
+								isOk = false;
+								break;
+							}
+						}
+						if(isOk){
+							co.setState(newState);
+							CustomerOrderDao dao = (CustomerOrderDao)BeanLocator.getInstance().getBean(CustOrderMgr.CUSTOMER_ORDER_DAO);
+							dao.updateCustomerOrderByState(co);
+						}
+					}
+				}
 			}else{//发货数量大于订货数量
 				throw new Exception("修改订单明细的已发货数量操作，所操作的订单明细发货数量大于订货数量，无法执行！");
 			}

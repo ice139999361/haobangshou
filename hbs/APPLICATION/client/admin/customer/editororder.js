@@ -135,7 +135,7 @@ HBSConvertHelper.init(function() {
 		Ext.getCmp("acShortName").setValue(action.data.custInfo.shortName);
 		Ext.getCmp("acSettlementType").setValue(action.data.custInfo.settlementDesc2);
 
-		var o = this.getValue();
+		var o = action.data.custInfo.commCode;
 		var list = Ext.getCmp("acContactList");
 		list.store.baseParams["custInfo.commCode"] = o;
 		list.store.baseParams["custInfo.state"] = "0";
