@@ -126,6 +126,13 @@ HBSConvertHelper.init(function() {
 			if(Ext.isEmpty(record.get("cpriceTax")) || record.get("cpriceTax") == 0) ordergrid.getColumnById("cisTax").editable = true;
 			else ordergrid.getColumnById("cisTax").editable = false;
 		});
+
+		// 选择收货信息
+		var list = Ext.getCmp("acConsigneeList");
+		list.store.list = list;
+		list.store.on("load", afterListLoad);
+		list.selectPrimary = true;
+		list.store.load();
 	}())
 
 	function afterListLoad(){
@@ -186,7 +193,7 @@ HBSConvertHelper.init(function() {
 				list.store.load();
 			}
 		}
-		list = Ext.getCmp("acConsigneeList");
+		/*list = Ext.getCmp("acConsigneeList");
 		list.store.baseParams["vendorInfo.commCode"] = o;
 		list.store.baseParams["vendorInfo.state"] = "0";
 		list.store.list = list;
@@ -200,7 +207,7 @@ HBSConvertHelper.init(function() {
 				list.selectPrimary = false;
 				list.store.load();
 			}
-		}
+		}*/
 
 		var cm = ordergrid.getColumnModel();
 		list = cm.getColumnById("cCpartNo").editor;
@@ -253,10 +260,10 @@ HBSConvertHelper.init(function() {
 			}
 		}
 		var data = this.store.getAt(this.selectedIndex);
-		var o = data.get("conAddress");
+		var o = data.get("address");
 		Ext.getCmp("acAddress").setValue(o);
 		Ext.getCmp("acAddressHidden").setValue(o);
-		o = data.get("conZip");
+		o = data.get("zip");
 		Ext.getCmp("acZip").setValue(o);
 		Ext.getCmp("acZipHidden").setValue(o);
 	});
