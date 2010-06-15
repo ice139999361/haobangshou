@@ -96,15 +96,15 @@ public class WarehouseRecUtil {
 		List<FieldErr> list = new ArrayList<FieldErr>();
 		
 		if(StringUtils.isEmpty(warehouseRec.getVendorCode()))
-			list.add(new FieldErr("VendorCode","VendorCode没有填写"));
+			list.add(new FieldErr("VendorCode","供应商编码没有填写"));
 		if(StringUtils.isEmpty(warehouseRec.getRecPoNo()))
-			list.add(new FieldErr("RecPoNo","RecPoNo没有填写"));
+			list.add(new FieldErr("RecPoNo","入库单号没有填写"));
 		if(StringUtils.isEmpty(warehouseRec.getShortName()))
-			list.add(new FieldErr("ShortName","ShortName没有填写"));
+			list.add(new FieldErr("ShortName","供应商简称没有填写"));
 		if(warehouseRec.getPoNoDate() == null)
-			list.add(new FieldErr("PoNoDate","PoNoDate没有填写"));
+			list.add(new FieldErr("PoNoDate","供应商单据日期没有填写"));
 		if(StringUtils.isEmpty(warehouseRec.getHouseType()))
-			list.add(new FieldErr("HouseType","HouseType没有填写"));
+			list.add(new FieldErr("HouseType","仓库没有填写"));
 		if(StringUtils.isEmpty(warehouseRec.getSettlementType()))
 			list.add(new FieldErr("SettlementType","SettlementType没有填写"));
 		if(StringUtils.isEmpty(warehouseRec.getPoNoType()))
@@ -115,13 +115,13 @@ public class WarehouseRecUtil {
 			if(detail == null)
 				continue;
 			if(StringUtils.isEmpty(detail.getCpartNo()))
-				list.add(new FieldErr("CpartNo","CpartNo没有填写"));
+				list.add(new FieldErr("CpartNo","供应商 P/N没有填写"));
 			if(StringUtils.isEmpty(detail.getPartNo()))
-				list.add(new FieldErr("PartNo","PartNo没有填写"));
+				list.add(new FieldErr("PartNo","公司 P/N没有填写"));
 			if(StringUtils.isEmpty(detail.getPnDesc()))
-				list.add(new FieldErr("PnDesc","PnDesc没有填写"));
+				list.add(new FieldErr("PnDesc","物料描述没有填写"));
 			if(detail.getAmount() == null)
-				list.add(new FieldErr("Amount","Amount没有填写"));
+				list.add(new FieldErr("Amount","入库数量没有填写"));
 			if(detail.getTaxRate() == null)
 				list.add(new FieldErr("TaxRate","TaxRate没有填写"));
 			if(StringUtils.isEmpty(detail.getIsTax()))
