@@ -1,4 +1,4 @@
-//TODO：从配置中获取此值
+//TODO：从配置中获取此值，暂不实现
 var VendorDate2CustDate = 3;
 var isManulSelect = true;	//标记是否人为选择commCode
 
@@ -281,10 +281,12 @@ HBSConvertHelper.init(function() {
 				submitSuccessPro();
 				return;
 			}
-			var url = ["/print/cgdd.jsp?vendorOrder.commCode=", this.commCode, "&vendorOrder.poNo=", this.poNo].join("");
-			// TODO: 打开新窗口和关闭当前窗口冲突了。打开新窗口在前的话，新窗口就被关闭了；关闭窗口在前的话，打开新窗口的语句就不执行了。
+			var url = [CONTEXT_PATH, "/print/cgdd.jsp?vendorOrder.commCode=", this.commCode, "&vendorOrder.poNo=", this.poNo].join("");
+			// DONE: 打开新窗口和关闭当前窗口冲突了。打开新窗口在前的话，新窗口就被关闭了；关闭窗口在前的话，打开新窗口的语句就不执行了。
+			// 使用open，不使用HBSConvertHelper.openNewWin。因为打印需要单独窗口。
+			// 并且这样的新开窗口不会被submitSuccessPro中的函数关闭。
+			open(url);
 			submitSuccessPro();
-			HBSConvertHelper.openNewWin(url);
 		}, this);
 	}
 
@@ -296,7 +298,8 @@ HBSConvertHelper.init(function() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("下供应商订单");
 
-		Ext.getCmp("acCommCode").readOnly = false;
+		ExtConvertHelper.setItemsReadOnly("acCommCode", false);
+		//Ext.getCmp("acCommCode").readOnly = false;
 
 		// 提交完成后的操作
 		submitSuccessPro = function() {
@@ -312,8 +315,9 @@ HBSConvertHelper.init(function() {
 		// 隐藏不需要的控件
 		if(urlPs.state != "01") ExtConvertHelper.hideItems("saveBtn");
 
-		//TODO: readOnly不管用，不能禁止用户输入。disable又变成灰色的，不协调。
-		Ext.getCmp("acCommCode").readOnly = true;
+		//DONE: readOnly不管用，不能禁止用户输入。disable又变成灰色的，不协调。
+		ExtConvertHelper.setItemsReadOnly("acCommCode", true);
+		//Ext.getCmp("acCommCode").readOnly = true;
 		//Ext.getCmp("acCommCode").disable();
 
 		// 组装需要的参数
