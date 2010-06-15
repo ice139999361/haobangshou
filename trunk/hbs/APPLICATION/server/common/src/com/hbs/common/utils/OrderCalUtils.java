@@ -29,24 +29,45 @@ public class OrderCalUtils {
 		int iTax = Integer.parseInt(isTax);
 		switch(iTax){
 		case 0://不含税交易
-			ret = price.multiply(new BigDecimal(amount));
+			BigDecimal bContactFee = new BigDecimal(0.0);;
+			if(contactFee != null){
+				bContactFee = contactFee;
+			}
+			ret = (price.multiply(new BigDecimal(amount))).multiply(new BigDecimal(1).subtract(bContactFee));
+			
 			break;
 		case 1://含税交易
-			double dPriceTax = 0.0;
+			BigDecimal dPriceTax = new BigDecimal(0.0);
 			if(null !=priceTax){//判断价格是否含税
-				dPriceTax = priceTax.doubleValue();
+				dPriceTax = priceTax;
+				
 			}
-			double dContactFee =0.0;
+			BigDecimal dContactFee =new BigDecimal(0.0);
 			if(null != contactFee){//存在合同费
-				dContactFee = contactFee.doubleValue();
+				dContactFee = contactFee;
 			}
-			if(dPriceTax == 0){//单价不含税，是含税交易，需要加上税率
-				ret = price.multiply(taxRate.add(new BigDecimal(1)).subtract(new BigDecimal(dContactFee))).multiply(new BigDecimal(amount));
-			}else{//单价已经含税
-				ret = price.multiply(new BigDecimal(1)).subtract(new BigDecimal(dContactFee)).multiply(new BigDecimal(amount));
-			}
+			//if(dPriceTax == 0){//单价不含税，是含税交易，需要加上税率
+				ret = (price.multiply(dPriceTax.add(new BigDecimal(1))).multiply(new BigDecimal(amount))).multiply(new BigDecimal(1).subtract(dContactFee));
+			//}else{//单价已经含税
+			//	ret = price.multiply(new BigDecimal(1)).subtract(new BigDecimal(dContactFee)).multiply(new BigDecimal(amount));
+			//}
 		}
 		
 		return ret;
+	}
+	
+	
+	public static void main(String [] args){
+		//calOrderMoney(BigDecimal price , String isTax , BigDecimal priceTax ,BigDecimal taxRate ,BigDecimal contactFee, Integer amount)
+		BigDecimal price = new BigDecimal(0.15678901);
+		String isTax ="0";
+		BigDecimal priceTax = new BigDecimal(0.17);
+		BigDecimal contactFee = new BigDecimal(0.0);
+		Integer amount= 100;
+		
+		BigDecimal ret = OrderCalUtils.calOrderMoney(price , isTax , priceTax ,null ,contactFee,  amount);
+		
+		System.out.println(ret.toString());
+		
 	}
 }
