@@ -315,7 +315,7 @@
 		Ext.DomQuery.select("#dateoflssue")[0].innerHTML = info.orderTime;
 
 		// 供应商地址
-		Ext.DomQuery.select("#vcaddress")[0].innerHTML = jsonData.data.vendorInfo.address;
+		Ext.DomQuery.select("#vcaddress")[0].innerHTML = jsonData.data.vendorInfo.allName;
 		// 供应商联系电话
 		Ext.DomQuery.select("#vcphone")[0].innerHTML = "TEL：" + info.conTel +"        FAX：" + info.conFax;
 		// 供应商联系人
