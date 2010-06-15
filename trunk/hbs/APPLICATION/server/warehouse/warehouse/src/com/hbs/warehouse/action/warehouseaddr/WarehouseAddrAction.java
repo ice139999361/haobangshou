@@ -33,7 +33,7 @@ public class WarehouseAddrAction extends BaseAction {
 		try{
 			Collection<WarehouseAddrInfo> l = WarehouseAddrMgr.listWarehouseAddr();
 			this.setTotalCount(l.size());
-			logger.debug("list size=" + l.size());
+			//logger.debug("list size=" + l.size());
 			setResult("list", l);
 			setResult("count", l.size());
 			return SUCCESS;
