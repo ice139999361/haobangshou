@@ -44,7 +44,7 @@
 				    				<label        fieldLabel="传真"               name="vendorOrder.conFax"	id="acFax"                       labelStyle="width:150"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
-				    				<dictcombo    fieldLabel="选择收货人"	id="acConsigneeList"	url="/vendorInfo/vendorInfo!getConsigneeList.action" record="seqId,conName,conAddress,conZip,isPrimary"	root="data.list"	valueField="conName"	displayField="conName"	name="vendorOrder.receiveName"                        labelStyle="width:150"/>
+				    				<dictcombo    fieldLabel="选择收货人"	id="acConsigneeList"	url="/warehouse/warehouseAddr!list.action" record="id,name,conName,address,zip,isPrimary"	root="data.list"	valueField="conName"	displayField="conName"	name="vendorOrder.receiveName"                        labelStyle="width:150"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="2">
 				    				<label        fieldLabel="收货地址"           name="vendorOrder.receiveAddress"	id="acAddress"                        labelStyle="width:150"/>

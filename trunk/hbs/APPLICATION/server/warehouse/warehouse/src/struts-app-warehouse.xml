@@ -23,5 +23,27 @@
     			class="com.hbs.warehouse.action.WarehouseAction">
 		</action>
         
+        <!-- 
+	/**
+	 * 获取列表
+	 * @action.input 不需要参数
+	 * @action.result list 类型:Collection<WarehouseAddrInfo>
+	 * @return
+	 */
+         -->
+        <action name="warehouseAddr!list" method="doList" 
+    			class="com.hbs.warehouse.action.warehouseaddr.WarehouseAddrAction">
+		</action>
+		<!-- 
+	/**
+	 * 获取单项信息
+	 * @action.input warehouseAddr.id
+	 * @action.result warehouseAddr.*  类型:WarehouseAddrInfo
+	 * @return
+	 */
+		 -->
+        <action name="warehouseAddr!getInfo" method="doGetInfo" 
+    			class="com.hbs.warehouse.action.warehouseaddr.WarehouseAddrAction">
+		</action>
 	</package>
 </struts>
