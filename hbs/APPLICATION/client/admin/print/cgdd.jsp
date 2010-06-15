@@ -259,7 +259,13 @@
 </body>
 </html>
 <script>
-	var params = ["vendorOrder.commCode=" , urlPs["vendorOrder.commCode"],"&vendorOrder.poNo=" , urlPs["vendorOrder.poNo"]].join("");
+	var commCode = urlPs["vendorOrder.commCode"];
+	var poNo = urlPs["vendorOrder.poNo"];
+	if(!(commCode && poNo)){
+		commCode = urlPs["commCode"];
+		poNo = urlPs["poNo"];
+	}
+	var params = ["vendorOrder.commCode=", commCode, "&vendorOrder.poNo=", poNo].join("");
 	ExtConvertHelper.request("/vendorOrder/vendorOrder!print.action", params, function(response, opts) {
 		var jsonData = Ext.util.JSON.decode(response.responseText);
 		if(jsonData.success === false) return;

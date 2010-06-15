@@ -135,7 +135,7 @@ HBSConvertHelper.init(function() {
 				Ext.getCmp("ordergrid").addData(action.result.data.vendorOrder.vendorOrderDetailList);
 				switch(action.result.data.vendorOrder.state) {
 					// 正式状态
-					case "2":
+					case "04":
 						ExtConvertHelper.showItems("printBtn");
 						break;
 				}
