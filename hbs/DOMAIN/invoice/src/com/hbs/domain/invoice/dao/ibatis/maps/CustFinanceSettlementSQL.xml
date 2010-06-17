@@ -156,10 +156,14 @@
 				FINANCE_STATE = #financeState#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "salesId">
-				SALES_ID = #salesId#
+				<![CDATA[
+					( SALES_ID = #salesId#)
+				]]>
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "assId">
-				ASS_ID = #assId#
+				<![CDATA[
+					(  ASS_ID=#assId#)
+				]]>
 			</isNotEmpty>			
 			<isNotEmpty prepend="order by" property="sort">
                    $sort$
@@ -194,10 +198,14 @@
 				FINANCE_STATE = #financeState#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "salesId">
-				SALES_ID = #salesId#
+				<![CDATA[
+					( SALES_ID = #salesId#)
+				]]>
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "assId">
-				ASS_ID = #assId#
+				<![CDATA[
+					(  ASS_ID=#assId#)
+				]]>
 			</isNotEmpty>			
 		</dynamic>
 </select>
