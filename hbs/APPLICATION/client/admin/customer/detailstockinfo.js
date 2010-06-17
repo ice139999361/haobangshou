@@ -57,6 +57,10 @@ HBSConvertHelper.init(function() {
 						if(btn == "no") return;
 
 						// TODO: 校验value，确保是数值，且不大于record.get("useAmount")和needAmount
+						if(isNaN(value)) {
+							Ext.Msg.alert("提示", "调货数量必须为数字。");
+							return;
+						}
 
 						// 获取订单详情信息
 						var orderDetailInfo = Ext.getCmp("orderdetailgrid").getView().ds.getAt(0);
