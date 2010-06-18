@@ -22,7 +22,7 @@
 			    				<textfield fieldLabel="客户订单号"         name="corderDetail.poNo" />
 			    			</layoutpanel>
 			    			<layoutpanel columnNum="6:.333,.10,.05,.15,.05,.3">
-								<dictcombo   fieldLabel="结算类型"               hiddenName="corderDetail.settlementType"            labelStyle="width:150" paramsValue="SETTLEMENT_TYPE" emptyText="请选择" id="vSettlementType" />
+								<dictcombo   fieldLabel="结算类型"               hiddenName="corderDetail.settlementType"             paramsValue="SETTLEMENT_TYPE" emptyText="请选择" id="vSettlementType" />
 			    				
 									<label fieldLabel="订单时间" />
 									<label fieldLabel="从" labelSeparator="" />
