@@ -79,7 +79,8 @@ HBSConvertHelper.init(function() {
 			Ext.getCmp("hidSettlementType").setValue(action.data.custInfo.settlementType);
 			Ext.getCmp("hidShortName").setValue(action.data.custInfo.shortName);
 			Ext.getCmp("acCompanyBranch").setValue(action.data.custInfo.companyBranch);
-
+			Ext.getCmp("acWinCommCode").setValue(action.data.custInfo.commCode);
+			
 			var list = Ext.getCmp("areceiveName");
 			list.setParam("custCode", action.data.custInfo.commCode);
 			list.store.list = list;
