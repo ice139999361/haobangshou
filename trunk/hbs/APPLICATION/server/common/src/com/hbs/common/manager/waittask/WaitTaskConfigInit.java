@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.springhelper.BeanLocator;
@@ -77,8 +78,19 @@ public class WaitTaskConfigInit {
 	public static WaitTaskConfigInfo getWaitTaskConfigInfo(String configId){
 		if(null == hm){
 			init();
-		}		
-		return hm.get(configId);
+		}	
+		WaitTaskConfigInfo configInfoNew = null;
+		try{
+		WaitTaskConfigInfo configInfo = hm.get(configId);
+		
+		if(configInfo != null){
+			configInfoNew  = new  WaitTaskConfigInfo();
+			BeanUtils.copyProperties(configInfoNew, configInfo);
+		}
+		}catch(Exception e){
+			logger.error("待办配置缓存数据加载失败! 获取配置信息失败!getWaitTaskConfigInfo(String configId)", e);
+		}
+		return configInfoNew;
 	}
 
 }

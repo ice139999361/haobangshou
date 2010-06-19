@@ -39,7 +39,7 @@ var ordergridFun = function() {
 	cgh.appendField("hastenReminder");
 	cgh.appendField("selectType");
 	cgh.appendField("fromTo");
-
+ 
 	cgh.appendColumn({dataIndex: "operSeqId"	, isCheck: true});
 	cgh.appendColumn({header: "客户订单号<br />特定备货的客户编码"	, xtype: "textfield", dataIndex: "custCcode", id : "colCustCcode", width: 120});
 	//cgh.appendColumn({header: "货品名称"	  , dataIndex: "pnName"});
@@ -133,6 +133,7 @@ var orderquerygridFun = function() {
 	cgh.appendField("custCcode");
 	cgh.appendField("hastenReminder");
 	cgh.appendField("fromTo");
+	cgh.appendField("hastenReminder");
 
 
 	cgh.appendColumn({dataIndex: "operSeqId"	, isCheck: true});

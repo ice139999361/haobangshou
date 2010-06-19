@@ -37,7 +37,6 @@ var ordergridFun = function() {
 	cgh.appendField("state");
 	cgh.appendField("stateDesc");
 
-
 	cgh.appendColumn({dataIndex: "operSeqId"	, isCheck: true});
 //	cgh.appendColumn({header: "货品名称"	, dataIndex: "pnName"});
 	cgh.appendColumn({header: "客户型号<font color=red>*</font>"	, dataIndex: "cpartNo", xtype: "autocomplete", id: "cCpartNo", queryParam: "custPartNoInfo.custPartNo" ,displayField:"custPartNo" , valueField:"custPartNo", url: "/customerInfo/custPartNoInfo!list.action"});
