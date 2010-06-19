@@ -148,7 +148,7 @@ HBSConvertHelper.init(function() {
 
 	// -------------------------------------- window 部分功能实现代码
 	(function() {
-		Ext.getCmp("acCommCode").setProcessConfig("/vendorInfo/vendorInfo!getInfo.action?vendorInfo.state=0", "vendorInfo.commCode", null, function(action){
+		Ext.getCmp("acCommCode").setProcessConfig("/vendorInfo/vendorInfoMgr!getInfo.action?vendorInfo.state=0", "vendorInfo.commCode", null, function(action){
 			if(!action.success)
 				return;
 			// 给需要的隐藏域赋值
