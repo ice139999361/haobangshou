@@ -79,7 +79,7 @@ HBSConvertHelper.init(function() {
 			
 		});
 		
-		setTimeout(fillingData, 300000);
+		setTimeout(fillingData, 30000);
 	}
 	
 	
