@@ -25,7 +25,7 @@ HBSConvertHelper.init(function() {
 	 */
 	function submitData(url) {
 		// 验证 form 内容是符满足要求
-		//if(!ExtConvertHelper.isFormValid("form")) return;
+		if(!ExtConvertHelper.isFormValid("form")) return;
 
 		// 获取（客户联系人信息、客户收货人信息、客户银行信息）表格中的提交数据
 		var girdData = HBSConvertHelper.getGridSubmitData("warehousegrid", "orderlist");
@@ -56,7 +56,9 @@ HBSConvertHelper.init(function() {
 
 		Ext.getCmp("addInfoBtn").on("click", function() {
 			selectWindow.show();
-			HBSConvertHelper.refreshGrid("querygrid");
+			ExtConvertHelper.setItemsReadOnly("acVendorCode", true);
+			//HBSConvertHelper.refreshGrid("querygrid");
+			//Ext.getCmp("wokBtn").fireEvent("click");
 		});
 
 		warehousegrid.getView().on("refresh", function(view) {
@@ -154,6 +156,7 @@ HBSConvertHelper.init(function() {
 			// 给需要的隐藏域赋值
 			Ext.getCmp("hidSettlementType").setValue(action.data.vendorInfo.settlementType);
 			Ext.getCmp("hidShortName").setValue(action.data.vendorInfo.shortName);
+			Ext.getCmp("acVendorCode").setValue(action.data.vendorInfo.commCode);
 		});
 
 		Ext.getCmp("aWarehouseType").on("select", function(){
