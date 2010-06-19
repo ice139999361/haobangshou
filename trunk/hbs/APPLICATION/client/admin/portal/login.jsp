@@ -10,7 +10,12 @@
 <META http-equiv=Content-Type content="text/html; charset=UTF-8">
 <META content="MSHTML 6.00.6000.16674" name=GENERATOR>
 </HEAD>
-<BODY id=userlogin_body><FORM id="form">
+<BODY id=userlogin_body>
+<script language="javascript">
+ /*location.replace(this.href);event.returnvalue = false;*/ 
+ window.history.forward(1);
+</script>
+<FORM id="form">
 <DIV></DIV>
 
 <DIV id=user_login>

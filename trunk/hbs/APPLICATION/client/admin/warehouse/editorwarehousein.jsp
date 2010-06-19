@@ -20,15 +20,15 @@
 							<form id="form"><items>
 				    		<listpanel frame="true" title="入库基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
-				    				<textfield    fieldLabel="入库单号"       id="txtRecPoNo" name="warehouseRec.recPoNo"        labelStyle="width:150"     emptyText="供应商的送货单号" />
+				    				<textfield    fieldLabel="入库单号"       id="txtRecPoNo" name="warehouseRec.recPoNo"        labelStyle="width:150"     emptyText="供应商的送货单号" allowBlank="false" />
 				    				<datefield    fieldLabel="供应商单据日期" name="warehouseRec.poNoDate"    id="acPoNoDate"    labelStyle="width:150"     emptyText="送货单的日期" format="Y-m-d" />
 				    				<!--<textfield    fieldLabel="供应商"      id="txtVendorCode"   name="warehouseRec.vendorCode"       labelStyle="width:150"  />
 									 -->
 				    				<autocomplete fieldLabel="供应商" url="/vendorInfo/vendorInfo!listDict.action"  displayField="commCode"  valueField="commCode" queryParam="vendorInfo.commCode"     name="warehouseRec.vendorCode"       labelStyle="width:150" allowBlank="false" id="acCommCode" />
 
 
-				    				<datefield    fieldLabel="入库日期"  	    name="warehouseRec.operTime"        labelStyle="width:150"     format="Y-m-d" id="acOperTime" />
-				    				<datefield    fieldLabel="到货日期"  	    name="warehouseRec.applyDate"        labelStyle="width:150"     format="Y-m-d" id="acApplyDate"/>
+				    				<!--<datefield    fieldLabel="入库日期"  	    name="warehouseRec.operTime"        labelStyle="width:150"     format="Y-m-d" id="acOperTime" />-->
+				    				<datefield    fieldLabel="到货日期"  	    name="warehouseRec.applyDate"        labelStyle="width:150"     format="Y-m-d" id="acApplyDate" allowBlank="false" />
 
 				    				<dictcombo    fieldLabel="仓库" id="aWarehouseType" url="/warehouse/warehouseAddr!list.action" record="id,name,conName,address,zip,isPrimary"	root="data.list"	valueField="id"	displayField="name"          hiddenName="warehouseRec.houseType"  labelStyle="width:150"     emptyText="请选择" />
 
@@ -72,7 +72,7 @@
 				<items>
 					<queryform gridId="querygrid">
 	    			<layoutpanel columnNum="3">
-	    				<textfield fieldLabel="供应商编码"           name="orderDetail.commCode"  />
+	    				<textfield fieldLabel="供应商编码"           name="orderDetail.commCode" id="acVendorCode" readOnly="yes" />
 	    				<textfield fieldLabel="供应商 P/N"           name="orderDetail.cpartNo" />
 	    				<textfield fieldLabel="供应商PO/N"           name="orderDetail.poNo"  />
 

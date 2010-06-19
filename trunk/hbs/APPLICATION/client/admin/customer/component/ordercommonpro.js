@@ -85,8 +85,9 @@ var displayordergridFun = function() {
 	cgh.appendField("commDesc");
 	cgh.appendField("state");
 	cgh.appendField("stateDesc");
-
-
+	cgh.appendField("lockAmount");
+	cgh.appendField("deliveryAmount");
+	
 	cgh.appendColumn({dataIndex: "operSeqId"	, isCheck: true});
 //	cgh.appendColumn({header: "货品名称"	, dataIndex: "pnName"});
 	cgh.appendColumn({header: "客户型号<font color=red>*</font>"	, dataIndex: "cpartNo", xtype: "autocomplete", id: "cCpartNo", queryParam: "custPartNoInfo.custPartNo" ,displayField:"custPartNo" , valueField:"custPartNo", url: "/customerInfo/custPartNoInfo!list.action"});
@@ -102,6 +103,8 @@ var displayordergridFun = function() {
 	cgh.appendColumn({header: "最终交货日期<font color=red>*</font>", dataIndex: "verDeliveryDate", xtype: "datefield", format: "Y-m-d", renderer: FormatUtil.dateRenderer});
 	cgh.appendColumn({header: "特殊备注<font color=red>*</font>"		, dataIndex: "specDesc", xtype: "textfield"});
 	cgh.appendColumn({header: "备注<font color=red>*</font>"		, dataIndex: "commDesc", xtype: "textfield"});
+	cgh.appendColumn({header: "锁定数量"			, dataIndex: "lockAmount"});
+	cgh.appendColumn({header: "已发货数量"			, dataIndex: "deliveryAmount"});
 	cgh.appendColumn({header: "状态"			, dataIndex: "stateDesc"});
 	cgh.appendColumn({header: "操作"			, dataIndex: ""         , id: "operator", width: 250});
 	/*
