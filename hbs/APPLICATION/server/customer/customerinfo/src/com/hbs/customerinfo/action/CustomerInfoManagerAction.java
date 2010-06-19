@@ -270,7 +270,8 @@ public class CustomerInfoManagerAction extends BaseAction {
 		{
 			if (logger.isDebugEnabled())    logger.debug("begin doListForAudit");
 			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(custInfoMgrName);
-			custInfo = new CustomerInfo();
+			if(custInfo == null)
+				custInfo = new CustomerInfo();
 			custInfo.setState(stateForAudit);
 			setPagination(custInfo);
 			setResult("jq", JianQuanUtil.getJQ(JianQuanUtil.TypeCustState, roleName));
