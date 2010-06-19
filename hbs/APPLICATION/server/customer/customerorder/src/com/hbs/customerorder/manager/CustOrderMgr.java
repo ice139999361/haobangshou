@@ -144,7 +144,7 @@ public class CustOrderMgr {
 		//waittask
 		WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
 		if(state.equals(CustOrderConstants.ORDER_STATE_20)){
-			waitTaskInfo.setStaffId(getVendorStaffId(cOrder.getVendorCode()));//这里需要根据供应商查找对应的采购员
+			waitTaskInfo.setStaffId(getVendorStaffId(cOrder.getOrderDetailList().get(0).getVendorCode()));//这里需要根据供应商查找对应的采购员
 		}
 		Map<String , String> hmParam = new HashMap<String,String>();
 		hmParam.put("$staffName", cOrder.getStaffName());

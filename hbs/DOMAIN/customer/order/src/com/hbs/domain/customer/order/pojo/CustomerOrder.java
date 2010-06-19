@@ -3,10 +3,16 @@ package com.hbs.domain.customer.order.pojo;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.hbs.common.manager.configencode.ConfigEncodeMgr;
+import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.common.utils.DateUtils;
+import com.hbs.customerinfo.constants.CustInfoConstants;
+import com.hbs.customerinfo.manager.CustomerInfoMgr;
 import com.hbs.domain.common.pojo.ConfigEncode;
 import com.hbs.domain.common.pojo.base.BaseDomain;
+import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
 
 /**
  * CustomerOrder∂‘œÛ.
@@ -427,6 +433,21 @@ public class CustomerOrder extends BaseDomain{
     	return sb.toString();
     }
 
+    public String getCurrencyDesc(){
+    	try {
+			CustomerInfo ci = new CustomerInfo();
+			ci.setCommCode(this.getCommCode());
+			ci.setState("0");
+			CustomerInfoMgr m = (CustomerInfoMgr)BeanLocator.getInstance().getBean(CustInfoConstants.CUSTINFOMGR);
+			ci = m.getCustomerInfo(ci, false);
+			return ci.getCurrencyDesc();
+		} catch (Exception e) {
+			Logger logger = Logger.getLogger(CustomerOrder.class);
+			logger.error("catch Exception in getCurrencyDesc state=" + getState(), e);
+			return null;
+		}
+    }
+    
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

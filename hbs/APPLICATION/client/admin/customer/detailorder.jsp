@@ -22,12 +22,13 @@
 				    			<layoutpanel columnNum="2">
 				    				<label fieldLabel="客户编码"	         name="custOrder.commCode"         labelStyle="width:150" id="acCommCode" />
 				    				<label fieldLabel="客户订单号"         name="custOrder.poNo"             labelStyle="width:150"/>
-				    				<label fieldLabel="对应分公司"         name="custOrder.acCompanyBranch"  labelStyle="width:150"/>
+				    				<label fieldLabel="对应分公司"         name="custOrder.companyBranchDesc"  labelStyle="width:150"/>
+				    				<label        fieldLabel="币种"           id="acCurrency" name="custOrder.currencyDesc"                        labelStyle="width:150"/>
 
 
 				    				<label fieldLabel="客户简称"           name="custOrder.shortName"        labelStyle="width:150"/>
 				    				<label fieldLabel="客户订单日期"       name="custOrder.oderTime" 	       labelStyle="width:150"/>
-				    				<label fieldLabel="结算类型"           name="custOrder.acSettlementType" labelStyle="width:150"/>
+				    				<label fieldLabel="结算类型"           name="custOrder.settlementTypeDesc" labelStyle="width:150"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
 				    				<label fieldLabel="选择联系人"	       name="custOrder.conName"          labelStyle="width:150"/>

@@ -4,11 +4,15 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
+import com.hbs.common.manager.configencode.ConfigEncodeMgr;
+import com.hbs.common.springhelper.BeanLocator;
+import com.hbs.common.utils.DateUtils;
 import com.hbs.domain.common.pojo.ConfigEncode;
 import com.hbs.domain.common.pojo.base.BaseDomain;
-import com.hbs.common.manager.configencode.ConfigEncodeMgr;
-import com.hbs.common.utils.DateUtils;
+import com.hbs.domain.vendor.vendorinfo.pojo.VendorInfo;
+import com.hbs.vendorinfo.manager.VendorInfoMgr;
 
 /**
  * VendorOrder∂‘œÛ.
@@ -402,7 +406,22 @@ public class VendorOrder extends BaseDomain{
     	return sb.toString();
     }
 
-	@Override 
+    public String getCurrencyDesc(){
+    	try {
+    		VendorInfo ci = new VendorInfo();
+			ci.setCommCode(this.getCommCode());
+			ci.setState("0");
+			VendorInfoMgr m = (VendorInfoMgr)BeanLocator.getInstance().getBean("vendorInfoMgr");
+			ci = m.getVendorInfo(ci, false);
+			return ci.getCurrencyDesc();
+		} catch (Exception e) {
+			Logger logger = Logger.getLogger(VendorOrder.class);
+			logger.error("catch Exception in getCurrencyDesc state=" + getState(), e);
+			return null;
+		}
+    }
+
+    @Override 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("commCode=").append(this.commCode).append(" ");

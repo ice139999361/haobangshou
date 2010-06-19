@@ -30,6 +30,7 @@
 				    				<label        fieldLabel="对应分公司" id="acCompanyBranch"                              labelStyle="width:150"/>
 				    				<label        fieldLabel="结算方式" id="acSettlementType"                                labelStyle="width:150"/>
 				    				<textfield	fieldLabel="追货提醒/天"	name="vendorOrder.hastenReminder"	labelStyle="width:150"/>
+				    				<label        fieldLabel="币种"           id="acCurrency" name="vendorOrder.currencyDesc"                        labelStyle="width:150"/>
 <!--
 				    				<label        fieldLabel="联系人" id="acConName"                                  labelStyle="width:150"/>
 				    				<label        fieldLabel="传真" id="acConFax"                                    labelStyle="width:150"/>
