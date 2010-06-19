@@ -110,6 +110,9 @@ HBSConvertHelper.init(function() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("入库");
 
+		// 到货日期缺省为当前日期
+		Ext.getCmp("acApplyDate").setValue(new Date());
+		
 		// 提交完成后的操作
 		submitSuccessPro = function() {
 			// 用户单击后重载此页面

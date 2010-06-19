@@ -72,7 +72,7 @@
 				<items>
 					<queryform gridId="querygrid">
 	    			<layoutpanel columnNum="3">
-	    				<textfield fieldLabel="客户编码"                   name="orderDetail.commCode"  />
+	    				<textfield fieldLabel="客户编码" id="acWinCommCode"                  name="orderDetail.commCode"  />
 	    				<textfield fieldLabel="客户订单号"                     name="orderDetail.poNo" />
 	    				<textfield fieldLabel="客户物料编码"               name="orderDetail.cpartNo"  />
 

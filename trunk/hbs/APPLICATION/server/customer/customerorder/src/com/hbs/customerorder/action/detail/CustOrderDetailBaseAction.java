@@ -161,7 +161,7 @@ public class CustOrderDetailBaseAction extends BaseAction {
 				//需要追加状态条件
 				orderDetail.setActiveState("ACTIVE");
 			
-				orderDetail.setField("state", "'70','61'");//或备齐或部分发货
+				orderDetail.setField("state", "'71','70','61'");//或备齐或部分发货
 				orderDetail.setField("notPoNoType", "'1'");
 				logger.debug("doListDetail 输入的条件为" + orderDetail.toString());
 			}			

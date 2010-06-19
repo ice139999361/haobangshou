@@ -21,7 +21,7 @@
 				    		<listpanel frame="true" title="入库基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
 				    				<textfield    fieldLabel="入库单号"       id="txtRecPoNo" name="warehouseRec.recPoNo"        labelStyle="width:150"     emptyText="供应商的送货单号" allowBlank="false" />
-				    				<datefield    fieldLabel="供应商单据日期" name="warehouseRec.poNoDate"    id="acPoNoDate"    labelStyle="width:150"     emptyText="送货单的日期" format="Y-m-d" />
+				    				<datefield    fieldLabel="供应商单据日期" name="warehouseRec.poNoDate"    id="acPoNoDate"    labelStyle="width:150"     emptyText="送货单的日期" format="Y-m-d" allowBlank="false"  />
 				    				<!--<textfield    fieldLabel="供应商"      id="txtVendorCode"   name="warehouseRec.vendorCode"       labelStyle="width:150"  />
 									 -->
 				    				<autocomplete fieldLabel="供应商" url="/vendorInfo/vendorInfo!listDict.action"  displayField="commCode"  valueField="commCode" queryParam="vendorInfo.commCode"     name="warehouseRec.vendorCode"       labelStyle="width:150" allowBlank="false" id="acCommCode" />
