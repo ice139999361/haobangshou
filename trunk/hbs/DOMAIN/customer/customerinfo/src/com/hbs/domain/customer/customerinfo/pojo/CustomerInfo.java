@@ -604,12 +604,13 @@ public class CustomerInfo extends BaseDomain{
 	 */
 	public String getSettlementDesc2() {
 		try{
-			String s;
+			String s = null;
 			if("1".equals(this.getSettlementType())){
-				s = this.getSettlementDesc();
-				if(this.accountPreiod != null && StringUtils.isNotEmpty(this.accountPreiod.getSettlementDayDesc())){
+				if(this.accountPreiod != null && StringUtils.isNotEmpty(this.accountPreiod.getSettlementDay())){
 					s = this.accountPreiod.getSettlementDayDesc();
 				}
+				if(StringUtils.isEmpty(s) || "Œ¥∂®“Â".equals(s))
+					s = this.getSettlementDesc();
 			}else{
 				s = this.getSettlementDesc();
 			}
