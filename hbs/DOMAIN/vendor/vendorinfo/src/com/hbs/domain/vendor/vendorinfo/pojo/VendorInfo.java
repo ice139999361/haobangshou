@@ -14,7 +14,6 @@ import com.hbs.domain.common.pojo.baseinfo.AccountPreiod;
 import com.hbs.domain.common.pojo.baseinfo.BankInfo;
 import com.hbs.domain.common.pojo.baseinfo.ContactInfo;
 import com.hbs.domain.common.pojo.baseinfo.PrePaidInfo;
-import com.hbs.domain.customer.customerinfo.pojo.CustomerInfo;
 
 
 /**
@@ -596,18 +595,19 @@ public class VendorInfo extends BaseDomain{
 	 */
 	public String getSettlementDesc2() {
 		try{
-			String s;
+			String s = null;
 			if("1".equals(this.getSettlementType())){
-				s = this.getSettlementDesc();
-				if(this.accountPreiod != null && StringUtils.isNotEmpty(this.accountPreiod.getSettlementDayDesc())){
+				if(this.accountPreiod != null && StringUtils.isNotEmpty(this.accountPreiod.getSettlementDay())){
 					s = this.accountPreiod.getSettlementDayDesc();
 				}
+				if(StringUtils.isEmpty(s) || "Œ¥∂®“Â".equals(s))
+					s = this.getSettlementDesc();
 			}else{
 				s = this.getSettlementDesc();
 			}
 			return s;
 		}catch(Exception e){
-			Logger logger = Logger.getLogger(CustomerInfo.class);
+			Logger logger = Logger.getLogger(VendorInfo.class);
 			logger.error("catch Exception in getSettlementDesc2", e);
 			return null;
 		}
