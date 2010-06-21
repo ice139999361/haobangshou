@@ -140,7 +140,34 @@ public class VendorOrder extends BaseDomain{
      */
     private Integer hastenReminder;
     
-    public String getCustCcode() {
+    /**
+     * 月结类型
+     */
+    private String settlementDay;
+    /**
+     * 月结类型描述
+     */
+    private String settlementDayDesc;
+    
+    
+    
+    public String getSettlementDay() {
+		return settlementDay;
+	}
+
+	public void setSettlementDay(String settlementDay) {
+		this.settlementDay = settlementDay;
+	}
+
+	public String getSettlementDayDesc() {
+		return settlementDayDesc;
+	}
+
+	public void setSettlementDayDesc(String settlementDayDesc) {
+		this.settlementDayDesc = settlementDayDesc;
+	}
+
+	public String getCustCcode() {
 		return custCcode;
 	}
 
@@ -433,6 +460,8 @@ public class VendorOrder extends BaseDomain{
 		sb.append("conFax=").append(this.conFax).append(" ");
 		sb.append("companyBranch=").append(this.companyBranch).append(" ");
 		sb.append("settlementType=").append(this.settlementType).append(" ");
+		sb.append("settlementDay=").append(this.settlementDay).append(" ");
+		sb.append("settlementDayDesc=").append(this.settlementDayDesc).append(" ");
 		sb.append("receiveName=").append(this.receiveName).append(" ");
 		sb.append("receiveAddress=").append(this.receiveAddress).append(" ");
 		sb.append("receiveZip=").append(this.receiveZip).append(" ");

@@ -15,6 +15,8 @@
     <result property="conFax" column="CON_FAX"/>
     <result property="companyBranch" column="COMPANY_BRANCH"/>
     <result property="settlementType" column="SETTLEMENT_TYPE"/>
+    <result property="settlementDay" column="SETTLEMENT_DAY"/>
+    <result property="settlementDayDesc" column="SETTLEMENT_DAYDESC"/>
     <result property="receiveName" column="RECEIVE_NAME"/>
     <result property="receiveAddress" column="RECEIVE_ADDRESS"/>
     <result property="receiveZip" column="RECEIVE_ZIP"/>
@@ -41,7 +43,9 @@
             CON_TEL, 
             CON_FAX, 
             COMPANY_BRANCH, 
-            SETTLEMENT_TYPE, 
+            SETTLEMENT_TYPE,
+            SETTLEMENT_DAY,
+            SETTLEMENT_DAYDESC, 
             RECEIVE_NAME, 
             RECEIVE_ADDRESS, 
             RECEIVE_ZIP, 
@@ -66,6 +70,8 @@
             #conFax#,
             #companyBranch#,
             #settlementType#,
+            #settlementDay#,
+            #settlementDayDesc#,
             #receiveName#,
             #receiveAddress#,
             #receiveZip#,
@@ -147,6 +153,12 @@
 	<isNotEmpty prepend="," property="settlementType">
             SETTLEMENT_TYPE = #settlementType#
 	</isNotEmpty>
+	<isNotEmpty prepend="," property="settlementDay">
+            SETTLEMENT_DAY = #settlementDay#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="settlementDayDesc">
+            SETTLEMENT_DAYDESC = #settlementDayDesc#
+	</isNotEmpty>
 	<isNotEmpty prepend="," property="receiveName">
             RECEIVE_NAME = #receiveName#
 	</isNotEmpty>
@@ -198,7 +210,9 @@
             CON_TEL, 
             CON_FAX, 
             COMPANY_BRANCH, 
-            SETTLEMENT_TYPE, 
+            SETTLEMENT_TYPE,
+            SETTLEMENT_DAY,
+            SETTLEMENT_DAYDESC, 
             RECEIVE_NAME, 
             RECEIVE_ADDRESS, 
             RECEIVE_ZIP, 
@@ -227,7 +241,9 @@
             CON_TEL, 
             CON_FAX, 
             COMPANY_BRANCH, 
-            SETTLEMENT_TYPE, 
+            SETTLEMENT_TYPE,
+            SETTLEMENT_DAY,
+            SETTLEMENT_DAYDESC, 
             RECEIVE_NAME, 
             RECEIVE_ADDRESS, 
             RECEIVE_ZIP, 
