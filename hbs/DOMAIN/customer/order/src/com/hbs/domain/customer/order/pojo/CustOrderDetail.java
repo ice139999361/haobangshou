@@ -204,7 +204,22 @@ public class CustOrderDetail extends BaseDomain{
      */
     private BigDecimal contactFee;
     
-    public String getOperSeqId() {
+    /**
+     * 已下单数量
+     */
+    private Integer orderAmount;
+    
+    
+    
+    public Integer getOrderAmount() {
+		return orderAmount;
+	}
+
+	public void setOrderAmount(Integer orderAmount) {
+		this.orderAmount = orderAmount;
+	}
+
+	public String getOperSeqId() {
         return this.operSeqId;
     }	
   
@@ -596,6 +611,7 @@ public class CustOrderDetail extends BaseDomain{
 		sb.append("specDesc=").append(this.specDesc).append(" ");
 		sb.append("commDesc=").append(this.commDesc).append(" ");
 		sb.append("amount=").append(this.amount).append(" ");
+		sb.append("orderAmount=").append(this.orderAmount == null ? "" : this.orderAmount).append(" ");
 		sb.append("money=").append(this.money != null ? this.money.floatValue() : "  ").append(" ");
 		sb.append("selfDeliveryAmount=").append(this.selfDeliveryAmount).append(" ");
 		sb.append("commDeliveryAmount=").append(this.commDeliveryAmount).append(" ");
