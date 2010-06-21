@@ -68,6 +68,7 @@ public class WaitTaskMgr {
 				waitTaskConfigInfo.setComments(commDesc);
 				BeanUtils.copyProperties(waitTaskInfo, waitTaskConfigInfo);
 				waitTaskInfo.setCreateTime(new Date());
+				waitTaskInfo.setParam(taskCfgID);
 				WaitTaskInfoDao waitTaskInfoDao = (WaitTaskInfoDao) BeanLocator
 						.getInstance().getBean(WAITTASKINFODAO);
 				waitTaskInfoDao.insertWaitTaskInfo(waitTaskInfo);
@@ -137,6 +138,25 @@ public class WaitTaskMgr {
 			WaitTaskInfoDao waitTaskInfoDao = (WaitTaskInfoDao) BeanLocator
 					.getInstance().getBean(WAITTASKINFODAO);
 			list = waitTaskInfoDao.listWaitTaskInfo(waitTaskInfo);
+		} catch (Exception e) {
+			logger.error("²éÑ¯´ý°ìÊ§°Ü! ", e);
+		}
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<WaitTaskInfo> listWaitTaskMust(String roleID,
+			String staffID, String taskType, String binessKey) {
+		List<WaitTaskInfo> list = null;
+		try {
+			WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
+			waitTaskInfo.setRoleId(roleID);
+			waitTaskInfo.setStaffId(staffID);
+			waitTaskInfo.setTaskType(taskType);
+			waitTaskInfo.setBusinessKey(binessKey);
+			WaitTaskInfoDao waitTaskInfoDao = (WaitTaskInfoDao) BeanLocator
+					.getInstance().getBean(WAITTASKINFODAO);
+			list = waitTaskInfoDao.listWaitTaskMustInfo(waitTaskInfo);
 		} catch (Exception e) {
 			logger.error("²éÑ¯´ý°ìÊ§°Ü! ", e);
 		}

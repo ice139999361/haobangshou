@@ -24,7 +24,7 @@
 			    					<items>
 			    						<complexgrid frame="true" collapsible="true" titleCollapse="true" title="待处理代办" id="waitmustgrid" autoExpandColumn="comments" root="data.waitMust" itemsFun="waitgridFun" url="1" height="230"/>
 			    							
-			    						<complexgrid frame="true" collapsible="true" titleCollapse="true" title="提醒待办" id="waitremindergrid" autoExpandColumn="comments" root="data.waitReminder" itemsFun="waitgridFun" url="1" height="230"/>
+			    						<complexgrid frame="true" collapsible="true" titleCollapse="true" title="提醒待办" id="waitremindergrid" autoExpandColumn="comments" root="data.waitReminder" itemsFun="waitgridReminderFun" url="1" height="230"/>
 			    					</items>
 			    				</panel>
 			    				
@@ -40,8 +40,8 @@
 </body>
 </html>
 <script type="text/javascript">
-	
-var waitgridFun = function() {
+
+var waitgridReminderFun = function() {
 	var cgh = new ComplexGridHelper;
 	
 	cgh.appendField("businessType");
@@ -51,6 +51,20 @@ var waitgridFun = function() {
 			    							
 	cgh.appendColumn({header: "代办类型"      , dataIndex: "businessType"});
 	cgh.appendColumn({header: "代办时间"      , dataIndex: "createTime"   , width: 130});
+	cgh.appendColumn({header: "代办描述"      , dataIndex: "comments"     , id: "comments"});
+	return cgh;
+};
+
+var waitgridFun = function() {
+	var cgh = new ComplexGridHelper;
+	
+	cgh.appendField("businessType");
+	cgh.appendField("comments");
+	cgh.appendField("url");
+	//cgh.appendField("createTime");
+			    							
+	cgh.appendColumn({header: "代办类型"      , dataIndex: "businessType"});
+	//cgh.appendColumn({header: "代办时间"      , dataIndex: "createTime"   , width: 130});
 	cgh.appendColumn({header: "代办描述"      , dataIndex: "comments"     , id: "comments"});
 	return cgh;
 };
