@@ -43,6 +43,7 @@
     <result property="salesId" column="SALES_ID"/>
     <result property="sales" column="SALES"/>
     <result property="contactFee" column="CONTACT_FEE"/>
+    <result property="orderAmount" column="ORDERAMOUNT"/>
 </resultMap>
 
 <insert id="CustOrderDetailHis_insertCustOrderDetail" parameterClass="custOrderDetail" >
@@ -85,7 +86,8 @@
             STAFF_NAME,
             SALES_ID,
             SALES,
-            CONTACT_FEE
+            CONTACT_FEE,
+            ORDERAMOUNT
         )
     VALUES (  
 			#operSeqId#,         
@@ -125,7 +127,8 @@
             #staffName#,
             #salesId#,
             #sales#,
-            #contactFee#
+            #contactFee#,
+            #orderAmount#
     )
 ]]>
 </insert>
@@ -233,6 +236,9 @@
 	</isNotEmpty>
 	<isNotEmpty prepend="," property="commLockAmount">
             COMM_LOCK_AMOUNT =   #commLockAmount#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="orderAmount">
+            ORDERAMOUNT =   #orderAmount#
 	</isNotEmpty>
 	<isNotEmpty prepend="," property="rltSendPoNo">            
          <![CDATA[ 
@@ -364,6 +370,9 @@
 	<isNotEmpty prepend="," property="contactFee">
             CONTACT_FEE = #contactFee#
 	</isNotEmpty>
+	<isNotEmpty prepend="," property="orderAmount">
+            ORDERAMOUNT = #"orderAmount"#
+	</isNotEmpty>
     WHERE ORDER_SEQID = #operSeqId#
 </update> 
 
@@ -405,7 +414,8 @@
             STAFF_NAME,
             SALES_ID,
             SALES,
-            CONTACT_FEE
+            CONTACT_FEE,
+            ORDERAMOUNT
     FROM T_CUST_ORDER_DETAIL  WHERE ORDER_SEQID = #operSeqId#
 ]]>	
 </select>
@@ -448,7 +458,8 @@
             STAFF_NAME,
             SALES_ID,
             SALES,
-            CONTACT_FEE
+            CONTACT_FEE,
+            ORDERAMOUNT
     FROM T_CUST_ORDER_DETAIL 
 ]]>
 	<dynamic prepend="WHERE">
@@ -559,7 +570,8 @@
             STAFF_NAME,
             SALES_ID,
             SALES,
-            CONTACT_FEE
+            CONTACT_FEE,
+            ORDERAMOUNT
     FROM T_CUST_ORDER_DETAIL
 ]]>
 		<dynamic prepend="WHERE">
