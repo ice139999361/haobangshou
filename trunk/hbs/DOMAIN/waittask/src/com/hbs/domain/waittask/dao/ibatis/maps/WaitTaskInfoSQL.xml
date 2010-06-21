@@ -167,6 +167,46 @@
 		
 </select>
 
+<select id="WaitTaskInfo_listWaitTaskMustInfo" resultMap="waitTaskInfo_result" parameterClass="waitTaskInfo">
+<![CDATA[
+    SELECT
+             
+            TASK_TYPE,             
+            BUSINESS_TYPE, 
+            ROLE_ID, 
+            STAFF_ID, 
+            URL,
+            PARAM, 
+            count(COMMENTS) as COMMENTS
+    FROM t_waittask_info
+    
+]]>
+
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property = "taskType">
+				TASK_TYPE = #taskType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "roleId">
+			  <![CDATA[
+			    ((ROLE_ID = #roleId# AND STAFF_ID IS NULL)
+			  ]]>
+			  <isNotEmpty prepend="OR" property = "staffId">
+			  <![CDATA[
+				(STAFF_ID = #staffId# AND ROLE_ID IS NULL) )
+				]]>
+			  </isNotEmpty>			  
+			</isNotEmpty>
+			
+			<isEmpty prepend="and" property = "roleId">
+			    <isNotEmpty prepend="" property = "staffId">
+				   STAFF_ID = #staffId#
+			    </isNotEmpty>
+			</isEmpty>
+		</dynamic>
+<![CDATA[
+	group by TASK_TYPE, BUSINESS_TYPE,ROLE_ID, STAFF_ID,URL, PARAM
+]]>		
+</select>
 
 <select id="WaitTaskInfo_listWaitTaskInfoCount" resultClass="java.lang.Integer" parameterClass="waitTaskInfo">
 <![CDATA[

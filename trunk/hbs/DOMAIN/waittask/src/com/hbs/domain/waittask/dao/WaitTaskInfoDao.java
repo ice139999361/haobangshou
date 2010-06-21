@@ -48,8 +48,10 @@ public interface WaitTaskInfoDao {
      * @return waitTaskInfo list
      * @throws DataAccessException DataAccessException
      */
-    @SuppressWarnings("unchecked")
-	List listWaitTaskInfo(WaitTaskInfo waitTaskInfo) throws DataAccessException ;
+   
+	List<WaitTaskInfo> listWaitTaskInfo(WaitTaskInfo waitTaskInfo) throws DataAccessException ;
+   
+	List<WaitTaskInfo> listWaitTaskMustInfo(WaitTaskInfo waitTaskInfo) throws DataAccessException ;
     
     /**
      * listCount.
