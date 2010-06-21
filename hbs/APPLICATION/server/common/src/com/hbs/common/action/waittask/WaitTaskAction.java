@@ -14,6 +14,7 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.action.base.BaseAction;
+import com.hbs.common.manager.waittask.WaitTaskConstants;
 import com.hbs.common.manager.waittask.WaitTaskMgr;
 import com.hbs.domain.auth.pojo.Staff;
 import com.hbs.domain.waittask.pojo.WaitTaskInfo;
@@ -38,13 +39,19 @@ public class WaitTaskAction extends BaseAction {
 				if(null != roleList && roleList.size() >0){
 					for(String roleid : roleList){
 						//获取待处理的待办						
-						List<WaitTaskInfo> waitInfo = WaitTaskMgr.listWaitTask(roleid, staffId, "0", null);
+						List<WaitTaskInfo> waitInfo = WaitTaskMgr.listWaitTaskMust(roleid, staffId, "0", null);
 						if(null != waitInfo && waitInfo.size() >0){
 							for(WaitTaskInfo info : waitInfo){//处理多个角色对于的待办重复问题
-								String id = info.getTaskId();
+								String id = info.getParam();
 								if(!(setId.contains(id))){
-									waitMust.add(info);
-									setId.add(id);
+									String count = info.getComments();
+									String comments = WaitTaskConstants.getComments(id);
+									if(comments != null){
+										String realComments = comments.replaceFirst("comments", count);
+										info.setComments(realComments);
+										waitMust.add(info);
+										setId.add(id);
+									}
 								}
 							}							
 						}
