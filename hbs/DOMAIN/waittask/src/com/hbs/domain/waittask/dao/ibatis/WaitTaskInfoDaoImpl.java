@@ -102,17 +102,27 @@ public class WaitTaskInfoDaoImpl extends SqlMapClientDaoSupport implements WaitT
      * @throws DataAccessException DataAccessException
      */
     @SuppressWarnings("unchecked")
-	public List listWaitTaskInfo(WaitTaskInfo waitTaskInfo) throws DataAccessException {
+	public List<WaitTaskInfo> listWaitTaskInfo(WaitTaskInfo waitTaskInfo) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
         	logger.debug("进入listWaitTaskInfo(WaitTaskInfo), 输入参数[" + waitTaskInfo + "]");
 		}
-        List list = getSqlMapClientTemplate().queryForList("WaitTaskInfo_listWaitTaskInfo", waitTaskInfo);
+        List<WaitTaskInfo> list = getSqlMapClientTemplate().queryForList("WaitTaskInfo_listWaitTaskInfo", waitTaskInfo);
 		if (logger.isDebugEnabled()) {
         	logger.debug("离开listWaitTaskInfo(WaitTaskInfo), 返回[" + list + "]");
 		}
         return list;
     }  
-    
+    @SuppressWarnings("unchecked")
+	public List<WaitTaskInfo> listWaitTaskMustInfo(WaitTaskInfo waitTaskInfo) throws DataAccessException {
+    	if (logger.isDebugEnabled()) {
+        	logger.debug("进入listWaitTaskMustInfo(WaitTaskInfo), 输入参数[" + waitTaskInfo + "]");
+		}
+        List<WaitTaskInfo> list = getSqlMapClientTemplate().queryForList("WaitTaskInfo_listWaitTaskMustInfo", waitTaskInfo);
+		if (logger.isDebugEnabled()) {
+        	logger.debug("离开listWaitTaskMustInfo(WaitTaskInfo), 返回[" + list + "]");
+		}
+        return list;
+    }
     /**
      * listCount.
      * @param waitTaskInfo waitTaskInfo
