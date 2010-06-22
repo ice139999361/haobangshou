@@ -3,6 +3,7 @@ package com.hbs.domain.customer.order.pojo;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.manager.configencode.ConfigEncodeMgr;
@@ -460,15 +461,44 @@ public class CustomerOrder extends BaseDomain{
 
     public String getCurrencyDesc(){
     	try {
+    		if(StringUtils.isEmpty(this.getCommCode()))
+    			return null;
+			CustomerInfo ci = getTheCustomerInfo();
+			return ci.getCurrencyDesc();
+		} catch (Exception e) {
+			Logger logger = Logger.getLogger(CustomerOrder.class);
+			logger.error("catch Exception in getCurrencyDesc", e);
+			return null;
+		}
+    }
+
+    private CustomerInfo _theCustInfo = null;
+	/**
+	 * @return
+	 * @throws Exception
+	 */
+	private CustomerInfo getTheCustomerInfo() throws Exception {
+		if(_theCustInfo == null){
 			CustomerInfo ci = new CustomerInfo();
 			ci.setCommCode(this.getCommCode());
 			ci.setState("0");
 			CustomerInfoMgr m = (CustomerInfoMgr)BeanLocator.getInstance().getBean(CustInfoConstants.CUSTINFOMGR);
 			ci = m.getCustomerInfo(ci, false);
-			return ci.getCurrencyDesc();
+			_theCustInfo = ci;
+		}
+		return _theCustInfo;
+	}
+    
+    public String getSettlementTypeDesc2()
+    {
+    	try {
+    		if(StringUtils.isEmpty(this.getCommCode()))
+    			return null;
+			CustomerInfo ci = getTheCustomerInfo();
+			return ci.getSettlementDesc2();
 		} catch (Exception e) {
 			Logger logger = Logger.getLogger(CustomerOrder.class);
-			logger.error("catch Exception in getCurrencyDesc state=" + getState(), e);
+			logger.error("catch Exception in getSettlementTypeDesc2", e);
 			return null;
 		}
     }

@@ -435,18 +435,42 @@ public class VendorOrder extends BaseDomain{
 
     public String getCurrencyDesc(){
     	try {
-    		VendorInfo ci = new VendorInfo();
+    		VendorInfo ci = getTheVendorInfo();
+			return ci.getCurrencyDesc();
+		} catch (Exception e) {
+			Logger logger = Logger.getLogger(VendorOrder.class);
+			logger.error("catch Exception in getCurrencyDesc", e);
+			return null;
+		}
+    }
+
+    public String getSettlementTypeDesc2(){
+    	try {
+    		VendorInfo ci = getTheVendorInfo();
+			return ci.getSettlementDesc2();
+		} catch (Exception e) {
+			Logger logger = Logger.getLogger(VendorOrder.class);
+			logger.error("catch Exception in getSettlementTypeDesc2", e);
+			return null;
+		}
+    }
+
+    private VendorInfo _theVendorInfo = null;
+	/**
+	 * @return
+	 * @throws Exception
+	 */
+	private VendorInfo getTheVendorInfo() throws Exception {
+		if(_theVendorInfo == null){
+			VendorInfo ci = new VendorInfo();
 			ci.setCommCode(this.getCommCode());
 			ci.setState("0");
 			VendorInfoMgr m = (VendorInfoMgr)BeanLocator.getInstance().getBean("vendorInfoMgr");
 			ci = m.getVendorInfo(ci, false);
-			return ci.getCurrencyDesc();
-		} catch (Exception e) {
-			Logger logger = Logger.getLogger(VendorOrder.class);
-			logger.error("catch Exception in getCurrencyDesc state=" + getState(), e);
-			return null;
+			_theVendorInfo = ci;
 		}
-    }
+		return _theVendorInfo;
+	}
 
     @Override 
 	public String toString() {
