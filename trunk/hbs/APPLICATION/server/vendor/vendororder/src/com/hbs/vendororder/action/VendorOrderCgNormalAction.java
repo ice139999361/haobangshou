@@ -9,6 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.action.FieldErr;
+import com.hbs.common.utils.HumanReadableException;
 import com.hbs.vendororder.constants.VendorOrderConstants;
 import com.hbs.vendororder.manager.VendorOrderMgr;
 
@@ -88,6 +89,10 @@ public class VendorOrderCgNormalAction extends VendorOrderBaseAction {
 			}
 			logger.debug("end doSaveTemp");
 			return SUCCESS;
+		}catch(HumanReadableException hre){
+			logger.error("catch HumanReadableException in doSaveTemp " + hre.getMessage());
+			setErrorReason(hre.getMessage());
+			return ERROR;
 		} catch(Exception e) {
 			logger.error("catch Exception in doSaveTemp", e);
 			setErrorReason("内部错误");
@@ -139,6 +144,10 @@ public class VendorOrderCgNormalAction extends VendorOrderBaseAction {
 			}
 			logger.debug("end doSave");
 			return SUCCESS;
+		}catch(HumanReadableException hre){
+			logger.error("catch HumanReadableException in doSave " + hre.getMessage());
+			setErrorReason(hre.getMessage());
+			return ERROR;
 		} catch(Exception e) {
 			logger.error("catch Exception in doSave", e);
 			setErrorReason("内部错误");

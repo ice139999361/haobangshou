@@ -113,7 +113,7 @@ public class VendorPartNoInfoDaoImpl extends SqlMapClientDaoSupport implements V
 		}
         VendorPartNoInfo vPartNoInfo = (VendorPartNoInfo) getSqlMapClientTemplate().queryForObject("VendorPartNoInfo_findVendorPartNoInfoByBizKey", vendorPartNoInfo);
 		if (logger.isDebugEnabled()) {
-        	logger.debug("离开findVendorPartNoInfo(VendorPartNoInfo), 返回[" + vendorPartNoInfo + "]");
+        	logger.debug("离开findVendorPartNoInfo(VendorPartNoInfo), 返回[" + vPartNoInfo + "]");
 		}
         return vPartNoInfo;
     }

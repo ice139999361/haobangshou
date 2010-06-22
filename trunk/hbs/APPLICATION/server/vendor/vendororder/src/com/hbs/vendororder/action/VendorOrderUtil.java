@@ -90,6 +90,14 @@ public class VendorOrderUtil {
 				errs.add(new FieldErr("Amount", "数量没有填写"));
 			if(info.getMoney() == null)
 				errs.add(new FieldErr("Money", "金额没有填写"));
+			if(StringUtils.isEmpty(info.getIsTax())){
+				errs.add(new FieldErr("IsTax", "是否含税交易没有填写"));
+			}else{
+				if(info.getCpriceTax() != null && info.getCpriceTax().compareTo(new BigDecimal(0)) != 0 && info.getIsTax() == "0"){
+					errs.add(new FieldErr("IsTax", "是否含税交易错误"));
+					
+				}
+			}
 		}
 		
 		// TODO:VendorOrderUtil.checkInputFields
@@ -191,6 +199,9 @@ public class VendorOrderUtil {
 				info.setStaffName(staffName);
 				info.setSettlementType(settlementType);
 				info.setTaxRate(taxRate);
+				if(StringUtils.isEmpty(info.getIsTax()) && info.getCpriceTax() != null){
+					info.setIsTax(info.getCpriceTax().compareTo(new BigDecimal(0)) == 0 ? "0" : "1");
+				}
 			}
 			vendorOrder.setVendorOrderDetailList(list);
 		} catch (Exception e) {
