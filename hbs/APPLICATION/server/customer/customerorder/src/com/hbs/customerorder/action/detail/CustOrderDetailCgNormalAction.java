@@ -13,6 +13,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import com.hbs.common.utils.HumanReadableException;
 import com.hbs.common.utils.ListDataUtil;
 import com.hbs.customerorder.constants.CustOrderConstants;
 import com.hbs.domain.customer.order.pojo.CustOrderDetail;
@@ -266,6 +267,8 @@ public class CustOrderDetailCgNormalAction extends CustOrderDetailBaseAction {
 				vpn.setPartNo(o.getPartNo());
 				vpn.setState("0");
 				vpn = vpnMgr.getVendorPartNoInfoByBizKey(vpn);
+				if(vpn == null)
+					throw new HumanReadableException("供应商物料不存在：供应商"+o.getVendorCode()+", 本公司物料编码"+o.getPartNo());
 				o.setCommCode(vpn.getCommCode());
 				o.setCpartNo(vpn.getCustPartNo());
 				o.setPnDesc(vpn.getPnDesc());
@@ -278,6 +281,10 @@ public class CustOrderDetailCgNormalAction extends CustOrderDetailBaseAction {
 			setResult("list", list);
 			// DONE:CustOrderCgNormalAction.doListByVendor
 			return SUCCESS;
+		}catch(HumanReadableException hre){
+			logger.error("catch HumanReadableException in doListStockupByVendor " + hre.getMessage());
+			setErrorReason(hre.getMessage());
+			return ERROR;
 		} catch (Exception e) {
 			logger.error("catch Exception in doListStockupByVendor", e);
 			setErrorReason("内部错误");

@@ -39,7 +39,7 @@ var ordergridFun = function() {
 	cgh.appendField("hastenReminder");
 	cgh.appendField("selectType");
 	cgh.appendField("fromTo");
- 
+
 	cgh.appendColumn({dataIndex: "operSeqId"	, isCheck: true});
 	cgh.appendColumn({header: "客户订单号<br />特定备货的客户编码"	, xtype: "textfield", dataIndex: "custCcode", id : "colCustCcode", width: 120});
 	//cgh.appendColumn({header: "货品名称"	  , dataIndex: "pnName"});
@@ -118,7 +118,7 @@ var orderquerygridFun = function() {
 	var cgh = new ComplexGridHelper;
 
 	cgh.appendField("operSeqId");
-	cgh.appendField("pnName");
+	cgh.appendField("poNo");
 	cgh.appendField("cpartNo");
 	cgh.appendField("partNo");
 	cgh.appendField("pnDesc");
@@ -137,7 +137,7 @@ var orderquerygridFun = function() {
 
 
 	cgh.appendColumn({dataIndex: "operSeqId"	, isCheck: true});
-	cgh.appendColumn({header: "货品名称"	    , dataIndex: "pnName"});
+	cgh.appendColumn({header: "客户订单号"	    , dataIndex: "poNo"});
 	cgh.appendColumn({header: "客户型号"	    , dataIndex: "cpartNo"});
 	cgh.appendColumn({header: "GLE型号"		    , dataIndex: "partNo"});
 	cgh.appendColumn({header: "描述"        	, dataIndex: "pnDesc"});
