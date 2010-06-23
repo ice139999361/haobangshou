@@ -122,7 +122,7 @@ public class VendorPartNoInfoManagerAction extends BaseAction {
     		return SUCCESS;
     	}catch(Exception e){
     		logger.error("catch Exception in doAuditAgree.", e);
-			setErrorReason("内部错误");
+			setErrorReason(e.getMessage());
 			return ERROR;
     	}
     }
@@ -175,7 +175,7 @@ public class VendorPartNoInfoManagerAction extends BaseAction {
     		return SUCCESS;
     	}catch(Exception e){
     		logger.error("catch Exception in doAuditDisAgree.", e);
-			setErrorReason("内部错误");
+			setErrorReason(e.getMessage());
 			return ERROR;
     	}
     }

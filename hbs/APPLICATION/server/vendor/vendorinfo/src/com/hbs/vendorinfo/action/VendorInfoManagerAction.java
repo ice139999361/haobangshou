@@ -87,7 +87,7 @@ public class VendorInfoManagerAction extends BaseAction {
 			}
 		} catch(Exception e) {
 			logger.error("catch Exception in doAudit", e);
-			setErrorReason("内部错误");
+			setErrorReason(e.getMessage());
             return ERROR;
 		}
 	}
@@ -146,7 +146,7 @@ public class VendorInfoManagerAction extends BaseAction {
 		catch(Exception e)
 		{
 			logger.error("catch Exception in doAuditAgree", e);
-			setErrorReason("内部错误");
+			setErrorReason(e.getMessage());
             return ERROR;
 		}
 	}
@@ -205,7 +205,7 @@ public class VendorInfoManagerAction extends BaseAction {
 		catch(Exception e)
 		{
 			logger.error("catch Exception in doAuditDisAgree", e);
-			setErrorReason("内部错误");
+			setErrorReason(e.getMessage());
             return ERROR;
 		}
 	}
