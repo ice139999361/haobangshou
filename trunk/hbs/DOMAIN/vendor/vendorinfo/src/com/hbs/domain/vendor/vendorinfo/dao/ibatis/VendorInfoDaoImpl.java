@@ -150,4 +150,15 @@ public class VendorInfoDaoImpl extends SqlMapClientDaoSupport implements VendorI
 		}
         return count;
     }  
+    
+    public Integer listVendorInfoCheckCount(VendorInfo vendorInfo) throws DataAccessException{
+		if (logger.isDebugEnabled()) {
+        	logger.debug("进入listVendorInfoCheckCount(VendorInfo), 输入参数[" + vendorInfo + "]");
+		}
+        Integer count = (Integer)getSqlMapClientTemplate().queryForObject("VendorInfo_listVendorInfoCheckCount", vendorInfo);
+		if (logger.isDebugEnabled()) {
+        	logger.debug("离开listVendorInfoCheckCount(VendorInfo), 返回[" + count + "]");
+		}
+        return count;
+    }  
 }

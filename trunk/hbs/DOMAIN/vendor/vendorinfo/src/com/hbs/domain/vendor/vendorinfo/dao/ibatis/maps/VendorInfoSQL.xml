@@ -488,4 +488,31 @@
 		</dynamic>
 </select>
 
+<!-- 检查是否存在重复的简称或名称 -->	
+<select id="VendorInfo_listVendorInfoCheckCount" resultClass="java.lang.Integer"
+		parameterClass="vendorInfo">
+<![CDATA[
+    SELECT
+		COUNT(1)
+    FROM T_VENDOR_INFO
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property="commCode">
+				C_CODE != #commCode#
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property="allName">	
+			<![CDATA[
+				 ( ALL_NAME =#allName#				 
+			]]>	 
+				<isNotEmpty prepend="OR" property="shortName">
+					SHORT_NAME =#shortName#
+				</isNotEmpty>
+			<![CDATA[
+				 )				 
+			]]>
+			</isNotEmpty>
+			
+		</dynamic>
+	</select>
 </sqlMap>

@@ -158,5 +158,16 @@ public class CustomerInfoDaoImpl extends SqlMapClientDaoSupport implements Custo
         	logger.debug("离开listCustomerInfoCount(CustomerInfo), 返回[" + count + "]");
 		}
         return count;
-    }  
+    } 
+    
+    public Integer listCustomerInfoCheckCount(CustomerInfo customerInfo) throws DataAccessException{
+    	if (logger.isDebugEnabled()) {
+        	logger.debug("listCustomerInfoCheckCount(CustomerInfo), 输入参数[" + customerInfo + "]");
+		}
+        Integer count = (Integer)getSqlMapClientTemplate().queryForObject("CustomerInfo_listCustomerInfoCheckCount", customerInfo);
+		if (logger.isDebugEnabled()) {
+        	logger.debug("listCustomerInfoCheckCount(CustomerInfo), 返回[" + count + "]");
+		}
+        return count;
+    }
 }

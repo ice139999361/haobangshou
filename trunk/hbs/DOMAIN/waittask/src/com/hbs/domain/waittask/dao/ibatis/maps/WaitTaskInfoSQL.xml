@@ -19,6 +19,16 @@
     <result property="expireTime" column="EXPIRE_TIME"/>
 </resultMap>
 
+<resultMap id="waitTaskMustInfo_result" class="waitTaskInfo">    
+    <result property="taskType" column="TASK_TYPE"/>   
+    <result property="businessType" column="BUSINESS_TYPE"/>
+    <result property="roleId" column="ROLE_ID"/>
+    <result property="staffId" column="STAFF_ID"/>
+    <result property="url" column="URL"/>
+    <result property="comments" column="COMMENTS"/>   
+    <result property="param" column="PARAM"/>   
+</resultMap>
+
 
 
 <insert id="WaitTaskInfo_insertWaitTaskInfo" parameterClass="waitTaskInfo" >
@@ -167,7 +177,7 @@
 		
 </select>
 
-<select id="WaitTaskInfo_listWaitTaskMustInfo" resultMap="waitTaskInfo_result" parameterClass="waitTaskInfo">
+<select id="WaitTaskInfo_listWaitTaskMustInfo" resultMap="waitTaskMustInfo_result" parameterClass="waitTaskInfo">
 <![CDATA[
     SELECT
              
