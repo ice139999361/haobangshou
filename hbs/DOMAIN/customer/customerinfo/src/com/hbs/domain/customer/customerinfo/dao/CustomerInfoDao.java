@@ -58,4 +58,5 @@ public interface CustomerInfoDao {
      * @throws DataAccessException DataAccessException
      */
     Integer listCustomerInfoCount(CustomerInfo customerInfo) throws DataAccessException ;
+    Integer listCustomerInfoCheckCount(CustomerInfo customerInfo) throws DataAccessException ;
 }

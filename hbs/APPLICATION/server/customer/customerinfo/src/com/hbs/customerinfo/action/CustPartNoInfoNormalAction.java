@@ -145,7 +145,7 @@ public class CustPartNoInfoNormalAction extends BaseAction {
     	catch(Exception e)
     	{
     		logger.error("catch Exception in doSave.", e);
-			setErrorReason("ÄÚ²¿´íÎó");
+			setErrorReason(e.getMessage());
 			return ERROR;
     	}
     }

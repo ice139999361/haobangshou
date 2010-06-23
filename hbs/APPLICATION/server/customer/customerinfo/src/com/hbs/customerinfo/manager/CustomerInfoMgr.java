@@ -474,6 +474,11 @@ public class CustomerInfoMgr {
 		CustomerInfoDao customerInfoDao = (CustomerInfoDao)BeanLocator.getInstance().getBean(CUSTOMERINFODAO);
 		return customerInfoDao.listCustomerInfoCount(cInfo);
 	}
+	
+	public Integer getCustomerInfoCheckCount(CustomerInfo cInfo)throws Exception{
+		CustomerInfoDao customerInfoDao = (CustomerInfoDao)BeanLocator.getInstance().getBean(CUSTOMERINFODAO);
+		return customerInfoDao.listCustomerInfoCheckCount(cInfo);
+	}
 	/**
 	 * 插入客户基本信息，基本信息包括客户信息，银行信息
 	 * 联系人信息，账期信息或预付费信息

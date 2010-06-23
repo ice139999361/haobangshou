@@ -11,8 +11,10 @@ import org.apache.log4j.Logger;
 import com.hbs.common.action.FieldErr;
 import com.hbs.common.action.JianQuanUtil;
 import com.hbs.common.action.base.BaseAction;
-import com.hbs.common.manager.syssequence.SysSequenceMgr;
+
+
 import com.hbs.domain.common.pojo.baseinfo.ContactInfo;
+
 import com.hbs.domain.vendor.vendorinfo.pojo.VendorInfo;
 import com.hbs.vendorinfo.manager.VendorContactMgr;
 import com.hbs.vendorinfo.manager.VendorInfoMgr;
@@ -143,7 +145,11 @@ public class VendorInfoNormalAction extends BaseAction {
 			}
 
 			VendorInfoMgr mgr = (VendorInfoMgr)getBean(vendorInfoMgrName);
-
+			
+		    if(checkVendorName(mgr,vendorInfo)){
+		    	setErrorReason("您提交的客户资料存在着相同的供应商简称或供应商全称！不能提交");
+				return ERROR;
+		    }
 //			if(vendorInfo.getBaseSeqId() == null) {
 //				VendorInfo vInfo = new VendorInfo();
 //				vInfo.setCommCode(vendorInfo.getCommCode());
@@ -178,7 +184,7 @@ public class VendorInfoNormalAction extends BaseAction {
 			return SUCCESS;
 		} catch (Exception e) {
 			logger.error("catch Exception in doSaveTemp", e);
-			setErrorReason("内部错误");
+			setErrorReason(e.getMessage());
 			return ERROR;
 		}
 	}
@@ -215,7 +221,10 @@ public class VendorInfoNormalAction extends BaseAction {
 			}
 
 			VendorInfoMgr mgr = (VendorInfoMgr)getBean(vendorInfoMgrName);
-
+			if(checkVendorName(mgr,vendorInfo)){
+		    	setErrorReason("您提交的客户资料存在着相同的供应商简称或供应商全称！不能提交");
+				return ERROR;
+		    }
 //			if(vendorInfo.getBaseSeqId() == null) {
 //				VendorInfo vInfo = new VendorInfo();
 //				vInfo.setCommCode(vendorInfo.getCommCode());
@@ -269,7 +278,7 @@ public class VendorInfoNormalAction extends BaseAction {
 			return SUCCESS;
 		} catch (Exception e) {
 			logger.error("catch Exception in doSave", e);
-			setErrorReason("内部错误");
+			setErrorReason(e.getMessage());
 			return ERROR;
 		}
 
@@ -502,22 +511,22 @@ public class VendorInfoNormalAction extends BaseAction {
 	 * 获取新的供应商编码
 	 * @return
 	 */
-	public String doGetNewVendorCode(){
-		try {
-			
-			logger.debug("begin doGetNewVendorCode" );
-			
-			
-			String vendorCode = SysSequenceMgr.getCode(SysSequenceMgr.GV_CODE);
-			setResult("commCode",vendorCode);
-			
-			return SUCCESS;
-		} catch (Exception e) {
-			logger.error("catch Exception in doGetNewVendorCode", e);
-			setErrorReason("无法获取新的供应商编码！请检查配置！");
-			return ERROR;
-		}
-	}
+//	public String doGetNewVendorCode(){
+//		try {
+//			
+//			logger.debug("begin doGetNewVendorCode" );
+//			
+//			
+//			String vendorCode = SysSequenceMgr.getCode(SysSequenceMgr.GV_CODE);
+//			setResult("commCode",vendorCode);
+//			
+//			return SUCCESS;
+//		} catch (Exception e) {
+//			logger.error("catch Exception in doGetNewVendorCode", e);
+//			setErrorReason("无法获取新的供应商编码！请检查配置！");
+//			return ERROR;
+//		}
+//	}
 	/**
 	 * 设置STAFF信息为当前用户信息
 	 * 
@@ -531,4 +540,22 @@ public class VendorInfoNormalAction extends BaseAction {
 		vendorInfo.setStaffName(setName ? getLoginStaff().getStaffName() : null);
 	}
 
+	
+	/**
+	 * 查询所有客户简称和名称
+	 * @param mgr
+	 * @param info
+	 * @return
+	 * @throws Exception
+	 */
+	private boolean checkVendorName(VendorInfoMgr mgr , VendorInfo info) throws Exception{
+		boolean ret = false;
+		
+		
+		Integer icount = mgr.getVendorInfoCheckCount(info);
+		if(icount != null && icount.intValue() >0){
+			ret = true;
+		}
+		return ret;
+	}
 }

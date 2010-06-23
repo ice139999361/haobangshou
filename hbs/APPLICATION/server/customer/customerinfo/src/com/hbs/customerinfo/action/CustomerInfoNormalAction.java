@@ -86,77 +86,80 @@ public class CustomerInfoNormalAction extends BaseAction {
 		}
 	}
 
-	/**
-	 * 临时保存用户信息
-	 * @action.input custInfo.*
-	 * @action.result	seqId	insert的id。如果没有insert操作，则没有这一项。
-	 * @return
-	 */
-	public String doSaveTemp() {
-		try {
-			if (logger.isDebugEnabled())
-				logger.debug("begin doSaveTemp");
-
-			if (custInfo == null) {
-				logger.info("参数错误！");
-				setErrorReason("参数错误！");
-				return ERROR;
-			}
+				/**
+				 * 临时保存用户信息
+				 * @action.input custInfo.*
+				 * @action.result	seqId	insert的id。如果没有insert操作，则没有这一项。
+				 * @return
+				 */
+				public String doSaveTemp() {
+					try {
+						if (logger.isDebugEnabled())
+							logger.debug("begin doSaveTemp");
 			
-			custInfo.setState("1");
-			if (CustomerInfoUtil.checkSetStaffId(custInfo))
-				setMyId(true);
-			CustomerInfoUtil.processListData(custInfo, this.getHttpServletRequest());
+						if (custInfo == null) {
+							logger.info("参数错误！");
+							setErrorReason("参数错误！");
+							return ERROR;
+						}
+						
+						custInfo.setState("1");
+						if (CustomerInfoUtil.checkSetStaffId(custInfo))
+							setMyId(true);
+						CustomerInfoUtil.processListData(custInfo, this.getHttpServletRequest());
+						
+						List<FieldErr> errs = CustomerInfoUtil.checkInputFields(custInfo);
+						if (!errs.isEmpty()) {
+							String s = FieldErr.formFieldsErrString(errs);
+							logger.info(s);
+							setErrorReason(s);
+							return ERROR;
+						}
 			
-			List<FieldErr> errs = CustomerInfoUtil.checkInputFields(custInfo);
-			if (!errs.isEmpty()) {
-				String s = FieldErr.formFieldsErrString(errs);
-				logger.info(s);
-				setErrorReason(s);
-				return ERROR;
-			}
-
-			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(custInfoMgrName);
-			
-//			if(custInfo.getBaseSeqId() == null) {
-//				CustomerInfo cInfo = new CustomerInfo();
-//				cInfo.setCommCode(custInfo.getCommCode());
-//				Integer i = mgr.getCustomerInfoCount(cInfo);
-//				if(i == null || i.compareTo(0) > 0) {
-//					logger.error("客户编码重复！" + custInfo.getCommCode());
-//					setErrorReason("客户编码重复！");
-//					return ERROR;
-//				}
-//			}
-			
-			//CustomerInfo info2 = mgr.getCustomerInfo(custInfo, false);
-			int ret;
-//			if (info2 != null)
-//				ret = mgr.updateCustomerInfo(custInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName());
-//			else
-//				ret = mgr.saveTempCustomerInfo(custInfo);
-//			
-//			if (ret < 0) {
-//				logger.info("临时保存出错！");
-//				setErrorReason("临时保存出错！");
-//				return ERROR;
-//			}
-			ret = mgr.saveTempCustomerInfo(custInfo);
-			if(ret > 0) {
-				this.setResult("seqId", ret);
-				if (logger.isDebugEnabled()) logger.debug("seqId="+ret);
-			}
-			setResult("state", "1");
-			this.setAlertMsg("临时保存成功！");
-			if (logger.isDebugEnabled())
-				logger.debug("end doSaveTemp");
-			return SUCCESS;
-		} catch (Exception e) {
-			logger.error("catch Exception in doSaveTemp", e);
-			setErrorReason("内部错误");
-			return ERROR;
-		}
-	}
+						CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(custInfoMgrName);
+					    if(checkCustName(mgr,custInfo)){
+					    	setErrorReason("您提交的客户资料存在着相同的客户简称或客户全称！不能提交");
+							return ERROR;
+					    }
+			//			if(custInfo.getBaseSeqId() == null) {
+			//				CustomerInfo cInfo = new CustomerInfo();
+			//				cInfo.setCommCode(custInfo.getCommCode());
+			//				Integer i = mgr.getCustomerInfoCount(cInfo);
+			//				if(i == null || i.compareTo(0) > 0) {
+			//					logger.error("客户编码重复！" + custInfo.getCommCode());
+			//					setErrorReason("客户编码重复！");
+			//					return ERROR;
+			//				}
+			//			}
+						
+						//CustomerInfo info2 = mgr.getCustomerInfo(custInfo, false);
+						int ret;
+			//			if (info2 != null)
+			//				ret = mgr.updateCustomerInfo(custInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName());
+			//			else
+			//				ret = mgr.saveTempCustomerInfo(custInfo);
+			//			
+			//			if (ret < 0) {
+			//				logger.info("临时保存出错！");
+			//				setErrorReason("临时保存出错！");
+			//				return ERROR;
+			//			}
+						ret = mgr.saveTempCustomerInfo(custInfo);
+						if(ret > 0) {
+							this.setResult("seqId", ret);
+							if (logger.isDebugEnabled()) logger.debug("seqId="+ret);
+						}
+						setResult("state", "1");
+						this.setAlertMsg("临时保存成功！");
+						if (logger.isDebugEnabled())
+							logger.debug("end doSaveTemp");
+						return SUCCESS;
+					} catch (Exception e) {
+						logger.error("catch Exception in doSaveTemp", e);
+						setErrorReason(e.getMessage());
+						return ERROR;
+					}
+				}
 
 	/**
 	 * 保存用户信息，对于不同的状态，进行不同的操作
@@ -190,6 +193,10 @@ public class CustomerInfoNormalAction extends BaseAction {
 			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(custInfoMgrName);
 
 			
+		    if(checkCustName(mgr,custInfo)){
+		    	setErrorReason("您提交的客户资料存在着相同的客户简称或客户全称！不能提交");
+				return ERROR;
+		    }
 //			if(custInfo.getBaseSeqId() == null) {
 //				CustomerInfo cInfo = new CustomerInfo();
 //				cInfo.setCommCode(custInfo.getCommCode());
@@ -246,7 +253,7 @@ public class CustomerInfoNormalAction extends BaseAction {
 			return SUCCESS;
 		} catch (Exception e) {
 			logger.error("catch Exception in doSave", e);
-			setErrorReason("内部错误");
+			setErrorReason(e.getMessage());
 			return ERROR;
 		}
 
@@ -514,6 +521,24 @@ public class CustomerInfoNormalAction extends BaseAction {
 	protected void setMyId(boolean setName) throws Exception {
 		custInfo.setStaffId(getLoginStaff().getStaffId().toString());
 		custInfo.setStaffName(setName ? getLoginStaff().getStaffName() : null);
+	}
+
+	/**
+	 * 查询所有客户简称和名称
+	 * @param mgr
+	 * @param info
+	 * @return
+	 * @throws Exception
+	 */
+	private boolean checkCustName(CustomerInfoMgr mgr , CustomerInfo info) throws Exception{
+		boolean ret = false;
+		
+		
+		Integer icount = mgr.getCustomerInfoCheckCount(info);
+		if(icount != null && icount.intValue() >0){
+			ret = true;
+		}
+		return ret;
 	}
 
 }

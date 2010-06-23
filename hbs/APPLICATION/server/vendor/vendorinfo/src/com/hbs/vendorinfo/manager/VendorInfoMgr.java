@@ -484,6 +484,11 @@ public class VendorInfoMgr {
 		return vInfoDao.listVendorInfoCount(vInfo);
 	}
 	
+	public Integer getVendorInfoCheckCount(VendorInfo vInfo)throws Exception{
+		logger.debug("获取满足条件的供应商数量,输入的参数为：" + vInfo.toString());
+		VendorInfoDao vInfoDao = (VendorInfoDao)BeanLocator.getInstance().getBean(VENDORINFO_DAO);
+		return vInfoDao.listVendorInfoCheckCount(vInfo);
+	}
 	
 	/**
 	 * 获取银行信息
