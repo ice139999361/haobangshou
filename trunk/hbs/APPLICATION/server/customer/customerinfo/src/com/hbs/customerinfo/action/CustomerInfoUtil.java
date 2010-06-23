@@ -61,6 +61,7 @@ public class CustomerInfoUtil {
 		}
 		catch(Exception e)
 		{
+			logger.debug("checkKeyFields(CustomerInfo custInfo) error" ,e);
 			ret = false;
 		}
 		
