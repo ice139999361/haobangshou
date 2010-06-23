@@ -105,14 +105,22 @@ public class CustomerInfoManagerAction extends BaseAction {
 		{
 			if (logger.isDebugEnabled())    logger.debug("begin doAuditAgree");
 			
+			
+			
 			if(!CustomerInfoUtil.checkKeyFields(custInfo))
 			{
 				logger.info("参数错误！");
 				setErrorReason("参数错误！");
 				return ERROR;
 			}
+			logger.debug("输入的参数为：" + custInfo.toString());
 			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(custInfoMgrName);
 			getCustInfoValue(mgr);
+			if(custInfo == null){
+				logger.error("无法查找到对应的需要审批客户信息，审批终止!");
+				setErrorReason("无法查找到对应的需要审批客户信息，审批终止!");
+				return ERROR;
+			}
 			int ret = mgr.auditAgreeCustomerInfo(custInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), auditDesc);
 			if(ret != 0)
 			{
@@ -163,8 +171,14 @@ public class CustomerInfoManagerAction extends BaseAction {
 				setErrorReason("参数错误！");
 				return ERROR;
 			}
+			logger.debug("输入的参数为：" + custInfo.toString());
 			CustomerInfoMgr mgr = (CustomerInfoMgr)getBean(custInfoMgrName);
 			getCustInfoValue(mgr);
+			if(custInfo == null){
+				logger.error("无法查找到对应的需要审批客户信息，审批终止!");
+				setErrorReason("无法查找到对应的需要审批客户信息，审批终止!");
+				return ERROR;
+			}
 			int ret = mgr.auditDisAgreeCustomerInfo(custInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), auditDesc);
 			if(ret != 0)
 			{

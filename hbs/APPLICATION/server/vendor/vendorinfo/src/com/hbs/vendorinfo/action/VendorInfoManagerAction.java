@@ -112,8 +112,14 @@ public class VendorInfoManagerAction extends BaseAction {
 				setErrorReason("参数错误！");
 				return ERROR;
 			}
+			logger.debug("输入的参数为：" + vendorInfo.toString());
 			VendorInfoMgr mgr = (VendorInfoMgr)getBean(vendorInfoMgrName);
 			getVendorInfoValue(mgr);
+			if(vendorInfo == null){
+				logger.error("无法查找到对应的需要审批供应商信息，审批终止!");
+				setErrorReason("无法查找到对应的需要审批供应商信息，审批终止!");
+				return ERROR;
+			}
 			int ret = mgr.auditAgreeVendorInfo(vendorInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), auditDesc);
 			if(ret != 0)
 			{
@@ -164,8 +170,15 @@ public class VendorInfoManagerAction extends BaseAction {
 				setErrorReason("参数错误！");
 				return ERROR;
 			}
+			logger.debug("输入的参数为：" + vendorInfo.toString());
 			VendorInfoMgr mgr = (VendorInfoMgr)getBean(vendorInfoMgrName);
 			getVendorInfoValue(mgr);
+			
+			if(vendorInfo == null){
+				logger.error("无法查找到对应的需要审批供应商信息，审批终止!");
+				setErrorReason("无法查找到对应的需要审批供应商信息，审批终止!");
+				return ERROR;
+			}
 			int ret = mgr.auditDisAgreeVendorInfo(vendorInfo, getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), auditDesc);
 			if(ret != 0)
 			{

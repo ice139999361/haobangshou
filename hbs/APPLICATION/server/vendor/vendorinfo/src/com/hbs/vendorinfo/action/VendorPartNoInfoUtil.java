@@ -83,11 +83,11 @@ public class VendorPartNoInfoUtil {
 		String s;
 		// DONE:完成checkInputFields，对输入的供应商信息进行校验
 		
-		s = vendorPartNoInfo.getSampleCode();
-		if(StringUtils.isEmpty(s))
-		{
-			list.add(new FieldErr("SampleCode","样品编码没有填写"));
-		}
+//		s = vendorPartNoInfo.getSampleCode();
+//		if(StringUtils.isEmpty(s))
+//		{
+//			list.add(new FieldErr("SampleCode","样品编码没有填写"));
+//		}
 		
 		s = vendorPartNoInfo.getCommCode();
 		if(StringUtils.isEmpty(s))

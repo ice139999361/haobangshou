@@ -357,9 +357,16 @@
 			<isNotEmpty prepend="and" property = "commCode">
 				C_CODE like '%$commCode$%'
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "state">
-				STATE = #state#
+			<isNotEmpty prepend="and" property="state">
+				<![CDATA[
+				STATE = #state# AND STATE !='4'
+				]]>
 			</isNotEmpty>
+			<isEmpty prepend="and" property="state">
+				<![CDATA[
+				STATE !='4'
+				]]>
+			</isEmpty>
 			<isNotEmpty prepend="and" property = "shortName">
 				SHORT_NAME like '%$shortName$%'
 			</isNotEmpty>
@@ -431,9 +438,16 @@
 			<isNotEmpty prepend="and" property = "commCode">
 				C_CODE like '%$commCode$%'
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "state">
-				STATE = #state#
+			<isNotEmpty prepend="and" property="state">
+				<![CDATA[
+				STATE = #state# AND STATE !='4'
+				]]>
 			</isNotEmpty>
+			<isEmpty prepend="and" property="state">
+				<![CDATA[
+				STATE !='4'
+				]]>
+			</isEmpty>
 			<isNotEmpty prepend="and" property = "shortName">
 				SHORT_NAME like '%$shortName$%'
 			</isNotEmpty>

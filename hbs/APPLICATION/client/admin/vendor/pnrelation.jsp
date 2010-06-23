@@ -57,7 +57,7 @@
 				    				<numberfield fieldLabel="税率"               name="vendorPartNoInfo.priceTax"                labelStyle="width:150" value="0.00" minValue="0.00" maxValue="1"/>
 									-->
 				    				<textfield   fieldLabel="最小订单量" 				 name="vendorPartNoInfo.minAmount"               labelStyle="width:150" value="0.00" id="idPriceTax" readOnly="true" minValue="0.00" maxValue="1"/>
-									<label fieldLabel="税率"               name="vendorPartNoInfo.priceTax"                labelStyle="width:150" value="0.00"  id="idPriceTax"/>
+									<textfield fieldLabel="税率"               name="vendorPartNoInfo.priceTax"                labelStyle="width:150" value="0.00"  id="idPriceTax" readOnly="true" />
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
 				    				<label style="color:red" text="注意：单价和税率的关系，税率为0.00，单价为不含税，税率不为0.00，单价为含税" />
