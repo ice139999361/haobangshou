@@ -329,6 +329,7 @@ ExtUx.widget.XPagingToolbar = Ext.extend(Ext.Toolbar, {
      * Refresh the current page, has the same effect as clicking the 'refresh' button.
      */
     doRefresh : function(){
+        Ext.getCmp(this.gridId).refreshState = 'refresh';
         this.doLoad(this.cursor);
     },
 

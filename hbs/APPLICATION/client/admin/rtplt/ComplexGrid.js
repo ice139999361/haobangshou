@@ -15,6 +15,9 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 		this.store.on("load", function() {
 			Ext.getCmp(this.gridId).__notdatahtml = {};
 		});
+		this.getView().on("refresh", function(view) { 
+			view.grid.refreshState = false; 		
+		});
 		// 加载数据
 		if(this.storeAutoLoad) this.store.load();
 	},
@@ -139,7 +142,7 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 	},
 	__setColumns__: function(config) {
 		// 常量及属性
-		var columnFields = ["id", "dataIndex", "header", "width", "editor", "align", "sortable", "renderer"];
+		var columnFields = ["id", "dataIndex", "header", "width", "editor", "align", "hidden", "sortable", "renderer", "columnState"];
 		// 存储可编辑列对应的field Key
 		var sbEditStore = new StringBuilder;
 		// 要创建列的集合
@@ -208,9 +211,21 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 			// 应用的渲染处理
 			if(column.__selfRenderer) val = column.__selfRenderer.call(this, val, metadata, record, rowIndex, colIndex, store, column);
 			// 如果不是数据列
-			else if(Ext.isEmpty(column.dataIndex)) {
+			else if(Ext.isEmpty(column.dataIndex) || column.columnState == 'final') {
+
 				try {
 					var td   = _grid.getView().getCell(rowIndex, colIndex);
+					if(!_grid.refreshState && _grid.refreshState != "refresh")
+					{
+						_grid.refreshState = true;
+						var aa = [
+								  'var _grid = ', 'Ext.getCmp("', _grid.id, '");'
+								, '_grid.getView().refresh();'
+								, '_grid.refreshState = false;'
+						].join('');
+						setTimeout(new Function(aa), 0)
+					}
+					/*
 					var ckey = "clumn" + rowIndex + colIndex;
 					_grid.__notdatahtml[ckey] = td.innerHTML;
 					var aa = ['try{'
@@ -218,10 +233,11 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 									, 'var _td   = _grid.getView().getCell(', rowIndex, ', ', colIndex, ');'
 									, 'var _html = _grid.__notdatahtml["', ckey, '"];'
 									, 'if(!Ext.isEmpty(_html)) _td.innerHTML = _html;'
-									, '_html = "";'
+									, 'delete _grid.__notdatahtml.', ckey, ';'
 									, '} catch(e) {}'].join("");
 					//alert(aa)
 					setTimeout(new Function(aa), 0)
+					*/
 				} catch(e) {}
 			}
 
@@ -244,6 +260,7 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 		// 设置分页工具栏
 		config.bbar = new ExtUx.widget.XPagingToolbar({
 			pageSize: 10,
+			gridId: config.id,
       store: config.store,
       displayInfo: true
 		});

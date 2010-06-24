@@ -96,6 +96,15 @@ var ExtConvertHelper = {
 				Ext.Msg.alert("提示", message);
 			}
 	 }
+	 ,defaultOperatorFun: function(response, opts) {
+			var action = Ext.util.JSON.decode(response.responseText);
+			if(action.success == true || action.success == "true") {
+				HBSConvertHelper.refreshGrid("querygrid");
+			} else {
+				var message = ExtConvertHelper.getMessageInfo(action, "请求失败：服务器异常");
+				Ext.Msg.alert("提示", message);
+			}
+	 }
 	,createXhrObject: function() {
 			var http;   
 			var activeX = ["MSXML2XMLHttp.5.0","MSXML2XMLHttp.4.0","MSXML2.XMLHttp.3.0",   
@@ -412,7 +421,7 @@ var ExtConvertHelper = {
 Ext.apply(ExtConvertHelper, {
 	extProConvertMap: {
 	 		 // 将会做出自动转换，属性名之间用 "," 分隔
-	 		 "boolean" : "readOnly,storeAutoLoad,titleCollapse,editorFlag,fileUpload,allowBlank,deftbar,sortable,page,enableTabScroll,closable,frame,displayIcon,split,collapsible,preloadChildren,expanded,singleClickExpand"
+	 		 "boolean" : "hidden,readOnly,storeAutoLoad,titleCollapse,editorFlag,fileUpload,allowBlank,deftbar,sortable,page,enableTabScroll,closable,frame,displayIcon,split,collapsible,preloadChildren,expanded,singleClickExpand"
 	 		,"number"	 : "minChars,activeTab,width,height,labelWidth"
 	 		 // 添加自己的转换方法
 			//,"items" 	 : ExtConvertHelper.__convertExtItem
