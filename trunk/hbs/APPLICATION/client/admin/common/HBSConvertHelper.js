@@ -127,12 +127,13 @@ var HBSConvertHelper = {
 	  * @params gridId (String) 要刷新的表格 id
 	  */
 	,refreshGrid: function(gridId) {
-			if(!Ext.getCmp(gridId).bbar) {
-				Ext.getCmp(gridId).store.reload();
+			var _grid = Ext.getCmp(gridId);
+			if(!_grid.bbar) {
+				_grid.store.reload();
 				return;
 			}
 			
-			var tmpBtns = Ext.getCmp(gridId).bbar.dom.getElementsByTagName("button");
+			var tmpBtns = _grid.bbar.dom.getElementsByTagName("button");
 			tmpBtns[tmpBtns.length-1].click();
 	 }
 	 /**
