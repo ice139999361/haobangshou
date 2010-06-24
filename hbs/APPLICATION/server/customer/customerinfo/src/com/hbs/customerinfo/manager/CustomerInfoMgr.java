@@ -25,7 +25,11 @@ import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.common.utils.ExpireTimeUtil;
 import com.hbs.customer.common.constants.StateConstants;
 import com.hbs.customerinfo.constants.CustInfoConstants;
+import com.hbs.domain.common.dao.baseinfo.AccountPreiodDao;
+import com.hbs.domain.common.dao.baseinfo.BankInfoDao;
+import com.hbs.domain.common.dao.baseinfo.ContactInfoDao;
 import com.hbs.domain.common.dao.baseinfo.OperLogDao;
+import com.hbs.domain.common.dao.baseinfo.PrePaidInfoDao;
 
 import com.hbs.domain.common.pojo.baseinfo.AccountPreiod;
 import com.hbs.domain.common.pojo.baseinfo.BankInfo;
@@ -762,5 +766,21 @@ public class CustomerInfoMgr {
 		return ret;
 	}
 	
-	
+	public void realDelCustomerInfo(String baseID) throws Exception{
+		//联系人
+		ContactInfoDao contactInfoDao =(ContactInfoDao)BeanLocator.getInstance().getBean("customerContactInfoDao");
+		contactInfoDao.deleteContactInfoByID(baseID);
+		//银行
+		BankInfoDao bankInfoDao = (BankInfoDao)BeanLocator.getInstance().getBean("customerBankInfoDao");
+		bankInfoDao.deleteBankInfoByID(baseID);
+		//账期
+		AccountPreiodDao aPreiodDao = (AccountPreiodDao)BeanLocator.getInstance().getBean("customerAccountPreiodDao");
+		aPreiodDao.deleteAccountPreiodByID(baseID);
+		//预付
+		PrePaidInfoDao aPrepaidDao = (PrePaidInfoDao)BeanLocator.getInstance().getBean("customerPrePaidInfoDao");
+		aPrepaidDao.deletePrePaidInfoByID(baseID);
+		//客户
+		CustomerInfoDao customerInfoDao = (CustomerInfoDao)BeanLocator.getInstance().getBean(CUSTOMERINFODAO);
+		customerInfoDao.deleteCustomerInfoByID(baseID);
+	}
 }

@@ -39,6 +39,33 @@
 		</trigger>
 	</job>
 	
+	<!-- 客户 圈地提醒 job  -->
+	<job>		
+		<job-detail>
+			<name>CustomerInfoJob</name>
+			<group>DEFAULT</group>
+			<job-class>com.hbs.customerinfo.job.CustomerInfoJob</job-class>
+			<volatility>false</volatility>
+			<durability>false</durability>
+			<recover>false</recover>
+			<job-data-map allows-transient-data="true">
+				<entry>
+					<key>ReminderType</key>
+					<value>customerInfoType</value>
+				</entry>
+			</job-data-map>
+		</job-detail>
+		<trigger>
+			<cron>
+				<name>CustomerInfoJobTrigger</name>
+				<group>DEFAULT</group>
+				<job-name>CustomerInfoJob</job-name>
+				<job-group>DEFAULT</job-group>
+				<cron-expression>0 5 0 * * ?</cron-expression>
+			</cron>
+		</trigger>
+	</job>
+	
 	<!-- 供应商 对账日/结算日提醒 job  -->
 	<job>		
 		<job-detail>
