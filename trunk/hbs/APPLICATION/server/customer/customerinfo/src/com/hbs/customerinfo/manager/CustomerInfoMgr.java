@@ -158,7 +158,7 @@ public class CustomerInfoMgr {
 			if(ret ==0){//发提醒待办通知,先取消可能的待办，再添加新的待办
 				WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
 				Map<String , String> hmParam = new HashMap<String,String>();
-				hmParam.put("$staffName", custInfo.getStaffName());
+				hmParam.put("$staffName", auditName);
 				hmParam.put("$businessKey", custInfo.getCommCode());
 				waitTaskInfo.setHmParam(hmParam);
 				waitTaskInfo.setExpireTime(ExpireTimeUtil.getExpireTime("CUSTOMERINFO_REMINDER_DAY"));
@@ -195,7 +195,7 @@ public class CustomerInfoMgr {
 			if(ret ==0){//发待办通知,先取消可能的待办，再添加新的待办
 				WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
 				Map<String , String> hmParam = new HashMap<String,String>();
-				hmParam.put("$staffName", custInfo.getStaffName());
+				hmParam.put("$staffName", auditName);
 				hmParam.put("$businessKey", custInfo.getCommCode());
 				waitTaskInfo.setHmParam(hmParam);
 				waitTaskInfo.setStaffId(custInfo.getStaffId());
