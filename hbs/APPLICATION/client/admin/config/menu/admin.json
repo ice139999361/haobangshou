@@ -72,6 +72,20 @@
                     "menuOrder": "80000",
                     "leaf": "true",
                     "url": "/customer/querynosendorder.jsp?roleType=sccustomers"
+                },
+                {
+                    "id": "stxkhjscx",
+                    "text": "客户结算查询",
+                    "menuOrder": "90000",
+                    "leaf": "true",
+                    "url": "/customer/querycustomerorder.jsp?roleType=scywy"
+                },
+                {
+                    "id": "stxywzlkhjscx",
+                    "text": "业务助理客户结算查询",
+                    "menuOrder": "100000",
+                    "leaf": "true",
+                    "url": "/customer/querycustomerorder.jsp?roleType=scywyzl"
                 }
             ]
         },
@@ -131,6 +145,13 @@
                     "menuOrder": "70000",
                     "leaf": "true",
                     "url": "/customer/querycargotransfer.jsp?roleType=scmanager"
+                },
+                {
+                    "id": "scmkhjscx",
+                    "text": "客户结算查询",
+                    "menuOrder": "80000",
+                    "leaf": "true",
+                    "url": "/customer/querycustomerorder.jsp?roleType=scjl"
                 }
             ]
         },
@@ -197,6 +218,13 @@
                     "menuOrder": "70000",
                     "leaf": "true",
                     "url": "/vendor/querynocommitorder.jsp?roleType=cgy"
+                },
+                {
+                    "id": "cgygysjscx",
+                    "text": "供应商结算查询",
+                    "menuOrder": "80000",
+                    "leaf": "true",
+                    "url": "/vendor/queryvendororder.jsp?roleType=cgbcgy"
                 }
             ]
         },
@@ -242,6 +270,13 @@
                     "menuOrder": "40000",
                     "leaf": "true",
                     "url": "/vendor/pnquery.jsp?roleType=cgm"
+                },
+                {
+                    "id": "cgmgysjscx",
+                    "text": "供应商结算查询",
+                    "menuOrder": "50000",
+                    "leaf": "true",
+                    "url": "/vendor/queryvendororder.jsp?roleType=cgbjl"
                 }
             ]
         },{
@@ -386,8 +421,21 @@
                     "menuOrder": "130000",
                     "leaf": "true",
                     "url": "/customer/querycustomer.jsp?roleType=cw"
+                },
+                {
+                    "id": "cwkhjscx",
+                    "text": "客户结算查询",
+                    "menuOrder": "140000",
+                    "leaf": "true",
+                    "url": "/customer/querycustomerorder.jsp?roleType=caiwu"
+                },
+                {
+                    "id": "cwgysjscx",
+                    "text": "供应商结算查询",
+                    "menuOrder": "150000",
+                    "leaf": "true",
+                    "url": "/vendor/queryvendororder.jsp?roleType=caiwu"
                 }
-
             ]
         },
         {
