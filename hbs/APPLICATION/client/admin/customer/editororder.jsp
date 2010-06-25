@@ -55,7 +55,7 @@
 				    		</listpanel>
 			    		</items></form>
 
-			    		<complexgrid id="ordergrid" frame="true" height="200" deftbar="true" url="1" title="订单详情" itemsFun="ordergridFun" />
+			    		<complexgrid id="ordergrid" frame="true" height="320" deftbar="true" url="1" title="订单详情" itemsFun="ordergridFun" />
 
 			    		<panel buttonAlign="center">
 			    			<buttons>
