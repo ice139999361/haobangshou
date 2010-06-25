@@ -36,7 +36,8 @@ Ext.extend(ExtUx.widget.QueryForm, Ext.form.FormPanel, {
 			 				if(_grid.getBottomToolbar() && _grid.getBottomToolbar().getPageParams) Ext.apply(params, _grid.getBottomToolbar().getPageParams());
 			 				// 设置查询的基本条件
 			 				_store.baseParams = params;
-			 				
+			 				// 更改表格状态为刷新状态
+			 				_grid.refreshState = 'refresh';
 			 				// 加载数据
 			 				_store.load();
 			 				// 备份当前参数
