@@ -2,6 +2,8 @@ package com.hbs.domain.invoice.pojo;
 
 import java.math.BigDecimal;
 
+import com.hbs.common.manager.configencode.ConfigEncodeMgr;
+import com.hbs.domain.common.pojo.ConfigEncode;
 import com.hbs.domain.common.pojo.base.BaseDomain;
 
 
@@ -107,7 +109,18 @@ public class FinanceSettlement extends BaseDomain{
     
     public String getSettlementType() {
         return this.settlementType;
-    }	
+    }
+    public String getSettlementTypeDesc() {
+    	String retStr ="未定义";
+    	ConfigEncode ceParam = new ConfigEncode();
+    	ceParam.setEncodeKey(getSettlementType());
+    	ceParam.setEncodeType("SETTLEMENT_TYPE");
+    	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
+    	if(null != cEncode){
+    		retStr = cEncode.getEncodeValue();
+    	}
+    	return retStr;
+    }
   
     public void setSettlementType(String settlementType) {
         this.settlementType = settlementType;
@@ -156,7 +169,17 @@ public class FinanceSettlement extends BaseDomain{
     public String getFinanceState() {
         return this.financeState;
     }	
-  
+    public String getFinanceStateDesc() {
+    	String retStr ="未定义";
+    	ConfigEncode ceParam = new ConfigEncode();
+    	ceParam.setEncodeKey(getFinanceState());
+    	ceParam.setEncodeType("F_STATE");
+    	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
+    	if(null != cEncode){
+    		retStr = cEncode.getEncodeValue();
+    	}
+    	return retStr;
+    }
     public void setFinanceState(String financeState) {
         this.financeState = financeState;
     }

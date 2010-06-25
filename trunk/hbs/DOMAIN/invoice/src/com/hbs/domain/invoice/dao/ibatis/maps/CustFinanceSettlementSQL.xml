@@ -113,9 +113,8 @@
             SALES_ID, 
             SALES_NAME, 
             ASS_ID, 
-            ASS_NAME, 
-            STAFF_ID, 
-            STAFF_NAME
+            ASS_NAME
+            
     FROM V_CUSTOMER_TOTAL_SETTLEMENT WHERE C_CODE = #commCode# and SETTLEMENT_TYPE = #settlementType# and ABSTRACT= #summery#
 ]]>
 </select>
@@ -134,9 +133,7 @@
             SALES_ID, 
             SALES_NAME, 
             ASS_ID, 
-            ASS_NAME, 
-            STAFF_ID, 
-            STAFF_NAME
+            ASS_NAME 
     FROM V_CUSTOMER_TOTAL_SETTLEMENT
 ]]>
 		<dynamic prepend="WHERE">
