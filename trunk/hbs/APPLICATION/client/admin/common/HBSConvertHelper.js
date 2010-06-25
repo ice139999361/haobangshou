@@ -110,10 +110,11 @@ var HBSConvertHelper = {
 	  */
 	,getOpenerTabId: function() {
 			// 获取主 Panel
-			var mainTab = this.getMainTab();
+			//var mainTab = this.getMainTab();
 			
 			// Portal 返回父页面的 tabId
-			return mainTab ? mainTab.tmpTabId : null;
+			//return mainTab ? mainTab.tmpTabId : null;
+			return urlPs.openerTabId;
 	 }
 	 /**
 	  * 说明：获取主标签的引用
@@ -185,7 +186,11 @@ var HBSConvertHelper = {
 			// 获取主 Panel
 			var mainTab = this.getMainTab();
 			// 在 Portal 中将当前页面的Id 存入 mainTab 的 tmpTabId 属性中做为中转
-			mainTab.tmpTabId = urlPs.openerTabId || this.getCurrTab().id;
+			//mainTab.tmpTabId = urlPs.openerTabId || this.getCurrTab().id;
+			// 获取要刷新的 tabId
+			var reTabId = urlPs.openerTabId || this.getCurrTab().id;
+			// 将 tabId 加入至 url 后边
+			if(reTabId) url += (url.indexOf('?') == -1 ? '?' : '&') + 'openerTabId=' + encodeURIComponent(reTabId);
 			// 打开页面
 			app.switchContent(url, flag);
 	 }
