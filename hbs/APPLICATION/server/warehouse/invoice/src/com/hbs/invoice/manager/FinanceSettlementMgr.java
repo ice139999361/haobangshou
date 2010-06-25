@@ -47,17 +47,17 @@ public abstract class FinanceSettlementMgr {
 	
 	private void processSettlement(FinanceSettlement settlement)throws Exception{
 		BigDecimal totalMoney = settlement.getTotalMoney();
-		BigDecimal needMoney = settlement.getNeedMoney();
+		//BigDecimal needMoney = settlement.getNeedMoney();
 		BigDecimal dealMoney = settlement.getDealMoney();
 		BigDecimal curMoney = settlement.getCurMoney();
 		if(null != curMoney){
-			needMoney = needMoney.subtract(curMoney);
-			if(null == dealMoney){
-				dealMoney = new BigDecimal(0);
-			}
-			dealMoney = dealMoney.add(curMoney);
-			settlement.setNeedMoney(needMoney);
-			settlement.setDealMoney(dealMoney);
+//			needMoney = needMoney.subtract(curMoney);
+//			if(null == dealMoney){
+//				dealMoney = new BigDecimal(0);
+//			}
+//			dealMoney = dealMoney.add(curMoney);
+//			settlement.setNeedMoney(needMoney);
+//			settlement.setDealMoney(dealMoney);
 			if(totalMoney.compareTo(dealMoney) == 0){
 				settlement.setFinanceState("3");
 			}else if (dealMoney.compareTo(new BigDecimal(0)) > 0){

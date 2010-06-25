@@ -25,7 +25,7 @@ public class CustFinanceSettlementMgr extends FinanceSettlementMgr {
 		if(null != financeState &&(financeState.equals("2") || financeState.equals("3"))){
 			WarehouseSendDetail recInfo = new WarehouseSendDetail();
 			recInfo.setFinanceState(financeState);
-			recInfo.setVendorCode(settlement.getCommCode());
+			recInfo.setCustCode(settlement.getCommCode());
 			if(settlementType.equals("1")){
 				recInfo.setFinancePeriod(settlement.getSummery());
 			}else{

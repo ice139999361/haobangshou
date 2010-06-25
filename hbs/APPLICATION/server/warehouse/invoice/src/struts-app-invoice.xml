@@ -144,6 +144,18 @@
     	<action name="SendInvoice!del" method="doDelete" 
     			class="com.hbs.invoice.action.InvoiceSendAction">
 		</action>
-
+		
+		<!-- 结算查询 -->
+		<action name="CustSettlement!list" method="doList" 
+    			class="com.hbs.invoice.action.CustFinanceSettleAction">
+		</action>
+		<!-- 结算保存 -->
+		<action name="CustSettlement!save" method="doSaveSettlement" 
+    			class="com.hbs.invoice.action.CustFinanceSettleAction">
+		</action>
+		<!-- 结算明细查询 -->
+		<action name="CustSettlement!listDetail" method="doListDetail" 
+    			class="com.hbs.invoice.action.CustFinanceSettleAction">
+		</action>
 	</package>
 </struts>
