@@ -82,6 +82,7 @@ HBSConvertHelper.init(function() {
 			if(Ext.isEmpty(record.get("cpriceTax")) || record.get("cpriceTax") == 0) ordergrid.getColumnById("cisTax").editable = true;
 			else ordergrid.getColumnById("cisTax").editable = false;
 		});
+		
 	}())
 
 
@@ -238,6 +239,9 @@ HBSConvertHelper.init(function() {
 	function addInitFun() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("客户订单录入");
+		
+		// 默认增加 8 条空记录
+		for(var i = 0 ; i < 8 ; i++) ordergrid.addData(ordergrid.__getDefData__());
 
 		// 提交完成后的操作
 		submitSuccessPro = function() {
