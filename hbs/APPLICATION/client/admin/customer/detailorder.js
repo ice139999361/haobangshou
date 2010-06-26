@@ -111,8 +111,13 @@ HBSConvertHelper.init(function() {
 		historyBtn.on("click", function() {
 			HBSConvertHelper.open("/complex/detailhistory.jsp", 800, 500, {gridurl: ["/vendorInfo/vendorPartNoInfoMgr!list.action?", params].join("")})
 		});
-
+		
+		Ext.getCmp("custbankgrid").syncSize();
+		
 		Ext.getCmp("custbankgrid").getView().on("refresh", function(view) {
+			var countAmount = 0;
+			var countMoney  = 0;
+			
 			for(var i = 0 ; i < view.ds.getCount() ; i++) {
 				// 获取数据容器
 				var record = view.ds.getAt(i);
@@ -122,7 +127,14 @@ HBSConvertHelper.init(function() {
 					var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));
 					detailcreatebuttonFun(record.get("state"), operator_cell, record);
 				}
+				
+				//  汇总数量与金额
+				countAmount = Math.FloatAdd(countAmount, record.get("amount"));
+				countMoney  = Math.FloatAdd(countMoney, record.get("money"));
 			}
+			
+			Ext.getCmp("countAmount").setValue(countAmount);
+			Ext.getCmp("countMoney").setValue(countMoney);
 		});
 
 		// 加载数据

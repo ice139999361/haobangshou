@@ -83,6 +83,24 @@ HBSConvertHelper.init(function() {
 			else ordergrid.getColumnById("cisTax").editable = false;
 		});
 		
+		ordergrid.getView().on("refresh", function(view) {
+			//alert(this.ds.getCount())
+			var countAmount = 0;
+			var countMoney  = 0;
+			for(var i = 0 ; i < view.ds.getCount() ; i++) {
+				// 获取数据集
+				var record = view.ds.getAt(i);
+				
+				//  汇总数量与金额
+				countAmount = Math.FloatAdd(countAmount, record.get("amount"));
+				countMoney  = Math.FloatAdd(countMoney, record.get("money"));
+		
+			}
+			
+			Ext.getCmp("countAmount").setValue(countAmount);
+			Ext.getCmp("countMoney").setValue(countMoney);
+		});
+		
 	}())
 
 
