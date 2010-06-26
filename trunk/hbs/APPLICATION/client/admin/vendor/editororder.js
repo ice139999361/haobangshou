@@ -126,6 +126,24 @@ HBSConvertHelper.init(function() {
 			if(Ext.isEmpty(record.get("cpriceTax")) || record.get("cpriceTax") == 0) ordergrid.getColumnById("cisTax").editable = true;
 			else ordergrid.getColumnById("cisTax").editable = false;
 		});
+		
+		ordergrid.getView().on("refresh", function(view) {
+			//alert(this.ds.getCount())
+			var countAmount = 0;
+			var countMoney  = 0;
+			for(var i = 0 ; i < view.ds.getCount() ; i++) {
+				// 获取数据集
+				var record = view.ds.getAt(i);
+				
+				//  汇总数量与金额
+				countAmount = Math.FloatAdd(countAmount, record.get("amount"));
+				countMoney  = Math.FloatAdd(countMoney, record.get("money"));
+		
+			}
+			
+			Ext.getCmp("countAmount").setValue(countAmount);
+			Ext.getCmp("countMoney").setValue(countMoney);
+		});
 
 		// 选择收货信息
 		var list = Ext.getCmp("acConsigneeList");
@@ -301,6 +319,9 @@ HBSConvertHelper.init(function() {
 
 		ExtConvertHelper.setItemsReadOnly("acCommCode", false);
 		//Ext.getCmp("acCommCode").readOnly = false;
+		
+		// 默认增加 8 条空记录
+		for(var i = 0 ; i < 8 ; i++) ordergrid.addData(ordergrid.__getDefData__());
 
 		// 提交完成后的操作
 		submitSuccessPro = function() {

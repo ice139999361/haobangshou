@@ -35,6 +35,16 @@
 				    		</listpanel>
 
 				    		<complexgrid id="ordergrid"   title="订单详情" itemsFun="displayordergridFun"   frame="true" height="200" url="1" editorFlag="false"/>
+				    			
+				    		<listpanel>
+				    			<layoutpanel columnNum="2:.8,">
+				    				<label labelSeparator="" />
+				    				<label labelSeparator="" />
+				    					
+				    				<label fieldLabel="汇总数量"   id="countAmount" />
+				    				<label fieldLabel="汇总金额"   id="countMoney" />
+				    			</layoutpanel>
+				    		</listpanel>
 
 			    			<listpanel title="处理信息" frame="true" collapsible="true" titleCollapse="true" id="04process">
 			    				<layoutpanel columnNum="1">
