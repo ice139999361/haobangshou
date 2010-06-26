@@ -70,7 +70,7 @@ public class CustPartNoInfoMgr {
 		CustPartNoInfo existInfo = this.getCustPartNoInfoByBizKey(custPartNoInfo);
 		if(existInfo != null){//存在数据
 			//获取提交数据打状态
-			int iState = Integer.parseInt(custPartNoInfo.getState());
+			int iState = Integer.parseInt(existInfo.getState());
 			
 			if(iState == StateConstants.STATE_1 || iState == StateConstants.STATE_3){
 				custPartNoInfo.setState(new Integer(StateConstants.STATE_2).toString());
