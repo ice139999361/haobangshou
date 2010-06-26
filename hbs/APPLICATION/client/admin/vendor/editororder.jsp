@@ -69,7 +69,17 @@
 			    		</items></form>
 
 			    		<complexgrid id="ordergrid" frame="true" height="300" deftbar="true" url="1" title="订单详情" itemsFun="ordergridFun" />
-
+					
+							<listpanel>
+				    			<layoutpanel columnNum="2:.8,">
+				    				<label labelSeparator="" />
+				    				<label labelSeparator="" />
+				    					
+				    				<label fieldLabel="汇总数量"   id="countAmount" />
+				    				<label fieldLabel="汇总金额"   id="countMoney" />
+				    			</layoutpanel>
+				    	</listpanel>
+							
 			    		<panel buttonAlign="center">
 			    			<buttons>
 			    				<button text="提交" id="submitBtn" />
