@@ -65,7 +65,7 @@ public class VendorPartNoInfoMgr {
 		VendorPartNoInfo existInfo = this.getVendorPartNoInfoByBizKey(vPartNoInfo);
 		if(existInfo != null){
 			//获取提交数据打状态
-			int iState = Integer.parseInt(vPartNoInfo.getState());
+			int iState = Integer.parseInt(existInfo.getState());
 			if(iState == StateConstants.STATE_1 || iState == StateConstants.STATE_3){
 				vPartNoInfo.setState(new Integer(StateConstants.STATE_2).toString());
 				ret = this.innerUpdateVendorPartNoInfo(vPartNoInfo, vPartNoInfo.getStaffId(), vPartNoInfo.getStaffName(), null);
