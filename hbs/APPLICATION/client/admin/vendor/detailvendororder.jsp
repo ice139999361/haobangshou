@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>供应商订单明细</title>
+	<title>供应商收货明细</title>
 </head>
 
 <body>
@@ -15,30 +15,26 @@
 			    <panel frame="true" autoScroll="true">
 			    	<items>
 			    	<!-- service ext ui.  begin. -->
-				    	<complexgrid id="querygrid" height="500" title="供应商订单明细列表" storeAutoLoad="true" frame="true" root="data.list" url="/test1.action?roleType=${param.roleType}&amp;commCode=${param.commCode}&amp;zaiyao=${param.zaiyao}&amp;cpartNo=${param.cpartNo}">
+				    	<complexgrid id="querygrid" height="500" title="供应商收货明细列表" storeAutoLoad="true" frame="true" root="data.list" url="/invoice/VendorSettlement!listDetail.action?roleType=${param.roleType}&amp;settlement.commCode=${param.commCode}&amp;settlement.summery=${param.summery}&amp;settlement.settlementType=${param.settlementType}">
 				    		<fields>
-				    			<field name="l1" />
-				    			<field name="l2" />
-				    			<field name="l3" />
-				    			<field name="l4" />
-				    			<field name="l5" />
-				    			<field name="l6" />
-				    			<field name="l7" />
-				    			<field name="l8" />
-				    			<field name="l9" />
-				    			<field name="l10" />
+				    			<field name="recPoNo" />
+				    			<field name="cpartNo" />
+				    			<field name="partNo" />
+				    			<field name="pnDesc" />
+				    			<field name="price" />
+				    			<field name="taxRate" />
+				    			<field name="amount" />
+				    			<field name="curMoney" />				    			
 				    		</fields>
 				    		<columns>
-				    			<column header="供应商简称"   dataIndex="l1" />
-				    			<column header="供应商编码"   dataIndex="l2" />
-				    			<column header="供应商订单号" dataIndex="l3" />
-				    			<column header="客户物料"   dataIndex="l4" />
-				    			<column header="公司物料"   dataIndex="l5" />
-				    			<column header="物料描述"   dataIndex="l6" />
-				    			<column header="交期"       dataIndex="l7" />
-				    			<column header="订单数量"   dataIndex="l8" />
-				    			<column header="已发货数量" dataIndex="l9" />
-				    			<column header="特殊备注"   dataIndex="l10" />
+								<column header="收货单号"   dataIndex="recPoNo" />
+				    			<column header="供应商物料"   dataIndex="cpartNo" />
+				    			<column header="公司物料"   dataIndex="partNo" />
+				    			<column header="物料描述" dataIndex="pnDesc" />
+				    			<column header="物料单价"   dataIndex="price" />				    			
+								<column header="税率"   dataIndex="taxRate" />
+				    			<column header="数量"   dataIndex="amount" />
+				    			<column header="金额"       dataIndex="curMoney" />				    			
 				    		</columns>
 				    	</complexgrid>
 			    	<!-- service ext ui.  end. -->

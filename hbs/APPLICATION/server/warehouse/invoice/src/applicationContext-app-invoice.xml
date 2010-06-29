@@ -1,20 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 
-<beans>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd 
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+  
+	<aop:config proxy-target-class="true">
+		<aop:advisor
+			pointcut="execution(* com.hbs.invoice.manager.*.*(..))"
+			advice-ref="txWarehouseRecAdvice" />
+	</aop:config>
+
+	<tx:advice id="txInvoiceAdvice"
+		transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="saveSettlement" propagation="REQUIRED"
+				rollback-for="Exception" />
+
+			<tx:method name="*" propagation="SUPPORTS" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
 	<!-- 客户发票实现类   -->
-	<bean id="sendInvoiceMgr"  class="com.hbs.invoice.manager.SendInvoiceMgr">		
+	<bean id="sendInvoiceMgr"
+		class="com.hbs.invoice.manager.SendInvoiceMgr">
 	</bean>
-	
+
 	<!-- 供应商发票实现类   -->
-	<bean id="recInvoiceMgr"  class="com.hbs.invoice.manager.RecInvoiceMgr">		
+	<bean id="recInvoiceMgr"
+		class="com.hbs.invoice.manager.RecInvoiceMgr">
 	</bean>
-	
+
 	<!-- 财务账期结算备注信息实现类   -->
-	<bean id="periodSpecMemoMgr"  class="com.hbs.invoice.manager.PeriodSpecMemoMgr">		
+	<bean id="periodSpecMemoMgr"
+		class="com.hbs.invoice.manager.PeriodSpecMemoMgr">
 	</bean>
-	<bean id="custFinanceSettlementMgr"  class="com.hbs.invoice.manager.CustFinanceSettlementMgr">		
+	<bean id="custFinanceSettlementMgr"
+		class="com.hbs.invoice.manager.CustFinanceSettlementMgr">
 	</bean>
-	<bean id="vendorFinanceSettlementMgr"  class="com.hbs.invoice.manager.VendorFinanceSettlementMgr">		
+	<bean id="vendorFinanceSettlementMgr"
+		class="com.hbs.invoice.manager.VendorFinanceSettlementMgr">
 	</bean>
 </beans>

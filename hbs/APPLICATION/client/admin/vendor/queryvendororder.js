@@ -11,14 +11,30 @@ HBSConvertHelper.init(function() {
 	
 	function getParams(record) {
 			return ['roleType=', urlPs.roleType
-							// 供应商编码
+							// 客户编码
 						 ,'&commCode=', record.get("commCode")
 						  // 摘要
-						 ,'&zaiyao=', record.get("zaiyao")
+						 ,'&summery=', record.get("summery")
 						  // 结算方式
-						 ,'&cpartNo=', record.get("cpartNo")
-						  // 本次付款金额
-						 ,'&bcskje=', record.get("cpartNo")
+						 ,'&settlementType=', record.get("settlementType")
+						].join('');
+	}
+	
+	function getSaveParams(record) {
+			return ['&settlement.commCode=', record.get("commCode")
+						  ,'&settlement.shortName=', record.get("shortName")
+						  // 摘要
+						 ,'&settlement.summery=', record.get("summery")
+						 ,'&settlement.settlementType=', record.get("settlementType")
+						  // 结算方式
+						 ,'&settlement.totalMoney=', record.get("totalMoney")
+						 ,'&settlement.needMoney=', record.get("needMoney")
+						 ,'&settlement.dealMoney=', record.get("dealMoney")
+						 ,'&settlement.curMoney=', record.get("curMoney")
+						  // 本次收款金额
+						 ,'&settlement.financeState=', record.get("financeState")
+						 ,'&settlement.salesId=', record.get("salesId")
+						 ,'&settlement.salesName=', record.get("salesName")						 
 						].join('');
 	}
 	
@@ -31,7 +47,7 @@ HBSConvertHelper.init(function() {
 				 Ext.Msg.confirm("提示", "您要执行的是保存操作，请确认是否继续？", function(btn) {
 					 if(btn == "no") return;
 					 
-					 ExtConvertHelper.request("/success.action", getParams(this.config), ExtConvertHelper.defaultOperatorFun);
+					 ExtConvertHelper.request("/invoice/VendorSettlement!save.action", getSaveParams(this.config), ExtConvertHelper.defaultOperatorFun);
 				 }, this);
 				 
 			};

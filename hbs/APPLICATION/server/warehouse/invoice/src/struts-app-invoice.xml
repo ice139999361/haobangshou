@@ -157,5 +157,18 @@
 		<action name="CustSettlement!listDetail" method="doListDetail" 
     			class="com.hbs.invoice.action.CustFinanceSettleAction">
 		</action>
+		
+		<!-- g结算查询 -->
+		<action name="VendorSettlement!list" method="doList" 
+    			class="com.hbs.invoice.action.VendorFinanceSettleAction">
+		</action>
+		<!-- g结算保存 -->
+		<action name="VendorSettlement!save" method="doSaveSettlement" 
+    			class="com.hbs.invoice.action.VendorFinanceSettleAction">
+		</action>
+		<!-- g结算明细查询 -->
+		<action name="VendorSettlement!listDetail" method="doListDetail" 
+    			class="com.hbs.invoice.action.VendorFinanceSettleAction">
+		</action>
 	</package>
 </struts>
