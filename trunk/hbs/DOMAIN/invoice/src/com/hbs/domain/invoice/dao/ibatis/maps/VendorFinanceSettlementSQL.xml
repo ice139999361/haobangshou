@@ -103,9 +103,7 @@
             SET_MONEY, 
             FINANCE_STATE, 
             PURCHASE_ID, 
-            PURCHASE_NAME,
-            STAFF_ID, 
-            STAFF_NAME
+            PURCHASE_NAME            
     FROM V_VENDOR_TOTAL_SETTLEMENT WHERE C_CODE = #commCode# and SETTLEMENT_TYPE = #settlementType# and ABSTRACT= #summery#
 ]]>
 </select>
@@ -122,9 +120,7 @@
             SET_MONEY,
             FINANCE_STATE, 
             PURCHASE_ID, 
-            PURCHASE_NAME,
-            STAFF_ID, 
-            STAFF_NAME
+            PURCHASE_NAME
     FROM V_VENDOR_TOTAL_SETTLEMENT
 ]]>
 		<dynamic prepend="WHERE">

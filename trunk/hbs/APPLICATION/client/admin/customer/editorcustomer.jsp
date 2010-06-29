@@ -19,53 +19,45 @@
 			    	
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="客户基本信息" collapsible="true" titleCollapse="true">
-				    			<layoutpanel columnNum="2">
-				    				<!--<textfield fieldLabel="客户编码"       id ="textCustCode"        name="custInfo.commCode"             labelStyle="width:150" allowBlank="false"  readOnly="true" />	-->
-									<textfield fieldLabel="客户编码"       id ="textCustCode"        name="custInfo.commCode"             labelStyle="width:150"   readOnly="true" />	
-				    				<textfield fieldLabel="客户法人代表"           name="custInfo.representative"       labelStyle="width:150" />
-								</layoutpanel>
-
-								<layoutpanel columnNum="2">	
+								<layoutpanel columnNum="2">
 				    				<textfield fieldLabel="客户简称"               name="custInfo.shortName"            labelStyle="width:150" allowBlank="false"/>
-									<textfield fieldLabel="英文简称"               name="custInfo.enShortName"          labelStyle="width:150" />
+									<textfield fieldLabel="客户编码"       id ="textCustCode"        name="custInfo.commCode"             labelStyle="width:150"   readOnly="true" />					    				
 								</layoutpanel>
-
-								<layoutpanel columnNum="2">	
-				    				<dictcombo fieldLabel="客户信用度"             hiddenName="custInfo.creditRate"     labelStyle="width:150" paramsValue="CREDIT_RATE"     emptyText="请选择" allowBlank="false"/>
-									<dictcombo fieldLabel="客户的重要程度"         hiddenName="custInfo.importantCode"  labelStyle="width:150" paramsValue="IMPORTANT_CODE"  emptyText="请选择" allowBlank="false"/>
-								</layoutpanel>
-
-								<layoutpanel columnNum="2">	
-				    				<dictcombo fieldLabel="企业性质"                   hiddenName="custInfo.commType"             labelStyle="width:150" paramsValue="COMM_TYPE"     emptyText="请选择" allowBlank="false"/>
-									<!--
-									<textfield fieldLabel="规模"                   name="custInfo.commScale"            labelStyle="width:150" />
-									-->
-									<dictcombo fieldLabel="企业规模"                   hiddenName="custInfo.commScale"            labelStyle="width:150" paramsValue="SCALE_TYPE"     emptyText="请选择" allowBlank="false"/>
-									<dictcombo fieldLabel="企业类型"                   hiddenName="custInfo.saleType"            labelStyle="width:150" paramsValue="SALE_TYPE"     emptyText="请选择" allowBlank="false"/>
-								</layoutpanel>
-								
 								<layoutpanel columnNum="1">
-									<textfield fieldLabel="公司中文名称"           name="custInfo.allName"              labelStyle="width:150" width="600" allowBlank="false"/>
+									<textfield fieldLabel="客户全称"           name="custInfo.allName"              labelStyle="width:150" width="600" allowBlank="false"/>
 									<textfield fieldLabel="客户公司地址"           name="custInfo.address"              labelStyle="width:150" width="600" allowBlank="false"/>
+									<textfield fieldLabel="英文简称"               name="custInfo.enShortName"          labelStyle="width:150" />
 									<textfield fieldLabel="公司英文名称"           name="custInfo.enName"               labelStyle="width:150" width="600" />
 				    				<textfield fieldLabel="公司英文地址"           name="custInfo.enAddress"            labelStyle="width:150" width="600"/>
 									<textfield fieldLabel="客户纳税人识别号"       name="custInfo.taxCode"              labelStyle="width:150" width="600"/>
 									<textfield fieldLabel="客户公司网址"           name="custInfo.webSite"              labelStyle="width:150" width="600"/>
 								</layoutpanel>
+								<layoutpanel columnNum="2">
+				    				<textfield fieldLabel="客户法人代表"           name="custInfo.representative"       labelStyle="width:150" />
+								</layoutpanel>
+								</listpanel>
+								<listpanel frame="true" title="客户性质信息" collapsible="true" titleCollapse="true">
 
 								<layoutpanel columnNum="2">
-				    				
-				    					
-				    				
-				    				
+									<dictcombo fieldLabel="企业性质"                   hiddenName="custInfo.commType"             labelStyle="width:150" paramsValue="COMM_TYPE"     emptyText="请选择" allowBlank="false"/>
+
+									<dictcombo fieldLabel="客户的重要程度"         hiddenName="custInfo.importantCode"  labelStyle="width:150" paramsValue="IMPORTANT_CODE"  emptyText="请选择" allowBlank="false"/>
+								</layoutpanel>
+
+								<layoutpanel columnNum="2">	
+									<dictcombo fieldLabel="企业规模"                   hiddenName="custInfo.commScale"            labelStyle="width:150" paramsValue="SCALE_TYPE"     emptyText="请选择" allowBlank="false"/>
+									
+									<dictcombo fieldLabel="客户信用度"             hiddenName="custInfo.creditRate"     labelStyle="width:150" paramsValue="CREDIT_RATE"     emptyText="请选择" allowBlank="false"/>
+								</layoutpanel>
+								<layoutpanel columnNum="2">					    				
+									<dictcombo fieldLabel="企业类型"                   hiddenName="custInfo.saleType"            labelStyle="width:150" paramsValue="SALE_TYPE"     emptyText="请选择" allowBlank="false"/>
+								</layoutpanel>
+								</listpanel>
+								<listpanel frame="true" title="客户在公司内部标记信息" collapsible="true" titleCollapse="true">
+								<layoutpanel columnNum="2">
+				    				<dictcombo fieldLabel="对应的分公司或分支机构" hiddenName="custInfo.companyBranch"  labelStyle="width:150" paramsValue="COMPANY_BRANCH"  emptyText="请选择" allowBlank="false"/>	
+
 				    				<dictcombo fieldLabel="对应的业务部助理"       hiddenName="custInfo.assStaffId"     labelStyle="width:150"  url="/auth/user!listByRoleId.action?roleId=7" root="data.list"  displayField="staffName"  valueField="staffId" allowBlank="false"/>
-				    				<!--<autocomplete fieldLabel="供应商编码"             name="custInfo.vendorCode"           labelStyle="width:150"  url="/vendorInfo/vendorInfo!listDict.action"  displayField="commCode"  valueField="commCode" queryParam="vendorInfo.commCode"/> -->
-				    				<dictcombo fieldLabel="对应的分公司或分支机构" hiddenName="custInfo.companyBranch"  labelStyle="width:150" paramsValue="COMPANY_BRANCH"  emptyText="请选择" allowBlank="false"/>			
-				    				
-				    				
-				    					
-				    				
-				    				
 				    				
 				    				
 				    				<dictcombo fieldLabel="发货单是否显示单价"     hiddenName="custInfo.isShowPrice"    labelStyle="width:150" paramsValue="IS_SHOW_PRICE"   emptyText="请选择" allowBlank="false"/>
