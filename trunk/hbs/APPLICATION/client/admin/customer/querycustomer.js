@@ -3,6 +3,7 @@ var querygridUrl;
 
 // 初始方法
 (function() {
+	
 	switch(urlPs.roleType) {
 		case "sccustomers":
 			querygridUrl = "/customerInfo/customerInfo!list.action";
@@ -18,7 +19,27 @@ var querygridUrl;
 
 HBSConvertHelper.init(function() {
 	// -------------------------------------- 获取需要持久用到的对象
-
+    //-----------------------------------------	
+	// 添加结算类型的选择事件
+	Ext.getCmp("isettlementType").on("select", function() {
+		val = this.getValue();
+		switch(val) {
+			case "1":				
+				ExtConvertHelper.showItems("isettlementDay");				
+				break;
+			case "2":
+			case "3":				
+				ExtConvertHelper.hideItems("isettlementDay");				
+				break;
+		}
+	});
+	Ext.getCmp("isettlementDay").on("select", function() {
+		val = this.getValue();
+		if(val != ""){
+			Ext.getCmp("isettlementType").setValue("1");
+		}
+	});
+	//------------------------------------------
 	// 获取表格
 	var querygrid = Ext.getCmp("querygrid");
 
