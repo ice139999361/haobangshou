@@ -20,67 +20,55 @@
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="客户基本信息" collapsible="true" titleCollapse="true">
 								<layoutpanel columnNum="2">
-				    				<label fieldLabel="客户编码"               name="custInfo.commCode"           labelStyle="width:150" id="abcde"/>				    				
-				    				<label fieldLabel="客户法人代表"           name="custInfo.representative"     labelStyle="width:150" />
-								</layoutpanel>
-
-
-								<layoutpanel columnNum="2">	
-				    				<label fieldLabel="客户简称"               name="custInfo.shortName"          labelStyle="width:150" />
-									<label fieldLabel="英文简称"               name="custInfo.enShortName"        labelStyle="width:150" />
-								</layoutpanel>
-								<layoutpanel columnNum="2">	
-				    				<label fieldLabel="客户信用度"             name="custInfo.creditDesc"         labelStyle="width:150" />
-									<label fieldLabel="客户的重要程度"         name="custInfo.importantDesc"      labelStyle="width:150" />
-								</layoutpanel>
-								<layoutpanel columnNum="2">	
-				    				<label fieldLabel="企业性质"                   name="custInfo.commType"           labelStyle="width:150" />
-									<label fieldLabel="企业规模"                   name="custInfo.commScale"          labelStyle="width:150" />
-									<label fieldLabel="企业类型"                   name="custInfo.saleType"          labelStyle="width:150" />
+									<label fieldLabel="客户简称"               name="custInfo.shortName"          labelStyle="width:150" />
+				    				<label fieldLabel="客户编码"               name="custInfo.commCode"           labelStyle="width:150" id="abcde"/>				
 								</layoutpanel>
 								<layoutpanel columnNum="1">
-									<label fieldLabel="公司中文名称"           name="custInfo.allName"            labelStyle="width:150" width="600" />
-									<label fieldLabel="客户公司地址"           name="custInfo.address"            labelStyle="width:150" width="600"/>
-									<label fieldLabel="公司英文名称"           name="custInfo.enName"             labelStyle="width:150" width="600"/>
-				    				<label fieldLabel="公司英文地址"           name="custInfo.enAddress"          labelStyle="width:150" width="600"/>	
-				    				<label fieldLabel="客户纳税人识别号"       name="custInfo.taxCode"            labelStyle="width:150" width="600"/>				    				
+				    				<label fieldLabel="客户全称"           name="custInfo.allName"            labelStyle="width:150" width="600" />			    	<label fieldLabel="客户公司地址"           name="custInfo.address"            labelStyle="width:150" width="600"/>
+									<label fieldLabel="英文简称"               name="custInfo.enShortName"        labelStyle="width:150" />
+				    				<label fieldLabel="公司英文名称"           name="custInfo.enName"             labelStyle="width:150" width="600"/>
+									<label fieldLabel="公司英文地址"           name="custInfo.enAddress"          labelStyle="width:150" width="600"/>	
+				    				<label fieldLabel="客户纳税人识别号"       name="custInfo.taxCode"            labelStyle="width:150" width="600"/>
 				    				<label fieldLabel="客户公司网址"           name="custInfo.webSite"            labelStyle="width:150" width="600"/>
-								</layoutpanel>					
-				    			<layoutpanel columnNum="2">
-				    				
-				    				
-				    				
-				    				
-				    					
-				    				
-				    				
-				    				<!--
-									<label fieldLabel="销售人员ID"             name="custInfo.staffId"            labelStyle="width:150" />
-				    				<label fieldLabel="对应的业务部助理ID"     name="custInfo.assStaffId"         labelStyle="width:150" />
-									
-				    				<label fieldLabel="供应商编码"             name="custInfo.vendorCode"         labelStyle="width:150" />
-									-->
-				    				<label fieldLabel="对应的分公司或分支机构" name="custInfo.companyBranchDesc"  labelStyle="width:150" />			
-				    				
-				    				
-				    				
-				    				
-				    				<label fieldLabel="销售人员名字"           name="custInfo.staffName"          labelStyle="width:150" />
-				    				<label fieldLabel="对应的业务部助理姓名"   name="custInfo.assStaffName"       labelStyle="width:150" />
-				    				<label fieldLabel="发货单是否显示单价"     name="custInfo.isShowPriceDesc"    labelStyle="width:150" />
-				    			</layoutpanel>
-				    			
-				    			<layoutpanel columnNum="1">
-				    				<label fieldLabel="客户备注/企业经营产品"               name="custInfo.commDesc"       labelStyle="width:150" />
-				    			</layoutpanel>
-				    			
-				    			<layoutpanel columnNum="1">
+								</layoutpanel>								
+								<layoutpanel columnNum="2">				    							    				
+				    				<label fieldLabel="客户法人代表"           name="custInfo.representative"     labelStyle="width:150" />
+								</layoutpanel>
+							</listpanel>
+							<listpanel frame="true" title="客户性质信息" collapsible="true" titleCollapse="true">
+									<layoutpanel columnNum="2">	
+										<label fieldLabel="企业性质"                   name="custInfo.commType"           labelStyle="width:150" />
+										<label fieldLabel="客户的重要程度"         name="custInfo.importantDesc"      labelStyle="width:150" />
+									</layoutpanel>
+									<layoutpanel columnNum="2">	
+										<label fieldLabel="企业规模"                   name="custInfo.commScale"          labelStyle="width:150" />
+				    					<label fieldLabel="客户信用度"             name="custInfo.creditDesc"         labelStyle="width:150" />
+									</layoutpanel>
+									<layoutpanel columnNum="2">
+										<label fieldLabel="企业类型"                   name="custInfo.saleType"          labelStyle="width:150" />
+									</layoutpanel>
+							</listpanel>
+							<listpanel frame="true" title="客户在公司内部标记信息" collapsible="true" titleCollapse="true">
+									<layoutpanel columnNum="2">
+										<label fieldLabel="对应的分公司或分支机构" name="custInfo.companyBranchDesc"  labelStyle="width:150" />	
+										<label fieldLabel="销售人员名字"           name="custInfo.staffName"          labelStyle="width:150" />
+				    					<label fieldLabel="对应的业务部助理姓名"   name="custInfo.assStaffName"       labelStyle="width:150" />
+				    					<label fieldLabel="发货单是否显示单价"     name="custInfo.isShowPriceDesc"    labelStyle="width:150" />
+									</layoutpanel>
+									<layoutpanel columnNum="1">
+				    					<label fieldLabel="客户备注/企业经营产品"               name="custInfo.commDesc"       labelStyle="width:150" />
+				    				</layoutpanel>
+									<layoutpanel columnNum="1">
 				    				<hidden name="custInfo.baseSeqId" />
 				    				<hidden name="custInfo.state" />
 									<hidden name="custInfo.staffId" />
 									<hidden name="custInfo.assStaffId" />
 				    			</layoutpanel>
-				    		</listpanel>
+							</listpanel>
+								
+				    			
+				    			
+				    		
 				    		
 				    		<listpanel frame="true" title="客户结算信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">

@@ -15,10 +15,11 @@ var queryformFun = function() {
 	// 精确查找
 	//cmpobj["jqcz"] = {xtype: "checkbox" , labelSeparator: ""         , name: "", boxLabel: "精确查找"};
 	cmpobj["khbm"] = {xtype: "textfield", fieldLabel: "客户编码"     , name: "custInfo.commCode"};
-	//cmpobj["ywy"]  = {xtype: "dictcombo", fieldLabel: "业务员"       , hiddenName: "custInfo.staffId", paramsValue: "IMPORTANT_CODE"};
+	cmpobj["ywy"]  = {xtype: "dictcombo", fieldLabel: "业务员"       , hiddenName: "custInfo.staffId", emptyText: "请选择" ,root: "data.list", displayField: "staffName" , valueField: "staffId", url: "/auth/user!listByRoleId.action?roleId=7"};
 	//cmpobj["ywzl"] = {xtype: "dictcombo", fieldLabel: "业务助理"     , hiddenName: "", paramsValue: "IMPORTANT_CODE"};
-	
-	
+	cmpobj["sl"]  = {xtype: "dictcombo", fieldLabel: "税率"       , hiddenName: "custInfo.taxRate", emptyText: "请选择" ,paramsValue:"TAX_RATE" };
+	cmpobj["st"]  = {xtype: "dictcombo", fieldLabel: "结算方式"       , hiddenName: "custInfo.settlementType", emptyText: "请选择" ,paramsValue:"SETTLEMENT_TYPE" , id:"isettlementType"};
+	cmpobj["sd"]  = {xtype: "dictcombo", fieldLabel: "月结"       , hiddenName: "custInfo.settlementDay", emptyText: "请选择" ,paramsValue:"SETTLEMENT_DAY" , id:"isettlementDay"};
 	return eval((urlPs.roleType + "Layout")).call(this, cmpobj);
 };
 
@@ -33,7 +34,9 @@ var sccustomersLayout = function(cmpobj) {
 	var p2 = cph.createLayoutPanel("2:.3,.3");
 	//p2.push(cmpobj["jqcz"]);
 	p2.push(cmpobj["khbm"]);
-	
+	p2.push(cmpobj["sl"]);
+	p2.push(cmpobj["st"]);
+	p2.push(cmpobj["sd"]);
 	return cph;
 };
 
@@ -48,12 +51,14 @@ var scmanagerLayout = function(cmpobj) {
 	p1.push(cmpobj["khbm"]);
 	//p1.push(cmpobj["ywzl"]);
 	
-	//p1.push(cmpobj["ywy"]);
-
+	p1.push(cmpobj["ywy"]);
+	p1.push(cmpobj["sl"]);
+	p1.push(cmpobj["st"]);
+	p1.push(cmpobj["sd"]);
 
 	var p2 = cph.createLayoutPanel("5:.10,.05,.15,.05,.3");
 	ExtConvertHelper.copyArrayToArray(cmpobj["khlrsj"], p2);
-
+	
 	return cph;
 };
 
@@ -68,9 +73,10 @@ var cwLayout = function(cmpobj) {
 	p1.push(cmpobj["khbm"]);
 	//p1.push(cmpobj["ywzl"]);
 	
-	//p1.push(cmpobj["ywy"]);
-
-
+	p1.push(cmpobj["ywy"]);
+	p1.push(cmpobj["sl"]);
+	p1.push(cmpobj["st"]);
+	p1.push(cmpobj["sd"]);
 	var p2 = cph.createLayoutPanel("5:.10,.05,.15,.05,.3");
 	ExtConvertHelper.copyArrayToArray(cmpobj["khlrsj"], p2);
 
@@ -86,22 +92,26 @@ var complexgridFun = function() {
 	
 	cgh.appendField("shortName");
 	cgh.appendField("commCode");
-	cgh.appendField("allName");
-	cgh.appendField("address");
+	cgh.appendField("staffName");
+	cgh.appendField("assStaffName");
+	cgh.appendField("taxRate");
+	cgh.appendField("settlementDayDesc");
+	
 	cgh.appendField("creditDesc");
-	cgh.appendField("importantDesc");
+	
 	cgh.appendField("stateDesc");
 	
 	cgh.appendField("baseSeqId");
 	cgh.appendField("state");
 	
 	if(urlPs.roleType == "audit") cgh.appendColumn({dataIndex: "baseSeqId"	    , isCheck: true});
-	cgh.appendColumn({header: "客户简称"				, dataIndex: "shortName"     , id: "shortName"});
 	cgh.appendColumn({header: "客户编码"				, dataIndex: "commCode"});
-	cgh.appendColumn({header: "公司中文名称"		, dataIndex: "allName"});
-	cgh.appendColumn({header: "客户公司地址"		, dataIndex: "address"});
-	cgh.appendColumn({header: "客户信用度"			, dataIndex: "creditDesc"});
-	cgh.appendColumn({header: "客户的重要程度"	, dataIndex: "importantDesc"});
+	cgh.appendColumn({header: "客户简称"				, dataIndex: "shortName"     , id: "shortName"});
+	cgh.appendColumn({header: "业务员"				, dataIndex: "staffName"     , id: "staffName"});
+	cgh.appendColumn({header: "业务助理"				, dataIndex: "assStaffName"     , id: "assStaffName"});
+	cgh.appendColumn({header: "税率"				, dataIndex: "taxRate"     , id: "taxRate"});
+	cgh.appendColumn({header: "结算方式"				, dataIndex: "settlementDayDesc"     , id: "settlementDayDesc"});
+	cgh.appendColumn({header: "客户信用度"			, dataIndex: "creditDesc"});	
 	cgh.appendColumn({header: "状态"						, dataIndex: "stateDesc"});
 	cgh.appendColumn({header: "操作"						, dataIndex: ""              , id: "operator", width: 170});
 	

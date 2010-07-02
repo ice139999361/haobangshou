@@ -41,6 +41,44 @@
 		<result property="assStaffName" column="ASS_STAFF_NAME" />
 		<result property="createTime" column="CREATE_TIME" />
 	</resultMap>
+	
+	<resultMap id="v_customerInfo_result" class="customerInfo">
+	   <result property="baseSeqId" column="BASE_SEQID" />
+		<result property="commCode" column="C_CODE" />
+		<result property="state" column="STATE" />
+		<result property="shortName" column="SHORT_NAME" />
+		<result property="enShortName" column="EN_SHORT_NAME" />
+		<result property="allName" column="ALL_NAME" />
+		<result property="enName" column="EN_NAME" />
+		<result property="address" column="ADDRESS" />
+		<result property="enAddress" column="EN_ADDRESS" />
+		<result property="commType" column="C_TYPE" />
+		<result property="commScale" column="C_SCALE" />
+		<result property="saleType" column="SALE_TYPE" />
+		<result property="webSite" column="WEBSITE" />
+		<result property="representative" column="REPRESENTATIVE" />
+		<result property="taxCode" column="TAX_CODE" />
+		<result property="companyBranch" column="COMPANY_BRANCH" />
+		<result property="creditRate" column="CREDIT_RATE" />
+		<result property="creditDesc" column="CREDIT_DESC" />
+		<result property="importantCode" column="IMPORTANT_CODE" />
+		<result property="importantDesc" column="IMPORTANT_DESC" />
+		<result property="settlementType" column="SETTLEMENT_TYPE" />
+		<result property="settlementDesc" column="SETTLEMENT_DESC" />
+		<result property="currency" column="CURRENCY" />
+		<result property="currencyDesc" column="CURRENCY_DESC" />
+		<result property="staffId" column="STAFF_ID" />
+		<result property="staffName" column="STAFF_NAME" />
+		<result property="commDesc" column="COMM_DESC" />
+		<result property="vendorCode" column="VENDOR_CODE" />
+		<result property="contactFee" column="CONTACT_FEE" />
+		<result property="isShowPrice" column="IS_SHOW_PRICE" />
+		<result property="taxRate" column="TAX_RATE" />
+		<result property="assStaffId" column="ASS_STAFF_ID" />
+		<result property="assStaffName" column="ASS_STAFF_NAME" />
+		<result property="createTime" column="CREATE_TIME" />
+		<result property="settlementDay" column="SETTLEMENT_DAY" />
+	</resultMap>
 
 	<insert id="CustomerInfo_insertCustomerInfo" parameterClass="customerInfo">
 <![CDATA[
@@ -354,7 +392,7 @@
 
 	</select>
 
-	<select id="CustomerInfo_listCustomerInfo" resultMap="customerInfo_result"
+	<select id="CustomerInfo_listCustomerInfo" resultMap="v_customerInfo_result"
 		parameterClass="customerInfo">
 <![CDATA[
     SELECT
@@ -391,8 +429,9 @@
             TAX_RATE, 
             ASS_STAFF_ID, 
             ASS_STAFF_NAME,
-			CREATE_TIME
-    FROM T_CUSTOMER_INFO
+			CREATE_TIME,
+			SETTLEMENT_DAY
+    FROM V_CUSTOMER_INFO
 ]]>
 		<dynamic prepend="WHERE">
 			<isNotEmpty prepend="and" property="commCode">
@@ -429,9 +468,16 @@
 			<isNotEmpty prepend="and" property="settlementType">
 				SETTLEMENT_TYPE =
 				#settlementType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="settlementDay">
+				SETTLEMENT_DAY =
+				#settlementDay#
 			</isNotEmpty>			
 			<isNotEmpty prepend="and" property="currency">
 				CURRENCY = #currency#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="taxRate">
+				TAX_RATE = #taxRate#
 			</isNotEmpty>			
 			<isNotEmpty prepend="and" property="staffId">
 			<![CDATA[	
@@ -483,7 +529,7 @@
 <![CDATA[
     SELECT
 		COUNT(1)
-    FROM T_CUSTOMER_INFO
+    FROM V_CUSTOMER_INFO
 ]]>
 		<dynamic prepend="WHERE">
 			<isNotEmpty prepend="and" property="commCode">
@@ -520,9 +566,16 @@
 			<isNotEmpty prepend="and" property="settlementType">
 				SETTLEMENT_TYPE =
 				#settlementType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="settlementDay">
+				SETTLEMENT_DAY =
+				#settlementDay#
 			</isNotEmpty>			
 			<isNotEmpty prepend="and" property="currency">
 				CURRENCY = #currency#
+			</isNotEmpty>	
+			<isNotEmpty prepend="and" property="taxRate">
+				TAX_RATE = #taxRate#
 			</isNotEmpty>			
 			<isNotEmpty prepend="and" property="staffId">
 			<![CDATA[	

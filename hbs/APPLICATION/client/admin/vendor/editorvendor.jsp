@@ -20,37 +20,43 @@
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="供应商基本信息" collapsible="true" titleCollapse="true">
 								<layoutpanel columnNum="2">
-				    				<!-- <textfield fieldLabel="供应商编码"      id ="textVendorCode"       name="vendorInfo.commCode"             labelStyle="width:150"  allowBlank="false" readOnly="true" /> -->
-									<textfield fieldLabel="供应商编码"      id ="textVendorCode"       name="vendorInfo.commCode"             labelStyle="width:150"   readOnly="true" />
-				    				<textfield fieldLabel="法人代表"               name="vendorInfo.representative"       labelStyle="width:150" />
-								</layoutpanel>
-								<layoutpanel columnNum="2">	
 				    				<textfield fieldLabel="供应商简称"             name="vendorInfo.shortName"            labelStyle="width:150" allowBlank="false"/>
-									<textfield fieldLabel="英文简称"               name="vendorInfo.enShortName"          labelStyle="width:150" />
+									<textfield fieldLabel="供应商编码"      id ="textVendorCode"       name="vendorInfo.commCode"             labelStyle="width:150"   readOnly="true" />				    				
 								</layoutpanel>
-								<layoutpanel columnNum="2">	
-				    				<dictcombo fieldLabel="信用度"                 hiddenName="vendorInfo.creditRate"     labelStyle="width:150" paramsValue="CREDIT_RATE"     emptyText="请选择" allowBlank="false"/>
-									<dictcombo fieldLabel="重要程度"               hiddenName="vendorInfo.importantCode"  labelStyle="width:150" paramsValue="IMPORTANT_CODE"  emptyText="请选择" allowBlank="false"/>
-								</layoutpanel>
-								<layoutpanel columnNum="2">	
-				    				<dictcombo fieldLabel="企业性质"                   hiddenName="vendorInfo.commType"             labelStyle="width:150" paramsValue="COMM_TYPE" emptyText="请选择"  allowBlank="false"/>
-									<dictcombo fieldLabel="企业规模"                   name="vendorInfo.commScale"            labelStyle="width:150" paramsValue="SCALE_TYPE"     emptyText="请选择" allowBlank="false"/>
-									<dictcombo fieldLabel="企业类型"                   name="vendorInfo.saleType"            labelStyle="width:150" paramsValue="SALE_TYPE"     emptyText="请选择" allowBlank="false"/>
-								</layoutpanel>
-
 								<layoutpanel columnNum="1">
-									<textfield fieldLabel="中文名称"               name="vendorInfo.allName"              labelStyle="width:150"  width="600" allowBlank="false"/>
+									<textfield fieldLabel="供应商全称"               name="vendorInfo.allName"              labelStyle="width:150"  width="600" allowBlank="false"/>
 									<textfield fieldLabel="公司地址"               name="vendorInfo.address"              labelStyle="width:150"  width="600" allowBlank="false"/>
+									<textfield fieldLabel="英文简称"               name="vendorInfo.enShortName"          labelStyle="width:150" />
 									<textfield fieldLabel="英文名称"               name="vendorInfo.enName"               labelStyle="width:150"  width="600" />
 				    				<textfield fieldLabel="公司英文地址"           name="vendorInfo.enAddress"            labelStyle="width:150"  width="600" />	
 									<textfield fieldLabel="纳税人识别号"           name="vendorInfo.taxCode"              labelStyle="width:150"  width="600" />
 									<textfield fieldLabel="公司网址"               name="vendorInfo.webSite"              labelStyle="width:150"  width="600" />
 								</layoutpanel>
+								<layoutpanel columnNum="2">
+				    				<textfield fieldLabel="法人代表"               name="vendorInfo.representative"       labelStyle="width:150" />
+								</layoutpanel>
+							</listpanel>
+							<listpanel frame="true" title="供应商性质信息" collapsible="true" titleCollapse="true">
+								<layoutpanel columnNum="2">
+									<dictcombo fieldLabel="企业性质"                   hiddenName="vendorInfo.commType"             labelStyle="width:150" paramsValue="COMM_TYPE" emptyText="请选择"  allowBlank="false"/>
+
+									<dictcombo fieldLabel="重要程度"               hiddenName="vendorInfo.importantCode"  labelStyle="width:150" paramsValue="IMPORTANT_CODE"  emptyText="请选择" allowBlank="false"/>
+								</layoutpanel>
+								<layoutpanel columnNum="2">	
+									<dictcombo fieldLabel="企业规模"                   name="vendorInfo.commScale"            labelStyle="width:150" paramsValue="SCALE_TYPE"     emptyText="请选择" allowBlank="false"/>
+									
+									<dictcombo fieldLabel="信用度"                 hiddenName="vendorInfo.creditRate"     labelStyle="width:150" paramsValue="CREDIT_RATE"     emptyText="请选择" allowBlank="false"/>
+								</layoutpanel>
+								<layoutpanel columnNum="2">					    				
+									<dictcombo fieldLabel="企业类型"                   name="vendorInfo.saleType"            labelStyle="width:150" paramsValue="SALE_TYPE"     emptyText="请选择" allowBlank="false"/>
+								</layoutpanel>
+							</listpanel>
+							<listpanel frame="true" title="供应商在公司内部标记信息" collapsible="true" titleCollapse="true">
+								
+								
 				    			<layoutpanel columnNum="2">
 				    				<dictcombo fieldLabel="对应的分公司或分支机构" hiddenName="vendorInfo.companyBranch"  labelStyle="width:150" paramsValue="COMPANY_BRANCH"  emptyText="请选择" allowBlank="false"/>
-				    				<!--
-									<dictcombo fieldLabel="是否显示单价"           hiddenName="vendorInfo.isShowPrice"    labelStyle="width:150" paramsValue="IS_SHOW_PRICE"   emptyText="请选择" />
-									-->
+				    				
 				    			</layoutpanel>
 				    			
 				    			<layoutpanel columnNum="1">

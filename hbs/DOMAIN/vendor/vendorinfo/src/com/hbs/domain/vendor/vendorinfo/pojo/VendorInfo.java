@@ -184,6 +184,13 @@ public class VendorInfo extends BaseDomain{
      * 企业类型
      */
     private String saleType;
+    
+    /**
+     * 月结方式
+     */
+    private String settlementDay;
+    
+    
     /**
      * 联系列表
      */
@@ -587,6 +594,31 @@ public class VendorInfo extends BaseDomain{
 
 	public void setSaleType(String saleType) {
 		this.saleType = saleType;
+	}
+
+	
+	public String getSettlementDay() {
+		return settlementDay;
+	}
+	public String getSettlementDayDesc() {
+		String type = this.getSettlementType();
+		if(type.equals("1")){
+			String retStr ="未定义";
+	    	ConfigEncode ceParam = new ConfigEncode();
+	    	ceParam.setEncodeKey(getSettlementDay());
+	    	ceParam.setEncodeType("SETTLEMENT_DAY");
+	    	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
+	    	if(null != cEncode){
+	    		retStr = cEncode.getEncodeValue();
+	    	}
+	    	return retStr;
+		}else{
+			return getSettlementDesc() +"--"+ getSettlementDay();
+		}
+		
+	}
+	public void setSettlementDay(String settlementDay) {
+		this.settlementDay = settlementDay;
 	}
 
 	/**

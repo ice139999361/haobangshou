@@ -192,6 +192,10 @@ public class CustomerInfo extends BaseDomain{
      */
     private String saleType;
     /**
+     * 月结方式
+     */
+    private String settlementDay;
+    /**
      * 联系列表
      */
     private List<ContactInfo> listContactInfo;
@@ -576,6 +580,32 @@ public class CustomerInfo extends BaseDomain{
 		this.saleType = saleType;
 	}
 
+	public String getSettlementDay() {
+		return settlementDay;
+	}
+
+	public void setSettlementDay(String settlementDay) {
+		this.settlementDay = settlementDay;
+	}
+	
+	public String getSettlementDayDesc() {
+		String type = this.getSettlementType();
+		if(type.equals("1")){
+			String retStr ="未定义";
+	    	ConfigEncode ceParam = new ConfigEncode();
+	    	ceParam.setEncodeKey(getSettlementDay());
+	    	ceParam.setEncodeType("SETTLEMENT_DAY");
+	    	ConfigEncode cEncode = ConfigEncodeMgr.getConfigEncode(ceParam);
+	    	if(null != cEncode){
+	    		retStr = cEncode.getEncodeValue();
+	    	}
+	    	return retStr;
+		}else{
+			return getSettlementDesc() +"--"+ getSettlementDay();
+		}
+		
+	}
+
 	/**
 	 * 根据state返回其中文说明
 	 * @return
@@ -618,7 +648,7 @@ public class CustomerInfo extends BaseDomain{
 		}catch(Exception e){
 			Logger logger = Logger.getLogger(CustomerInfo.class);
 			logger.error("catch Exception in getSettlementDesc2", e);
-			return null;
+			return getSettlementDesc();
 		}
 	}
 	
