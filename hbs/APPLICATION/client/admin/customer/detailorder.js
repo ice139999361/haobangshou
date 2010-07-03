@@ -1,3 +1,23 @@
+function hideMoney()
+{
+	// TODO: 更换显示栏目为ordercommonpro.js中的displayorderCggridFun
+	/*
+	var a = displayorderCggridFun();
+	//var b = [];
+	//a.processConfig(b);
+	var c = Ext.getCmp("custbankgrid");
+	//c.reconfigure(c.getStore(), new Ext.grid.ColumnModel(a.columns));
+	c.getColumnModel().setConfig(a.columns);
+	c.reconfigure(c.getStore(), c.getColumnModel());
+	c.render();
+	*/
+}
+
+function hideContact()
+{
+	ExtConvertHelper.hideItems("contact1,contact2,contact3,contact4");
+}
+
 HBSConvertHelper.init(function() {
 	// -------------------------------------- 获取需要持久用到的对象
 
@@ -111,13 +131,13 @@ HBSConvertHelper.init(function() {
 		historyBtn.on("click", function() {
 			HBSConvertHelper.open("/complex/detailhistory.jsp", 800, 500, {gridurl: ["/vendorInfo/vendorPartNoInfoMgr!list.action?", params].join("")})
 		});
-		
+
 		Ext.getCmp("custbankgrid").syncSize();
-		
+
 		Ext.getCmp("custbankgrid").getView().on("refresh", function(view) {
 			var countAmount = 0;
 			var countMoney  = 0;
-			
+
 			for(var i = 0 ; i < view.ds.getCount() ; i++) {
 				// 获取数据容器
 				var record = view.ds.getAt(i);
@@ -127,12 +147,12 @@ HBSConvertHelper.init(function() {
 					var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));
 					detailcreatebuttonFun(record.get("state"), operator_cell, record);
 				}
-				
+
 				//  汇总数量与金额
 				countAmount = Math.FloatAdd(countAmount, record.get("amount"));
 				countMoney  = Math.FloatAdd(countMoney, record.get("money"));
 			}
-			
+
 			Ext.getCmp("countAmount").setValue(countAmount);
 			Ext.getCmp("countMoney").setValue(countMoney);
 		});
@@ -208,7 +228,8 @@ HBSConvertHelper.init(function() {
 
 		// 采购部采购员的处理方法
 		var cgyViewFun = function() {
-
+			hideContact();
+			hideMoney();
 			detailcreatebuttonFun = function(state, operator_cell, record) {
 				switch(state) {
 					case "71":

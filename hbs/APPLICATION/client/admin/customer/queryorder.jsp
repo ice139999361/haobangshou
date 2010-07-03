@@ -17,13 +17,14 @@
 			    	<items>
 			    	<!-- service ext ui.  begin. -->
 			    		<queryform gridId="querygrid" exportId="exportBtn">
-			    			<layoutpanel columnNum="3">
-			    				<textfield fieldLabel="客户编码"           name="custOrder.commCode"  />
+			    			<layoutpanel columnNum="4">
+			    				<autocomplete fieldLabel="客户编码"	id="acCommCode"	name="custOrder.commCode"	url="/customerInfo/customerInfo!list.action?custInfo.state=0"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"  />
+			    				<autocomplete fieldLabel="客户简称"	id="acShortName"	name="custOrder.shortName"	url="/customerInfo/customerInfo!list.action?custInfo.state=0"  displayField="shortName"  valueField="shortName" queryParam="custInfo.shortName"  />
 			    				<textfield fieldLabel="客户订单号"         name="custOrder.poNo"  />
 			    				<datefield fieldLabel="创建年月"           name="" format="Y-m"/>
 			    			</layoutpanel>
 			    		</queryform>
-				    		
+
 				    	<complexgrid id="querygrid" title="客户订单列表" frame="true" page="true" root="data.list" itemsFun="complexgridFun" />
 			    	<!-- service ext ui.  end. -->
 			    	</items>

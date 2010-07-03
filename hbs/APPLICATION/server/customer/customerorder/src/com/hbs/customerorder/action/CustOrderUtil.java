@@ -261,6 +261,8 @@ public class CustOrderUtil {
 				*/
 				if(info.getMoney() == null)
 					list.add(new FieldErr("Money", "金额没有填写"));
+				if(info.getOrgDeliveryDate() == null)
+					list.add(new FieldErr("OrgDeliveryDate", "交货日期没有填写"));
 			}
 		}
 		//DONE:CustOrderUtil.checkInputFields

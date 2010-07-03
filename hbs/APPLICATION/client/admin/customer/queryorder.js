@@ -1,4 +1,6 @@
 var querygridUrl;
+var custInfoUrl;
+var custInfoUrl2;
 
 // 初始方法
 (function() {
@@ -6,21 +8,31 @@ var querygridUrl;
 		// 市场业务员
 		case "sccustomers":
 			querygridUrl = "/custOrder/custOrder!list.action";
+			custInfoUrl = "/customerInfo/customerInfo!list.action?custInfo.state=0";
+			custInfoUrl2 = "/customerInfo/customerInfo!getInfo.action?custInfo.state=0";
 			break;
 		// 市场经理
 		case "scmanager":
 			querygridUrl = "/custOrder/custOrderScMgr!list.action";
+			custInfoUrl = "/customerInfo/customerInfoMgr!list.action?custInfo.state=0";
+			custInfoUrl2 = "/customerInfo/customerInfoMgr!getInfo.action?custInfo.state=0";
 			break;
 		// 采购部采购员
 		case "cgy":
 			querygridUrl = "/custOrder/custOrderScMgr!list.action";
+			custInfoUrl = "/customerInfo/customerInfoMgr!list.action?custInfo.state=0";
+			custInfoUrl2 = "/customerInfo/customerInfoMgr!getInfo.action?custInfo.state=0";
 			break;
 		// 财务
 		case "finance":
 			querygridUrl = "/custOrder/custOrderScMgr!list.action";
+			custInfoUrl = "/customerInfo/customerInfoMgr!list.action?custInfo.state=0";
+			custInfoUrl2 = "/customerInfo/customerInfoMgr!getInfo.action?custInfo.state=0";
 			break;
 		case "financemanager":
 			querygridUrl = "/custOrder/custOrderScMgr!list.action";
+			custInfoUrl = "/customerInfo/customerInfoMgr!list.action?custInfo.state=0";
+			custInfoUrl2 = "/customerInfo/customerInfoMgr!getInfo.action?custInfo.state=0";
 			break;
 	}
 }())
@@ -31,6 +43,15 @@ HBSConvertHelper.init(function() {
 	// 获取表格
 	var querygrid = Ext.getCmp("querygrid");
 
+	function selectCustomer(action){
+		if(!action.success)
+			return;
+		Ext.getCmp("acCommCode").setValue(action.data.custInfo.commCode);
+		Ext.getCmp("acShortName").setValue(action.data.custInfo.shortName);
+	}
+
+	//Ext.getCmp("acCommCode").setProcessConfig(custInfoUrl2, "custInfo.commCode", null, selectCustomer);
+	//Ext.getCmp("acShortName").setProcessConfig(custInfoUrl2, "custInfo.shortName", null, selectCustomer);
 
 
 	// -------------------------------------- 应用逻辑处理
