@@ -30,29 +30,29 @@
 				    				<label fieldLabel="客户订单日期"       name="custOrder.oderTime" 	       labelStyle="width:150"/>
 				    				<label fieldLabel="结算类型"           name="custOrder.settlementTypeDesc" labelStyle="width:150"/>
 				    			</layoutpanel>
-				    			<layoutpanel columnNum="1">
+				    			<layoutpanel id="contact1" columnNum="1">
 				    				<label fieldLabel="选择联系人"	       name="custOrder.conName"          labelStyle="width:150"/>
 				    			</layoutpanel>
-				    			<layoutpanel columnNum="2">
+				    			<layoutpanel id="contact2" columnNum="2">
 				    				<label fieldLabel="电话"               name="custOrder.conTel"	         labelStyle="width:150"/>
 				    				<label fieldLabel="传真"               name="custOrder.conFax"	         labelStyle="width:150"/>
 				    			</layoutpanel>
-				    			<layoutpanel columnNum="1">
+				    			<layoutpanel id="contact3" columnNum="1">
 				    				<label fieldLabel="选择收货人"	       name="custOrder.receiveName"      labelStyle="width:150"/>
 				    			</layoutpanel>
-				    			<layoutpanel columnNum="2">
+				    			<layoutpanel id="contact4" columnNum="2">
 				    				<label fieldLabel="收货地址"           name="custOrder.receiveAddress"	 labelStyle="width:150"/>
 				    				<label fieldLabel="邮编"               name="custOrder.receiveZip"	     labelStyle="width:150"/>
 				    			</layoutpanel>
 				    		</listpanel>
 
 				    		<complexgrid id="custbankgrid"  title="订单详情" itemsFun="displayordergridFun" frame="true" height="320" url="1" editorFlag="false"/>
-				    			
+
 				    		<listpanel>
 				    			<layoutpanel columnNum="2:.8,">
 				    				<label labelSeparator="" />
 				    				<label labelSeparator="" />
-				    					
+
 				    				<label fieldLabel="汇总数量"   id="countAmount" />
 				    				<label fieldLabel="汇总金额"   id="countMoney" />
 				    			</layoutpanel>
