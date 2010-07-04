@@ -190,10 +190,17 @@ HBSConvertHelper.init(function() {
 		var cm = ordergrid.getColumnModel();
 		list = cm.getColumnById("cCpartNo").editor;
 		list.store.baseParams["custPartNoInfo.commCode"] = o;
+		list.store.baseParams["commCode"] = o;
 		list.store.baseParams["custPartNoInfo.state"] = "0";
+		list.__processConfig.params["commCode"] = o;
+		list.__processConfig.params["custPartNoInfo.commCode"] = o;
 		list = cm.getColumnById("cPartNo").editor;
 		list.store.baseParams["custPartNoInfo.commCode"] = o;
+		list.store.baseParams["commCode"] = o;
 		list.store.baseParams["custPartNoInfo.state"] = "0";
+		list.__processConfig.params["commCode"] = o;
+		list.__processConfig.params["custPartNoInfo.commCode"] = o;
+		//alert(o);
 		isManulSelect = true;
 	}
 

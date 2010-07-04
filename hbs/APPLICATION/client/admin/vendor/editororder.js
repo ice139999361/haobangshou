@@ -232,9 +232,13 @@ HBSConvertHelper.init(function() {
 		list = cm.getColumnById("cCpartNo").editor;
 		list.store.baseParams["vendorPartNoInfo.commCode"] = o;
 		list.store.baseParams["vendorPartNoInfo.state"] = "0";
+		list.__processConfig.params["commCode"] = o;
+		list.__processConfig.params["vendorPartNoInfo.commCode"] = o;		
 		list = cm.getColumnById("cPartNo").editor;
 		list.store.baseParams["vendorPartNoInfo.commCode"] = o;
 		list.store.baseParams["vendorPartNoInfo.state"] = "0";
+		list.__processConfig.params["commCode"] = o;
+		list.__processConfig.params["vendorPartNoInfo.commCode"] = o;		
 
 		isManulSelect = true
 	});
