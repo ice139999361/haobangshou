@@ -47,6 +47,7 @@ public class CustPartNoInfoNormalAction extends BaseAction {
      * 本公司物料编号
      */
     private String partNo;
+    private String commCode;
     
     public String getCpartNo() {
 		return cpartNo;
@@ -60,6 +61,7 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 	public void setPartNo(String partNo) {
 		this.partNo = partNo;
 	}
+
 	/**
      * 查询客户物料关系，判断了用户是否可以查看。
  	 * @action.input custPartNoInfo.commCode + custPartNoInfo.查询条件
@@ -192,7 +194,7 @@ public class CustPartNoInfoNormalAction extends BaseAction {
    
    /**
     * 获取客户物料关系 add by yangzj
-    * @action.input	  客户物料编号或本公司物料编号
+    * @action.input	  客户物料编号或本公司物料编号 + commCode
     * @action.result	custPartNoInfo.*
     * @return
     */
@@ -204,11 +206,12 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 				setErrorReason("无法获取客户物料关系对照！");
 				return ERROR;
    		}else{
-   			logger.debug("doGetInfoDict(),输入的参数为：partno=" + partNo +"cpartno=" + cpartNo);
+   			logger.debug("doGetInfoDict(),输入的参数为：partno=" + partNo +" cpartno=" + cpartNo + " commCode=" + commCode);
    		}
    		CustPartNoInfo cPartNoInfo = new CustPartNoInfo();
    		cPartNoInfo.setCustPartNo(cpartNo);
    		cPartNoInfo.setPartNo(partNo);
+   		cPartNoInfo.setCommCode(commCode);
    		cPartNoInfo.setState("0");
    		CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)getBean(custPartNoInfoMgrName);
    		custPartNoInfo = mgr.getCustPartNoInfoByBizKey(cPartNoInfo);   		
@@ -432,5 +435,11 @@ public class CustPartNoInfoNormalAction extends BaseAction {
 //		} catch (Exception e) {
 //			logger.error("catch Exception in fixCommCode", e);
 //		}
+	}
+	public String getCommCode() {
+		return commCode;
+	}
+	public void setCommCode(String commCode) {
+		this.commCode = commCode;
 	}
 }
