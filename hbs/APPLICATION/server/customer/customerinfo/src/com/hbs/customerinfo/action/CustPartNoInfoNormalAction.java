@@ -153,6 +153,38 @@ public class CustPartNoInfoNormalAction extends BaseAction {
     }
     
     /**
+     * 删除客户物料关系
+     * @action.input	custPartNoInfo.*
+     * @return
+     */
+    public String doDelete()
+    {
+    	try
+    	{
+			if (logger.isDebugEnabled())    logger.debug("begin doDelete");
+
+			CustPartNoInfoMgr mgr = (CustPartNoInfoMgr)getBean(custPartNoInfoMgrName);
+			int i = mgr.deleteCustPartNoInfo(custPartNoInfo,null);
+			if( i == 0 ){
+				this.setAlertMsg("删除成功！");
+				if (logger.isDebugEnabled())    logger.debug("end doDelete");
+	    		return SUCCESS;
+			}else{
+				logger.info("状态不正确，删除失败！");
+				setErrorReason("状态不正确，删除失败！");
+				return ERROR;
+			}
+			
+    	}
+    	catch(Exception e)
+    	{
+    		logger.error("catch Exception in doDelete", e);
+			setErrorReason(e.getMessage());
+			return ERROR;
+    	}
+    }
+    
+    /**
      * 获取客户物料关系
      * @action.input	custPartNoInfo.seqId
      * @action.result	custPartNoInfo.*

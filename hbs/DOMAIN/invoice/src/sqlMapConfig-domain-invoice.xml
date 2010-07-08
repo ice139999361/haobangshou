@@ -9,4 +9,5 @@
 	<sqlMap resource="com/hbs/domain/invoice/dao/ibatis/maps/PeriodSpecMemoSQL.xml"/>
 	<sqlMap resource="com/hbs/domain/invoice/dao/ibatis/maps/CustFinanceSettlementSQL.xml"/>
 	<sqlMap resource="com/hbs/domain/invoice/dao/ibatis/maps/VendorFinanceSettlementSQL.xml"/>
+	<sqlMap resource="com/hbs/domain/invoice/dao/ibatis/maps/BenefitDetailSQL.xml"/>
 </sqlMapConfig>

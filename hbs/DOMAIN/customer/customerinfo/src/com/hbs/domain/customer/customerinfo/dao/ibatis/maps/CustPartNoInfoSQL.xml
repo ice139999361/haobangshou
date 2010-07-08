@@ -263,7 +263,9 @@
 				C_SHORT_NAME  like '%$shortName$%'
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "state">
-				STATE = #state#
+				<![CDATA[
+				STATE = #state# AND STATE !='4'
+				]]>
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "pnDesc">
 				PN_DESC like '%$pnDesc$%'
@@ -310,7 +312,9 @@
 				C_SHORT_NAME  like '%$shortName$%'
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "state">
-				STATE = #state#
+				<![CDATA[
+				STATE = #state# AND STATE !='4'
+				]]>
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "pnDesc">
 				PN_DESC like '%$pnDesc$%'
@@ -332,5 +336,27 @@
 			</isNotEmpty>		 
 		</dynamic>
 </select>
-
+<!-- 检查是否存在重复的简称或名称 -->	
+<select id="CustPartNoInfo_listCustPartNoInfoCheckCount" resultClass="java.lang.Integer"
+		parameterClass="custPartNoInfo">
+<![CDATA[
+    SELECT
+		COUNT(1)
+    FROM T_CUST_PART_NO_INFO
+]]>
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="and" property="commCode">
+				C_CODE = #commCode#
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property = "custPartNo">
+			<![CDATA[
+				C_PART_NO = #custPartNo#  AND STATE ='0'
+			]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "partNo">
+				PART_NO = #partNo#
+			</isNotEmpty>
+		</dynamic>
+	</select>
 </sqlMap>

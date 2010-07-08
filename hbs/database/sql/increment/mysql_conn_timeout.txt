@@ -1,0 +1,9 @@
+show global variables like 'wait_timeout'; 
+
+查看mysql5的手册，发现对wait_timeout的最大值分别是24天/365天(windows/linux)。以windows为例，假设我们要将其设为21天，我们只要修改mysql5的配置文件“my.ini”(mysql5 installation dir)，增加一行：wait_timeout=1814400 
+
+需要重新启动mysql5。 
+
+你可能会想到在tomcat的数据源配置中有没有办法解决？的确，在jdbc连接url的配置中，你可以附上“autoReconnect=true”，但这仅对mysql5以前的版本起作用。增加“validation query”似乎也无济于事。 
+
+用连接池管理吧，如dbcp,设置validationQuery就行。

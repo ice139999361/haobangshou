@@ -435,6 +435,13 @@
                     "menuOrder": "150000",
                     "leaf": "true",
                     "url": "/vendor/queryvendororder.jsp?roleType=caiwu"
+                },
+                {
+                    "id": "xslrcx",
+                    "text": "销售利润查询",
+                    "menuOrder": "160000",
+                    "leaf": "true",
+                    "url": "/customer/querybenefittotal.jsp"
                 }
             ]
         },

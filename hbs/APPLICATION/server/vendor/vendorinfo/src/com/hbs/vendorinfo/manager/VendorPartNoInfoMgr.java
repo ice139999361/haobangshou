@@ -12,10 +12,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
+
 
 import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.common.utils.ExpireTimeUtil;
 import com.hbs.domain.common.pojo.baseinfo.OperLog;
+
 
 import com.hbs.domain.vendor.vendorinfo.dao.VendorPartNoInfoDao;
 import com.hbs.domain.vendor.vendorinfo.pojo.VendorPartNoInfo;
@@ -28,7 +33,7 @@ import com.hbs.vendor.common.utils.VendorWaitTaskUtils;
 public class VendorPartNoInfoMgr {
 
 	private static final String VENDOR_PARTNOINFODAO ="vendorPartNoInfoDao";
-	
+	private static final Logger logger = Logger.getLogger(VendorPartNoInfoMgr.class);
 	/**
 	 * 保存供应商临时物料关系信息，状态为1
 	 * @param vPartNoInfo
@@ -62,6 +67,15 @@ public class VendorPartNoInfoMgr {
 	 */
 	public int commitVendorPartNoInfo(VendorPartNoInfo vPartNoInfo) throws Exception{
 		int ret =0;
+		logger.debug("提交供应商物料关系信息列表，输入为：" + vPartNoInfo.toString());
+		String state = vPartNoInfo.getState();
+		if(StringUtils.isEmpty(state)){//不存在状态，新增
+			VendorPartNoInfoDao vPartNoInfoDao = (VendorPartNoInfoDao)BeanLocator.getInstance().getBean(VENDOR_PARTNOINFODAO);
+			Integer i = vPartNoInfoDao.listVendorPartNoInfoCheckCount(vPartNoInfo);
+			if(i >0){//已经存在相同的客户物料，不允许提交
+				throw new Exception("已经存在供应商("+vPartNoInfo.getCommCode() + ")的物料(" +  vPartNoInfo.getCustPartNo()+")信息！" );
+			}
+		}
 		VendorPartNoInfo existInfo = this.getVendorPartNoInfoByBizKey(vPartNoInfo);
 		if(existInfo != null){
 			//获取提交数据打状态
@@ -87,6 +101,7 @@ public class VendorPartNoInfoMgr {
 			hmParam.put("$cpartNo", vPartNoInfo.getCustPartNo());
 			waitTaskInfo.setHmParam(hmParam);
 			waitTaskInfo.setBusinessKey(vPartNoInfo.getWaitTaskBizKey());
+			VendorWaitTaskUtils.processDeleteWaitTask(vPartNoInfo.getWaitTaskBizKey());
 			VendorWaitTaskUtils.processCreateWaitTask("VENDOR_PARTNO_001", null, waitTaskInfo);
 			
 		}
@@ -119,6 +134,7 @@ public class VendorPartNoInfoMgr {
 				waitTaskInfo.setStaffId(vPartNoInfo.getStaffId());
 				waitTaskInfo.setBusinessKey(vPartNoInfo.getWaitTaskBizKey());
 				waitTaskInfo.setExpireTime(ExpireTimeUtil.getExpireTime("VENDOR_PARTNO_REMINDER_DAY"));
+				VendorWaitTaskUtils.processDeleteWaitTask(vPartNoInfo.getWaitTaskBizKey());
 				VendorWaitTaskUtils.processCreateWaitTask("VENDOR_PARTNO_002", null, waitTaskInfo);
 				
 				
@@ -154,6 +170,7 @@ public class VendorPartNoInfoMgr {
 				waitTaskInfo.setHmParam(hmParam);
 				waitTaskInfo.setStaffId(vPartNoInfo.getStaffId());
 				waitTaskInfo.setBusinessKey(vPartNoInfo.getWaitTaskBizKey());
+				VendorWaitTaskUtils.processDeleteWaitTask(vPartNoInfo.getWaitTaskBizKey());
 				VendorWaitTaskUtils.processCreateWaitTask("VENDOR_PARTNO_003", null, waitTaskInfo);
 				
 			}
@@ -196,6 +213,7 @@ public class VendorPartNoInfoMgr {
 				hmParam.put("$cpartNo", vPartNoInfo.getCustPartNo());
 				waitTaskInfo.setHmParam(hmParam);
 				waitTaskInfo.setBusinessKey(vPartNoInfo.getWaitTaskBizKey());
+				VendorWaitTaskUtils.processDeleteWaitTask(vPartNoInfo.getWaitTaskBizKey());
 				VendorWaitTaskUtils.processCreateWaitTask("VENDOR_PARTNO_001", null, waitTaskInfo);
 			}
 			break;
@@ -210,6 +228,7 @@ public class VendorPartNoInfoMgr {
 				hmParam.put("$cpartNo", vPartNoInfo.getCustPartNo());
 				waitTaskInfo.setHmParam(hmParam);
 				waitTaskInfo.setBusinessKey(vPartNoInfo.getWaitTaskBizKey());
+				VendorWaitTaskUtils.processDeleteWaitTask(vPartNoInfo.getWaitTaskBizKey());
 				VendorWaitTaskUtils.processCreateWaitTask("VENDOR_PARTNO_001", null, waitTaskInfo);
 			}
 			break;
@@ -232,8 +251,13 @@ public class VendorPartNoInfoMgr {
 		int iState = Integer.parseInt(vPartNoInfo.getState());
 		switch(iState){
 		case 3:
+		case 0:
+		case 2:
+		case 1:
 			vPartNoInfo.setState(new Integer(StateConstants.STATE_4).toString());
 			ret = innerUpdateVendorPartNoInfo(vPartNoInfo,vPartNoInfo.getStaffId(),vPartNoInfo.getStaffName(),delDesc);
+			logger.debug("清除该供应商物料的待办");
+			VendorWaitTaskUtils.processDeleteWaitTask(vPartNoInfo.getWaitTaskBizKey());
 			break;
 		default:
 			ret =2;
@@ -336,7 +360,8 @@ public class VendorPartNoInfoMgr {
 			strLogType = "审批不通过数据";
 			break;
 		case 4://废弃数据只修改状态			
-			vPartNoInfoDao.updateVendorPartNoInfoByState(vPartNoInfo);
+			//vPartNoInfoDao.updateVendorPartNoInfoByState(vPartNoInfo);
+			vPartNoInfoDao.deleteVendorPartNoInfoByID(vPartNoInfo.getSeqId().toString());
 			strLogType = "废弃数据";
 			break;
 		case 5://锁定数据只修改状态

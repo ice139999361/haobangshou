@@ -35,4 +35,7 @@
 	<bean id="vendorFinanceSettlementDao"  class="com.hbs.domain.invoice.dao.ibatis.VendorFinanceSettlementDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient"/>
 	</bean>
+	<bean id="benefitDetailDaoImpl"  class="com.hbs.domain.invoice.dao.ibatis.BenefitDetailDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
 </beans>

@@ -3,12 +3,14 @@ package com.hbs.domain.invoice.pojo;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.hbs.domain.common.pojo.base.BaseDomain;
+
 /**
  * BenefitDetail对象.
  * @author hbs
  *
  */
-public class BenefitDetail {
+public class BenefitDetail extends BaseDomain{
     
     /**
      * 销售ID.
@@ -25,10 +27,12 @@ public class BenefitDetail {
      */
     private Date createTime;
     
+    private String sendMonth;
+    
     /**
      * 送货单号.
      */
-    private String sendOoNo;
+    private String sendPoNo;
     
     /**
      * 客户编码.
@@ -126,12 +130,20 @@ public class BenefitDetail {
         this.createTime = createTime;
     }
     
-    public String getSendOoNo() {
-        return this.sendOoNo;
+    public String getSendMonth() {
+		return sendMonth;
+	}
+
+	public void setSendMonth(String sendMonth) {
+		this.sendMonth = sendMonth;
+	}
+
+	public String getSendPoNo() {
+        return this.sendPoNo;
     }	
   
-    public void setSendOoNo(String sendOoNo) {
-        this.sendOoNo = sendOoNo;
+    public void setSendPoNo(String sendPoNo) {
+        this.sendPoNo = sendPoNo;
     }
     
     public String getCustCode() {
@@ -246,4 +258,32 @@ public class BenefitDetail {
         this.venderShortName = venderShortName;
     }
 
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("salesId=").append(salesId).append("");
+		sb.append("salesName=").append(salesName).append("");
+		sb.append("createTime=").append(createTime == null ? "" : createTime).append("");
+		sb.append("sendMonth=").append(sendMonth).append("");
+		sb.append("sendPoNo=").append(sendPoNo).append("");
+		sb.append("custCode=").append(custCode).append("");
+		sb.append("custShortName=").append(custShortName).append("");
+		sb.append("partNo=").append(partNo).append("");
+		sb.append("pnDesc=").append(pnDesc).append("");
+		sb.append("custPartNo=").append(custPartNo).append("");
+		sb.append("custPrice=").append(custPrice == null ? "" : custPrice).append("");
+		sb.append("custTaxRate=").append(custTaxRate == null ? "" : custTaxRate).append("");
+		sb.append("amount=").append(amount == null ? "" : amount).append("");
+		sb.append("curMoney=").append(curMoney == null ? "" : curMoney).append("");
+		sb.append("benefit=").append(benefit == null ? "" : benefit).append("");
+		sb.append("vendorPartNo=").append(vendorPartNo).append("");
+		sb.append("vendorPrice=").append(vendorPrice == null ? "" : vendorPrice).append("");
+		sb.append("vendorCode=").append(vendorCode).append("");
+		
+		sb.append("venderShortName=").append(venderShortName).append("");
+		
+		return sb.toString();
+	}
+    
 }

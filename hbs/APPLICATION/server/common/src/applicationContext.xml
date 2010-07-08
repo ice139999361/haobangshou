@@ -37,7 +37,8 @@
 		<property name="password" value="${jdbc.password}" />
 		<property name="logAbandoned" value="true" />
 		<property name="removeAbandoned" value="true" />
-		<property name="removeAbandonedTimeout" value="50" />		
+		<property name="removeAbandonedTimeout" value="50" />
+		<property name="validationQuery" value="SELECT COUNT(1) FROM ROLE" />		
 	</bean>
 
 	<!-- Hibernate SessionFactory -->

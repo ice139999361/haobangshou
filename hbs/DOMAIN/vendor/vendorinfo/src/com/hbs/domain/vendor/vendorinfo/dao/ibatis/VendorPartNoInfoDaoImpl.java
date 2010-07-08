@@ -151,5 +151,15 @@ public class VendorPartNoInfoDaoImpl extends SqlMapClientDaoSupport implements V
         	logger.debug("离开listVendorPartNoInfoCount(VendorPartNoInfo), 返回[" + count + "]");
 		}
         return count;
-    }  
+    } 
+    public Integer listVendorPartNoInfoCheckCount(VendorPartNoInfo vendorPartNoInfo) throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+        	logger.debug("进入listVendorPartNoInfoCheckCount(VendorPartNoInfo), 输入参数[" + vendorPartNoInfo + "]");
+		}
+        Integer count = (Integer)getSqlMapClientTemplate().queryForObject("VendorPartNoInfo_listVendorPartNoInfoCheckCount", vendorPartNoInfo);
+		if (logger.isDebugEnabled()) {
+        	logger.debug("离开listVendorPartNoInfoCheckCount(VendorPartNoInfo), 返回[" + count + "]");
+		}
+        return count;
+    } 
 }

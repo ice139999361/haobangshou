@@ -177,6 +177,9 @@
       	<action name="vendorPartNoInfo!save" method="doSave" 
     			class="com.hbs.vendorinfo.action.VendorPartNoInfoNormalAction">
 		</action>
+		<action name="vendorPartNoInfo!delete" method="doDelete" 
+    			class="com.hbs.vendorinfo.action.VendorPartNoInfoNormalAction">
+		</action>
      	<action name="vendorPartNoInfo!getInfo" method="doGetInfo" 
     			class="com.hbs.vendorinfo.action.VendorPartNoInfoNormalAction">
 		</action>

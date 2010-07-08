@@ -59,4 +59,5 @@ public interface VendorPartNoInfoDao {
      * @throws DataAccessException DataAccessException
      */
     Integer listVendorPartNoInfoCount(VendorPartNoInfo vendorPartNoInfo) throws DataAccessException ;
+    Integer listVendorPartNoInfoCheckCount(VendorPartNoInfo vendorPartNoInfo) throws DataAccessException ;
 }
