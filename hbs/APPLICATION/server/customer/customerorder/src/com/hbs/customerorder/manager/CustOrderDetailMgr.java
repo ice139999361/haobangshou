@@ -376,6 +376,7 @@ public class CustOrderDetailMgr {
 			int iselLock = IntegerUtils.intValue(existDetail.getSelfLockAmount()); //客户备货锁定数量
 			int icommLock = IntegerUtils.intValue(existDetail.getCommLockAmount());//常规备货锁定数量
 			int idelivery = IntegerUtils.intValue(existDetail.getDeliveryAmount());//已经发货的数量
+			int iOrderAmount = IntegerUtils.intValue(existDetail.getOrderAmount());
 			
 			int isavelockAmount = iLockAmount + oselfLock + ocommLock;
 			if(isavelockAmount + idelivery > iAmount){//锁定的数量  + 已发货数量大于订单明细订货数量
@@ -408,6 +409,7 @@ public class CustOrderDetailMgr {
 				orderDetail.setLockAmount(isavelockAmount);
 				orderDetail.setSelfLockAmount(iselLock + oselfLock);
 				orderDetail.setCommLockAmount(ocommLock + icommLock);
+				orderDetail.setOrderAmount(iOrderAmount - oselfLock);
 				orderDetail.setPoNo(existDetail.getPoNo());
 				ret = updateCustDetailAmount(orderDetail);
 				/*
