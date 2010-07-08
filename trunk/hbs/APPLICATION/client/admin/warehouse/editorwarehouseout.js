@@ -72,15 +72,16 @@ HBSConvertHelper.init(function() {
 	}
 
 	(function() {
-		Ext.getCmp("acCommCode").setProcessConfig("/customerInfo/customerInfoMgr!getInfo.action?CustInfo.state=0", "custInfo.commCode", null, function(action){
+		function setCommCode(action){
 			if(!action.success)
 				return;
+			Ext.getCmp("acCommCode").setValue(action.data.custInfo.commCode);
+			Ext.getCmp("acShortName").setValue(action.data.custInfo.shortName);
 			// 给需要的隐藏域赋值
 			Ext.getCmp("hidSettlementType").setValue(action.data.custInfo.settlementType);
-			Ext.getCmp("hidShortName").setValue(action.data.custInfo.shortName);
 			Ext.getCmp("acCompanyBranch").setValue(action.data.custInfo.companyBranch);
 			Ext.getCmp("acWinCommCode").setValue(action.data.custInfo.commCode);
-			
+
 			var list = Ext.getCmp("areceiveName");
 			list.setParam("custCode", action.data.custInfo.commCode);
 			list.store.list = list;
@@ -95,7 +96,10 @@ HBSConvertHelper.init(function() {
 					list.store.load();
 				}
 			}
-		});
+		}
+		Ext.getCmp("acCommCode").setProcessConfig("/customerInfo/customerInfoMgr!getInfo.action?CustInfo.state=0", "custInfo.commCode", null, setCommCode);
+		Ext.getCmp("acShortName").setProcessConfig("/customerInfo/customerInfoMgr!getInfo.action?CustInfo.state=0", "custInfo.shortName", null, setCommCode);
+
 		// 当提交按钮被单击时
 		submitBtn.on("click", function() {
 			submitData("/warehouseSend/warehouseSend!commit.action");
@@ -187,6 +191,7 @@ HBSConvertHelper.init(function() {
 		// 更改页签标题
 		HBSConvertHelper.setDocumentTitle("出库");
 		ExtConvertHelper.setItemsReadOnly("sendPoNo", true);
+		ExtConvertHelper.hideItems("sendPoNo,acCreateDate");
 	}
 
 	// 修改页面的处理逻辑

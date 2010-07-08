@@ -112,7 +112,7 @@ HBSConvertHelper.init(function() {
 
 		// 到货日期缺省为当前日期
 		Ext.getCmp("acApplyDate").setValue(new Date());
-		
+
 		// 提交完成后的操作
 		submitSuccessPro = function() {
 			// 用户单击后重载此页面
@@ -153,14 +153,17 @@ HBSConvertHelper.init(function() {
 
 	// -------------------------------------- window 部分功能实现代码
 	(function() {
-		Ext.getCmp("acCommCode").setProcessConfig("/vendorInfo/vendorInfoMgr!getInfo.action?vendorInfo.state=0", "vendorInfo.commCode", null, function(action){
+		function setCommCode(action){
 			if(!action.success)
 				return;
+			Ext.getCmp("acCommCode").setValue(action.data.vendorInfo.commCode);
+			Ext.getCmp("acShortName").setValue(action.data.vendorInfo.shortName);
 			// 给需要的隐藏域赋值
 			Ext.getCmp("hidSettlementType").setValue(action.data.vendorInfo.settlementType);
-			Ext.getCmp("hidShortName").setValue(action.data.vendorInfo.shortName);
 			Ext.getCmp("acVendorCode").setValue(action.data.vendorInfo.commCode);
-		});
+		}
+		Ext.getCmp("acCommCode").setProcessConfig("/vendorInfo/vendorInfoMgr!getInfo.action?vendorInfo.state=0", "vendorInfo.commCode", null, setCommCode);
+		Ext.getCmp("acShortName").setProcessConfig("/vendorInfo/vendorInfoMgr!getInfo.action?vendorInfo.state=0", "vendorInfo.shortName", null, setCommCode);
 
 		Ext.getCmp("aWarehouseType").on("select", function(){
 			if(this.selectedIndex < 0){

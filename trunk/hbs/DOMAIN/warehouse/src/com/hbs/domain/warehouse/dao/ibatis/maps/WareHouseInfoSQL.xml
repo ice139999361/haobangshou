@@ -254,6 +254,12 @@
 			<isNotEmpty prepend="and" property = "state">
 				STATE = #state#
 			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.hasItem">
+				<![CDATA[	
+					TOTAL_AMOUNT > 0
+				]]>
+			</isNotEmpty>
 			<isNotEmpty prepend="order by" property="sort">
                    $sort$
             </isNotEmpty>
@@ -297,6 +303,12 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "state">
 				STATE = #state#
+			</isNotEmpty>
+			<isNotEmpty prepend="and"
+				property="dynamicFields.hasItem">
+				<![CDATA[	
+					TOTAL_AMOUNT > 0
+				]]>
 			</isNotEmpty>
 		</dynamic>
 </select>
