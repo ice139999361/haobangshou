@@ -168,4 +168,14 @@ public class CustPartNoInfoDaoImpl extends SqlMapClientDaoSupport implements Cus
 		}
         return count;
     }  
+    public Integer listCustPartNoInfoCheckCount(CustPartNoInfo custPartNoInfo) throws DataAccessException {
+		if (logger.isDebugEnabled()) {
+        	logger.debug("进入listCustPartNoInfoCheckCount(CustPartNoInfo), 输入参数[" + custPartNoInfo + "]");
+		}
+        Integer count = (Integer)getSqlMapClientTemplate().queryForObject("CustPartNoInfo_listCustPartNoInfoCheckCount", custPartNoInfo);
+		if (logger.isDebugEnabled()) {
+        	logger.debug("离开listCustPartNoInfoCheckCount(CustPartNoInfo), 返回[" + count + "]");
+		}
+        return count;
+    }  
 }

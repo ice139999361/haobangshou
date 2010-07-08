@@ -19,7 +19,7 @@
 			    		<form id="form"><items>
 				    		<listpanel frame="true" title="客户基本信息" collapsible="true" titleCollapse="true">
 								<layoutpanel columnNum="2">
-								 <autocomplete fieldLabel="客户简称" url="/customerInfo/customerInfoMgr!listDict.action?custInfo.state=0"  displayField="shortName"  valueField="commCode" queryParam="custInfo.shortName"     name="custInfo.commCode"       labelStyle="width:150" allowBlank="false" id="shortName" minChars="1" />				    						    				
+								 <autocomplete fieldLabel="客户简称" url="/customerInfo/customerInfoMgr!listDict.action?custInfo.state=0"  displayField="shortName"  valueField="commCode" queryParam="custInfo.shortName"     name="custInfo.shortName"       labelStyle="width:150" allowBlank="false" id="shortName" minChars="1" />				    						    				
 				    				<label fieldLabel="客户法人代表"           name="custInfo.representative"   id="representative"  labelStyle="width:150" />
 								</layoutpanel>
 

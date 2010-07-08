@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.manager.waittask.WaitTaskMgr;
@@ -67,35 +68,45 @@ public class CustPartNoInfoMgr {
 	public int commitCustPartNoInfo(CustPartNoInfo custPartNoInfo) throws Exception{
 		int ret =0;
 		logger.debug("提交客户物料关系信息列表，输入为：" + custPartNoInfo.toString());
-		CustPartNoInfo existInfo = this.getCustPartNoInfoByBizKey(custPartNoInfo);
-		if(existInfo != null){//存在数据
-			//获取提交数据打状态
-			int iState = Integer.parseInt(existInfo.getState());
+		String state = custPartNoInfo.getState();
+		if(StringUtils.isEmpty(state)){//不存在状态，新增
+			CustPartNoInfoDao custPartNoInfoDao = (CustPartNoInfoDao)BeanLocator.getInstance().getBean(CUSTOMERPARTNOINFODAO);
+			Integer i = custPartNoInfoDao.listCustPartNoInfoCheckCount(custPartNoInfo);
+			if(i >0){//已经存在相同的客户物料，不允许提交
+				throw new Exception("已经存在客户("+custPartNoInfo.getCommCode() + ")的物料(" +  custPartNoInfo.getCustPartNo()+")信息！" );
+			}
+		}
 			
-			if(iState == StateConstants.STATE_1 || iState == StateConstants.STATE_3){
-				custPartNoInfo.setState(new Integer(StateConstants.STATE_2).toString());
-				ret = this.innerUpdateCustPartNoInfo(custPartNoInfo, custPartNoInfo.getStaffId(), custPartNoInfo.getStaffName(), null);
-			}else if(iState == StateConstants.STATE_0){
+			CustPartNoInfo existInfo = this.getCustPartNoInfoByBizKey(custPartNoInfo);
+			if(existInfo != null){//存在数据
+				//获取提交数据打状态
+				int iState = Integer.parseInt(existInfo.getState());
+				
+				if(iState == StateConstants.STATE_1 || iState == StateConstants.STATE_3){
+					custPartNoInfo.setState(new Integer(StateConstants.STATE_2).toString());
+					ret = this.innerUpdateCustPartNoInfo(custPartNoInfo, custPartNoInfo.getStaffId(), custPartNoInfo.getStaffName(), null);
+				}else if(iState == StateConstants.STATE_0){
+					custPartNoInfo.setState(new Integer(StateConstants.STATE_2).toString());
+					ret = this.insertCustPartNoInfo(custPartNoInfo);
+				}
+			}else{//不存在数据
 				custPartNoInfo.setState(new Integer(StateConstants.STATE_2).toString());
 				ret = this.insertCustPartNoInfo(custPartNoInfo);
 			}
-		}else{//不存在数据
-			custPartNoInfo.setState(new Integer(StateConstants.STATE_2).toString());
-			ret = this.insertCustPartNoInfo(custPartNoInfo);
-		}
-		//待办处理
+			//待办处理
+			
+			if(ret == 0){//发待办通知,先取消可能的待办，再添加新的待办
+				WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
+				Map<String , String> hmParam = new HashMap<String,String>();
+				hmParam.put("$staffName", custPartNoInfo.getStaffName());
+				hmParam.put("$commCode", custPartNoInfo.getCommCode());
+				hmParam.put("$cpartNo", custPartNoInfo.getCustPartNo());
+				waitTaskInfo.setHmParam(hmParam);
+				waitTaskInfo.setBusinessKey(custPartNoInfo.getWaitTaskBizKey());
+				WaitTaskMgr.deleteWaitTask(custPartNoInfo.getWaitTaskBizKey());
+				WaitTaskMgr.createWaitTask("CUST_PARTNO_001", waitTaskInfo);
+			}
 		
-		if(ret == 0){//发待办通知,先取消可能的待办，再添加新的待办
-			WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
-			Map<String , String> hmParam = new HashMap<String,String>();
-			hmParam.put("$staffName", custPartNoInfo.getStaffName());
-			hmParam.put("$commCode", custPartNoInfo.getCommCode());
-			hmParam.put("$cpartNo", custPartNoInfo.getCustPartNo());
-			waitTaskInfo.setHmParam(hmParam);
-			waitTaskInfo.setBusinessKey(custPartNoInfo.getWaitTaskBizKey());
-			WaitTaskMgr.deleteWaitTask(custPartNoInfo.getWaitTaskBizKey());
-			WaitTaskMgr.createWaitTask("CUST_PARTNO_001", waitTaskInfo);
-		}
 		return ret;
 	}
 	
@@ -257,11 +268,17 @@ public class CustPartNoInfoMgr {
 	 */
 	public int deleteCustPartNoInfo(CustPartNoInfo custPartNoInfo,String delDesc) throws Exception{
 		int ret =0;
+		logger.debug("执行删除客户物料信息，输入的参数为：" + custPartNoInfo.toString());
 		int iState = Integer.parseInt(custPartNoInfo.getState());
 		switch(iState){
 		case 3:
+		case 0:
+		case 2:
+		case 1:
 			custPartNoInfo.setState(new Integer(StateConstants.STATE_4).toString());
 			ret = innerUpdateCustPartNoInfo(custPartNoInfo,custPartNoInfo.getStaffId(),custPartNoInfo.getStaffName(),delDesc);
+			logger.debug("清除该客户物料的待办");
+			WaitTaskMgr.deleteWaitTask(custPartNoInfo.getWaitTaskBizKey());
 			break;
 		default:
 			ret =2;
@@ -363,7 +380,8 @@ public class CustPartNoInfoMgr {
 			strLogType = "审批不通过数据";
 			break;
 		case 4://废弃数据只修改状态			
-			custPartNoInfoDao.updateCustPartNoInfoByState(custPartNoInfo);
+			//custPartNoInfoDao.updateCustPartNoInfoByState(custPartNoInfo);
+			  custPartNoInfoDao.deleteCustPartNoInfoByID(custPartNoInfo.getSeqId().toString());
 			strLogType = "废弃数据";
 			break;
 		case 5://锁定数据只修改状态

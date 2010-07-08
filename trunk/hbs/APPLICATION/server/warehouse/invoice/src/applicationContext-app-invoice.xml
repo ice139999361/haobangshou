@@ -43,4 +43,9 @@
 	<bean id="vendorFinanceSettlementMgr"
 		class="com.hbs.invoice.manager.VendorFinanceSettlementMgr">
 	</bean>
+	
+	<!-- 利润查询实现类   -->
+	<bean id="benefitMgr"
+		class="com.hbs.invoice.manager.BenefitMgr">
+	</bean>
 </beans>

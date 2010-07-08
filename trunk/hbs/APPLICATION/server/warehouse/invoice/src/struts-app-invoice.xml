@@ -170,5 +170,13 @@
 		<action name="VendorSettlement!listDetail" method="doListDetail" 
     			class="com.hbs.invoice.action.VendorFinanceSettleAction">
 		</action>
+		
+		<!-- g利润查询 -->
+		<action name="Benefit!listTotal" method="doList" 
+    			class="com.hbs.invoice.action.BenefitAction">
+		</action>
+		<action name="Benefit!listDetail" method="doListDetail" 
+    			class="com.hbs.invoice.action.BenefitAction">
+		</action>
 	</package>
 </struts>

@@ -11,43 +11,14 @@ import com.hbs.domain.invoice.pojo.BenefitDetail;
  *
  */
 public interface BenefitDetailDao {
-    /**
-     * insert.
-     * @param benefitDetail benefitDetail
-     * @return id
-     * @throws DataAccessException DataAccessException
-     */
-    String insertBenefitDetail(BenefitDetail benefitDetail) throws DataAccessException ;
-
-    /**
-     * delete.
-     * @param benefitDetail benefitDetail
-     * @throws DataAccessException DataAccessException
-     */
-    void deleteBenefitDetail(String id) throws DataAccessException ;
-    
-    /**
-     * update.
-     * @param benefitDetail benefitDetail
-     * @throws DataAccessException DataAccessException
-     */
-    void updateBenefitDetail(BenefitDetail benefitDetail) throws DataAccessException ;
-
-    /**
-     * find.
-     * @param id id
-     * @return benefitDetail
-     * @throws DataAccessException DataAccessException
-     */
-    BenefitDetail findBenefitDetail(String id) throws DataAccessException ;
-    
+   
     /**
      * list.
      * @param benefitDetail benefitDetail
      * @return benefitDetail list
      * @throws DataAccessException DataAccessException
      */
-    List listBenefitDetail(BenefitDetail benefitDetail) throws DataAccessException ;
+    List<BenefitDetail> listBenefitDetail(BenefitDetail benefitDetail) throws DataAccessException ;
     
     /**
      * listCount.
@@ -56,4 +27,20 @@ public interface BenefitDetailDao {
      * @throws DataAccessException DataAccessException
      */
     Integer listBenefitDetailCount(BenefitDetail benefitDetail) throws DataAccessException ;
+    
+    /**
+     * list.
+     * @param benefitDetail benefitDetail
+     * @return benefitDetail list
+     * @throws DataAccessException DataAccessException
+     */
+    List<BenefitDetail> listBenefitTotal(BenefitDetail benefitDetail) throws DataAccessException ;
+    
+    /**
+     * listCount.
+     * @param benefitDetail benefitDetail
+     * @return list count
+     * @throws DataAccessException DataAccessException
+     */
+    Integer listBenefitTotalCount(BenefitDetail benefitDetail) throws DataAccessException ;
 }

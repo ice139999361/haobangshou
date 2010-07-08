@@ -204,6 +204,10 @@
       	<action name="custPartNoInfo!save" method="doSave" 
     			class="com.hbs.customerinfo.action.CustPartNoInfoNormalAction">
 		</action>
+		<!-- 废弃删除操作 -->
+		<action name="custPartNoInfo!delete" method="doDelete" 
+    			class="com.hbs.customerinfo.action.CustPartNoInfoNormalAction">
+		</action>
 		<!-- 
     /**
      * 获取客户物料关系

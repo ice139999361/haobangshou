@@ -37,7 +37,7 @@ HBSConvertHelper.init(function() {
 			Ext.Msg.confirm("提示", "您要执行的是删除操作，请确认是否继续？", function(btn) {
 				if(btn == "no") return;
 				
-				ExtConvertHelper.request("/vendorInfo/vendorInfo!del.action?seqId=" + this.config.get("seqId"), null, ExtConvertHelper.defaultDeleteFun);
+				ExtConvertHelper.request("/vendorInfo/vendorPartNoInfo!delete.action?vendorPartNoInfo.seqId=" + this.config.get("seqId") + "&vendorPartNoInfo.state="+ this.config.get("state")+"&vendorPartNoInfo.partNo="+ this.config.get("partNo")+"&vendorPartNoInfo.custPartNo="+ this.config.get("custPartNo")+"&vendorPartNoInfo.commCode="+ this.config.get("commCode"), null, ExtConvertHelper.defaultDeleteFun);
 			}, this);
 		};
 		
@@ -75,6 +75,13 @@ HBSConvertHelper.init(function() {
 							var url= ["/vendor/detailpnrelation.jsp?editorType=update&seqId=", this.config.get("seqId"), "&state=2"].join("");
 							HBSConvertHelper.openNewWin(url);
 						});
+					}
+					if(urlPs.roleType == "cgy") {
+						var operatorBtn = HBSConvertHelper.renderButton2Cell(["删除"], operator_cell, view.ds.getAt(i));
+						// 删除按钮事件
+						operatorBtn.on("click", deleteBtnFun);
+						// 修改按钮事件
+						operatorBtn.get(1).on("click", updateBtnFun);
 					}
 					break;
 			}

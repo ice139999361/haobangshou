@@ -63,4 +63,5 @@ public interface CustPartNoInfoDao {
      * @throws DataAccessException DataAccessException
      */
     Integer listCustPartNoInfoCount(CustPartNoInfo custPartNoInfo) throws DataAccessException ;
+    Integer listCustPartNoInfoCheckCount(CustPartNoInfo custPartNoInfo) throws DataAccessException ;
 }

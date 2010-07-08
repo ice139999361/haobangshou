@@ -8,7 +8,7 @@
     <result property="salesId" column="sales_id"/>
     <result property="salesName" column="sales_name"/>
     <result property="createTime" column="create_time"/>
-    <result property="sendOoNo" column="send_po_no"/>
+    <result property="sendPoNo" column="send_po_no"/>
     <result property="custCode" column="cust_code"/>
     <result property="custShortName" column="cust_short_name"/>
     <result property="partNo" column="part_no"/>
@@ -21,6 +21,24 @@
     <result property="benefit" column="benefit"/>
     <result property="vendorPartNo" column="vendor_part_no"/>
     <result property="vendorPrice" column="vendor_price"/>
+    <result property="vendorCode" column="vendor_code"/>
+    <result property="venderShortName" column="vender_short_name"/>
+</resultMap>
+
+<resultMap id="benefitTotal_result" class="benefitDetail">
+    <result property="salesId" column="sales_id"/>
+    <result property="salesName" column="sales_name"/>
+    <result property="sendMonth" column="create_time"/>    
+    <result property="custCode" column="cust_code"/>
+    <result property="custShortName" column="cust_short_name"/>
+    <result property="partNo" column="part_no"/>
+    <result property="pnDesc" column="pn_desc"/>
+    <result property="custPartNo" column="cust_part_no"/>
+    <result property="custPrice" column="cust_price"/>
+    <result property="amount" column="amount"/>
+    <result property="curMoney" column="cur_money"/>
+    <result property="benefit" column="benefit"/>
+    <result property="vendorPartNo" column="vendor_part_no"/>    
     <result property="vendorCode" column="vendor_code"/>
     <result property="venderShortName" column="vender_short_name"/>
 </resultMap>
@@ -56,8 +74,8 @@
 			<isNotEmpty prepend="and" property = "salesName">
 				sales_name = #salesName#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "createTime">
-				EXTRACT(YEAR_MONTH FROM create_time) = #createTime#
+			<isNotEmpty prepend="and" property = "dynamicFields.sendMonth">
+				EXTRACT(YEAR_MONTH FROM create_time) = #dynamicFields.sendMonth#
 			</isNotEmpty>
 			
 			<isNotEmpty prepend="and" property = "custCode">
@@ -103,8 +121,8 @@
 			<isNotEmpty prepend="and" property = "salesName">
 				sales_name = #salesName#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "createTime">
-				EXTRACT(YEAR_MONTH FROM create_time) = #createTime#
+			<isNotEmpty prepend="and" property = "dynamicFields.sendMonth">
+				EXTRACT(YEAR_MONTH FROM create_time) = #dynamicFields.sendMonth#
 			</isNotEmpty>
 			
 			<isNotEmpty prepend="and" property = "custCode">
@@ -133,13 +151,12 @@
 		</dynamic>
 </select>
 
-<select id="BenefitDetail_listBenefitTotal" resultMap="benefitDetail_result" parameterClass="benefitDetail">
+<select id="BenefitDetail_listBenefitTotal" resultMap="benefitTotal_result" parameterClass="benefitDetail">
 <![CDATA[
     SELECT
             sales_id, 
             sales_name, 
-            send_month, 
-            send_po_no, 
+            create_time,
             cust_code, 
             cust_short_name, 
             part_no, 
@@ -149,8 +166,7 @@
             amount, 
             cur_money, 
             benefit, 
-            vendor_part_no, 
-            vendor_price, 
+            vendor_part_no,            
             vendor_code, 
             vender_short_name
     FROM v_sales_benefit_total
@@ -162,8 +178,8 @@
 			<isNotEmpty prepend="and" property = "salesName">
 				sales_name = #salesName#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "createTime">
-				EXTRACT(YEAR_MONTH FROM create_time) = #createTime#
+			<isNotEmpty prepend="and" property = "sendMonth">
+				create_time = #sendMonth#
 			</isNotEmpty>
 			
 			<isNotEmpty prepend="and" property = "custCode">
@@ -209,8 +225,8 @@
 			<isNotEmpty prepend="and" property = "salesName">
 				sales_name = #salesName#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property = "createTime">
-				EXTRACT(YEAR_MONTH FROM create_time) = #createTime#
+			<isNotEmpty prepend="and" property = "sendMonth">
+				create_time = #sendMonth#
 			</isNotEmpty>
 			
 			<isNotEmpty prepend="and" property = "custCode">
