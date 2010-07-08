@@ -36,6 +36,8 @@ public class WarehouseAction extends BaseAction {
 			logger.debug("begin doList");
 			if(wInfo == null)
 				wInfo = new WareHouseInfo();
+			wInfo.setState(null);
+			wInfo.setField("hasItem", true);
 			setPagination(wInfo);
 			WarehouseMgr mgr = (WarehouseMgr)getBean(WareHouseConstants.WAREHOUSE_INFO_MGR);
 			setResult("list", mgr.listWareHouseInfo(wInfo));

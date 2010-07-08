@@ -21,15 +21,15 @@
 				    		<listpanel frame="true" title="出库基本信息" collapsible="true" titleCollapse="true">
 				    			<layoutpanel columnNum="2">
 				    				<textfield    fieldLabel="出库单号"       name="warehouseSend.sendPoNo"  id="sendPoNo"      labelStyle="width:150" />
-				    				<dictcombo    fieldLabel="对应分公司"           hiddenName="warehouseSend.companyBranch"  labelStyle="width:150"     paramsValue="COMPANY_BRANCH"     emptyText="请选择" id="acCompanyBranch" />
-				    				<autocomplete fieldLabel="客户"	url="/customerInfo/customerInfoMgr!list.action"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"           name="warehouseSend.custCode"       labelStyle="width:150" id="acCommCode" />
+				    				<autocomplete fieldLabel="客户编码"	url="/customerInfo/customerInfoMgr!list.action"  displayField="commCode"  valueField="commCode" queryParam="custInfo.commCode"           name="warehouseSend.custCode"       labelStyle="width:150" id="acCommCode" />
+				    				<dictcombo    fieldLabel="对应分公司"           hiddenName="warehouseSend.companyBranch"  labelStyle="width:150"  readOnly="true"   paramsValue="COMPANY_BRANCH"     emptyText="请选择" id="acCompanyBranch" />
 				    				<textfield    fieldLabel="联系电话"       name="warehouseSend.conTel"        labelStyle="width:150" id="tconTel" />
 				    				<textfield    fieldLabel="邮编"       name="warehouseSend.receiveZip"        labelStyle="width:150" id="treceiveZip"  />
 
 				    				<datefield    fieldLabel="出库日期"  	    name="warehouseSend.createDate"        labelStyle="width:150"   id="acCreateDate"  format="Y-m-d" />
+				    				<autocomplete fieldLabel="客户简称"	url="/customerInfo/customerInfoMgr!list.action"  displayField="shortName"  valueField="shortName" queryParam="custInfo.shortName"           name="warehouseSend.shortName"       labelStyle="width:150" id="acShortName" />
 				    				<dictcombo    fieldLabel="出库仓库"           hiddenName="warehouseSend.houseType"  labelStyle="width:150"     paramsValue="WAREHOUSE_TYPE"     emptyText="请选择" id="acHouseType"/>
-				    				<dictcombo fieldLabel="收货人" url="/customerInfo/custContactInfo!listContactInfo.action"  displayField="conName"  valueField="conName" record="seqId,conName,conTel,conFax,conAddress,conZip,isPrimary"  root="data.contactInfoList"  name="warehouseSend.receiveName"       labelStyle="width:150" allowBlank="false" id="areceiveName" />
-
+				    				<dictcombo fieldLabel="收货人" url="/customerInfo/custContactInfo!listContactInfo.action"  displayField="conName"  valueField="conName" record="seqId,conName,conTel,conFax,conAddress,conZip,isPrimary"  root="data.contactInfoList"  hiddenName="warehouseSend.receiveName"       labelStyle="width:150" allowBlank="false" id="areceiveName" />
 				    				<textfield    fieldLabel="传真"       name="warehouseSend.conFax"        labelStyle="width:150" id="tconFax" />
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
@@ -46,7 +46,6 @@
 				    				<hidden name="warehouseSend.operStaff" />
 				    				<hidden name="warehouseSend.poNoType" />
 				    				<hidden name="warehouseSend.settlementType" id="hidSettlementType" />
-				    				<hidden name="warehouseSend.shortName" id="hidShortName" />
 				    			</layoutpanel>
 				    		</listpanel>
 			    		</items></form>
@@ -133,11 +132,9 @@
 	    				<column header="物料描述"           dataIndex="pnDesc" />
 	    				<column header="特殊备注（批次）"   dataIndex="specDesc" />
 	    				<column header="订单数量"           dataIndex="amount" />
+	    				<column header="订单交期"			dataIndex="verDeliveryDate" />
 	    				<column header="已出库数量"         dataIndex="deliveryAmount" />
-	    				<column header="本客户已出库数量"         dataIndex="selfDeliveryAmount" />
-	    				<column header="通用库存已出库数量"         dataIndex="commDeliveryAmount" />
-	    				<column header="本客户锁定数量"         dataIndex="selfLockAmount" />
-	    				<column header="通用库存锁定数量"         dataIndex="commLockAmount" />
+	    				<column header="锁定数量"         dataIndex="lockAmount" />
 	    				<column header="明细状态"         dataIndex="stateDesc" />
 	    			</columns>
 	    			<buttons>

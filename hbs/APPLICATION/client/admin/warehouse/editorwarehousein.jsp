@@ -24,13 +24,14 @@
 				    				<datefield    fieldLabel="供应商单据日期" name="warehouseRec.poNoDate"    id="acPoNoDate"    labelStyle="width:150"     emptyText="送货单的日期" format="Y-m-d" allowBlank="false"  />
 				    				<!--<textfield    fieldLabel="供应商"      id="txtVendorCode"   name="warehouseRec.vendorCode"       labelStyle="width:150"  />
 									 -->
-				    				<autocomplete fieldLabel="供应商" url="/vendorInfo/vendorInfo!listDict.action"  displayField="commCode"  valueField="commCode" queryParam="vendorInfo.commCode"     name="warehouseRec.vendorCode"       labelStyle="width:150" allowBlank="false" id="acCommCode" />
+				    				<autocomplete fieldLabel="供应商编码" url="/vendorInfo/vendorInfo!listDict.action"  displayField="commCode"  valueField="commCode" queryParam="vendorInfo.commCode"     name="warehouseRec.vendorCode"       labelStyle="width:150" allowBlank="false" id="acCommCode" />
 
 
 				    				<!--<datefield    fieldLabel="入库日期"  	    name="warehouseRec.operTime"        labelStyle="width:150"     format="Y-m-d" id="acOperTime" />-->
 				    				<datefield    fieldLabel="到货日期"  	    name="warehouseRec.applyDate"        labelStyle="width:150"     format="Y-m-d" id="acApplyDate" allowBlank="false" />
 
 				    				<dictcombo    fieldLabel="仓库" id="aWarehouseType" url="/warehouse/warehouseAddr!list.action" record="id,name,conName,address,zip,isPrimary"	root="data.list"	valueField="id"	displayField="name"          hiddenName="warehouseRec.houseType"  labelStyle="width:150"     emptyText="请选择" />
+				    				<autocomplete fieldLabel="供应商简称" url="/vendorInfo/vendorInfo!listDict.action"  displayField="shortName"  valueField="shortName" queryParam="vendorInfo.shortName"     name="warehouseRec.shortName"       labelStyle="width:150" allowBlank="false" id="acShortName" />
 
 				    			</layoutpanel>
 								<layoutpanel columnNum="1">
@@ -40,7 +41,6 @@
 				    				<textarea     fieldLabel="备注"           name="warehouseRec.receiveDesc"        labelStyle="width:150" width="600" />
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
-				    				<hidden name="warehouseRec.shortName" id="hidShortName" />
 				    				<hidden name="warehouseRec.settlementType" id="hidSettlementType" />
 				    				<hidden name="warehouseRec.poNoType" />
 									<hidden name="warehouseRec.activeState" />
