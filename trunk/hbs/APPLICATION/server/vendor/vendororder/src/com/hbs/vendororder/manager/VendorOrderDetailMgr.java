@@ -185,6 +185,7 @@ public class VendorOrderDetailMgr {
 					cDetail.setPoNo(pono);
 					cDetail.setPartNo(detail.getPartNo());
 					cDetail.setSpecDesc(detail.getSpecDesc());
+					cDetail.setOrderAmount(detail.getAmount());
 //					cDetail = cDetailDao.findCustOrderDetailByBizKey(cDetail);
 //					if(null != cDetail){
 //						String rltPoNo = cDetail.getRltOrderPoNo();

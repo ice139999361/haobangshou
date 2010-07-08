@@ -208,6 +208,9 @@
          	RLT_ORDER_PO_NO = CONCAT_WS(',',RLT_ORDER_PO_NO,#rltOrderPoNo#)
          ]]>    
 		</isNotEmpty>
+		<isNotEmpty prepend="," property="orderAmount">
+			ORDERAMOUNT = (case when ORDERAMOUNT is null then 0 else ORDERAMOUNT end) + #orderAmount#
+		</isNotEmpty>
 	<dynamic prepend="WHERE">				
 				<isNotEmpty prepend="and" property = "commCode">
 					C_CODE = #commCode#

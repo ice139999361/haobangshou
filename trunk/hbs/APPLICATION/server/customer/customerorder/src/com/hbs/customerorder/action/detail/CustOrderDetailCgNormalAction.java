@@ -257,7 +257,7 @@ public class CustOrderDetailCgNormalAction extends CustOrderDetailBaseAction {
 			VendorPartNoInfoMgr vpnMgr = (VendorPartNoInfoMgr)getBean(VendorPartNoInfoNormalAction.vendorPartNoInfoMgrName);
 			for(Iterator<CustOrderDetail> it = list.iterator(); it.hasNext();) {
 				CustOrderDetail o = it.next();
-				int needAmount = o.getAmount() - isNull(o.getLockAmount(),0) - isNull(o.getDeliveryAmount(),0);
+				int needAmount = o.getAmount() - isNull(o.getLockAmount(),0) - isNull(o.getDeliveryAmount(),0) - isNull(o.getOrderAmount(), 0);
 				if(needAmount <= 0)
 					it.remove();
 				o.setAmount(needAmount);
