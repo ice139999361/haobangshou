@@ -126,7 +126,7 @@ HBSConvertHelper.init(function() {
 			if(Ext.isEmpty(record.get("cpriceTax")) || record.get("cpriceTax") == 0) ordergrid.getColumnById("cisTax").editable = true;
 			else ordergrid.getColumnById("cisTax").editable = false;
 		});
-		
+
 		ordergrid.getView().on("refresh", function(view) {
 			//alert(this.ds.getCount())
 			var countAmount = 0;
@@ -134,13 +134,13 @@ HBSConvertHelper.init(function() {
 			for(var i = 0 ; i < view.ds.getCount() ; i++) {
 				// 获取数据集
 				var record = view.ds.getAt(i);
-				
+
 				//  汇总数量与金额
 				countAmount = Math.FloatAdd(countAmount, record.get("amount"));
 				countMoney  = Math.FloatAdd(countMoney, record.get("money"));
-		
+
 			}
-			
+
 			Ext.getCmp("countAmount").setValue(countAmount);
 			Ext.getCmp("countMoney").setValue(countMoney);
 		});
@@ -181,21 +181,21 @@ HBSConvertHelper.init(function() {
 		list.fireEvent("select");
 	}
 
-	Ext.getCmp("acCommCode").setProcessConfig("/vendorInfo/vendorInfo!getInfo.action?vendorInfo.state=0", "vendorInfo.commCode", null, function(action){
+	function setCommCode(action){
 		if(!action.success)
 			return;
 		Ext.getCmp("acCompanyBranch").setValue(action.data.vendorInfo.companyBranchDesc);
-		Ext.getCmp("acShortName").setValue(action.data.vendorInfo.shortName);
+		Ext.getCmp("acCommCode").setValue(action.data.vendorInfo.commCode);
 		Ext.getCmp("acSettlementType").setValue(action.data.vendorInfo.settlementDesc2);
 		Ext.getCmp("acCurrency").setValue(action.data.vendorInfo.currencyDesc);
+		Ext.getCmp("acShortName").setValue(action.data.vendorInfo.shortName);
 
 		// 给需要的隐藏域赋值
 		Ext.getCmp("hidIsShowPrice").setValue(action.data.vendorInfo.isShowPrice);
 		Ext.getCmp("hidSettlementType").setValue(action.data.vendorInfo.settlementType);
 		Ext.getCmp("hidCompanyBranch").setValue(action.data.vendorInfo.companyBranch);
-		Ext.getCmp("hidShortName").setValue(action.data.vendorInfo.shortName);
 
-		var o = this.getValue();
+		var o = action.data.vendorInfo.commCode;
 		Ext.getCmp("acVendorCode").setValue(o);
 		var list = Ext.getCmp("acContactList");
 		list.store.baseParams["vendorInfo.commCode"] = o;
@@ -233,15 +233,17 @@ HBSConvertHelper.init(function() {
 		list.store.baseParams["vendorPartNoInfo.commCode"] = o;
 		list.store.baseParams["vendorPartNoInfo.state"] = "0";
 		list.__processConfig.params["commCode"] = o;
-		list.__processConfig.params["vendorPartNoInfo.commCode"] = o;		
+		list.__processConfig.params["vendorPartNoInfo.commCode"] = o;
 		list = cm.getColumnById("cPartNo").editor;
 		list.store.baseParams["vendorPartNoInfo.commCode"] = o;
 		list.store.baseParams["vendorPartNoInfo.state"] = "0";
 		list.__processConfig.params["commCode"] = o;
-		list.__processConfig.params["vendorPartNoInfo.commCode"] = o;		
+		list.__processConfig.params["vendorPartNoInfo.commCode"] = o;
 
 		isManulSelect = true
-	});
+	}
+	Ext.getCmp("acCommCode").setProcessConfig("/vendorInfo/vendorInfo!getInfo.action?vendorInfo.state=0", "vendorInfo.commCode", null, setCommCode);
+	Ext.getCmp("acShortName").setProcessConfig("/vendorInfo/vendorInfo!getInfo.action?vendorInfo.state=0", "vendorInfo.shortName", null, setCommCode);
 
 	Ext.getCmp("acContactList").on("select", function() {
 		if(this.selectedIndex < 0){
@@ -275,6 +277,7 @@ HBSConvertHelper.init(function() {
 				this.selectedIndex = this.store.findExact("conName", val);
 			}
 			if(this.selectedIndex < 0){
+				Ext.getCmp("acReceiveName").setValue("");
 				Ext.getCmp("acAddress").setValue("");
 				Ext.getCmp("acAddressHidden").setValue("");
 				Ext.getCmp("acZip").setValue("");
@@ -289,6 +292,9 @@ HBSConvertHelper.init(function() {
 		o = data.get("zip");
 		Ext.getCmp("acZip").setValue(o);
 		Ext.getCmp("acZipHidden").setValue(o);
+		o = data.get("conName");
+		Ext.getCmp("acReceiveName").setValue(o);
+
 	});
 
 	// -------------------------------------- 页面操作逻辑处理
@@ -323,7 +329,7 @@ HBSConvertHelper.init(function() {
 
 		ExtConvertHelper.setItemsReadOnly("acCommCode", false);
 		//Ext.getCmp("acCommCode").readOnly = false;
-		
+
 		// 默认增加 8 条空记录
 		for(var i = 0 ; i < 8 ; i++) ordergrid.addData(ordergrid.__getDefData__());
 

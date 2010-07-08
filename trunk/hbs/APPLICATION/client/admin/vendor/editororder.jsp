@@ -19,14 +19,14 @@
 
 							<form id="form"><items>
 				    		<listpanel frame="true" title="订单基本信息" collapsible="true" titleCollapse="true">
-				    			<layoutpanel columnNum="3:.3,.2,.5">
-				    				<autocomplete    fieldLabel="供应商"	url="/vendorInfo/vendorInfo!list.action"  displayField="commCode"  valueField="commCode" queryParam="vendorInfo.commCode" id="acCommCode"          name="vendorOrder.commCode"       labelStyle="width:150" />
+				    			<layoutpanel columnNum="4">
+				    				<autocomplete    fieldLabel="供应商编码"	url="/vendorInfo/vendorInfo!list.action"  displayField="commCode"  valueField="commCode" queryParam="vendorInfo.commCode" id="acCommCode"          name="vendorOrder.commCode"  />
+				    				<autocomplete    fieldLabel="供应商简称"	url="/vendorInfo/vendorInfo!list.action"  displayField="shortName"  valueField="shortName" queryParam="vendorInfo.shortName" id="acShortName"          name="vendorOrder.shortName"    />
 				    				<button       text="查询客户订单" id="sxkhddBtn" />
-				    				<textfield    fieldLabel="订单编号"         name="vendorOrder.poNo"          readOnly="true"             labelStyle="width:150"/>
+				    				<textfield    fieldLabel="订单编号" id="acPoNo"        name="vendorOrder.poNo"    enable="false"      readOnly="true"  />
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="2">
-				    				<textfield        fieldLabel="开单日期" name="vendorOrder.createTime"          readOnly="true"                                labelStyle="width:150"/>
-				    				<label        fieldLabel="公司简称" id="acShortName"                                labelStyle="width:150"/>
+				    				<textfield        fieldLabel="开单日期" name="vendorOrder.createTime" id="acCreateTime"   enable="false"      readOnly="true"                                labelStyle="width:150"/>
 				    				<label        fieldLabel="对应分公司" id="acCompanyBranch"                              labelStyle="width:150"/>
 				    				<label        fieldLabel="结算方式" id="acSettlementType"                                labelStyle="width:150"/>
 				    				<textfield	fieldLabel="追货提醒/天"	name="vendorOrder.hastenReminder"	labelStyle="width:150"/>
@@ -45,10 +45,11 @@
 				    				<label        fieldLabel="传真"               name="vendorOrder.conFax"	id="acFax"                       labelStyle="width:150"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
-				    				<dictcombo    fieldLabel="选择收货人"	id="acConsigneeList"	url="/warehouse/warehouseAddr!list.action" record="id,name,conName,address,zip,isPrimary"	root="data.list"	valueField="conName"	displayField="conName"	name="vendorOrder.receiveName"                        labelStyle="width:150"/>
+				    				<dictcombo    fieldLabel="入库仓库"	id="acConsigneeList"	url="/warehouse/warehouseAddr!list.action" record="id,name,conName,address,zip,isPrimary"	root="data.list"	valueField="conName"	displayField="name"	hiddenName="vendorOrder.receiveName"                       labelStyle="width:150"/>
 				    			</layoutpanel>
-				    			<layoutpanel columnNum="2">
-				    				<label        fieldLabel="收货地址"           name="vendorOrder.receiveAddress"	id="acAddress"                        labelStyle="width:150"/>
+				    			<layoutpanel columnNum="3:.25,.5,.25">
+				    				<label        fieldLabel="收货人"             name="vendorOrder.receiveName"	id="acReceiveName"                        labelStyle="width:150"/>
+				    				<label        fieldLabel="收货地址"           name="vendorOrder.receiveAddress"	id="acAddress"                     labelStyle="width:150"/>
 				    				<label        fieldLabel="邮编"               name="vendorOrder.receiveZip"	id="acZip"                        labelStyle="width:150"/>
 				    			</layoutpanel>
 				    			<layoutpanel columnNum="1">
@@ -63,23 +64,22 @@
 				    				<hidden name="vendorOrder.poNoType" />
 				    				<hidden name="vendorOrder.activeState" />
 				    				<hidden name="vendorOrder.period" />
-				    				<hidden name="vendorOrder.shortName" id="hidShortName" />
 				    			</layoutpanel>
 				    		</listpanel>
 			    		</items></form>
 
 			    		<complexgrid id="ordergrid" frame="true" height="300" deftbar="true" url="1" title="订单详情" itemsFun="ordergridFun" />
-					
+
 							<listpanel>
 				    			<layoutpanel columnNum="2:.8,">
 				    				<label labelSeparator="" />
 				    				<label labelSeparator="" />
-				    					
+
 				    				<label fieldLabel="汇总数量"   id="countAmount" />
 				    				<label fieldLabel="汇总金额"   id="countMoney" />
 				    			</layoutpanel>
 				    	</listpanel>
-							
+
 			    		<panel buttonAlign="center">
 			    			<buttons>
 			    				<button text="提交" id="submitBtn" />
@@ -93,7 +93,7 @@
 			    </panel>
 			  </items>
 			</viewport>
-			
+
 			<window id="selectWindow" title="查询客户订单" width="900" closeAction="hide">
 				<items>
 					<queryform gridId="querygrid" id="selectform">
