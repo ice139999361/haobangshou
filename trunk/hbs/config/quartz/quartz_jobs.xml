@@ -249,6 +249,27 @@
 			</cron>
 		</trigger>
 	</job>
+
+	<!-- 数据库备份 job -->
+	<job>		
+		<job-detail>
+			<name>DataBaseBackUp</name>
+			<group>DEFAULT</group>
+			<job-class>com.hbs.common.job.DataBaseBackUp</job-class>
+			<volatility>false</volatility>
+			<durability>false</durability>
+			<recover>false</recover>			
+		</job-detail>
+		<trigger>
+			<cron>
+				<name>DataBaseBackUpTrigger</name>
+				<group>DEFAULT</group>
+				<job-name>DataBaseBackUp</job-name>
+				<job-group>DEFAULT</job-group>
+				<cron-expression>0 0/5 14 * * ?</cron-expression>
+			</cron>
+		</trigger>
+	</job>
 	
 </quartz>
 

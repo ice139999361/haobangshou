@@ -7,3 +7,8 @@ show global variables like 'wait_timeout';
 你可能会想到在tomcat的数据源配置中有没有办法解决？的确，在jdbc连接url的配置中，你可以附上“autoReconnect=true”，但这仅对mysql5以前的版本起作用。增加“validation query”似乎也无济于事。 
 
 用连接池管理吧，如dbcp,设置validationQuery就行。
+
+
+wait_timeout=1814400
+set-variable=max_allowed_packet=134217728
+tmpdir=E:\\mysql-5.0.81-win32
