@@ -26,7 +26,7 @@ public class MySqlBackup {
             Runtime rt = Runtime.getRuntime();
 
             // 调用 mysql 的 cmd:192.168.1.61
-            Process child = rt.exec("E:/mysql-5.0.81-win32/bin/mysqldump.exe -h 192.168.1.61 -u yangzj -pyangzj  --no-data --set-charset=utf8 testdb");
+            Process child = rt.exec("C:/Program Files/MySQL/MySQL Server 5.1/bin/mysqldump.exe -h 192.168.1.250 -u root -p12345678  --no-data --set-charset=utf8 hbs");
             // 设置导出编码为utf8。这里必须是utf8
            
             // 把进程执行中的控制台输出信息写入.sql文件，即生成了备份文件。注：如果不对控制台信息进行读出，则会导致进程堵塞无法运行
@@ -44,7 +44,7 @@ public class MySqlBackup {
             }
             outStr = sb.toString();
            
-            String backName = "d:/temp/testdbTable_" + DateUtils.getCurFormatDate("YYYY-MM-dd")+".sql";
+            String backName = "c:/hbs/backup/hbsTable_" + DateUtils.getCurFormatDate("YYYY-MM-dd")+".sql";
             // 要用来做导入用的sql目标文件：
             FileOutputStream fout = new FileOutputStream(
                     backName);
@@ -76,13 +76,13 @@ public class MySqlBackup {
             Runtime rt = Runtime.getRuntime();
 
             // 调用 mysql 的 cmd:192.168.1.61
-            Process child = rt.exec("E:/mysql-5.0.81-win32/bin/mysqldump.exe -h 192.168.1.61 -u yangzj -pyangzj  --no-create-info --set-charset=gb2312 testdb");
+            Process child = rt.exec("C:/Program Files/MySQL/MySQL Server 5.1/bin/mysqldump.exe -h 192.168.1.250 -u root -p12345678  --no-create-info --set-charset=utf8 hbs");
             // 设置导出编码为utf8。这里必须是utf8
            
             // 把进程执行中的控制台输出信息写入.sql文件，即生成了备份文件。注：如果不对控制台信息进行读出，则会导致进程堵塞无法运行
             InputStream in = child.getInputStream();// 控制台的输出信息作为输入流
                        
-            InputStreamReader xx = new InputStreamReader(in, "gb2312");// 设置输出流编码为utf8。这里必须是utf8，否则从流中读入的是乱码
+            InputStreamReader xx = new InputStreamReader(in, "utf8");// 设置输出流编码为utf8。这里必须是utf8，否则从流中读入的是乱码
            
             String inStr;
             StringBuffer sb = new StringBuffer("");
@@ -93,7 +93,7 @@ public class MySqlBackup {
                 sb.append(inStr + "\r\n");
             }
             outStr = sb.toString();
-            String backName = "d:/temp/testdbData_" + DateUtils.getCurFormatDate("YYYY-MM-dd")+".sql";
+            String backName = "c:/hbs/backup/hbsData_" + DateUtils.getCurFormatDate("YYYY-MM-dd")+".sql";
             // 要用来做导入用的sql目标文件：
             FileOutputStream fout = new FileOutputStream(
             		backName);
