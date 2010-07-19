@@ -34,7 +34,13 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
     private static final Logger logger = Logger.getLogger(VendorPartNoInfoNormalAction.class);
 
     VendorPartNoInfo vendorPartNoInfo;
-    public VendorPartNoInfo getVendorPartNoInfo() { return vendorPartNoInfo; }
+    public String getCommCode() {
+		return commCode;
+	}
+	public void setCommCode(String commCode) {
+		this.commCode = commCode;
+	}
+	public VendorPartNoInfo getVendorPartNoInfo() { return vendorPartNoInfo; }
     public void setVendorPartNoInfo(VendorPartNoInfo vendorPartNoInfo) { this.vendorPartNoInfo = vendorPartNoInfo; }
     
     //VendorInfo vendorInfo;
@@ -47,6 +53,7 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
      * 本公司物料编号
      */
     private String partNo;
+    private String commCode;
     
     public String getCpartNo() {
 		return cpartNo;
@@ -235,12 +242,13 @@ public class VendorPartNoInfoNormalAction extends BaseAction {
 				setErrorReason("无法获取供应商物料关系对照！");
 				return ERROR;
    		}else{
-   			logger.debug("doGetInfoDict(),输入的参数为：partno=" + partNo +" cpartno=" + cpartNo);
+   			logger.debug("doGetInfoDict(),输入的参数为：partno=" + partNo +" cpartno=" + cpartNo + " commCode=" + commCode);
    		}
    		VendorPartNoInfo cPartNoInfo = new VendorPartNoInfo();
    		cPartNoInfo.setCustPartNo(cpartNo);
    		cPartNoInfo.setPartNo(partNo);
    		cPartNoInfo.setState("0");
+   		cPartNoInfo.setCommCode(commCode);
    		VendorPartNoInfoMgr mgr = (VendorPartNoInfoMgr)getBean(vendorPartNoInfoMgrName);
    		vendorPartNoInfo = mgr.getVendorPartNoInfoByBizKey(cPartNoInfo);   		
    		setResult("vendorPartNoInfo", vendorPartNoInfo);
