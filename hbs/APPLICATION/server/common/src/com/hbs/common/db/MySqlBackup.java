@@ -126,11 +126,11 @@ public class MySqlBackup {
     public static void loadstruct() {
         try {
         	logger.debug("begin to load database struct!");
-            String fPath = "d:/temp/testdbTable.sql";
+            String fPath = "D:/temp/hbs/database/hbsTable_2010-07-11.sql";
             Runtime rt = Runtime.getRuntime();
 
             // 调用 mysql 的 cmd:
-            Process child = rt.exec("E:/mysql-5.0.81-win32/bin/mysql -u root  testdb1 ");
+            Process child = rt.exec("E:/mysql-5.0.81-win32/bin/mysql -h 192.168.1.61 -u yangzj -pyangzj  testdb2 ");
             OutputStream out = child.getOutputStream();//控制台的输入信息作为输出流
             String inStr;
             StringBuffer sb = new StringBuffer("");
@@ -154,6 +154,7 @@ public class MySqlBackup {
             logger.debug("end to backup database struct!");
 
         } catch (Exception e) {
+        	e.printStackTrace();
             logger.error(e);
         }catch(Throwable t){
         	logger.error(t);
@@ -164,11 +165,11 @@ public class MySqlBackup {
     public static void loadsData() {
         try {
         	logger.debug("begin to load database data!");
-            String fPath = "d:/temp/testdbData.sql";
+            String fPath = "D:/temp/hbs/database/hbsData_2010-07-11.sql";
             Runtime rt = Runtime.getRuntime();
 
             // 调用 mysql 的 cmd:
-            Process child = rt.exec("E:/mysql-5.0.81-win32/bin/mysql -u root  testdb1 ");
+            Process child = rt.exec("E:/mysql-5.0.81-win32/bin/mysql -h 192.168.1.61 -u yangzj -pyangzj  testdb2");
             OutputStream out = child.getOutputStream();//控制台的输入信息作为输出流
             String inStr;
             StringBuffer sb = new StringBuffer("");
@@ -180,7 +181,7 @@ public class MySqlBackup {
             }
             outStr = sb.toString();
 
-            OutputStreamWriter writer = new OutputStreamWriter(out, "gb2312");
+            OutputStreamWriter writer = new OutputStreamWriter(out, "utf8");
             writer.write(outStr);
             // 注：这里如果用缓冲方式写入文件的话，会导致中文乱码，用flush()方法则可以避免
             writer.flush();
@@ -192,6 +193,7 @@ public class MySqlBackup {
             logger.debug("end to load database data!");
 
         } catch (Exception e) {
+        	e.printStackTrace();
             logger.error(e);
         }catch(Throwable t){
         	logger.error(t);
@@ -209,10 +211,10 @@ public class MySqlBackup {
          * 导入：程序调用mysql的导入命令，把从.sql文件中读出的信息写入控制台的输出流
          * 注意：此时定向符">"和"<"是不能用的
          */
-    	backupstruct();
-    	backupdata();
-        //loadstruct();
-        //loadsData();
+    	//backupstruct();
+    	//backupdata();
+        loadstruct();
+        loadsData();
     }
 
 

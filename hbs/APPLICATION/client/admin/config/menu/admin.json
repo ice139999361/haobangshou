@@ -152,6 +152,13 @@
                     "menuOrder": "80000",
                     "leaf": "true",
                     "url": "/customer/querycustomerorder.jsp?roleType=scjl"
+                },
+                {
+                    "id": "stxdhwfhkhdd",
+                    "text": "客户未发货订单查询",
+                    "menuOrder": "80000",
+                    "leaf": "true",
+                    "url": "/customer/querynosendordermgr.jsp?roleType=sc"
                 }
             ]
         },
@@ -277,6 +284,13 @@
                     "menuOrder": "50000",
                     "leaf": "true",
                     "url": "/vendor/queryvendororder.jsp?roleType=cgbjl"
+                },
+                {
+                    "id": "cgywtjhdd",
+                    "text": "供应商未交货订单查询",
+                    "menuOrder": "70000",
+                    "leaf": "true",
+                    "url": "/vendor/querynocommitordermgr.jsp?roleType=cg"
                 }
             ]
         },{
