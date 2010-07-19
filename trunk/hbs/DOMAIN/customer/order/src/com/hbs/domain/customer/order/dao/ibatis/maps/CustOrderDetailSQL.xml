@@ -601,6 +601,12 @@
 			<isNotEmpty prepend="and" property = "operSeqId">
 				ORDER_SEQID = #operSeqId#
 			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "salesId">
+				SALES_ID = #salesId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffId">
+				STAFF_ID = #staffId#
+			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "commCode">
 				C_CODE = #commCode#
 			</isNotEmpty>
@@ -718,6 +724,12 @@
 		<dynamic prepend="WHERE">
 			<isNotEmpty prepend="and" property = "operSeqId">
 				ORDER_SEQID = #operSeqId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "salesId">
+				SALES_ID = #salesId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property = "staffId">
+				STAFF_ID = #staffId#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "commCode">
 				C_CODE = #commCode#

@@ -235,5 +235,8 @@
 	<action name="orderDetail!listNoCommit" method="doQueryList" 
     			class="com.hbs.customerorder.action.detail.CustOrderDetailQueryAction">
 		</action>
+		<action name="orderDetail!listNoCommitMgr" method="doQueryListMgr" 
+    			class="com.hbs.customerorder.action.detail.CustOrderDetailQueryAction">
+		</action>
 	</package>
 </struts>	
