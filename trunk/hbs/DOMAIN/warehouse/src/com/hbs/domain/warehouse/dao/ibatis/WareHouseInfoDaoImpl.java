@@ -19,8 +19,8 @@ public class WareHouseInfoDaoImpl extends SqlMapClientDaoSupport implements Ware
      */
     private static final Logger logger = Logger.getLogger(WareHouseInfoDaoImpl.class);
 
-    
-    
+
+
     /**
      * insert.
      * @param wareHouseInfo wareHouseInfo
@@ -31,13 +31,13 @@ public class WareHouseInfoDaoImpl extends SqlMapClientDaoSupport implements Ware
 		if (logger.isDebugEnabled()) {
     		logger.debug("进入insertWareHouseInfo(WareHouseInfo), 输入参数[" + wareHouseInfo + "]");
     	}
-        
-       
+
+
     	getSqlMapClientTemplate().insert("WareHouseInfo_insertWareHouseInfo", wareHouseInfo);
 		if (logger.isDebugEnabled()) {
     		logger.debug("离开insertWareHouseInfo(WareHouseInfo), 返回");
 		}
-    	
+
     }
 
     /**
@@ -54,7 +54,7 @@ public class WareHouseInfoDaoImpl extends SqlMapClientDaoSupport implements Ware
     		logger.debug("离开deleteWareHouseInfo(String)");
 		}
     }
-    
+
     /**
      * update.
      * @param wareHouseInfo wareHouseInfo
@@ -86,26 +86,26 @@ public class WareHouseInfoDaoImpl extends SqlMapClientDaoSupport implements Ware
      */
     public WareHouseInfo findWareHouseInfoById(String pk) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
-        	logger.debug("进入findWareHouseInfo(WareHouseInfo), 输入参数[" + pk + "]");
+        	logger.debug("进入findWareHouseInfoById(WareHouseInfo), 输入参数[" + pk + "]");
 		}
         WareHouseInfo wareHouseInfo = (WareHouseInfo) getSqlMapClientTemplate().queryForObject("WareHouseInfo_findWareHouseInfoById", pk);
 		if (logger.isDebugEnabled()) {
-        	logger.debug("离开findWareHouseInfo(WareHouseInfo), 返回[" + wareHouseInfo + "]");
+        	logger.debug("离开findWareHouseInfoById(WareHouseInfo), 返回[" + wareHouseInfo + "]");
 		}
         return wareHouseInfo;
     }
-    
+
     public WareHouseInfo findWareHouseInfoByBizKey(WareHouseInfo warehouseInfo) throws DataAccessException {
 		if (logger.isDebugEnabled()) {
-        	logger.debug("进入findWareHouseInfo(WareHouseInfo), 输入参数[" + warehouseInfo + "]");
+        	logger.debug("进入findWareHouseInfoByBizKey(WareHouseInfo), 输入参数[" + warehouseInfo + "]");
 		}
         WareHouseInfo wareHouseInfo = (WareHouseInfo) getSqlMapClientTemplate().queryForObject("WareHouseInfo_findWareHouseInfoByBizKey", warehouseInfo);
 		if (logger.isDebugEnabled()) {
-        	logger.debug("离开findWareHouseInfo(WareHouseInfo), 返回[" + wareHouseInfo + "]");
+        	logger.debug("离开findWareHouseInfoByBizKey(WareHouseInfo), 返回[" + wareHouseInfo + "]");
 		}
         return wareHouseInfo;
     }
-    
+
     /**
      * list.
      * @param wareHouseInfo wareHouseInfo
@@ -122,8 +122,8 @@ public class WareHouseInfoDaoImpl extends SqlMapClientDaoSupport implements Ware
         	logger.debug("离开listWareHouseInfo(WareHouseInfo), 返回[" + list + "]");
 		}
         return list;
-    }  
-    
+    }
+
     /**
      * listCount.
      * @param wareHouseInfo wareHouseInfo
@@ -139,5 +139,5 @@ public class WareHouseInfoDaoImpl extends SqlMapClientDaoSupport implements Ware
         	logger.debug("离开listWareHouseInfoCount(WareHouseInfo), 返回[" + count + "]");
 		}
         return count;
-    }  
+    }
 }
