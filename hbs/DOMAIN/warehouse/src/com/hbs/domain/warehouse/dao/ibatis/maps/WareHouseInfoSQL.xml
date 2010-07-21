@@ -3,7 +3,7 @@
 
 <!-- Always ensure to use the correct XML header as above! -->
 <sqlMap namespace="WareHouseInfo">
-<typeAlias alias="wareHouseInfo" type="com.hbs.domain.warehouse.pojo.WareHouseInfo"/> 
+<typeAlias alias="wareHouseInfo" type="com.hbs.domain.warehouse.pojo.WareHouseInfo"/>
 <resultMap id="wareHouseInfo_result" class="wareHouseInfo">
     <result property="houseSeqId" column="HOUSE_SEQID"/>
     <result property="houseType" column="HOUSE_TYPE"/>
@@ -25,23 +25,23 @@
 
 <insert id="WareHouseInfo_insertWareHouseInfo" parameterClass="wareHouseInfo" >
 <![CDATA[
-    INSERT INTO T_WAREHOUSE_INFO (            
-            HOUSE_TYPE, 
-            HOUSE_USE, 
-            VENDOR_CODE, 
-            PO_NO, 
-            PART_NO, 
-            PN_DESC, 
-            C_PART_NO, 
-            CUST_CODE, 
-            TOTAL_AMOUNT, 
-            LOCK_AMOUNT, 
-            USE_AMOUNT, 
-            MAX_AMOUNT, 
-            MIN_AMOUNT, 
+    INSERT INTO T_WAREHOUSE_INFO (
+            HOUSE_TYPE,
+            HOUSE_USE,
+            VENDOR_CODE,
+            PO_NO,
+            PART_NO,
+            PN_DESC,
+            C_PART_NO,
+            CUST_CODE,
+            TOTAL_AMOUNT,
+            LOCK_AMOUNT,
+            USE_AMOUNT,
+            MAX_AMOUNT,
+            MIN_AMOUNT,
             STATE
         )
-    VALUES (           
+    VALUES (
             #houseType#,
             #houseUse#,
             #vendorCode#,
@@ -64,10 +64,10 @@
 <![CDATA[
     DELETE  FROM  T_WAREHOUSE_INFO WHERE HOUSE_SEQID = #houseSeqId#
 ]]>
-</delete>    
+</delete>
 
 <update id="WareHouseInfo_updateWareHouseInfoByMaxMin" parameterClass="wareHouseInfo">
-    UPDATE T_WAREHOUSE_INFO 
+    UPDATE T_WAREHOUSE_INFO
     SET
 		HOUSE_SEQID = #houseSeqId#
 	<isNotEmpty prepend="," property="maxAmount">
@@ -75,12 +75,12 @@
 	</isNotEmpty>
 	<isNotEmpty prepend="," property="minAmount">
             MIN_AMOUNT = #minAmount#
-	</isNotEmpty>	
+	</isNotEmpty>
     WHERE HOUSE_SEQID = #houseSeqId#
 </update>
 
 <update id="WareHouseInfo_updateWareHouseInfo" parameterClass="wareHouseInfo">
-    UPDATE T_WAREHOUSE_INFO 
+    UPDATE T_WAREHOUSE_INFO
     SET
     	HOUSE_SEQID = #houseSeqId#
 	<isNotEmpty prepend="," property="houseType">
@@ -126,25 +126,25 @@
             STATE = #state#
 	</isNotEmpty>
     WHERE HOUSE_SEQID = #houseSeqId#
-</update> 
+</update>
 
 <select id="WareHouseInfo_findWareHouseInfoById" resultMap="wareHouseInfo_result" parameterClass="string">
 <![CDATA[
     SELECT
-            HOUSE_SEQID, 
-            HOUSE_TYPE, 
-            HOUSE_USE, 
-            VENDOR_CODE, 
-            PO_NO, 
-            PART_NO, 
-            PN_DESC, 
-            C_PART_NO, 
-            CUST_CODE, 
-            TOTAL_AMOUNT, 
-            LOCK_AMOUNT, 
-            USE_AMOUNT, 
-            MAX_AMOUNT, 
-            MIN_AMOUNT, 
+            HOUSE_SEQID,
+            HOUSE_TYPE,
+            HOUSE_USE,
+            VENDOR_CODE,
+            PO_NO,
+            PART_NO,
+            PN_DESC,
+            C_PART_NO,
+            CUST_CODE,
+            TOTAL_AMOUNT,
+            LOCK_AMOUNT,
+            USE_AMOUNT,
+            MAX_AMOUNT,
+            MIN_AMOUNT,
             STATE
     FROM T_WAREHOUSE_INFO WHERE HOUSE_SEQID = #houseSeqId#
 ]]>
@@ -153,22 +153,22 @@
 <select id="WareHouseInfo_findWareHouseInfoByBizKey" resultMap="wareHouseInfo_result" parameterClass="wareHouseInfo">
 <![CDATA[
     SELECT
-            HOUSE_SEQID, 
-            HOUSE_TYPE, 
-            HOUSE_USE, 
-            VENDOR_CODE, 
-            PO_NO, 
-            PART_NO, 
-            PN_DESC, 
-            C_PART_NO, 
-            CUST_CODE, 
-            TOTAL_AMOUNT, 
-            LOCK_AMOUNT, 
-            USE_AMOUNT, 
-            MAX_AMOUNT, 
-            MIN_AMOUNT, 
+            HOUSE_SEQID,
+            HOUSE_TYPE,
+            HOUSE_USE,
+            VENDOR_CODE,
+            PO_NO,
+            PART_NO,
+            PN_DESC,
+            C_PART_NO,
+            CUST_CODE,
+            TOTAL_AMOUNT,
+            LOCK_AMOUNT,
+            USE_AMOUNT,
+            MAX_AMOUNT,
+            MIN_AMOUNT,
             STATE
-    FROM T_WAREHOUSE_INFO 
+    FROM T_WAREHOUSE_INFO
 ]]>
 <dynamic prepend="WHERE">
 			<isNotEmpty prepend="and" property = "houseSeqId">
@@ -188,7 +188,7 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "partNo">
 				PART_NO = #partNo#
-			</isNotEmpty>			
+			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "cpartNo">
 				C_PART_NO = #cpartNo#
 			</isNotEmpty>
@@ -196,8 +196,8 @@
 				CUST_CODE = #custCode#
 			</isNotEmpty>
 			<isEmpty prepend="and" property = "custCode">
-				<![CDATA[	
-					CUST_CODE is null
+				<![CDATA[
+					(CUST_CODE is null or CUST_CODE = '')
 				]]>
 			</isEmpty>
 			<isNotEmpty prepend="and" property = "state">
@@ -209,20 +209,20 @@
 <select id="WareHouseInfo_listWareHouseInfo" resultMap="wareHouseInfo_result" parameterClass="wareHouseInfo">
 <![CDATA[
     SELECT
-            HOUSE_SEQID, 
-            HOUSE_TYPE, 
-            HOUSE_USE, 
-            VENDOR_CODE, 
-            PO_NO, 
-            PART_NO, 
-            PN_DESC, 
-            C_PART_NO, 
-            CUST_CODE, 
-            TOTAL_AMOUNT, 
-            LOCK_AMOUNT, 
-            USE_AMOUNT, 
-            MAX_AMOUNT, 
-            MIN_AMOUNT, 
+            HOUSE_SEQID,
+            HOUSE_TYPE,
+            HOUSE_USE,
+            VENDOR_CODE,
+            PO_NO,
+            PART_NO,
+            PN_DESC,
+            C_PART_NO,
+            CUST_CODE,
+            TOTAL_AMOUNT,
+            LOCK_AMOUNT,
+            USE_AMOUNT,
+            MAX_AMOUNT,
+            MIN_AMOUNT,
             STATE
     FROM T_WAREHOUSE_INFO
 ]]>
@@ -238,7 +238,7 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "vendorCode">
 				VENDOR_CODE = #vendorCode#
-			</isNotEmpty>			
+			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "partNo">
 				PART_NO like '%$partNo$%'
 			</isNotEmpty>
@@ -256,7 +256,7 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and"
 				property="dynamicFields.hasItem">
-				<![CDATA[	
+				<![CDATA[
 					TOTAL_AMOUNT > 0
 				]]>
 			</isNotEmpty>
@@ -288,7 +288,7 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "vendorCode">
 				VENDOR_CODE = #vendorCode#
-			</isNotEmpty>			
+			</isNotEmpty>
 			<isNotEmpty prepend="and" property = "partNo">
 				PART_NO like '%$partNo$%'
 			</isNotEmpty>
@@ -306,7 +306,7 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and"
 				property="dynamicFields.hasItem">
-				<![CDATA[	
+				<![CDATA[
 					TOTAL_AMOUNT > 0
 				]]>
 			</isNotEmpty>
