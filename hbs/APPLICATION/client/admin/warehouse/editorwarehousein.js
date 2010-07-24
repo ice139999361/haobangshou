@@ -92,6 +92,7 @@ HBSConvertHelper.init(function() {
 			}
 		})
 
+		/*
 		warehousegrid.getSelectionModel().on("beforerowselect", function(sm, rowIndex, keepExisting, record) {
 			switch(record.get("state")) {
 				case "02":
@@ -102,6 +103,7 @@ HBSConvertHelper.init(function() {
 					warehousegrid.getColumnById("cisTax").editable = true;
 			}
 		});
+		*/
 	}())
 
 	// -------------------------------------- 页面操作逻辑处理
