@@ -40,7 +40,7 @@ var warehousegridFun = function() {
 	cgh.appendColumn({header: "特殊备注（批次）" , dataIndex: "specDesc"});
 	//cgh.appendColumn({header: "采购数量"         , dataIndex: "amount"});
 	//cgh.appendColumn({header: "已入库数量"       , dataIndex: "l6"});
-	cgh.appendColumn({header: "本次入库数量"     , dataIndex: "amount", xtype: "textfield"});
+	cgh.appendColumn({header: "本次入库数量"     , dataIndex: "amount", xtype: "numberfield"});
 	cgh.appendColumn({header: "明细状态"     , dataIndex: "stateDesc"});
 	if(urlPs.pageType != "query") cgh.appendColumn({header: "操作"             , dataIndex: ""  , id: "operator"});
 	//cgh.appendColumn({header: "orderSeqId"     , dataIndex: "orderSeqId"});
