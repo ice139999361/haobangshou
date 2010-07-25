@@ -416,6 +416,9 @@ HBSConvertHelper.init(function() {
 				{
 					record.set('orgDeliveryDate', Ext.util.Format.date(record.get('orgDeliveryDate'), 'Y-m-d'))
 				}
+
+				// 将客户订单号显示在第一列
+				record.set('custCcode', record.get('poNo'));
 			});
 
 			// 添加选择的数据至订单详情表格
