@@ -34,6 +34,10 @@ public class ListDataUtil {
      */
 	public static final String DATEFORMAT = "yyyy-MM-dd";
     /**
+     * 日期格式 yyyyMMdd
+     */
+	public static final String SHORTDATEFORMAT = "yyyyMMdd";
+    /**
      * 日期格式 yyyy-MM-dd HH:mm:ss
      */
 	public static final String DATEFORMAT2 = "yyyy-MM-dd HH:mm:ss";
@@ -201,9 +205,14 @@ public class ListDataUtil {
 		try {
 			fmt = DateTimeFormat.forPattern(DATEFORMAT);
 			dt = fmt.parseMillis(datestr);
-		} catch (IllegalArgumentException e) {
-			fmt = DateTimeFormat.forPattern(DATEFORMAT2);
-			dt = fmt.parseMillis(datestr);
+		} catch (Exception e) {
+			try{
+				fmt = DateTimeFormat.forPattern(DATEFORMAT2);
+				dt = fmt.parseMillis(datestr);
+			} catch (Exception e2){
+				fmt = DateTimeFormat.forPattern(SHORTDATEFORMAT);
+				dt = fmt.parseMillis(datestr);
+			}
 		}
 		return new Date(dt);
 	}

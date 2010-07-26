@@ -14,7 +14,7 @@
 #
 
 /*!40101 SET NAMES gb2312 */;
-INSERT INTO `t_waittask_config_info` (`CONFIG_ID`,`TASK_TYPE`,`BUSINESS_TYPE`,`URL`,`COMMENTS`,`SYSTEM_NAME`,`ROLE_ID`) VALUES ('CUST_ORDER_017','1','客户订单','','$assStaffName修改了客户$businessKey的订单明细：$changes，影响到供应商$vendorBizkey的订单。请关注！','customer',NULL);
+INSERT INTO `t_waittask_config_info` (`CONFIG_ID`,`TASK_TYPE`,`BUSINESS_TYPE`,`URL`,`COMMENTS`,`SYSTEM_NAME`,`ROLE_ID`) VALUES ('CUST_ORDER_017','1','客户订单','','$assStaffName修改了客户$businessKey的订单明细：$changes，影响到供应商$vendorBizkey的订单。请关注！$memo','customer',NULL);
 
 /*!40101 SET NAMES gbk */;
 
