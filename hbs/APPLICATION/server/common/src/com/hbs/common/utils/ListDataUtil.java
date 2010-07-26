@@ -197,16 +197,35 @@ public class ListDataUtil {
 	 */
 	public static Date parseDate(String datestr) throws Exception{
 		DateTimeFormatter fmt;
-		DateTime dt;
+		long dt;
 		try {
 			fmt = DateTimeFormat.forPattern(DATEFORMAT);
-			dt = fmt.parseDateTime(datestr);
+			dt = fmt.parseMillis(datestr);
 		} catch (IllegalArgumentException e) {
 			fmt = DateTimeFormat.forPattern(DATEFORMAT2);
-			dt = fmt.parseDateTime(datestr);
+			dt = fmt.parseMillis(datestr);
 		}
-		return new Date(dt.getMillis());
+		return new Date(dt);
 	}
-
+	
+	/**
+	 * 格式化日期为日期字符串
+	 * @param d
+	 * @return
+	 * @throws Exception
+	 */
+	public static String formatDate(Date d) throws Exception{
+		return (new DateTime(d.getTime())).toString(DateTimeFormat.forPattern(DATEFORMAT));
+	}
+	
+	/**
+	 * 格式化日期为日期时间字符串
+	 * @param d
+	 * @return
+	 * @throws Exception
+	 */
+	public static String formatDateTime(Date d) throws Exception{
+		return (new DateTime(d.getTime())).toString(DateTimeFormat.forPattern(DATEFORMAT2));
+	}
 
 }

@@ -77,6 +77,20 @@
     			class="com.hbs.customerorder.action.detail.CustOrderDetailScNormalAction">
 		</action>
 
+		<!--
+	/**
+	 * 修改订单明细的部分项目
+	 * @action.input orderDetail.*
+	 * @action.input deliveryDate 新交期
+	 * @action.input amount 新数量
+	 * @action.input memo
+	 * @return
+	 */
+		 -->
+    	<action name="orderDetail!changeSomeField" method="doChangeSomeField" 
+    			class="com.hbs.customerorder.action.detail.CustOrderDetailScNormalAction">
+		</action>
+
 
 		<!-- 采购普通用户 ***************************************************-->
 		<!-- 
