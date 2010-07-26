@@ -387,7 +387,7 @@
             CONTACT_FEE = #contactFee#
 	</isNotEmpty>
 	<isNotEmpty prepend="," property="orderAmount">
-            ORDERAMOUNT = #"orderAmount"#
+            ORDERAMOUNT = #orderAmount#
 	</isNotEmpty>
     WHERE ORDER_SEQID = #operSeqId#
 </update> 

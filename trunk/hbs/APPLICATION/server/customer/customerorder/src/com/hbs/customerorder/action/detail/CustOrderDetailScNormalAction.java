@@ -5,6 +5,9 @@ package com.hbs.customerorder.action.detail;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -12,8 +15,21 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import com.hbs.common.manager.waittask.WaitTaskMgr;
+import com.hbs.common.springhelper.BeanLocator;
+import com.hbs.common.utils.ExpireTimeUtil;
+import com.hbs.common.utils.IntegerUtils;
 import com.hbs.common.utils.ListDataUtil;
+import com.hbs.common.utils.OrderCalUtils;
 import com.hbs.customerorder.constants.CustOrderConstants;
+import com.hbs.domain.customer.order.dao.CustOrderDetailDao;
+import com.hbs.domain.vendor.order.pojo.VendorOrderDetail;
+import com.hbs.domain.waittask.pojo.WaitTaskInfo;
+import com.hbs.domain.warehouse.pojo.WareHouseInfo;
+import com.hbs.vendororder.constants.VendorOrderConstants;
+import com.hbs.vendororder.manager.VendorOrderDetailMgr;
+import com.hbs.warehouse.common.constants.WareHouseConstants;
+import com.hbs.warehouse.manager.WarehouseMgr;
 
 /**
  * @author xyf
@@ -186,4 +202,138 @@ public class CustOrderDetailScNormalAction extends CustOrderDetailBaseAction {
 			return ERROR;
 		}
 	}
+	
+	/**
+	 * 修改订单明细的部分项目
+	 * @action.input orderDetail.*
+	 * @action.input deliveryDate 新交期
+	 * @action.input amount 新数量
+	 * @action.input memo
+	 * @return
+	 */
+	public String doChangeSomeField() {
+		try {
+			logger.debug("begin doChangeSomeField");
+			if(!findOrderDetail()) {
+				return ERROR;
+			}
+			String state = orderDetail.getState();
+			String memo = null;
+			try{memo = getHttpServletRequest().getParameter("memo");}catch(Exception e){}
+			final String[] validList = {CustOrderConstants.ORDER_STATE_20, CustOrderConstants.ORDER_STATE_21,CustOrderConstants.ORDER_STATE_71,CustOrderConstants.ORDER_STATE_70};
+			boolean ok = false;
+			for(String s : validList){
+				if(s.equals(state)){
+					ok = true;
+					break;
+				}	
+			}
+			if(!ok){
+				String message = "状态错误！" + orderDetail.getStateDesc();
+				logger.debug("doChangeSomeField: " + message);
+				this.setErrorReason(message);
+				return ERROR;
+			}
+			CustOrderDetailDao cDetailDao = (CustOrderDetailDao)BeanLocator.getInstance().getBean(CustOrderConstants.CUST_ORDERDETAIL_DAO);
+			String changes = "";
+			try{
+				String val = getHttpServletRequest().getParameter("deliveryDate");
+				if(StringUtils.isNotEmpty(val)){
+					logger.debug("doChangeSomeField 交期=" + val);
+					Date newDeliverDate = ListDataUtil.parseDate(val);
+					if(orderDetail.getVerDeliveryDate() != null)
+						orderDetail.setPreDeliveryDate(orderDetail.getVerDeliveryDate());
+					orderDetail.setVerDeliveryDate(newDeliverDate);
+					changes += "交期:" + ListDataUtil.formatDate(orderDetail.getVerDeliveryDate()) + "->" + ListDataUtil.formatDate(newDeliverDate) + " ";
+					//cDetailDao.updateCustOrderDetailByState(orderDetail);
+				}
+			}catch(Exception e){logger.info("doChangeSomeField 交期", e);}
+			int newAmount = 0;
+			try{
+				newAmount = Integer.parseInt(getHttpServletRequest().getParameter("amount"));
+			}catch(Exception e){}
+			if(newAmount > 0){
+				logger.debug("doChangeSomeField 数量=" + orderDetail.getAmount() + "->" + newAmount + " state=" + state);
+				changes += "数量:" + orderDetail.getAmount() + "->" + newAmount + " ";
+				// DONE: 根据状态修改数量
+				orderDetail.setAmount(newAmount);
+				orderDetail.setMoney(OrderCalUtils.calOrderMoney(orderDetail.getCprice(), orderDetail.getIsTax(),orderDetail.getTaxRate(), orderDetail.getCpriceTax(),orderDetail.getContactFee(), orderDetail.getAmount()));
+				int selfLock = IntegerUtils.intValue(orderDetail.getSelfLockAmount());
+				int commLock = IntegerUtils.intValue(orderDetail.getCommLockAmount());
+				int oldLock = selfLock + commLock;
+				if(oldLock > newAmount){
+					int selfDelta = 0, commDelta = 0;
+					// 按比例分配
+					selfDelta = (oldLock - newAmount) * selfLock / oldLock;
+					commDelta = (oldLock - newAmount) - selfDelta;
+					selfLock -= selfDelta;
+					commLock -= commDelta;
+					orderDetail.setSelfLockAmount(selfLock);
+					orderDetail.setCommLockAmount(commLock);
+					orderDetail.setLockAmount(selfLock + commLock);
+					WarehouseMgr whMgr = (WarehouseMgr)getBean(WareHouseConstants.WAREHOUSE_INFO_MGR);
+					if(selfDelta > 0){
+						changes += "减少特定客户库存锁定" + selfDelta + " ";
+						// 修改特定客户库存
+						WareHouseInfo wh = new WareHouseInfo();
+						wh.setCustCode(orderDetail.getCommCode());
+						wh.setPartNo(orderDetail.getPartNo());
+						wh.setVendorCode(orderDetail.getVendorCode());
+						wh.setLockAmount(0 - selfDelta);
+						wh.setUseAmount(selfDelta);
+						whMgr.saveLockWareHouseInfo(wh, null, null, memo);
+					}
+					if(commDelta > 0){
+						// 修改通用库存
+						changes += "减少通用库存锁定" + commDelta + " ";
+						WareHouseInfo wh = new WareHouseInfo();
+						wh.setPartNo(orderDetail.getPartNo());
+						wh.setVendorCode(orderDetail.getVendorCode());
+						wh.setLockAmount(0 - commDelta);
+						wh.setUseAmount(commDelta);
+						whMgr.saveLockWareHouseInfo(wh, null, null, memo);
+					}
+				}
+			}
+			
+			if(changes.length() > 0){
+				cDetailDao.updateCustOrderDetail(orderDetail);
+				
+				// 添加提醒
+				VendorOrderDetail vod = new VendorOrderDetail();
+				vod.setRltOrderPoNo(orderDetail.getPoNo());
+				vod.setPartNo(orderDetail.getPartNo());
+				vod.setSpecDesc(orderDetail.getSpecDesc());
+				VendorOrderDetailMgr vodMgr = (VendorOrderDetailMgr)getBean(VendorOrderConstants.VENDOR_ORDER_DETAIL_MGR);
+				List<VendorOrderDetail> list = vodMgr.getVendorOrderDetailList(vod);
+				logger.debug("doChangeSomeField 添加提醒" + (list == null ? 0 : list.size()) + "条");
+				if(list != null && list.size() > 0){
+					WaitTaskInfo wt = new WaitTaskInfo();
+					//wt.setBusinessKey(orderDetail.getWaitTaskBizKey());
+					Map<String , String> hmParam = new HashMap<String,String>();
+					hmParam.put("$assStaffName", getLoginStaff().getStaffName());
+					hmParam.put("$businessKey", orderDetail.getWaitTaskBizKey());
+					hmParam.put("$changes", changes);
+					wt.setHmParam(hmParam);	
+					Date expireTime = ExpireTimeUtil.getExpireTime("CUST_ORDER_REMINDER_DAY");
+					wt.setExpireTime(expireTime);
+					for(VendorOrderDetail vod1 : list){
+						String val = vod1.getCommCode() + ";" + vod1.getPoNo();
+						hmParam.put("$vendorBizkey", val);
+						wt.setBusinessKey(val);
+						wt.setStaffId(vod1.getStaffId());
+						wt.setStaffName(vod1.getStaffName());
+						WaitTaskMgr.createWaitTask("CUST_ORDER_017", wt);
+					}
+				}
+			}
+
+			logger.debug("end doChangeSomeField");
+			return SUCCESS;
+		} catch (Exception e) {
+			logger.error("catch Exception in doChangeSomeField", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+	}	
 }
