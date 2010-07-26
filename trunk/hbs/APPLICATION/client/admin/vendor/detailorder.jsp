@@ -35,12 +35,12 @@
 				    		</listpanel>
 
 				    		<complexgrid id="ordergrid"   title="订单详情" itemsFun="displayordergridFun"   frame="true" height="200" url="1" editorFlag="false"/>
-				    			
+
 				    		<listpanel>
 				    			<layoutpanel columnNum="2:.8,">
 				    				<label labelSeparator="" />
 				    				<label labelSeparator="" />
-				    					
+
 				    				<label fieldLabel="汇总数量"   id="countAmount" />
 				    				<label fieldLabel="汇总金额"   id="countMoney" />
 				    			</layoutpanel>
@@ -72,6 +72,32 @@
 			    </panel>
 			  </items>
 			</viewport>
+			<window id="modifyWindow" title="修改供应商订单明细" width="900" closeAction="hide">
+				<items>
+					<form id="mwform"><items>
+						<listpanel frame="true" title="" collapsible="true" titleCollapse="true">
+							<layoutpanel columnNum="2">
+								<label fieldLabel="原交期" id="mwDeliveryDate" />
+								<datefield fieldLabel="新交期" name="deliveryDate" />
+								<label fieldLabel="原数量" id="mwAmount" />
+								<numberfield fieldLabel="新数量" name="amount" />
+							</layoutpanel>
+							<layoutpanel columnNum="1">
+								<textarea fieldLabel="说明" name="memo" width="600" height="80" />
+							</layoutpanel>
+							<layoutpanel columnNum="1">
+								<hidden name="orderDetail.operSeqId" id="mwOperSeqId" />
+							</layoutpanel>
+						</listpanel>
+					</items></form>
+					<panel buttonAlign="center">
+		    			<buttons>
+		    				<button text="提交" id="mwSubmitBtn" />
+		    				<button text="取消" id="mwBackBtn"   />
+		    			</buttons>
+		    		</panel>
+				</items>
+			</window>
 		</application>
 	</xmp>
 </body>

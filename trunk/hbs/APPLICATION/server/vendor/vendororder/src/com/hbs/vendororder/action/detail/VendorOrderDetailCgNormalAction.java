@@ -8,15 +8,19 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.hbs.common.manager.systemconfig.SystemConfigMgr;
+import com.hbs.common.springhelper.BeanLocator;
 import com.hbs.common.utils.ListDataUtil;
+import com.hbs.common.utils.OrderCalUtils;
 import com.hbs.customerorder.action.detail.CustOrderDetailBaseAction;
 import com.hbs.customerorder.constants.CustOrderConstants;
 import com.hbs.customerorder.manager.CustOrderDetailMgr;
 import com.hbs.domain.common.pojo.SystemConfig;
 import com.hbs.domain.customer.order.pojo.CustOrderDetail;
 import com.hbs.domain.vendor.order.dao.VendorOrderDao;
+import com.hbs.domain.vendor.order.dao.VendorOrderDetailDao;
 import com.hbs.domain.vendor.order.pojo.VendorOrder;
 import com.hbs.domain.vendor.order.pojo.VendorOrderDetail;
+import com.hbs.vendor.common.utils.VendorLogUtils;
 import com.hbs.vendororder.action.VendorOrderBaseAction;
 import com.hbs.vendororder.constants.VendorOrderConstants;
 import com.hbs.vendororder.manager.VendorOrderMgr;
@@ -216,4 +220,75 @@ public class VendorOrderDetailCgNormalAction extends VendorOrderDetailBaseAction
 			return ERROR;
 		}
 	}
+	/**
+	 * 修改订单明细的部分项目
+	 * @action.input orderDetail.*
+	 * @action.input deliveryDate 新交期
+	 * @action.input amount 新数量
+	 * @action.input memo
+	 * @return
+	 */
+	public String doChangeSomeField() {
+		try {
+			logger.debug("begin doChangeSomeField");
+			if(!findOrderDetail()) {
+				return ERROR;
+			}
+			String state = orderDetail.getState();
+			String memo = null;
+			try{memo = getHttpServletRequest().getParameter("memo");}catch(Exception e){}
+			final String[] validList = {VendorOrderConstants.VENDOR_ORDER_STATE_02};
+			boolean ok = false;
+			for(String s : validList){
+				if(s.equals(state)){
+					ok = true;
+					break;
+				}	
+			}
+			if(!ok){
+				String message = "状态错误！" + orderDetail.getStateDesc();
+				logger.debug("doChangeSomeField: " + message);
+				this.setErrorReason(message);
+				return ERROR;
+			}
+			VendorOrderDetailDao cDetailDao = (VendorOrderDetailDao)BeanLocator.getInstance().getBean(VendorOrderConstants.CUST_ORDER_DETAIL_DAO);
+			String changes = "";
+			try{
+				String val = getHttpServletRequest().getParameter("deliveryDate");
+				if(StringUtils.isNotEmpty(val)){
+					Date oldDeliveryDate = orderDetail.getVerDeliveryDate();
+					logger.debug("doChangeSomeField 交期=" + val);
+					Date newDeliveryDate = ListDataUtil.parseDate(val);
+					orderDetail.setVerDeliveryDate(newDeliveryDate);
+					changes += "交期:" + ListDataUtil.formatDate(oldDeliveryDate) + "->" + ListDataUtil.formatDate(newDeliveryDate) + " ";
+					//cDetailDao.updateCustOrderDetailByState(orderDetail);
+				}
+			}catch(Exception e){logger.info("doChangeSomeField 交期", e);}
+			int newAmount = 0;
+			try{
+				newAmount = Integer.parseInt(getHttpServletRequest().getParameter("amount"));
+			}catch(Exception e){}
+			if(newAmount > 0){
+				logger.debug("doChangeSomeField 数量=" + orderDetail.getAmount() + "->" + newAmount + " state=" + state);
+				changes += "数量:" + orderDetail.getAmount() + "->" + newAmount + " ";
+				// DONE: 根据状态修改数量
+				orderDetail.setAmount(newAmount);
+				orderDetail.setMoney(OrderCalUtils.calOrderMoney(orderDetail.getCprice(), orderDetail.getIsTax(),orderDetail.getTaxRate(), orderDetail.getCpriceTax(),null, orderDetail.getAmount()));
+			}
+			
+			if(changes.length() > 0){
+				cDetailDao.updateVendorOrderDetail(orderDetail);
+			}
+			if(getLoginStaff() != null){
+				VendorLogUtils.operLog(getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), 
+						"修改部分信息" , "供应商订单明细", orderDetail.getLogKey(), orderDetail.getLogKey() + " " + changes, memo);
+			}
+			logger.debug("end doChangeSomeField");
+			return SUCCESS;
+		} catch (Exception e) {
+			logger.error("catch Exception in doChangeSomeField", e);
+			setErrorReason("内部错误");
+			return ERROR;
+		}
+	}	
 }

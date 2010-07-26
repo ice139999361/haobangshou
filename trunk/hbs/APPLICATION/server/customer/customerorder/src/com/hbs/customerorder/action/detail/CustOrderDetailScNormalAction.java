@@ -21,6 +21,7 @@ import com.hbs.common.utils.ExpireTimeUtil;
 import com.hbs.common.utils.IntegerUtils;
 import com.hbs.common.utils.ListDataUtil;
 import com.hbs.common.utils.OrderCalUtils;
+import com.hbs.customer.common.utils.CustLogUtils;
 import com.hbs.customerorder.constants.CustOrderConstants;
 import com.hbs.domain.customer.order.dao.CustOrderDetailDao;
 import com.hbs.domain.vendor.order.pojo.VendorOrderDetail;
@@ -239,12 +240,13 @@ public class CustOrderDetailScNormalAction extends CustOrderDetailBaseAction {
 			try{
 				String val = getHttpServletRequest().getParameter("deliveryDate");
 				if(StringUtils.isNotEmpty(val)){
+					Date oldDeliveryDate = orderDetail.getVerDeliveryDate();
 					logger.debug("doChangeSomeField 交期=" + val);
-					Date newDeliverDate = ListDataUtil.parseDate(val);
+					Date newDeliveryDate = ListDataUtil.parseDate(val);
 					if(orderDetail.getVerDeliveryDate() != null)
 						orderDetail.setPreDeliveryDate(orderDetail.getVerDeliveryDate());
-					orderDetail.setVerDeliveryDate(newDeliverDate);
-					changes += "交期:" + ListDataUtil.formatDate(orderDetail.getVerDeliveryDate()) + "->" + ListDataUtil.formatDate(newDeliverDate) + " ";
+					orderDetail.setVerDeliveryDate(newDeliveryDate);
+					changes += "交期:" + ListDataUtil.formatDate(oldDeliveryDate) + "->" + ListDataUtil.formatDate(newDeliveryDate) + " ";
 					//cDetailDao.updateCustOrderDetailByState(orderDetail);
 				}
 			}catch(Exception e){logger.info("doChangeSomeField 交期", e);}
@@ -314,6 +316,7 @@ public class CustOrderDetailScNormalAction extends CustOrderDetailBaseAction {
 					hmParam.put("$assStaffName", getLoginStaff().getStaffName());
 					hmParam.put("$businessKey", orderDetail.getWaitTaskBizKey());
 					hmParam.put("$changes", changes);
+					hmParam.put("$memo", StringUtils.isEmpty(memo)?"":"("+memo+")");
 					wt.setHmParam(hmParam);	
 					Date expireTime = ExpireTimeUtil.getExpireTime("CUST_ORDER_REMINDER_DAY");
 					wt.setExpireTime(expireTime);
@@ -327,7 +330,10 @@ public class CustOrderDetailScNormalAction extends CustOrderDetailBaseAction {
 					}
 				}
 			}
-
+			if(getLoginStaff() != null){
+				CustLogUtils.operLog(getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), 
+						"修改部分信息" , "客户订单明细", orderDetail.getBizKey(), orderDetail.getBizKey() + " " + changes, memo);
+			}
 			logger.debug("end doChangeSomeField");
 			return SUCCESS;
 		} catch (Exception e) {

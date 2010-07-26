@@ -118,7 +118,7 @@ HBSConvertHelper.init(function() {
 		Ext.getCmp("ordergrid").getView().on("refresh", function(view) {
 			var countAmount = 0;
 			var countMoney  = 0;
-			
+
 			for(var i = 0 ; i < view.ds.getCount() ; i++) {
 				// 获取数据容器
 				var record = view.ds.getAt(i);
@@ -128,13 +128,13 @@ HBSConvertHelper.init(function() {
 					var operator_cell  = view.getCell(i, view.grid.getColumnIndexById("operator"));
 					detailcreatebuttonFun(record.get("state"), operator_cell, record);
 				}
-				
+
 				//  汇总数量与金额
 				countAmount = Math.FloatAdd(countAmount, record.get("amount"));
 				countMoney  = Math.FloatAdd(countMoney, record.get("money"));
-				
+
 			}
-			
+
 			Ext.getCmp("countAmount").setValue(countAmount);
 			Ext.getCmp("countMoney").setValue(countMoney);
 		});
@@ -183,6 +183,16 @@ HBSConvertHelper.init(function() {
 							operatorBtn.get(1).on("click", defualtProcessFun);
 							operatorBtn.get(1).url = "/vendorOrderDetail/orderDetailCg!cancel.action";
 							break;
+						case "02":
+							// 入库之前都能修改交期、数量
+							var operatorBtn = HBSConvertHelper.renderButton2Cell(["修改"], operator_cell, record);
+							operatorBtn.on("click", function(){
+								Ext.getCmp("mwOperSeqId").setValue(this.config.get("operSeqId"));
+								Ext.getCmp("mwDeliveryDate").setValue(this.config.get("verDeliveryDate"));
+								Ext.getCmp("mwAmount").setValue(this.config.get("amount"));
+								Ext.getCmp("modifyWindow").show();
+							});
+							break;
 					}
 				}
 			}
@@ -210,5 +220,41 @@ HBSConvertHelper.init(function() {
 	};
 
 	// 根据不同的操作类型，做出不同的处理
-	if(urlPs.pageType) eval(urlPs.pageType + "InitFun")();
+	//if(urlPs.pageType) eval(urlPs.pageType + "InitFun")();
+	processInitFun();	// 不区分是从查看进入还是从处理进入，缺省能够进行处理。
+
+
+	// -------------------------------------- window 部分功能实现代码
+	(function() {
+		var modifyWindow = Ext.getCmp("modifyWindow");
+
+		Ext.getCmp("mwBackBtn").on("click", function() {
+			modifyWindow.hide();
+		});
+		Ext.getCmp("mwSubmitBtn").on("click", function() {
+			// 提交数据
+			ExtConvertHelper.submitForm("mwform", "/vendorOrderDetail/orderDetailCg!changeSomeField.action", null, function(form, action) {
+				// 获取成功后的提示信息
+				var msg = ExtConvertHelper.getMessageInfo(action, "操作成功！");
+				// 弹出提示框给用户
+				Ext.Msg.alert("提示", msg, function() {
+					if(action && action.result && (action.result.success == true || action.result.success == 'true')){
+						// TODO: 清空form里面的项目
+						// document.getElementById("mwform").reset();
+
+						// 用户单击后关闭此窗口
+						modifyWindow.hide();
+						// 加载数据
+						var getInfoUrl = (urlPs.roleType == "sccustomers") ? "/custOrder/custOrder!getInfo.action"
+						 	: "/custOrder/custOrderScMgr!getInfo.action"
+						ExtConvertHelper.loadForm(null, getInfoUrl, params, function(form, action) {
+								Ext.getCmp("custbankgrid").store.removeAll();
+								Ext.getCmp("custbankgrid").addData(action.result.data.custOrder.orderDetailList);
+						});
+					}
+				});
+			});
+
+		});
+	}())
 });
