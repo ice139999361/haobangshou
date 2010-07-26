@@ -78,9 +78,9 @@
 						<listpanel frame="true" title="" collapsible="true" titleCollapse="true">
 							<layoutpanel columnNum="2">
 								<label fieldLabel="原交期" id="mwDeliveryDate" />
-								<datefield fieldLabel="新交期" name="deliveryDate" />
+								<datefield fieldLabel="新交期" name="deliveryDate" emptyText="格式：YYYYMMDD"   format="Ymd" />
 								<label fieldLabel="原数量" id="mwAmount" />
-								<numberfield fieldLabel="新数量" name="amount" />
+								<numberfield fieldLabel="新数量" name="amount" emptyText="为0，则不修改" />
 							</layoutpanel>
 							<layoutpanel columnNum="1">
 								<textarea fieldLabel="说明" name="memo" width="600" height="80" />
