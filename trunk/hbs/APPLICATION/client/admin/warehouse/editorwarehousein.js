@@ -164,6 +164,8 @@ HBSConvertHelper.init(function() {
 			Ext.getCmp("hidSettlementType").setValue(action.data.vendorInfo.settlementType);
 			Ext.getCmp("acVendorCode").setValue(action.data.vendorInfo.commCode);
 		}
+		
+		
 		Ext.getCmp("acCommCode").setProcessConfig("/vendorInfo/vendorInfoMgr!getInfo.action?vendorInfo.state=0", "vendorInfo.commCode", null, setCommCode);
 		Ext.getCmp("acShortName").setProcessConfig("/vendorInfo/vendorInfoMgr!getInfo.action?vendorInfo.state=0", "vendorInfo.shortName", null, setCommCode);
 
@@ -211,8 +213,8 @@ HBSConvertHelper.init(function() {
 			});
 			// 添加选择的数据至订单详情表格
 			warehousegrid.store.add(newRecords);
-			// 刷新表格
-			setTimeout(function() {	warehousegrid.getView().refresh() }, 0);
+			// 刷新表格，好像加了这句会有JS错误
+			//setTimeout(function() {	warehousegrid.getView().refresh() }, 0);
 			// 隐藏 window 控件
 			selectWindow.hide();
 
