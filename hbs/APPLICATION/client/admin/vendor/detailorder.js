@@ -147,6 +147,7 @@ HBSConvertHelper.init(function() {
 				switch(action.result.data.vendorOrder.state) {
 					// 正式状态
 					case "04":
+					case "02":
 						ExtConvertHelper.showItems("printBtn");
 						break;
 				}
