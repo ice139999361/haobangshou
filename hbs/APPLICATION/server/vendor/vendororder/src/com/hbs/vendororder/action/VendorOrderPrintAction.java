@@ -31,10 +31,10 @@ public class VendorOrderPrintAction extends BaseAction {
 	 * logger.
 	 */
 	private static final Logger logger = Logger.getLogger(VendorOrderPrintAction.class);
-	
-	
+
+
 	public static final String VENDOR_ORDER_MGR = "vendorOrderMgr";
-	
+
 	/**
 	 * @return the vendorOrder
 	 */
@@ -47,8 +47,8 @@ public class VendorOrderPrintAction extends BaseAction {
 	public void setVendorOrder(VendorOrder vendorOrder) {
 		this.vendorOrder = vendorOrder;
 	}
-	
-	
+
+
 	VendorOrder vendorOrder;
 	/**
 	 * 获取供应商订单信息
@@ -60,7 +60,7 @@ public class VendorOrderPrintAction extends BaseAction {
 		try{
 			logger.debug("begin doGetInfoPrint");
 			if(vendorOrder == null
-					|| StringUtils.isEmpty(vendorOrder.getCommCode()) 
+					|| StringUtils.isEmpty(vendorOrder.getCommCode())
 					|| StringUtils.isEmpty(vendorOrder.getPoNo())) {
 				logger.debug("参数为空！");
 				setErrorReason("参数为空！");
@@ -83,8 +83,10 @@ public class VendorOrderPrintAction extends BaseAction {
 					int xh=0;
 					for(VendorOrderDetail detail : detailList){
 						String state = detail.getState();
-						
-						if(null != state && state.equals("04")){
+
+						if(null != state && (state.equals("04") || state.equals("02"))){
+							if(detail.getVerDeliveryDate() != null)
+								detail.setOrgDeliveryDate(detail.getVerDeliveryDate());
 							detail.setOperSeqId(++xh);
 							printList.add(detail);
 						}
@@ -97,14 +99,14 @@ public class VendorOrderPrintAction extends BaseAction {
 				}
 			}
 			setResult("vendorOrder", vendorOrder2);
-			
+
 			VendorInfoMgr viMgr = (VendorInfoMgr)getBean(VendorInfoNormalAction.vendorInfoMgrName);
 			VendorInfo vInfo = new VendorInfo();
 			vInfo.setCommCode(vendorOrder.getCommCode());
 			vInfo.setState("0");
 			vInfo = viMgr.getVendorInfo(vInfo, true);
 			setResult("vendorInfo", vInfo);
-			
+
 			logger.debug("end doGetInfoPrint");
 			return SUCCESS;
 		}catch(Exception e) {
