@@ -190,7 +190,7 @@ public class VendorOrderDetailMgr {
 //					if(null != cDetail){
 //						String rltPoNo = cDetail.getRltOrderPoNo();
 //						if(null == rltPoNo){
-							cDetail.setRltOrderPoNo(pono);
+							cDetail.setRltOrderPoNo(detail.getPoNo());
 //						}else{
 //							cDetail.setRltOrderPoNo(rltPoNo +"," + pono);
 //						}
