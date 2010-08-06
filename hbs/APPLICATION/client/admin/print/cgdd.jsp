@@ -31,10 +31,10 @@
             <td align="left"><span class="STYLE4">深圳市格莱尔电子有限公司</span></td>
           </tr>
           <tr>
-            <td align="left"><span class="STYLE6">Room 15-16,15/F,Nobl Plaza 1st Qianjin Road Baoan District Shenzhen</span></td>
+            <td align="left"><span class="STYLE6">Room 1909-1910,19/F,Coastal Building Block A,No.5,Xinghua Road,Baoan District,Shenzhen</span></td>
           </tr>
           <tr>
-            <td align="left"><span class="STYLE8">深圳市前进一路诺铂广场1515-1516室</span></td>
+            <td align="left"><span class="STYLE8">深圳市宝安新区兴华路5号滨海大厦A座1909-1910室</span></td>
           </tr>
           <tr>
             <td align="left"><span class="STYLE8">Tel:0755-27815501-03  Fax:0755-27815500</span></td>
@@ -183,9 +183,9 @@
               <tr>
                 <td align="left">5.包装及运输费用:由供应商承担.</td>
               </tr>
-              <tr>
+              <!--tr>
                 <td align="left">6.请随货提供0.5%的备品及出货检验报告.</td>
-              </tr>
+              </tr-->
             </table></td>
             <td colspan="3" class="xl10418762"><table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr>
