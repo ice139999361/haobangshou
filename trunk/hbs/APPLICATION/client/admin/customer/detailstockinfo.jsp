@@ -40,6 +40,7 @@
 				    				<column header="已发送数量"         dataIndex="deliveryAmount" />
 				    				<column header="本客户锁定数量"     dataIndex="selfLockAmount" />
 				    				<column header="通用锁定数量"       dataIndex="commLockAmount" />
+				    				<column header="已下单数量"			dataIndex="orderAmount" />
 				    				<column header="需备货数量"         dataIndex="needAmount" />
 				    				<column header="供应商编码"         dataIndex="vendorCode" />
 				    			</columns>
