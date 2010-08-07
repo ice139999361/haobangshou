@@ -18,14 +18,14 @@
 			    	<!-- service ext ui.  begin. -->
 			    		<queryform gridId="querygrid" exportId="exportBtn">
 			    			<layoutpanel columnNum="3">
-			    				<dictcombo fieldLabel="仓库类型"         hiddenName="wInfo.houseType"  paramsValue="WAREHOUSE_TYPE"  showText="请选择" />
-			    				<dictcombo fieldLabel="用途"             hiddenName="wInfo.houseUse"  paramsValue="WAREHOUSE_USE"  showText="请选择" />
+			    				<dictcombo fieldLabel="仓库类型"         hiddenName="WInfo.houseType"  paramsValue="WAREHOUSE_TYPE"  showText="请选择" />
+			    				<dictcombo fieldLabel="用途"             hiddenName="WInfo.houseUse"  paramsValue="WAREHOUSE_USE"  showText="请选择" />
 			    					
-			    				<textfield fieldLabel="公司物料编码"     name="wInfo.partNo"  />
-			    				<textfield fieldLabel="供应商编码"       name="wInfo.vendorCode" />
+			    				<textfield fieldLabel="公司物料编码"     name="WInfo.partNo"  />
+			    				<textfield fieldLabel="供应商编码"       name="WInfo.vendorCode" />
 			    				
-			    				<textfield fieldLabel="供应商物料编码"   name="wInfo.cpartNo"  />	
-			    				<textfield fieldLabel="客户编码"         name="wInfo.custCode" />
+			    				<textfield fieldLabel="供应商物料编码"   name="WInfo.cpartNo"  />	
+			    				<textfield fieldLabel="客户编码"         name="WInfo.custCode" />
 			    			</layoutpanel>
 			    		</queryform>
 			    	
