@@ -220,7 +220,7 @@ public class WareHouseRecDetailMgr {
 			//设置仓库类型，总库还是其他
 			wInfo.setHouseType(detail.getHouseType());
 			
-			wInfo.setHouseType(WareHouseConstants.WAREHOUSE_USE_TYPE_1);
+			//wInfo.setHouseType(WareHouseConstants.WAREHOUSE_USE_TYPE_1);
 				
 			wInfo.setCustCode(existDetail.getCommCode());
 			wInfo.setHouseUse(WareHouseConstants.WAREHOUSE_USE_TYPE_1);
