@@ -97,7 +97,10 @@ public class WarehouseRecAction extends WarehouseRecBaseAction {
 			return SUCCESS;
 		} catch(Exception e) {
 			logger.error("catch Exception in doSaveTemp", e);
-			setErrorReason("内部错误");
+			if(e.getMessage().charAt(0)>255)
+				setErrorReason(e.getMessage());
+			else
+				setErrorReason("内部错误");
 			return ERROR;
 		}
 	}
@@ -137,8 +140,14 @@ public class WarehouseRecAction extends WarehouseRecBaseAction {
 			}
 			int i = getMgr().corfirmWareHouseRecInfo(warehouseRec, null);
 			if(i != 0) {
-				logger.info("保存失败！");
-				setErrorReason("保存失败！");
+				String s;
+				if(i == -1){
+					s = "状态错误！该送货单不能重复录入";
+				}else{
+					s = "保存错误！";
+				}
+				logger.info(s);
+				setErrorReason(s);
 				return ERROR;
 			}
 			
@@ -147,7 +156,10 @@ public class WarehouseRecAction extends WarehouseRecBaseAction {
 			return SUCCESS;
 		} catch(Exception e) {
 			logger.error("catch Exception in doSave", e);
-			setErrorReason("内部错误");
+			if(e.getMessage().charAt(0)>255)
+				setErrorReason(e.getMessage());
+			else
+				setErrorReason("内部错误");
 			return ERROR;
 		}
 	}

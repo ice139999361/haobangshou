@@ -23,11 +23,11 @@
               <td class="xfont01" style="font-size:14pt" align="left">深圳市格莱尔电子有限公司</td>
             </tr>
             <tr>
-              <td style="font-size:10pt" align="left">Room 15-16,15/F,Nobl Plaza 1st Qianjin Road Baoan District Shenzhen,Guangdong,China</td>
+              <td style="font-size:10pt" align="left">Room 1909-1910,19/F,Coastal Building Block A,No.5,Xinghua Road,Baoan District,Shenzhen</td>
             </tr>
             <tr>
               <td>&nbsp;</td>
-              <td align="left">深圳市前进一路诺铂广场1515-1516室</td>
+              <td align="left">深圳市宝安新区兴华路5号滨海大厦A座1909-1910室</td>
             </tr>
             <tr>
               <td>&nbsp;</td>
@@ -44,13 +44,17 @@
           </table></td>
         </tr>
         <tr>
-          <td></td>
+          <td>&nbsp;</td>
+        </tr>
+         <tr>
+          <td>&nbsp;</td>
         </tr>
         <tr>
           <td><table width="646" border="0" cellspacing="0" cellpadding="0">
             <tr>
               <td width="646" align="center" class="xfont01" style="font-size:14pt;">送货单/Delivery</td>
             </tr>
+            <tr><td></td></tr>
             <tr>
               <td style="border-top:3pt solid windowtext;border-bottom:.5pt solid windowtext;font-size:2px;">&nbsp;</td>
             </tr>
@@ -58,13 +62,14 @@
         </tr>
         <tr>
           <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          	<tr><td colspan="9">&nbsp;</td></tr>
             <tr>
               <td width="15%" align="right" class="xfont01">送货日期：</td>
               <td width="1%">&nbsp;</td>
-              <td width="18%" align="left" class="xfont01" id="shrq">&nbsp;</td>
+              <td width="25%" align="left" class="xfont01" id="shrq">&nbsp;</td>
               <td width="11%">&nbsp;</td>
               <td width="1%">&nbsp;</td>
-              <td width="15%">&nbsp;</td>
+              <td width="8%">&nbsp;</td>
               <td width="15%" class="xfont01" align="right">送货单号：</td>
               <td width="1%">&nbsp;</td>
               <td width="23%" class="xfont01" align="left" id="shdh">&nbsp;</td>
@@ -124,7 +129,7 @@
               <td width="78" class="xl10418761" style="font-size:12px" align="center">订单编号<br />PO NO</td>
               <td width="71" class="xl10418761" style="font-size:12px" align="center">GLE型号<br />GLE P/N</td>
               <td width="67" class="xl10418761" style="font-size:12px" align="center">客户型号<br />Cust P/N</td>
-              <td width="68" class="xl10418761" style="font-size:12px" align="center">数量PCS<br />Quantitie</td>
+              <td width="68" class="xl10418761" style="font-size:12px" align="center">数量PCS<br />Quantity</td>
               <td width="62" class="xl10418761" style="font-size:12px" align="center">币别<br />Currency</td>
               <td width="61" class="xl10418761" style="font-size:12px" align="center">单价<br />Unit Price</td>
               <td width="65" class="xl10418761" style="font-size:12px" align="center">税率<br />Tax Rate</td>
@@ -148,8 +153,8 @@
         <tr>
           <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
-              <td width="21%" align="right" style="border-bottom:2pt solid windowtext;">收款提示：</td>
-              <td width="79%" align="left" style="border-bottom:2pt solid windowtext;">收到货物时请当面点清后签收，如对质量、数量、价格有异议,请在送货单签收日期之日起5天内书面提出，否则视为接受</td>
+              <td width="21%" align="right" style="border-bottom:2pt solid windowtext;">收货提示：</td>
+              <td width="79%" align="left" style="border-bottom:2pt solid windowtext;">收到货物时请当面点清后签收，如对质量、数量、价格有异议,请在送货单签收日期之日起3天内书面提出，否则视为接受！</td>
             </tr>
           </table></td>
         </tr>
@@ -167,6 +172,7 @@
               <td width="1%">&nbsp;</td>
               <td width="21%">&nbsp;</td>
             </tr>
+            <!--
             <tr height="23px">
               <td align="right">Sent BY：</td>
               <td>&nbsp;</td>
@@ -176,6 +182,7 @@
               <td>&nbsp;</td>
               <td>&nbsp;</td>
             </tr>
+            -->
             <tr height="23px">
               <td align="right">仓管员：</td>
               <td>&nbsp;</td>
@@ -225,27 +232,28 @@
 		var currency = jsonData.data.currency;
 		//alert(currency);
 		var templateStr = ['<tr>'
-		,'<td align="center" class="xl10418762" style="font-size:10px">{sendSeqId}</td>'
-    ,'<td align="center" class="xl10418762" style="font-size:10px">{rltPoNo}</td>'
-    ,'<td align="center" class="xl10418762" style="font-size:10px">{partNo}</td>'
-    ,'<td align="center" class="xl10418762" style="font-size:10px">{custPartNo}</td>'
-    ,'<td align="center" class="xl10418762" style="font-size:10px">{amount}</td>'
-    ,'<td align="center" class="xl10418762" style="font-size:10px">{currency}</td>'
-    ,'<td align="center" class="xl10418762" style="font-size:10px">{price}</td>'
-    ,'<td align="center" class="xl10418762" style="font-size:10px">{taxRate}</td>'
-    ,'<td align="center" class="xl10418762" style="font-size:10px">{curMoney}</td>'
-    ,'<td align="center" class="xl10418762" style="font-size:10px">{specDesc}</td>'
+		,'<td align="center" class="xl10418762" style="font-size:12px">{sendSeqId}</td>'
+    ,'<td align="center" class="xl10418762" style="font-size:12px">{rltPoNo}</td>'
+    ,'<td align="center" class="xl10418762" style="font-size:12px">{partNo}</td>'
+    ,'<td align="center" class="xl10418762" style="font-size:12px">{custPartNo}</td>'
+    ,'<td align="center" class="xl10418762" style="font-size:12px">{amount}</td>'
+    ,'<td align="center" class="xl10418762" style="font-size:12px">{currency}</td>'
+    ,'<td align="center" class="xl10418762" style="font-size:12px">{price}</td>'
+    ,'<td align="center" class="xl10418762" style="font-size:12px">{taxRate}</td>'
+    ,'<td align="center" class="xl10418762" style="font-size:12px">{curMoney}</td>'
+    ,'<td align="center" class="xl10418762" style="font-size:12px">{specDesc}</td>'
     ,'</tr>'].join("");
     var template = Ext.DomHelper.createTemplate(templateStr);
 
     // 数量统计 金额统计
 		var quantity = amount = 0;
 		Ext.each(jsonData.data.warehouseSend.detailList, function(item) {
-			if(jsonData.data.isShowPrice == 0) {
-				item.price = "&nbsp;";
-				item.taxRate = "&nbsp;";
+			if(jsonData.data.isShowPrice == 1) {
+				item.price = "-";
+				item.taxRate = "-";
+				item.curMoney = "-";
       }
-      if(item.specDesc == null){
+      if(item.specDesc == null || item.specDesc == ""){
       	item.specDesc = "&nbsp;";
       }
       item.currency=currency;
@@ -260,8 +268,11 @@
 		// 填充数量/PCS
 		Ext.DomQuery.select("#totalcount")[0].innerHTML  = quantity;
 		// 填充总金额
-		Ext.DomQuery.select("#totalamount")[0].innerHTML = amount;
-
+		if(jsonData.data.isShowPrice == 1) {
+			Ext.DomQuery.select("#totalamount")[0].innerHTML = "-";
+		}	else {			
+			Ext.DomQuery.select("#totalamount")[0].innerHTML = amount;
+		}
 
 		var info = jsonData.data;
 		// 送货日期
