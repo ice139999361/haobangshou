@@ -95,7 +95,7 @@ HBSConvertHelper.init(function() {
 		// 加载数据
 		ExtConvertHelper.request("/custOrderDetail/orderDetailCg!list.action", params, function(response, options) {
 			var action = Ext.util.JSON.decode(response.responseText);
-			// DONE: 需备货数量 = 数量 - 已发送数量 - 本客户锁定数量 - 通用锁定数量
+			// DONE: 需备货数量 = 数量 - 已发送数量 - 本客户锁定数量 - 通用锁定数量 - 已下供应商订单数量
 			Ext.each(action.data.list, function(record){
 				var a = record.amount;
 				var b;
@@ -106,6 +106,9 @@ HBSConvertHelper.init(function() {
 				b = b ? b : 0;
 				a -= b;
 				b = record.commLockAmount;
+				b = b ? b : 0;
+				a -= b;
+				b = record.orderAmount;
 				b = b ? b : 0;
 				a -= b;
 				record.needAmount = a;
