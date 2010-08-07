@@ -144,6 +144,9 @@ public class WareHouseSendDetailMgr {
 		//设置物料编码
 		orderDetail.setPartNo(detail.getPartNo());
 		orderDetail.setSpecDesc(detail.getSpecDesc());
+		
+		orderDetail.setDeliveryHouseType(detail.getHouseType());
+		
 		return orderDetail;
 	}
 	/**
@@ -180,7 +183,7 @@ public class WareHouseSendDetailMgr {
 			if(iSelfLock != 0){//处理特定客户库存锁定的情况
 				WareHouseInfo wInfo = new WareHouseInfo();
 				//设置仓库类型 总库还是其他仓库
-				wInfo.setHouseType(existOrderDetail.getDeliveryHouseType());
+				wInfo.setHouseType(orderDetail.getDeliveryHouseType());
 				//设置仓库用途 常规备货还是特定备货
 				wInfo.setHouseUse(WareHouseConstants.WAREHOUSE_USE_TYPE_1);
 				//设置供应商编码
@@ -199,7 +202,7 @@ public class WareHouseSendDetailMgr {
 			if(iCommLock != 0){//处理通用库存锁定的情况
 				WareHouseInfo wInfo = new WareHouseInfo();
 				//设置仓库类型 总库还是其他仓库
-				wInfo.setHouseType(existOrderDetail.getDeliveryHouseType());
+				wInfo.setHouseType(orderDetail.getDeliveryHouseType());
 				//设置仓库用途 常规备货还是特定备货
 				wInfo.setHouseUse(WareHouseConstants.WAREHOUSE_USE_TYPE_2);
 				//设置供应商编码

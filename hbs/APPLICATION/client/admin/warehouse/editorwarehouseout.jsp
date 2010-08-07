@@ -96,7 +96,6 @@
 	    				<field name="taxRate" />
 	    				<field name="specDesc" />
 	    				<field name="commDesc" />
-	    				<field name="amount" />
 	    				<field name="money" />
 	    				<field name="deliveryAmount" />
 	    				<field name="selfDeliveryAmount" />
@@ -123,6 +122,8 @@
 	    				<field name="custCode"  mapping="commCode" />
 	    				<field name="commAmount"  mapping="commLockAmount" />
 	    				<field name="selfAmount"  mapping="selfLockAmount" />
+	    				<field name="amount"	mapping="lockAmount" />
+	    				<field name="corderAmount"	mapping="amount" />
 	    			</fields>
 	    			<columns>
 	    				<column header=""                   isCheck="true" />

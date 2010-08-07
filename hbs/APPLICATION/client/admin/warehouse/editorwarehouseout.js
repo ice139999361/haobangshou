@@ -267,7 +267,7 @@ HBSConvertHelper.init(function() {
 			// 添加选择的数据至订单详情表格
 			warehousegrid.store.add(newRecords);
 			// 刷新表格
-			setTimeout(function() {	warehousegrid.getView().refresh() }, 0);
+			//setTimeout(function() {	warehousegrid.getView().refresh() }, 0);
 			// 隐藏 window 控件
 			selectWindow.hide();
 

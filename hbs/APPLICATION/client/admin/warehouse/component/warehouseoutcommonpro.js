@@ -43,12 +43,12 @@
 	cgh.appendColumn({header: "客户 P/N"	      	, dataIndex: "custPartNo"});
 	cgh.appendColumn({header: "物料描述"	        , dataIndex: "pnDesc"});
 	cgh.appendColumn({header: "特殊备注（批次）"  , dataIndex: "specDesc"});
-	//cgh.appendColumn({header: "订单数量"          , dataIndex: "l6"});
-	//cgh.appendColumn({header: "已出库数量"        , dataIndex: "l7"});
-	cgh.appendColumn({header: "本次出库数量"      , dataIndex: "amount"});
-	cgh.appendColumn({header: "本客户出库数量"      , dataIndex: "selfAmount", xtype: "textfield"});
-	cgh.appendColumn({header: "通用库存出库数量"      , dataIndex: "commAmount", xtype: "textfield"});
+	cgh.appendColumn({header: "本次合计出库数量"      , dataIndex: "amount"});
+	cgh.appendColumn({header: "本客户出库数量*"      , dataIndex: "selfAmount", xtype: "numberfield"});
+	cgh.appendColumn({header: "通用库存出库数量*"      , dataIndex: "commAmount", xtype: "numberfield"});
 	cgh.appendColumn({header: "出库备注"          , dataIndex: "commDesc", xtype: "textfield"});
+	cgh.appendColumn({header: "订单数量"          , dataIndex: "corderAmount"});
+	cgh.appendColumn({header: "已出库数量"        , dataIndex: "deliveryAmount"});
 	cgh.appendColumn({header: "明细状态"  , dataIndex: "stateDesc"});
 	if(urlPs.pageType != "query") cgh.appendColumn({header: "操作"              , dataIndex: ""  , id: "operator"});
 
