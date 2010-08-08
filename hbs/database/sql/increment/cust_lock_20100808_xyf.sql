@@ -10,7 +10,7 @@ CREATE TABLE `t_cust_lock_info` (
   `PART_NO` varchar(32) NULL COMMENT '本公司的物料编号',
   `SPEC_DESC` varchar(32) DEFAULT NULL COMMENT '特殊备注，如有的客户物料中有批次概念，可以填入该字段',
   `VENDOR_CODE` varchar(32) NULL COMMENT ' 供应商编码',
-  PRIMARY KEY (`CUST_CODE`,`CUST_PO_NO`,`CUST_ORDER_SEQID`,`HOUSE_TYPE`,`HOUSE_USE`),
+  PRIMARY KEY (`CUST_CODE`,`CUST_PO_NO`,`CUST_ORDER_SEQID`,`HOUSE_TYPE`,`HOUSE_USE`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=gb2312 COMMENT='客户订单明细库存锁定信息表';
 
 DROP VIEW IF EXISTS `v_cust_lock_groupby_orderseqid`;

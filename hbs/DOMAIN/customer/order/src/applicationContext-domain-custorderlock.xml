@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans> 
+	<!-- dao bean -->
+	<!-- 仓库信息DAO   -->
+	<bean id="custOrderLockDao" class="com.hbs.domain.customer.order_lock.dao.ibatis.CustOrderLockDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>	
+	
+	<!-- 仓库操作日志DAO实现类   parent="operLogDao" -->
+	<!-- bean id="warehouseOperLogDao"  class="com.hbs.domain.warehouse.dao.ibatis.WarehouseOperLogDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean-->
+</beans>
