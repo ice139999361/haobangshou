@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans> 
+	<!-- 客户订单记录接口类 -->
+    <!--  <bean id="customerOrderDao"
+		class="com.hbs.domain.customer.order.dao.CustomerOrderDao"
+		abstract="true">		
+	</bean> -->
+	
+	<!-- 客户订单详单记录接口类 -->
+	<!-- <bean id="custOrderDetailDao"
+		class="com.hbs.domain.customer.order.dao.CustomerOrderDetailDao"
+		abstract="true">		
+	</bean>  -->
+	
+	<!-- 客户订单DAO实现类   -->
+	<bean id="customerOrderDao" class="com.hbs.domain.customer.order.dao.ibatis.CustomerOrderDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<!-- 客户订单历史DAO实现类   -->
+	<bean id="customerOrderHisDao" class="com.hbs.domain.customer.order.dao.ibatis.CustomerOrderHisDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<!-- 客户订单详情DAO实现类   -->
+	<bean id="custOrderDetailDao" class="com.hbs.domain.customer.order.dao.ibatis.CustOrderDetailDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<!-- 客户订单详情历史DAO实现类   -->
+	<bean id="customerOrderDetailHisDao" class="com.hbs.domain.customer.order.dao.ibatis.CustOrderDetailHisDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+</beans>

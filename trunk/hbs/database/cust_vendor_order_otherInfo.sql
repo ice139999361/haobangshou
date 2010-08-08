@@ -19,7 +19,8 @@ update t_cust_order d, t_cust_account_period c set d.SETTLEMENT_DAY=c.SETTLEMENT
 
 update t_cust_order_detail set ACTIVE_STATE='ACTIVE' where ACTIVE_STATE is null;
 
-
+update t_cust_order_detail p, t_cust_part_no_info c set p.c_price_tax = c.price_tax, p.is_tax = case when (c.price_tax = 0) then 0 else 1 end 
+  where p.c_code = c.c_code and p.c_part_no = c.c_part_no and p.c_price_tax is null;
 
 
 
@@ -47,3 +48,5 @@ update t_vendor_order d, t_vendor_account_period c set d.SETTLEMENT_DAY=c.SETTLE
 
 update t_vendor_order_detail set ACTIVE_STATE='ACTIVE' where ACTIVE_STATE is null;
 
+update t_vendor_order_detail p, t_vendor_part_no_info c set p.c_price_tax = c.price_tax, p.is_tax = case when (c.price_tax = 0) then 0 else 1 end 
+  where p.c_code = c.c_code and p.part_no = c.part_no and p.c_price_tax is null;
