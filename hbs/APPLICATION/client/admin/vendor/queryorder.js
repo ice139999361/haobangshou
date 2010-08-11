@@ -84,7 +84,7 @@ HBSConvertHelper.init(function() {
 			// 获取 record
 			var record = this.config;
 			// 打开查看历史记录页面
-			HBSConvertHelper.open("/complex/detailhistory.jsp", 800, 500, {gridurl: ["/vendorInfo/vendorPartNoInfoMgr!list.action?custOrder.poNo=", record.get("poNo"), "&custOrder.commCode=", record.get("commCode")].join("")})
+			HBSConvertHelper.open("/complex/detailhistory.jsp", 800, 500, {gridurl: ["/vendorInfo/vendorPartNoInfoMgr!list.action?vendorOrder.poNo=", record.get("poNo"), "&vendorOrder.commCode=", record.get("commCode")].join("")})
 		}
 
 
