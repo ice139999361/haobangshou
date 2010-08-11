@@ -18,12 +18,12 @@
 			    	<!-- service ext ui.  begin. -->
 			    		<queryform gridId="querygrid" exportId="exportBtn">
 			    			<layoutpanel columnNum="3">
-			    				<textfield fieldLabel="供应商编码"           name="custOrder.commCode"  />
-			    				<textfield fieldLabel="供应商订单号"         name="custOrder.poNo"  />
+			    				<textfield fieldLabel="供应商编码"           name="vendorOrder.commCode"  />
+			    				<textfield fieldLabel="供应商订单号"         name="vendorOrder.poNo"  />
 			    				<datefield fieldLabel="创建年月"           name="" format="Y-m"/>
 			    			</layoutpanel>
 			    		</queryform>
-				    		
+
 				    	<complexgrid id="querygrid" title="供应商订单列表" frame="true" page="true" root="data.list" itemsFun="complexgridFun" />
 			    	<!-- service ext ui.  end. -->
 			    	</items>
