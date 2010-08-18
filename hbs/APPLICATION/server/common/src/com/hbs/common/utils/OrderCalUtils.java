@@ -46,11 +46,11 @@ public class OrderCalUtils {
 			if(null != contactFee){//存在合同费
 				dContactFee = contactFee;
 			}
-			//if(dPriceTax == 0){//单价不含税，是含税交易，需要加上税率
+			if(dPriceTax.compareTo(new BigDecimal(0.0)) == 0){//单价不含税，是含税交易，需要加上税率
 				ret = (price.multiply(dPriceTax.add(new BigDecimal(1))).multiply(new BigDecimal(amount))).multiply(new BigDecimal(1).subtract(dContactFee));
-			//}else{//单价已经含税
-			//	ret = price.multiply(new BigDecimal(1)).subtract(new BigDecimal(dContactFee)).multiply(new BigDecimal(amount));
-			//}
+			}else{//单价已经含税
+				ret = price.multiply(new BigDecimal(1)).subtract(dContactFee).multiply(new BigDecimal(amount));
+			}
 		}
 		
 		return ret;
