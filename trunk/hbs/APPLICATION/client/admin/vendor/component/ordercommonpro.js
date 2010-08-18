@@ -99,8 +99,8 @@ var displayordergridFun = function() {
 	//cgh.appendColumn({header: "是否含税交易", dataIndex: "isTax" , xtype: "dictcombo"  , paramsValue: "IS_TAX"});
 	cgh.appendColumn({header: "税率"	    , dataIndex: "cpriceTax", renderer: "cpriceTaxRenderer"});
 	cgh.appendColumn({header: "是否含税交易<font color=red>*</font>", dataIndex: "isTax" , xtype: "dictcombo"  , paramsValue: "IS_TAX", id: "cisTax"});
-	cgh.appendColumn({header: "数量<font color=red>*</font>"	      , dataIndex: "amount", xtype: "numberfield", renderer: "amountRenderer"});
-	//cgh.appendColumn({header: "数量"	      , dataIndex: "amount", xtype: "numberfield", renderer: "amountRenderer"});
+	cgh.appendColumn({header: "数量<font color=red>*</font>"	      , dataIndex: "amount", xtype: "numberfield"});
+	//cgh.appendColumn({header: "数量"	      , dataIndex: "amount", xtype: "numberfield"});
 	cgh.appendColumn({header: "金额"        , dataIndex: "money"});
 	cgh.appendColumn({header: "原始交货日期"    , dataIndex: "orgDeliveryDate", xtype: "datefield", format: "Y-m-d"});
 	cgh.appendColumn({header: "确认交货日期"    , dataIndex: "verDeliveryDate", xtype: "datefield", format: "Y-m-d"});
