@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMap namespace="CustomerOrderLock">
+<typeAlias alias="customerOrderLock" type="com.hbs.domain.customer.order_lock.pojo.CustOrderLockInfo"/>
+<resultMap id="customerOrderLock_result" class="customerOrderLock">
+	<result property="custCode" column="CUST_CODE"/>
+	<result property="custPoNo" column="CUST_PO_NO"/>
+	<result property="custOrderSeqId" column="CUST_ORDER_SEQID"/>
+	<result property="houseType" column="HOUSE_TYPE"/>
+	<result property="houseUse" column="HOUSE_USE"/>
+	<result property="lockAmount" column="LOCK_AMOUNT"/>
+	<result property="custPartNo" column="C_PART_NO"/>
+	<result property="partNo" column="PART_NO"/>
+	<result property="specDesc" column="SPEC_DESC"/>
+	<result property="vendorCode" column="VENDOR_CODE"/>
+</resultMap>
+
+<insert id="CustomerOrderLock_insertCustomerOrderLock" parameterClass="customerOrderLock" >
+<![CDATA[
+    INSERT INTO t_cust_lock_info (
+            CUST_CODE, 
+            CUST_PO_NO, 
+            CUST_ORDER_SEQID, 
+            HOUSE_TYPE, 
+            HOUSE_USE, 
+            LOCK_AMOUNT,
+            C_PART_NO, 
+            PART_NO, 
+            SPEC_DESC, 
+            VENDOR_CODE
+        )
+    VALUES (
+            #custCode#,
+            #custPoNo#,
+            #custOrderSeqId#,
+            #houseType#,
+            #houseUse#,
+            #lockAmount#,
+            #custPartNo#,
+            #partNo#,
+            #specDesc#,
+            #vendorCode#
+    )
+]]>
+</insert>	
+
+<delete id="CustomerOrderLock_deleteCustomerOrderLock" parameterClass="customerOrderLock">
+<![CDATA[
+    DELETE  FROM  t_cust_lock_info WHERE
+]]>
+<dynamic prepend="">
+	<isNotEmpty prepend="and" property="custCode">
+            CUST_CODE = #custCode#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="custPoNo">
+            CUST_PO_NO = #custPoNo#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="custOrderSeqId">
+            CUST_ORDER_SEQID = #custOrderSeqId#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="houseType">
+            HOUSE_TYPE = #houseType#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="houseUse">
+            HOUSE_USE = #houseUse#
+	</isNotEmpty>
+</dynamic>
+</delete>    
+
+<update id="CustomerOrderLock_updateCustomerOrderLock" parameterClass="customerOrderLock">
+<![CDATA[
+    UPDATE t_cust_lock_info 
+    SET
+]]>
+<dynamic prepend="">
+	<isNotEmpty prepend="," property="lockAmount">
+            LOCK_AMOUNT = #lockAmount#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="custPartNo">
+            C_PART_NO = #custPartNo#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="partNo">
+            PART_NO = #partNo#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="specDesc">
+            SPEC_DESC = #specDesc#
+	</isNotEmpty>
+	<isNotEmpty prepend="," property="vendorCode">
+            VENDOR_CODE = #vendorCode#
+	</isNotEmpty>
+</dynamic>
+<![CDATA[
+	where
+]]>
+<dynamic prepend="">
+	<isNotEmpty prepend="and" property="custCode">
+            CUST_CODE = #custCode#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="custPoNo">
+            CUST_PO_NO = #custPoNo#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="custOrderSeqId">
+            CUST_ORDER_SEQID = #custOrderSeqId#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="houseType">
+            HOUSE_TYPE = #houseType#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="houseUse">
+            HOUSE_USE = #houseUse#
+	</isNotEmpty>
+</dynamic>
+</update>
+
+<select id="CustomerOrderLock_findCustomerOrderLock" resultMap="customerOrderLock_result" parameterClass="customerOrderLock">
+<![CDATA[
+    SELECT CUST_CODE, CUST_PO_NO, CUST_ORDER_SEQID, HOUSE_TYPE, HOUSE_USE,
+    	C_PART_NO, LOCK_AMOUNT, PART_NO, SPEC_DESC, VENDOR_CODE
+	FROM t_cust_lock_info
+	WHERE 
+]]>
+<dynamic prepend="">
+	<isNotEmpty prepend="and" property="custCode">
+            CUST_CODE = #custCode#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="custPoNo">
+            CUST_PO_NO = #custPoNo#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="custOrderSeqId">
+            CUST_ORDER_SEQID = #custOrderSeqId#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="houseType">
+            HOUSE_TYPE = #houseType#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="houseUse">
+            HOUSE_USE = #houseUse#
+	</isNotEmpty>
+</dynamic>
+</select>
+
+<select id="CustomerOrderLock_listCustomerOrderLock" resultMap="customerOrderLock_result" parameterClass="customerOrderLock">
+<![CDATA[
+    SELECT CUST_CODE, CUST_PO_NO, CUST_ORDER_SEQID, HOUSE_TYPE, HOUSE_USE,
+    	C_PART_NO, LOCK_AMOUNT, PART_NO, SPEC_DESC, VENDOR_CODE
+	FROM t_cust_lock_info
+]]>
+<dynamic prepend="WHERE">
+	<isNotEmpty prepend="and" property="custCode">
+            CUST_CODE = #custCode#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="custPoNo">
+            CUST_PO_NO = #custPoNo#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="custOrderSeqId">
+            CUST_ORDER_SEQID = #custOrderSeqId#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="houseType">
+            HOUSE_TYPE = #houseType#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="houseUse">
+            HOUSE_USE = #houseUse#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="custPartNo">
+            C_PART_NO = #custPartNo#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="lockAmount">
+            LOCK_AMOUNT = #lockAmount#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="partNo">
+            PART_NO = #partNo#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="specDesc">
+            SPEC_DESC = #specDesc#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="vendorCode">
+            VENDOR_CODE = #vendorCode#
+	</isNotEmpty>
+</dynamic>
+</select>
+
+<select id="CustomerOrderLock_listCustomerOrderLockCount" resultClass="java.lang.Integer" parameterClass="customerOrderLock">
+<![CDATA[
+    SELECT
+		COUNT(1)
+    FROM T_CUST_ORDER
+]]>
+<dynamic prepend="WHERE">
+	<isNotEmpty prepend="and" property="custCode">
+            CUST_CODE = #custCode#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="custPoNo">
+            CUST_PO_NO = #custPoNo#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="custOrderSeqId">
+            CUST_ORDER_SEQID = #custOrderSeqId#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="houseType">
+            HOUSE_TYPE = #houseType#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="houseUse">
+            HOUSE_USE = #houseUse#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="custPartNo">
+            C_PART_NO = #custPartNo#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="lockAmount">
+            LOCK_AMOUNT = #lockAmount#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="partNo">
+            PART_NO = #partNo#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="specDesc">
+            SPEC_DESC = #specDesc#
+	</isNotEmpty>
+	<isNotEmpty prepend="and" property="vendorCode">
+            VENDOR_CODE = #vendorCode#
+	</isNotEmpty>
+</dynamic>
+</select>
+
+</sqlMap>
