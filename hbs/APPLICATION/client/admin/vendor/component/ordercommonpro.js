@@ -134,6 +134,7 @@ var orderquerygridFun = function() {
 	cgh.appendField("hastenReminder");
 	cgh.appendField("fromTo");
 	cgh.appendField("hastenReminder");
+	cgh.appendField("hasStock", "dynamicFields.hasStock");
 
 
 	cgh.appendColumn({dataIndex: "operSeqId"	, isCheck: true});

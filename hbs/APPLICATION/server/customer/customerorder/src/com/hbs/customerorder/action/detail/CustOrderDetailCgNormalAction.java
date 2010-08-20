@@ -14,6 +14,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import com.hbs.common.utils.HumanReadableException;
+import com.hbs.common.utils.IntegerUtils;
 import com.hbs.common.utils.ListDataUtil;
 import com.hbs.customerorder.constants.CustOrderConstants;
 import com.hbs.domain.customer.order.pojo.CustOrderDetail;
@@ -261,6 +262,15 @@ public class CustOrderDetailCgNormalAction extends CustOrderDetailBaseAction {
 				if(needAmount <= 0)
 					it.remove();
 				o.setAmount(needAmount);
+				// 查询是否有可用库存
+				boolean hasStock = false;
+				for(WareHouseInfo wInfo2 : listStockInfo(o)){
+					if(IntegerUtils.intValue(wInfo2.getUseAmount()) > 0){
+						hasStock = true;
+						break;
+					}
+				}
+				o.setField("hasStock", hasStock);
 				//将commCode、cpartno、单价、税率、金额换成供应商的物料信息
 				VendorPartNoInfo vpn = new VendorPartNoInfo();
 				vpn.setCommCode(o.getVendorCode());
@@ -274,9 +284,9 @@ public class CustOrderDetailCgNormalAction extends CustOrderDetailBaseAction {
 				o.setPnDesc(vpn.getPnDesc());
 				o.setCprice(vpn.getPrice());
 				o.setCpriceTax(vpn.getPriceTax());
+				o.setIsTax((vpn.getPriceTax().compareTo(new BigDecimal(0)) != 0)?"1":"0");
 				o.setTaxRate(vpn.getPriceTax());
 				o.setMoney(vpn.getPrice().multiply(new BigDecimal(needAmount)));
-				
 			}
 			setResult("list", list);
 			// DONE:CustOrderCgNormalAction.doListByVendor
@@ -290,6 +300,14 @@ public class CustOrderDetailCgNormalAction extends CustOrderDetailBaseAction {
 			setErrorReason("内部错误");
 			return ERROR;
 		}
+	}
+	
+	protected List<WareHouseInfo> listStockInfo(CustOrderDetail detail) throws Exception{
+		WareHouseInfo wInfo = new WareHouseInfo();
+		WarehouseMgr wmgr = (WarehouseMgr)getBean(WareHouseConstants.WAREHOUSE_INFO_MGR);
+		//wInfo.setCpartNo(detail.getCpartNo());
+		wInfo.setPartNo(detail.getPartNo());
+		return wmgr.listWareHouseInfo(wInfo);
 	}
 	
 	/**
