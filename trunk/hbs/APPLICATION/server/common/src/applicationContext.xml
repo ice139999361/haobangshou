@@ -74,7 +74,8 @@
                   sqlMapConfig-domain-vendororder.xml,
                   sqlMapConfig-domain-adjust.xml,
                   sqlMapConfig-domain-warehouse.xml,
-                  sqlMapConfig-domain-invoice.xml,	
+                  sqlMapConfig-domain-invoice.xml,
+                  sqlMapConfig-domain-custorderlock.xml,	
 		          sqlMapConfig-domain-product.xml" />                   
 		<property name="dataSource" ref="dataSource" />
 	</bean>
@@ -95,6 +96,7 @@
 	<import resource="classpath:applicationContext-domain-waittask.xml" /> 
 	<import resource="classpath:application-domain-product.xml" />
 	<import resource="classpath:applicationContext-domain-auth.xml" />
+	<import resource="classpath:applicationContext-domain-custorderlock.xml" />
 	
 	<!-- app -->
     <import resource="classpath:applicationContext-app-common.xml" />

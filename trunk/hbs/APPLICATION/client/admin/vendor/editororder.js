@@ -426,6 +426,32 @@ HBSConvertHelper.init(function() {
 
 			// 隐藏 window 控件
 			selectWindow.hide();
+
+			var id = 0;
+			var f = function(){
+				var record;
+				while(record = ordergrid.store.getAt(id++)){
+					if(record.get("hasStock")){
+						// DONE:提示用户该物料有库存，是否添加
+						var s = ["本公司P/N：", record.get("partNo"), "，供应商P/N：", record.get("cpartNo"), "，存在可用库存。是否添加？"].join("");
+						Ext.Msg.show({
+							title:'问题',
+							msg: s,
+							buttons: Ext.Msg.YESNO,
+							fn: function(btn){
+								if(btn == "no") {ordergrid.store.remove(record);id --;}
+								else if(btn == "cancel") return;
+								f();
+							},
+							icon: Ext.MessageBox.QUESTION
+							,closable:false
+							,modal:true
+						});
+						break;
+					}
+				}
+			}
+			f();
 		});
 	}())
 });
