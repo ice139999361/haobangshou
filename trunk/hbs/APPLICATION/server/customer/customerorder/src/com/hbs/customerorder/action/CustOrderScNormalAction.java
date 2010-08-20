@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -94,6 +95,23 @@ public class CustOrderScNormalAction extends BaseAction {
 				logger.info(s);
 				setErrorReason(s);
 				return ERROR;
+			}
+			
+			if(null != custOrder.getOrderDetailList() && custOrder.getOrderDetailList().size() > 0) {
+				Map<String, Boolean> map = new HashMap<String, Boolean>();
+				for(CustOrderDetail info : custOrder.getOrderDetailList()) {
+					String s = "本公司物料：" + info.getPartNo() + "，特殊备注：" + info.getSpecDesc() + "，重复";
+					if(map.containsKey(s)){
+						errs.add(new FieldErr("",s));
+					}
+					map.put(s, true);
+				}
+				if(errs.size() > 0){
+					String s = FieldErr.formFieldsErrString(errs);
+					logger.info(s);
+					setErrorReason(s);
+					return ERROR;
+				}
 			}
 			
 			CustOrderMgr mgr = (CustOrderMgr)getBean(CustOrderConstants.CUSTORDERMGR);
