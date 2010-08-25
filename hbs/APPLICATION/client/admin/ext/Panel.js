@@ -10,17 +10,21 @@ Ext.Panel.prototype.__setSyncSize__ = function() {
 		}
 	}
 
-	
+
 	if(flag) setTimeout("Ext.getCmp('" + this.id + "').syncSize()", 0);
 	this.un("afterrender", this.__setSyncSize__);
 };
 
 Ext.Panel.prototype.syncSize = function () {
-  var tw = this.getEl().dom.firstChild.offsetWidth;
+	var tw;
+	try{
+		tw = this.getEl().dom.firstChild.offsetWidth;
+		// firstChild may be null
+	}catch(e){};
   //if(!this.frame) tw -= 16;
 	delete this.lastSize;
 
-	
+
 
 	this.setSize(this.autoWidth ? undefined : tw, this.autoHeight ? undefined : this.getResizeEl().getHeight());
   //this.setSize(this.autoWidth ? undefined : this.getResizeEl().getWidth(), this.autoHeight ? undefined : this.getResizeEl().getHeight());
