@@ -71,10 +71,20 @@ public class VendorPartNoInfoMgr {
 		String state = vPartNoInfo.getState();
 		if(StringUtils.isEmpty(state)){//不存在状态，新增
 			VendorPartNoInfoDao vPartNoInfoDao = (VendorPartNoInfoDao)BeanLocator.getInstance().getBean(VENDOR_PARTNOINFODAO);
+			String str = vPartNoInfo.getPartNo();
+			vPartNoInfo.setPartNo(null);
 			Integer i = vPartNoInfoDao.listVendorPartNoInfoCheckCount(vPartNoInfo);
 			if(i >0){//已经存在相同的客户物料，不允许提交
 				throw new Exception("已经存在供应商("+vPartNoInfo.getCommCode() + ")的物料(" +  vPartNoInfo.getCustPartNo()+")信息！" );
 			}
+			vPartNoInfo.setPartNo(str);
+			str = vPartNoInfo.getCustPartNo();
+			vPartNoInfo.setCustPartNo(null);
+			i = vPartNoInfoDao.listVendorPartNoInfoCheckCount(vPartNoInfo);
+			if(i >0){//已经存在相同的客户物料，不允许提交
+				throw new Exception("已经存在供应商("+vPartNoInfo.getCommCode() + ")的本公司物料(" +  vPartNoInfo.getPartNo()+")信息！" );
+			}
+			vPartNoInfo.setCustPartNo(str);
 		}
 		VendorPartNoInfo existInfo = this.getVendorPartNoInfoByBizKey(vPartNoInfo);
 		if(existInfo != null){

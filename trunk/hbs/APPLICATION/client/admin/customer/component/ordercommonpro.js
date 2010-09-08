@@ -87,6 +87,9 @@ var displayordergridFun = function() {
 	cgh.appendField("stateDesc");
 	cgh.appendField("lockAmount");
 	cgh.appendField("deliveryAmount");
+	cgh.appendField("orderAmount");
+	cgh.appendField("vendorCode");
+	cgh.appendField("rltOrderPoNo");
 
 	cgh.appendColumn({dataIndex: "operSeqId"	, isCheck: true});
 //	cgh.appendColumn({header: "货品名称"	, dataIndex: "pnName"});
@@ -105,6 +108,9 @@ var displayordergridFun = function() {
 	cgh.appendColumn({header: "备注<font color=red>*</font>"		, dataIndex: "commDesc", xtype: "textfield"});
 	cgh.appendColumn({header: "锁定数量"			, dataIndex: "lockAmount"});
 	cgh.appendColumn({header: "已发货数量"			, dataIndex: "deliveryAmount"});
+	cgh.appendColumn({header: "已下订单数量"	, dataIndex: "orderAmount"});
+	cgh.appendColumn({header: "供应商编码"		, dataIndex: "vendorCode"});
+	cgh.appendColumn({header: "关联订单号"		, dataIndex: "rltOrderPoNo"});
 	cgh.appendColumn({header: "状态"			, dataIndex: "stateDesc"});
 	cgh.appendColumn({header: "操作"			, dataIndex: ""         , id: "operator", width: 250});
 	/*
@@ -136,6 +142,9 @@ var displayorderCggridFun = function() {
 	cgh.appendField("stateDesc");
 	cgh.appendField("lockAmount");
 	cgh.appendField("deliveryAmount");
+	cgh.appendField("orderAmount");
+	cgh.appendField("vendorCode");
+	cgh.appendField("rltOrderPoNo");
 
 	cgh.appendColumn({dataIndex: "operSeqId"	, isCheck: true});
 //	cgh.appendColumn({header: "货品名称"	, dataIndex: "pnName"});
@@ -145,15 +154,19 @@ var displayorderCggridFun = function() {
 /*	cgh.appendColumn({header: "单价"			, dataIndex: "cprice"});
 	cgh.appendColumn({header: "税率"	    , dataIndex: "cpriceTax", renderer: "cpriceTaxRenderer"});
 	cgh.appendColumn({header: "是否含税交易<font color=red>*</font>", dataIndex: "isTax" , xtype: "dictcombo"  , paramsValue: "IS_TAX_DEALER", id: "cisTax"});
-	cgh.appendColumn({header: "数量<font color=red>*</font>"	      , dataIndex: "amount", xtype: "numberfield", renderer: "amountRenderer"});
 	cgh.appendColumn({header: "金额", dataIndex: "money"});
-*/	cgh.appendColumn({header: "原始交货日期<font color=red>*</font>", dataIndex: "orgDeliveryDate", xtype: "datefield", format: "Y-m-d", renderer: FormatUtil.dateRenderer});
+*/
+	cgh.appendColumn({header: "数量<font color=red>*</font>"	      , dataIndex: "amount", xtype: "numberfield", renderer: "amountRenderer"});
+	cgh.appendColumn({header: "原始交货日期<font color=red>*</font>", dataIndex: "orgDeliveryDate", xtype: "datefield", format: "Y-m-d", renderer: FormatUtil.dateRenderer});
 	cgh.appendColumn({header: "交货日期<font color=red>*</font>", dataIndex: "preDeliveryDate", xtype: "datefield", format: "Y-m-d", renderer: FormatUtil.dateRenderer});
 	cgh.appendColumn({header: "最终交货日期<font color=red>*</font>", dataIndex: "verDeliveryDate", xtype: "datefield", format: "Y-m-d", renderer: FormatUtil.dateRenderer});
 	cgh.appendColumn({header: "特殊备注<font color=red>*</font>"		, dataIndex: "specDesc", xtype: "textfield"});
 	cgh.appendColumn({header: "备注<font color=red>*</font>"		, dataIndex: "commDesc", xtype: "textfield"});
 	cgh.appendColumn({header: "锁定数量"			, dataIndex: "lockAmount"});
 	cgh.appendColumn({header: "已发货数量"			, dataIndex: "deliveryAmount"});
+	cgh.appendColumn({header: "已下订单数量"	, dataIndex: "orderAmount"});
+	cgh.appendColumn({header: "供应商编码"		, dataIndex: "vendorCode"});
+	cgh.appendColumn({header: "关联订单号"		, dataIndex: "rltOrderPoNo"});
 	cgh.appendColumn({header: "状态"			, dataIndex: "stateDesc"});
 	cgh.appendColumn({header: "操作"			, dataIndex: ""         , id: "operator", width: 250});
 	/*

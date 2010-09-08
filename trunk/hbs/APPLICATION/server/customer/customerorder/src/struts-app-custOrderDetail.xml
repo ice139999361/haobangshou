@@ -83,6 +83,7 @@
 	 * @action.input orderDetail.*
 	 * @action.input deliveryDate 新交期
 	 * @action.input amount 新数量
+	 * @action.input vendorCode 供应商编码
 	 * @action.input memo
 	 * @return
 	 */
