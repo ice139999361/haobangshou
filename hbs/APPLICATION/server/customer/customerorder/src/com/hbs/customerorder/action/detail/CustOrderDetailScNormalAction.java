@@ -25,8 +25,10 @@ import com.hbs.customer.common.utils.CustLogUtils;
 import com.hbs.customerorder.constants.CustOrderConstants;
 import com.hbs.domain.customer.order.dao.CustOrderDetailDao;
 import com.hbs.domain.vendor.order.pojo.VendorOrderDetail;
+import com.hbs.domain.vendor.vendorinfo.pojo.VendorInfo;
 import com.hbs.domain.waittask.pojo.WaitTaskInfo;
 import com.hbs.domain.warehouse.pojo.WareHouseInfo;
+import com.hbs.vendorinfo.manager.VendorInfoMgr;
 import com.hbs.vendororder.constants.VendorOrderConstants;
 import com.hbs.vendororder.manager.VendorOrderDetailMgr;
 import com.hbs.warehouse.common.constants.WareHouseConstants;
@@ -209,6 +211,7 @@ public class CustOrderDetailScNormalAction extends CustOrderDetailBaseAction {
 	 * @action.input orderDetail.*
 	 * @action.input deliveryDate 新交期
 	 * @action.input amount 新数量
+	 * @action.input vendorCode 供应商编码
 	 * @action.input memo
 	 * @return
 	 */
@@ -237,6 +240,7 @@ public class CustOrderDetailScNormalAction extends CustOrderDetailBaseAction {
 			}
 			CustOrderDetailDao cDetailDao = (CustOrderDetailDao)BeanLocator.getInstance().getBean(CustOrderConstants.CUST_ORDERDETAIL_DAO);
 			String changes = "";
+			// 交期修改
 			try{
 				String val = getHttpServletRequest().getParameter("deliveryDate");
 				if(StringUtils.isNotEmpty(val)){
@@ -246,15 +250,16 @@ public class CustOrderDetailScNormalAction extends CustOrderDetailBaseAction {
 					if(orderDetail.getVerDeliveryDate() != null)
 						orderDetail.setPreDeliveryDate(orderDetail.getVerDeliveryDate());
 					orderDetail.setVerDeliveryDate(newDeliveryDate);
-					changes += "交期:" + ListDataUtil.formatDate(oldDeliveryDate) + "->" + ListDataUtil.formatDate(newDeliveryDate) + " ";
+					changes += "交期:" + ((oldDeliveryDate == null) ? "NULL" : ListDataUtil.formatDate(oldDeliveryDate)) + "->" + ListDataUtil.formatDate(newDeliveryDate) + " ";
 					//cDetailDao.updateCustOrderDetailByState(orderDetail);
 				}
 			}catch(Exception e){logger.info("doChangeSomeField 交期", e);}
+			// 数量修改
 			int newAmount = 0;
 			try{
 				newAmount = Integer.parseInt(getHttpServletRequest().getParameter("amount"));
 			}catch(Exception e){}
-			if(newAmount > 0){
+			if(newAmount > 0 && !orderDetail.getAmount().equals(newAmount)){
 				logger.debug("doChangeSomeField 数量=" + orderDetail.getAmount() + "->" + newAmount + " state=" + state);
 				changes += "数量:" + orderDetail.getAmount() + "->" + newAmount + " ";
 				// DONE: 根据状态修改数量
@@ -297,6 +302,24 @@ public class CustOrderDetailScNormalAction extends CustOrderDetailBaseAction {
 					}
 				}
 			}
+			//供应商编码修改
+			try{
+				String val = getHttpServletRequest().getParameter("vendorCode");
+				if(StringUtils.isNotEmpty(val)){
+					if(!val.equals(orderDetail.getVendorCode())){
+						VendorInfo vinfo = new VendorInfo();
+						VendorInfoMgr vmgr = (VendorInfoMgr)getBean("vendorInfoMgr");
+						vinfo.setState("0");
+						vinfo.setCommCode(val);
+						vinfo = vmgr.getVendorInfo(vinfo, false);
+						if(vinfo != null){
+							String str = orderDetail.getVendorCode();
+							orderDetail.setVendorCode(val);
+							changes += "供应商编码:" + str + "->" + val + " ";
+						}
+					}
+				}
+			}catch(Exception e){}
 			
 			if(changes.length() > 0){
 				cDetailDao.updateCustOrderDetail(orderDetail);

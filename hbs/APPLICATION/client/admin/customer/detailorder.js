@@ -218,6 +218,8 @@ HBSConvertHelper.init(function() {
 								Ext.getCmp("mwOperSeqId").setValue(this.config.get("operSeqId"));
 								Ext.getCmp("mwDeliveryDate").setValue(this.config.get("verDeliveryDate"));
 								Ext.getCmp("mwAmount").setValue(this.config.get("amount"));
+								Ext.getCmp("mwVendorCode").setValue(this.config.get("vendorCode"));
+								Ext.getCmp("mwVendorCode").fireEvent("select");
 								Ext.getCmp("modifyWindow").show();
 							});
 							break;
@@ -385,5 +387,14 @@ HBSConvertHelper.init(function() {
 			});
 
 		});
+		function setCommCode(action){
+			if(!action.success)
+				return;
+			Ext.getCmp("mwVendorName").setValue(action.data.vendorInfo.shortName);
+			Ext.getCmp("mwVendorCode").setValue(action.data.vendorInfo.commCode);
+		}
+		Ext.getCmp("mwVendorCode").setProcessConfig("/vendorInfo/vendorInfoMgr!getInfo.action?vendorInfo.state=0", "vendorInfo.commCode", null, setCommCode);
+		Ext.getCmp("mwVendorName").setProcessConfig("/vendorInfo/vendorInfoMgr!getInfo.action?vendorInfo.state=0", "vendorInfo.shortName", null, setCommCode);
+
 	}())
 });
