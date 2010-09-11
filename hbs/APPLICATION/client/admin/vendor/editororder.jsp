@@ -103,7 +103,7 @@
 					</layoutpanel>
 	    			<layoutpanel columnNum="3">
 	    				<textfield fieldLabel="客户编码"           name="orderDetail.commCode"  />
-	    				<textfield fieldLabel="客户 P/N"           name="orderDetail.cpartNo" />
+	    				<textfield fieldLabel="供应商 P/N"           name="orderDetail.cpartNo" />
 	    				<textfield fieldLabel="客户订单号"         name="orderDetail.poNo"  />
 
 	    				<textfield fieldLabel="本公司 P/N"         name="orderDetail.partNo" />
