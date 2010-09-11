@@ -1,4 +1,4 @@
-Ext.namespace("ExtUx.widget");
+﻿Ext.namespace("ExtUx.widget");
 
 /**
  * config参数包括
@@ -81,10 +81,10 @@ Ext.extend(ExtUx.widget.Application, Ext.util.Observable, {
        var alt = this.extUiJson.application;
        
        // 如果 viewport 对象存在则创建
-       if(alt.viewport) new Ext.Viewport(alt.viewport);
+       if(alt && alt.viewport) new Ext.Viewport(alt.viewport);
        
        // 如果 window 对象存在则创建
-       if(alt.window) {
+       if(alt && alt.window) {
        	 // 获取 window 对象, 并将其封装为数组
        	 var __tmp__ = (alt.window instanceof Array) ? alt.window : [alt.window];
        	 
