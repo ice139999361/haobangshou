@@ -90,8 +90,8 @@
 								<numberfield fieldLabel="新数量" name="amount" emptyText="为0，则不修改" />
 							</layoutpanel>
 							<layoutpanel columnNum="2">
-								<autocomplete fieldLabel="供应商编码" id=mwVendorCode name="vendorCode" url="/vendorInfo/vendorInfoMgr!list.action"  displayField="commCode"  valueField="commCode" queryParam="vendorInfo.commCode" />
-								<autocomplete fieldLabel="供应商简称" id=mwVendorName  url="/vendorInfo/vendorInfoMgr!list.action"  displayField="shortName"  valueField="shortName" queryParam="vendorInfo.shortName" />
+								<autocomplete fieldLabel="供应商编码" id="mwVendorCode" name="vendorCode" url="/vendorInfo/vendorInfoMgr!list.action"  displayField="commCode"  valueField="commCode" queryParam="vendorInfo.commCode" />
+								<autocomplete fieldLabel="供应商简称" id="mwVendorName"  url="/vendorInfo/vendorInfoMgr!list.action"  displayField="shortName"  valueField="shortName" queryParam="vendorInfo.shortName" />
 							</layoutpanel>
 							<layoutpanel columnNum="1">
 								<textarea fieldLabel="说明" name="memo" width="600" height="80" />
