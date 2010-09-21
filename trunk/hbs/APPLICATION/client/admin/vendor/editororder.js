@@ -409,7 +409,7 @@ HBSConvertHelper.init(function() {
 					var a   =   d.valueOf();
   					a   -=   VendorDate2CustDate   *   24   *   60   *   60   *   1000;
   					d = new Date(a);
-  					record.set("orgDeliveryDate", d);
+  					record.set("orgDeliveryDate", Ext.util.Format.date(d, 'Y-m-d'));
 				}
 
 				if(record.get('orgDeliveryDate') instanceof Date)
