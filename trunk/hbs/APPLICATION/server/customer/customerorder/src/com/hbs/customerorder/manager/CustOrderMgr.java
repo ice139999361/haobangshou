@@ -43,16 +43,16 @@ public class CustOrderMgr {
 	 * SPRING配置项的前缀
 	 */
 	public static final String PRE_SPRING ="custOrder";
-	
+
 	/**
 	 * 操作者为业务助理
 	 * 保存客户订单的临时数据，数据的状态为
 	 * 01---包括客户订单临时数据，包括订单数据和订单明细数据
-	 * 
+	 *
 	 * 账期的字段的值，需要根据结算类型来设置，预付费没有账期概念
 	 * 客户订单的账期主要是判断账期的最大金额使用，如果用户没有输入账期
 	 * 则系统在后台自动计算账期
-	 * 
+	 *
 	 * 对预付费的情况，不存在账期
 	 * 这里同时存在订单和退货单
 	 * @param cOrder
@@ -65,7 +65,7 @@ public class CustOrderMgr {
 		if(StringUtils.isEmpty(period)){
 			CustOrderState orderState =(CustOrderState)BeanLocator.getInstance().getBean(PRE_SPRING + cOrder.getPoNoType() + cOrder.getSettlementType());
 			period = orderState.getPeriod(cOrder);
-			cOrder.setPeriod(period);	
+			cOrder.setPeriod(period);
 			logger.debug("修改帐期为" + cOrder.getPeriod());
 		}
 		cOrder.setState(CustOrderConstants.ORDER_STATE_01);
@@ -74,7 +74,7 @@ public class CustOrderMgr {
 		List<CustOrderDetail> orderDetailList = cOrder.getOrderDetailList();
 		if(null != orderDetailList){
 			for(CustOrderDetail orderDetail : orderDetailList){
-				orderDetail.setPeriod(period);				
+				orderDetail.setPeriod(period);
 			}
 			CustOrderDetailMgr detailMgr =(CustOrderDetailMgr)BeanLocator.getInstance().getBean("custOrderDetailMgr");
 			detailMgr.saveTempOrderDetailList(orderDetailList, null, null);
@@ -84,13 +84,13 @@ public class CustOrderMgr {
 		return 0;
 	}
 	/**
-	 * 
+	 *
 	 * 修改客户订单
 	 * 客户订单的修改操作只能是业务助理
-	 * 
+	 *
 	 * 订单在提交正式流程前可以修改，提及后不能修改
 	 * 对账期订单，经理审批最大金额不通过，也可以修改
-	 * 
+	 *
 	 * 如果需要可替代物品，则采购打回，不在修改范围
 	 * 可替代物品需要客户认可
 	 * 可替代品的操作流程为，先取消，再新增，统一流程
@@ -103,29 +103,29 @@ public class CustOrderMgr {
 		CustomerOrderDao cOrderDao =(CustomerOrderDao)BeanLocator.getInstance().getBean(CUSTOMER_ORDER_DAO);
 		cOrderDao.updateCustomerOrder(cOrder);
 		List<CustOrderDetail> orderDetailList = cOrder.getOrderDetailList();
-		if(null != orderDetailList){			
+		if(null != orderDetailList){
 			CustOrderDetailMgr detailMgr =(CustOrderDetailMgr)BeanLocator.getInstance().getBean("custOrderDetailMgr");
 			detailMgr.updateTempOrderDetailList(orderDetailList, null);
 		}
 		//log
 		CustLogUtils.operLog(cOrder.getStaffId(), cOrder.getStaffName(), "修改", "客户订单", cOrder.getBizKey(), null, null);
-		
+
 		return 0;
 	}
-	
+
 	/**
 	 * 提交客户订单，走正式流程，流程分为：
 	 * 订单：
 	 * 账期订单  -- 判断是否超出账期金额，流向经理或采购
 	 *               超出最大金额，尽量审批  state="50",待经理审批
-	 *               否则                   state="20"，待采购处理       
+	 *               否则                   state="20"，待采购处理
 	 * 预付费，货到付款 --流向财务部，等待财务确认预付费
 	 *                预付0  ，state="20"，待采购处理
-	 *                预付费0  state="30"，待财务确认预付款 
+	 *                预付费0  state="30"，待财务确认预付款
 	 * 预付费，款到发货 --流向财务部 ，等待财务确认预付费
 	 *                预付0  ，state="20"，待采购处理
 	 *                预付费0  state="30"，待财务确认预付款
-	 * 
+	 *
 	 * 退货单：
 	 *   流向仓库，收货
 	 *      state =?
@@ -149,15 +149,15 @@ public class CustOrderMgr {
 		Map<String , String> hmParam = new HashMap<String,String>();
 		hmParam.put("$staffName", cOrder.getStaffName());
 		hmParam.put("$businessKey", cOrder.getWaitTaskBizKey());
-		waitTaskInfo.setHmParam(hmParam);	
+		waitTaskInfo.setHmParam(hmParam);
 		waitTaskInfo.setBusinessKey(cOrder.getBizKey());
 		CustOrderUtils.processCreateWaitTask(null,state, waitTaskInfo);
 		//log
 		CustLogUtils.operLog(cOrder.getStaffId(),cOrder.getStaffName(), "提交","客户订单", cOrder.getLogBizKey(),null,null);
 		return ret;
-		
+
 	}
-	
+
 	/**
 	 * 取消客户订单，同时取消该订单下所有的明细
 	 * 取消状态为：03
@@ -176,10 +176,10 @@ public class CustOrderMgr {
 		CustOrderUtils.processDeleteWaitTask(cOrder.getBizKey());
 		//log
 		CustLogUtils.operLog(cOrder.getStaffId(),cOrder.getStaffName(), "取消","客户订单", cOrder.getLogBizKey(),null,cancelContent);
-		
+
 		return ret;
 	}
-		
+
 	/**
 	 * 经理审批通过超过账期最大金额的客户订单，审批结果为通过
 	 * 由状态50（待经理审批）变为20（待采购处理）
@@ -197,27 +197,35 @@ public class CustOrderMgr {
 		if(cOrder.getState().equals(CustOrderConstants.ORDER_STATE_50)){
 			cOrder.setState(CustOrderConstants.ORDER_STATE_20);
 			ret = updateCustCustomerState(cOrder, true);
-			//waittask			
+
+			//waittask
 			WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
-			if(cOrder.getState().equals(CustOrderConstants.ORDER_STATE_20)){
-				waitTaskInfo.setStaffId(getVendorStaffId(cOrder.getVendorCode()));//这里需要根据供应商查找对应的采购员
+			CustomerOrder nOrder = findCustomerOrderByBizKey(cOrder, true);
+			Map<String , Integer> vendors = new HashMap<String,Integer>();
+			for(CustOrderDetail orderDetail : nOrder.getOrderDetailList()){
+				if(CustOrderConstants.ORDER_STATE_20.equals(orderDetail.getState()))
+					vendors.put(orderDetail.getVendorCode(), null);
 			}
 			Map<String , String> hmParam = new HashMap<String,String>();
 			hmParam.put("$staffName", auditName);
 			hmParam.put("$businessKey", cOrder.getWaitTaskBizKey());
-			waitTaskInfo.setHmParam(hmParam);
-			waitTaskInfo.setBusinessKey(cOrder.getBizKey());
-			CustOrderUtils.processCreateWaitTask("CUST_ORDER_003",null, waitTaskInfo);
+			for(java.util.Map.Entry<String , Integer> entry : vendors.entrySet()){
+				waitTaskInfo.setStaffId(getVendorStaffId(entry.getKey()));//这里需要根据供应商查找对应的采购员
+				waitTaskInfo.setHmParam(hmParam);
+				waitTaskInfo.setBusinessKey(cOrder.getBizKey());
+				CustOrderUtils.processCreateWaitTask("CUST_ORDER_003",null, waitTaskInfo);
+			}
+
 			//log
 			CustLogUtils.operLog(auditId,auditName, "审批通过","客户订单", cOrder.getLogBizKey(),null,auditContents);
-			
+
 		}else{
 			//ret =2;
 			throw new Exception("输入的订单状态为非待审批，无法执行操作！");
 		}
 		return ret;
 	}
-	
+
 	/**
 	 * 财务确认了客户订单的预付款，待采购处理
 	 * 状态有30（待财务确认）变为 20（待采购处理）
@@ -234,20 +242,31 @@ public class CustOrderMgr {
 		if(cOrder.getState().equals(CustOrderConstants.ORDER_STATE_30)){
 			cOrder.setState(CustOrderConstants.ORDER_STATE_20);
 			ret = updateCustCustomerState(cOrder, true);
-			//waittask			
+			
+			//waittask
 			WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
-			if(cOrder.getState().equals(CustOrderConstants.ORDER_STATE_20)){
+			/*if(cOrder.getState().equals(CustOrderConstants.ORDER_STATE_20)){
 				waitTaskInfo.setStaffId(getVendorStaffId(cOrder.getVendorCode()));//这里需要根据供应商查找对应的采购员
-			}
+			}*/
 			Map<String , String> hmParam = new HashMap<String,String>();
 			hmParam.put("$staffName", auditName);
 			hmParam.put("$businessKey", cOrder.getWaitTaskBizKey());
-			waitTaskInfo.setHmParam(hmParam);
-			waitTaskInfo.setBusinessKey(cOrder.getBizKey());
-			CustOrderUtils.processCreateWaitTask("CUST_ORDER_007",null, waitTaskInfo);
+			CustomerOrder nOrder = findCustomerOrderByBizKey(cOrder, true);
+			Map<String , Integer> vendors = new HashMap<String,Integer>();
+			for(CustOrderDetail orderDetail : nOrder.getOrderDetailList()){
+				if(CustOrderConstants.ORDER_STATE_20.equals(orderDetail.getState()))
+					vendors.put(orderDetail.getVendorCode(), null);
+			}
+			for(java.util.Map.Entry<String , Integer> entry : vendors.entrySet()){
+				waitTaskInfo.setStaffId(getVendorStaffId(entry.getKey()));//这里需要根据供应商查找对应的采购员
+				waitTaskInfo.setHmParam(hmParam);
+				waitTaskInfo.setBusinessKey(cOrder.getBizKey());
+				CustOrderUtils.processCreateWaitTask("CUST_ORDER_007",null, waitTaskInfo);
+			}
+			
 			//log
 			CustLogUtils.operLog(auditId,auditName, "确认预付款","客户订单", cOrder.getLogBizKey(),null,auditContents);
-			
+
 		}else{
 			//ret =2;
 			throw new Exception("输入的订单状态为非待财务确认，无法执行操作！");
@@ -292,7 +311,7 @@ public class CustOrderMgr {
 		if(cOrder.getState().equals(CustOrderConstants.ORDER_STATE_30)){
 			cOrder.setState(CustOrderConstants.ORDER_STATE_39);
 			ret = updateCustCustomerState(cOrder, true);
-			//waittask			
+			//waittask
 			WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
 			waitTaskInfo.setStaffId(cOrder.getStaffId());//这里需要根据客户查找对应的业务助理
 			Map<String , String> hmParam = new HashMap<String,String>();
@@ -303,17 +322,17 @@ public class CustOrderMgr {
 			CustOrderUtils.processCreateWaitTask("CUST_ORDER_007",null, waitTaskInfo);
 			//log
 			CustLogUtils.operLog(auditId,auditName, "财务退单","客户订单", cOrder.getLogBizKey(),null,auditContents);
-			
+
 		}else{
 			//ret =2;
 			throw new Exception("输入的订单状态为非待财务确认，无法执行操作！");
 		}
 		return ret;
 	}
-	
+
 	/**
 	 * 经理审批不通过超过账期最大金额的客户订单，审批结果为不通过
-	 * 由状态50（待经理审批）变为52（经理审批不通过） 
+	 * 由状态50（待经理审批）变为52（经理审批不通过）
 	 * 需要发待办给业务助理
 	 * @param cOrder 客户订单，可以不包括订单明细，系统自动更新明细状态
 	 * @param auditId  审批人ID
@@ -328,8 +347,8 @@ public class CustOrderMgr {
 		if(cOrder.getState().equals(CustOrderConstants.ORDER_STATE_50)){
 			cOrder.setState(CustOrderConstants.ORDER_STATE_52);
 			ret = updateCustCustomerState(cOrder, true);
-			
-			//waittask			
+
+			//waittask
 			WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
 			waitTaskInfo.setStaffId(cOrder.getStaffId());//这里需要根据客户查找对应的业务员
 			Map<String , String> hmParam = new HashMap<String,String>();
@@ -338,18 +357,18 @@ public class CustOrderMgr {
 			waitTaskInfo.setHmParam(hmParam);
 			waitTaskInfo.setBusinessKey(cOrder.getBizKey());
 			CustOrderUtils.processCreateWaitTask("CUST_ORDER_004",null, waitTaskInfo);
-			
+
 			//log
 			CustLogUtils.operLog(auditId,auditName, "审批不通过","客户订单", cOrder.getLogBizKey(),null,auditContents);
-			
+
 		}else{
 			//ret =2;
 			throw new Exception("输入的订单状态为非待经理审批，无法执行操作！");
 		}
 		return ret;
 	}
-	
-	
+
+
 	/**
 	 * 订单的活动状态控制，操作人为业务助理
 	 * 前台调用时不需要改变状态，由后台判断改变
@@ -384,10 +403,10 @@ public class CustOrderMgr {
 		}
 		//log
 		CustLogUtils.operLog(cOrder.getStaffId(),cOrder.getStaffName(), ((cOrder.getActiveState()).equals(CustOrderConstants.ORDER_ACTIVE_STATE) ? "激活" : "暂停"),"客户订单", cOrder.getLogBizKey(),null,operContents);
-		
+
 		return ret;
 	}
-	
+
 	/**
 	 * 根据业务主键查询客户订单，boolean决定是否同时查询出订单明细
 	 * @param cOrder 订单查询条件（comCode ， poNo）
@@ -422,7 +441,7 @@ public class CustOrderMgr {
 		retList = cOrderDao.listCustomerOrder(cOrder);
 		return retList;
 	}
-	
+
 	/**
 	 * 根据查询条件，查询符合条件的订单数量
 	 * @param cOrder
@@ -460,5 +479,5 @@ public class CustOrderMgr {
 		}
 		return ret;
 	}
-	
+
 }

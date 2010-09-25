@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.hbs.customerorder.action.detail;
 
@@ -86,7 +86,7 @@ public class CustOrderDetailScNormalAction extends CustOrderDetailBaseAction {
 			// 获取客户指定交期，如果==null，则使用上一个交期
 			Date d = null;
 			String s = this.getHttpServletRequest().getParameter("custDate");
-			if(StringUtils.isNotEmpty(s)){	
+			if(StringUtils.isNotEmpty(s)){
 				try {
 					DateTimeFormatter fmt = DateTimeFormat.forPattern(ListDataUtil.DATEFORMAT);
 					DateTime dt = fmt.parseDateTime(s);
@@ -106,7 +106,7 @@ public class CustOrderDetailScNormalAction extends CustOrderDetailBaseAction {
 				// DONE: 使用上一个交期
 				//orderDetail.setVerDeliveryDate(orderDetail.getPreDeliveryDate());
 			}
-				
+
 			int i = mgr.salesConfirmDetailDelivery(orderDetail, getMemo());
 			if(i != 0) {
 				logger.error("提交出错！ ret = " + i);
@@ -120,7 +120,7 @@ public class CustOrderDetailScNormalAction extends CustOrderDetailBaseAction {
 			return ERROR;
 		}
 	}
-	
+
 	/**
 	 * 切换ActiveState
 	 * @action.input orderDetail.*
@@ -137,7 +137,7 @@ public class CustOrderDetailScNormalAction extends CustOrderDetailBaseAction {
 				orderDetail.setActiveState(CustOrderConstants.ORDER_PAUSE_STATE);
 			else
 				orderDetail.setActiveState(CustOrderConstants.ORDER_ACTIVE_STATE);
-			
+
 			int i = mgr.controlActiveState(orderDetail, getMemo());
 			if(i != 0) {
 				logger.error("提交出错！ ret = " + i);
@@ -151,7 +151,7 @@ public class CustOrderDetailScNormalAction extends CustOrderDetailBaseAction {
 			return ERROR;
 		}
 	}
-	
+
 	/**
 	 * 账期客户订单明细交期将到，但货未备齐，业务助理决定部分发货
 	 * 状态由05----交期到，待业务确认发货（货未备齐） 转为原来状态70
@@ -205,7 +205,7 @@ public class CustOrderDetailScNormalAction extends CustOrderDetailBaseAction {
 			return ERROR;
 		}
 	}
-	
+
 	/**
 	 * 修改订单明细的部分项目
 	 * @action.input orderDetail.*
@@ -230,7 +230,7 @@ public class CustOrderDetailScNormalAction extends CustOrderDetailBaseAction {
 				if(s.equals(state)){
 					ok = true;
 					break;
-				}	
+				}
 			}
 			if(!ok){
 				String message = "状态错误！" + orderDetail.getStateDesc();
@@ -244,16 +244,16 @@ public class CustOrderDetailScNormalAction extends CustOrderDetailBaseAction {
 			try{
 				String val = getHttpServletRequest().getParameter("deliveryDate");
 				if(StringUtils.isNotEmpty(val)){
-					Date oldDeliveryDate = orderDetail.getVerDeliveryDate();
 					logger.debug("doChangeSomeField 交期=" + val);
 					Date newDeliveryDate = ListDataUtil.parseDate(val);
+					Date oldDeliveryDate = orderDetail.getVerDeliveryDate();
 					if(orderDetail.getVerDeliveryDate() != null)
 						orderDetail.setPreDeliveryDate(orderDetail.getVerDeliveryDate());
 					orderDetail.setVerDeliveryDate(newDeliveryDate);
 					changes += "交期:" + ((oldDeliveryDate == null) ? "NULL" : ListDataUtil.formatDate(oldDeliveryDate)) + "->" + ListDataUtil.formatDate(newDeliveryDate) + " ";
 					//cDetailDao.updateCustOrderDetailByState(orderDetail);
 				}
-			}catch(Exception e){logger.info("doChangeSomeField 交期", e);}
+			}catch(Exception e){logger.info("doChangeSomeField 交期错误："+ e.getMessage());}
 			// 数量修改
 			int newAmount = 0;
 			try{
@@ -307,6 +307,7 @@ public class CustOrderDetailScNormalAction extends CustOrderDetailBaseAction {
 				String val = getHttpServletRequest().getParameter("vendorCode");
 				if(StringUtils.isNotEmpty(val)){
 					if(!val.equals(orderDetail.getVendorCode())){
+						logger.debug("doChangeSomeField 供应商编码:" + val);
 						VendorInfo vinfo = new VendorInfo();
 						VendorInfoMgr vmgr = (VendorInfoMgr)getBean("vendorInfoMgr");
 						vinfo.setState("0");
@@ -320,10 +321,10 @@ public class CustOrderDetailScNormalAction extends CustOrderDetailBaseAction {
 					}
 				}
 			}catch(Exception e){}
-			
+
 			if(changes.length() > 0){
 				cDetailDao.updateCustOrderDetail(orderDetail);
-				
+
 				// 添加提醒
 				VendorOrderDetail vod = new VendorOrderDetail();
 				vod.setRltOrderPoNo(orderDetail.getPoNo());
@@ -340,7 +341,7 @@ public class CustOrderDetailScNormalAction extends CustOrderDetailBaseAction {
 					hmParam.put("$businessKey", orderDetail.getWaitTaskBizKey());
 					hmParam.put("$changes", changes);
 					hmParam.put("$memo", StringUtils.isEmpty(memo)?"":"("+memo+")");
-					wt.setHmParam(hmParam);	
+					wt.setHmParam(hmParam);
 					Date expireTime = ExpireTimeUtil.getExpireTime("CUST_ORDER_REMINDER_DAY");
 					wt.setExpireTime(expireTime);
 					for(VendorOrderDetail vod1 : list){
@@ -354,15 +355,15 @@ public class CustOrderDetailScNormalAction extends CustOrderDetailBaseAction {
 				}
 			}
 			if(getLoginStaff() != null){
-				CustLogUtils.operLog(getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(), 
+				CustLogUtils.operLog(getLoginStaff().getStaffId().toString(), getLoginStaff().getStaffName(),
 						"修改部分信息" , "客户订单明细", orderDetail.getBizKey(), orderDetail.getBizKey() + " " + changes, memo);
 			}
-			logger.debug("end doChangeSomeField");
+			logger.debug("end doChangeSomeField " + changes);
 			return SUCCESS;
 		} catch (Exception e) {
 			logger.error("catch Exception in doChangeSomeField", e);
 			setErrorReason("内部错误");
 			return ERROR;
 		}
-	}	
+	}
 }
