@@ -71,41 +71,51 @@ public class CustPartNoInfoMgr {
 		String state = custPartNoInfo.getState();
 		if(StringUtils.isEmpty(state)){//不存在状态，新增
 			CustPartNoInfoDao custPartNoInfoDao = (CustPartNoInfoDao)BeanLocator.getInstance().getBean(CUSTOMERPARTNOINFODAO);
+			String str = custPartNoInfo.getPartNo();
+			custPartNoInfo.setPartNo(null);
 			Integer i = custPartNoInfoDao.listCustPartNoInfoCheckCount(custPartNoInfo);
 			if(i >0){//已经存在相同的客户物料，不允许提交
 				throw new Exception("已经存在客户("+custPartNoInfo.getCommCode() + ")的物料(" +  custPartNoInfo.getCustPartNo()+")信息！" );
 			}
+			custPartNoInfo.setPartNo(str);
+			str = custPartNoInfo.getCustPartNo();
+			custPartNoInfo.setCustPartNo(null);
+			i = custPartNoInfoDao.listCustPartNoInfoCheckCount(custPartNoInfo);
+			if(i >0){//已经存在相同的客户物料，不允许提交
+				throw new Exception("已经存在客户("+custPartNoInfo.getCommCode() + ")的本公司物料(" +  custPartNoInfo.getCustPartNo()+")信息！" );
+			}
+			custPartNoInfo.setCustPartNo(str);
 		}
 			
-			CustPartNoInfo existInfo = this.getCustPartNoInfoByBizKey(custPartNoInfo);
-			if(existInfo != null){//存在数据
-				//获取提交数据打状态
-				int iState = Integer.parseInt(existInfo.getState());
-				
-				if(iState == StateConstants.STATE_1 || iState == StateConstants.STATE_3){
-					custPartNoInfo.setState(new Integer(StateConstants.STATE_2).toString());
-					ret = this.innerUpdateCustPartNoInfo(custPartNoInfo, custPartNoInfo.getStaffId(), custPartNoInfo.getStaffName(), null);
-				}else if(iState == StateConstants.STATE_0){
-					custPartNoInfo.setState(new Integer(StateConstants.STATE_2).toString());
-					ret = this.insertCustPartNoInfo(custPartNoInfo);
-				}
-			}else{//不存在数据
+		CustPartNoInfo existInfo = this.getCustPartNoInfoByBizKey(custPartNoInfo);
+		if(existInfo != null){//存在数据
+			//获取提交数据打状态
+			int iState = Integer.parseInt(existInfo.getState());
+			
+			if(iState == StateConstants.STATE_1 || iState == StateConstants.STATE_3){
+				custPartNoInfo.setState(new Integer(StateConstants.STATE_2).toString());
+				ret = this.innerUpdateCustPartNoInfo(custPartNoInfo, custPartNoInfo.getStaffId(), custPartNoInfo.getStaffName(), null);
+			}else if(iState == StateConstants.STATE_0){
 				custPartNoInfo.setState(new Integer(StateConstants.STATE_2).toString());
 				ret = this.insertCustPartNoInfo(custPartNoInfo);
 			}
-			//待办处理
-			
-			if(ret == 0){//发待办通知,先取消可能的待办，再添加新的待办
-				WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
-				Map<String , String> hmParam = new HashMap<String,String>();
-				hmParam.put("$staffName", custPartNoInfo.getStaffName());
-				hmParam.put("$commCode", custPartNoInfo.getCommCode());
-				hmParam.put("$cpartNo", custPartNoInfo.getCustPartNo());
-				waitTaskInfo.setHmParam(hmParam);
-				waitTaskInfo.setBusinessKey(custPartNoInfo.getWaitTaskBizKey());
-				WaitTaskMgr.deleteWaitTask(custPartNoInfo.getWaitTaskBizKey());
-				WaitTaskMgr.createWaitTask("CUST_PARTNO_001", waitTaskInfo);
-			}
+		}else{//不存在数据
+			custPartNoInfo.setState(new Integer(StateConstants.STATE_2).toString());
+			ret = this.insertCustPartNoInfo(custPartNoInfo);
+		}
+		//待办处理
+		
+		if(ret == 0){//发待办通知,先取消可能的待办，再添加新的待办
+			WaitTaskInfo waitTaskInfo = new WaitTaskInfo();
+			Map<String , String> hmParam = new HashMap<String,String>();
+			hmParam.put("$staffName", custPartNoInfo.getStaffName());
+			hmParam.put("$commCode", custPartNoInfo.getCommCode());
+			hmParam.put("$cpartNo", custPartNoInfo.getCustPartNo());
+			waitTaskInfo.setHmParam(hmParam);
+			waitTaskInfo.setBusinessKey(custPartNoInfo.getWaitTaskBizKey());
+			WaitTaskMgr.deleteWaitTask(custPartNoInfo.getWaitTaskBizKey());
+			WaitTaskMgr.createWaitTask("CUST_PARTNO_001", waitTaskInfo);
+		}
 		
 		return ret;
 	}
