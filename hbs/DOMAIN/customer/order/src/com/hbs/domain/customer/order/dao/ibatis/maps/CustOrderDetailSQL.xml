@@ -386,6 +386,9 @@
 	<isNotEmpty prepend="," property="contactFee">
             CONTACT_FEE = #contactFee#
 	</isNotEmpty>
+	<isNotEmpty prepend="," property="vendorCode">
+            VENDOR_CODE = #vendorCode#
+	</isNotEmpty>
 	<isNotEmpty prepend="," property="orderAmount">
             ORDERAMOUNT = #orderAmount#
 	</isNotEmpty>
