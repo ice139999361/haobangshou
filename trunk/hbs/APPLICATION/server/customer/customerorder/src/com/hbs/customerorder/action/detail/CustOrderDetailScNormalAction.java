@@ -247,9 +247,15 @@ public class CustOrderDetailScNormalAction extends CustOrderDetailBaseAction {
 					logger.debug("doChangeSomeField 交期=" + val);
 					Date newDeliveryDate = ListDataUtil.parseDate(val);
 					Date oldDeliveryDate = orderDetail.getVerDeliveryDate();
-					if(orderDetail.getVerDeliveryDate() != null)
-						orderDetail.setPreDeliveryDate(orderDetail.getVerDeliveryDate());
-					orderDetail.setVerDeliveryDate(newDeliveryDate);
+					if(CustOrderConstants.ORDER_STATE_20.equals(state)){
+						orderDetail.setOrgDeliveryDate(newDeliveryDate);
+						if(orderDetail.getPreDeliveryDate() != null)
+							orderDetail.setPreDeliveryDate(newDeliveryDate);
+					}else{
+						if(orderDetail.getVerDeliveryDate() != null)
+							orderDetail.setPreDeliveryDate(orderDetail.getVerDeliveryDate());
+						orderDetail.setVerDeliveryDate(newDeliveryDate);
+					}
 					changes += "交期:" + ((oldDeliveryDate == null) ? "NULL" : ListDataUtil.formatDate(oldDeliveryDate)) + "->" + ListDataUtil.formatDate(newDeliveryDate) + " ";
 					//cDetailDao.updateCustOrderDetailByState(orderDetail);
 				}
