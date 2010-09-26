@@ -216,7 +216,10 @@ HBSConvertHelper.init(function() {
 							var operatorBtn = HBSConvertHelper.renderButton2Cell(["修改"], operator_cell, record);
 							operatorBtn.on("click", function(){
 								Ext.getCmp("mwOperSeqId").setValue(this.config.get("operSeqId"));
-								Ext.getCmp("mwDeliveryDate").setValue(this.config.get("verDeliveryDate"));
+								var delivery = this.config.get("verDeliveryDate");
+								if(!delivery) delivery = this.config.get("preDeliveryDate");
+								if(!delivery) delivery = this.config.get("orgDeliveryDate");
+								Ext.getCmp("mwDeliveryDate").setValue(delivery);
 								Ext.getCmp("mwAmount").setValue(this.config.get("amount"));
 								Ext.getCmp("mwVendorCode").setValue(this.config.get("vendorCode"));
 								Ext.getCmp("mwVendorCode").fireEvent("select");
