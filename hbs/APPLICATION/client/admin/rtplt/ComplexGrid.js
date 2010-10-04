@@ -5,7 +5,7 @@ ExtUx.widget.ComplexGrid = function(config) {
 	this.__processConfig__(config);
 	// 设置选择模式
 	config.sm = new Ext.grid.CheckboxSelectionModel();
-	
+
 	ExtUx.widget.ComplexGrid.superclass.constructor.call(this, config);
 };
 
@@ -15,8 +15,8 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 		this.store.on("load", function() {
 			Ext.getCmp(this.gridId).__notdatahtml = {};
 		});
-		this.getView().on("refresh", function(view) { 
-			view.grid.refreshState = false; 		
+		this.getView().on("refresh", function(view) {
+			view.grid.refreshState = false;
 		});
 		// 加载数据
 		if(this.storeAutoLoad) this.store.load();
@@ -64,24 +64,24 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 				extRenderer;
 				break;
 		}
-		
+
 		return extRenderer;
 	},
 	__getDefData__: function() {
 		if(!this.__defdata) {
 			// 获取 fields 对象
 			var _fields = new this.store.recordType().fields;
-			
+
 			// 创建默认的 defdata 对象
 			var _defdata = {};
 			_fields.each(function(item, index, itemsAll) {
 				this[item.name] = "";
 			}, _defdata);
-			
+
 			// 设置
 			this.__defdata = _defdata;
 		}
-		
+
 		return Ext.apply({}, this.__defdata);
 	},
 	__processConfig__: function(config) {
@@ -104,7 +104,7 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 	__setTBar__ : function(config) {
 		// 如果不需要默认的 tbar
 		if(!config.deftbar) return;
-		
+
 		// 构造默认的增加和删除方法
 		config.tbar = [{
 	      text		: "增加"
@@ -137,7 +137,7 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 				config.__submitFields = tmp.join();
 				break;
 		}
-		
+
 		delete config.submitFields;
 	},
 	__setColumns__: function(config) {
@@ -147,7 +147,7 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 		var sbEditStore = new StringBuilder;
 		// 要创建列的集合
 		var _columns = [];
-		
+
 		// 对config所传来的 columns 进行处理
 		Ext.each(config.columns, function(item, index, itemsAll) {
 			// 创建列对象
@@ -158,7 +158,7 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 			this.__setColumnBasPro__(column, item, columnFields);
 			// 如果 column 对象的 align 属性不存在则默认为 align: "center"
 			if(!column.align) column.align = "center";
-			
+
 			if(item.isCheck) {
 				config.checkId = column.id;
 				column.width = 35;
@@ -166,17 +166,17 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 			} else {
 				// 处理渲染方法
 				this.__processRenderer__(column, item);
-				
+
 				// 处理可编辑对象
 				if(config.editorFlag != false) this.__processEditorColumn__(column, item, sbEditStore, columnFields);
 			}
-			
+
 			// 添加列到集合
 			_columns.push(column);
 		}, this);
-		
-		
-		
+
+
+
 		// 重置列对象
 		config.columns = _columns;
 	},
@@ -256,7 +256,7 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 	__setPaging__: function(config) {
 		// 如果不需要分页工具栏
 		if(!config.page) return;
-		
+
 		// 设置分页工具栏
 		config.bbar = new ExtUx.widget.XPagingToolbar({
 			pageSize: 10,
@@ -264,7 +264,7 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
       store: config.store,
       displayInfo: true
 		});
-		
+
 		// 删除没有用的属性
 		delete config.page;
 	},
@@ -278,6 +278,8 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 				  root   : config.root
 				 ,fields : fields
 				 ,totalProperty : "totalCount"
+				 ,successProperty : "success"
+				 ,messageProperty : "data.msg"
 			 })
 		};
 		// 如果需要排序
@@ -285,7 +287,7 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 			json.sortInfo   = config.sort;
 			json.remoteSort = true;
 		}
-		
+
 		// 创建数据集合
 		var store = new Ext.data.Store(json);
 		// 删除没有意义的属性
@@ -295,18 +297,27 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 		store.gridId = config.id;
 		// 返回数据集合
 		config.store = store;
+
+		store.on("loadexception", function(proxy, postdata, arg, e){
+			if(arg && arg.status == 200 && arg.responseText !== undefined){
+				var o = Ext.decode(arg.responseText);
+				if(o && o.data.msg){
+					Ext.Msg.alert("提示", o.data.msg);
+				}
+			}
+		});
 	},
 	__processItemsFun__: function(config) {
 		// 如果没有扩展
 		if(!config.itemsFun) return;
-		
+
 		// 获取方法对象
 		var itemsFun = eval(config.itemsFun);
 		// 删除没用的属性
 		delete config.itemsFun;
 		// 调用扩展方法，获取 ComplexGridHelper 对象
 		var cgh = itemsFun.call(config);
-		
+
 		// 处理 config 对象，加入扩展属性
 		cgh.processConfig(config);
 	},
@@ -349,7 +360,7 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 		var _cm = this.getColumnModel();
 		// 获取列表的数据集
 		var _store = this.store;
-		
+
 		for(var i = _store.getCount() - 1 ; i >= 0 ; i--) {
 			var record = _store.getAt(i);
 			var flag = false;
@@ -370,7 +381,7 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 		var arField = new Array;
 		// 获取 field 集合
 		for(var i = 0, _count = selections.length ; i < _count ; i++) arField.push(selections[i].get(chbxField));
-		
+
 		// 返回
 		return arField.join();
 	},
@@ -388,7 +399,7 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 		var selections = this.getSelectionModel().getSelections();
 		// 存放要提交的数据
 		var _datas = [];
-		
+
 		// 组装数据
 		for(var i = 0, count = selections.length ; i < count ; i++) {
 			var record = selections[i];
@@ -399,7 +410,7 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 			});
 			_datas.push(paramName + sb.join(splitChar) + splitChar);
 		}
-		
+
 		// 返回生成的数据
 		return _datas.join("&");
 	},
@@ -413,7 +424,7 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 		var _store = this.store;
 		// 存放要提交的数据
 		var _datas = [];
-		
+
 		// 组装数据
 		for(var i = 0, count = _store.getCount() ; i < count ; i++) {
 			var record = _store.getAt(i);
@@ -424,7 +435,7 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 			});
 			_datas.push(paramName + sb.join(splitChar) + splitChar);
 		}
-		
+
 		// 返回生成的数据
 		return _datas.join("&");
 	},
@@ -432,17 +443,17 @@ Ext.extend(ExtUx.widget.ComplexGrid, Ext.grid.EditorGridPanel, {
 	addData: function(data) {
 		// 如果 data 不存在
 		if(!data) return;
-		
+
 		var _store 		= this.getStore();
     var _DataType = _store.recordType;
-    
+
     var _dts = [];
 
     Ext.each(ExtConvertHelper.convertObj2Array(data), function(item, index, itemsAll) {
     	var _dt = new _DataType(item);
     	_dts.push(_dt);
     });
-    
+
     // 如果没有要添加的数据
     if(!_dts.length) return;
     var _editIndex = _store.getCount();
@@ -465,7 +476,7 @@ Ext.reg('complexgrid', ExtUx.widget.ComplexGrid);
 
 ComplexGridHelper = function() {
 	// 本类属性均属于私有属性
-	  
+
 	this.sort    = null;														// 排序字段
 	this.fields  = null;														// 字段
 	this.columns = null;														// 列集合
@@ -476,61 +487,61 @@ ComplexGridHelper.prototype = {
 	 setSort: function(field, direction) {
 	 		// 如果排序对象不存在则新建
 	 		if(!this.sort) this.sort = {};
-	 		
+
 	 		// 设置排序属性
 	 		this.sort.field = field;
 	 		this.sort.direction = direction;
-	 		
+
 	 		// 返回对象本身
 	 		return this;
 	 }
 	,appendField: function(name, mapping) {
 			// 如果 fields 对象不存在则新建
 			if(!this.fields) this.fields = [];
-			
+
 			// 创建 field 对象
 			var field = {"name": name};
 			// 如果 mapping 存在，则设置
 			if(mapping) field.mapping = mapping;
 			// 添加 field 对象到 fields 中
 			this.fields.push(field);
-			
+
 			// 返回对象本身
 	 		return this;
 	 }
 	,appendColumn: function(column) {
 			// 如果 columns 对象不存在则新建
 			if(!this.columns) this.columns = [];
-			
+
 			// 添加 column 到 columns 对象中
 			this.columns.push(column);
-			
+
 			// 返回对象本身
 	 		return this;
 	 }
 	,setSubmitFields: function(submitFields) {
 			this.submitFields = submitFields;
 	 }
-	 
-	 
+
+
 	 // 以下方法均为私有方法
-	 
+
 	,processSort: function(config) {
 			// 如果 config 对象中 sort 对象存在则跳出
 			if(config.sort) return this;
 			// 如果本类中 sort 对象不存在则跳出
 			if(!this.sort) return this;
-			
+
 			// 设置 config 的排序属性
 			config.sort = this.sort;
-			
+
 			// 返回对象本身
 	 		return this;
 	 }
 	,processFields: function(config) {
 			// 如果本类的 fields 对象不存在则跳出
 			if(!this.fields) return this;
-			
+
 			// 如果 config 中的 fields 不存在
 			if(!config.fields) {
 				// 设置 config 的 fields 属性
@@ -539,14 +550,14 @@ ComplexGridHelper.prototype = {
 				// 设置 config 的 fields 属性, 两个数组对象融合
 				config.fields = config.fields.concat(this.fields);
 			}
-			
+
 			// 返回对象本身
 	 		return this;
 	 }
 	,processColumns: function(config) {
 			// 如果本类的 columns 对象不存在则跳出
 			if(!this.columns) return this;
-			
+
 			// 如果 config 中的 columns 不存在
 			if(!config.columns) {
 				// 设置 config 的 columns 属性
@@ -560,7 +571,7 @@ ComplexGridHelper.prototype = {
 					config.columns = _tmp.concat(config.columns.concat(this.columns));
 				}
 			}
-			
+
 			// 返回对象本身
 	 		return this;
 	 }
@@ -569,10 +580,10 @@ ComplexGridHelper.prototype = {
 			if(config.submitFields) return this;
 			// 如果本类中 submitFields 对象不存在则跳出
 			if(!this.submitFields) return this;
-			
+
 			// 设置 config 的 submitFields 属性
 			config.submitFields = this.submitFields;
-			
+
 			// 返回对象本身
 	 		return this;
 	 }
@@ -585,7 +596,7 @@ ComplexGridHelper.prototype = {
 			this.processColumns(config);
 			// 处理 submitFields 对象
 			this.processSubmitFields(config);
-			
+
 			// 返回对象本身
 			return this;
 	 }
